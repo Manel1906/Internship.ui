@@ -1,0 +1,37 @@
+{
+	"prj_user_group_btn_delete_group"				    : "Xóa nhóm",
+
+    "prj_user_group_name"								: "Tên nhóm",
+	"prj_user_group_descr"								: "Mô tả",
+    "prj_user_group_ref"								: "Mã nhóm",
+	"prj_user_group_date_begin"							: "Ngày tạo",
+	
+	"prj_project_member"								: "Thành viên",
+	"prj_project_add_member"							: "Thêm",
+	"prj_project_member_header_name"					: "Tên",
+	"prj_project_member_header_role"					: "Vai trò",
+	
+	"prj_project_member_level_manager"					: "Quản trị",
+	"prj_project_member_level_reporter"					: "Giám sát",
+	"prj_project_member_level_developer"				: "Phát triển",
+	"prj_project_member_level_tester"					: "Kiểm thử",
+	"prj_project_member_level_worker"					: "Thành viên",
+	"prj_project_member_level_watcher"                  : "Quan sát",
+	"prj_project_member_level_owner"					: "Người tạo",
+		
+    "prj_user_group_name_enter"							: "Nhập tên nhóm",
+	"prj_user_group_descr_enter"						: "Nhập mô tả nhóm",
+
+	"prj_user_group_new"								: "Tạo nhóm",
+	"prj_user_chat_search"								: "Tìm kiếm người dùng, nhóm ...",
+
+	"prj_user_group_new_title"							: "Tạo nhóm",
+	"prj_user_group_new_msg"							: "Tạo nhóm trò chuyện, giúp bạn làm việc hiệu quả hơn!",
+
+	"prj_user_group_avatar"								: "Ảnh đại diện",
+	"prj_user_group_new_btn_create"						: "Tạo nhóm",
+	"prj_project_del_user_group_popup_content"			: "Bạn chắc chắn muốn xóa nhóm ?",
+	"prj_project_add_avatar" 							: "Ảnh đại diện",
+	"prj_project_drop_files"							: "Kéo thả hoặc nhấn để thêm tập tin"
+	
+}

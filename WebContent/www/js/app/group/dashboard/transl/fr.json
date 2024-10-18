@@ -1,0 +1,26 @@
+{
+	"prj_project_stat_undefined"                : "Indéfinie",
+    "prj_project_stat_100100"                   : "Initialisé",
+    "prj_project_stat_100200"                   : "À faire",
+    "prj_project_stat_100300"                   : "En cours",
+    "prj_project_stat_100400"                   : "Terminé",
+    "prj_project_stat_100500"                   : "Tester",
+    "prj_project_stat_100600"                   : "À vérifier",
+    "prj_project_stat_100700"                   : "Déployer",
+    "prj_project_stat_100800"                   : "Impossible",
+    "prj_project_stat_100900"                   : "Fermé",
+	
+	"prj_project_lev_01"                          		: "Bas",
+    "prj_project_lev_02"                          		: "Moyen",
+    "prj_project_lev_03"                          		: "Haut",
+    "prj_project_lev_04"                          		: "En priorité",
+    
+    "prj_project_task_name"								: "Nom de tâche",
+    "prj_project_start_date"							: "Date de début",
+	"prj_project_end_date"								: "Date de fin",
+	"prj_project_stat"                          		: "Statut",
+	"prj_project_member"								: "Membres",
+	
+	"prj_task_tab_filter_prj"							: "Tous les projets",
+"--End------------------------"	: "----------------------------------------"
+}

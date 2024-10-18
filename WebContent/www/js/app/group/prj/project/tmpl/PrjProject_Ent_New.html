@@ -1,0 +1,361 @@
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_NewPrj -->
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-flex align-items-center justify-content-between">
+                    <h4 class="mb-0 font-size-18">{{transl 'prj_project_create_new'}}</h4>
+
+                    <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">{{transl 'prj_project_projects'}}</a></li>
+                            <li class="breadcrumb-item active">{{transl 'prj_project_create_new'}}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>     
+		<div id="div_prj_new"></div>
+		
+		<div class="row justify-content-end">
+            <div class="col-auto">
+                <button type="button" id="btn_create_prj" class="btn btn-primary ml-3">{{transl 'prj_project_btn_create'}}</button>
+            </div>
+        </div>
+    </div> <!-- container-fluid -->
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_New -->
+{{#* inline "epicList"}}
+<!-- epic -->
+<div class="form-group">
+	<label for="projectepic" class="col-form-label h5">{{transl 'prj_project_epic'}}</label>
+    <div>
+    	<select data-name="parent" id="projectepic" class="form-control objData" disabled>
+<!--     		<option value="0"></option> -->
+    		{{#each epics}}
+    		<option value="{{id}}"  {{#equal ../epicSelected id}} selected {{/equal}}>{{name}}</option>
+    		{{/each}}
+    	</select>
+    </div>
+</div>
+{{/inline}}
+
+{{#* inline "typ01lPrj"}}
+<!-- typ -->
+<div class="form-group">
+	<label for="projecttyp01" class="col-form-label h5">{{transl 'prj_project_type'}}</label>
+    <div>
+    	<select data-name="typ01" id="projecttyp01" class="form-control objData">
+			<option value="2" selected>{{transl "prj_project_type_02"}}</option>
+			<option value="3">{{transl "prj_project_type_03"}}</option>
+			<option value="4">{{transl "prj_project_type_04"}}</option>
+    	</select>
+    </div>
+</div>
+{{/inline}}
+
+{{#* inline "statPrj"}}
+<!-- stat -->
+<div class="form-group">
+	<label for="projectStat" class="col-form-label h5">{{transl 'prj_project_stat'}}</label>
+	<div>
+		<select data-name="stat" id="projectStat" class="form-control objData" data-external-mem="disabled">
+			{{#if paramStat}}
+			{{#each paramStat}}
+				{{#equalOr show true 1}}
+	        	<option value="{{id}}">{{#if trans}} {{transl trans}}{{else}} {{lab}} {{/if}}</option>
+				{{/equalOr}}
+			{{/each}}
+			{{else}}
+	        <option value="100100">{{transl "prj_project_stat_100100"}}</option>
+	        <option value="100200" selected>{{transl "prj_project_stat_100200"}}</option>
+	        <option value="100300">{{transl "prj_project_stat_100300"}}</option>
+	        <option value="100400">{{transl "prj_project_stat_100400"}}</option>
+	        <option value="100500">{{transl "prj_project_stat_100500"}}</option>
+	        <option value="100600">{{transl "prj_project_stat_100600"}}</option>
+	        <option value="100700">{{transl "prj_project_stat_100700"}}</option>
+	        <option value="100800">{{transl "prj_project_stat_100800"}}</option>
+	        <option value="100900">{{transl "prj_project_stat_100900"}}</option>
+			{{/if}}
+		</select>
+	</div>
+</div>
+{{/inline}}
+   
+   <!-- ------------------------------main----------------------------- -->          
+   <!-- ------------------------------main----------------------------- -->     
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body" id="div_create_prj">
+                        <form class="outer-repeater">
+	                        <div data-repeater-list="outer-group" class="outer">
+	                        	<div data-repeater-item class="outer">
+									<!-- name -->
+	                        		<div class="form-group row mb-1">
+		                        		<div class="col-lg-12">
+<!-- 			                                <label for="projectname" class="col-form-label h5">{{getLabelName typ02}} *</label> -->
+			                                <div>
+			                                	<input type="hidden" class="objData" data-name="lev" value="{{lev}}">
+			                                    <input id="projectname" data-name="name" type="text" class="form-control objData" placeholder="{{getPlaceHolderName typ02}} *" data-validation="required">
+			                                </div>
+		                                </div>
+		                            </div>
+		                            
+		                            <!-- descr01 -->
+		                            <div class="row mb-1">
+		                            	<div class="col-lg-12">
+			                                <label for="projectdesc" class="col-form-label h5">{{transl 'prj_project_project_des'}} *</label>
+			                                <div class="">
+			                                    <textarea class="form-control objData" data-name="descr01" id="projectdesc" rows="5" placeholder="{{transl 'prj_project_enter_project_des'}}" data-validation="required"></textarea>
+			                                </div>
+		                                </div>
+		                            </div>
+		                            
+		                            {{#equalOrs typ02 1 2}}
+		                            <!-- check list -->
+		                            <hr/>
+		                            <div class="inner-repeater mb-4">
+                                        <div class="inner form-group row">
+                                        	<div class="col-lg-12">
+	                                            <label for="" class="col-form-label h5">{{transl 'prj_project_descr02'}}</label>
+	                                            <div data-repeater-list="inner-group">
+		                                            <div data-repeater-item class="inner mb-3 row">
+		                                                <div class="col-md-11 col-10">
+		                                                    <input type="text" class="inner form-control objData" data-name="item" data-group="descr02" placeholder="{{transl 'prj_project_descr02_enter_inp'}}"/>
+		                                                </div>
+		                                                <div class="col-md-1 col-2">
+		                                                    <span data-repeater-delete class="text-danger font-size-16 cursor-pointer float-right"><i class="mdi mdi-trash-can-outline"></i></span>
+		                                                </div>
+		                                            </div>
+	                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="row justify-content-end">
+				                            <div class="col-lg-12">
+				                                <button data-repeater-create type="button" class="btn btn-success inner">+</button>
+				                            </div>
+				                        </div>
+                                    </div>
+		                            <hr/>
+		                            {{/equalOrs}}
+		                            
+ 									<div class="row mb-1">
+									{{#equal typ02 0}}
+									
+									{{else}}		                           
+		                            	<div class="col-lg-6">
+		                            		{{> epicList}}
+		                            	</div>		                            
+		                            {{/equal}}
+		                            
+<!-- 		                            	<div class="col-lg-3"> -->
+<!-- 		                            		code -->
+<!-- 				                            <div class="form-group"> -->
+<!-- 				                                <label for="projectcode" class="col-form-label h5">{{getLabelCode typ02}}</label> -->
+<!-- 				                                <div> -->
+<!-- 				                                    <input id="projectcode" data-name="code01" type="text" placeholder="{{getPlaceHolderCode typ02}}" class="form-control objData"> -->
+<!-- 				                                </div> -->
+<!-- 				                            </div> -->
+<!-- 		                            	</div> -->
+		                            	<div class="col-lg-3">
+		                            		<!-- tag -->
+				                            <div class="form-group">
+				                                <label for="projecttag" class="col-form-label h5">{{transl 'prj_project_tag'}}</label>
+				                                <div>
+				                                    <input id="projecttag" data-name="code02" type="text" placeholder="{{transl 'prj_project_tag_enter'}}" class="form-control objData">
+				                                </div>
+				                            </div>
+		                            	</div>
+		                            </div>
+		                            
+		                            <div class="row mb-1">
+		                            	<div class="col-lg-3">
+		                            		{{> statPrj}}
+		                            	</div>
+		                            	<div class="col-lg-3">
+		                            		<!-- lev -->
+				                            <div class="form-group">
+			                            		<label for="projectlev" class="col-form-label h5">{{transl 'prj_project_lev'}}</label>
+				                                <div>
+				                                	<select data-name="lev" id="projectlev" class="form-control objData">
+				                                		<option value="1">{{transl 'prj_project_lev_bas'}}</option>
+				                                		<option value="2" selected>{{transl 'prj_project_lev_moyen'}}</option>
+				                                		<option value="3">{{transl 'prj_project_lev_haute'}}</option>
+				                                		<option value="4">{{transl 'prj_project_lev_enpriori'}}</option>
+				                                	</select>
+				                                </div>
+				                            </div>
+		                            	</div>
+		                            	
+		                            	<div class="col-lg-3">
+		                            		{{> typ01lPrj}}
+		                            	</div>
+		                            	<div class="col-lg-3">
+		                            		<!-- budget -->
+				                            <div class="form-group" data-external-mem="true">
+				                                <label for="projectbudget" class="col-form-label h5">{{transl 'prj_project_budget'}}</label>
+				                                <input id="projectbudget" data-name="val01" type="number" placeholder="{{transl 'prj_project_enter_project_budget'}}" class="form-control objData">
+				                            </div>
+		                            	</div>
+		                            </div>
+		                            
+		                            <div class="inner-repeater row mb-1" data-external-mem="hide">
+		                             	<!-- date -->
+		                            	<div class="col-lg-6">
+			                                <label class="col-form-label h5">{{transl 'prj_project_start_date'}}</label>
+			                                <div class="row">
+			                                    <div class="input-daterange input-group">
+												  <div class="col-md-6">
+								                  <input data-format="date" type="text" data-validation="date" class="form-control objData" id="dtpicker_Begin" placeholder="{{transl 'prj_project_start_date'}}" data-group="dtBegin" data-name="date" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+								                  </div>
+													<div class="col-md-6">
+														<input type="text" class="form-control objData tmpicker mr-4" id="tmpicker_Begin" placeholder="{{transl 'prj_project_start_date'}}" data-group="dtBegin" data-name="time" data-provide="timepicker"/>
+													</div>
+			                                    </div>
+			                                </div>
+		                                </div>
+		                                   <!-- member -->
+		                                <div class="col-lg-6">
+		                                	 <label class="col-form-label h5">{{transl 'prj_project_end_date'}}</label>
+			                                <div class="row">
+			                                    <div class="input-daterange input-group">
+													<div class="col-md-6">
+														<input data-format="date" type="text" data-validation="date" class="form-control objData" id="dtpicker_End" placeholder="{{transl 'prj_project_end_date'}}" data-group="dtEnd" data-name="date" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+													</div>
+													<div class="col-md-6">
+														<input type="text" class="form-control objData tmpicker" id="tmpicker_End" placeholder="{{transl 'prj_project_start_date'}}" data-group="dtEnd" data-name="time" data-provide="timepicker"/>
+													</div>
+			                                    </div>
+			                                </div>
+			                               
+			                              </div>
+		                            </div>
+		                            
+		                            <div class="inner-repeater row mb-1" data-external-mem="hide">
+		                                   <!-- member -->
+		                                <div class="col-lg-6">
+			                                <div data-repeater-list="inner-group" class="inner form-group mb-0 row">
+			                                	<div class="col-lg-12">
+				                                    <label class="col-form-label h5">{{transl 'prj_project_add_team'}}</label>
+				                                    <div class="row justify-content-end">
+					                                    <div class="col-lg-12" id="div_list_member"></div>
+					                                </div>
+				                                    <div  data-repeater-item class="inner ml-md-auto">
+				                                        <div class="mb-3 row align-items-center">
+				                                            <div class="col-md-3 hide">
+				                                                <div class="mt-2 mt-md-0">
+				                                                	<select class="form-control" id="sel_member_type">
+				                                                		<option value="0">{{transl 'prj_project_member_level'}}</option>
+								                                		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+								                                		<option value="1" selected>{{transl 'prj_project_lev_haute'}}</option>
+								                                	</select>
+				                                                </div>
+				                                            </div>
+				                                            <div class="col-md-6">
+				                                                <div class="mt-2 mt-md-0">
+				                                                	<select class="form-control" id="sel_member_level">
+																		<option value="0" class="hideBA">{{transl 'prj_project_member_level_manager'}}</option>
+																		<option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option>
+																		<option value="20">{{transl 'prj_project_member_level_developer'}}</option>
+																		<option value="30">{{transl 'prj_project_member_level_tester'}}</option>
+																		<option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
+																		<option value="50">{{transl 'prj_project_member_level_watcher'}}</option>
+								                                	</select>
+				                                                </div>
+				                                            </div>
+				                                             <div class="col-md-6">
+				                                                <input type="text" class="inner form-control inp-name-member" placeholder="{{transl 'prj_project_enter_name'}}"/>
+				                                            </div>
+				                                        </div>
+				                                    </div>
+			                                    </div>
+			                                </div>
+			                              </div>
+<!-- 			                              <div class="col-lg-6"> -->
+<!-- 			                              	 <div data-repeater-list="inner-group" class="inner form-group mb-0 row"> -->
+<!-- 			                                	<div class="col-lg-12"> -->
+<!-- 				                                    <label class="col-form-label h5">{{transl 'prj_project_add_team_group'}}</label> -->
+<!-- 				                                      <div class="row justify-content-end"> -->
+<!-- 					                                    <div class="col-lg-12" id="div_list_group"></div> -->
+<!-- 					                                </div> -->
+<!-- 				                                    <div  data-repeater-item class="inner ml-md-auto"> -->
+<!-- 				                                        <div class="mb-3 row align-items-center"> -->
+<!-- 				                                            <div class="col-md-6 hide"> -->
+<!-- 				                                                <div class="mt-2 mt-md-0"> -->
+<!-- 				                                                	<select class="form-control" id="sel_group_type"> -->
+<!-- 				                                                		<option value="0">{{transl 'prj_project_member_level'}}</option> -->
+<!-- 								                                		<option value="0">{{transl 'prj_project_lev_bas'}}</option> -->
+<!-- 								                                		<option value="1" selected>{{transl 'prj_project_lev_haute'}}</option> -->
+<!-- 								                                	</select> -->
+<!-- 				                                                </div> -->
+<!-- 				                                            </div> -->
+<!-- 				                                             <div class="col-md-12"> -->
+<!-- 				                                                <input type="text" class="inner form-control inp-name-group" placeholder="{{transl 'prj_project_enter_name_group'}}"/> -->
+<!-- 				                                            </div> -->
+<!-- 				                                        </div> -->
+<!-- 				                                    </div> -->
+<!-- 			                                    </div> -->
+<!-- 			                                </div> -->
+<!-- 		                                </div> -->
+		                            </div>
+	                        	</div>
+	                        </div>
+                        </form>
+                        
+                        
+                        <div class="row mb-1">
+                        	<!-- avatar -->
+                           	<div class="col-lg-6">
+		                        <div id="div_prj_avatar">
+		                            <label class="col-form-label h5">{{transl 'prj_project_attached_logo'}}</label>
+		                            <div>
+		                                <form class="dropzone inputfile">
+		                                    <div class="fallback">
+		                                        <input data-name="file" type="file" data-type="avatar" data-typ01="1" data-typ02="1" />
+		                                    </div>
+		    
+		                                    <div class="dz-message needsclick">
+		                                        <div class="mb-3">
+		                                            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+		                                        </div>
+		                                        <h4>{{transl 'prj_project_drop_files'}}</h4>
+		                                    </div>
+		                                </form>
+		                            </div>
+		                        </div>
+                           	</div>
+                           	
+                           	<!-- doc -->
+                           	<div class="col-lg-6">
+		                        <div id="div_prj_docs">
+		                            <label class="col-form-label h5">{{transl 'prj_project_attached_files'}}</label>
+		                            <div>
+		                                <form class="dropzone inputfile">
+		                                    <div class="fallback">
+		                                        <input data-name="file" type="file" multiple data-typ01="2" data-typ02="10"/>
+		                                    </div>
+		    
+		                                    <div class="dz-message needsclick">
+		                                        <div class="mb-3">
+		                                            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+		                                        </div>
+		                                        <h4>{{transl 'prj_project_drop_files'}}</h4>
+		                                    </div>
+		                                </form>
+		                            </div>
+		                        </div>
+                           	</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--END TMPL-->

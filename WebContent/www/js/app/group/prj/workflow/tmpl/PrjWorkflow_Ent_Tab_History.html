@@ -1,0 +1,84 @@
+ <div class="row">
+      <div class="col-12">
+             <div style="max-height:68vh; overflow-y: scroll;">
+                 <div class="table-responsive">
+                     <table class="table table-centered table-nowrap m-0">
+                         <thead class="thead-light">
+                             <tr>
+                                 <th>{{transl 'prj_history_header_user'}}</th>
+                                 <th>{{transl 'prj_history_header_stat'}}</th>
+                                 <th>{{transl 'prj_history_header_date'}}</th>
+                                 <th>{{transl 'prj_history_header_action'}}</th>
+                                 <th>{{transl 'prj_project_lev'}}</th>
+                                 <!-- <th>{{transl 'prj_history_header_content'}}</th> -->
+                             </tr>
+                         </thead>
+                         <tbody>
+                         	{{#each this.arrContent}}
+                             <tr>
+                                 <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{uName}}</a> </td>
+                                 <td>
+                                 	<span class="badge badge-pill badge-soft-success font-size-12">{{reqStatPrj stat}}</span>
+                                 </td>
+                                 <td>
+                                     {{reqFormatDate dt}}
+                                 </td>
+                                 <td>
+                                     {{reqActionHistory typ}}
+                                 </td>
+                                 <td>
+                                     {{reqLevHistory lev}}
+                                 </td>
+                                 <!-- <td>
+                                     {{reqContentHistory typTab}}
+                                 </td> -->
+                             </tr>
+                            {{/each}}
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+      </div>
+  </div>
+
+  {{#if this.arrChild}}
+    <br/>
+    <hr/>
+    <br/>
+
+    <div class="row">
+        <div class="col-12">
+            <div style="max-height:68vh; overflow-y: scroll;">
+                <div class="table-responsive">
+                    <table class="table table-centered table-nowrap m-0">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>{{transl 'prj_history_header_user'}}</th>
+                                <th>{{transl 'prj_history_header_epic'}}</th>
+                                <th>{{transl 'prj_history_header_date'}}</th>
+                                <th>{{transl 'prj_history_header_action'}}</th>
+                                <!-- <th>{{transl 'prj_history_header_content'}}</th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each this.arrChild}}
+                            <tr>
+                                <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{uName}}</a> </td>
+                                <td>
+                                    {{entRef}}
+                                </td>
+                                <td>
+                                    {{reqFormatDate dt}}
+                                </td>
+                                <td>
+                                    {{reqActionHistory typ}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/if}}

@@ -1,0 +1,265 @@
+<div class="card mb-3">
+    <div class="card-body">
+	    <div class="media">
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16 info-edit info-content"></h5>
+            </div>
+            <a data-right="view:50000103" id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+            </a>
+            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calcel">
+            	<i class="mdi mdi-close font-size-18"></i>
+            </a>
+            
+             <div class="dropdown float-right">
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate isManager" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical font-size-18"></i>
+                </a>
+               <a data-divtoogle="#div_group_content" class="btn-resize-list cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                	<li><span data-right="view:50000103" id="btn_duplicate_group" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-checkbox-multiple-blank-outline font-size-16 text-primary mr-1"></i>{{transl 'nso_plan_email_campagne_btn_duplicate'}}</span></li>
+               		<li><span data-right="view:50000104" id="btn_del_group" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can font-size-16 text-primary mr-1"></i>{{transl 'nso_plan_email_campagne_btn_delete'}}</span></li>
+                </ul>
+            </div>
+        </div>
+		
+		<div id="div_group_content" class="row">
+			<input type="hidden" class="objData" data-name="id" 		value="{{id}}">
+			<input type="hidden" class="objData" data-name="translId" 	value="{{translId}}" id="inp_translId">
+			<input type="hidden" class="objData" data-name="typ00" 		value="500">
+			
+			<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+				<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_tit'}} *</h5>
+				<p class="text-muted info-edit info-content">{{name}}</p>
+				<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager">
+			</div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+				<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_date_begin'}} *</h5>
+				<p class="text-muted info-edit info-content">{{reqFormatShortDate dtBegin}}</p>
+				<input data-format="date pattern_date_time_iso" type="text" id="inp_dt_begin" data-validation="date"  value="{{reqFormatShortDate dtBegin}}" class="form-control objData hide content-edit isManager" placeholder="{{transl 'prj_email_campagne_date_begin'}}" data-name="dtBegin"  data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+			</div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+				<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_date_end'}} *</h5>
+				<p class="text-muted info-edit info-content">{{reqFormatShortDate dtEnd}}</p>
+				<input data-format="date pattern_date_time_iso" type="text" id="inp_dt_end" data-validation="date" value="{{reqFormatShortDate dtEnd}}" class="form-control objData hide content-edit isManager" placeholder="{{transl 'prj_email_campagne_date_begin'}}" data-name="dtEnd"  data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+			</div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+				<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_interval'}} *</h5>
+				<p class="text-muted info-edit info-content">{{val01}}</p>
+				<select class="form-control objData hide content-edit isManager" data-validation="required" data-name="val01" id="nbDetail">
+					<option value="0" {{#equal val01 0}} selected {{/equal}}>0</option>
+					<option value="1" {{#equal val01 1}} selected {{/equal}}>1</option>
+					<option value="2" {{#equal val01 2}} selected {{/equal}}>2</option>
+					<option value="3" {{#equal val01 3}} selected {{/equal}}>3</option>
+					<option value="4" {{#equal val01 4}} selected {{/equal}}>4</option>
+					<option value="5" {{#equal val01 5}} selected {{/equal}}>5</option>
+					<option value="6" {{#equal val01 6}} selected {{/equal}}>6</option>
+					<option value="7" {{#equal val01 7}} selected {{/equal}}>7</option>
+					<option value="8" {{#equal val01 8}} selected {{/equal}}>8</option>
+					<option value="9" {{#equal val01 9}} selected {{/equal}}>9</option>
+					<option value="10" {{#equal val01 10}} selected {{/equal}}>10</option>
+					<option value="11" {{#equal val01 11}} selected {{/equal}}>11</option>
+					<option value="12" {{#equal val01 12}} selected {{/equal}}>12</option>
+					<option value="13" {{#equal val01 13}} selected {{/equal}}>13</option>
+					<option value="14" {{#equal val01 14}} selected {{/equal}}>14</option>
+					<option value="15" {{#equal val01 15}} selected {{/equal}}>15</option>
+					<option value="16" {{#equal val01 16}} selected {{/equal}}>16</option>
+					<option value="17" {{#equal val01 17}} selected {{/equal}}>17</option>
+					<option value="18" {{#equal val01 18}} selected {{/equal}}>18</option>
+					<option value="19" {{#equal val01 19}} selected {{/equal}}>19</option>
+					<option value="20" {{#equal val01 20}} selected {{/equal}}>20</option>
+					<option value="21" {{#equal val01 21}} selected {{/equal}}>21</option>
+					<option value="22" {{#equal val01 22}} selected {{/equal}}>22</option>
+					<option value="23" {{#equal val01 23}} selected {{/equal}}>23</option>
+				</select>
+			</div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+				<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_status'}} *</h5>
+				<p class="text-muted info-edit info-content">{{reqStatGroupEmailCampagne stat}}</p>
+				<select id="sel_status" class="form-control objData content-edit hide isManager" data-name="stat">
+						<option {{#equal stat 1}} selected {{/equal}} value="1">{{transl "nso_plan_email_campagne_header_status_not_validated"}}</option>
+						<option {{#equal stat 2}} selected {{/equal}} value="2">{{transl "nso_plan_email_campagne_header_status_validated"}}</option>
+						<option {{#equal stat 3}} selected {{/equal}} value="3">{{transl "nso_plan_email_campagne_header_status_validated_hidden"}}</option>
+						<option {{#equal stat 4}} selected {{/equal}} value="4">{{transl "nso_plan_email_campagne_header_status_reported"}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="card mb-3">
+    <div class="card-body">
+			<div class="row">
+				<div class="col-sm-12 col-lg-12 col-md-12">
+					<div class="form-group">
+						<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_content_01'}} *</h5>
+						<p class="text-muted info-edit info-content">{{descr01.email_title}}</p>
+						<input class="form-control objData hide info-edit content-edit isManager" id="inp_content01" data-name="cont01" value="{{cont01}}"/>
+					</div>
+					
+					<div class="form-group">
+						<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_content_02'}} *</h5>
+						<div class="text-muted info-edit info-content-textarea">{{{descr01.email_cont}}}</div>
+						<div class=" hide info-edit content-edit isManager">
+							<textarea class="form-control objData chat-input" id="inp_content02" data-group="descr01" data-name="email_cont" rows="5">{{{descr01.email_cont}}}</textarea>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+	<div class="card mb-3">
+    	<div class="card-body">
+    		<div class="row">
+		    	<div class="col-sm-12 col-lg-6 col-md-6">		
+		            <div class="form-group">
+		                <h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_prop_01_mail_name'}} *</h5>
+		                <p class="text-muted info-edit info-content">{{descr01.email_name}}</p>
+		                <input type="text" id="inp_email_name" class="form-control objData hide content-edit isManager" data-group="descr01" data-name="email_name" value="{{descr01.email_name}}"/>
+		            </div>
+		            
+		             <div class="form-group">
+		                 <h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_prop_01_mail'}} *</h5>
+		                  <p class="text-muted info-edit info-content">{{descr01.email}}</p>
+						  <input type="text" id="inp_email_sender" class="form-control objData hide content-edit isManager" data-group="descr01" data-name="email" value="{{descr01.email}}"/>
+		            </div>
+		            
+		            <div class="form-group">
+		                 <h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_prop_01_pwd'}} *</h5>
+		                 <p class="text-muted info-edit info-content">******</p>
+						 <input type="password" id="inp_email_password" class="form-control objData hide content-edit isManager" data-group="descr01" data-name="pwd" value="{{descr01.pwd}}"/>
+		            </div>
+		         </div>
+				<div class="col-sm-12 col-lg-6 col-md-6">
+					<div class="form-group">
+						 <h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_prop_01_smtp_host'}} *</h5>
+						 <p class="text-muted info-edit info-content">{{descr01.smtp_host}}</p>
+						 <input class="form-control objData hide content-edit isManager" data-group="descr01" data-name="smtp_host" value="{{descr01.smtp_host}}" id="inp_smtp_config">
+				  	</div>
+				  	<div class="form-group">
+				  		<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_prop_01_smtp_addr'}} *</h5>
+				  		<p class="text-muted info-edit info-content smtp">{{descr01.smtp_addr}}</p>
+						<input class="form-control objData hide content-edit isManager" data-group="descr01" data-name="smtp_addr" value="{{descr01.smtp_addr}}" data-name-zone="host_addr" data-validation="required">
+					</div>
+				  	<div class="form-group">
+				  		<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_prop_01_smtp_port'}} *</h5>
+				  		<p class="text-muted info-edit info-content smtp">{{descr01.smtp_port}}</p>
+						<input class="form-control objData hide content-edit isManager" data-group="descr01" data-name="smtp_port" value="{{descr01.smtp_port}}" data-name-zone="host_port" data-validation="required">
+					</div>
+				  	<div class="form-group">
+				  		 <h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_plan_email_campagne_header_prop_01_web_url'}} *</h5>
+				  		 <p class="text-muted info-edit info-content smtp">{{descr01.web_url}}</p>
+						<input class="form-control objData hide content-edit isManager" data-group="descr01" data-name="web_url" value="{{descr01.web_url}}" data-name-zone="host_port" data-validation="required">
+				  	</div>
+				</div>
+		    </div>
+		 </div>
+	</div>
+<div class="card mb-3">
+    <div class="card-body">
+		      <div class="row">
+				<div class="box-header with-border col-lg-12 col-md-12 col-sm-12">
+					<h5 class="font-size-15">{{transl 'nso_plan_email_campagne_group_email'}}</h5>
+				</div>
+				
+				<div class="box-body col-lg-12 col-md-12 col-sm-12">
+					<div id="div_group_email_for_campagne" class="form-horizontal table-sroll">
+						<table id="tab_group_email_for_campagne" class="table table-hover objData"
+							data-name="group" data-primary="name">
+							<thead>
+								<tr>
+									<th data-name="id" 	    data-visible="false" >id </th>
+									<th data-name="name" 	data-visible="true" >{{transl "nso_plan_email_campagne_group_email_name"}}*</th>
+									<th data-name="ref" 	data-visible="true" >{{transl "nso_plan_email_campagne_group_email_code"}}</th>
+									<th data-name="action" 	data-visible="true" >{{transl "nso_plan_email_campagne_group_email_action"}}</th>
+								</tr>
+							</thead>
+							<tbody style="background-color: white;">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+    </div>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+		<div  class="row my-3">
+		      <div id="div_file" class="col-lg-12 col-md-12 col-sm-12">
+		         <div class="row">
+		         	<div class="col-lg-6 col-md-6 col-sm-6">
+		         		<h4 class="card-title">{{transl 'nso_plan_email_campagne_file'}}</h4>
+		         	</div>
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<button id="btn_modify_file" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm float-right"><i class="mdi mdi-plus mr-1"></i>{{transl "common_btn_edit"}}</button>
+					</div>
+				</div>
+		          <div id="div_file_dropzone" class="hide">
+		              <form class="dropzone inputfile">
+		                  <div class="fallback">
+		                      <input data-name="file" type="file" data-code="16000" />
+		                  </div>
+		
+		                  <div class="dz-message needsclick">
+		                      <div class="mb-3">
+		                          <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+		                      </div>
+		                      <h4>{{transl 'prj_project_drop_files'}}</h4>
+		                  </div>
+		              </form>
+		          </div>
+		          	<input type="hidden" class="objData" data-name="id"	value="{{id}}">
+					{{log files}}
+			        <div class="table-responsive">
+			            <table class="table table-nowrap table-centered table-hover mb-0" data-primary="id">
+			                <tbody>
+			                		{{#each files}}
+		                			{{#equal typ01 '2'}}
+			                		<tr>
+			                		 <td class="hide objData" data-name="id"		data-group="files" data-gindex="{{@index}}" >{{id}}</td>
+			                		 <td class="hide objData" data-name="stat"		data-group="files" data-gindex="{{@index}}" >{{stat}}</td>
+			                		 <td class="hide objData" data-name="code"		data-group="files" data-gindex="{{@index}}" >{{code}}</td>
+			                		 <td class="hide objData" data-name="parId"		data-group="files" data-gindex="{{@index}}" >{{parId}}</td>
+			                		 <td class="hide objData" data-name="path02"	data-group="files" data-gindex="{{@index}}" >{{path02}}</td>
+			                		 <td class="hide objData" data-name="urlPrev"	data-group="files" data-gindex="{{@index}}" >{{urlPrev}}</td>
+			                		 <td class="hide objData" data-name="fCode"		data-group="files" data-gindex="{{@index}}" >{{fCode}}</td>
+			                		 <td class="hide objData" data-name="size"		data-group="files" data-gindex="{{@index}}" >{{size}}</td>
+			                		 <td class="hide objData" data-name="parType"	data-group="files" data-gindex="{{@index}}" >{{parType}}</td>
+			                		 <td class="hide objData" data-name="typ02"		data-group="files" data-gindex="{{@index}}" >{{typ02}}</td>
+			                		 <td class="hide objData" data-name="typ01"		data-group="files" data-gindex="{{@index}}" >{{typ01}}</td>
+			                		 <td class="hide objData" data-name="name"		data-group="files" data-gindex="{{@index}}" >{{name}}</td>
+			                         <td style="width: 45px;">
+			                             <div class="avatar-sm">
+			                                 <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-24">
+			                                     <i class="bx bxs-file-{{getFileExtensionIcon fName}}"></i>
+			                                 </span>
+			                             </div>
+			                         </td>
+			                         <td>
+			                             <h5 class="font-size-14 mb-1"><a href="javascript:void(0)" data-path="{{reqPathDoc urlPrev}}" class="text-dark item-file-download cursor-pointer" title='{{fName}}'>{{reqNameFilePrj fName}}</a></h5>
+			                             <small>{{reqSizeFile fSize}}</small>
+			                         </td>
+			                         <td>
+			                             <small>{{name}}</small>
+			                         </td>
+			                         <td>
+			                             <div class="text-center">
+			                                 <a data-path="{{reqPathDoc urlPrev}}" class="text-dark item-file-download cursor-pointer"><i class="bx bx-download h3 m-0"></i></a>
+			                             </div>
+			                         </td>
+			                    	</tr>
+			                    	{{/equal}}
+			                		{{/each}}
+			                </tbody>
+			            </table>
+			        </div>
+		      </div>
+		 </div>
+      </div>
+ </div>

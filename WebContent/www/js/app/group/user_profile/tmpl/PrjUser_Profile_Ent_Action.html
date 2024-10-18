@@ -1,0 +1,27 @@
+<div class="card">
+    <div class="card-body">
+	    <ul class="verti-timeline list-unstyled">
+		
+			{{#each histories}}
+			<li class="event-list">
+                <div class="event-timeline-dot">
+                    <i class="bx bx-right-arrow-circle"></i>
+                </div>
+                <div class="media">
+                    <div class="mr-3">
+                        <i class="bx bx-copy-alt h2 text-primary"></i>
+                    </div>
+                    <div class="media-body">
+                        <div>
+                            <h5>{{dateFormatLocalShort dt}}</h5>
+                            <p class="text-muted">{{dateFormat dt 'HH:mm:ss'}}</p>
+                            <p class="text-muted">{{val}}</p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+			{{/each}}
+			
+		</ul>
+    </div>
+</div>

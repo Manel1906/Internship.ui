@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <title>Receipt example</title> -->
+    <style>
+        * {
+            margin-left: 0px;
+            font-size: 12px;
+            font-family: 'Times New Roman';
+        }
+
+        .centered {
+            text-align: center;
+            align-content: center;
+        }
+
+        /* paper POS-80 - 80mm */
+        /* 80mm max size receipt */
+        .ticket {
+            width: calc(3.77952755 * 70px);
+            max-width: calc(3.77952755 * 70px);
+            margin: 0px calc(3.77952755 * 5px);
+        }
+
+        img {
+            max-width: inherit;
+            width: inherit;
+        }
+
+        @media print {
+
+            .hidden-print,
+            .hidden-print * {
+                display: none !important;
+            }
+        }
+
+        @font-face {
+            font-family: 'Code EAN13';
+            src: 
+            url('data:application/font-woff;base64,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') format("woff")
+        }
+
+        .barcode {
+            font-family: 'Code EAN13';
+            font-size: 64px;
+            border-bottom: none!important;
+        }
+
+        .off-margin {
+            margin: auto;
+            border-bottom: 0.5px solid gainsboro;
+        }
+
+        .code-block {
+            width: calc(3.77952755 * 35px);
+            height: calc(3.77952755 * 22px);
+            text-align: center;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: calc(3.77952755 * 35px) calc(3.77952755 * 35px);
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="ticket">
+        <!-- <img src="./logo.png" alt="Logo"> -->
+        <!-- <p class="centered">RECEIPT -->
+            <!-- <br>Address line 1 -->
+            <!-- <br>Address line 2 -->
+        <!-- </p> -->
+        <div class="wrapper">
+            {{#each this}}
+            <div class="code-block">
+                <p class="off-margin">{{name01}}</p>
+                <p class="barcode off-margin">{{code03Enc}}</p>
+            </div>
+            {{/each}}
+        </div>
+
+        <!-- <p class="centered">Thanks for your purchase! -->
+        </p>
+    </div>
+    <script>
+       	
+    </script>
+</body>
+
+</html>

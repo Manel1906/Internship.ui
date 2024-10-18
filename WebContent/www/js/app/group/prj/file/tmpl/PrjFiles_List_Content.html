@@ -1,0 +1,67 @@
+<div class="container-fluid">
+
+	<!-- start page title -->
+<!--                         <div class="row"> -->
+<!--                             <div class="col-12"> -->
+<!--                                 <div class="page-title-box d-flex align-items-center justify-content-between"> -->
+<!--                                     <h4 class="mb-0 font-size-18">{{transl 'prj_project_project_grid'}}</h4> --> 
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div>      -->
+	<!-- end page title -->
+
+	<div class="row">                        
+	{{#each lst}}
+		<div class="col-xl-4 col-sm-6">
+			<div class="card prj-item">
+				<div class="card-body div_prj_list_elem hnv-route" data-id="{{id}}" data-code="{{code01}}" data-url="view_prj_file_content.html?id={{id}}&code={{code01}}" data-route="VI_MAIN/prj_file_ent">
+					<div class="media">
+						<div class="avatar-lg mr-4">
+							<span class="avatar-title rounded-circle bg-light text-danger font-size-16">
+								<img src="{{reqSrcAvatarPrjLst this}}" class="rounded-circle avatar-lg" alt="">
+							</span>
+						</div>
+
+						<div class="media-body overflow-hidden">
+							<h5 class="text-truncate font-size-15"><a href="#" class="text-dark">{{name}}</a></h5>
+							<p class="text-muted mb-4">{{{extractMsgHtml descr01 50}}}</p>
+							<div class="team">
+								{{#each members}}
+									{{#ifCond @index '<' 6}}
+									<a href="javascript: void(0);" class="team-member dropdown-toggle d-inline-block" data-toggle="dropdown" data-placement="top" title="" data-original-title="{{ent02.login01}}">
+										{{#if ent02.avatar}}
+										<img src="{{reqSrcImg ent02.avatar}}" class="rounded-circle avatar-xs margin-top-8rem m-1" alt="" onerror="{{imageErrorUser}}">
+										{{else}}
+										<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.login01}}"><div class="text-middle">{{reqSrcTextAvatar ent02.login01}}</div></div>
+										{{/if}}
+										<span class="tooltiptext">{{ent02.login01}}</span>
+									</a>
+									<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+										<li>
+             								<a class="dropdown-item font-size-16 align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_user_profile_ent" data-url="view_prj_user_profile.html?id={{ent02.id}}&code={{ent02.login01}}">
+												<i class="bx bx-user"></i>
+												<span> {{transl 'prj_project_member_see_profile'}}</span>
+										   </a>
+										</li>
+										<li>
+             								<a class="dropdown-item font-size-16 align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_dashboard" data-url="view_prj_dashboard.html?id={{ent02.id}}&code={{ent02.code01}}">
+												<i class="bx bx-briefcase-alt-2"></i>
+												<span> {{transl 'prj_project_member_see_projects'}}</span>
+											</a>
+										</li>
+									</ul>
+									{{/ifCond}}
+								{{/each}}
+								{{#ifCond members.length  '>' 6}}
+									<a> ... </a>
+								{{/ifCond}}
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	{{/each}}
+	</div>
+</div> <!-- container-fluid -->

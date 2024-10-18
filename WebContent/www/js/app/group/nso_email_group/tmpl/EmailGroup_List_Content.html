@@ -1,0 +1,17 @@
+<ul class="list-unstyled chat-list" data-simplebar style="max-height: calc(100vh - 350px)';">
+{{#if data}}
+{{#each data}}
+    <li class="chat-item" data-id="{{id}}">
+        <a href="#">
+            <div class="media align-items-center">
+                <div class="media-body">
+                    <h5 class="font-size-14 mb-0">{{name}}</h5>
+                </div>
+            </div>
+        </a>
+    </li>
+{{/each}}
+{{else}}
+<li >{{transl 'common_null_data'}}</li>
+{{/if}}
+</ul>

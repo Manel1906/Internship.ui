@@ -1,0 +1,49 @@
+<div class="page-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+              	<div class="">
+                  	<h4 class="mb-0 font-size-18 d-inline">{{transl 'per_partner_header_title'}}</h4>
+                	{{#if id}}<span id="btn_mod_favorite" class="font-size-20 text-{{#if isFavorite}}danger isFavorite{{else}}primary{{/if}} cursor-pointer"><i class="mdi mdi-heart-outline"></i></span>{{/if}}
+                </div>
+              </div>
+          </div>
+      </div>     
+      <div class="row">
+		<div class="col-lg-8" id="div_prj_content"></div>
+<!-- 		<div class="col-lg-4 col-md-4 col-xs-12" id="div_prj_docs"> -->
+<!-- 			<div class="col-lg-12 col-md-12 col-xs-12" id="div_prj_docs"></div> -->
+<!-- 			<div class="col-lg-12 col-md-12 col-xs-12" id="div_prj_observation"></div> -->
+<!-- 			<div class="col-lg-12 col-md-12 col-xs-12" id="div_prj_bank"></div> -->
+<!-- 			<div class="col-lg-12 col-md-12 col-xs-12" id="div_prj_address"></div> -->
+<!-- 		</div> -->
+		<div class="col-lg-4 col-md-4 col-xs-12" id="div_prj_docs"></div>
+      </div>
+      
+<!--       <div class="row"> -->
+<!--       		<div class="col-lg-4 col-md-4 col-xs-12" id="div_prj_observation"></div> -->
+<!--       		<div class="col-lg-4 col-md-4 col-xs-12" id="div_prj_bank"></div> -->
+<!--       		<div class="col-lg-4 col-md-4 col-xs-12" id="div_prj_address"></div> -->
+<!--       </div> -->
+      <div class="row">
+      		<div class="col-lg-8 col-md-8 col-xs-12" id="div_prj_observation"></div>
+      </div>
+      <div class="row">
+      		<div class="col-lg-6 col-md-6 col-xs-12" id="div_prj_bank"></div>
+      </div>
+      <div class="row">
+      		<div class="col-lg-6 col-md-6 col-xs-12" id="div_prj_address"></div>
+      </div>
+      
+      <div class="col-lg-12" id="div_partner_funct">
+	    <div class="card">
+	  		<div class="card-body">		
+				<div class="d-flex justify-content-end">            
+                	<button class="btn btn-primary" id="btn_save">{{transl 'prj_partner_save_all'}}</button>
+            	</div>
+			</div>
+		</div>
+	</div>
+  </div> <!-- container-fluid -->
+</div>

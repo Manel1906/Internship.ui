@@ -1,0 +1,40 @@
+{
+    "---Plan Email Campagne------------------------" : "---------------- ---------------",
+	"nso_plan_email_campagne_new" : "Add New",
+	"nso_plan_email_campagne_search" : "Search by name",
+	"nso_plan_email_campagne_btn_duplicate" : "Copy",
+	"nso_plan_email_campagne_btn_delete": "Supprimer la campagne",
+	"nso_plan_email_campagne_delete_success": "Supprimer la campagne réussie",
+	"nso_plan_email_campagne_config" : "Email sending configuration",
+	"nso_plan_email_campagne_header_ref" : "Management code",
+	"nso_plan_email_campagne_header_tit" : "Subject",
+	"nso_plan_email_campagne_header_content_01" : "Email subject",
+	"nso_plan_email_campagne_header_content_02" : "Email body",
+	
+	"nso_plan_email_campagne_header_prop_01_mail_name" : "Sender",
+	"nso_plan_email_campagne_header_prop_01_mail" : "Email",
+	"nso_plan_email_campagne_header_prop_01_pwd" : "Password",
+	"nso_plan_email_campagne_header_prop_01_smtp_host" : "SMTP name",
+	"nso_plan_email_campagne_header_prop_01_smtp_addr" : "SMTP Path",
+	"nso_plan_email_campagne_header_prop_01_smtp_port" : "SSL port",
+	"nso_plan_email_campagne_header_prop_01_web_url" : "Website address",
+	
+	"nso_plan_email_campagne_header_date_add" : "Added date",
+	"nso_plan_email_campagne_header_date_mod" : "Last modified date",
+	"nso_plan_email_campagne_header_date_begin" : "Start date",
+	"nso_plan_email_campagne_header_date_end" : "End date",
+	"nso_plan_email_campagne_header_status" : "Status",
+	"nso_plan_email_campagne_header_status_not_validated" : "Newly created",
+	"nso_plan_email_campagne_header_status_validated" : "Approved",
+	"nso_plan_email_campagne_header_status_validated_hidden" : "Verified and hidden",
+	"nso_plan_email_campagne_header_status_reported" : "Reflected",
+	"nso_plan_email_campagne_header_interval" : "Daily sending hours",
+	
+	"nso_plan_email_campagne_group_email" : "Email group list",
+	"nso_plan_email_campagne_group_email_name" : "Group name",
+	"nso_plan_email_campagne_group_email_code" : "Group code",
+	"nso_plan_email_campagne_group_email_action" : "Action",
+	"nso_plan_email_campagne_file" : "Attach",
+	
+	"nso_plan_email_campagne_new_title" : "Create new campaign"
+}

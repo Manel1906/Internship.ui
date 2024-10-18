@@ -1,0 +1,125 @@
+{{#* inline "files"}}
+	{{#if files}}
+	{{#each files}}
+		{{#if (isImage fUrl)}}
+		<img src="{{decodeUTF8 fUrl}}" class="files_content_chat mw-100 min-w-50" data-path="{{decodeUTF8 fUrl}}">
+		{{else}}															
+		<p><a class="files_content_chat" href="javascript:void(0)" data-path="{{decodeUTF8 fUrl}}">{{decodeUTF8 fName}}</a></p>
+		{{/if}}
+	{{/each}}
+	{{/if}}
+{{/inline}}
+
+<ul id="ul_lst_msg" class="list-unstyled chat-content" data-simplebar>
+	{{#if isShowLoadMore}}
+	<li> 
+	    <div class="chat-day-title" id="btn_load_more">
+	        <span class="title cursor-pointer">{{transl 'prj_chat_load_more'}}</span>
+	    </div>
+	</li>
+	{{/if}}
+	
+<!-- 	<li>  -->
+<!-- 	    <div class="chat-day-title"> -->
+<!-- 	        <span class="title">{{transl 'prj_chat_today'}}</span> -->
+<!-- 	    </div> -->
+<!-- 	</li> -->
+
+	<div id="ul_lst_msg_append">
+	{{#if hasMsg}}
+		{{#each lstMessage}}
+		<div id="li_msg_item_append_{{id}}" {{#if forMe}}class="right"{{/if}}>                                           	
+			<li id="li_msg_id_{{id}}" class="message-item unselectable">
+				<div class="conversation-list conversation-position">
+					<div class="dropdown d-flex hide">
+						<a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="bx bx-dots-vertical-rounded"></i>
+						</a>
+						{{#unless forMe}}
+						<a class="content-reponse pt-1"  href="javascript:void(0)" data-user="{{dataUser.login01}}" data-msg="{{innerText inf04 20}}">
+							<i class="mdi mdi-reply"></i>
+						</a>
+						{{/unless}}
+						
+						<div class="dropdown-menu">
+							<a class="dropdown-item content-copy" data-body="{{inf04}}" href="#">{{transl 'prj_chat_copy'}}</a>
+							<a class="dropdown-item content-hide" href="#" data-id={{id}} data-dt="{{dt}}" data-grpid={{entId}} data-grptyp={{entTyp}}>{{transl 'prj_chat_hide'}}</a>
+	<!-- 	                <a class="dropdown-item" href="#">{{transl 'prj_chat_save'}}</a> -->
+	<!-- 	                <a class="dropdown-item" href="#">{{transl 'prj_chat_forward'}}</a> -->
+							{{#if forMe}}
+							<a class="dropdown-item content-delete" href="#" data-id={{id}} data-dt="{{dt}}" data-grpid={{entId}} data-grptyp={{entTyp}}>{{transl 'prj_chat_delete'}}</a>
+							{{/if}}
+						</div>
+					</div>
+					
+					<div class="ctext-wrap content-msg-item {{#unless forMe}}not-me-message{{/unless}} {{#if forMe}}right{{/if}} chat-padding-bottom">
+						<div class="msg-item align-items-center">		         	
+							<span class="chat-time {{#if forMe}}right{{else}}left{{/if}} mb-0 chat-time-hover">
+								<b class="conversation-name">{{dataUser.login01}}</b>
+								({{reqConvertTimeZone dt}})
+							</span>
+							
+							{{#unless forMe}}
+							<div class="msg-body-other">
+								<p class="text-justify chat-msg-bottom chat-msg-font-size">{{{inf04}}}</p>
+								{{> files}}
+							</div> 
+							
+							<div class="msg-avatar-left">
+								{{#if dataUser.avatar}}
+								<img src="{{reqSrcAvatarChat dataUser}}" class="rounded-circle avatar-chat" alt="" onerror="{{imageErrorUser}}">
+								{{else}}
+								<div class="rounded-circle avatar-chat text-white text-uppercase" style="background-color:{{reqSrcTextColor dataUser.login01}}">
+									<div class="text-middle">{{reqSrcTextAvatar dataUser.login01}}</div>
+								</div>
+								{{/if}}
+							</div>	                                       
+							{{/unless}}
+							
+							{{#if forMe}}
+							<div class="msg-body-forme">
+								{{> files}}
+								<p class="text-justify chat-msg-bottom chat-msg-font-size">{{{inf04}}}</p>
+							</div>
+							
+							<div class="msg-avatar-right">
+								{{#if dataUser.avatar}}
+								<img src="{{reqSrcAvatarChat dataUser}}" class="rounded-circle avatar-chat" alt="" onerror="{{imageErrorUser}}">
+								{{else}}
+								<div class="rounded-circle avatar-chat text-white text-uppercase" style="background-color:{{reqSrcTextColor dataUser.login01}}">
+									<div class="text-middle">{{reqSrcTextAvatar dataUser.login01}}</div>
+								</div>
+								{{/if}}
+							</div>
+							{{/if}}
+						</div>
+					</div>
+					
+				</div>
+			</li>	
+			{{#if hasHistory}}
+			<li id="li_msg_read_{{id}}" class="message-item message-read">	
+				{{#each lstHistory}}
+				<div class="conversation-list conversation-position">
+					{{#if avatar.avatar}}
+					<img src="{{reqSrcAvatarChat avatar}}" class="rounded-circle avatar-read" alt="" onerror="{{imageErrorUser}}">
+					{{else}}
+					<div class="rounded-circle avatar-read text-white text-uppercase" style="background-color: {{reqSrcTextColor avatar.login01}}">
+						<div class="text-middle-small">{{reqSrcTextAvatar avatar.login01}}</div>
+					</div>
+					{{/if}}
+				</div>
+				{{/each}}
+			</li>
+			{{/if}}
+		
+		</div>
+		{{/each}}
+		
+	{{else}}
+		 <li class="msg-noMsg">{{transl 'prj_chat_no_msg'}}</li>
+	{{/if}}  
+	
+	</div> 
+	    
+</ul>                                     

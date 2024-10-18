@@ -1,0 +1,12 @@
+ {{#* inline "getPar"}}
+	{{#if path}}
+	{{> getPar path}}
+	{{/if}}
+	<li class="breadcrumb-item active"><a data-route="VI_MAIN/prj_file_ent" data-url="view_prj_file_content.html?id={{id}}&code={{code01}}" class="hnv-route">{{cutStrNumber name 20}}</a></li>
+{{/inline}}
+
+<ol class="breadcrumb m-0">
+    {{#if path}}
+		{{> getPar path}}
+	{{/if}}	
+ </ol>

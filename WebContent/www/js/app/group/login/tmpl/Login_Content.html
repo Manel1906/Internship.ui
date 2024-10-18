@@ -1,0 +1,290 @@
+<!--BEGIN TMPL-->
+<!--NAME TMPL:LOGIN_CONTENT -->
+<div class="account-pages my-5 pt-sm-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card overflow-hidden">
+                    <div class="bg-soft-primary">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="text-primary p-4">
+                                    <h5 class="text-primary">{{transl 'login_welcome'}}</h5>
+                                    <p>{{transl 'login_msg_signin'}}</p>
+                                </div>
+                            </div>
+                            <div class="col-5 align-self-end login-logo">
+                                <img src="www/img/prj/profile-img.png" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0"> 
+                        <div>
+                            <a href="index.html">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    <span class="avatar-title rounded-circle bg-light">
+                                        <img src="www/img/logo/logo.png" alt="" class="" height="45">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2">
+                            <form class="form-horizontal" action="index.html">
+
+                                <div class="form-group">
+                                    <label for="inp_Username">{{transl 'login_username'}}</label>
+                                    <input type="text" class="form-control" id="inp_Username" placeholder="{{transl 'login_enter_username'}}">
+                                </div>
+        
+                                <div class="form-group">
+                                    <label for="inp_Password">{{transl 'login_password'}}</label>
+                                    <input type="password" class="form-control" id="inp_Password" placeholder="{{transl 'login_enter_password'}}">
+                                </div>
+        
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" class="" id="inp_remember" style="vertical-align: text-top;margin-right: 5px;margin-top: 4px">
+                                    <label class="" for="customControlInline">{{transl 'login_remember_me'}}</label>
+                                </div>
+                                
+                                <div class="mt-3">
+                                    <button class="btn btn-primary btn-block waves-effect waves-light" type="button" id="btn_Submit">{{transl 'login_log_in'}}</button>
+                                </div>
+    
+                                <div class="mt-4 text-center">
+                                    <a href="#" id="btn_Forgot_Pw" class="text-muted"><i class="mdi mdi-lock mr-1"></i>{{transl 'login_forgot_pwd'}}</a>
+                                </div>
+                            </form>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <p>{{transl 'login_msg_no_account'}}<a id="btn_register" href="#" class="font-weight-medium text-primary">{{transl 'login_signup_now'}}</a> </p>
+                </div>
+
+				<div class="mt-5 mb-5 text-center" id="login_language">
+                    <p>{{transl 'common_lang'}}</p>
+                    <div class=row>
+                    	<div class="col-3"></div>
+                    	<div class="col-2"><img src="{{url_root}}img/flags/vi.svg" alt="user-image" class="login-language" data-lan="vi" data-lanId="1" data-loc="vi-VN" title="{{transl 'common_lan_vn'}}"></div>
+                    	<div class="col-2"><img src="{{url_root}}img/flags/fr.svg" alt="user-image" class="login-language" data-lan="fr" data-lanId="2" data-loc="fr-FR" title="{{transl 'common_lan_fr'}}"></div>
+                    	<div class="col-2"><img src="{{url_root}}img/flags/en.svg" alt="user-image" class="login-language" data-lan="en" data-lanId="3" data-loc="en-EN" title="{{transl 'common_lan_us'}}"></div>
+                    	<div class="col-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:REGISTER_CONTENT -->
+<div class="home-btn d-none d-sm-block">
+    <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a>
+</div>
+<div class="account-pages my-5 pt-sm-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card overflow-hidden">
+                    <div class="bg-soft-primary">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="text-primary p-4">
+                                    <h5 class="text-primary">{{transl 'login_free_register'}}</h5>
+                                    <p>{{transl 'login_free_register_msg'}}</p>
+                                </div>
+                            </div>
+                            <div class="col-5 align-self-end">
+                                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0"> 
+                        <div>
+                            <a href="index.html">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    <span class="avatar-title rounded-circle bg-light">
+                                        <img src="www/img/logo/logo.png" alt="" class="rounded-circle" height="45">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2" id="div_sendRegister">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="useremail">{{transl 'login_email'}} *</label>
+                                    <input type="email" class="form-control objData" id="idLogin" data-validation="required email" data-name="email" placeholder="{{transl 'login_email_enter'}}">        
+                                </div>
+        
+                                <div class="form-group">
+                                    <label for="inp_Username">{{transl 'login_username'}}</label>
+                                    <input type="text" class="form-control objData" id="idEmail" data-validation="required alphanumeric" data-name="login01" placeholder="{{transl 'login_enter_username'}}">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="inp_Password">{{transl 'login_password'}}</label>
+                                    <input type="password" class="form-control objData" id="txtNewPassword" data-validation="required" data-name="pass01" placeholder="{{transl 'login_enter_password'}}">        
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="txtNewPasswordRe">{{transl 'login_re_password'}}</label>
+                                    <input type="password" class="form-control objData" id="txtNewPasswordRe" data-compare="eq #txtNewPassword" data-msg="compare:aut_user_ent_pass_err_match"  data-validation="required" data-name="re_pass" placeholder="{{transl 'login_re_password'}}">        
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="idFirstName">{{transl 'login_first_name'}}</label>
+                                    <input type="text" class="form-control objData" id="idFirstName" data-validation="required" data-name="name03"  placeholder="{{transl 'login_enter_first_name'}}">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="idLastName">{{transl 'login_last_name'}}</label>
+                                    <input type="text" class="form-control objData" id="idLastName" data-validation="required" data-name="name01"  placeholder="{{transl 'login_enter_last_name'}}">
+                                </div> 
+                                
+                                <div class="form-group">
+                                    <label for="idLastName">{{transl 'login_tel'}}</label>
+                                    <input type="text" class="form-control objData" id="idLastName" data-validation="required" data-name="tel"  placeholder="{{transl 'login_enter_tel'}}">
+                                </div>                                 
+        
+            
+                                <div class="mt-2">
+                                    <button class="btn btn-primary btn-block waves-effect waves-light" id="btn_Register" type="button">{{transl 'login_btn_register'}}</button>
+                                </div>
+        
+                                <div class="mt-4 text-center">
+                                    <p class="mb-0">{{transl 'login_agree_msg'}} <a href="#" class="text-primary">{{transl 'login_term_of_use'}}</a></p>
+                                </div>
+                            </form>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <p>{{transl 'login_have_acc_msg'}} <a href="index.html" class="font-weight-medium text-primary"> {{transl 'login_login'}}</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:FORGOT_PW_CONTENT -->
+<div class="home-btn d-none d-sm-block">
+    <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a>
+</div>
+<div class="account-pages my-5 pt-sm-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card overflow-hidden">
+                    <div class="bg-soft-primary">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="text-primary p-4">
+                                    <h5 class="text-primary">{{transl 'login_forgot_pw'}}</h5>
+                                    <p>{{transl 'login_forgot_pw_msg'}}</p>
+                                </div>
+                            </div>
+                            <div class="col-5 align-self-end">
+                                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0"> 
+                        <div>
+                            <a href="index.html">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    <span class="avatar-title rounded-circle bg-light">
+                                        <img src="www/img/logo/logo.png" alt="" class="rounded-circle" height="45">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2" id="div_sendForgotPw">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="useremail">{{transl 'login_forgot_pw_title'}}</label>
+                                    <input type="email" class="form-control objData" id="idLogin" data-validation="required" data-name="value" placeholder="{{transl 'login_enter_forgot_pwd'}}">        
+                                </div>
+        
+                                
+                                <div class="mt-2">
+                                    <button class="btn btn-primary btn-block waves-effect waves-light" id="btn_Forgot_Pw" type="button">{{transl 'login_btn_register'}}</button>
+                                </div>
+                            </form>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <p>{{transl 'login_have_acc_msg'}} <a href="index.html" class="font-weight-medium text-primary"> {{transl 'login_login'}}</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:RESET_PW_CONTENT -->
+<div class="home-btn d-none d-sm-block">
+    <a href="index.html" class="text-dark"><i class="fas fa-home h2"></i></a>
+</div>
+<div class="account-pages my-5 pt-sm-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card overflow-hidden">
+                    <div class="bg-soft-primary">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="text-primary p-4">
+                                    <h5 class="text-primary">{{transl 'login_reset_pw_title'}}</h5>
+                                    <p>{{transl 'login_reset_pw_content'}}</p>
+                                </div>
+                            </div>
+                            <div class="col-5 align-self-end">
+                                <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body pt-0"> 
+                        <div>
+                            <a href="index.html">
+                                <div class="avatar-md profile-user-wid mb-4">
+                                    <span class="avatar-title rounded-circle bg-light">
+                                        <img src="www/img/logo/logo.png" alt="" class="rounded-circle" height="45">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="p-2" id="div_sendResetPw">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="useremail">{{transl 'login_password'}}</label>
+                                    <input type="password" class="form-control objData" id="resetPassword" data-validation="required" data-name="pass" placeholder="{{transl 'login_reset_pw_msg'}}">        
+                                </div>
+        						 <div class="form-group">
+                                    <label for="useremail">{{transl 'login_re_password'}}</label>
+                                    <input type="password" class="form-control objData" id="resetPasswordRe" data-compare="eq #resetPassword" data-msg="compare:aut_user_ent_pass_err_match" data-validation="required" data-name="pass" placeholder="{{transl 'login_re_password'}}">        
+                                </div>
+                                
+                                <div class="mt-2">
+                                    <button class="btn btn-primary btn-block waves-effect waves-light" id="btn_Reset_Pw" type="button">{{transl 'login_btn_register'}}</button>
+                                </div>
+                            </form>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                    <p>{{transl 'login_have_acc_msg'}} <a href="index.html" class="font-weight-medium text-primary"> {{transl 'login_login'}}</a> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->

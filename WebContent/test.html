@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>ZINO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Multipurpose Admin & Dashboard Workspace" name="description" />
+    <meta content="WordAdm" name="H&V" />
+        
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="www/img/prj/favicon/favicon.ico">
+
+	<!-- For DEV -->
+<!--     <link href="www/css/_main_lib.css" rel="stylesheet"> -->
+<!--     <link href="www/css/_main_route.css" rel="stylesheet"> -->
+    
+    <!-- For PROD -->
+<!--     <link href="www/css/min/css_all.css" rel="stylesheet"> -->
+        
+    
+    <script defer src="www/js/require.js" data-main="www/js/app/main/app.js?hnv1.25"></script>
+</head>
+<body data-sidebar="dark">
+
+    <div id="login_page"></div>
+
+  
+  
+  <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+    <script>
+ // If you are using CommonJS modules:
+//     const { Dropzone } = require("dropzone");
+
+    // If you are using an older version than Dropzone 6.0.0,
+    // then you need to disabled the autoDiscover behaviour here:
+    Dropzone.autoDiscover = false;
+    let myDropzone = new Dropzone("#login_page");
+   
+    
+    var FIRST_VIEW 	= "VI_MAIN";
+    var VIEW_PART 	= "prj_task_list";
+    </script>
+
+</body>
+
+</html>

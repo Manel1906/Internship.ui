@@ -1,0 +1,81 @@
+<div class="card-body">
+	<div class="media">
+		<div class="col-sm-9">
+			<h4 class="card-title mb-4 shp_font_size">{{transl "job_off_request_detail"}} {{ref}} </h4>
+		</div>
+
+		<div class="col-sm-3 isManager">
+			<div class="text-right">
+				<a data-divtoogle="#div_JobOff_Ent_Tab_Doc_In" class="btn-resize" data-toggle="tooltip"
+					data-placement="top" title="" data-original-title="Resize">
+					<i class="mdi mdi-window-minimize font-size-18"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	<div id="div_JobOff_Ent_Tab_Doc_In" class="form-horizontal custom-scroll-header">
+		<div class="box-body row">
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="form-group row">
+					<label for="inp_dt03"
+						class="col-lg-5 col-md-5 col-sm-5 control-label">{{transl "job_off_label_dt03"}}</label>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<!-- <input id="inp_dt03" class="form-control objData datepicker canEnabled" data-format="date"
+							data-validation="date" data-name="dt03" value="{{dateFormatLocalShort dt03}}" disabled /> -->
+						<p class="text-muted info-edit info-content">{{dateFormatLocalShort dt03}}</p>
+						<input id="inp_dt03" data-provide="datepicker" class="form-control objData dt01 content-edit hide" type="text"
+						 value="{{dateFormatLocalShort dt03}}" data-name="dt03" data-validation="date" data-format="date" data-date-format="dd/mm/yyyy" data-msgclass="errMsgInline">
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3">
+						<p><input type="checkbox" id="halfday_start" class="canEnabled" disabled />
+							{{transl "job_off_label_half_day"}}</p>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="inp_val01"
+						class="col-lg-5 col-md-5 col-sm-5 control-label">{{transl "job_off_label_hld_duration"}}</label>
+					<div class="col-lg-7 col-md-7 col-sm-7">
+						<p class="text-muted info-content">{{val01}}</p>
+						<input id="inp_val01" class="form-control objData content-edit hide" type="text" data-name="val01"
+							data-format="text" value="{{val01}}" disabled />
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="form-group row">
+					<label for="inp_dt04"
+						class="col-lg-5 col-md-5 col-sm-5 control-label">{{transl "job_off_label_dt04"}}</label>
+					<div class="col-lg-4 col-md-4 col-sm-4">
+						<p class="text-muted info-edit info-content">{{dateFormatLocalShort dt04}}</p>
+						<input id="inp_dt04" data-provide="datepicker" class="form-control objData dt01 content-edit hide" type="text"
+						 value="{{dateFormatLocalShort dt04}}" data-name="dt04" data-validation="date" data-format="date" data-date-format="dd/mm/yyyy" data-msgclass="errMsgInline">
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-3" id="div_halfday_end">
+						<p><input type="checkbox" id="halfday_end" class="canEnabled" disabled />
+							{{transl "job_off_label_half_day"}}</p>
+					</div>
+				</div>
+<!-- 				<div class="form-group row"> -->
+<!-- 					<label for="inp_val02" -->
+<!-- 						class="col-lg-5 col-md-5 col-sm-5 control-label">{{transl "job_off_label_total_dayoff"}}</label> -->
+<!-- 					<div class="col-lg-7 col-md-7 col-sm-7"> -->
+<!-- 						<p class="text-muted info-content">{{val02}}</p> -->
+<!-- 						<input id="inp_val02" class="form-control objData content-edit hide" type="text" data-name="val02" -->
+<!-- 							data-format="text" value="{{val02}}" disabled /> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				<div class="form-group row">
+					<label for="inp_reason"
+						class="col-lg-5 col-md-5 col-sm-5 control-label">{{transl "job_off_label_reason"}}</label>
+					<div class="col-lg-7 col-md-7 col-sm-7">
+						<p class="text-muted info-edit info-content">{{reason}}</p>
+						<input id="inp_reason" class="form-control objData canEnabled content-edit hide" data-name="reason"
+							data-format="text" value="{{reason}}" disabled />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

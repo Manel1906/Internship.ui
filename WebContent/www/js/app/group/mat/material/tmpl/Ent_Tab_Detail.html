@@ -1,0 +1,58 @@
+<div class="card" data-right="view:">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-9">
+				<h4 class="card-title mb-4 shp_font_size">{{transl "ent_tab_detail"}}</h4>
+			</div>
+
+			<div class="col-3 isManager">
+				<div class="text-sm-right">
+					<a data-divtoogle="#div_Ent_Tab_Detail" class="btn-resize" data-toggle="tooltip"
+						data-placement="top" title="" data-original-title="Resize">
+						<i class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="div_Ent_Tab_Detail">
+<!-- 			<div class="box-header with-border"> -->
+<!-- 				<h3 class="box-title">{{transl "mat_material_tab_detail_title"}}</h3> -->
+<!-- 			</div> -->
+
+			<div class="box-body">
+				<div class="form-horizontal table_width_max">
+					<table id="table_mat_detail_new" class="table table-hover objData" data-name="children"	data-primary="id" >
+						<thead>
+							<tr>
+								<th data-name="id" data-visible="false"  data-validation="number">{{transl "mat_material_tab_detail_id"}}</th>
+
+								<th data-name="matName01" data-visible="true" data-validation="required">
+									{{transl "ent_name01"}}*</th>
+									
+								<th data-name="matName02" data-visible="true" data-editable="none">
+									{{transl "ent_name02"}}</th>
+									
+								<th data-name="matTyp01" data-visible="true" data-editable="none">{{transl "ent_typ01"}}</th>
+									
+								<th data-name="matCode01" data-visible="true">{{transl "ent_code01"}}</th>
+<!-- 								<th data-name="matCode02" data-visible="true" data-editable="none">{{transl "ent_code02"}}</th> -->
+									
+								<th data-name="statLab" data-visible="true" data-validation="required" >{{transl "ent_det_stat"}} *</th>
+								<th data-name="inf01" 	data-visible="true">{{transl "ent_det_cmt"}}</th>
+								
+								<th data-name="view" 	data-visible="true"></th>
+								<th data-name="action" data-visible="true" >{{transl "ent_det_action"}}</th>
+
+							</tr>
+						</thead>
+						<tbody style="background-color: white;">
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

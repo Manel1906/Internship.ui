@@ -1,0 +1,69 @@
+<!-- MAIN -->
+<div class="container-fluid">
+	<div class="card">
+		<div class="card-body">
+			<input class="objData" type="hidden" value="{{memid}}" data-type="number" data-name="memid">
+			<input class="objData" type="hidden" value="{{id}}" data-type="number" data-name="id">
+			<input class="objData" type="hidden" value="{{grp}}" data-type="number" data-name="grp">
+			<input class="objData" type="hidden" value="{{code01}}" data-type="string" data-name="code01">
+			<ul id="div_tree_prj">
+				<li>
+					<input class="objData" type="hidden" value="{{id}}" data-group="members" data-gindex="{{id}}" data-type="number" data-name="entId01">
+					<span class="prj-item hnv-route cursor-pointer {{reqClassByStat stat}}" 
+							data-url="{{reqSrcPage 250000 typ00 typ01 typ02 id code01}}" 
+							data-route="{{reqRoutePage 250000 typ00 typ01 typ02}}"
+							style="margin-right:5px; ">
+						<i class="bx bx-briefcase-alt-2"></i> 
+						{{name}} 
+						{{> userRole}}
+					</span>
+					{{> sameLevel}}
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!-- RECURSIVITYs -->
+{{#* inline "sameLevel"}}
+{{#if epics}}
+ <ul>
+ 	{{#each epics}}
+	<li class="{{#if isShow}}text-success{{/if}}" data-id="{{id}}" data-code="{{code01}}" >
+		<input class="objData" type="hidden" value="{{id}}" data-group="members" data-gindex="{{id}}" data-type="number" data-name="entId01">
+		<span class="prj-item hnv-route cursor-pointer {{#equal typ02 '1'}}font-weight-bold{{/equal}} {{reqClassByStat stat}}" 
+				data-url="{{reqSrcPage 250000 typ00 typ01 typ02 id code01}}" 
+				data-route="{{reqRoutePage 250000 typ00 typ01 typ02}}" 
+				style="margin-right:5px; ">
+			<i class="bx {{#equal typ02 '1'}}bx-package{{else}}bx-task{{/equal}} font-size-15 {{#if isShow}}bx-burst{{/if}}"></i>
+			{{name}}
+		
+			{{> userRole}}
+		</span>
+		{{#if epics}}{{> sameLevel}}{{/if}}
+	</li>
+	{{/each}}
+</ul>
+{{/if}}
+{{/inline}}
+
+{{#* inline "userRole"}}
+{{#if uRole}}
+		<select class="objData form-control edit-member level-edit isManager hideDev hideTest hideMem hideGuest" 
+				data-group="members" data-gindex="{{id}}" data-type="number" data-name="lev"
+				style="margin-bottom: 10px; margin-left: 10px; width:12%; height: 10%; display: unset">
+			{{#select uRole.lev}}
+			<option value="-1" >{{transl 'prj_project_member_level_heritage'}}</option>
+			<option value="0" class="hideBA" >{{transl 'prj_project_member_level_manager'}}</option>
+			<option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option>
+			<option value="20" >{{transl 'prj_project_member_level_developer'}}</option>
+			<option value="30" >{{transl 'prj_project_member_level_tester'}}</option>
+			<option data-external-mem="true" value="40">{{transl 'prj_project_member_level_worker'}}</option>
+			<option value="50" >{{transl 'prj_project_member_level_watcher'}}</option>
+			<option value="1000" >{{transl 'prj_project_member_level_none'}}</option>
+	        {{/select}}
+	    </select>
+{{/if}}
+{{/inline}}
+
+

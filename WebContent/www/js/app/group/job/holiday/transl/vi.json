@@ -1,0 +1,15 @@
+{
+	"job_holiday_list_holiday"				:	"Danh sách ngày nghỉ lễ",
+	"job_holiday_list_all_partner_holiday"  :   "Danh sách ngày nghỉ lễ đối tác",
+	"job_holiday_date"						:	"Ngày nghỉ lễ",
+	"job_holiday_comment"					:	"Ghi chú",
+	"job_holiday_select_date"				:	"Đặt ngày nghỉ lễ",
+	"job_holiday_holiday_name"				:	"Tên ngày lễ",
+	"job_holiday_holiday_code"				:	"Tháng",
+	"job_holiday_holiday_manager"           :   "Công ty quản lý",
+	
+	"job_hld_msg_user_right_error_G"		:	"Tài khoản này chưa được cấp quyền theo dõi danh sách ngày nghỉ.",
+	"job_hld_msg_user_right_error_N"		:	"Tài khoản này chưa được cấp quyền tạo mới ngày nghỉ.",
+	"job_hld_msg_user_right_error_M"		:	"Tài khoản này chưa được cấp quyền chỉnh sửa ngày nghỉ.",
+	"job_hld_msg_user_right_error_D"		:	"Tài khoản này chưa được cấp quyền xóa ngày nghỉ."
+}

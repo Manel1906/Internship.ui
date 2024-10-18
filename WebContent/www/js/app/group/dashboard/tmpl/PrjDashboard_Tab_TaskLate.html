@@ -1,0 +1,72 @@
+<div class="card">
+     <div class="card-body">
+         <h4 class="card-title mb-4">{{transl 'prj_dashboard_tab_tasklate_name'}}</h4>
+         <div class="table-responsive">
+             <table class="table table-centered table-nowrap mb-0">
+                 <thead class="thead-light">
+                     <tr>
+<!--                          <th style="width: 20px;"> -->
+<!--                              <div class="custom-control custom-checkbox"> -->
+<!--                                  <input type="checkbox" class="custom-control-input" id="customCheck1"> -->
+<!--                                  <label class="custom-control-label" for="customCheck1">&nbsp;</label> -->
+<!--                              </div> -->
+<!--                          </th> -->
+<!--                          <th>{{transl 'prj_project_code_task'}}</th> -->
+                         <th style="width:50%">{{transl 'prj_project_task_name'}}</th>
+                         <th>{{transl 'prj_project_start_date'}}</th>
+                         <th>{{transl 'prj_project_end_date'}}</th>
+<!--                          <th>{{transl 'prj_project_budget'}}</th> -->
+                         <th>{{transl 'prj_project_stat'}}</th>
+                         <th>{{transl 'prj_project_member'}}</th>
+                         <th></th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                 {{#if lst}}
+                 {{#each lst}}
+                     <tr title="{{code}} {{name}}" data-toggle="tooltip">
+<!--                          <td> -->
+<!--                              <div class="custom-control custom-checkbox"> -->
+<!--                                  <input type="checkbox" class="custom-control-input" id="customCheck2"> -->
+<!--                                  <label class="custom-control-label" for="customCheck2">&nbsp;</label> -->
+<!--                              </div> -->
+<!--                          </td> -->
+<!--                          <td><a href="javascript: void(0);" class="text-body font-weight-bold">{{cutStrName code01}}</a> </td> -->
+                         <td><b>{{name}}</b></td>
+                         <td>{{reqShortDateStr dtBegin}}</td>
+                         <td>{{reqShortDateStr dtEnd}}</td>
+<!--                          <td class="text-right">{{reqFormatNumber val01}}</td> -->
+                         <td>
+                             <span class="badge badge-pill badge-soft-{{reqStatColor stat}} font-size-12">{{reqStatPrj stat}}</span>
+                         </td>
+                         <td>
+                         	{{#if members}}
+                         		{{#each members}}
+                                   	<a href="javascript: void(0);" class="team-member d-inline-block" data-toggle="tooltip" title="{{login01}}">
+                                   		{{#if ent02.avatar}}
+                                        <img src="{{reqSrcImg ent02.avatar}}" class="rounded-circle avatar-xxs m-1" alt="" onerror="{{imageErrorUser}}">
+                                        {{else}}
+                                        <div class="rounded-circle avatar-xxs m-1 text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}"><div class="text-middle">{{reqSrcTextAvatar login01}}</div></div>
+                                        {{/if}}
+                                    </a>
+                         		{{/each}}
+                         	{{/if}}
+                         </td>
+                         <td>
+                             <button data-id="{{id}}" data-code="{{code01}}" type="button" class="btn btn-primary btn-sm btn-rounded waves-effect waves-light btn-detail-task">
+                                <i class="mdi mdi-eye-outline"></i> 
+<!--                                 {{transl 'prj_dashboard_tab_tasklate_details'}} -->
+                             </button>
+                         </td>
+                     </tr>
+                 {{/each}}
+                 {{else}}
+                 	<tr>
+                 		<td colspan="8">{{transl 'prj_dashboard_tab_tasklate_no'}}</td>
+                 	</tr>
+                 {{/if}}
+                 </tbody>
+             </table>
+         </div>
+     </div>
+ </div>

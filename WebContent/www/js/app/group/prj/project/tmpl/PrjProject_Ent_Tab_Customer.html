@@ -1,0 +1,85 @@
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_project_customer'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7">
+	             <div class="text-right">
+		            <a data-divtoogle="#tabCustomer" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize font-size-18"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+        <div id="tabCustomer" class="table-responsive" style="overflow: unset;">
+            <table class="table table-centered table-nowrap">
+			    <tbody>
+				{{#if hasData}}
+			     {{#each customers}}
+			        <tr class="customer-item" data-memid="{{entId02}}">
+			        	<td style="width: 50px;">
+			        		<img src="{{reqSrcAvatarCustomer ent02}}" class="rounded-circle avatar-xs" alt="">
+			        	</td>
+			            <td>
+			            	<h5 class="font-size-16 m-0"><a href="javavscript:void(0)" class="text-dark" title="{{ent02.name01}}"> {{reqNameCustomer ent02.name01}}</a></h5>
+			            </td>
+			            <td>
+			            	<span class="typ-content content-customer">{{reqTypeMember typ}}</span>
+			            </td>
+                        <td class="isManager">
+                        	<div class="dropdown">
+	                             <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+	                                 <i class="mdi mdi-dots-horizontal font-size-18"></i>
+	                             </a>
+	                             <ul class="dropdown-menu dropdown-menu-right" style="transform: unset!important;">
+	                                 <li><span data-id="{{id}}" data-cusid="{{entId02}}" class="dropdown-item customer-info"><i class="mdi mdi-pencil font-size-16 text-success mr-1"></i>{{transl 'prj_project_customer_edit'}}</span></li>
+	                                 <li><span data-id="{{id}}" data-cusid="{{entId02}}" class="dropdown-item customer-delete"><i class="mdi mdi-trash-can font-size-16 text-danger mr-1"></i>{{transl 'prj_project_customer_delete'}}</span></li>
+	                                 {{#equal typ '0'}}
+	                                 <li><span data-id="{{id}}" data-changeto="1" class="dropdown-item customer-typ"><i class="mdi mdi-transfer font-size-16 text-success mr-1"></i>{{transl 'prj_project_customer_change_typ_high'}}</span></li>
+	                                 {{/equal}}
+	                                 {{#equal typ '1'}}
+	                                 <li><span data-id="{{id}}" data-changeto="0" class="dropdown-item customer-typ"><i class="mdi mdi-transfer font-size-16 text-success mr-1"></i>{{transl 'prj_project_customer_change_typ_low'}}</span></li>
+	                                 {{/equal}}
+	                                 
+	                             </ul>
+	                         </div>
+                        </td>
+			        </tr>
+			        <tr> 
+			        	<td colspan="4" style="border-top: unset; ">
+			            	<span class="typ-content content-customer" style="word-wrap: break-word;white-space: normal;">{{cmt}}</span>
+			            </td>
+			        </tr>
+				 {{/each}}
+				{{else}}
+					<tr>
+						<td colspan="4">{{transl 'prj_project_customer_no'}}</td>
+					</tr>
+				 {{/if}}
+			    </tbody>
+			</table>
+			<div class="action-item-customer px-2 isManager">
+				<div class="font-size-14 h5">{{transl 'prj_project_customer_new_title'}}</div>
+	        	<div class="my-3 row">
+	        		<div class="col-md-6">
+		                 <div class="mt-2 mt-md-0">
+		                 	<select class="form-control" id="sel_customer_type">
+		                 		<option value="0">{{transl 'prj_project_customer_typ'}}</option>
+				        		<option value="0">{{transl 'prj_project_customer_typ_low'}}</option>
+				        		<option value="1">{{transl 'prj_project_customer_typ_high'}}</option>
+				       		</select>
+		                 </div>
+		             </div>
+	        		<div class="col-md-6">
+				    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_name_customer" placeholder="{{transl 'prj_project_customer_enter_name'}}">
+		        	</div>
+		        	
+		        	<div class="col-md-12 mt-2">
+		        		<input type="text" class="inner form-control" id="inp_note_customer" placeholder="{{transl 'prj_project_customer_enter_note'}}">
+		        	</div>
+	        	</div>
+	        </div>
+        </div>
+    </div>
+</div>

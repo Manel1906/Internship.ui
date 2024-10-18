@@ -1,0 +1,210 @@
+.paginationjs ul {
+/* 	-webkit-box-pack: center !important; */
+/* 	-ms-flex-pack: center !important; */
+/* 	justify-content: center !important; */
+/* 	display: flex; */
+/* 	padding-left: 0; */
+/* 	list-style: none; */
+/* 	border-radius: .25rem; */
+	
+	display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+    -webkit-box-pack: center!important;
+    -ms-flex-pack: center!important;
+    justify-content: center!important;
+    margin-top: 1.5rem!important;
+}
+
+.paginationjs:after {
+	display: table;
+	content: " ";
+	clear: both;
+}
+
+.paginationjs .paginationjs-go-button, .paginationjs .paginationjs-go-input,
+	.paginationjs .paginationjs-nav {
+	float: left;
+	margin-left: 10px;
+	font-size: 14px;
+}
+
+.paginationjs .paginationjs-pages {
+/* 	float: left; */
+/* 	width: 100% */
+}
+
+.paginationjs .paginationjs-pages ul {
+/* 	list-style-type: none; */
+/* 	margin: 0; */
+/* 	padding: 0; */
+/* 	overflow: hidden; */
+/* 	background-color: #FFF; */
+/* 	float: left; */
+}
+
+.paginationjs .paginationjs-pages li {
+	float: left;
+}
+
+.paginationjs .paginationjs-pages li>a {
+	position: relative;
+	display: block;
+	border-radius: 30px !important;
+	margin: 0 3px;
+	border: none;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	text-align: center;
+	line-height: 32px;
+}
+
+.paginationjs .paginationjs-pages li>a:hover {
+/* 	z-index: 2; */
+/* 	color: #1f3dd0; */
+/* 	background-color: #eff2f7; */
+	
+	z-index: 2;
+    color: #fff;
+    text-decoration: none;
+    background-color: #556ee6;
+    border-color: #556ee6;
+}
+
+.paginationjs .paginationjs-pages li.active {
+	border: none;
+}
+
+.paginationjs .paginationjs-pages li.active>a {
+	z-index: 3;
+	color: #fff;
+	background-color: #556ee6;
+	border-color: #556ee6;
+}
+
+.paginationjs .paginationjs-pages li.disabled>a {
+	opacity: 0.5;
+	color: black;
+}
+
+.paginationjs .paginationjs-pages li.disabled>a:hover {
+	background: 0 0;
+}
+
+.paginationjs .paginationjs-pages li:first-child, .paginationjs .paginationjs-pages li:first-child>a
+	{
+	border-radius: 3px 0 0 3px;
+}
+
+.paginationjs .paginationjs-pages li:last-child {
+	/* border-right: 1px solid #aaa; */
+	border-radius: 0 3px 3px 0;
+}
+
+.paginationjs .paginationjs-pages li:last-child>a {
+	border-radius: 0 3px 3px 0;
+}
+
+.paginationjs .paginationjs-go-input>input[type="text"] {
+	width: 35px;
+	height: 35px;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px solid #aaa;
+	padding: 0;
+	font-size: 14px;
+	text-align: center;
+	vertical-align: baseline;
+	outline: 0;
+	box-shadow: none;
+	box-sizing: initial;
+}
+
+.paginationjs .paginationjs-go-button>input[type="button"] {
+	min-width: 40px;
+	height: 35px;
+	line-height: 35px;
+	background: #fff;
+	border-radius: 3px;
+	border: 1px solid #aaa;
+	text-align: center;
+	padding: 0 8px;
+	font-size: 14px;
+	vertical-align: baseline;
+	outline: 0;
+	box-shadow: none;
+	color: #333;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.paginationjs .paginationjs-ellipsis{
+	position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.paginationjs .paginationjs-ellipsis .div_input_pagination {
+	visibility: visible;
+    width: 100px;
+    background-color: #fff;
+    color: #556ee6;
+    text-align: center;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+/*     left: 50%; */
+	right: -80%;
+    margin-left: -80px;
+    border: 1px solid #556ee6;
+}
+
+.paginationjs .paginationjs-ellipsis .div_input_pagination:before{
+	content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #556ee6;
+    position: absolute;
+    bottom: -14px;
+    left: 35%;
+}
+
+.paginationjs .paginationjs-ellipsis .div_input_pagination:after {
+	content: "";
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #556ee6;
+    border-top-color: #fff;
+    bottom: -14px;
+    left: 35%;
+}
+
+.paginationjs .paginationjs-ellipsis .div_input_pagination .li_input_pagination {
+	padding: 5px 0;
+}
+
+.paginationjs .paginationjs-ellipsis .div_input_pagination input{
+	height: 30px;
+	text-align: center; 
+	color: #333;
+	border: unset;
+	border-bottom: 1px solid #556ee6;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+}

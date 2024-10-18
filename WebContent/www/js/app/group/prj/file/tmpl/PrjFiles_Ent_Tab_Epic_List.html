@@ -1,0 +1,33 @@
+        	{{#if this}}
+            <table class="table table-centered">
+<!--              table-nowrap -->
+			    <tbody>
+			     {{#each this}}
+			        <tr>
+			            <td class="td-epic" data-id="{{id}}" style="width:80%">
+			            	<h5 class="font-size-14 m-0">
+			            		<a data-url="view_prj_file_content.html?id={{id}}&code={{code01}}" data-route="VI_MAIN/prj_file_ent" target="_self" class="hnv-route text-dark">{{name}}</a>
+			            		<span class="text-success font-size-16 cursor-pointer span-show-epic mr-1" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-eye-outline"></i></span>
+			            		<span class="text-default font-size-16 cursor-pointer span-hide-epic mr-1 d-none" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-eye-off-outline"></i></span>
+			            	</h5>
+							<a class="font-italic text-success mt-1">{{nbEpic}} {{transl "prj_file_epic_number_epic"}}</a>
+ 			            	<a class="font-italic text-info mt-1"	>{{nbFile}} {{transl "prj_file_epic_number_epic_file"}}</a>
+			            	<p></p>
+<!-- 			            	<p class="font-size-12 m-0"><a class="text-dark">{{{extractMsgHtml descr01 200}}}</a></p> -->
+<!-- 			            	<p class="font-size-12 m-0"><a class="text-dark">{{transl 'prj_project_percent'}}: {{twoDigitFixed val05 2}} %</a></p> -->
+							<p class="tab_show_epic_detail bg-light m-0" data-id="{{id}}" data-code="{{code01}}"></p>
+			            </td>
+			            <td class="d-flex justify-content-end isManager">
+			            	{{#if stat02}}
+			            	<span class="span-unlock-epic   dropdown-item cursor-pointer hideBA hideDev hideTest hideMem hideGuest" data-id="{{id}}" data-code="{{code01}}" data-stat="{{stat}}"><i class="mdi mdi-lock   font-size-16 text-primary mr-1"></i></span>
+				 			{{else}}
+				 			<span class="span-lock-epic 	dropdown-item cursor-pointer hideBA hideDev hideTest hideMem hideGuest" data-id="{{id}}" data-code="{{code01}}" data-stat="{{stat}}"><i class="mdi mdi-lock-open-outline font-size-16 text-primary mr-1"></i></span>
+			            	{{/if}}
+			            </td>
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>
+			{{else}}
+			<div>{{transl 'prj_file_epic_no'}}</div>
+			{{/if}}

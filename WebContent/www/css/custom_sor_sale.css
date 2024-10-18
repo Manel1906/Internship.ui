@@ -1,0 +1,23 @@
+.main-header .sidebar-toggle{
+	padding: 0px 15px;
+}
+@media (max-width: 767px){
+	.sidebar-open .main-sidebar .sidebar{
+	    margin-top: 81%;
+	}
+	#div_SorSale_List_Content_Content td .btnRemove {
+		font-size: x-small !important;
+	}
+}
+@media only screen and (min-width: 768px)
+{
+	.sidebar-toggle{
+		display :none;
+	}
+}
+@media only screen and (max-width: 1366px)
+{
+	#div_ContentView{
+		overflow-y : unset !important;
+	}
+}

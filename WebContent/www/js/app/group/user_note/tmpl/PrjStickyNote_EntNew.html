@@ -1,0 +1,58 @@
+   <!-- ------------------------------main----------------------------- -->          
+   <!-- ------------------------------main----------------------------- -->     
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body" id="div_create_prj">
+                        <form class="outer-repeater">
+	                        <div data-repeater-list="outer-group" class="outer">
+	                        	<div data-repeater-item class="outer">
+									<!-- name -->
+	                        		<div class="form-group row mb-2">
+		                        		<div class="col-lg-12">
+<!-- 			                                <label for="projectname" class="col-form-label h5">{{transl 'prj_project_sticky_note_title'}} *</label> -->
+			                                <div>
+			                                	<input type="hidden" class="objData" data-name="lev" value="{{lev}}">
+			                                    <input id="projectname" data-name="title" type="text" class="form-control objData" placeholder="{{transl 'prj_project_sticky_note_title'}} *" data-validation="required">
+			                                </div>
+		                                </div>
+		                            </div>
+		                            
+									<div class="row ">
+<!-- 										<div class="col-lg-12"> -->
+<!-- 			                                <label for="" class="col-form-label h5">{{transl 'prj_project_sticky_note_draw'}} *</label> -->
+<!-- 										</div> -->
+										<button type="button" id="drawNoteNew" class="note-btn btn btn-default btn-md">
+											<i class="fa fa-pencil-alt"></i>
+										</button>
+										<button type="button" id="drawNoteClear" class="note-btn btn btn-default btn-md hide" >
+											<i class="fa fa-eraser"></i>
+										</button>
+										<button type="button" id="drawNoteAdd" class="note-btn btn btn-default btn-md hide" >
+											<i class="fa fa-plus"></i>
+										</button>
+									</div>
+									
+									<div class="mb-4">
+										<div id="drawPad" class="hide sticky-note drawpad-dashed"></div>
+									</div>
+
+		                            <!-- descr01 -->
+		                            <div class="row mb-2">
+		                            	<div class="col-lg-12">
+<!-- 			                                <label for="projectdesc" class="col-form-label h5">{{transl 'prj_project_project_des'}} *</label> -->
+			                                <div class="">
+			                                    <textarea class="form-control objData" data-name="descr" id="projectdesc" rows="5" placeholder="{{transl 'prj_project_enter_project_des'}}"></textarea>
+			                                </div>
+		                                </div>
+		                            </div>
+		                            
+										
+	                        	</div>
+	                        </div>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>

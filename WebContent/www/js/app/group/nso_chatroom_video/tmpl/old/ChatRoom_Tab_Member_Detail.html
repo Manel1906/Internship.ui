@@ -1,0 +1,39 @@
+<table class="table table-centered table-nowrap table-member-detail">
+    <tbody>
+        {{#each this}}
+		{{#equal stat '1'}}
+         <tr>
+         	 <td><i class="mdi mdi-circle font-size-10 {{#if isOnline}}text-success{{/if}}"></i></td>
+             <td>
+             	{{#if mem.avatar}}
+             	<img src="{{reqSrcAvatarMember mem}}" class="rounded-circle avatar-xs" alt="" onerror="{{imageErrorUser}}">
+             	{{else}}
+             	<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor mem.login01}}"><div class="text-middle">{{reqSrcTextAvatar mem.login01}}</div></div>
+        	{{/if}}
+        </td>
+        <td class="small_hide">{{reqNameMember mem.login01}}</td>
+        <td>{{reqLevelMember typ}}</td>
+        <td class="div_member_detail" data-id="{{uId}}"><i class="mdi mdi-chat-outline font-size-18 text-success cursor-pointer"></i></td>
+        {{#notEqual typ '10'}}
+        <td class="td-mem-action">
+        	{{#if (hasRightTransformChat @root)}}
+        	{{#equal typ '2'}}
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical font-size-18"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+<!--                              	{{#equal typ '0'}}<li><a data-transform="2" data-id="{{id}}" data-memid="{{uId}}" href="#" class="dropdown-item btn-transform"><i class="mdi mdi-pencil font-size-16 text-success mr-1"></i>{{transl 'prj_chat_member_to_worker'}}</a></li>{{/equal}} -->
+                     		<li><a data-transform="0" data-id="{{id}}" data-memid="{{uId}}" href="#" class="dropdown-item btn-transform"><i class="mdi mdi-pencil font-size-16 text-success mr-1"></i>{{transl 'prj_chat_member_to_man'}}</a></li>
+                         	<li><a data-id="{{id}}" data-memid="{{uId}}" href="#" class="dropdown-item btn-remove-group"><i class="mdi mdi-trash-can font-size-16 text-danger mr-1"></i>{{transl 'prj_chat_member_remove'}}</a></li>
+                     </ul>
+                 </div>
+                 {{/equal}}
+                 {{/if}}
+             </td>
+             {{/notEqual}}
+         </tr>
+        {{/equal}}
+		{{/each}}
+	</tbody>
+</table>

@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{transl 'nso_group_email_new_title'}}</h4>
+        <div class="needs-validation" id="frm_new_group">
+        	<input type="hidden" class="objData" data-name="id" 		value="{{id}}">
+			<input type="hidden" class="objData" data-name="typ01" 	value="500">
+			<input type="hidden" class="objData" data-name="grRef" 		value="{{ref}}">
+								
+            <div class="row">
+            	<div class="col-lg-6 col-md-6 col-sm-12">		
+		            <div class="form-group">
+		            	<h5 class="font-size-15 my-2 mb-1">{{transl 'nso_group_email_header_name'}} *</h5>
+                		<input type="text" data-name="name" class="form-control objData" id="inp_group_name" placeholder="{{transl 'nso_group_email_header_name'}}" data-validation="required">
+		            </div>
+		            <div class="form-group">
+						<h5 class="font-size-15 my-2 mb-1">{{transl 'nso_group_email_header_status'}} *</h5>
+						<select class="form-control objData" data-name="stat01" id="stat">
+							<option value="0">{{transl "nso_group_email_header_status_not_validated"}}</option>
+							<option value="1">{{transl "nso_group_email_header_status_validated"}}</option>
+							<option value="10">{{transl "nso_group_email_header_status_wait_delete"}}</option>
+						</select>
+					</div>
+		         </div>
+		         
+		         <div class="col-lg-6 col-md-6 col-sm-12">		
+		            <div class="form-group">
+		            	<h5 class="font-size-15  my-2 mb-1"">{{transl 'nso_group_email_header_content_01'}} *</h5>
+						<textarea rows="5" cols="25" id="val01" class="objData form-control" data-name="val01" data-label="{{transl 'nso_group_email_header_content_01'}}" >{{{val01}}}</textarea>
+		            </div>
+		         </div>
+		    </div>
+        </div>
+        <div class="row justify-content-end">
+	        <div class="col-auto">
+	            <button id="btn_create_group" class="btn btn-primary" type="button">{{transl 'common_btn_new'}}</button>
+	        </div>
+    	</div>
+    </div>
+</div>

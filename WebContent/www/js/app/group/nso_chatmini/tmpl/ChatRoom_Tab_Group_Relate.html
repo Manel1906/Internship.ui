@@ -1,0 +1,57 @@
+<ul class="list-unstyled chat-list" data-simplebar style="max-height: calc(100vh - 350px)';">
+{{#each this}}
+	{{#ifCond typ01 '==' 201}}
+    <li class="chat-element">
+        <a href="javascript:void(0)" class="chat-item {{#if hasNewMsg}}has-new-msg-item{{/if}}" data-id="{{id}}"  data-typChat="2" data-recent="1">
+            <div class="media align-items-center">
+            	<div class="align-self-center mr-3">
+                     <i class="bx bx-group font-size-14"></i>
+               </div>
+               {{#if val01}}
+               <div class="align-self-center mr-3">
+                   <img src="{{val01.img}}" class="rounded-circle avatar-xs" alt="" onerror="{{imageErrorUser}}">
+               </div>
+               {{else}}
+                <div class="avatar-xs mr-3">
+                    <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                        {{reqFirstLetter name}}
+                    </span>
+                </div>
+                {{/if}}
+                <div class="media-body">
+                    <h5 class="font-size-14 mb-0">{{name}}</h5>
+                </div>
+            </div>
+        </a>
+         <div class="show_chat_room" data-typ="2"  data-id="{{id}}">
+                <i class="mdi mdi-content-copy font-size-16 float-right"></i>
+          </div>
+    </li>
+    {{/ifCond}}
+    {{#ifCond typ01 '==' 200}}
+	 <li class="chat-element">
+            <a href="javascript:void(0)"  class="chat-item {{#if hasNewMsg}}has-new-msg-item{{/if}}" data-id="{{id}}" data-typChat="1" data-recent="1">
+                <div class="media align-items-center">
+                    <div class="align-self-center mr-3">
+                        <i class="mdi mdi-circle font-size-10 {{#if isOnline}}text-success{{/if}}"></i>
+                    </div>
+                    <div class="align-self-center mr-3">
+                    	{{#if avatar}}
+                        <img src="{{avatar}}" class="rounded-circle avatar-xs" alt="" onerror="{{imageErrorUser}}">
+                        {{else}}
+                        <div class="rounded-circle avatar-xs text-white text-uppercase" style='background-color: {{reqSrcTextColorRelateChat login01}}'><div class="text-middle mini-text-middle">{{reqSrcTextAvatarRelateChat login01}}</div></div>
+                        {{/if}}
+                    </div>
+                    
+                    <div class="media-body overflow-hidden">
+                        <h5 class="text-truncate font-size-14 mb-1">{{reqSrcTextLoginRelateChat login01}}</h5>
+                    </div>
+                </div>
+            </a>
+            <div class="show_chat_room" data-typ="1"  data-id="{{id}}">
+                        <i class="mdi mdi-content-copy font-size-16 float-right"></i>
+                    </div>
+        </li>
+     {{/ifCond}}
+{{/each}}
+</ul>

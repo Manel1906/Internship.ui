@@ -1,0 +1,81 @@
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Cmt_Main-->
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+            <div class="col-12 isManager">
+                <div class="text-sm-right">
+                    <a class="btn-resize" data-divtoogle="#div_NsoPost_Ent_Tab_Doc_All" data-original-title="Resize"
+                       data-placement="top" data-toggle="tooltip" title="">
+                        <i class="mdi mdi-window-minimize font-size-18"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row col-12" id="div_NsoPost_Ent_Tab_Doc_All">
+            <div class="col-12">
+                <h4 class="card-title mb-4 shp_font_size">{{transl "nso_post_ent_tab_comment"}}</h4>
+            </div>
+            <div class="col-12" id="div_cmt_list_content">
+            </div>
+            <nav class="col-12" id="cmt_pagination"></nav>
+        </div>
+    </div>
+</div>
+
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Cmt_List-->
+<div>
+    {{#if data}}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">{{transl "nso_post_ent_tab_comment_user"}}</th>
+                <th scope="col">{{transl "nso_post_ent_tab_comment_title"}}</th>
+                <th scope="col">{{transl "nso_post_ent_tab_comment_content"}}</th>
+                <th scope="col">{{transl "nso_post_ent_tab_comment_reported"}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#each data}}
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td>{{uN01}}</td>
+                <td>{{title}}</td>
+                <td>{{cont01}}</td>
+                <td>
+                    <button class="btn btn-danger" type="button">
+                        <svg class="bi bi-exclamation-triangle-fill" fill="yellow" height="13" viewBox="0 0 16 16"
+                             width="13" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{else}}
+    <div class="wygo-pricebox">
+        <span>{{transl "post_you_first"}}</span>
+    </div>
+    {{/if}}
+</div>
+
+<!--END TMPL-->
+
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Cmt_List_Not_Found-->
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="div_cmt_nothing">
+    <h3>{{transl "cmt_list_not_found"}}</h3>
+</div>
+<!--END TMPL-->

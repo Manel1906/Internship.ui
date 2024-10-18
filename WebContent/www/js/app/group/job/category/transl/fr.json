@@ -1,0 +1,46 @@
+{
+	"prj_tpy_cat_project_report_list"	: "Liste des projets pour CRA",
+	"prj_typ_cat_label_information"		: "Informations principales",
+
+	"tpy_cat_material_list":"Liste des groupes de Produits",
+	"tpy_cat_unit_list":"Liste valeurs de base",
+	"tpy_cat_sor_list":"Liste des groupes d'chat et vente",
+	"tpy_cat_person_list":"Liste des catégories client fournisseur partenaire",
+
+	"tpy_cat_list_head_code":"Code interne",
+	"tpy_cat_list_head_name":"Libellé du Produits",
+	"tpy_cat_name_label":"Nom",
+	"tpy_cat_lang_label":"Langue",
+	"tpy_cat_parent_type":"Concerne le",
+	"tpy_cat_type_01":"Numéro de catégorie",
+	"tpy_cat_type_02":"Autres numéros",
+	"tpy_cat_code_label":"Code interne",
+	"tpy_cat_descr_label":"Description",
+	"tpy_cat_transl_label":"Traduction",
+	"tpy_cat_error_code_exist":"Code interne existant",
+	"tpy_cat_data_error_msg":"Erreur ! Merci de vérifier la saisie",
+	"tpy_cat_msg_mod_save_content":"Souhaitez vous modifier le contenu ?",
+	"tpy_cat_btn_cancel_title":"Validé",
+	"tpy_cat_btn_cancel_content":"Souhaiterez vous annuler la modification ?",
+	"tpy_cat_btn_del_title":"Validé",
+	"tpy_cat_btn_del_content":"Souhaiterez vous Supprimer cette information ?",
+
+	"tpy_cat_par_material":"Produits",
+	"tpy_cat_par_mat_unit":"Unité de base",
+	"tpy_cat_par_client_partner":"Client et partenaire",
+	"tpy_cat_par_balance":"Achat et Vente",
+	"tpy_cat_par_invoice":"Facture",
+	"tpy_cat_par_event":"Evénement avec les partenaires",
+
+	"tpy_cat_popup_duplicate_societe":"Entreprise",
+	"tpy_cat_popup_duplicate_societe_help":"Sélectionnez une entreprise",
+	"tpy_cat_popup_duplicate_title":"Copier les groupes/ catégories pour une filiale",
+
+	"tpy_cat_popup_list_20000":"Produit",
+	"tpy_cat_popup_list_20400":"Unité de base",
+	"tpy_cat_popup_list_10101":"Balance",
+	"tpy_cat_popup_list_30000":"Client et partenaire",
+	"tpy_cat_popup_list_title":"Liste des groupes",
+
+	"job_report_msg_user_right_error":"Vous ne disposez pas de droit pour effectuer cette action."
+}

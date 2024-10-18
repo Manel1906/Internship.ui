@@ -1,0 +1,28 @@
+<div class="card card-body">
+	<div class="media">
+    	<div class="col-sm-5">
+   			<h4 class="card-title mb-4 media-body">{{transl 'common_files'}}</h4>
+   		</div>
+   		<div class="col-sm-7">
+   			 <div class="dropdown float-right">
+                    
+                 <a href="javascript:void(0)" class="btn-vertital-docs dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false" style="display: none;">
+                        <i class="mdi mdi-dots-vertical font-size-18"></i>
+                 </a>
+                    
+                 <a data-divtoggle="#div_document" class="btn-resize-docs cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-maximize font-size-16 text-primary"></i>
+                </a>
+                
+                    <ul class="dropdown-menu dropdown-menu-right">
+                       <li><span id="btn_refresh_doc" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh font-size-16 text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+                    </ul>
+                </div>
+         </div>
+    </div>
+    <div id="div_document" style="display: none;">
+		<div id="div_docs_list"></div>
+		<div id="div_docs_pagination"></div>
+	</div>
+</div>
+	

@@ -1,0 +1,41 @@
+<div class="form-group">
+	<i class="icon-profile-male"></i>
+	<input id = "idLogin" type="text" class="objData form-control" data-validation="required" data-name="login" placeholder="{{transl 'signup_username'}}">
+</div>
+<div class="form-group">
+	<i class="icon-icons208"></i>
+	<input id="idEmail" type="email" class="objData form-control" data-validation="required email" data-name="email" placeholder="{{transl 'signup_email'}}">
+</div>
+<div id='result'></div>
+<div class="form-group">
+	<i class="icon-lock-stripes"></i>
+	<input type="password" id="txtNewPassword" class="objData form-control" data-validation="required" data-name="pass" placeholder="{{transl 'signup_password'}}">
+	<div class="registrationFormAlert" id="divCheckPassword"></div>
+</div>
+<div class="form-group">
+	<i class="icon-lock-stripes" id="icon_checkPass"></i>
+	<input type="password" id="txtConfirmPassword" class="form-control" placeholder="{{transl 'signup_password_confirm'}}">
+	<div class="registrationFormAlert" id="divCheckPasswordMatch"></div>
+</div>
+<div class="form-group btn-show-subinfo">
+	<p style="text-align: center;color:#6fbf17; cursor: pointer;">{{transl 'signup_more_info'}} <i class="fa fa-angle-down"></i></p>
+</div>
+<div class="sub_info" style="display:none">
+	<div class="form-group">
+		<i class="icon-vcard"></i>
+		<input id="idDocNumPer" type="text" class="objData form-control classDocNum" data-name="idDocNumPer" placeholder="{{transl 'signup_scmnd'}}">
+	</div>
+	<div class="form-group class_date">
+		<i class="icon-calendar5"></i>
+		<input id="idDocDate" type="text" class="objData form-control datepicker" data-name="idDocDate" style="border: 1px solid #ced4da;" placeholder="{{transl 'signup_date'}}">
+		<span></span>
+	</div>
+	<div class="form-group">
+		<i class="icon-world"></i>
+		<input id="idDocPlace" type="text" class="objData form-control" data-name="idDocPlace" placeholder="{{transl 'signup_place'}}">
+	</div>
+</div>
+<div class="form-group btn-hide-subinfo" style="display:none">
+	<p style="text-align: center;color:#6fbf17; cursor: pointer;">{{transl 'signup_hide_info'}} <i class="fa fa-angle-up"></i></p>
+</div>
+<button id="btn_Register" class="btn btn-primary btn-block waves-effect waves-light">{{transl "common_btn_register"}}</button>

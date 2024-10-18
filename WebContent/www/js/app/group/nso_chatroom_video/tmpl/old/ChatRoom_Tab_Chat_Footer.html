@@ -1,0 +1,178 @@
+<div id="div_inp_file" class="p-3 chat-input-section hide">
+	<div class="row">
+		<div class="col">
+			<div class="position-relative">
+				<form action="/" method="post" class="dropzone inputfile">
+					<div class="fallback">
+						<input data-name="file" type="file" multiple />
+					</div>
+
+					<div class="dz-message needsclick">
+						<div class="mb-3">
+							<i class="display-4 text-muted bx bxs-cloud-upload"></i>
+						</div>
+						<h4>{{transl 'prj_project_drop_files'}}</h4>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="div_inp_capture" class="camera-div hide">
+	<div id="my_camera" class=""></div>
+	<img id="photo_res" class="img-capture"></img>
+
+	<a href="javascript:void(0)" id="close_sc" class="camera icon-close" data-placement="bottom"
+		title="Close camera">
+		<i class="mdi mdi-close"></i>
+	</a>
+
+	<a href="javascript:void(0)" id="switch_cam" class="camera icon-close-left" data-placement="bottom"
+		title="Close switch">
+		<i class="mdi mdi-cached"></i>
+	</a>
+
+	
+
+	<a href="javascript:void(0)" id="take_sc" class="camera icon-custom icon-mid" data-placement="bottom"
+		title="Take Snapshot">
+		<i class="mdi mdi-camera"></i>
+	</a>
+
+	<a href="javascript:void(0)" id="trash" class="camera icon-custom icon-disabled" data-placement="bottom" title="Delete Capture">
+		<i class="mdi mdi-delete"></i>
+	</a>
+
+	<a href="javascript:void(0)" id="send_sc" class="camera icon-custom icon-right icon-disabled" data-placement="bottom"
+		title="Send">
+		<i class="mdi mdi-send"></i>
+	</a>
+
+</div>
+
+<div class="p-3 chat-input-section">
+	<div id="div_msg_with_img" class="chat-overflow chat-lst-img hide">
+		<div id="div_chat_list_img" class="chat-row-img"></div>
+	</div>
+	<div class="row">
+		<!-- 	                                        	<div class="dropdown h-100"> -->
+		<!--                                                     <button class="btn nav-btn dropdown-toggle btn-mobile_show" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+		<!--                                                         <i class="bx bx-dots-horizontal-rounded"></i> -->
+		<!--                                                     </button> -->
+		<!--                                                     <div class="dropdown-menu change-mode_text" style="" aria-labelledby="dropdownMenuButton"> -->
+		<!--                                                         <a class="dropdown-item" href="javascript:void(0)" id="btn_trans_simple">{{transl 'prj_chat_inp_change_simple'}}</a> -->
+		<!--                                                         <a class="dropdown-item" href="javascript:void(0)" id="btn_trans_summer">{{transl 'prj_chat_inp_change_summer'}}</a> -->
+		<!--                                                     </div> -->
+		<!--                                                 </div> -->
+
+		<div class="dropdown h-100">
+			<button id="btn_add_file" class="btn nav-btn btn-mobile_show btn-not-recording" type="button" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false">
+				<a href="javascript:void(0)" data-placement="bottom" title="Add Files"><i
+						class="mdi mdi-file-document-outline"></i></a>
+			</button>
+
+			<button id="btn_capture" class="btn nav-btn btn-mobile_show mobile_version btn-not-recording" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a href="javascript:void(0)" data-placement="bottom" title="Capture"><i class="mdi mdi-camera"></i></a>
+			</button>
+			<button id="btn_recorder" class="btn nav-btn btn-mobile_show" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a href="javascript:void(0)" data-placement="bottom" title="Recorder"><i class="mdi mdi-microphone font-size-14"></i></a>
+			</button>
+			<button id="btn_recorder_stop" class="btn nav-btn text-danger" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="display:none">
+				X
+			</button>
+			
+			<br />
+		</div>
+		<div class="col px-0">
+			<div class="position-relative">
+				{{#if simpleChat}}
+				<!-- <input type="text" class="form-control chat-input" id="inp_msg"> -->
+				<!-- <div class="emoji"></div> -->
+				<div contenteditable="true" class="form-control input" id="inp_msg" autofocus></div>
+				{{else}}
+				<textarea class="form-control chat-input" id="inp_msg" autofocus></textarea>
+				{{/if}}
+				
+				<div class='sound-wave hide_recording'>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				    <i class='bar'></i>
+				  </div>
+				
+
+<!-- 				<div id="recording" class="col-sm-3 control-label hide"> -->
+<!-- 					<span class="text-danger"><strong>RECORDING</strong></span>&nbsp; <span id="time-display">00:00</span> -->
+<!-- 				</div> -->
+
+				<div class="chat-input-links btn-not-recording" {{#if simpleChat}} style="top: 50%" {{/if}}>
+					<div class="list-inline mb-0 emoji">
+						<div id="div_table_emoji" class="table_emoji d-none"></div>
+						<div id="btn_add_emoji" class="list-inline-item"><a href="javascript:void(0)"
+								data-toggle="tooltip"><i id="i-emoji" class="mdi mdi-emoticon-happy-outline"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+ 
+		<div class="dropdown h-100 btn-not-recording">
+			<button id="btn_send_like_direct" class="btn nav-btn" type="button" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false">&#128077;</button>
+		</div>
+
+		<div class="dropdown h-100">
+			<button type="button" id="btn_send_msg"
+				class="btn btn-primary btn-rounded chat-send waves-effect waves-light">
+				<i class="mdi mdi-send"></i>
+			</button>
+		</div>
+	</div>
+</div>

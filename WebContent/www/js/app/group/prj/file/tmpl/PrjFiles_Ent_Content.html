@@ -1,0 +1,107 @@
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+        	<div>
+				{{log avatar}}
+				{{#if avatar}}
+					<img src="{{reqSrcImg avatar}}" alt="" class="avatar-sm mr-4 rounded-circle">
+				{{else}}
+	        		<img src="{{reqSrcAvatarPrj @root}}" alt="" class="avatar-sm mr-4 rounded-circle">
+				{{/if}}
+        	</div>
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-18 info-edit info-content">{{name}}</h5>
+                <input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit hideDev hideTest hideMem hideGuest">
+<!--                 {{{reqDateLate dtNew stat}}} -->
+            </div>
+            <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+            </a>
+            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+            	<i class="mdi mdi-close font-size-20"></i>
+            </a>
+            
+            <div class="dropdown float-right font-size-20">
+            	<a class="cursor-pointer" id="btn_refresh_content">
+                   <i class="mdi mdi-refresh text-primary mr-1"></i>
+                </a>
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
+                </a>
+                
+                <a data-divtoogle="#div_prj_info" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize text-primary"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                	<li><span id="btn_refresh_content" 	class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+                	<li><span id="btn_search_file" 		class="dropdown-item cursor-pointer"><i class="mdi mdi-magnify text-primary mr-1"></i>{{transl 'prj_project_find_file'}}</span></li>
+                	
+                	<li><span id="btn_add_avatar" 		class="dropdown-item cursor-pointer hideLock   hideBA hideDev hideTest hideMem hideGuest"><i class="mdi mdi-plus text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span></li>
+				    <li><span id="btn_show_history" 	class="dropdown-item cursor-pointer hideLock   hideBA hideDev hideTest hideMem hideGuest"><i class="mdi mdi-history text-primary mr-1"></i>{{transl 'prj_history_btn'}}</span></li>
+					<li><span id="btn_delete" 			class="dropdown-item cursor-pointer hideLock   hideBA hideDev hideTest hideMem hideGuest"><i class="mdi mdi-delete text-primary mr-1"></i>{{transl 'common_btn_delete'}}</span></li>
+					<li><span id="btn_lock" 			class="dropdown-item cursor-pointer hideLock   hideBA hideDev hideTest hideMem hideGuest"><i class="mdi mdi-lock-open-outline text-primary mr-1"></i>{{transl 'common_btn_lock'}}</span></li>
+				 	<li><span id="btn_unlock" 			class="dropdown-item cursor-pointer hideUnlock hideBA hideDev hideTest hideMem hideGuest"><i class="mdi mdi-lock text-primary mr-1"></i>{{transl 'common_btn_unlock'}}</span></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div id="div_prj_info">
+        	<div class="mt-2">
+	        	<form id="div_prj_ent_file_avatar" action="/" method="post" class="dropzone inputfile hide">
+				    <div class="fallback">
+				        <input data-name="files" type="file" data-type="avatar" data-code="20000" data-typ01="1" data-typ02="1"/>
+				    </div>
+				
+				    <div class="dz-message needsclick">
+				        <div class="mb-3">
+				            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+				        </div>
+				        <h4>{{transl 'prj_project_drop_files'}}</h4>
+				    </div>
+				</form>
+        	</div>
+        	<div>
+				<h5 class="font-size-15 mt-4 info-edit h5">{{transl 'prj_project_detail'}}</h5>
+				<div class="info-edit info-content"><p class="text-muted text-justify" data-name="descr01">{{{descr01}}}</p></div>
+				<div class="content-edit hideDev hideTest hideMem hideGuest hide"><textarea data-name="descr01" rows="" cols="" class="form-control objData">{{{descr01}}}</textarea></div>
+			</div>
+			
+			{{#equal typ02 1}}
+			<div class="row">
+				<div class="col-md-12 col-xs-12">
+					<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-data mr-1 text-primary"></i>{{transl 'prj_file_epic'}}</div>
+					<p class="text-muted info-edit info-content">{{epicName}}</p>
+					<select class="form-control objData content-edit hide hideDev hideTest hideMem hideGuest" data-name="parent" id="projectepic">
+<!-- 						<option  value="0"></option> -->
+						{{#each epicInf}}
+						<option  value="{{id}}">{{name}}</option>
+						{{/each}}
+					</select>
+				</div>
+			</div>
+			{{/equal}}
+			
+	        <div class="row task-dates">
+	            <div class="col-md-6 col-xs-12">
+	                <div class="mt-2">
+	                    <div class="font-size-14 info-edit h5"><i class="bx bx-calendar mr-1 text-primary"></i>{{transl 'prj_file_new_date'}}</div>
+	                    <p data-format="date" class="text-muted mb-0 info-edit info-content" data-name="dtNew">{{reqFormatDate dtNew}}</p>
+	                    <div class="input-daterange input-group hide content-edit hideDev hideTest hideMem hideGuest">
+	                    	<input data-format="date pattern_date_time_iso" data-validation="date" type="text" value="{{reqFormatShortDate dtNew}}" data-name="dtNew" class="form-control objData" data-provide="datepicker" data-date-format="dd/mm/yyyy" disabled>
+	                    </div>
+	                </div>
+	            </div>
+	
+	            <div class="col-md-6 col-xs-12">
+	                <div class="mt-2">
+	                    <div class="font-size-14 info-edit h5"><i class="bx bx-calendar-check mr-1 text-primary"></i>{{transl 'prj_file_mod_date'}}</div>
+	                    <p data-format="date" class="text-muted mb-0 info-edit info-content" data-name="dtMod">{{reqFormatDate dtMod}}</p>
+	                    <div class="input-daterange input-group hide content-edit hideDev hideTest hideMem hideGuest">
+	                    	<input data-format="date pattern_date_time_iso" data-validation="date" type="text" value="{{reqFormatShortDate dtMod}}" data-name="dtMod" class="form-control objData" data-provide="datepicker" data-date-format="dd/mm/yyyy" disabled>
+	                    </div>
+		            </div>
+		        </div>
+	        </div>
+	    </div>
+	</div>
+</div>

@@ -1,0 +1,266 @@
+ <div id="div_prj_info">
+	<div class="card">
+	    <div class="card-body">
+	        <div class="media">
+	        	<div>
+	        		{{#ifCond typ02 '==' 0}}
+	        		<img src="{{reqSrcAvatarPrj @root}}" alt="" class="avatar-sm mr-4 rounded-circle">
+	        		{{/ifCond}}
+	        		{{#ifCond typ02 '==' 1}}
+	        		<img src="{{reqSrcAvatarPrjEpic @root}}" alt="" class="avatar-sm mr-4 rounded-circle">
+	        		{{/ifCond}}
+	        		{{#ifCond typ02 '==' 2}}
+	        		<img src="{{reqSrcAvatarPrjTask @root}}" alt="" class="avatar-sm mr-4 rounded-circle">
+	        		{{/ifCond}}
+	        	</div>
+	            <div class="media-body overflow-hidden">
+	                <h5 class="text-truncate font-size-16 info-edit info-content {{reqClassByStat stat}}">{{name}}</h5>
+	                <input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager">
+	                {{{reqDateLate dtEnd stat}}}
+	                {{#equal typ02 0}}<a class="btn btn-success btn-rounded waves-effect waves-light btn-sm isManager" href="view_prj_tree_global.html?id={{id}}" target="_self">{{transl 'prj_project_btn_global'}}</a>{{/equal}}
+	            </div>
+	            <a data-right="view:40001003" id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+	            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+	            </a>
+	            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+	            	<i class="mdi mdi-close font-size-20"></i>
+	            </a>
+	            
+	            <div class="dropdown float-right font-size-20">
+	                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate" data-toggle="dropdown" aria-expanded="false">
+	                    <i class="mdi mdi-dots-vertical"></i>
+	                </a>
+	                <a data-divtoogle="#div_prj_content_01" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize text-primary"></i>
+	                </a>
+	                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+	                    <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer isManager"><i class="mdi mdi-plus  text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span></li>
+	                    <li><span id="btn_refresh_content" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+		                {{#equalOrs typ02 1 2}}
+		                 <li><span data-right="view:40001002" id="btn_duplicate_content" class="dropdown-item cursor-pointer isManager"><i class="mdi mdi-arrange-send-backward  text-primary mr-1"></i>{{transl 'prj_project_duplicate'}}</span></li>
+		                {{/equalOrs}}
+		                <li><span id="btn_show_history" class="dropdown-item cursor-pointer"><i class="mdi mdi-history  text-primary mr-1"></i>{{transl 'prj_history_btn'}}</span></li>
+						<li><span data-right="view:40001004" id="btn_delete" class="dropdown-item cursor-pointer isManager"><i class="mdi mdi-delete  text-primary mr-1"></i>{{transl 'common_btn_delete'}}</span></li>
+						<li><span id="btn_show_wf" class="dropdown-item cursor-pointer"><i class="mdi mdi-account-network  text-primary mr-1"></i>{{transl 'prj_wf_btn'}}</span></li>
+	                </ul>
+	            </div>
+	        </div>
+	        
+	        <div id="div_prj_content_01">
+	        	<div class="mt-2">
+		        	<form id="div_prj_ent_file_avatar" action="/" method="post" class="dropzone inputfile hide">
+					    <div class="fallback">
+					        <input data-name="file" type="file" data-code="20000" data-typ01="2" />
+					    </div>
+					
+					    <div class="dz-message needsclick">
+					        <div class="mb-3">
+					            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+					        </div>
+					        <h4>{{transl 'prj_project_drop_files'}}</h4>
+					    </div>
+					</form>
+	        	</div>
+	        	<div>
+	        		<div class="row">
+	        			<div class="col-6">
+	        				<h5 class="font-size-15 mt-4 info-edit h5">{{transl 'prj_project_detail'}}</h5>
+	        			</div>
+	        			<div class="col-6 br-theme-css-stars pt-4" id="div_star_eval" style="display: none">
+							<select id="rating_01">
+				                  <option value="1">1</option>
+				                  <option value="2">2</option>
+				                  <option value="3">3</option>
+				                  <option value="4">4</option>
+				                  <option value="5">5</option>
+				            </select>
+			            </div>
+	        		</div>
+					<div class="info-edit info-content info-content-description"><p class="text-muted text-justify" data-name="descr01">{{{descr01}}}</p></div>
+					<div class="content-edit isManager hide"><textarea data-name="descr01" rows="6" cols="" class="form-control objData">{{{descr01}}}</textarea></div>
+				</div>
+				
+		    </div>
+		</div>
+	</div>
+	<div class="card">
+	    <div class="card-body">
+	    	<div class="media">
+	            <div class="media-body overflow-hidden">
+	                <h5 class="text-truncate font-size-16 info-edit info-content"></h5>
+	            </div>
+	            <a id="a_btn_save02" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+	            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+	            </a>
+	            <a id="a_btn_cancel02" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+	            	<i class="mdi mdi-close font-size-20"></i>
+	            </a>
+	            
+	            <div class="dropdown float-right font-size-20">
+	                <a data-divtoogle="#div_prj_content_02" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize text-primary"></i>
+	                </a>
+	            </div>
+	        </div>
+	        <div id="div_prj_content_02" >        	
+	        	
+				<div class="row">
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-data mr-1 text-primary"></i>{{transl 'prj_history_content_prj'}}</div>
+						<p class="text-muted info-edit info-content">{{epicName}}</p>
+						<select class="form-control objData content-edit hide isManager" data-name="parent" id="projectepic">
+	<!-- 						<option  value="0"></option> -->
+							{{#each epicInf}}
+							<option  value="{{id}}">{{name}}</option>
+							{{/each}}
+						</select>
+					</div>
+					
+					<input type="text" data-name="typ02" value="{{typ02}}" class="form-control objData hide">
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-barcode mr-1 text-primary"></i>{{transl 'prj_test_code'}}</div>
+						<p class="text-muted info-edit info-content" data-name="code">{{code}}</p>
+						<input type="hidden" data-name="id" value={{id}} class="objData"/>
+						<input type="text" data-name="code" value="{{code}}" class="form-control objData hide content-edit isManager">
+					</div>
+
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-cloud mr-1 text-primary"></i>{{transl 'prj_unit_test_typ'}}</div> 
+						<p class="text-muted info-edit info-content">{{reqTypTest typ02}}</p>
+						<select class="form-control objData content-edit hide isManager" data-name="typ02" id="typ02">
+							<option {{#equal typ02 1}}selected{{/equal}} value="1">{{transl "prj_unit_test_manual"}}</option>
+							<option {{#equal typ02 2}}selected{{/equal}} value="2">{{transl "prj_unit_test_auto"}}</option>
+						</select>
+					</div>
+					<!-- <div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-purchase-tag-alt mr-1 text-primary"></i>{{transl 'prj_project_tag'}}</div>
+						<p class="text-muted info-edit info-content" data-name="code02">{{code02}}</p>
+						<input type="text" data-name="code02" value="{{code02}}" class="form-control objData hide content-edit isManager">
+					</div> -->
+					<!-- <div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-bar-chart mr-1 text-primary"></i>{{transl 'prj_project_stat'}}
+							<button id="quick_stat_00" value="0" class="flowchartW0 btn btn-sm hide" 	title="{{transl 'prj_project_stat_00'}}">N</button>
+							<button id="quick_stat_01" value="1" class="flowchartW1 btn btn-sm hide" 	title="{{transl 'prj_project_stat_01'}}">P</button>
+							<button id="quick_stat_02" value="2" class="flowchartW2 btn btn-sm hide" 	title="{{transl 'prj_project_stat_02'}}">I</button>
+							<button id="quick_stat_03" value="3" class="flowchartW3 btn btn-sm hide" 	title="{{transl 'prj_project_stat_03'}}">R</button>
+							<button id="quick_stat_04" value="4" class="flowchartW4 btn btn-sm hide" 	title="{{transl 'prj_project_stat_04'}}">D</button>
+							<button id="quick_stat_05" value="5" class="flowchartW5 btn btn-sm hide" 	title="{{transl 'prj_project_stat_05'}}">CL</button>
+							<button id="quick_stat_06" value="6" class="flowchartW6 btn btn-sm hide" 	title="{{transl 'prj_project_stat_06'}}">U</button>
+							<button id="quick_stat_07" value="7" class="flowchartW7 btn btn-sm hide" 	title="{{transl 'prj_project_stat_07'}}">CA</button>
+						</div>
+
+						<p class="text-muted info-edit info-content isManager">{{reqStatPrj stat}}</p>
+						
+						<select class="form-control objData content-edit hide isManager" data-name="stat" id="stat">
+							<option {{#equal stat 0}}selected{{/equal}} value="0">{{transl "prj_project_stat_00"}}</option>
+							<option {{#equal stat 1}}selected{{/equal}} value="1">{{transl "prj_project_stat_01"}}</option>
+							<option {{#equal stat 2}}selected{{/equal}} value="2">{{transl "prj_project_stat_02"}}</option>
+							<option {{#equal stat 3}}selected{{/equal}} value="3">{{transl "prj_project_stat_03"}}</option>
+							<option {{#equal stat 4}}selected{{/equal}} value="4">{{transl "prj_project_stat_04"}}</option>
+							<option {{#equal stat 5}}selected{{/equal}} value="5">{{transl "prj_project_stat_05"}}</option>
+							<option {{#equal stat 6}}selected{{/equal}} value="6">{{transl "prj_project_stat_06"}}</option>
+							<option {{#equal stat 7}}selected{{/equal}} value="7">{{transl "prj_project_stat_07"}}</option>
+						</select>
+						
+						<p class="text-muted info-edit info-content-worker isWorker">{{reqStatPrj stat}}</p>
+						<select class="form-control objData content-edit hide isWorker" data-name="stat" id="stat">
+							<option {{#equal stat 1}}selected{{/equal}} value="1">{{transl "prj_project_stat_01"}}</option>
+							<option {{#equal stat 2}}selected{{/equal}} value="2">{{transl "prj_project_stat_02"}}</option>
+							<option {{#equal stat 3}}selected{{/equal}} value="3">{{transl "prj_project_stat_03"}}</option>
+							<option {{#equal stat 4}}selected{{/equal}} value="4">{{transl "prj_project_stat_04"}}</option>
+						</select>
+						
+						<p class="text-muted info-edit info-content isWatcher">{{reqStatPrj stat}}</p>
+					</div> -->
+					
+					<!-- <div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-cloud mr-1 text-primary"></i>{{transl 'prj_project_type'}}</div> 
+						<p class="text-muted info-edit info-content">{{reqTypPrj typ01}}</p>
+						<select class="form-control objData content-edit hide isManager" data-name="typ01" id="typ01">
+							<option {{#equal typ01 1}}selected{{/equal}} value="1">{{transl "prj_project_type_01"}}</option>
+							<option {{#equal typ01 2}}selected{{/equal}} value="2">{{transl "prj_project_type_02"}}</option>
+							<option {{#equal typ01 3}}selected{{/equal}} value="3">{{transl "prj_project_type_03"}}</option>
+							<option {{#equal typ01 4}}selected{{/equal}} value="4">{{transl "prj_project_type_04"}}</option>
+						</select>
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-sort-up mr-1 text-primary"></i>{{transl 'prj_project_lev'}}</div> 
+						<p class="text-muted info-edit info-content">{{reqLevPrj lev}}</p>
+						<select class="form-control objData content-edit hide isManager" data-name="lev" id="lev">
+							<option {{#equal lev 1}}selected{{/equal}} value="1">{{transl "prj_project_lev_01"}}</option>
+							<option {{#equal lev 2}}selected{{/equal}} value="2">{{transl "prj_project_lev_02"}}</option>
+							<option {{#equal lev 3}}selected{{/equal}} value="3">{{transl "prj_project_lev_03"}}</option>
+							<option {{#equal lev 4}}selected{{/equal}} value="4">{{transl "prj_project_lev_04"}}</option>
+						</select>
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-trending-up mr-1 text-primary"></i>{{transl 'prj_project_percent'}}
+							<a href="#" data-id="{{id}}" class="mr-3 text-primary btn-reload" data-name="val05" id="a_percent_reload" data-toggle="tooltip" data-placement="top">
+								<i class="mdi mdi-reload font-size-15"></i>
+							</a>
+						</div>
+						<p data-format="number" class="text-muted info-edit info-content isManager" data-name="val05">{{reqFormatNumber val05}} %</p>
+						<input type="number" data-name="val05" value="{{val05}}" class="val05 form-control objData hide content-edit isManager">
+						
+						<p data-format="number" class="text-muted info-edit info-content-worker isWorker" data-name="val05">{{reqFormatNumber val05}} %</p>
+						<input type="number" data-name="val05" value="{{val05}}" class="val05 form-control objData hide content-edit isWorker">
+						
+						<p data-format="number" class="text-muted info-edit isWatcher" data-name="val05">{{reqFormatNumber val05}} %</p>
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-dollar-circle mr-1 text-primary"></i>{{transl 'prj_project_budget'}}</div> 
+						<p data-format="number" class="text-muted info-edit info-content" data-name="val01">{{reqFormatNumber val01}}</p>
+						<input type="number" data-name="val01" value="{{val01}}" class="form-control objData hide content-edit isManager">
+					</div>
+
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-line-chart mr-1 text-primary"></i>{{transl 'prj_project_kpi'}}</div> 
+						<p data-format="number" class="text-muted info-edit info-content" data-name="val04">{{reqFormatNumber val04}} %</p>
+						<input type="number" data-name="val04" value="{{val04}}" class="form-control objData hide content-edit isManager">
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4">
+						<div class="font-size-15 mt-2 info-edit h5">
+							<i class="bx bx-dollar-circle mr-1 text-primary"></i>{{transl 'prj_project_budget_reel'}}
+							{{#equalOrs typ02 0 1}}
+							<a href="#" data-id="{{id}}" class="mr-3 text-primary btn-reload" data-name="val02" id="a_budgetReal_reload" data-toggle="tooltip" data-placement="top">
+								<i class="mdi mdi-reload font-size-15"></i>
+							</a>
+							{{/equalOrs}}
+						</div>
+						<p data-format="number" class="text-muted info-edit info-content isReporter" data-name="val02">{{reqFormatNumber val02}}</p>
+						<input type="number" data-name="val02" value="{{val02}}" class="form-control objData hide content-edit isManager isReporter">
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-xxl-4 task-dates">
+		                <div class="mt-2">
+		                    <div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-calendar mr-1 text-primary"></i>{{transl 'prj_project_start_date'}}</div>
+		                    <p data-format="date" class="text-muted info-edit info-content" data-name="dtBegin">{{reqFormatDate dtBegin}}</p>
+		                    <div class="input-daterange input-group hide content-edit isManager">
+		                    	<input data-format="date" data-validation="date" type="text" value="{{reqFormatShortDate dtBegin}}" data-group="dtBegin" data-name="date" class="form-control objData" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+		                   		<input type="text" class="form-control objData tmpicker" value="{{reqFormatISOTime dtBegin}}" data-group="dtBegin" data-name="time" data-provide="timepicker"/>
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <div class="col-6 col-sm-6 col-md-4 col-xxl-4 task-dates">
+		                <div class="mt-2">
+		                    <div class="font-size-14 info-edit h5"><i class="bx bx-calendar-check mr-1 text-primary"></i>{{transl 'prj_project_end_date'}}</div>
+		                    <p data-format="date" class="text-muted info-edit info-content" data-name="dtEnd">{{reqFormatDate dtEnd}}</p>
+		                    <div class="input-daterange input-group hide content-edit isManager">
+		                    	<input data-format="date" data-validation="date" type="text" value="{{reqFormatShortDate dtEnd}}" data-group="dtEnd" data-name="date" class="form-control objData" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+		                   		<input type="text" class="form-control objData tmpicker" value="{{reqFormatISOTime dtEnd}}" data-group="dtEnd" data-name="time" data-provide="timepicker"/>
+		                    </div>
+			            </div>
+			        </div>
+					
+				</div> -->
+				
+			
+		    </div>
+		</div>
+	</div>
+</div>

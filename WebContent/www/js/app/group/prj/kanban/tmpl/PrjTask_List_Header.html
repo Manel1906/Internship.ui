@@ -1,0 +1,57 @@
+	<div class="mb-4 row">
+		<div class="col-md-2 col-sm-12 d-flex align-items-center">
+			<a href="javascript:void(0)" class="hnv-tooltip arrow-none show-task btn_new_task_kanban mr-2" data-right="view:40000002|100|102" style="margin-left: 40px;"  data-toggle="tooltip" data-placement="top">
+				<i class="mdi mdi-newspaper-plus text-success font-size-18"></i>
+				<span class="tooltiptext">{{transl 'prj_project_add_task_popup'}}</span>
+			</a>
+			
+			<i class="prj-toggle-stat mdi mdi-contrast text-success font-size-18"></i>
+			<i class="prj-toggle-search mdi mdi-magnify text-success font-size-18"></i>
+		</div>
+
+		<div class="col-md-4 col-sm-12 d-flex d-flex-small align-items-center justify-content-start div-stat">
+			<div id="div_choose_stat">
+				<!-- {{#each paramStat}}
+				<div id='check_box_{{stat}}' class="custom-control custom-checkbox task-stat-choose">
+				    <input data-stat="{{stat}}" type="checkbox" {{#if isShow}}checked{{/if}} class="custom-control-input task-stat-cbx" id="customCheck{{stat}}">
+				    <label class="custom-control-label" for="customCheck{{stat}}">{{transl (concat 'prj_task_tab_stat_' stat)}}</label>
+				</div>
+				{{/each}} -->
+				<select id="choose_multi_stat" multiple="multiple">
+					{{#each lstStats}}
+						<option value="{{id}}" class="task-stat-cbx" {{#if show}}selected{{/if}}>
+							{{#if trans}}
+								{{transl trans}}
+							{{else}}
+								{{lab}}
+							{{/if}}
+						</option>
+					{{/each}}
+				</select>
+			</div>
+		</div>
+		<div class="col-md-2 col-sm-12 d-flex d-flex-small  align-items-center justify-content-start div-search">
+			<input class="form-control" id="inp_search_user" type="text" value="{{searchKey}}" placeholder="{{transl 'common_filter_keyword'}}">
+		</div>
+<!-- 		<div class="col-md-2 col-sm-12"> -->
+<!-- 			<input class="form-control" id="inp_search_prj" type="text" placeholder="{{transl 'common_filter_keyword'}}"> -->
+<!-- 		</div> -->
+		<div class="col-md-2 col-sm-12 d-flex d-flex-small  align-items-center justify-content-start div-search">
+             <select class="form-control" id="sel_prj_filter">
+                 <option value="-1">{{transl 'prj_task_tab_filter_prj'}}</option>
+                 {{#each lst}}
+                 <option value="{{id}}" {{#equal ../group id}}selected{{/equal}} >{{name}}</option>
+                 {{/each}}
+             </select>
+         </div>
+
+		 <div class="col-md-2 col-sm-12 d-flex d-flex-small  align-items-center justify-content-start div-search" id="div_sel_sprint_filter">
+			<select class="form-control" id="sel_sprint_filter">
+				<option value="-1">{{transl 'prj_task_tab_filter_sprints'}}</option>
+				{{#each lstSprints}}
+				<option value="{{id}}" {{#equal ../sprint id}}selected{{/equal}} >{{name}}</option>
+				{{/each}}
+			</select>
+		</div>
+	</div>
+<!-- End Page-content -->

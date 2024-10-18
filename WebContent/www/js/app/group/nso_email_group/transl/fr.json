@@ -1,0 +1,19 @@
+{
+    "nso_group_email_btn_delete_group"            : "Supprimer le groupe",
+    "nso_group_email_search"                      : "Recherche le groupe d'email",
+    "nso_group_email_new"                         : "Nouveau",
+    "nso_group_email_new_title"                   : "Groupe d'email",
+    "nso_group_email_header_title"                : "Informations sur le groupe de messagerie",
+    "nso_group_email_not_validated_lst_title"     : "Groupe de messagerie nouvellement créé",
+    "nso_group_email_validated_lst_title"         : "Groupe de messagerie approuvé",
+    "nso_group_email_wait_delete_lst_title"       : "Groupe de messagerie en attente de suppression",
+    "nso_group_email_header_name"                 : "Nom du groupe",
+    "nso_group_email_header_date_new"             : "Date de création",
+    "nso_group_email_header_ref"                  : "Code du sujet",
+    "nso_group_email_header_status"               : "Statut",
+    "nso_group_email_header_status_not_validated" : "Nouvelle",
+    "nso_group_email_header_status_validated"     : "Approuvé",
+    "nso_group_email_header_status_wait_delete"   : "En attente de suppression",
+    "nso_group_email_header_content_01"           : "Liste de diffusion",
+    "nso_group_email_header_date_add"             : "Date d'ajout"
+}

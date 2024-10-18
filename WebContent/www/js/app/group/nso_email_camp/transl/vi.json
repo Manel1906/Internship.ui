@@ -1,0 +1,41 @@
+{
+    "---Plan Email Campagne------------------------"		: "----------------------------------------",
+	"nso_plan_email_campagne_new"							    :   "Thêm mới",
+	"nso_plan_email_campagne_search"                            :   "Tìm kiếm theo tên",
+	"nso_plan_email_campagne_config"						    :   "Cấu hình gửi email",
+	"nso_plan_email_campagne_header_ref"						: 	"Mã quản lý",
+	"nso_plan_email_campagne_header_tit"						: 	"Tiêu đề",
+	"nso_plan_email_campagne_btn_duplicate"                     :   "Sao chép",
+	"nso_plan_email_campagne_btn_delete"                        : 	"Xóa",
+	"nso_plan_email_campagne_delete_success"                    : 	"Xóa chiến dịch thành công",
+	
+	"nso_plan_email_campagne_header_content_01"					:	"Chủ đề email",
+	"nso_plan_email_campagne_header_content_02"					:	"Nội dung email",
+	
+	"nso_plan_email_campagne_header_prop_01_mail_name"			:	"Người gửi",
+	"nso_plan_email_campagne_header_prop_01_mail"				:	"Email",
+	"nso_plan_email_campagne_header_prop_01_pwd"				:	"Mật khẩu",
+	"nso_plan_email_campagne_header_prop_01_smtp_host"			:	"Tên SMTP",
+	"nso_plan_email_campagne_header_prop_01_smtp_addr"			:	"Đường dẫn SMTP",
+	"nso_plan_email_campagne_header_prop_01_smtp_port"			:	"Cổng SSL",
+	"nso_plan_email_campagne_header_prop_01_web_url"			:	"Địa chỉ trang web",
+	
+	"nso_plan_email_campagne_header_date_add"					:	"Ngày thêm vào",
+	"nso_plan_email_campagne_header_date_mod"					:	"Ngày chỉnh sửa gần nhất",
+	"nso_plan_email_campagne_header_date_begin"					:	"Ngày bắt đầu",
+	"nso_plan_email_campagne_header_date_end"					:	"Ngày kết thúc",
+	"nso_plan_email_campagne_header_status"						:	"Trạng thái",
+	"nso_plan_email_campagne_header_status_not_validated"		:	"Mới tạo",
+	"nso_plan_email_campagne_header_status_validated"			:	"Đã được duyệt",
+	"nso_plan_email_campagne_header_status_validated_hidden"	:	"Đã được duyệt và bị ẩn",
+	"nso_plan_email_campagne_header_status_reported"			:	"Bị phản ảnh",
+	"nso_plan_email_campagne_header_interval"			        :	"Giờ gửi hàng ngày",
+	
+	"nso_plan_email_campagne_group_email"			            :	"Danh sách nhóm email",
+	"nso_plan_email_campagne_group_email_name"			        :	"Tên nhóm",
+	"nso_plan_email_campagne_group_email_code"			        :	"Mã nhóm",
+	"nso_plan_email_campagne_group_email_action"			    :	"Hành động",
+	"nso_plan_email_campagne_file"                              :   "Đính kèm",
+	
+	"nso_plan_email_campagne_new_title"							:   "Tạo mới chiến dịch"
+}

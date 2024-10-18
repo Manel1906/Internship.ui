@@ -1,0 +1,45 @@
+	<div  class="action-item-observ isManager table-responsive">
+		<div class="mb-3">
+				<table class="table table-centered table-nowrap">
+				<thead>
+				<tr>
+					<th>{{transl "prj_user_team_planning_appoint_title"}}</th>
+					<th>{{transl "prj_user_team_planning_appoint_cmt"}}</th>
+					<th>{{transl "prj_user_team_planning_appoint_code"}}</th>
+					<th>{{transl "prj_user_team_planning_appoint_dtbegin"}}</th>
+					<th>{{transl "prj_user_team_planning_appoint_dtend"}}</th>
+				</tr>
+			</thead>
+			<tbody id="div_prj_observation_tab_body">
+				{{#if data}}
+				{{#if isInDay}}
+				{{#each data}}
+				<tr class="observ-item" data-index="{{@index}}" data-name="lstRpResume">
+					<td data-visible="true">{{name}}</td>
+					<td data-visible="true">{{inf02.desc}}</td>
+					<td data-visible="true">{{ref}}</td>
+					<td data-visible="true">{{dateFormatLocal dtBegin}}</td>
+					<td data-visible="true">{{dateFormatLocal dtEnd}}</td>
+				</tr>
+				{{/each}}
+				{{else}}
+				{{#each data}}
+				<tr class="observ-item" data-index="{{@index}}" data-name="lstRpResume">
+					<td data-visible="true">{{name}}</td>
+					<td data-visible="true">{{inf02.desc}}</td>
+					<td data-visible="true">{{ref}}</td>
+					<td data-visible="true">{{dateFormatLocal dtBegin}}</td>
+					<td data-visible="true">{{dateFormatLocal dtEnd}}</td>
+					
+				</tr>
+				{{/each}}
+				{{/if}}
+				{{else}}
+				<tr>
+					<td data-visible="true">{{transl "common_null_data"}}</td>
+				</tr>
+				{{/if}}
+				</tbody>
+				</table>
+		</div>
+	</div>

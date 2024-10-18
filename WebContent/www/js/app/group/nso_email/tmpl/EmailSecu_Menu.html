@@ -1,0 +1,68 @@
+<div class="card mobile-hidden">
+	<div class="card-body">
+		<div class="media">
+			<h4 class="card-title mb-4 media-body">{{transl 'prj_email_config'}}</h4>
+			<a data-divtoogle="#div_prj_config" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
+                </a>
+		</div>
+		<div id="div_prj_config">
+			<button id="btn_change_password_cfg" class="btn btn-primary btn-block">{{transl 'prj_email_pwd_config_change'}}</button>
+			<button id="btn_add_emailBox" class="btn btn-primary btn-block">{{transl 'prj_email_add'}}</button>
+			<button id="btn_show_list_mail_secu" class="btn btn-primary btn-block">{{transl 'prj_email_secu'}}</button>
+		</div>
+	</div>
+</div>
+
+{{#if lst}}
+<div class="card mobile-hidden">
+	<div class="card-body">
+		<div class="media">
+			<h4 class="card-title mb-4 media-body">{{transl 'prj_email_list'}}</h4>
+			<a data-divtoogle="#div_email_list" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
+                </a>
+		</div>
+		
+		<div id="div_email_list" class="table-responsive" style="overflow: unset;">
+             <table class="table table-centered table-nowrap">
+                 <tbody>
+                 {{#each lst}}
+                 <tr class="tr-mail-list">
+                     <td><span data-email="{{email}}" class="email-item">{{email}}</span></td>
+                     <td class="td-mem-action">
+                         <div class="dropdown">
+                             <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                                 <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                             </a>
+                             <ul class="dropdown-menu dropdown-menu-right">
+                                 <li><a data-email="{{email}}" href="#" class="dropdown-item email-item-edit"><i class="mdi mdi-edit font-size-16 text-danger mr-1"></i>{{transl 'prj_email_config_edit'}}</a></li>
+                                 <li><a data-email="{{email}}" href="#" class="dropdown-item email-item-delete"><i class="mdi mdi-edit font-size-16 text-danger mr-1"></i>{{transl 'prj_email_config_delete'}}</a></li>
+                             </ul>
+                         </div>
+                     </td>
+                 </tr>
+			     {{/each}}
+                </tbody>
+            </table>
+        </div>
+		
+	</div>
+</div>
+
+<div id="div_email_folder"></div>
+{{/if}}
+
+<!--  template for mobile-->
+{{#ifCond lst.length '==' 0}}
+<div class="card screen-hidden">
+	<div class="card-body">
+		<div class="media">
+			<h4 class="card-title mb-4 media-body">{{transl 'prj_email_config_mail_empty'}}</h4>
+		</div>
+		<div>
+			<button id="btn_add_emailBox_menu_mobile" class="btn btn-primary btn-block">{{transl 'prj_email_add'}}</button>
+		</div>
+	</div>
+</div>
+{{/ifCond}}

@@ -1,0 +1,186 @@
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-sm-9">
+				<h4 class="card-title mb-4 shp_font_size">{{transl "job_report_label_information"}}</h4>
+			</div>
+
+			<div class="col-sm-3 isManager">
+				<div class="text-right">
+					<a id="a_btn_export" class="mr-2 text-primary" data-toggle="tooltip" data-placement="top" title="" data-original-title="Export">
+						<i class="mdi mdi-download font-size-18"></i>
+					</a>
+
+					<a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+		            </a>
+		            
+		            <a id="a_btn_cancel" class="text-danger mr-2 hide cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+	            		<i class="mdi mdi-close font-size-18"></i>
+	            	</a>
+					<a data-divtoogle="#div_job_report_header" class="btn-resize" data-toggle="tooltip" data-placement="top"
+						title="" data-original-title="Resize">
+						<i class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="div_job_report_header" class="form-horizontal custom-scroll-header">
+			<div class="box-body row">
+				<div class="col-lg-3 col-md-3 col-sm-12"> 
+					<div class="form-group">
+						<label for="inp_code" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_code"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-edit  info-content">{{code01}}</p>
+							<input id="inp_code" class="form-control objData content-edit hide" type="text" value="{{code01}}"
+							data-name="code01" disabled/>
+						</div>
+					</div>	
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-12"> 
+					<div class="form-group">
+						<label for="inp_stat" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_stat"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-edit  info-content">{{#equal stat 0}}{{transl "job_report_stat_draft"}}{{/equal}}
+							{{#equal stat 1}}{{transl "job_report_stat_pending"}}{{/equal}}
+							{{#equal stat 2}}{{transl "job_report_stat_validate"}}{{/equal}}
+							</p>
+							<select id="inp_stat" class="form-control objData content-edit hide " data-name="stat" disabled>
+								<option value="0">{{transl "job_report_stat_draft"}}</option>
+								<option value="1">{{transl "job_report_stat_pending"}}</option>
+								<option value="2">{{transl "job_report_stat_validate"}}</option>
+<!-- 								<option value="3">{{transl "job_report_stat_denied"}}</option> -->
+<!-- 								<option value="4">{{transl "job_report_stat_validate"}}</option> -->
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					<div class="form-group">
+						<label for="inp_dt01" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_dt01"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p data-format="date" class="text-muted mb-0  info-content" data-name="dt01">{{reqFormatDate dt01}}</p>
+							<input id="inp_dt01" class="form-control content-edit hide" data-validation="date" data-format="date" value="{{dateFormatLocal dt01}}" disabled/>
+						</div>
+					</div>			
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-12">
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="inp_hldrate" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_cfg_hldrate"}}</label> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12"> -->
+<!-- 							<input id="inp_hldrate" class="form-control" type="text" value="" disabled/> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+					
+					<div class="form-group">
+						<label for="inp_dt02" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_dt02"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p data-format="date" class="text-muted mb-0  info-content" data-name="dt02">{{reqFormatDate dt02}}</p>
+							<input id="inp_dt02" class="form-control content-edit hide" data-validation="date" data-format="date" value="{{dateFormatLocal dt02}}" disabled/>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="box-body row">
+				<div class="col-lg-3 col-md-3 col-sm-12"> 
+					<div class="form-group">
+						<label for="inp_uId01" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_uId01"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted  info-content">{{#if uId01_name}}{{uId01_name}}{{else}}{{transl "job_report_unknown"}}{{/if}}</p>
+							<input id="inp_uId01_name" class="form-control content-edit hide" type="text" value="{{uId01_name}}" disabled/>
+							<input type="hidden" data-name="uId01" value="{{uId01}}"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-12"> 
+					<div class="form-group">
+						<label for="inp_uId02_name" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_uId03"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted  info-content">{{#if uId02_name}}{{uId02_name}}{{else}}{{transl "job_report_unknown"}}{{/if}}</p>
+							<input id="inp_uId02_name" class="form-control content-edit hide" type="text" value="{{uId02_name}}" disabled/>
+							<input type="hidden" data-name="uId02" value="{{uId02}}"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-12"> 
+					<div class="form-group">
+						<label for="inp_uId03_name" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_uId02"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted  info-content" disabled>{{#if uId03_name}}{{uId03_name}}{{else}}{{transl "job_report_unknown"}}{{/if}}</p>
+							<input id="inp_uId03_name" class="form-control content-edit hide" type="text" value="{{uId03_name}}" disabled/>
+							<input type="hidden" data-name="uId03" value="{{uId03}}"/>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					<div class="form-group">
+						<label for="inp_cmt" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_cmt"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted  info-content" disabled>{{#if cmt}}{{cmt}}{{else}}{{transl "job_report_unknown"}}{{/if}}</p>
+							<input id="inp_cmt" class="form-control objData content-edit hide" type="text" value="{{cmt}}" data-name="cmt" disabled/>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		
+			<div class="box-body row">
+				<div class="col-lg-3 col-md-3 col-sm-12"> 
+					<div class="form-group">
+						<label for="inp_val01" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_val01"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12" disabled>
+							<p id="p_val01" class="text-muted  info-content" >{{#ifCond val01 '>=' 0}}{{val01}}{{else}}{{transl "job_report_unknown"}}{{/ifCond}}</p>
+							<input id="inp_val01" class="form-control objData content-edit hide" type="text" value="{{val01}}"
+							data-name="val01" disabled/>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					<div class="form-group">
+						<label for="inp_val02" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_val02"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12" disabled>
+							<p id="p_val02" class="text-muted  info-content" >{{#ifCond val02 '>=' 0}}{{val02}}{{else}}{{transl "job_report_unknown"}}{{/ifCond}}</p>
+							<input id="inp_val02" class="form-control objData content-edit hide" type="text" value="{{val02}}"
+							data-name="val02" disabled/>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					<div class="form-group">
+						<label for="inp_val03" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_val03"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12" disabled>
+							<p id="p_val03" class="text-muted  info-content" >{{#ifCond val03 '>=' 0}}{{val03}}{{else}}{{transl "job_report_unknown"}}{{/ifCond}}</p>
+							<input id="inp_val03" class="form-control objData content-edit hide" type="text" value="{{val03}}"
+							data-name="val03" disabled/>
+						</div>
+					</div>
+				</div>
+<!-- 				<div class="col-lg-3 col-md-3 col-sm-12"> -->
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="inp_val04" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_val04"}}</label> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12"> -->
+<!-- 							<input id="inp_val04" class="form-control objData" type="text" value="{{val04}}" -->
+<!-- 							data-name="val04" disabled/> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div>  -->
+			</div>
+			
+			<div class="form-group">
+				<input type="hidden" class="form-control objData" data-name="id" 	value="{{id}}">
+				<input type="hidden" class="form-control objData" data-name="uId01" value="{{uId01}}">
+				<input type="hidden" class="form-control objData" data-name="uId02" value="{{uId02}}">
+				<input type="hidden" class="form-control objData" data-name="uId03" value="{{uId03}}">
+			</div>
+		</div>
+
+	</div>
+</div>

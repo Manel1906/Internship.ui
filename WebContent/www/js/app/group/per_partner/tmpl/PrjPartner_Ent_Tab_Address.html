@@ -1,0 +1,73 @@
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_partner_addr'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7 isManager">
+	             <div class="text-right">
+	                 <button id="btn_add_addr" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_partner_add_addr'}}</button>
+	             	<a id="a_btn_save_addr" class="mr-3 text-primary hide action-mem action-item-addr" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+		            </a>
+		            <a id="a_btn_cancel_addr" class="text-danger hide action-mem action-item-addr" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close font-size-18"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+        <div id="tabAddr" class="table-responsive">
+            <table class="table table-centered table-nowrap">
+			    <tbody>
+			     {{#each tpyInfos}}
+			        <tr class="addr-item" data-addrid="{{id}}">
+			            <td data-visible="false"><input	data-name="typ01"		value="{{typ01}}"></input></td>
+			            <td	data-visible="true"><input	data-name="typ02Lab"	value="{{typ02Lab}}"	data-validation="required" ></input></td>
+			            <td data-visible="false"><input	data-name="typ02"		value="{{typ02}}"></input></td>
+			            <td	data-visible="true"><input	data-name="lab"			value="{{lab}}"></input></td>
+			            <td	data-visible="true"><input	data-name="info01"		value="{{info01}}"		data-validation="required" ></input></td>
+			            <td	data-visible="true"><input	data-name="info03"		value="{{info03}}"></input></td>
+			            <td	data-visible="true"><input	data-name="info04"		value="{{info04}}"		data-validation="required" ></input></td>
+			            <td data-visible="false"><input	data-name="cfgVal01"	value="{{cfgVal01}}"></input></td>
+			            <td	data-visible="true"><input	data-name="cfgVal01Lab"	value="{{cfgVal01Lab}}"	data-validation="required" ></input></td>
+			            <td	data-visible="true"><input	data-name="info07"		value="{{info07}}"		data-validation="required" ></input></td>
+			            <td	data-visible="true"><input	data-name="info09"		value="{{info09}}"		data-validation="email" ></input></td>
+			            <td class="hide action-item-addr isManager">
+                            <a data-addrid="{{id}}" class="mr-3 text-primary addr-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
+                            <a data-addrid="{{id}}" class="text-danger addr-delete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
+                        </td>
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>
+        </div>
+        <div class="hide action-item-addr isManager">
+        	<div class="mb-3 row">
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_prj_partner_addr_type02" placeholder="{{transl 'per_tpy_label_typ02'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_addr_lab" placeholder="{{transl 'per_label'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_addr_info01" placeholder="{{transl 'per_address'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_addr_info03" placeholder="{{transl 'per_postal_code'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_addr_info04" placeholder="{{transl 'per_city">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_prj_partner_addr_cfgVal01" placeholder="{{transl 'per_country'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_addr_info07" placeholder="{{transl 'per_tel'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_addr_info09" placeholder="{{transl 'per_email'}}">
+	        	</div>
+        	</div>
+        </div>
+    </div>
+</div>

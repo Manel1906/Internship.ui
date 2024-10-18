@@ -1,0 +1,57 @@
+<div class="mb-4 row justify-content-center align-items-center" id="header-mem-manager">
+	<div class="col-sm-12 d-flex align-items-center">
+			<i class="prj-toggle-stat mdi mdi-contrast text-success font-size-18"></i>
+			<i class="prj-toggle-search mdi mdi-magnify text-success font-size-18"></i>
+		</div>
+    <div class="col-md-3 col-sm-12 d-flex d-flex-small  align-items-center justify-content-start div-search">
+         <select class="form-control" id="sel_mem_filter">
+             <!-- <option value="-1">{{transl 'prj_project_list_mem'}}</option>
+			{{#each members}}
+			<option value="{{entId02}}" {{#if show}}selected{{/if}}>
+			    {{#if ent02.avatar}}
+			        <img src="{{reqSrcAvatarMember ent02}}" class="rounded-circle avatar-xs mr-2" alt="">
+			    {{else}}
+			        <div class="rounded-circle avatar-xs mr-2 text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.login01}}">
+			            <div class="text-middle">{{reqSrcTextAvatar ent02.login01}}</div>
+			        </div>
+			    {{/if}}
+			    <b>{{ent02.per.name01}} {{ent02.per.name02}} {{ent02.per.name03}}</b>
+			</option>
+			{{/each}} -->
+         </select>
+     </div>
+	<div class="div-stat">
+	    <div id="div_choose_stat">
+	        <select id="choose_multi_stat" multiple="multiple">
+	            {{#each lstStats}}
+	                <option value="{{id}}" class="task-stat-cbx" {{#if show}}selected{{/if}}>
+	                    {{#if trans}}
+	                        {{transl trans}}
+	                    {{else}}
+	                        {{lab}}
+	                    {{/if}}
+	                </option>
+	            {{/each}}
+	        </select>
+	    </div>
+	</div>
+     <div class="div-stat">
+	    <div id="div_choose_lev">
+	        <select id="choose_multi_lev" multiple="multiple">
+		        <option {{#equal lev 1}}selected{{/equal}} value="1" class="task-lev-cbx" {{#if show}}selected{{/if}}>{{transl "prj_project_lev_01"}}</option>
+		        <option {{#equal lev 2}}selected{{/equal}} value="2" class="task-lev-cbx" {{#if show}}selected{{/if}}>{{transl "prj_project_lev_02"}}</option>
+		        <option {{#equal lev 3}}selected{{/equal}} value="3" class="task-lev-cbx" {{#if show}}selected{{/if}}>{{transl "prj_project_lev_03"}}</option>
+		        <option {{#equal lev 4}}selected{{/equal}} value="4" class="task-lev-cbx" {{#if show}}selected{{/if}}>{{transl "prj_project_lev_04"}}</option>
+	        </select>
+	    </div>
+	</div>
+    <div class="col-md-3 col-sm-12 d-flex d-flex-small  align-items-center justify-content-start div-search">
+        <input class="form-control" id="inp_search" type="text" value="{{searchKey}}" placeholder="{{transl 'common_filter_keyword'}}">
+    </div>
+</div>
+<!-- End mem-manager -->
+<div class="card mb-0" id="table-mem-manager" style="min-height: 100%; max-height: 100%;">
+    <div class="table-responsive" id="table-mem-manager-content" style="height: 100%; overflow-y: auto;">
+        
+    </div>
+</div>

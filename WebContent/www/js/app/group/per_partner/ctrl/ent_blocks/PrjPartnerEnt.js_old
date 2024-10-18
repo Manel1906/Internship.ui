@@ -1,0 +1,681 @@
+define([
+	'text!template/prj/partner/PrjPartner_Ent.html',
+	'text!template/prj/partner/PrjPartner_Ent_Content.html',
+	'text!template/prj/partner/PrjPartner_Ent_Tab_Docs.html',
+	'text!template/prj/partner/PrjPartner_Ent_Tab_Address.html',
+	'text!template/prj/partner/PrjPartner_Ent_Tab_Bank.html',
+	'text!template/prj/partner/PrjPartner_Ent_Tab_Observation.html',
+	'text!template/prj/partner/PrjPartner_Ent_Tab_Observation_Line.html',
+	'text!template/per/common/Per_Sel_List_Type_Person.html',
+	'text!template/per/common/Per_Sel_List_Legal_Status.html',
+	'text!template/per/common/Per_Sel_List_Legal_Domain.html',
+	'text!template/per/common/Per_Sel_List_Type_Partner.html'
+	],
+	function(	
+			PrjPartner_Ent,
+			PrjPartner_Ent_Content,
+			PrjPartner_Ent_Tab_Docs,
+			PrjPartner_Ent_Tab_Address,
+			PrjPartner_Ent_Tab_Bank,
+			PrjPartner_Ent_Tab_Observation,
+			PrjPartner_Ent_Tab_Observation_Line,
+			Per_Sel_List_Type_Person,
+			Per_Sel_List_Legal_Status,
+			Per_Sel_List_Legal_Domain,
+			Per_Sel_List_Type_Partner
+	){
+
+	var PrjPartnerEnt 	= function (header,content,footer) {
+		var pr_divHeader 			= header  ? header : null;
+		var pr_divContent 			= "#div_prj_content";
+		var pr_divFooter 			= footer  ? footer : null;
+
+		const pr_divTabDocs			= "#div_prj_docs";
+		const pr_divTabObserv 		= "#div_prj_observation";
+		const pr_divTabObservTab	= "#div_prj_observation_tab_body";
+		const pr_divTabAddr	 		= "#div_prj_address";
+		const pr_divTabBank	 		= "#div_prj_bank";
+
+		//------------------------------------------------------------------------------------
+		var tmplName				= App.template.names;
+		var tmplContr				= App.template.controller;
+
+		var svClass 				= App['const'].SV_CLASS;
+		var svName					= App['const'].SV_NAME;
+		var sessId					= App['const'].SESS_ID;
+		var userId          		= App['const'].USER_ID;
+
+		var fVar					= App['const'].FUNCT_SCOPE;
+		var fName					= App['const'].FUNCT_NAME;
+		var fParam					= App['const'].FUNCT_PARAM;		
+
+		var self 					= this;
+		var url_header				= req_gl_Security_HttpHeader(App.keys.KEY_STORAGE_CREDENTIAL);
+
+		//------------------------------------------------------------------------------------
+		var pr_OBJ_TYPE				= 30000;
+		const pr_SERVICE_CLASS		= "ServicePerPerson"; //to change by your need
+		const pr_SV_GET				= "SVPersonGet"; 
+		var pr_SV_NEW				= "SVPersonNew"; 
+		var pr_SV_DEL				= "SVPersonDel"; 
+
+		var pr_SV_MOD				= "SVPersonMod"; 	//if not use lock
+
+		var pr_SV_LCK_NEW			= "SVPersonLckReq";
+		var pr_SV_LCK_END			= "SVPersonLckEnd";
+		var pr_SV_LCK_DEL			= "SVPersonLckDel";
+		
+		var pr_SV_VALIDATE			= "SVPersonValidate";
+		
+		//------------------local variable----------------------------------------------------------
+		let pr_OBS_TEMP				= {};
+		let pr_docsObj				= {};
+		
+		//------------------variable pagination post------------------------------------------------------
+		var pr_POST_BEGIN 			= 0;
+		const pr_POST_NUMBER 		= 10;
+		const pr_POST_TYPE_PRJ 		= 202;
+		
+		const pr_POST_NO_SUB 		= 1;
+		const pr_POST_HAS_SUB 		= 2;
+		
+		const pr_POST_KEY_ENTER 	= 13;
+		//------------------const object------------------------------------------------------
+		const formatDate 			= {"en": "enShortDate", "fr": "frShortDate", "vn": "viShortDate"};
+		const local 				= localStorage.language ? localStorage.language : "en";
+
+		const typePartnerClient		= 1010002;
+		const societeListCompany	= 1010010;
+		const societeListChild		= 1010011;
+		//-----------------------------------------------------------------------------------
+		var pr_right_soc_manage		= [30002001, 30002002, 30002003, 30002004, 30002005];
+		
+		var pr_type_adm      		= 2;
+		var pr_type_emp      		= 3;
+		var pr_type_client   		= 4;
+		var pr_type_client_public 	= 5;
+		var pr_type_adm_all    		= 10;
+		//------------------controllers------------------------------------------------------
+		var pr_ctr_Main 			= null;
+		var pr_ctr_List 			= null;
+		var pr_ctr_Ent				= null;
+		//--------------------APIs--------------------------------------//
+		this.do_lc_init		= function(){
+			pr_ctr_Main 			= App.controller.PrjProject.Main;
+			pr_ctr_List 			= App.controller.PrjPartner.List;
+			pr_ctr_Ent				= App.controller.PrjPartner.Ent;
+			
+			tmplName.PRJ_PARTNER_ENT						= "PrjPartner_Ent";
+			tmplName.PRJ_PARTNER_ENT_CONTENT				= "PrjPartner_Ent_Content";
+
+			tmplName.PRJ_PARTNER_SEL_LIST_TYPE_PERSON			= "PerPartner_Person";
+			tmplName.PRJ_PARTNER_SEL_LIST_LEGAL_STATUS			= "PerPartner_Legal_Status";
+			tmplName.PRJ_PARTNER_SEL_LIST_LEGAL_DOMAIN			= "PerPartner_Legal_Domain";
+			tmplName.PRJ_PARTNER_SEL_LIST_TYPE_PARTNER			= "PerPartner_Type_Partner";
+			
+			tmplName.PRJ_PARTNER_ENT_TAB_ADDRESS				= "PrjPartner_Ent_Tab_Address";
+			tmplName.PRJ_PARTNER_ENT_TAB_BANK					= "PrjPartner_Ent_Tab_Bank";
+			tmplName.PRJ_PARTNER_ENT_TAB_DOCS					= "PrjPartner_Ent_Tab_Docs";
+			tmplName.PRJ_PARTNER_ENT_TAB_OBSERVATION			= "PrjPartner_Ent_Tab_Observation";
+			tmplName.PRJ_PARTNER_ENT_TAB_OBSERVATION_LINE		= "PrjPartner_Ent_Tab_Observation_Line";
+			
+			do_get_per_societe(societeListCompany);
+			do_get_per_societe(societeListChild);
+//			doGetCfgValue('cfgValListTypePerson', 				100, 	null);		//Moral or Natural
+//			doGetCfgValue('cfgValListTypeLegalStatN', 			102, 	1);			//Legal Status of Moral		: SARL, SA, SAS...
+//			doGetCfgValue('cfgValListTypeLegalStatM', 			102,	2);			//Legal Status of Natural	: Mr, Mrs
+//			doGetCfgValue('cfgValListTypeDomainPartner', 		1001,	null);      //Type Domain partner: hotel, restaurant,...
+//			doGetCfgValue('cfgValListTypePartner',				101,	2, true);
+//			doGetCfgValue('cfgValListTypePartner',				101,	3, true);
+			let lstGroup = [100, 102, 1001, 101];//typ person
+			do_lc_getCfg_value(lstGroup);
+		}
+		
+		//---------show-----------------------------------------------------------------------------
+		this.do_lc_show = function(div, type01, type02){               
+			try{		
+				if(!App.data.cfgValListTypePerson || !App.data.cfgValListTypeLegalStatM || !App.data.cfgValListTypeDomainPartner || !App.data.cfgValListTypePartner){
+					setTimeout(function(){self.do_lc_show(div, type01, type02)}, 1000);
+					console.log("do_lc_show is not ready");
+					return;
+				}
+				var params = req_gl_Url_Params(App.data.url?App.data.url:decodeURIComponent(window.location.search.substring(1)));
+				if (params.id){
+					do_lc_load_view();
+					do_lc_get_prj(params.id);
+				}
+			}catch(e) {				
+				do_gl_send_exception(App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, App.network, "prj.partner", "PrjPartnerEnt", "do_lc_show", e.toString()) ;
+			}
+		};
+		
+		this.do_verify_user_right_soc_manage = function(){
+			for(var i = 0; i< pr_right_soc_manage.length; i++){
+				if(App.data.user.rights.includes(pr_right_soc_manage[i]))
+					return true;
+			}
+			
+			if (App.data.user.typ == pr_type_adm_all || (App.data.user.typ == pr_type_adm|| App.data.user.manId == 1))
+				return true;
+			
+			return false;
+		}
+		
+		var do_lc_load_view = function(){			
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_ENT						, PrjPartner_Ent);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_ENT_CONTENT				, PrjPartner_Ent_Content);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_TYPE_PERSON		, Per_Sel_List_Type_Person);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_LEGAL_STATUS		, Per_Sel_List_Legal_Status);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_LEGAL_DOMAIN		, Per_Sel_List_Legal_Domain);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_TYPE_PARTNER		, Per_Sel_List_Type_Partner);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_ADDRESS			, PrjPartner_Ent_Tab_Address);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_BANK				, PrjPartner_Ent_Tab_Bank);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_DOCS				, PrjPartner_Ent_Tab_Docs);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_OBSERVATION		, PrjPartner_Ent_Tab_Observation);
+			tmplContr.do_lc_put_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_OBSERVATION_LINE	, PrjPartner_Ent_Tab_Observation_Line);
+			
+			$("#div_main_content")	.html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT	, {}));
+		}
+		
+		var do_lc_show_prj = function(prj, mode){
+			do_lc_show_prj_content(prj, mode);
+		}
+		
+		var do_lc_show_prj_content = function(prj, mode){
+			$(pr_divContent)	.html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT_CONTENT, prj));
+
+			var listLegalStatus   = App.data.cfgValListTypeLegalStatM;
+			var listDomainPartner = App.data.cfgValListTypeDomainPartner;
+			if(prj.typ01){
+				if(prj.typ01 == 1000002){
+					listLegalStatus = App.data.cfgValListTypeLegalStatN;
+				}
+			}
+
+			$("#sel_list_type_person").html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_TYPE_PERSON, App.data.cfgValListTypePerson));
+			$("#sel_list_legal_status").html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_LEGAL_STATUS, listLegalStatus));
+			$("#sel_list_type_domain").html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_LEGAL_DOMAIN, listDomainPartner));
+			$("#sel_list_type_partner").html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_TYPE_PARTNER, App.data.cfgValListTypePartner));
+			if(prj != null){
+				$("#sel_list_type_domain") 		    .find("option[value="+prj.cfgVal01		+"]")	.attr("selected","selected");
+				$("#sel_list_legal_status") 		.find("option[value="+prj.cfgVal02		+"]")	.attr("selected","selected");
+				$("#sel_list_type_partner") 		.find("option[value="+prj.typ02			+"]")	.attr("selected","selected");
+				$("#sel_list_type_person") 			.find("option[value="+prj.typ01			+"]")	.attr("selected","selected");
+				$("#stat") 							.find("option[value="+prj.stat			+"]")	.attr("selected","selected");
+				
+				if (prj.typ02 == typePartnerClient)
+					$("#div_partner_type_domain").hide();
+			}else{
+				$("#sel_list_type_person") 			.find("option[value="+prj.typ01			+"]")	.attr("selected","selected");
+			}
+			
+			$(pr_divTabDocs)		.html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_DOCS, prj));
+			$(pr_divTabObserv)		.html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_OBSERVATION, prj));
+			$(pr_divTabObservTab)	.html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_OBSERVATION_LINE, prj));
+//			$(pr_divTabBank)		.html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_BANK, prj));
+//			$(pr_divTabAddr)		.html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_ADDRESS, prj));
+			$("#lbl_prj_partner_observ_lab").html(App.data.user.login);
+			
+			let divActionMod = $("#a_btn_save, #a_btn_calcel, #div_prj_avatar_file_upload, .action-item-observ, .action-item-doc, #div_prj_ent_file_upload, .item-file-delete");
+			let divActionSel = $("#a_btn_edit, #div_avatar_partner, #div_lst_doc");
+			if(mode == pr_ctr_Main.var_lc_MODE_MOD){
+				do_gl_enable_edit($(pr_divContent), ".objData", mode);
+				
+				divActionMod.removeClass("hide");
+				divActionSel.addClass("hide");
+			} else {
+				do_gl_disable_edit($(pr_divContent));
+				
+				divActionMod.addClass("hide");
+				divActionSel.removeClass("hide");
+			}
+			
+			do_lc_bind_event_content_prj(prj);
+			do_lc_bind_event_docs_prj(prj);
+			do_lc_bind_event_observ(prj);
+		}
+		
+		var do_lc_bind_event_content_prj = function(prj){			
+//			let	obj 	= {files:[].concat(prj.files ? prj.files.filter(a => a.typ01==2 && a.typ02==1) : [])};
+			if(!prj.files)	prj.files = [];
+			let option	= {
+					fileinput		: {	maxFiles : 1, param : {typ01: 2, typ02: 1} },//option here
+					obj				: prj//file existing here					
+			}			
+			do_gl_init_fileDropzone($(pr_divContent), option);
+			
+			$("#a_btn_edit").off('click').click(function(){
+				var typePartner = prj.typ02;
+//				var rightCode = rights.req_lc_Right(typePartner, RIGHT_M);
+//				if(rightCode == -1){
+//					do_gl_show_Notify_Msg_Error($.i18n("user_not_support_M_" + typePartner));
+//					return;
+//				}
+				do_lc_Lock_Begin(prj);
+			});	
+			
+			$("#a_btn_save").off("click").on("click", function(){
+				let	data	= req_gl_data({
+					dataZoneDom		: $(pr_divContent)
+				});
+				
+				if(data.hasError)	return false;
+				
+				let newPrj 			= data.data;
+				newPrj 				= $.extend(false, prj, newPrj);
+				
+				let	observ	= req_gl_data({
+					dataZoneDom		: $(pr_divTabObserv),
+					skipError		: true
+				});
+				
+				if(observ.hasError && observ.data.length!=0)	return false;
+				if(!newPrj.tpyInfos)	
+					newPrj.tpyInfos	= [];
+				
+				if(observ.data.length==0)	
+					newPrj.tpyInfos	= [];
+				else {
+					for(let a in observ.data.tpyInfos)
+						observ.data.tpyInfos[a].id = observ.data.tpyInfos[a].id < 0 ? null : observ.data.tpyInfos[a].id;
+					newPrj.tpyInfos		= observ.data.tpyInfos.filter(a => a != null);					
+				}
+				
+//				let	docs	= req_gl_data({
+//					dataZoneDom		: $(pr_divTabDocs),
+//					skipError		: true
+//				});
+//				
+//				if(docs.hasError)	return false;
+				
+//				newPrj.files		= [];
+//				newPrj.files		= newPrj.files.concat(docs.data.files ? docs.data.files : []);
+//				newPrj.files		= newPrj.files.concat(pr_docsObj.files);
+//				newPrj.files		= newPrj.files.concat(obj.files);
+//				newPrj.files		= newPrj.files.filter((a,idx) => newPrj.files.indexOf(newPrj.files.filter(f => f.id==a.id)[0]) === idx);
+				
+				do_lc_save_prj_content(newPrj, prj)
+			})
+			
+			$("#a_btn_calcel").off("click").on("click", function(){
+				do_lc_cancel(prj);
+			})
+			
+			$("#sel_list_type_person").off("change").on("change", function(){
+				var listLegalStatus = App.data.cfgValListTypeLegalStatM;
+				if($(this).val() == 1000002){
+					listLegalStatus = App.data.cfgValListTypeLegalStatN;
+				} 
+				$("#sel_list_legal_status").html(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_SEL_LIST_LEGAL_STATUS, listLegalStatus));
+			})
+
+			var rightSocMa = self.do_verify_user_right_soc_manage();
+			if(!rightSocMa)
+				$("#div_per_partner_societe").hide();
+			else{
+				var LstAllSociete = App.data["LstSociete"].concat(App.data["LstSocieteChild"]);
+				for(var i=0; i<LstAllSociete.length; i++){
+					if(LstAllSociete[i].id == prj.parent){
+						$("#inp_per_partner_societe")	.val(LstAllSociete[i].name01);
+						break;
+					}
+				}
+				do_gl_autocomplete({
+					el: $("#inp_per_partner_societe"),
+					required: true,
+					source: App.data["LstSociete"].concat(App.data["LstSocieteChild"]),
+					selectCallback: function(item ) {
+						$("#socId")						.val(item.id);
+						$("#inp_per_partner_societe")	.val(item.name01);
+					},
+					renderAttrLst: ["name01"],
+					minLength: 0,
+				});
+			}
+		};
+
+		let pr_min_new_observ_id	= -1;
+		var do_lc_bind_event_observ = function(prj){
+			let observs	= prj.tpyInfos ? prj.tpyInfos.filter(obs => !obs.cfgVal01) : [];
+			let objData = observs.reduce((currentObj, obs)=>{
+				currentObj[obs.id] = obs;
+				return currentObj;
+			}, {});
+			pr_OBS_TEMP = objData;
+			
+			$(".observ-edit").off("click").on("click", function(){
+				let $this 			= $(this);
+				let {observid} 		= $this.data();
+				let mem 			= pr_OBS_TEMP[observid];
+				if(mem){
+					let parentTR 	= $this.closest("tr");
+					parentTR.find(".content-observ").addClass("hide");
+					parentTR.find(".edit-observ").removeClass("hide");
+					let divLev 		= parentTR.find(".level-edit");
+					let divTyp 		= parentTR.find(".typ-edit");
+					
+					let inpInfo02	= parentTR.find(".inp_prj_partner_observ_info02");					
+					do_gl_set_input_autocomplete(inpInfo02, {
+						source: [{"label" : $.i18n('per_tab_observation_event_01'),  "displ" : $.i18n('per_tab_observation_event_01')}, {"label" : $.i18n('per_tab_observation_event_02'), "displ" : $.i18n('per_tab_observation_event_02')}, {"label" : $.i18n('per_tab_observation_event_03'), "displ" : $.i18n('per_tab_observation_event_03')}, {"label" : $.i18n('per_tab_observation_event_04'), "displ" : $.i18n('per_tab_observation_event_04')}], 
+							minLength: 0
+					}, mem);
+
+					let inpInfo05	= parentTR.find(".inp_prj_partner_observ_info05");
+					do_gl_set_input_autocomplete(inpInfo05, {
+						source: [{"label" : $.i18n('per_tab_observation_status_01'),  "displ" : $.i18n('per_tab_observation_status_01')}, {"label" : $.i18n('per_tab_observation_status_02'), "displ" : $.i18n('per_tab_observation_status_02')}, {"label" : $.i18n('per_tab_observation_status_03'), "displ" : $.i18n('per_tab_observation_status_03')}, {"label" : $.i18n('per_tab_observation_status_04'), "displ" : $.i18n('per_tab_observation_status_04')}, {"label" : $.i18n('per_tab_observation_status_05'), "displ" : $.i18n('per_tab_observation_status_05')}], 
+							minLength: 0
+					}, mem);
+					
+					do_lc_bindEvent_tabObservEdit(observid, divLev, divTyp);
+					$(".action-mem").removeClass("hide");
+				}
+			})
+
+			$(".observ-delete").off("click").on("click", function(){
+				let {observid} = $(this).data();
+				let mem 	= pr_OBS_TEMP[observid];
+				if(mem){
+					delete pr_OBS_TEMP[observid];
+					$(this).closest("tr").remove();
+					$(".action-mem").removeClass("hide");
+				}
+			})
+			
+			$("#inp_prj_partner_observ_info05").off("blur").on("blur", function(){
+				let	newObsData	= req_gl_data({
+					dataZoneDom		: $("#div_prj_observation_new_line"),
+					dataSelector	: ".newObsData"
+				});
+				if(newObsData.hasError) {
+					$("#inp_prj_partner_observ_info05").val("");
+					return;
+				}
+				let newLine	= newObsData.data;
+				newLine.id	= pr_min_new_observ_id;
+				newLine.lab	= App.data.user.login;
+//				let lab		=App.data.user.login;
+//				let info01	=$("#inp_prj_partner_observ_info01").val();
+//				let info02	=$("#inp_prj_partner_observ_info02").val();
+//				let info04	=$("#inp_prj_partner_observ_info04").val();
+//				let info03	=$("#inp_prj_partner_observ_info03").val();
+//				let info05	=$("#inp_prj_partner_observ_info05").val();
+				if(!prj.tpyInfos) prj.tpyInfos = [];
+				let currObsIdx = prj.tpyInfos.length;
+//				let newLine	= {	lab: 	lab,
+//						id:		pr_min_new_observ_id,
+//						info01: info01,
+//						info02: info02,
+//						info04: info04,
+//						info03: info03,
+//						info05: info05};
+				pr_min_new_observ_id--;
+				prj.tpyInfos.push(newLine);
+				$(pr_divTabObservTab).append(tmplContr.req_lc_compile_tmpl(tmplName.PRJ_PARTNER_ENT_TAB_OBSERVATION_LINE, {tpyInfos:[newLine]}));
+				$(pr_divTabObservTab).children("tr").last().find("input.objData, textarea.objData").data("gindex", currObsIdx);
+				$(".action-item-observ").removeClass("hide");
+				$(".action-item-doc").removeClass("hide");
+				do_lc_bind_event_observ(prj);
+				$("#inp_prj_partner_observ_info01").val("");
+				$("#inp_prj_partner_observ_info02").val("");
+				$("#inp_prj_partner_observ_info04").val("");
+				$("#inp_prj_partner_observ_info03").val("");
+				$("#inp_prj_partner_observ_info05").val("");
+			})
+							
+			do_gl_set_input_autocomplete($("#inp_prj_partner_observ_info02"), {
+				source: [{"label" : $.i18n('per_tab_observation_event_01'),  "displ" : $.i18n('per_tab_observation_event_01')}, {"label" : $.i18n('per_tab_observation_event_02'), "displ" : $.i18n('per_tab_observation_event_02')}, {"label" : $.i18n('per_tab_observation_event_03'), "displ" : $.i18n('per_tab_observation_event_03')}, {"label" : $.i18n('per_tab_observation_event_04'), "displ" : $.i18n('per_tab_observation_event_04')}], 
+					minLength: 0
+			}, {});
+
+			do_gl_set_input_autocomplete($("#inp_prj_partner_observ_info05"), {
+				source: [{"label" : $.i18n('per_tab_observation_status_01'),  "displ" : $.i18n('per_tab_observation_status_01')}, {"label" : $.i18n('per_tab_observation_status_02'), "displ" : $.i18n('per_tab_observation_status_02')}, {"label" : $.i18n('per_tab_observation_status_03'), "displ" : $.i18n('per_tab_observation_status_03')}, {"label" : $.i18n('per_tab_observation_status_04'), "displ" : $.i18n('per_tab_observation_status_04')}, {"label" : $.i18n('per_tab_observation_status_05'), "displ" : $.i18n('per_tab_observation_status_05')}], 
+					minLength: 0
+			}, {});
+		}
+
+		var do_lc_bindEvent_tabObservEdit = function(observid, divLev, divTyp){
+			$(divLev).off("change").on("change", function(){
+				pr_OBS_TEMP[observid].lev = $(this).val();
+			})
+
+			$(divTyp).off("change").on("change", function(){
+				pr_OBS_TEMP[observid].typ = $(this).val();;
+			})
+		}
+		
+		var do_lc_bind_event_docs_prj = function(prj){
+//			pr_docsObj 		= {files: prj.files};
+			let option		= {
+					fileinput	: {param : {typ01: 1} },//option here
+					obj			: prj//file existing here
+			}
+			do_gl_init_fileDropzone($(pr_divTabDocs), option);
+			
+			$(".item-file-download").off("click").on("click", function(){
+				let {path} = $(this).data();
+				if(path)	window.open(path, "_blank");
+			})
+			
+			$(".item-file-delete").off("click").on("click", function(){
+				let id	= $(this).data("id");
+				$(this).parents("tr").remove();
+			})
+			
+			$("#btn_add_doc").off("click").on("click", function(){
+				$(".action-item-doc").removeClass("hide");
+				$("#div_prj_ent_file_upload").removeClass("hide");
+				$(this).addClass("hide");
+				$(".item-file-delete").removeClass("hide");
+			})
+			
+			$("#a_btn_save_doc").off("click").on("click", function(){
+				let	data	= req_gl_data({
+					dataZoneDom		: $(pr_divTabDocs),
+					skipError		: true
+				});
+				
+				if(data.hasError)	return false;
+				
+				let prj 		= data.data;
+				if(!prj.files)	prj.files	= [];
+				prj.files		= prj.files.concat(obj.files);
+				
+				console.log(prj.files);
+				
+				do_lc_save_files_prj(prj);
+			})
+			
+			$("#a_btn_calcel_doc").off("click").on("click", function(){
+				do_lc_show_prj_docs(prj);
+			})
+		}
+		
+		var do_lc_get_prj = function(id){
+			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_GET);	
+			ref["id"]		= id;
+			ref["forced"]	= true;
+			
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_getPrj_response, []));
+			
+			let fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Msg, [$.i18n("common_err_ajax")]);	
+			App.network.do_lc_ajax (App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;
+		}
+		
+		var do_lc_getPrj_response = function(sharedJson){
+			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
+				let data 		= sharedJson[App['const'].RES_DATA];
+				do_lc_show_prj(data);
+			} else {   
+				window.open("view_prj_partner_list.html", "_self");
+			}
+		}
+		
+		var do_lc_Lock_Begin = function (obj){
+			var ref 			= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_LCK_NEW);
+			var lock 			= {};			
+			lock.objectType 	= pr_OBJ_TYPE; 	//integer
+			lock.objectKey 		= obj.id; 		//integer
+			ref['req_data'	]	= JSON.stringify(lock); 
+			var fSucces			= [];
+			fSucces.push(req_gl_funct(null, do_begin_lock, [obj]));
+			var fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Notify_Msg, [$.i18n("common_err_ajax"), 0]);	
+			App.network.do_lc_ajax (App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;	
+		}
+		
+		function do_begin_lock(sharedJson, obj){
+			//to comeback on tab curent active
+//		    do_gl_req_tab_active($(pr_divContent));
+		    
+			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {					
+				pr_lock 		= sharedJson[App['const'].RES_DATA];   
+				App.data.mode 	= pr_ctr_Main.var_lc_MODE_MOD;				
+				do_lc_show_prj(obj, App.data.mode);
+			} else if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_NO) {
+				pr_lock 	= null;
+				var uName 	= " " + sharedJson[App['const'].RES_DATA].userName;
+				do_gl_show_Notify_Msg_Error ($.i18n('lock_err_begin') + uName);
+			}else{
+				pr_lock = null;
+				do_gl_show_Notify_Msg_Error ($.i18n('lock_err_inconnu'));
+				//notify something if the lock is taken by other person
+				//show lock.information
+			}		
+		}
+		
+		var do_lc_save_prj_content = function(newPrj, prj){
+			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_LCK_END);	
+			ref["obj"]		= JSON.stringify(newPrj);
+			ref['lock_id'] 	= pr_lock.lockId;
+			
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_afterSave_prjContent, [prj]));
+			
+			let fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Msg, [$.i18n("common_err_ajax")]);	
+			
+			App.network.do_lc_ajax(App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;
+		}
+		
+		var do_lc_afterSave_prjContent = function(sharedJson, prj){
+			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
+				let data 		= sharedJson[App['const'].RES_DATA];
+				prj 			= $.extend(true, prj, data);
+				App.data.mode 	= pr_ctr_Main.var_lc_MODE_SEL;				
+				do_lc_show_prj(prj, App.data.mode);
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
+			}
+		}
+		
+		var do_lc_cancel = function (prj){
+			var ref 			= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_LCK_DEL);
+			ref['lock_id'	]	= pr_lock.lockId;
+			var fSucces			= [];
+			fSucces.push(req_gl_funct(null, do_del_lock		, [prj]));	
+
+			var fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Notify_Msg, [$.i18n("common_err_ajax"), 0]);	
+
+			App.network.do_lc_ajax (App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;	
+		}
+		
+		function do_del_lock(sharedJson, prj){
+			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {					
+				pr_lock = null;				
+			} else {   
+				pr_lock = null;
+				//notify something
+				do_gl_show_Notify_Msg_Error ($.i18n('lock_err_inconnu') );
+			}
+	
+			App.data.mode 	= pr_ctr_Main.var_lc_MODE_SEL;				
+			do_lc_show_prj(prj, App.data.mode);
+		}
+		
+		var do_lc_save_files_prj = function(prj){
+			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_SAVE_FILES);	
+			ref["obj"]		= JSON.stringify(prj);
+			
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_afterSave_files_prj, [prj]));
+			
+			let fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Msg, [$.i18n("common_err_ajax")]);	
+			
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;
+		}
+		
+		var do_lc_afterSave_files_prj = function(sharedJson, prj){
+			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
+				prj.docs = sharedJson[App['const'].RES_DATA].docs;
+				do_lc_show_prj_docs(prj);
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		
+		var do_get_per_societe = function(typeSoc) {
+			//ajax to get all fix values here
+			var ref 		= req_gl_Request_Content_Send('ServicePerPerson', 'SVPersonLst');
+			ref["typ02"]	= typeSoc;
+			
+			var fSucces		= [];
+			if(typeSoc != societeListChild)
+				fSucces.push(req_gl_funct(App, App.funct.put, ['LstSociete']));
+			
+			if(typeSoc == societeListChild)
+				fSucces.push(req_gl_funct(App, App.funct.put, ['LstSocieteChild']));
+			
+			var fError 		= req_gl_funct(App, self.do_show_Msg, [$.i18n("common_err_ajax")]);	
+			
+			App.network.do_lc_ajax_bg (App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;	
+		}
+
+		//---------GetCFG Value---------
+//		function doGetCfgValue(varname, idGroup, val02, forConcat){	
+//			var ref 		= req_gl_Request_Content_Send('ServicePerPerson', 'SVPersonGetCfg');
+//			ref['idGroup']	= idGroup;
+//			ref['val02']	= val02;
+//			var fSucces		= [];		
+//			if (!forConcat) 
+//				fSucces.push(req_gl_funct(App, App.funct.put, [varname]));
+//			else
+//				fSucces.push(req_gl_funct(App, App.funct.mergeArray, [varname])); 
+//			
+//			fSucces.push(req_gl_funct(null, translateCFGValue, varname));
+//			var fError 		= req_gl_funct(App, self.do_show_Msg, [$.i18n("common_err_ajax")]);	
+//			App.network.do_lc_ajax_bg (App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;	
+//		}
+		
+		var do_lc_getCfg_value = function(lstGroup){	
+			var ref 		= req_gl_Request_Content_Send('ServicePerPerson', 'SVPersonGetCfgAll');
+			ref["ids"]		= JSON.stringify(lstGroup);
+			
+			var fSucces		= [];		
+			fSucces.push(req_gl_funct(null, do_lc_after_getCfg_value, []));
+			
+			var fError 		= req_gl_funct(App, self.do_show_Msg, [$.i18n("common_err_ajax")]);	
+			App.network.do_lc_ajax_bg (App.path.BASE_URL_API, pr_ctr_Main.var_lc_URL_Aut_Header, ref, 100000, fSucces, fError) ;	
+		}
+		
+		var do_lc_after_getCfg_value = function(sharedJson){
+			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
+				let data 		= sharedJson[App['const'].RES_DATA];
+				if(data && data.length){
+					App.data["cfgValListTypePerson"] 		= data.filter(o => o.grp == 100);
+					App.data["cfgValListTypeLegalStatN"] 	= data.filter(o => o.grp == 102		&& o.val02 == 1);
+					App.data["cfgValListTypeLegalStatM"] 	= data.filter(o => o.grp == 102 	&& o.val02 == 2);
+					App.data["cfgValListTypeDomainPartner"] = data.filter(o => o.grp == 1001);
+					App.data["cfgValListTypePartner"] 		= data.filter(o => o.grp == 101 	&& [2, 3, "2", "3"].includes(o.val02));
+				}
+			}
+		}
+		
+		function translateCFGValue(sharedJson, varname){
+			var list =  App.data[varname];
+			for(var i = 0; i <list.length; i++){
+				list[i].name = $.i18n(list[i].val01);			
+			}
+		}
+	};
+
+	return PrjPartnerEnt;
+});

@@ -1,0 +1,176 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{transl 'nso_plan_email_campagne_new_title'}}</h4>
+        <div class="needs-validation" id="frm_new_group">
+			<input type="hidden" class="objData" data-name="id" 		value="{{id}}">
+			<input type="hidden" class="objData" data-name="translId" 	value="{{translId}}" id="inp_translId">
+			<input type="hidden" class="objData" data-name="typ00" 		value="500">
+			
+            <div class="row">
+            	<div class="col-lg-12 col-md-12 col-sm-12">		
+		            <div class="form-group">
+		            	<h5 class="font-size-15 my-2 mb-1">{{transl 'nso_plan_email_campagne_header_tit'}} *</h5>
+                		<input type="text" data-name="name" value="{{name}}" class="form-control objData" id="inp_group_name" placeholder="{{transl 'nso_plan_email_campagne_header_tit'}}" data-validation="required">
+		            </div>
+		         </div>
+		         
+            	<div class="col-lg-6 col-md-6 col-sm-12">		
+		            <div class="form-group">
+		                <div class="input-daterange">
+		                	<h5 class="font-size-15 my-2 mb-1">{{transl 'nso_plan_email_campagne_header_date_begin'}} *</h5>
+		           	    	<input data-format="date" type="text" id="inp_dt_begin" data-validation="date" class="form-control objData" data-name="dtBegin" value="{{reqFormatShortDate dtBegin}}"  data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+		            	</div>
+		            </div>
+		              <div class="form-group">
+		              	<h5 class="font-size-15 my-2 mb-1">{{transl 'nso_plan_email_campagne_header_interval'}} *</h5>
+			            <select class="form-control objData" data-validation="required" data-name="val01" id="nbDetail">
+							<option {{#equal val01 1}} selected {{/equal}} value="1" {{#equal val01 1}} selected {{/equal}}>1</option>
+							<option {{#equal val01 2}} selected {{/equal}} value="2" {{#equal val01 2}} selected {{/equal}}>2</option>
+							<option {{#equal val01 3}} selected {{/equal}} value="3" {{#equal val01 3}} selected {{/equal}}>3</option>
+							<option {{#equal val01 4}} selected {{/equal}} value="4" {{#equal val01 4}} selected {{/equal}}>4</option>
+							<option {{#equal val01 5}} selected {{/equal}} value="5" {{#equal val01 5}} selected {{/equal}}>5</option>
+							<option {{#equal val01 6}} selected {{/equal}} value="6" {{#equal val01 6}} selected {{/equal}}>6</option>
+							<option {{#equal val01 7}} selected {{/equal}} value="7" {{#equal val01 7}} selected {{/equal}}>7</option>
+							<option {{#equal val01 8}} selected {{/equal}} value="8" {{#equal val01 8}} selected {{/equal}}>8</option>
+							<option {{#equal val01 9}} selected {{/equal}} value="9" {{#equal val01 9}} selected {{/equal}}>9</option>
+							<option {{#equal val01 10}} selected {{/equal}} value="10" {{#equal val01 10}} selected {{/equal}}>10</option>
+							<option {{#equal val01 11}} selected {{/equal}} value="11" {{#equal val01 11}} selected {{/equal}}>11</option>
+							<option {{#equal val01 12}} selected {{/equal}} value="12" {{#equal val01 12}} selected {{/equal}}>12</option>
+							<option {{#equal val01 13}} selected {{/equal}} value="13" {{#equal val01 13}} selected {{/equal}}>13</option>
+							<option {{#equal val01 14}} selected {{/equal}} value="14" {{#equal val01 14}} selected {{/equal}}>14</option>
+							<option {{#equal val01 15}} selected {{/equal}} value="15" {{#equal val01 15}} selected {{/equal}}>15</option>
+							<option {{#equal val01 16}} selected {{/equal}} value="16" {{#equal val01 16}} selected {{/equal}}>16</option>
+							<option {{#equal val01 17}} selected {{/equal}} value="17" {{#equal val01 17}} selected {{/equal}}>17</option>
+							<option {{#equal val01 18}} selected {{/equal}} value="18" {{#equal val01 18}} selected {{/equal}}>18</option>
+							<option {{#equal val01 19}} selected {{/equal}} value="19" {{#equal val01 19}} selected {{/equal}}>19</option>
+							<option {{#equal val01 20}} selected {{/equal}} value="20" {{#equal val01 20}} selected {{/equal}}>20</option>
+							<option {{#equal val01 21}} selected {{/equal}} value="21" {{#equal val01 21}} selected {{/equal}}>21</option>
+							<option {{#equal val01 22}} selected {{/equal}} value="22" {{#equal val01 22}} selected {{/equal}}>22</option>
+							<option {{#equal val01 23}} selected {{/equal}} value="23" {{#equal val01 23}} selected {{/equal}}>23</option>
+						</select>
+		            
+		            </div>
+		         </div>
+		         
+		         <div class="col-lg-6 col-md-6 col-sm-12">		
+		            <div class="form-group">
+		                <div class="input-daterange">
+		                	<h5 class="font-size-15 my-2 mb-1">{{transl 'nso_plan_email_campagne_header_date_end'}} *</h5>
+		                	<input data-format="date" type="text" id="inp_dt_end" data-validation="date" class="form-control objData" data-name="dtEnd" value="{{reqFormatShortDate dtEnd}}" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+		            	</div>
+		            </div>
+		            
+		             <div class="form-group">
+		             		<h5 class="font-size-15 my-2 mb-1">{{transl 'nso_plan_email_campagne_header_status'}} *</h5>
+		               		<select id="sel_status" class="form-control objData" data-name="stat">
+								<option {{#equal stat 0}} selected {{/equal}} value="1">{{transl "nso_plan_email_campagne_header_status_not_validated"}}</option>
+								<option {{#equal stat 1}} selected {{/equal}} value="2">{{transl "nso_plan_email_campagne_header_status_validated"}}</option>
+								<option {{#equal stat 2}} selected {{/equal}} value="3">{{transl "nso_plan_email_campagne_header_status_validated_hidden"}}</option>
+								<option {{#equal stat 3}} selected {{/equal}} value="4">{{transl "nso_plan_email_campagne_header_status_reported"}}</option>
+							</select>
+		            </div>
+		         </div>
+		         
+		    </div>
+		    
+		    <div class="row mt-3" id="div_content_message">
+					<div class="col-sm-12 col-lg-12 col-md-12">
+						<div class="form-group">
+							<h5 class="font-size-15  my-2 mb-1 ">{{transl 'nso_plan_email_campagne_header_content_01'}} *</h5>
+							<input class="form-control objData" id="inp_content01" data-group="descr01" data-name="email_title" value="{{descr01.email_title}}"/>
+						</div>
+						<div class="form-group">
+							 <h5 class="font-size-15 my-2 mb-1">{{transl 'nso_plan_email_campagne_header_content_02'}} *</h5>
+							<textarea class="form-control objData chat-input" id="inp_content02" data-group="descr01" data-name="email_cont" rows="5">{{{descr01.email_cont}}}</textarea>
+						</div>
+					</div>
+			</div>
+			
+		    <div class="row">
+		    	 <div class="col-sm-12 col-lg-12 col-md-12">
+						<h4 class="card-title">{{transl 'nso_plan_email_campagne_config'}} *</h4>
+				</div>
+		         <div class="col-sm-12 col-lg-6 col-md-6">	
+		          	<div class="form-group">
+		                <input type="text" id="inp_email_name" placeholder="{{transl 'nso_plan_email_campagne_header_prop_01_mail_name'}}" class="form-control objData" data-group="descr01" data-name="email_name" value="{{descr01.email_name}}"/>
+		            </div>	
+		            <div class="form-group">
+		                <input type="text" id="inp_email_sender" placeholder="{{transl 'nso_plan_email_campagne_header_prop_01_mail'}}" class="form-control objData" data-group="descr01" data-name="email" value="{{descr01.email}}"/>
+		            </div>
+		             <div class="form-group">
+		                <input type="password" id="inp_email_password" placeholder="{{transl 'nso_plan_email_campagne_header_prop_01_pwd'}}" class="form-control objData" data-group="descr01" data-name="pwd" value="{{descr01.pwd}}"/>
+		            </div>
+		         </div>
+		         
+				<div class="col-sm-12 col-lg-6 col-md-6">
+					<div id="div_smtp_config">
+						<div class="form-group">
+					    	<input class="form-control objData" placeholder="{{transl 'nso_plan_email_campagne_header_prop_01_smtp_host'}}" data-group="descr01" data-name="smtp_host" value="{{descr01.smtp_host}}" id="inp_smtp_config">
+					  	</div>
+					  	<div class="form-group">
+					    	<input class="form-control objData" placeholder="{{transl 'nso_plan_email_campagne_header_prop_01_smtp_addr'}}" data-group="descr01" data-name="smtp_addr" value="{{descr01.smtp_addr}}" data-name-zone="host_addr" data-validation="required">
+					  	</div>
+					  	<div class="form-group">
+					    	<input class="form-control objData" placeholder="{{transl 'nso_plan_email_campagne_header_prop_01_smtp_port'}}" data-group="descr01" data-name="smtp_port" value="{{descr01.smtp_port}}" data-name-zone="host_port" data-validation="required">
+					  	</div>
+					  	<div class="form-group">
+					    	<input class="form-control objData" placeholder="{{transl 'nso_plan_email_campagne_header_prop_01_web_url'}}" data-group="descr01" data-name="web_url" value="{{descr01.web_url}}" data-name-zone="host_port" data-validation="required">
+					  	</div>
+					</div>
+				</div>
+		    </div>
+		    
+		    <div class="row my-2">
+				<div class="box-header with-border">
+					<h4 class="card-title">{{transl 'nso_plan_email_campagne_group_email'}}</h4>
+				</div>
+				
+				<div class="box-body col-lg-12 col-md-12 col-sm-12">
+					<div id="div_group_email_for_campagne" class="form-horizontal table-sroll">
+						<table id="tab_group_email_for_campagne" class="table table-hover objData"
+							data-name="group" data-primary="name">
+							<thead>
+								<tr>
+									<th data-name="id" 	    data-visible="false" >id </th>
+									<th data-name="name" 	data-visible="true" >{{transl "nso_plan_email_campagne_group_email_name"}}*</th>
+									<th data-name="ref" 	data-visible="true" >{{transl "nso_plan_email_campagne_group_email_code"}}</th>
+									<th data-name="action" 	data-visible="true" >{{transl "nso_plan_email_campagne_group_email_action"}}</th>
+								</tr>
+							</thead>
+							<tbody style="background-color: white;">
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div  class="row my-3">
+	             <div id="div_files" class="col-lg-12 col-md-12 col-sm-12">
+	                <div class="box-header with-border">
+						<h4 class="card-title">{{transl 'nso_plan_email_campagne_file'}}</h4>
+					</div>
+	                 <div>
+	                     <form class="dropzone inputfile">
+	                         <div class="fallback">
+	                             <input data-name="file" type="file" data-code="16000" />
+	                         </div>
+	
+	                         <div class="dz-message needsclick">
+	                             <div class="mb-3">
+	                                 <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+	                             </div>
+	                             <h4>{{transl 'prj_project_drop_files'}}</h4>
+	                         </div>
+	                     </form>
+	                 </div>
+	             </div>
+             </div>
+             <div class="row justify-content-end">
+	            <div class="col-auto">
+	                <button id="btn_create_group" class="btn btn-primary" type="button">{{transl 'common_btn_new'}}</button>
+	            </div>
+	        </div>              	
+            
+        </div>
+    </div>
+</div>

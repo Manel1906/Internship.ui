@@ -1,0 +1,64 @@
+<div id="frm_new_msg">
+	<div class="form-group">
+		<input type="email" class="form-control objData" data-name="to"
+			value="{{to}}" placeholder="{{transl 'prj_email_msg_new_to'}}" {{#if
+			to}}data-validation="required"
+			{{else}}data-validation="required email"{{/if}}>
+	</div>
+
+	<div class="form-group">
+		<input type="text" class="form-control objData" data-name="subj"
+			value="{{subj}}" placeholder="{{transl 'prj_email_msg_new_subject'}}"
+			data-validation="required">
+	</div>
+	
+	<div class="row">
+		<div class="col-lg-9 col-md-9 col-sm-12">
+			<label class="col-form-label">{{transl	'prj_email_msg_new_comment'}} *</label>
+			<div class="form-group child-height-215">
+				<textarea rows="" class="objData" cols="" id="txtarea_content"
+					data-name="body"></textarea>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-12">
+
+			<div class="form-group mb-4">
+				<label class="col-form-label">{{transl	'prj_email_msg_new_files'}} *</label>
+				<div id="prj_email_msg_dropzone_send" class="fallback">
+
+					<form action="/" method="post" class="dropzone inputfile">
+						<div class="fallback">
+							<input data-name="files" type="file" multiple="multiple"
+								class="objData" data-typ01="2" data-typ02="10">
+						</div>
+
+						<div class="dz-message needsclick">
+							<div class="mb-3">
+								<i class="display-4 text-muted bx bxs-cloud-upload"></i>
+							</div>
+							<h4>{{transl 'prj_email_msg_drop_files'}}</h4>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{{#if body}}
+	<div class="form-group">
+		<p>{{transl 'prj_email_msg_transfer'}}</p>
+		{{#if from}}<span>{{from}}</span>{{/if}}
+		<blockquote style="border-left: 1px solid #556ee6; margin-left: 15px">{{{body}}}</blockquote>
+	</div>
+	<hr />
+	{{/if}}
+	
+	<div class="form-group">
+		<label for="inp_pwd_mail_secure">{{transl
+			'prj_email_msg_secure_msg'}}</label> <input type="password"
+			class="form-control objData" data-name="lock"
+			placeholder="{{transl 'prj_email_msg_secure_enter'}}">
+	</div>
+	
+	<img src="www/img/noImg.jpg"  type='file' id="div_img_hidden" multiple hidden />
+</div>

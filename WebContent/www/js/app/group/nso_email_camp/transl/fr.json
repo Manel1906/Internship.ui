@@ -1,0 +1,40 @@
+{
+    "--- Plan Email Campagne ------------------------": "---------------- --------------- ",
+	"nso_plan_email_campagne_new": "Ajouter nouveau",
+	"nso_plan_email_campagne_search": "Recherche par nom",
+	"nso_plan_email_campagne_config": "Configuration d'envoi d'e-mails",
+	"nso_plan_email_campagne_btn_duplicate": "Copier",
+	"nso_plan_email_campagne_btn_delete": "Supprimer la campagne",
+	"nso_plan_email_campagne_delete_success": "Supprimer la campagne réussie",
+	"nso_plan_email_campagne_header_ref": "Code de gestion",
+	"nso_plan_email_campagne_header_tit": "Titre",
+	"nso_plan_email_campagne_header_content_01": "Objet de l'e-mail",
+	"nso_plan_email_campagne_header_content_02": "Corps de l'e-mail",
+	
+	"nso_plan_email_campagne_header_prop_01_mail_name": "Expéditeur",
+	"nso_plan_email_campagne_header_prop_01_mail": "E-mail",
+	"nso_plan_email_campagne_header_prop_01_pwd": "Mot de passe",
+	"nso_plan_email_campagne_header_prop_01_smtp_host": "Nom SMTP",
+	"nso_plan_email_campagne_header_prop_01_smtp_addr": "Chemin SMTP",
+	"nso_plan_email_campagne_header_prop_01_smtp_port": "Port SSL",
+	"nso_plan_email_campagne_header_prop_01_web_url": "Adresse du site Web",
+	
+	"nso_plan_email_campagne_header_date_add": "Date d'ajout",
+	"nso_plan_email_campagne_header_date_mod": "Date de la dernière modification",
+	"nso_plan_email_campagne_header_date_begin": "Date de début",
+	"nso_plan_email_campagne_header_date_end": "Date de fin",
+	"nso_plan_email_campagne_header_status": "Statut",
+	"nso_plan_email_campagne_header_status_not_validated": "Nouvellement créé",
+	"nso_plan_email_campagne_header_status_validated": "Approuvé",
+	"nso_plan_email_campagne_header_status_validated_hidden": "En rythme et masqué",
+	"nso_plan_email_campagne_header_status_reported": "Reflété",
+	"nso_plan_email_campagne_header_interval": "Heures d'envoi quotidiennes",
+	
+	"nso_plan_email_campagne_group_email": "Liste des groupes de messagerie",
+	"nso_plan_email_campagne_group_email_name": "Nom du groupe",
+	"nso_plan_email_campagne_group_email_code": "Code de groupe",
+	"nso_plan_email_campagne_group_email_action": "Action",
+	"nso_plan_email_campagne_file": "Joindre",
+	
+	"nso_plan_email_campagne_new_title": "Créer une nouvelle campagne"
+}

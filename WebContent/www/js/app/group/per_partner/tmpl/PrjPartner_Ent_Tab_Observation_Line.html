@@ -1,0 +1,55 @@
+	<div id="div_prj_partner_observ">
+		<div class="row">
+			<input id="lbl_prj_partner_observ_id" class="objData hide" type="text"	data-group="inf04" data-name="id" value="{{id}}">
+			                	
+			<div class="col-md-6 col-xs-12 hide">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_tab_observation_user'}}</h5>
+				<input id="lbl_prj_partner_observ_lab"	class="form-control edit-observ hide isManager level-edit  objData"	data-group="inf04" data-gindex="{{@index}}" data-name="lab"		value="{{lab}}" 	disabled="disabled">
+			</div>
+		
+			<div class="col-md-6 col-xs-12 hide">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_tab_observation_date'}}</h5>
+				<input  id="inp_prj_partner_observ_date" class="form-control edit-observ level-edit hide isManager inp_prj_partner_observ_info01 objData" type="text"	data-group="inf04" data-gindex="{{@index}}"
+			                	data-name="info01" value="{{info01}}" data-validation="date required" data-format="date">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12">
+				<div class="font-size-15 mt-2 h5 content-observ info-edit-content cursor-pointer"><span>{{transl 'per_tab_observation_event'}} *</span><i class="mdi mdi-square-edit-outline text-primary ml-3"></i></div>
+				<div	class="level-content min-height-20 cursor-pointer">{{info02}}</div>
+			    <select class="form-control edit-observ content-info02-observ level-edit hide isManager objData" data-group="inf04" data-gindex="{{@index}}"
+			            	data-name="info02" data-validation="required">
+			   		<option value='{{transl "per_tab_observation_event_01"}}'>{{transl "per_tab_observation_event_01"}}</option>
+					<option value='{{transl "per_tab_observation_event_02"}}'>{{transl "per_tab_observation_event_02"}}</option>
+					<option value='{{transl "per_tab_observation_event_03"}}'>{{transl "per_tab_observation_event_03"}}</option>
+					<option value='{{transl "per_tab_observation_event_04"}}'>{{transl "per_tab_observation_event_04"}}</option>
+			   </select>
+			</div>
+			<div class="col-md-6 col-xs-12">
+				<div class="font-size-15 h5 mt-4 content-observ info-edit-content cursor-pointer"><span>{{transl 'per_tab_observation_status'}} *</span><i class="mdi mdi-square-edit-outline text-primary ml-3"></i></div>
+				<div	class="level-content min-height-20 cursor-pointer">{{info05}}</div>
+			   <select class="form-control edit-observ content-info05-observ level-edit hide isManager objData" data-group="inf04" data-gindex="{{@index}}"
+			            	data-name="info05" data-validation="required">
+			   		<option value='{{transl "per_tab_observation_status_01"}}'>{{transl "per_tab_observation_status_01"}}</option>
+					<option value='{{transl "per_tab_observation_status_02"}}'>{{transl "per_tab_observation_status_02"}}</option>
+					<option value='{{transl "per_tab_observation_status_03"}}'>{{transl "per_tab_observation_status_03"}}</option>
+					<option value='{{transl "per_tab_observation_status_04"}}'>{{transl "per_tab_observation_status_04"}}</option>
+					<option value='{{transl "per_tab_observation_status_05"}}'>{{transl "per_tab_observation_status_05"}}</option>
+			   </select>
+			</div>	
+			
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-xs-12" id="inp_prj_partner_observ_info04">
+				<div class="font-size-15 h5 mt-4 content-info04-observ cursor-pointer"><span>{{transl 'per_tab_observation_cmt'}}</span><i class="mdi mdi-square-edit-outline text-primary ml-3"></i></div>
+				<div	class="level-content min-height-20 cursor-pointer overflow-auto">{{{info04}}}</div>
+				<textarea	class="form-control hide isManager objData" id="inp_comment" rows="5"	data-group="inf04" data-gindex="{{@index}}" data-name="info04">{{info04}}</textarea>
+			</div>
+			
+			<div class="col-md-6 col-xs-12" id="inp_prj_partner_observ_info03">
+				<div class="font-size-15 h5 mt-4 content-info03-observ cursor-pointer"><span>{{transl 'per_tab_observation_cmt02'}}</span><i class="mdi mdi-square-edit-outline text-primary ml-3"></i></div>
+				<div	class="level-content min-height-20 cursor-pointer overflow-auto">{{{info03}}}</div>
+			    <textarea	class="form-control hide isManager objData" id="inp_comment02" rows="5"	data-group="inf04" data-gindex="{{@index}}" data-name="info03">{{info03}}</textarea>
+			</div>		
+		</div>
+	</div>  

@@ -1,0 +1,242 @@
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+        	<div id="div_img_avatar" class="mt-4 mb-4">
+        		{{#if avatar}}
+        		<img src="{{reqSrcImg avatar}}" alt="" class="avatar-lg mr-4" style="object-fit: cover;">
+        		{{else}}
+        		<div class="avatar-lg mr-4 text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}"><div class="text-middle">{{reqSrcTextAvatar login01}}</div></div>
+        		{{/if}}
+        	</div>
+        	
+			<div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16"></h5>
+            </div>
+            <a id="a_btn_save" class="mr-3 text-primary hide action-item hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+            </a>
+            <a id="a_btn_cancel" class="mr-3 text-danger cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+            	<i class="mdi mdi-close font-size-20"></i>
+            </a>
+            
+            <div class="dropdown float-right font-size-20">
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer">
+                    	<i class="mdi mdi-plus text-primary mr-1"></i>{{transl 'user_profile_add_avatar'}}</span>
+                    </li>
+                </ul>
+	        </div>
+        </div>
+		<input type="hidden" class="form-control objData" data-name="id" value="{{id}}"> 	
+			
+		<form id="div_prj_ent_file_upload" action="/" method="post" class="dropzone inputfile mt-4 mb-4 hide">
+		    <div class="fallback">
+		        <input data-name="file" type="file"/>
+		    </div>
+		
+		    <div class="dz-message needsclick">
+		        <div class="mb-3">
+		            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+		        </div>
+		        <h4>{{transl 'user_profile_drop_files'}}</h4>
+		    </div>
+		</form>					
+		
+			
+		<div class="row">
+			<div class="col-6">
+				<div class="font-size-15 cursor-pointer h5">{{transl 'aut_user_ent_header_login'}}</div>
+				<p class="text-muted cursor-pointer info-content" data-name="login">{{login01}}</p>
+				<input id="inp_autuser_header_login"  type="text" data-name="login" value="{{login01}}" class="form-control objData hide" data-validation="required">
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_header_email'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-name="email">{{email}}</p>
+				<input id="inp_autuser_header_email"  type="text" data-name="email" value="{{email}}" class="form-control objData hide content-edit isManager" data-validation="required email">
+			</div>
+		</div>		
+  
+		<input type="hidden" class="form-control objData" data-group="per" data-name="id" value="{{per.id}}">
+		<div class="row">
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_legalstat'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">
+					{{#equal per.v02 1020001}}{{transl "per_person_mr" }}{{/equal}}
+					{{#equal per.v02 1020002}}{{transl "per_person_mrs" }}{{/equal}}
+				</p>
+				<select id="sel_autuser_header_legalstat" class="form-control objData hide content-edit isManager" data-validation="required" data-group="per" data-name="v02">
+					<option {{#equal per.v02 1020001}}selected{{/equal}} value="1020001">{{transl "per_person_mr"}}</option>
+					<option {{#equal per.v02 1020002}}selected{{/equal}} value="1020002">{{transl "per_person_mrs"}}</option>
+				</select>
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info02'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-group="inf02" data-name="job">{{per.inf02.j}}</p>
+				<input id="inp_autuser_tab01_info_02"  type="text" data-group="inf02" data-name="job" value="{{per.inf02.j}}" class="form-control objData hide content-edit isManager">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_name_01'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-group="per" data-name="name01">{{per.name01}}</p>
+				<input id="inp_autuser_header_name_01" type="text" data-group="per" data-name="name01" value="{{per.name01}}" class="form-control objData hide content-edit isManager" data-validation="required">
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info04_i'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{per.inf04.i}}</p>
+				<input id="inp_autuser_tab01_info_04i" type="text" data-group="inf04" data-name="idDocNum" value="{{per.inf04.i}}" class="form-control objData hide content-edit isManager" data-validation="numeric">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_name_02'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-group="per" data-name="name02">{{per.name02}}</p>
+				<input id="inp_autuser_header_name_02" type="text" data-group="per" data-name="name02" value="{{per.name02}}" class="form-control objData hide content-edit isManager">
+			</div>
+			<div class="col-6">
+                <div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info04_d'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{reqFormatShortDate per.inf04.d}}</p>
+				<div class="input-daterange input-group hide content-edit isManager" >
+					<input id="inp_autuser_tab01_info_04d" class="form-control objData" data-provide="datepicker" type="text" data-group="inf04" 
+                		data-name="idDocDate" data-format="date" data-validation="date" {{#if per.inf04.d}}value="{{reqFormatShortDate per.inf04.d}}"{{/if}}>
+                </div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_name_03'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-group="per" data-name="name03">{{per.name03}}</p>
+				<input id="inp_autuser_header_name_03" type="text" data-group="per" data-name="name03" value="{{per.name03}}" class="form-control objData hide content-edit isManager" data-validation="required">
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info04_p'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{per.inf04.p}}</p>
+				<input id="inp_autuser_tab01_info_04p" type="text" data-group="inf04" data-name="idDocPlace" value="{{per.inf04.p}}" class="form-control objData hide content-edit isManager">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info07'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-group="per" data-name="inf07">{{per.inf07}}</p>
+				<input id="inp_autuser_header_info_07"  type="text" data-group="per" data-name="inf07" value="{{per.inf07}}" class="form-control objData hide content-edit isManager">
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info05_f'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{per.inf05.fb}}</p>
+				<input id="inp_autuser_tab01_info_05f"  type="text" data-group="inf05" data-name="value_facebook" value="{{per.inf05.fb}}" class="form-control objData hide content-edit isManager">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-6">
+				<div class="font-size-15 iinfo-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info09'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-group="per" data-name="inf09">{{per.inf09}}</p>
+				<input id="inp_autuser_tab01_info_09" type="text" data-group="per" data-name="inf09" data-format="numeric" value="{{per.inf09}}" class="form-control objData hide content-edit isManager">
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info05_i'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{per.inf05.ig}}</p>
+				<input id="inp_autuser_tab01_info_05i"  type="text" data-group="inf05" data-name="value_instagram" value="{{per.inf05.ig}}" class="form-control objData hide content-edit isManager">
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-6">
+                <div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_dtBirthday'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content" data-group="inf02" data-name="dtBirthday">{{reqFormatShortDate per.inf02.d}}</p>
+				<div class="input-daterange input-group hide content-edit isManager">
+					<input id="inp_autuser_tab01_birthday" class="form-control objData" data-provide="datepicker" type="text" data-group="inf02" 
+                		data-name="dtBirthday" data-format="date" data-validation="date" {{#if per.inf02.d}}value="{{reqFormatShortDate per.inf02.d}}"{{/if}}>
+                </div>
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info05_l'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{per.inf05.ln}}</p>
+				<input id="inp_autuser_tab01_info_05l"  type="text" data-group="inf05" data-name="value_linkedin" value="{{per.inf05.ln}}" class="form-control objData hide content-edit isManager">
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-6">
+                <div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_header_utc'}}</div>
+				<p id="utcStr" class="text-muted info-edit cursor-pointer info-content"  data-group="inf04" data-name="utc"></p>
+				<select id="sel_autuser_header_utc" class="form-control objData hide content-edit isManager" data-validation="number" data-group="inf04" data-name="utc">
+					<option value="-12">{{transl 'aut_user_ent_header_utc_01'}}</option>
+						<option value="-11">{{transl 'aut_user_ent_header_utc_02'}}</option>
+						<option value="-10">{{transl 'aut_user_ent_header_utc_03'}}</option>
+						<option value="-9.5">{{transl 'aut_user_ent_header_utc_04'}}</option>
+						<option value="-9">{{transl 'aut_user_ent_header_utc_05'}}</option>
+						<option value="-8">{{transl 'aut_user_ent_header_utc_06'}}</option>
+						<option value="-7">{{transl 'aut_user_ent_header_utc_07'}}</option>
+						<option value="-6">{{transl 'aut_user_ent_header_utc_08'}}</option>
+						<option value="-5">{{transl 'aut_user_ent_header_utc_09'}}</option>
+						<option value="-4">{{transl 'aut_user_ent_header_utc_10'}}</option>
+						<option value="-3.5">{{transl 'aut_user_ent_header_utc_11'}}</option>
+						<option value="-3">{{transl 'aut_user_ent_header_utc_12'}}</option>
+						<option value="-2">{{transl 'aut_user_ent_header_utc_13'}}</option>
+						<option value="-1">{{transl 'aut_user_ent_header_utc_14'}}</option>
+						<option value="0" selected>{{transl 'aut_user_ent_header_utc_15'}}</option>
+						<option value="1">{{transl 'aut_user_ent_header_utc_16'}}</option>
+						<option value="2">{{transl 'aut_user_ent_header_utc_17'}}</option>
+						<option value="3">{{transl 'aut_user_ent_header_utc_18'}}</option>
+						<option value="3.5">{{transl 'aut_user_ent_header_utc_19'}}</option>
+						<option value="4">{{transl 'aut_user_ent_header_utc_20'}}</option>
+						<option value="4.5">{{transl 'aut_user_ent_header_utc_21'}}</option>
+						<option value="5">{{transl 'aut_user_ent_header_utc_22'}}</option>
+						<option value="5.5">{{transl 'aut_user_ent_header_utc_23'}}</option>
+						<option value="5.75">{{transl 'aut_user_ent_header_utc_24'}}</option>
+						<option value="6">{{transl 'aut_user_ent_header_utc_25'}}</option>
+						<option value="6.5">{{transl 'aut_user_ent_header_utc_26'}}</option>
+						<option value="7">{{transl 'aut_user_ent_header_utc_27'}}</option>
+						<option value="8">{{transl 'aut_user_ent_header_utc_28'}}</option>
+						<option value="8.75">{{transl 'aut_user_ent_header_utc_29'}}</option>
+						<option value="9">{{transl 'aut_user_ent_header_utc_30'}}</option>
+						<option value="9.5">{{transl 'aut_user_ent_header_utc_31'}}</option>
+						<option value="10">{{transl 'aut_user_ent_header_utc_32'}}</option>
+						<option value="10.5">{{transl 'aut_user_ent_header_utc_33'}}</option>
+						<option value="11">{{transl 'aut_user_ent_header_utc_34'}}</option>
+						<option value="12">{{transl 'aut_user_ent_header_utc_35'}}</option>
+						<option value="12.75">{{transl 'aut_user_ent_header_utc_36'}}</option>
+						<option value="13">{{transl 'aut_user_ent_header_utc_37'}}</option>
+						<option value="14">{{transl 'aut_user_ent_header_utc_38'}}</option>
+				</select>
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_header_lang'}}</div>
+				<p id="langStr" class="text-muted info-edit cursor-pointer info-content"  data-group="inf04" data-name="lang"></p>
+				<select id="sel_autuser_header_lang" class="form-control objData hide content-edit" data-group="inf04" data-name="lang">
+					<option value="en">{{transl 'aut_user_ent_header_en'}}</option>
+					<option value="vn">{{transl 'aut_user_ent_header_vn'}}</option>
+					<option value="fr">{{transl 'aut_user_ent_header_fr'}}</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="row hide">
+			<div class="col-6">
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info05_g'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{per.inf05.gg}}</p>
+				<input id="inp_autuser_tab01_info_05g"  type="text" data-group="inf05" data-name="value_google" value="{{per.inf05.gg}}" class="form-control objData hide content-edit isManager">
+			</div>
+		</div>
+		
+		<div class="row hide">
+			<div class="col-6">
+			</div>
+			<div class="col-6">
+				<div class="font-size-15 info-edit cursor-pointer h5">{{transl 'aut_user_ent_tab01_info05_t'}}</div>
+				<p class="text-muted info-edit cursor-pointer info-content">{{per.inf05.tw}}</p>
+				<input id="inp_autuser_tab01_info_05t"  type="text" data-group="inf05" data-name="value_twitter" value="{{per.inf05.tw}}" class="form-control objData hide content-edit isManager">
+			</div>
+		</div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="card">
+    <div class="btn-toolbar p-3" role="toolbar">
+        <div class="btn-group mr-2 mb-2 mb-sm-0">
+            <button id="btn_rep_email" type="button" class="btn btn-primary waves-light waves-effect">
+                <i class="mdi mdi-reply"></i> {{transl "common_btn_reply"}}
+            </button>
+<!--             <button type="button" class="btn btn-primary waves-light waves-effect"><i class="fa fa-exclamation-circle"></i></button> -->
+            <button id="btn_transfer_email" type="button" class="btn btn-primary waves-light waves-effect">
+                <i class="mdi mdi-share"></i> {{transl "common_btn_forward"}} 
+            </button>
+        </div>
+        <div class="btn-group mr-2 mb-2 mb-sm-0">
+<!--             <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> -->
+<!--                 <i class="fa fa-folder"></i> <i class="mdi mdi-chevron-down ml-1"></i> -->
+<!--             </button> -->
+<!--             <div class="dropdown-menu"> -->
+<!--                 <a class="dropdown-item" href="#">Updates</a> -->
+<!--                 <a class="dropdown-item" href="#">Social</a> -->
+<!--                 <a class="dropdown-item" href="#">Team Manage</a> -->
+<!--             </div> -->
+        </div>
+        <div class="btn-group mr-2 mb-2 mb-sm-0">
+        	{{#if (reqNameFolderEmail folder)}}
+        		{{#if (reqTypeEmailSecure mailContent)}}
+            	<button id="btn_delete_email_secure" type="button" class="btn btn-primary waves-light waves-effect" data-id="{{mailContent.id}}" data-title="{{mailContent.subj}}"><i class="far fa-trash-alt"></i></button>
+        		{{else}}
+        		<button id="btn_delete_email" type="button" class="btn btn-primary waves-light waves-effect" data-id="{{mailContent.id}}" data-title="{{mailContent.subj}}"><i class="far fa-trash-alt"></i></button>
+        		{{/if}}
+        	{{else}}
+        	<button id="btn_delete_email" type="button" class="btn btn-primary waves-light waves-effect" data-id="{{mailContent.id}}" data-title="{{mailContent.subj}}"><i class="far fa-trash-alt"></i></button>
+        	{{/if}}
+        </div>
+
+        <div class="btn-group mr-2 mb-2 mb-sm-0">
+            <button type="button" class="btn btn-primary waves-light waves-effect dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                 <i class="mdi mdi-dots-vertical"></i>
+            </button>
+            <div class="dropdown-menu">
+                <a id="btn_unread_email"	class="dropdown-item" href="#"  data-id="{{mailContent.id}}" data-title="{{mailContent.subj}}"> {{transl "prj_email_mark_as_unread"}} </a>
+                <a id="btn_important_email"	class="dropdown-item" href="#"  data-id="{{mailContent.id}}" data-title="{{mailContent.subj}}"> {{transl "prj_email_mark_as_important"}}  </a>
+                <a id="btn_spam_email"		class="dropdown-item" href="#"  data-id="{{mailContent.id}}" data-title="{{mailContent.subj}}"> {{transl "prj_email_mark_as_spam"}} </a>
+<!--                 <a class="dropdown-item" href="#">Add Star</a> -->
+<!--                 <a class="dropdown-item" href="#">Mute</a> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="media mb-4">
+            <!-- <img class="d-flex mr-3 rounded-circle avatar-sm" src="www/img/prj/users/avatar-2.jpg" alt="Generic placeholder image"> -->
+            <!-- <img class="d-flex mr-3 rounded-circle avatar-sm" src="www/img/prj/users/avatar-2.jpg" alt="Generic placeholder image"> -->
+            <div class="media-body">
+                <h5 class="font-size-14 mt-1">{{mailContent.from}}</h5>
+                <div><span class="font-size-14 h5 mr-1">{{transl "prj_email_msg_to"}}</span><span class="text-muted">{{mailContent.to}}</span></div>
+            </div>
+        </div>
+
+        <h4 class="mt-0 font-size-16">{{mailContent.subj}}</h4>
+        
+        <div id="div_html_add_path"></div>
+
+		<div>{{{mailContent.body}}}</div>
+<!--         <p>Dear Lorem Ipsum,</p> -->
+<!--         <p>Praesent dui ex, dapibus eget mauris ut, finibus vestibulum enim. Quisque arcu leo, facilisis in fringilla id, luctus in tortor. Nunc vestibulum est quis orci varius viverra. Curabitur dictum volutpat massa vulputate molestie. In at felis ac velit maximus convallis. -->
+<!--         </p> -->
+<!--         <p>Sed elementum turpis eu lorem interdum, sed porttitor eros commodo. Nam eu venenatis tortor, id lacinia diam. Sed aliquam in dui et porta. Sed bibendum orci non tincidunt ultrices. Vivamus fringilla, mi lacinia dapibus condimentum, ipsum urna lacinia lacus, vel tincidunt mi nibh sit amet lorem.</p> -->
+<!--         <p>Sincerly,</p> -->
+<!--         <hr/> -->
+
+<!--         <div class="row"> -->
+<!--             <div class="col-xl-2 col-6"> -->
+<!--                 <div class="card"> -->
+<!--                     <img class="card-img-top img-fluid" src="assets/images/small/img-3.jpg" alt="Card image cap"> -->
+<!--                     <div class="py-2 text-center"> -->
+<!--                         <a href="" class="font-weight-medium">Download</a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--             <div class="col-xl-2 col-6"> -->
+<!--                 <div class="card"> -->
+<!--                     <img class="card-img-top img-fluid" src="assets/images/small/img-4.jpg" alt="Card image cap"> -->
+<!--                     <div class="py-2 text-center"> -->
+<!--                         <a href="" class="font-weight-medium">Download</a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+
+		{{#if mailContent.files}}
+		<div>
+			<div class="mb-1 mt-3 h5 font-size-14"><i class="bx bx-paperclip"></i> {{transl "prj_email_files"}}</div>
+			<div id="div-message-content-files">
+	        </div>
+		</div>
+		{{/if}}
+         
+<!--         <a href="#" class="btn btn-secondary waves-effect mt-4" id="btn_rep_email"><i class="mdi mdi-reply"></i> Reply</a> -->
+<!--         <a href="#" class="btn btn-secondary waves-effect mt-4" id="btn_transfer_email"><i class="mdi mdi-share"></i> Transfer</a> -->
+    </div>
+
+</div>

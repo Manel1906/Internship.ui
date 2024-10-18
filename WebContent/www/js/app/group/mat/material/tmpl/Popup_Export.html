@@ -1,0 +1,36 @@
+<div id="div_export_options">
+	<div>
+		<table class="table">
+			<tbody>
+				<tr>
+					<td><label>{{transl "common_gen_format_doc"}}</label></td>
+					<td><select id="sel_SYSRpt_export_format" class="objData"
+						data-name="ext">
+							<option value="pdf">{{transl
+								"common_gen_format_doc_pdf"}}</option>
+							<option value="xls">{{transl
+								"common_gen_format_doc_excel"}}</option>
+							<option value="doc">{{transl
+								"common_gen_format_doc_html"}}</option>
+							<option value="html">{{transl
+								"common_gen_format_doc_word"}}</option>
+							<option value="jpg">{{transl
+								"common_gen_format_doc_jpg"}}</option>
+					</select></td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</div>
+	{{#ifCond toPrint "==" 1}}
+	<div>
+		<label>{{transl "printer"}}</label> <select
+			id="sel_SYSRpt_export_printer" class="objData" data-name="printer">
+			<option value="">Default printer</option> {{#each printers}}
+			<option value="{{this}}">{{this}}</option> {{/each}}
+		</select>
+	</div>
+	{{/ifCond}}
+
+</div>

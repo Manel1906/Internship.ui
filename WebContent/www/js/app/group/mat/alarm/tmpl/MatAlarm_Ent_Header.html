@@ -1,0 +1,163 @@
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-9">
+				<h4 class="card-title mb-4 shp_font_size">{{transl "mat_alarm_header_title"}} </h4>
+			</div>
+
+			<div class="col-3 isManager">
+				<div class="text-sm-right">
+					<a data-divtoogle="#div_frm_tpy_cat" class="btn-resize" data-toggle="tooltip" data-placement="top"
+						title="" data-original-title="Resize">
+						<i class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<form class="form-horizontal" id="div_frm_tpy_cat">
+			<div class="row">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="form-group" hidden>
+						<input type="hidden" class="objData" data-name="id" value="{{id}}" data-validation="number"/>
+					</div>
+
+					<div class="form-group" hidden>
+						<input id="stat" type="hidden" class="objData" data-name="stat" value="{{stat}}" data-validation="number"/>
+					</div>
+
+					<div class="form-group" hidden>
+						<input data-name="val04" id="ratioIn" type="hidden" class="objData" value="{{ratioIn}}" data-validation="number"/>
+					</div>
+
+					<div class="form-group">
+						<label for="inp_mat_inf01"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_inf01'}}
+						</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_inf01" data-msgClass="errMsgInline" class="objData form-control"
+								type="text" data-name="info01" value="{{info01}}"
+								data-label="{{transl 'mat_alarm_header_inf01'}}" />
+						</div>
+					</div>
+
+					<div class="form-group display-new-edit">
+						<label for="inp_mat_inf06"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_inf06'}}
+						</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_inf06" data-msgClass="errMsgInline" class="objData form-control"
+								type="text" data-name="info06" value="{{unitIn}}"
+								data-label="{{transl 'mat_alarm_header_inf06'}}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inp_mat_inf04"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_inf04'}}
+						</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_inf04" data-msgClass="errMsgInline" disabled class="objData form-control"
+								type="text" data-name="info04" value="{{info04}}"
+								data-label="{{transl 'mat_alarm_header_inf04'}}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inp_mat_val03"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_val03'}}
+							*</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_val03" data-msgClass="errMsgInline" class="objData form-control"
+								data-validation="required" type="text" data-name="val03" value="{{val03}}"
+								data-label="{{transl 'mat_alarm_header_val03'}}" data-validation="required" />
+						</div>
+					</div>
+
+				</div>
+
+
+				<div class="col-lg-4 col-md-4 col-sm-12">
+
+					<div class="form-group">
+						<label for="inp_mat_inf02"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_inf02'}}
+						</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_inf02" data-msgClass="errMsgInline" class="objData form-control"
+								type="text" data-name="info02" value="{{info02}}"
+								data-label="{{transl 'mat_alarm_header_inf02'}}" />
+						</div>
+					</div>
+
+					<div class="form-group display-new-edit">
+						<label for="inp_mat_val00"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_val00'}}
+							*</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_val00" data-validation="required number" data-msgClass="errMsgInline"
+								class="objData form-control" type="text" data-name="val00" value="{{val00}}"
+								data-label="{{transl 'mat_alarm_header_val00'}}" data-validation="required" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inp_mat_val01"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_val01'}}
+							*</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_val01"  data-validation="required number" data-msgClass="errMsgInline" class="objData form-control"
+								type="text" data-name="val01" value="{{val01}}"
+								data-label="{{transl 'mat_alarm_header_val01'}}" disabled />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inp_mat_inf05"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_inf05'}}
+						</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_inf05" data-msgClass="errMsgInline" class="objData form-control"
+								type="text" data-name="info05" value="{{info05}}"
+								data-label="{{transl 'mat_alarm_header_inf05'}}" />
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="form-group">
+						<label for="inp_mat_inf03"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_inf03'}}
+							*</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input type="hidden" class="objData" data-name="entId" id="entId" data-validation="number" value="{{entId}}">
+							<input id="inp_mat_inf03" data-validation="required" data-msgClass="errMsgInline"
+								class="objData form-control" type="text" data-name="info03" value="{{info03}}"
+								data-label="{{transl 'mat_alarm_header_inf03'}}" data-validation="required" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inp_mat_val02"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl 'mat_alarm_header_val02'}}
+							*</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_mat_val02" data-validation="required number" data-msgClass="errMsgInline"
+								class="objData form-control" type="text" data-name="val02" value="{{val02}}"
+								data-label="{{transl 'mat_alarm_header_val02'}}" data-validation="required" />
+						</div>
+					</div>
+
+					<div class="pull-left shp_margin-top">
+						<a id="btn_MatAlarm_cal_unitBase" class="btn btn-app custom-btn-app" data-toggle="tooltip"
+							title="{{transl 'common_btn_cal_unitBase'}}">
+							<i class="fa fa-calculator"></i>
+						</a>
+					</div>
+
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>

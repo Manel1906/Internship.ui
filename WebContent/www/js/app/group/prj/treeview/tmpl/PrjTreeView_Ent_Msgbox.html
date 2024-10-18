@@ -1,0 +1,72 @@
+{{#* inline "sameLevel"}}
+{{#if epics}}
+ <ul>
+ 	{{#each epics}}
+	<li class="{{#if isShow}}text-success{{/if}}" data-id="{{id}}" data-code="{{code01}}" style="display:block">
+		<div class="row">
+			<div class="col-6">
+				<span 	class="prj-item hnv-route cursor-pointer {{#equal typ02 '1'}}font-weight-bold{{/equal}}" 
+						data-url	="{{reqSrcPage 250000 typ00 typ01 typ02 id code01}}" 
+						data-route	="{{reqRoutePage 250000 typ00 typ01 typ02}}"
+						style="margin-right:5px">
+					<i 	class="bx {{#equal typ02 '1'}}bx-package{{else}}bx-task{{/equal}} font-size-15 {{#if isShow}}bx-burst{{/if}}"></i>
+					{{name}}
+				</span>
+			
+			</div>
+			{{#equal typ02 2}}
+			<div class="col-3">
+					<i class="bx bx-time-five"></i> {{reqShortDateStr dtEnd}}&nbsp;&nbsp;&nbsp; <span class="{{reqClassByStat stat}}">[{{reqLabByStat stat}}] </span>
+			</div>
+			<div class="col-3">
+				{{> members}}
+			</div>
+			{{/equal}}
+		</div>
+		{{#if epics}}{{> sameLevel}}{{/if}}
+	</li>
+	{{/each}}
+</ul>
+{{/if}}
+{{/inline}}
+
+{{#* inline "members"}}
+{{#each members}}
+	<a href="javascript: void(0);" class="team-member d-inline-block" data-toggle="tooltip" data-placement="top" data-original-title="{{ent02.login01}}">
+       	{{#if ent02.avatar}}
+		<img src="{{reqSrcImg ent02.avatar}}" class="rounded-circle avatar-xs" alt="">
+		{{else}}
+		<div class="rounded-circle avatar-xxs text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.login01}}">
+			<div class="text-middle">{{reqSrcTextAvatar ent02.login01}}</div>
+		</div>
+		{{/if}}
+       	<span class="tooltiptext">{{ent02.login01}}</span>
+	</a>
+{{/each}}
+{{/inline}}
+
+<div class="container-fluid">
+	<div class="card">
+		<div class="card-body">
+			<ul id="div_tree_prj" style="list-style: none;">
+				<li>
+				<div class="row">
+					<div class="col-6">
+						<span class="prj-item cursor-pointer" style="margin-right:5px;">
+							<i class="bx bx-briefcase-alt-2"></i> 
+							{{name}}
+						</span>
+					</div>
+					<div class="col-3">
+					</div>
+<!-- 					<div class="col-3"> -->
+<!-- 						{{> members}} -->
+<!-- 					</div> -->
+				</div>
+				{{> sameLevel}}
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+

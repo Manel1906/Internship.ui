@@ -1,0 +1,34 @@
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+        	<img src="{{reqSrcAvatarPrj @root}}" alt="" class="avatar-sm mr-4">
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16">{{obj.name}}</h5>
+            </div>
+        </div>
+
+		<div>
+			<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_chat_group_descr'}}</h5>
+			<p class="text-muted " data-name="descr01">{{obj.descr}}</p>
+		</div>
+		<div>
+			<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_chat_group_ref'}}</h5>
+			<p class="text-muted " data-name="descr01">{{obj.ref}}</p>
+		</div>
+		
+		<div>
+			<h5 class="font-size-14 info-edit"><i class="bx bx-calendar mr-1 text-primary"></i>{{transl 'prj_chat_group_date_begin'}}</h5>
+                    <p data-format="date" class="text-muted mb-0 " data-name="dtBegin">{{reqFormatDate obj.dt01}}</p>
+		</div>
+		
+		<div class="pt-lg-4">
+			{{#if hasJoin}}
+			<button type="button" class="btn btn-primary" disabled>{{transl 'prj_chat_group_has_join'}}</button>
+			<button type="button" class="btn_cancel_join btn btn-danger" id="">{{transl 'common_btn_cancel'}}</button>
+			<button type="button" class="btn_refresh_join btn" id="">{{transl 'common_btn_refresh'}}</button>
+			{{else}}
+			<button data-id="{{obj.id}}" type="button" id="" class="btn_join_group btn btn-primary">{{transl 'prj_chat_group_join'}}</button>
+			{{/if}}
+		</div>
+    </div>
+</div>

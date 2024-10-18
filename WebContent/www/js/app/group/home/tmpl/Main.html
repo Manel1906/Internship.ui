@@ -1,0 +1,935 @@
+
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Main -->
+<header id="page-topbar"></header>
+<div id="div-menu-sidebar" class="vertical-menu"></div>
+<div id="div_main_content" class="main-content"></div>
+<div id="div_mini_chat" class="">
+    <div id="div_mini_chat_01" class=""></div>
+    <div id="div_mini_chat_02" class=""></div>
+    <div id="div_mini_chat_03" class=""></div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Main_Rightbar -->
+<div data-simplebar class="h-100">
+   <div class="rightbar-title px-3 py-4">
+       <a href="javascript:void(0);" class="right-bar-toggle float-right">
+           <i class="mdi mdi-close noti-icon"></i>
+       </a>
+       <h5 class="m-0">Settings</h5>
+   </div>
+
+   <!-- Settings -->
+    <hr class="mt-0" />
+    <h6 class="text-center mb-0">Choose Layouts</h6>
+
+    <div class="p-4">
+        <div class="mb-2">
+            <img src="{{url}}img/prj/layouts/layout-1.jpg" class="img-fluid img-thumbnail" alt="">
+        </div>
+        <div class="custom-control custom-switch mb-3">
+            <input type="checkbox" class="custom-control-input theme-choice" id="light-mode-switch" checked />
+            <label class="custom-control-label" for="light-mode-switch">Light Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="{{url}}img/prj/layouts/layout-2.jpg" class="img-fluid img-thumbnail" alt="">
+        </div>
+        <div class="custom-control custom-switch mb-3">
+            <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsStyle="assets/css/bootstrap-dark.min.css" data-appStyle="assets/css/app-dark.min.css" />
+            <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
+        </div>
+
+        <div class="mb-2">
+            <img src="{{url}}img/prj/layouts/layout-3.jpg" class="img-fluid img-thumbnail" alt="">
+        </div>
+        <div class="custom-control custom-switch mb-5">
+            <input type="checkbox" class="custom-control-input theme-choice" id="rtl-mode-switch" data-appStyle="assets/css/app-rtl.min.css" />
+            <label class="custom-control-label" for="rtl-mode-switch">RTL Mode</label>
+        </div>
+
+
+    </div>
+
+</div> <!-- end slimscroll-menu-->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Main_Sidebar -->
+<div data-simplebar class="h-100">
+    <!--- Sidemenu -->
+    <div id="sidebar-menu">
+        <!-- Left Menu Start -->
+        <ul class="metismenu list-unstyled" id="side-menu">
+<!--             <li class="menu-title">{{transl 'prj_project_sidebar_menu'}}</li> -->
+
+            <li>
+<!--                 <a class="hnv-route" data-route="//" data-url="view_prj_dashboard.html"  class="waves-effect menu-item-prj cursor-pointer"   > -->
+                
+                <a data-url="view_prj_dashboard.html" data-route="VI_MAIN/prj_dashboard" class="waves-effect menu-item-prj cursor-pointer hnv-route" >
+                    <i class="bx bx-home-circle"></i>
+                    <span>{{transl 'prj_project_sidebar_dashboard'}}</span>
+                </a>
+            </li>
+			<li id="li_lst_favorite" class="li-has-menu menu-1" data-open="4" data-external-mem="true">
+                
+            </li>
+
+            <li class="menu-title has-sub-menu" data-grp="menu-1" data-open="1">{{transl 'prj_project_sidebar_apps'}}
+            </li>
+
+<!--             <li class="li-has-menu has-right menu-1" data-open="1" data-right="view:100|101|40000001|40000002"> -->
+<!--                 <a href="javascript: void(0);" class="has-arrow waves-effect">	 -->
+<!--                     <i class="bx bx-briefcase-alt-2"></i> -->
+<!--                     <span>{{transl 'prj_project_sidebar_prj'}}</span> -->
+<!--                 </a> -->
+<!--                 <ul class="sub-menu" aria-expanded="false"> -->
+<!--                     <li data-right="view:100|101|40000001"><a data-url="view_prj_project_list.html" 	data-route="VI_MAIN/prj_project_list" 	class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_project_sidebar_prj_list'}}</a></li> -->
+<!--                     <li data-right="view:100|101|40000002"><a data-url="view_prj_project_new.html" 	data-route="VI_MAIN/prj_project_new" 	class="hnv-route has-right menu-item-prj cursor-pointer"  data-external-mem="true">{{transl 'prj_project_sidebar_prj_create'}}</a></li> -->
+<!--                 </ul> -->
+<!--             </li> -->
+
+			<li class="menu-1" data-external-mem="true" data-right="view:100|101|40000001|40000002">
+                <a data-url="view_prj_project_list.html" 	data-route="VI_MAIN/prj_project_list" 	class="hnv-route has-right menu-item-prj cursor-pointer">
+                	<i class="bx bx-briefcase-alt-2"></i>
+                	<span>{{transl 'prj_project_sidebar_prj'}}</span>
+                </a>
+            </li>
+            
+            
+            <li class="menu-1">
+                <a data-url="view_prj_task_list.html" data-route="VI_MAIN/prj_task_list" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-task"></i>
+                    <span>{{transl 'prj_project_sidebar_task_board'}}</span>
+                </a>
+            </li>
+            
+            <li class="menu-1 hide" data-external-mem="true" data-right="view:100|101|40000001|40000002">
+                <a data-url="view_prj_sprint.html" data-route="VI_MAIN/prj_sprint" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-reset"></i>
+                    <span>{{transl 'prj_project_sidebar_sprint_board'}}</span>
+                </a>
+            </li>
+           
+
+            <li class="menu-1" data-external-mem="true" data-right="view:100|101|40000001|40000002">
+                <a data-url="view_prj_workflow.html" data-route="VI_MAIN/prj_workflow" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class='bx bxs-component'></i>
+                    <span>{{transl 'prj_project_sidebar_workflow'}}</span>
+                </a>
+            </li>
+
+            <li class="li-has-menu has-right menu-1" data-open="6" data-right="view:100|101|40002001|40001001" data-external-mem="true">
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="bx bx-test-tube"></i>
+                    <span>{{transl 'prj_project_sidebar_testflow'}}</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                	 <li data-right="view:100|101|40001001"><a data-url="view_prj_test_unit.html" 			data-route="VI_MAIN/prj_test_unit" 	 	class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_sidebar_test_unit'}}</a></li>
+                     <li data-right="view:100|101|40002001"><a data-url="view_prj_test_campaign.html"    	data-route="VI_MAIN/prj_test_campaign" 	class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_project_sidebar_test_group'}}</a></li>
+                </ul>
+            </li>
+            
+           
+            
+            <!-- ------------------------------------------------------------------------------------ -->
+            <li class="menu-title has-sub-menu" data-grp="menu-3" data-open="1">{{transl 'prj_project_sidebar_tools'}}</li>
+            <li class="li-has-menu hide menu-3">
+                <a data-url="view_prj_email.html" data-route="VI_MAIN/prj_email" class="waves-effect menu-item-prj cursor-pointer" id="side-menu-main" aria-expanded="false">
+                    <i class="bx bx-envelope"></i>
+                    <span>{{transl 'prj_project_sidebar_email'}}</span>
+                </a>
+                <ul id="menu-mail-mobile" class="sub-menu hide">
+                    <li >
+                        <a id="btn_change_password_cfg_menu" data-url="" data-class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_email_pwd_config_change'}}</a>
+                    </li>
+                    <li>
+                        <a id="btn_add_emailBox_menu" data-url="" class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_email_add'}}</a>
+                    </li>
+                    <li>
+                        <a id="btn_show_list_mail_secu_menu" class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_email_secu'}}</a>
+                    </li>
+                    <li class="li-has-menu hide" id="li-mail-list-mobile">
+                    	 <a href="javascript:void(0)" class="waves-effect menu-item-prj cursor-pointer" aria-expanded="false">
+		                    <span>{{transl 'prj_email_list'}}</span>
+		                </a>
+		                <ul  id="menu-mail-list-mobile" class="sub-menu">
+		                 
+		                </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="menu-3">
+                <a data-url="view_prj_chat_room.html" data-route="VI_MAIN/prj_chatroom" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-chat"></i>
+                    <span id="span_new_msg" class="badge badge-pill badge-success float-right hide">New</span>
+                    <span>{{transl 'prj_project_sidebar_chat'}}</span>
+                </a>
+            </li>
+
+<!--             <li class="menu-3" id="men_prj_minichat"> -->
+<!--                 <a id="prj_minichat" data-route="VI_MAIN/prj_minichat" class="waves-effect menu-item-prj cursor-pointer"> -->
+<!--                     <i class="bx bx-chat"></i> -->
+<!--                     <span id="span_new_msg" class="badge badge-pill badge-success float-right hide">New</span> -->
+<!--                     <span>{{transl 'prj_project_sidebar_mini_chat'}}</span> -->
+<!--                 </a> -->
+<!--             </li> -->
+
+            <li class="li-has-menu has-right menu-3" data-right="view:100|101|50000101|50000001" data-external-mem="true">
+                <a href="javascript: void(0);" data-route="VI_MAIN/prj_email" class="waves-effect menu-item-prj cursor-pointer" id="side-menu-main" aria-expanded="false">
+                    <i class="bx bx-envelope"></i>
+                    <span>{{transl 'prj_project_sidebar_commu'}}</span>
+                </a>
+                <ul id="menu-mail-mobile" class="sub-menu">
+                    <li data-right="view:100|101|50000001|50000002">
+                        <a id="btn_email_group_menu" data-route="VI_MAIN/prj_email_group" data-url="view_prj_email_group.html" class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_project_sidebar_email_group'}}</a>
+                    </li>
+                    <li data-right="view:100|101|50000101|50000102">
+                        <a id="btn_email_rdv_menu" data-route="VI_MAIN/prj_email_campaign" data-url="view_prj_email_campaign.html" class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_project_sidebar_email_campaign'}}</a>
+                    </li>
+                </ul>
+            </li>
+			<li class="menu-3" data-external-mem="true">
+                <a data-url="view_prj_team_planning.html" data-route="VI_MAIN/prj_team_planning" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-group"></i>
+                    <span>{{transl 'prj_project_sidebar_team_planning'}}</span>
+                </a>
+            </li>
+           
+            <li class="menu-3" data-external-mem="true">
+                <a data-url="view_prj_appointment_list.html" data-route="VI_MAIN/prj_appointment_list" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-calendar"></i>
+                    <span>{{transl 'prj_project_sidebar_schedule'}}</span>
+                </a>
+            </li>
+
+            <li class="li-has-menu has-right menu-3" data-open="7" data-right="view:100|101|5000001|5000002" data-external-mem="true">
+                <a data-url="view_prj_news_list.html?groupId=-1" 	data-route="VI_MAIN/prj_news_list"  class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-news"></i>
+                    <span>{{transl 'prj_project_sidebar_news'}}</span>
+                </a>
+            </li>
+            
+             <!-- ------------------------------------------------------------------------------------ -->
+			<li class="menu-title has-sub-menu" data-grp="menu-2" data-open="1" >{{transl 'prj_project_sidebar_others'}}</li>
+            <li class="hide li-has-menu has-right menu-2" data-open="2" data-right="view:100|101|30000011|30000012" data-external-mem="true">
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="bx bx-shape-square"></i>
+                    <span>{{transl 'prj_project_sidebar_partner'}}</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                	 <li data-right="view:100|101|30000011"><a data-url="view_prj_partner.html" 		data-route="VI_MAIN/prj_partner" 		class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_sidebar_partner'}}</a></li>
+                     <li data-right="view:100|101|30000011"><a data-url="view_prj_partner_list.html" 	data-route="VI_MAIN/prj_partner_list" 	class="hnv-route has-right menu-item-prj cursor-pointer show-less-1024">{{transl 'prj_project_sidebar_partner_list'}}</a></li>
+                     <li data-right="view:100|101|30000012"><a data-url="view_prj_partner_new.html"  	data-route="VI_MAIN/prj_partner_new"  	class="hnv-route has-right menu-item-prj cursor-pointer show-less-1024">{{transl 'prj_project_sidebar_partner_create'}}</a></li>
+                </ul>
+            </li>
+            
+            <li class="menu-2" data-external-mem="true" data-right="view:100|101|40000001|40000002">
+                <a data-url="view_prj_file_list.html" 	data-route="VI_MAIN/prj_file_list" 	class="hnv-route has-right menu-item-prj cursor-pointer">
+                	<i class="bx bx-briefcase-alt-2"></i>
+                	<span>{{transl 'prj_project_sidebar_files'}}</span>
+                </a>
+            </li>
+            <li class="menu-2">
+                <a data-url="view_prj_sticky_note.html" data-route="VI_MAIN/prj_sticky_note" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-note"></i>
+                    <span>{{transl 'prj_project_sidebar_sticky_note'}}</span>
+                </a>
+            </li>
+            <!-- ------------------------------------------------------------------------------------ -->
+            <li class="menu-title has-sub-menu" data-right="view:100|101|2002011|2002012" data-grp="menu-4" data-open="1" >{{transl 'prj_project_sidebar_mana'}}</li>
+            <li class="li-has-menu has-right menu-2" data-open="2" data-right="view:100|101|30000011|30000012" data-external-mem="true">
+            
+             <li class="li-has-menu has-right menu-4" data-open="3" data-right="view:100|101|1000001|1000002" data-external-mem="true">
+                <a href="javascript: void(0);" class="has-arrow waves-effect">
+                    <i class="bx bxs-user-detail"></i>
+                    <span>{{transl 'prj_project_sidebar_user'}}</span>
+                </a>
+                <ul class="sub-menu" aria-expanded="false">
+                    <li data-right="view:100|101|1000001"><a data-route="VI_MAIN/prj_user" 		data-url="view_prj_user.html" 		 class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_sidebar_user'}}</a></li>
+                    <li data-right="view:100|101|1000001"><a data-route="VI_MAIN/prj_user_list" 	data-url="view_prj_user_list.html" 	 class="hnv-route has-right menu-item-prj cursor-pointer show-less-1024">{{transl 'prj_project_sidebar_user_list'}}</a></li>
+					<li data-right="view:100|101|1000002"><a data-route="VI_MAIN/prj_user_new" 	data-url="view_prj_user_new.html"    class="hnv-route has-right menu-item-prj cursor-pointer show-less-1024">{{transl 'prj_project_sidebar_user_create'}}</a></li>
+                	<li data-right="view:100|101|1000001"><a data-route="VI_MAIN/prj_user_grp" 	data-url="view_prj_user_grp.html" 	 class="hnv-route has-right menu-item-prj cursor-pointer">{{transl 'prj_project_sidebar_user_grp'}}</a></li>
+                </ul>
+            </li>  
+            <li class="menu-4" data-right="view:100|105|2002011">
+                <a data-url="view_prj_job_report_man.html" data-route="VI_MAIN/prj_job_report_man" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-spreadsheet"></i>
+                    <span>{{transl 'prj_project_sidebar_calmerit'}}</span>
+                </a>
+            </li>
+            <li class="menu-4" data-right="view:100|105|2002011">
+                <a data-url="view_prj_job_off_man.html" data-route="VI_MAIN/prj_job_off_man" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-calendar-event"></i>
+                    <span>{{transl 'prj_project_sidebar_rest'}}</span>
+                </a>
+            </li>
+            <li class="menu-4" data-right="view:100|101|2001001">
+                <a data-url="view_prj_job_holiday.html" data-route="VI_MAIN/prj_job_holiday" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="mdi mdi-calendar-multiselect"></i>
+                    <span>{{transl 'prj_project_sidebar_holiday'}}</span>
+                </a>
+            </li>
+             <li class="menu-4" data-external-mem="true" data-right="view:100|101|1001|1002">
+                <a data-url="view_cfg_group.html" data-route="VI_MAIN/prj_cfg_group" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    <i class="bx bx-cog"></i>
+                    <span>{{transl 'aut_right_cfg_group'}}</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Main_Sidebar_Favorite -->
+{{#if lstFav}}
+<a href="javascript: void(0);" class="has-arrow waves-effect">
+    <i class="bx bx bx-heart"></i>
+    <span>{{transl 'prj_project_sidebar_favorite'}}</span>
+</a>
+<ul class="sub-menu" aria-expanded="false">
+	{{#each lstFav as |parVal parKey|}}
+    {{#each parVal.lst}}
+        <li class="prj_menu_li">
+            <a data-url="{{reqSrcPage parKey typ00 typ01 typ02 id code01}}" data-route="{{reqRoutePage parKey typ00 typ01 typ02}}" class="menu-item-prj cursor-pointer prj_menu_a hnv-route">
+                <i class="fa fa-circle mr-2 {{reqClassFav parKey typ00 typ01 typ02}}" style="font-size: .7rem; min-width: auto"/>{{name}}
+            </a>
+            <i data-id="{{id}}" data-type="{{parKey}}" class="fa fa-trash prj-trash-menu"></i>
+        </li>
+    {{/each}}
+    {{/each}}
+</ul>
+{{/if}}
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Main_Header -->
+<div class="navbar-header">
+    <div class="d-flex">
+        <!-- LOGO -->
+        <div class="navbar-brand-box">
+            <a data-route="VI_MAIN/prj_task_list" data-url="index.html" class="hnv-route logo logo-dark">
+                <span class="logo-sm">
+                    <img class="img-company avatar-sm mr-4 rounded-circle" src="{{url}}img/prj/companies/img-1.png" alt="" height="22">
+                </span>
+                <span class="logo-lg d-flex justify-content-center">
+                    <img class="img-company avatar-sm mr-4 rounded-circle" src="{{url}}img/prj/companies/img-1.png" alt="" height="17">
+                </span>
+            </a>
+
+            <a data-route="VI_MAIN/prj_task_list" data-url="index.html" class="hnv-route logo logo-light">
+                <span class="logo-sm">
+                    <img class="img-company avatar-sm mr-4 rounded-circle" src="{{url}}img/prj/companies/img-1.png" alt="" height="22">
+                </span>
+                <span class="logo-lg d-flex justify-content-center">
+                    <img class="img-company avatar-sm mr-4 rounded-circle" src="{{url}}img/prj/companies/img-1.png" alt="" height="19">
+                </span>
+            </a>
+        </div>
+
+        <button type="button" class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+            <i class="fa fa-fw fa-bars"></i>
+        </button>
+
+        <!-- App Search-->
+        <!-- {{#if isShowSearch}}
+        <form class="app-search d-none d-lg-block" onsubmit="return false">
+            <div class="position-relative">
+                <input type="text" class="form-control inp-search" placeholder="{{transl 'common_filter_keyword'}}">
+                <span class="bx bx-search-alt"></span>
+            </div>
+        </form>
+        {{/if}} -->
+    </div>
+
+    <div class="d-flex flex-wrap">
+    	<div class="dropdown dropdown-mega d-none d-lg-block ml-2">
+            <button type="button" class="btn header-item waves-effect d-flex justify-content-center align-items-center" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                <i class="bx bx-menu-alt-left font-size-20"></i>
+                <i class="mdi mdi-chevron-down"></i> 
+            </button>
+            <div id="div-menu-functions" class="dropdown-menu dropdown-menu-center p-4 dropdown-menu-right">
+                <div class="row">
+                	<div class="col-md-2">
+                        <h4 class="font-size-17 mt-0" style="color: #3333c7e8;">{{transl 'prj_project_sidebar_apps'}}</h5>
+                        
+                        <ul class="list-unstyled megamenu-list">
+                        	<li>
+                                <a data-route="VI_MAIN/prj_dashboard" data-url="view_prj_dashboard.html" class="hnv-route">{{transl 'prj_project_sidebar_dashboard'}}</a>
+                            </li>
+                        </ul>
+
+                        <h5 class="font-size-14 mt-0 has-right" data-right="view:100|101|40000001|40000002"><i>{{transl 'prj_project_sidebar_prj'}}</i></h5>
+                        <ul class="list-unstyled megamenu-list has-right" data-right="view:100|101|40000001|40000002">
+                            <li class="has-right" data-right="view:100|101|40000001">
+                                <a data-route="VI_MAIN/prj_project_list" data-url="view_prj_project_list.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_prj_list'}}</a>
+                            </li>
+                            <li class="has-right" data-right="view:100|102|40000002" data-external-mem="true">
+                                <a data-route="VI_MAIN/prj_project_new" data-url="view_prj_project_new.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_prj_create'}}</a>
+                            </li>
+                        </ul>
+
+                        <ul class="list-unstyled megamenu-list">
+                            <li>
+                                <a data-route="VI_MAIN/prj_project_new" data-url="view_prj_task_list.html" class="hnv-route">{{transl 'prj_project_sidebar_task_board'}}</a>
+                            </li>
+                            <li class="hide" data-external-mem="true">
+                                <a data-route="VI_MAIN/prj_sprint" data-url="view_prj_sprint.html" class="hnv-route">{{transl 'prj_project_sidebar_sprint_board'}}</a>
+                            </li>
+                            <li data-external-mem="true">
+                                <a data-route="VI_MAIN/prj_workflow" data-url="view_prj_workflow.html" class="hnv-route">{{transl 'prj_project_sidebar_workflow'}}</a>
+                            </li>
+                        </ul>
+
+                        <h5 class="font-size-14 mt-0 has-right" data-right="view:100|101|40001001|40002001" data-external-mem="true"><i>{{transl 'prj_project_sidebar_testflow'}}</i></h5>
+                        <ul class="list-unstyled megamenu-list has-right" data-right="view:100|101|40001001|40002001" data-external-mem="true">
+                            <li class="has-right" data-right="view:100|101|40001001">
+                                <a data-route="VI_MAIN/prj_test_unit" data-url="view_prj_test_unit.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_test_unit'}}</a>
+                            </li>
+                            <li class="has-right" data-right="view:100|101|40002001">
+                                <a data-route="VI_MAIN/prj_test_campaign" data-url="view_prj_test_campaign.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_test_group'}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- --------------------------------------------------------------------------------------------- -->
+              		<div class="col-md-2">
+                         <h4 class="font-size-17 mt-0" style="color: #3333c7e8;">{{transl 'prj_project_sidebar_tools'}}</h5>
+                         
+                         <ul class="list-unstyled megamenu-list">
+                             <li class="hide">
+                                 <a data-route="VI_MAIN/prj_email" data-url="view_prj_email.html" class="hnv-route" data-external-mem="true">{{transl 'prj_project_sidebar_email'}}</a>
+                             </li>
+                             <li>
+                                 <a data-route="VI_MAIN/prj_chatroom" data-url="view_prj_chat_room.html" class="hnv-route">{{transl 'prj_project_sidebar_chat'}}</a>
+                             </li>
+                        </ul>
+
+                        <h5 class="font-size-14 mt-0 has-right" data-right="view:100|101|50000001|50000101" data-external-mem="true"><i>{{transl 'prj_project_sidebar_commu'}}</i></h5>
+                        <ul class="list-unstyled megamenu-list has-right" data-right="view:100|101|50000001|50000101" data-external-mem="true">
+                             <li class="has-right" data-right="view:100|101|50000001">
+                                <a data-route="VI_MAIN/prj_email_group" data-url="view_prj_email_group.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_email_group'}}</a>
+                            </li>
+                            <li class="has-right" data-right="view:100|101|50000101">
+                                <a data-route="VI_MAIN/prj_email_campaign" data-url="view_prj_email_campaign.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_email_campaign'}}</a>
+                            </li>
+                        </ul>
+
+                        <ul class="list-unstyled megamenu-list" data-external-mem="true">  
+                            <li>
+                                <a data-route="VI_MAIN/prj_team_planning" data-url="view_prj_team_planning.html" class="hnv-route">{{transl 'prj_project_sidebar_team_planning'}}</a>
+                            </li>
+                            <li>
+                                <a data-route="VI_MAIN/prj_appointment_list" data-url="view_prj_appointment_list.html" class="hnv-route">{{transl 'prj_project_sidebar_schedule'}}</a>
+                            </li>
+                            <li class="li-has-menu has-right" data-open="7" data-right="view:100|101|5000001|5000002" data-external-mem="true">
+                				<a data-url="view_prj_news_list.html?groupId=-1" 	data-route="VI_MAIN/prj_news_list"  class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                    			<span>{{transl 'prj_project_sidebar_news'}}</span>
+				                </a>
+				            </li>
+                         </ul>
+                         
+                          <!-- --------------------------------------------------------------------------------------------- -->
+                     </div>
+                    <!-- --------------------------------------------------------------------------------------------- -->
+                     <div class="col-md-2">
+                        <h4 class="font-size-17 mt-0" style="color: #3333c7e8;">{{transl 'prj_project_sidebar_others'}}</h5>
+                        
+                        <h5 class="hide font-size-14 mt-0 has-right" data-right="view:100|101|30000011|30000012" data-external-mem="true"><i>{{transl 'prj_project_sidebar_partner'}}</i></h5>
+                        <ul class="hide list-unstyled megamenu-list has-right" data-right="view:100|101|30000011|30000012" data-external-mem="true">
+                            <li class="has-right" data-right="view:100|101|30000011">
+                                <a data-route="VI_MAIN/prj_partner_list" data-url="view_prj_partner_list.html" class="hnv-route">{{transl 'prj_project_sidebar_partner_list'}}</a>
+                            </li>
+                            <li class="has-right" data-right="view:100|101|30000012">
+                                <a data-route="VI_MAIN/prj_partner_new" data-url="view_prj_partner_new.html" class="hnv-route">{{transl 'prj_project_sidebar_partner_create'}}</a>
+                            </li>
+                        </ul>
+                        
+                        <h5 class="font-size-14 mt-0 has-right" data-right="view:100|101|40000101|40000102" data-external-mem="true"><i>{{transl 'prj_project_sidebar_files'}}</i></h5>
+                        <ul class="list-unstyled megamenu-list" data-external-mem="true" data-right="view:100|101|40000101|40000102">
+                            <li class="has-right" data-right="view:100|101|40000101">
+                                <a data-route="VI_MAIN/prj_file_list" data-url="view_prj_file_list.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_files_list'}}</a>
+                            </li>
+                            <li class="has-right" data-right="view:100|102|40000102">
+                                <a data-route="VI_MAIN/prj_file_new" data-url="view_prj_file_new.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_files_create'}}</a>
+                            </li>
+                        </ul>
+                        <ul class="list-unstyled megamenu-list">
+                            <li>
+                                <a data-route="VI_MAIN/prj_sticky_note" data-url="view_prj_sticky_note.html" class="hnv-route">{{transl 'prj_project_sidebar_sticky_note'}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-2" data-right="view:100|101|2002011|2002012">
+                      <h4 data-right="view:100|101|2002011|2002012"  class="font-size-17 mt-0" style="color: #3333c7e8;">{{transl 'prj_project_sidebar_mana'}}</h5>
+                        <ul class="list-unstyled megamenu-list has-right" data-right="view:100|101|40001001|40002001" data-external-mem="true">
+                            <h5 class="font-size-14 mt-0 has-right" data-right="view:100|101|1000001|1000002" data-external-mem="true"><i>{{transl 'prj_project_sidebar_user'}}</i></h5>
+                        <ul class="list-unstyled megamenu-list has-right" data-right="view:100|101|1000001|1000002" data-external-mem="true">
+                            <li class="has-right" data-right="view:100|101|1000001">
+                                <a data-route="VI_MAIN/prj_user" data-url="view_prj_user.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_user'}}</a>
+                            </li>
+                            <li class="has-right" data-right="view:100|102|1000002">
+                                <a data-route="VI_MAIN/prj_user_new" data-url="view_prj_user_new.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_user_create'}}</a>
+                            </li>
+                            <li class="has-right" data-right="view:100|101|1000001">
+                                <a data-route="VI_MAIN/prj_user_grp" data-url="view_prj_user_grp.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_user_grp'}}</a>
+                            </li>
+                        </ul>
+                            
+                            <li class="menu-2" data-right="view:100|105|2002011">
+				                <a data-url="view_prj_job_report_man.html" data-route="VI_MAIN/prj_job_report_man" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+				                    <span>{{transl 'prj_project_sidebar_calmerit'}}</span>
+				                </a>
+				            </li>
+				            <li class="menu-2" data-right="view:100|105|2002011">
+				                <a data-url="view_prj_job_off_man.html" data-route="VI_MAIN/prj_job_off_man" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+				                    <span>{{transl 'prj_project_sidebar_rest'}}</span>
+				                </a>
+				            </li>
+				            <li class="menu-2" data-right="view:100|101|2001001">
+				                <a data-url="view_prj_job_holiday.html" data-route="VI_MAIN/prj_job_holiday" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+				                    <span>{{transl 'prj_project_sidebar_holiday'}}</span>
+				                </a>
+				            </li>
+                            <li data-right="view:100|101|1001|1002">
+                                <a data-route="VI_MAIN/prj_cfg_group" data-url="view_cfg_group.html" class="hnv-route">{{transl 'aut_right_cfg_group'}}</a>
+                            </li>
+					</div>
+                     <div class="col-md-3">
+                         <div>
+                             <img src="{{url}}img/prj/megamenu-img.png" alt="" class="img-fluid mx-auto d-block">
+                         </div>
+                     </div>
+                </div>
+
+            </div>
+        </div>
+		{{#if isShowSearch}}
+        <div class="dropdown d-inline-block d-lg-none">
+            <button type="button" class="btn header-item noti-icon waves-effect" id="page-header-search-dropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="mdi mdi-magnify"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
+                aria-labelledby="page-header-search-dropdown">
+    
+                <form class="p-3" onsubmit="return false">
+                    <div class="form-group m-0">
+                        <div class="input-group">
+                            <input type="text" class="form-control inp-search-responsive" placeholder="{{transl 'common_filter_keyword'}}" aria-label="">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" id="btn_search_responsive"><i class="mdi mdi-magnify"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {{/if}}
+
+  	    <div class="dropdown d-inline-block">
+            <button id="btn_page_reload" type="button" class="btn header-item waves-effect spinner">
+                <img class="" src="{{url}}img/prj/icon/icon-refresh.png" alt="Tải lại" height="22" title="Tải lại">
+            </button>
+        </div>
+        <div class="dropdown d-inline-block">
+            <button id="btn_page_max" type="button" class="btn header-item waves-effect">
+                <img class="" src="{{url}}img/prj/icon/fullscreen-max.png" alt="Fullscreen" height="22" title="Fullscreen">
+            </button>
+            <button id="btn_page_min" type="button" class="btn header-item waves-effect" style="display: none;">
+                <img class="" src="{{url}}img/prj/icon/fullscreen-min.png" alt="Fullscreen" height="22" title="Fullscreen">
+            </button>
+        </div>
+        
+<!--         <div class="dropdown d-inline-block"> -->
+<!--         	<a class="nav-link" href="#" data-lte-toggle="fullscreen">  -->
+<!--         		<i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>  -->
+<!--         		<i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i>  -->
+<!--         	</a>  -->
+<!--         </div> -->
+        
+        <div class="dropdown d-inline-block">
+            <button type="button" class="btn header-item waves-effect"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="" src="{{url}}img/flags/{{lan}}.svg" alt="Lang" height="16">
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              	<!-- vietnam-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item a-languge" data-lan="vi" data-lanId="1" data-loc="vi-VN">
+                    <img src="{{url}}img/flags/vi.svg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">{{transl 'common_lan_vn'}}</span>
+                </a>
+                
+    			<!-- english-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item a-languge" data-lan="en" data-lanId="2" data-loc="en-EN">
+                    <img src="{{url}}img/flags/en.svg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">{{transl 'common_lan_us'}}</span>
+                </a>
+                
+                <!-- fr-->
+                <a href="javascript:void(0);" class="dropdown-item notify-item a-languge" data-lan="fr" data-lanId="3" data-loc="fr-FR">
+                    <img src="{{url}}img/flags/fr.svg" alt="user-image" class="mr-1" height="12"> <span class="align-middle">{{transl 'common_lan_fr'}}</span>
+                </a>
+            </div>
+        </div>
+
+<!--         <div class="dropdown d-none d-lg-inline-block ml-1"> -->
+<!--             <button type="button" class="btn header-item noti-icon waves-effect" -->
+<!--                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+<!--                 <i class="bx bx-customize"></i> -->
+<!--             </button> -->
+<!--             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> -->
+<!--                 <div class="px-lg-2"> -->
+<!--                     <div class="row no-gutters"> -->
+<!--                         <div class="col"> -->
+<!--                             <a class="dropdown-icon-item" href="#"> -->
+<!--                                 <img src="{{url}}img/prj/brands/github.png" alt="Github"> -->
+<!--                                 <span>GitHub</span> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div class="col"> -->
+<!--                             <a class="dropdown-icon-item" href="#"> -->
+<!--                                 <img src="{{url}}img/prj/brands/bitbucket.png" alt="bitbucket"> -->
+<!--                                 <span>Bitbucket</span> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div class="col"> -->
+<!--                             <a class="dropdown-icon-item" href="#"> -->
+<!--                                 <img src="{{url}}img/prj/brands/dribbble.png" alt="dribbble"> -->
+<!--                                 <span>Dribbble</span> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                     </div> -->
+
+<!--                     <div class="row no-gutters"> -->
+<!--                         <div class="col"> -->
+<!--                             <a class="dropdown-icon-item" href="#"> -->
+<!--                                 <img src="{{url}}img/prj/brands/dropbox.png" alt="dropbox"> -->
+<!--                                 <span>Dropbox</span> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div class="col"> -->
+<!--                             <a class="dropdown-icon-item" href="#"> -->
+<!--                                 <img src="{{url}}img/prj/brands/mail_chimp.png" alt="mail_chimp"> -->
+<!--                                 <span>Mail Chimp</span> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                         <div class="col"> -->
+<!--                             <a class="dropdown-icon-item" href="#"> -->
+<!--                                 <img src="{{url}}img/prj/brands/slack.png" alt="slack"> -->
+<!--                                 <span>Slack</span> -->
+<!--                             </a> -->
+<!--                         </div> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+
+<!--         <div class="dropdown d-none d-lg-inline-block ml-1"> -->
+<!--             <button type="button" class="btn header-item noti-icon waves-effect" data-toggle="fullscreen"> -->
+<!--                 <i class="bx bx-fullscreen"></i> -->
+<!--             </button> -->
+<!--         </div> -->
+
+		<div class="dropdown d-inline-block">
+            <button type="button" class="btn header-item message-icon waves-effect" id="btn_message_dropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="far fa-comments fa-lg bx-tada"></i>
+                <span class="badge badge-danger badge-pill" id="sp_nbNew_message" style="position: absolute;top:12px;right:4px;"></span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" aria-labelledby="btn_message_dropdown" id="div_message_content">
+            	<div class="p-3">
+				      <div class="row align-items-center">
+				          <div class="col">
+				              <h6 class="m-0 font-size-13">{{transl 'prj_dashboard_message_title'}}</h6>
+				          </div>
+				          <div class="col-auto" id="btn_refresh_mes">
+				            <a href="#" class="small"><i class='mdi mdi-refresh font-size-18 mr-2'></i></a>
+				          </div>
+				      </div>
+				</div>
+				<div id="message_list"></div>
+				<div class="p-3 d-flex justify-content-center align-items-center" style="border-top: 1px solid #a4a4a4;">
+				    <div class="row">
+				        <a href="#" id="btn_room_chat_relate" style="font-weight: bold;">{{transl 'prj_dashboard_message_foot'}}</a>
+				    </div>
+				</div>
+            </div>
+        </div>
+
+        <div class="dropdown d-inline-block">
+            <button type="button" class="btn header-item noti-icon waves-effect" id="btn_notify_dropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bx bx-bell bx-tada"></i>
+                <span class="badge badge-danger badge-pill" id="sp_nbNew_notify"></span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0" aria-labelledby="btn_notify_dropdown" id="div_notify_content"></div>
+        </div>
+
+        <div class="dropdown d-inline-block">
+            <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{#if user.avatar}}
+                <img class="rounded-circle header-profile-user" src="{{reqSrcImg user.avatar}}" alt="">
+                {{else}}
+                <div class="rounded-circle header-profile-user text-white text-uppercase" style="margin: 0 auto; background-color: {{reqSrcTextColor user.login01}}"><div class="text-middle">{{reqSrcTextAvatar user.login01}}</div></div>
+                {{/if}}
+                <span class="d-none d-xl-inline-block ml-1">{{user.login01}}</span>
+                <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
+            </button>
+            <div id="div-menu-user-dropdown" class="dropdown-menu dropdown-menu-right" >
+                <!-- item-->
+                <div>
+	                <a class="dropdown-item hnv-route" data-route="VI_MAIN/prj_user_profile_ent" data-url="view_prj_user_profile.html" id="a_profile" target="_self"><i class="bx bx-user font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_profile'}}</a>
+	                <div class="dropdown-divider"></div>
+                </div>
+                
+                <div id="div_menu_report" data-right="" data-external-mem="true">
+	                <a class="dropdown-item hnv-route" data-route="VI_MAIN/prj_job_report" data-url="view_prj_job_report.html" id="a_report" target="_self"><i class="bx bx-food-menu font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_cra'}}</a>
+	                <div class="dropdown-divider"></div>
+                </div>
+                
+                <div  id="div_menu_dayoff"  data-right="view:">
+                	<a  class="dropdown-item hnv-route" data-route="VI_MAIN/prj_job_off" data-url="view_prj_job_off.html" target="_self"><i class="bx bx-calendar-event font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_dayoff'}}</a>
+               		 <div class="dropdown-divider"></div>
+                </div>
+                
+                <div  id="div_menu_report_man" class="d-none"  data-right="view:100|105|2002011">
+                	 <a  class="dropdown-item hnv-route" data-route="VI_MAIN/prj_job_report_man" data-url="view_prj_job_report_man.html" target="_self"><i class="bx bx-spreadsheet font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_cra_management'}}</a>
+                	<div class="dropdown-divider"></div>
+                </div>
+               
+                <div  id="div_menu_dayoff_man" class="d-none"  data-right="view:100|105|2002011">
+                	 <a class="dropdown-item hnv-route" data-route="VI_MAIN/prj_job_off_man" data-url="view_prj_job_off_man.html" target="_self"><i class="bx bx-calendar-event font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_dayoff_management'}}</a>
+               		 <div class="dropdown-divider"></div>
+                </div>
+             
+                <div id="div_menu_holiday" class="d-none"  data-right="view:100|101|2001001">
+                 	<a class="dropdown-item hnv-route" data-route="VI_MAIN/prj_job_holiday" data-url="view_prj_job_holiday.html" target="_self"><i class="bx bxs-drink font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_holiday'}}</a>
+                	<div class="dropdown-divider"></div>
+                </div>
+                
+                <!-- <div id="div_menu_tpy_cat"  data-right="view:">
+                 	<a class="dropdown-item hnv-route" data-route="VI_MAIN/prj_task_list" data-url="view_prj_job_category.html" target="_self"><i class="bx bx-briefcase-alt font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_project'}}</a>
+                	<div class="dropdown-divider"></div>
+                </div> -->
+                
+                <div id="div_menu_tpy_cat" class="d-none"  data-right="view:100|101|7000001">
+                    <a class="dropdown-item hnv-route" data-route="VI_MAIN/prj_job_cat" data-url="view_prj_job_category.html" target="_self"><i class="bx bx-briefcase-alt font-size-16 align-middle mr-1"></i>{{transl 'prj_project_header_project'}}</a>
+                   <div class="dropdown-divider"></div>
+               </div>
+                
+                <a class="dropdown-item text-danger" id="a_disconnect" href="#"><i class="bx bx-power-off font-size-16 align-middle mr-1 text-danger"></i>{{transl 'prj_project_header_disconnect'}}</a>
+            </div>
+        </div>
+
+<!--         <div class="dropdown d-inline-block" > -->
+<!--             <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect"> -->
+<!--                 <i class="bx bx-cog bx-spin"></i> -->
+<!--             </button> -->
+<!--         </div> -->
+
+    </div>
+</div>
+            
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Main_Notification -->
+<div class="p-3">
+      <div class="row align-items-center">
+          <div class="col">
+              <h6 class="m-0">{{transl 'prj_dashboard_notify_title'}}</h6>
+          </div>
+          <div class="col-auto" id="btn_delete_all">
+            <a href="#" class="small">{{transl 'prj_dashboard_notify_delete_all'}}</a>
+        </div>
+<!--           <div class="col-auto" id="btn_view_all"> -->
+<!--               <a href="#" class="small">{{transl 'prj_dashboard_notify_view_all'}}</a> -->
+<!--           </div> -->
+      </div>
+ </div>
+ <div data-simplebar style="max-height: 60vh;">
+ 	{{#if this}}
+	{{#each this}}
+    <div class="media {{#equal stat '100'}}notify-noRead{{/equal}} div-notif-item">
+        <div class="avatar-xs mr-3 notification-item-1" data-prj="{{inf01.parID}}" data-id="{{id}}" data-tab="{{inf01.typTab}}">
+        	<span class="avatar-title bg-primary rounded-circle font-size-16 span-read-notif"  data-id="{{id}}">
+                <!-- <i class="bx bx-show"></i> -->
+                {{#equal inf01.typTab 'prj'}}
+                <i class="bx bx bx-task"></i>
+<!--             	<img src="" alt="PRJ" class="rounded-circle" style="width: 20px; height: 20px;"> -->
+            	{{/equal}}
+            	{{#equal inf01.typTab 'meet'}}
+            	<i class="bx bx-calendar"></i>
+<!--             	<img src="" alt="MEET" class="rounded-circle" style="width: 20px; height: 20px;"> -->
+            	{{/equal}}
+            </span>
+        </div>
+        <div class="media-body cursor-pointer">
+        	<div>
+        		<h6 class="mt-0 mb-1 d-inline">{{reqCodePrjNotify inf01}}</h6>
+        		<span class="text-danger font-size-16 cursor-pointer span-delete-notif float-right" data-id="{{id}}" data-idSub="{{idSub}}"><i class="mdi mdi-trash-can-outline"></i></span>
+        	</div>
+
+            <div class="font-size-12 text-muted notification-item" data-id="{{id}}" data-prj="{{inf01.main.id}}"  data-code="{{inf01.main.code}}" data-tab="{{inf01.typTab}}" data-typ="{{inf01.typ}}">
+                <p class="mb-1">{{{reqContentHis inf01}}}</p>
+                <p class="mb-0"><i class="mdi mdi-clock-outline"></i> {{reqFormatDate dt01}}</p>
+            </div>
+        </div>
+    </div>
+	{{/each}}
+	{{else}}
+	<a style="padding: 15px;">{{transl 'prj_dashboard_notify_no'}}</a>
+	{{/if}}
+ </div>
+ <div class="p-2 border-top text-center">
+ 	<a class="btn btn-sm btn-link font-size-20" href="javascript:void(0)" id="btn_view_prev">
+         <i class="mdi mdi-arrow-left-circle mr-1"></i>
+     </a>
+     <a class="btn btn-sm btn-link font-size-20" href="javascript:void(0)" id="btn_view_next">
+         <i class="mdi mdi-arrow-right-circle mr-1"></i>
+     </a>
+ </div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Main_Message-->
+<div data-simplebar style="max-height: 60vh;">
+	 <ul class="list-unstyled chat-list" data-simplebar style="max-height: calc(50vh - 150px)';">
+	 {{#each this}}
+		{{#ifCond typ01 '==' 201}}
+	    <li class="chat-element">
+	        <a href="javascript:void(0)" class="chat-item-his {{#if hasNewMsg}}has-new-msg-item{{/if}}" data-id="{{id}}"  data-typ01="{{typ01}}">
+	            <div class="media align-items-center">
+	            	<div class="align-self-center mr-3">
+	                     <i class="bx bx-group font-size-14"></i>
+	               </div>
+	               {{#if val01}}
+	               <div class="align-self-center mr-3">
+	                   <img src="{{val01.img}}" class="rounded-circle avatar-sm" alt="" onerror="{{imageErrorUser}}">
+	               </div>
+	               {{else}}
+	                <div class="avatar-sm mr-3">
+	                    <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-15">
+	                        {{reqFirstLetter name}}
+	                    </span>
+	                </div>
+	                {{/if}}
+	                <div class="media-body ">
+	                    <h6 class="font-size-13 mb-0">{{name}}</h6>
+	                    <div class="d-flex align-items-center ">
+						    {{#if msgLast.inf05}}
+						        <i class='bx bxs-file fa-lg mr-1'></i>
+						    {{else if msgLast.inf04}}
+						        <p class="text-muted font-size-12 mb-0 mr-2">{{innerText msgLast.inf04 20}}</p>
+						    {{/if}}
+						    <p class="text-muted font-size-12 m-0">{{formatDateChat msgLast.dt01}}</p>
+						</div>
+	                </div>
+	            </div>
+	        </a>
+	    </li>
+	    {{/ifCond}}
+	    {{#ifCond typ01 '==' 200}}
+		 <li class="chat-element">
+	            <a href="javascript:void(0)"  class="chat-item-his {{#if hasNewMsg}}has-new-msg-item{{/if}}" data-id="{{id}}" data-typ01="{{typ01}}" >
+	                <div class="media align-items-center">
+	                    <div class="align-self-center mr-3">
+	<!--                         <i class="mdi mdi-circle font-size-10 {{#if isOnline}}text-success{{/if}}"></i> -->
+	                        <i class="bx bx-heart font-size-14"></i>
+	                    </div>
+	                    <div class="align-self-center mr-3">
+	                    	{{#if avatar}}
+	                        <img src="{{avatar}}" class="rounded-circle avatar-sm" alt="" onerror="{{imageErrorUser}}">
+	                        {{else}}
+	                        <div class="rounded-circle avatar-sm text-white text-uppercase" style='background-color: {{reqSrcTextColorRelateChat login01}}'><div class="text-middle font-size-14">{{reqSrcTextAvatarRelateChat login01}}</div></div>
+	                        {{/if}}
+	                    </div>
+	                    
+	                    <div class="media-body overflow-hidden">
+	                        <h6 class="text-truncate font-size-13 mb-1">{{reqSrcTextLoginRelateChat login01}}</h6>
+	                        <div class="d-flex align-items-center ">
+						    {{#if msgLast.inf05}}
+						        <i class='bx bxs-file fa-lg mr-1'></i>
+						    {{else if msgLast.inf04}}
+						        <p class="text-muted font-size-12 mb-0 mr-2">{{innerText msgLast.inf04 20}}</p>
+						    {{/if}}
+						    <p class="text-muted font-size-12 m-0">{{formatDateChat msgLast.dt01}}</p>
+						</div>
+	                    </div>
+	                </div>
+	            </a>
+	        </li>
+	     {{/ifCond}}
+	{{/each}}
+	</ul>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->

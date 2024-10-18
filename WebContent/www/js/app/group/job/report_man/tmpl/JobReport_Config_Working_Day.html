@@ -1,0 +1,157 @@
+<div class="form-horizontal custom-scroll-header" id="div_wd_user">
+	<div class="box-body">
+			<div class="form-group row">
+				<label for="sel_mon" class="col-lg-2 col-md-2 col-sm-6 control-label">{{transl "common_date_monday"}}</label>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<select id="inp_mon" class="form-control objData" data-name="mon" disabled>
+						{{#select mon}}
+						<option value="F">{{transl "job_report_wd_fulltime"}}</option>
+						<option value="H">{{transl "job_report_wd_halftime"}}</option>
+						<option value="Q">{{transl "job_report_wd_quartertime"}}</option>
+						<option value="A">{{transl "job_report_wd_absent"}}</option>
+						{{/select}}
+					</select>
+				</div>
+				<label for="sel_mon_wH_s" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_start_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="monS" type="time" value="{{monS}}" step="900" disabled>
+				</div>
+				<label for="sel_mon_wH_e" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_end_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="monE" type="time" value="{{monE}}" step="900" disabled>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="sel_tue" class="col-lg-2 col-md-2 col-sm-6 control-label">{{transl "common_date_tuesday"}}</label>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<select id="sel_tue" class="form-control objData" data-name="tue" disabled>
+						{{#select tue}}
+						<option value="F">{{transl "job_report_wd_fulltime"}}</option>
+						<option value="H">{{transl "job_report_wd_halftime"}}</option>
+						<option value="Q">{{transl "job_report_wd_quartertime"}}</option>
+						<option value="A">{{transl "job_report_wd_absent"}}</option>
+						{{/select}}
+					</select>
+				</div>
+				<label for="sel_tue_wH_s" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_start_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="tueS" type="time" value="{{tueS}}" step="900" disabled>
+				</div>
+				<label for="sel_tue_wH_e" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_end_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="tueE" type="time" value="{{tueE}}" step="900" disabled>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="sel_wed" class="col-lg-2 col-md-2 col-sm-6 control-label">{{transl "common_date_wednesday"}}</label>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<select id="sel_wed" class="form-control objData" data-name="wed" disabled>
+						{{#select wed}}
+						<option value="F">{{transl "job_report_wd_fulltime"}}</option>
+						<option value="H">{{transl "job_report_wd_halftime"}}</option>
+						<option value="Q">{{transl "job_report_wd_quartertime"}}</option>
+						<option value="A">{{transl "job_report_wd_absent"}}</option>
+						{{/select}}
+					</select>
+				</div>
+				<label for="sel_wed_wH_s" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_start_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="wedS" type="time" value="{{wedS}}" step="900" disabled>
+				</div>
+				<label for="sel_tue_wH_e" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_end_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="wedE" type="time" value="{{wedE}}" step="900" disabled>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="sel_thu" class="col-lg-2 col-md-2 col-sm-6 control-label">{{transl "common_date_thursday"}}</label>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<select id="sel_thu" class="form-control objData" data-name="thu" disabled>
+						{{#select thu}}
+						<option value="F">{{transl "job_report_wd_fulltime"}}</option>
+						<option value="H">{{transl "job_report_wd_halftime"}}</option>
+						<option value="Q">{{transl "job_report_wd_quartertime"}}</option>
+						<option value="A">{{transl "job_report_wd_absent"}}</option>
+						{{/select}}
+					</select>
+				</div>
+				<label for="sel_thu_wH_s" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_start_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="thuS" type="time" value="{{thuS}}" step="900" disabled>
+				</div>
+				<label for="sel_thu_wH_e" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_end_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="thuE" type="time" value="{{thuE}}" step="900" disabled>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="sel_fri" class="col-lg-2 col-md-2 col-sm-6 control-label">{{transl "common_date_friday"}}</label>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<select id="sel_fri" class="form-control objData" data-name="fri" disabled>
+						{{#select fri}}
+						<option value="F">{{transl "job_report_wd_fulltime"}}</option>
+						<option value="H">{{transl "job_report_wd_halftime"}}</option>
+						<option value="Q">{{transl "job_report_wd_quartertime"}}</option>
+						<option value="A">{{transl "job_report_wd_absent"}}</option>
+						{{/select}}
+					</select>
+				</div>
+				<label for="sel_fri_wH_s" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_start_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="friS" type="time" value="{{friS}}" step="900" disabled>
+				</div>
+				<label for="sel_fri_wH_e" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_end_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="friE" type="time" value="{{friE}}" step="900" disabled>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="sel_sat" class="col-lg-2 col-md-2 col-sm-6 control-label">{{transl "common_date_saturday"}}</label>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<select id="sel_sat" class="form-control objData" data-name="sat" disabled>
+						{{#select sat}}
+						<option value="A">{{transl "job_report_wd_absent"}}</option>
+						<option value="F">{{transl "job_report_wd_fulltime"}}</option>
+						<option value="H">{{transl "job_report_wd_halftime"}}</option>
+						<option value="Q">{{transl "job_report_wd_quartertime"}}</option>
+						{{/select}}
+					</select>
+				</div>
+				<label for="sel_sat_wH_s" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_start_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="satS" type="time" value="{{satS}}" step="900" disabled>
+				</div>
+				<label for="sel_sat_wH_e" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_end_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="satE" type="time" value="{{satE}}" step="900" disabled>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label for="sel_sun" class="col-lg-2 col-md-2 col-sm-6 control-label">{{transl "common_date_sunday"}}</label>
+				<div class="col-lg-4 col-md-4 col-sm-6">
+					<select id="sel_sun" class="form-control objData" data-name="sun" disabled>
+						{{#select sun}}
+						<option value="A">{{transl "job_report_wd_absent"}}</option>
+						<option value="F">{{transl "job_report_wd_fulltime"}}</option>
+						<option value="H">{{transl "job_report_wd_halftime"}}</option>
+						<option value="Q">{{transl "job_report_wd_quartertime"}}</option>
+						{{/select}}
+					</select>
+				</div>
+				<label for="sel_sun_wH_s" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_start_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="sunS" type="time" value="{{sunS}}" step="900" disabled>
+				</div>
+				<label for="sel_sun_wH_e" class="col-lg-1 col-md-1 col-sm-3 control-label">{{transl "job_report_end_time"}}</label>
+				<div class="col-lg-2 col-md-2 col-sm-3">
+					<input class="objData" data-name="sunE" type="time" value="{{sunE}}" step="900" disabled>
+				</div>
+			</div>	
+		</div>
+</div>

@@ -1,0 +1,90 @@
+<table id="table-mem-manager" class="table table-hover table-bordered table-nowrap mb-0" style="table-layout: fixed; height: 100%">
+          <thead class="thead-light sticky-top" style="z-index: 5;">
+              <tr>
+                  <th style="width: 200px; position: sticky; left: 0; z-index: 6; background-color: #fff"></th>
+                  {{#each this.prj.lstStats}}
+                  {{#if show}}
+				    <th data-stat="{{id}}" style="width: 231px; background-color: {{getStatColor ord}}">
+				        {{#if trans}}
+				            {{transl trans}}
+				        {{else}}
+				            {{lab}}
+				        {{/if}}
+				    </th>
+				    
+				{{/if}}
+           	{{/each}}
+              </tr>
+          </thead>
+          <tbody>
+              {{#if this.prj}}
+                  {{#each this.prj.lstClone}}
+			    <tr title="" data-toggle="tooltip" data-memid="{{memberInfo.id}}">
+			        <td class="align-items-center member-info" data-memid="{{memberInfo.id}}" style="height: 200px; line-height: 1.5; overflow-y: hidden; position: sticky; left: 0; background-color: #fff; z-index: 6;" transition: filter 0.3s ease;" onmouseover="this.style.filter='brightness(0.9)'" onmouseout="this.style.filter='brightness(1)'">
+						<div class="media align-items-center" style="height: 100%; overflow-y: auto; width: 100%;">
+							<button type="button" class="btn-hide-mem" style="border: none; background: none; padding: 0;" value="{{memberInfo.id}}">
+								<i class="mdi mdi-eye mr-2 text-muted h5 m-0" style="cursor: pointer;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" title="{{transl 'prj_project_mem_hide'}}"></i>
+							</button>
+						{{#if memberInfo.avatar}}
+							<img src="{{reqSrcAvatarMember memberInfo}}" class="rounded-circle avatar-xs mr-2" alt="">
+						{{else}}
+							<div class="rounded-circle avatar-xs mr-2 text-white text-uppercase" style="background-color: {{reqSrcTextColor memberInfo.login01}}">
+								<div class="text-middle">{{reqSrcTextAvatar memberInfo.login01}}</div>
+							</div>
+						{{/if}}
+						<b>{{memberInfo.per.name01}} {{memberInfo.per.name02}} {{memberInfo.per.name03}}</b>
+						</div>
+					</td>
+			        {{#each epicsByStat}}
+			            <td class="pb-1 task-list task-tab-content" data-memid="{{../this.memberInfo.id}}" style="height: 200px; line-height: 1.5; overflow-y: hidden; background-color: {{getStatColor @key}}">
+			            	<div id="div_prj_list_stat_{{@key}}" class="ent-list min-height-10" data-stat="{{@key}}" style="height: 100%; overflow-y: auto;">
+			            	<p class="text-muted mb-1 card">&nbsp;&nbsp;({{countArray this ../../this.lev}})</p>
+			                    {{#each this}}
+					                    <div class="task-item card mb-1 task-box" data-lev="{{lev}}">
+					                        <div class="card-body">
+					                            <div class="media">
+					                                <div class="media-body overflow-hidden">
+					                                    <div class="">
+					                                        <h5 class="text-truncate font-size-15 h-inline task-item-name mt-2  d-block">
+					                                            <a href="view_prj_project_content.html?id={{id}}&code={{code01}}" class="show_content_task text-dark cursor-pointer {{reqClassByStat stat}}" data-id="{{id}}" data-code="{{code01}}">{{name}}</a>
+					                                        </h5>
+					                                        <span class="badge badge-{{reqLevColor lev}} badge-pill" id="{{lev}}">{{reqLevPrj lev}}</span>
+					                                    </div>
+					                                    <div class="pt-3 border-top">
+					                                        <ul class="list-inline mb-0">
+					                                            <li class="list-inline-item mr-1">
+					                                                {{#ifCond val05 ">=" 100}}
+					                                                    <span class="badge badge-primary">
+					                                                {{else}}
+					                                                    <span class="badge badge-warning">
+					                                                {{/ifCond}}
+					                                                {{reqPercentComplete val05}} %
+					                                                </span>
+					                                            </li>
+					                                            <li class="list-inline-item mr-1" data-toggle="tooltip" data-placement="top" title="" data-original-title="Due Date">
+					                                                <i class="bx bx-calendar mr-1"></i> {{dateFormatLocalShort dtEnd}}
+					                                            </li>
+					                                            <li class="list-inline-item d-block" data-toggle="tooltip" data-placement="top" title="" data-original-title="Due Date">
+					                                                {{{reqDateTimeLateTask dtEnd stat}}}
+					                                            </li>
+					                                        </ul>
+					                                    </div>
+					                                </div>
+					                            </div>
+					                        </div>
+					                    </div>
+					                {{/each}}
+			                </div>
+			                <div id="div_prj_pagination_stat_{{id}}" class="ent-pagination"></div>
+			            </td>
+			            {{/each}}
+			    </tr>
+			{{/each}}
+
+              {{else}}
+                  <tr>
+                      <td colspan="10">{{transl 'prj_dashboard_tab_tasklate_no'}}</td>
+                  </tr>
+              {{/if}}
+          </tbody>
+      </table>

@@ -1,0 +1,15 @@
+<div class="card">
+	<div class="card-body">
+		<div class="mt-2">
+             <p class="font-size-14 mb-4">{{transl 'prj_chat_out_group_msg_confirm_owner'}}</p>
+             {{#if members}}
+				{{#each members}}
+	             <div class="custom-control custom-radio mb-3">
+	                 <input type="radio" id="customRadio{{@index}}" value="{{uId}}" name="customRadio" class="custom-control-input sel-owner">
+	                 <label class="custom-control-label" for="customRadio{{@index}}">{{mem.login01}}</label>
+	             </div>
+	             {{/each}}
+			{{/if}}
+         </div>
+	</div>
+</div>

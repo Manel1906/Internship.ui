@@ -1,0 +1,149 @@
+{{#* inline "avatarMember"}}
+<td class="d-lg-none d-xl-block" style="width: 50px;">
+	{{#if ent02.avatar}}
+	<img src="{{reqSrcImg ent02.avatar}}" class="rounded-circle avatar-xs" alt="">
+	{{else}}
+	<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.login01}}"><div class="text-middle">{{reqSrcTextAvatar ent02.login01}}</div></div>
+	{{/if}}
+</td>
+<td>	
+	<div class="dropdown">	            	
+		<a href="#" class="text-dark dropdown-toggle rowlink" data-toggle="dropdown">
+			<div class="font-size-16 m-0">{{ent02.login01}}</div>
+		</a>
+		<ul class="dropdown-menu isManager" role="menu" aria-labelledby="dLabel">
+        <li>
+             <a class="dropdown-item font-size-16 align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_user_profile_ent" data-url="view_prj_user_profile.html?id={{ent02.id}}&code={{ent02.login01}}">
+				<i class="bx bx-user"></i>
+             	<span> {{transl 'prj_project_member_see_profile'}}</span>
+            </a>
+         </li>
+         <li>
+             <a class="dropdown-item font-size-16 align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_dashboard" data-url="view_prj_dashboard.html?id={{ent02.id}}&code={{ent02.code01}}">
+				<i class="bx bx-briefcase-alt-2"></i>
+             	<span> {{transl 'prj_project_member_see_projects'}}</span>
+             </a>
+         </li>
+     </ul>
+	</div>		            			            	
+</td>
+{{/inline}}
+
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_project_member'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7 isManager">
+	             <div class="text-right font-size-20">
+	                <button id="btn_add_member" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm hideLock"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}</button>
+	             	<a id="a_btn_save_member" class="mr-2 text-primary hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save action-item"></i>
+		            </a>
+		            <a id="a_btn_cancel_member" class="mr-2 text-danger hide action-mem action-item-member cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close"></i>
+		            </a>
+		            <a data-divtoogle="#tabMember" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+        <div id="tabMember" class="table-responsive">
+            <table class="table table-centered table-nowrap">
+            	<thead>
+            		<tr>
+            			<th class="hide action-item-member isManager"></th>
+            			<th class="d-lg-none d-xl-block">#</th>
+            			<th>{{transl 'prj_project_member_header_name'}}</th>
+            			<th>{{transl 'prj_project_member_header_role'}}</th>
+            			<th class="hide">{{transl 'prj_project_member_header_level'}}</th>
+            		</tr>
+            	</thead>
+			    <tbody>
+			      {{#each memb}}
+			        <tr class="member-item" data-memid="{{entId02}}">
+			            {{#ifOrs isOwner notModif}}
+				            <td class="hide action-item-member isManager hideDev hideTest hideMem hideGuest"></td>
+				            {{> avatarMember}}
+				            <td><span class="level-content">{{reqLevelMember lev}}</span></td>
+				            <td class="hide"><span class="typ-content">{{reqTypeMember typ}}</span></td>
+			            {{else}}
+				            <td class="hide action-item-member isManager hideDev hideTest hideMem hideGuest">
+				            	<div class="dropdown font-size-20">
+		                             <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+		                                 <i class="mdi mdi-dots-vertical "></i>
+		                             </a>
+		                             <ul class="dropdown-menu font-size-18">
+		                                 <li>
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-edit"><i class="mdi mdi-pencil  text-success mr-1"></i>{{transl 'prj_project_member_header_edit'}}</span>
+		                                 </li>
+		                                 <li class="hideBA">
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-delete"><i class="mdi mdi-trash-can  text-danger mr-1"></i>{{transl 'prj_project_member_header_delete'}}</span>
+		                                 </li>
+		                                  <li class="hideBA hideDev hideTest hideMem hideGuest">
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-treeview"><i class="mdi mdi-checkbox-marked-outline  text-primary mr-1"></i>{{transl 'prj_project_member_header_role'}}</span>
+		                                 </li>
+		                             </ul>
+		                         </div>
+	                        </td>
+				            {{> avatarMember}}
+				            <td>
+				            	<span class="level-content content-member">{{reqLevelMember lev}}</span>
+				            	<select class="form-control edit-member level-edit hide isManager hideDev hideTest hideMem hideGuest">
+					        		<option value="0" class="hideBA" {{#equal lev '0'}}selected{{/equal}}>{{transl 'prj_project_member_level_manager'}}</option>
+					        		<option data-external-mem="true" value="10" {{#equal lev '10'}}selected{{/equal}}>{{transl 'prj_project_member_level_reporter'}}</option>
+					        		<option value="20" {{#equal lev '20'}}selected{{/equal}}>{{transl 'prj_project_member_level_developer'}}</option>
+					        		<option value="30" {{#equal lev '30'}}selected{{/equal}}>{{transl 'prj_project_member_level_tester'}}</option>
+					        		<option data-external-mem="true" value="40" {{#equal lev '40'}}selected{{/equal}}>{{transl 'prj_project_member_level_worker'}}</option>
+					        		<option value="50" {{#equal lev '50'}}selected{{/equal}}>{{transl 'prj_project_member_level_watcher'}}</option>
+					        	</select>
+				            </td>
+				            
+				            <td class="hide">
+				            	<span class="typ-content content-member">{{reqTypeMember typ}}</span>
+				            	<select class="form-control edit-member typ-edit hide isManager hideDev hideTest hideMem hideGuest">
+			                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+					        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+					        		<option value="1">{{transl 'prj_project_lev_haute'}}</option>
+					       		</select>
+				            </td>
+			            {{/ifOrs}}
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>
+        </div>
+        <div class="hide action-item-member isManager">
+        	<div class="mb-3 row">
+	        	<div class="col-md-4 hide">
+	                 <div class="mt-2 mt-md-0">
+	                 	<select class="form-control" id="sel_member_type">
+	                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+			        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+			        		<option value="1" selected>{{transl 'prj_project_lev_haute'}}</option>
+			       		</select>
+	                 </div>
+	             </div>
+	             
+	             <div class="col-md-5">
+	                 <div class="mt-2 mt-md-0">
+	                 	<select class="form-control" id="sel_member_level">
+			        		<option value="0" class="hideBA">{{transl 'prj_project_member_level_manager'}}</option>
+			        		<option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option>
+							<option value="20">{{transl 'prj_project_member_level_developer'}}</option>
+					        <option value="30">{{transl 'prj_project_member_level_tester'}}</option>
+			        		<option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
+			        		<option value="50">{{transl 'prj_project_member_level_watcher'}}</option>
+			        	</select>
+	                 </div>
+	             </div>
+	             
+	             <div class="col-md-7">
+			    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_name_member" placeholder="{{transl 'prj_project_enter_name'}}">
+	        	</div>
+        	</div>
+        </div>
+    </div>
+</div>

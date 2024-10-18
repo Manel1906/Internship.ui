@@ -1,0 +1,145 @@
+<div class="page-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+              	<div class="">
+                  <h4 class="mb-0 font-size-18">{{transl 'prj_partner_header_new_title'}}</h4>
+                </div>
+              </div>
+          </div>
+      </div>     
+      <div class="row">
+          <div class="col-lg-6" id="div_prj_content">
+	          <div class="card">
+			    <div class="card-body">        
+										
+					<form id="div_prj_avatar_file_upload" action="/" method="post" class="dropzone inputfile">
+					    <div class="fallback">
+					        <input data-name="file" type="file"/>
+					    </div>
+					
+					    <div class="dz-message needsclick">
+					        <div class="mb-3">
+					            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+					        </div>
+					        <h4>{{transl 'prj_project_drop_files'}}</h4>
+					    </div>
+					</form>		
+							
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_typ01'}}</h5>
+							<select id="sel_list_type_person" class="form-control objData" data-name="typ01"></select>
+						</div>						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_cfgVal02'}}</h5>
+							<select id="sel_list_legal_status" class="form-control objData" data-name="cfgVal02"></select>
+						</div>						
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_typ02'}}</h5>
+							<select id="sel_list_type_partner" class="form-control objData" data-name="typ02"></select>
+						</div>						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_cfgVal01'}}</h5>
+							<select id="sel_list_type_domain" class="form-control objData" data-name="cfgVal01"></select>
+						</div>						
+					</div>
+					
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_name01'}}</h5>
+							<input type="text" class="form-control objData" id="name01" value="{{decodeUTF8 name01}}" data-name="name01" data-validation="required">
+						</div>						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_name02'}}</h5>
+							<input type="text" class="form-control objData" id="name02" value="{{decodeUTF8 name02}}" data-name="name02" d required>
+						</div>						
+					</div>
+					
+					<div class="row">
+<!-- 						<div class="col-md-6 col-xs-12"> -->
+<!-- 							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_name03'}}</h5> -->
+<!-- 							<input type="text" class="form-control objData" id="name03" value="{{decodeUTF8 name03}}" data-name="name03"> -->
+<!-- 						</div> -->
+						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_stat_header'}}</h5>
+							<select id="stat" class="form-control objData" data-name="stat">
+								<option value="0">{{transl "per_partner_stat_00"}}</option>
+								<option value="1">{{transl "per_partner_stat_01"}}</option>
+								<option value="2">{{transl "per_partner_stat_02"}}</option>
+								<option value="3">{{transl "per_partner_stat_03"}}</option>
+								<option value="10">{{transl "per_partner_stat_10"}}</option>
+								<option value="11">{{transl "per_partner_stat_11"}}</option>
+							</select>
+						</div>	
+						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_code'}}</h5>
+							<input type="text" class="form-control objData" id="code" value="{{decodeUTF8 code}}" data-name="code">
+						</div>							
+					</div>
+					
+			    </div>
+			</div>
+          </div>
+     	
+     	   <div class="col-lg-6" id="div_prj_content">
+	          <div class="card">
+			    <div class="card-body">	       
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_info01'}}</h5>
+							<input type="text" class="form-control objData" id="info01" value="{{info01}}" data-name="info01" placeholder="">
+						</div>
+						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_partner_label_info02'}}</h5>
+							<input type="text" class="form-control objData" id="info02" value="{{info02}}" data-name="info02" placeholder="">
+						</div>	
+					</div>
+					
+					<div class="row">
+						<div class="col-md-12 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_header_label_addr_main'}}</h5>
+							<textarea class="form-control objData" id="info07" data-name="info07" placeholder="" style="resize: vertical">{{info07}}</textarea>
+						</div>
+					</div>
+					
+					<div class="row">						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_header_label_email_main'}}</h5>
+							<input type="text" class="form-control objData" id="info10" value="{{info10}}" data-name="info10" data-validation="email" placeholder="">
+						</div>					
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_header_label_tel_main'}}</h5>
+							<input type="text" class="form-control objData" id="info09" value="{{info09}}" data-name="info09" placeholder="tel">
+						</div>
+					</div>
+					
+					<div class="row">						
+						<div class="col-md-12 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'per_header_label_comment'}}</h5>
+							<textarea class="form-control objData" id="info03" data-name="info03" placeholder="" style="resize: vertical" >{{info03}}</textarea>
+						</div>				
+						
+					</div>					
+			    </div>
+			</div>
+          </div>
+      </div>
+      
+      <div class="col-lg-12">
+      		<div class="card">
+			    <div class="card-body">
+      				<button type="button" id="a_btn_save" class="btn btn-primary">{{transl 'prj_partner_header_new_btn'}}</button>
+      			</div>
+      		</div>
+      </div>	
+      
+  </div> <!-- container-fluid -->
+</div>

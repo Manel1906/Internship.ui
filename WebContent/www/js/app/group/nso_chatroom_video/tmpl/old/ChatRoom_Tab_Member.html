@@ -1,0 +1,33 @@
+<div class="card card-body">
+	   	<div class="media">
+	   		<div class="col-sm-7">
+<!-- 	   			<a href="#" class="text-dark font-size-14 mt-3 font-weight-bold" id="btn_back_chat"> -->
+<!-- 					<i class="mdi mdi-arrow-left font-size-18 mr-2"></i> -->
+<!-- 				</a> -->
+	   			<h4 class="card-title mb-4 media-body d-inline">{{transl 'prj_chat_member'}}</h4>
+	   		</div>
+	   		<div class="col-sm-5 ml-auto">
+	   			<div class="dropdown float-right">
+                    <a href="#" class="dropdown-item" id="btn_refresh">
+                    	<i class="mdi mdi-refresh font-size-16 text-primary mr-1"></i>
+                    </a>
+		            <a data-divtoggle="#tabMember" class="btn-resize btn-resize-mobile-hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize font-size-18"></i>
+		            </a>
+                 </div>
+	   		</div>
+		</div>
+        <div id="tabMember" class="table-responsive" style="overflow: unset;">
+        	<div id="tab_member_detail"></div>
+            <nav class="wygo-pagination"></nav>
+            <div class="td-mem-action">
+				<input type="text" class="inner form-control ui-autocomplete-input" id="inp_name_member" placeholder="{{transl 'prj_chat_member_add'}}">
+	        </div>
+	        
+	        <div class="td-mem-action mt-3 hide">
+				<input type="text" class="inner form-control" id="inp_mail_member" placeholder="{{transl 'prj_chat_member_add_with_mail'}}">
+				<button id="btn-add-member-with-mail" class="btn btn-primary mt-2 float-right">{{transl "prj_chat_member_add_with_mail_btn"}}</button>
+	        </div>
+	        
+        </div>
+    </div>

@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{transl 'prj_user_group_new_title'}}</h4>
+        <p class="card-title-desc">{{transl 'prj_user_group_new_msg'}}</p>
+        <div class="needs-validation" id="frm_new_group">
+        	<input type="hidden" data-name="typ01" class="form-control objData" value="300">
+        	<input type="hidden" data-name="stat" class="form-control objData" value="1">
+           
+           
+            <div class="row">
+            	<div class="col-lg-6 col-md-8 col-sm-12 col-xm-12 form-group mb-4">	
+		            <div class="form-group">
+		                <label for="inp_group_name">{{transl 'prj_user_group_name'}} *</label>
+		                <input type="text" data-name="name" class="form-control objData" id="inp_group_name" placeholder="{{transl 'prj_user_group_name_enter'}}" data-validation="required">
+					</div>	
+<!-- 		            <div class="form-group">
+		                <label for="inp_group_descr">{{transl 'prj_user_group_descr'}}</label>
+		                <textarea class="form-control objData" data-name="descr" rows="9" id="inp_group_descr" placeholder="{{transl 'prj_user_group_descr_enter'}}" cols=""></textarea>
+		            </div> -->
+		        </div>
+				
+				<div class="col-lg-6 col-md-4 col-sm-12 col-xm-12 form-group mb-4">
+					<label for="inp_group_descr">{{transl 'prj_user_group_avatar'}}</label>
+					<div id="frm_dropzone_send" class="fallback">
+
+						<form action="/" method="post" class="dropzone inputfile">
+							<div class="fallback">
+								<input data-name="files" type="file" class="objData" data-typ01="10" data-typ02="1">
+							</div>
+
+							<div class="dz-message needsclick">
+								<div class="mb-3">
+									<i class="display-4 text-muted bx bxs-cloud-upload"></i>
+								</div>
+								<h4>{{transl 'prj_project_drop_files'}}</h4>
+							</div>
+						</form>
+					</div>
+				</div>
+				
+		        </div>   
+            <div class="d-flex justify-content-end mt-4">
+			    <button id="btn_create_group" class="btn btn-primary" type="button">{{transl 'prj_user_group_new_btn_create'}}</button>
+			</div>
+        </div>
+    </div>
+</div>

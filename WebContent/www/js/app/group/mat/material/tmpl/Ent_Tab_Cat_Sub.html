@@ -1,0 +1,27 @@
+{{#* inline "child"}}
+	{{#if child}}
+		{{#each child}}
+		<div id="div_{{id}}" class="row col-xs-6 col-sm-6 col-md-4 col-lg-3">
+			<label for="name" class="col-8 control-label pull-left">{{transl name}}</label>
+			<div class="col-4">
+				<label class="switch"> 
+					<input type="checkbox" 	class="objData input_sel_Cat input_lev_{{level}}" 
+						data-lev="{{level}}" data-group= "grpCat" data-name="{{id}}" data-par="{{parId}}">
+					<span class="slider round"></span>
+				</label>
+			</div>
+		</div>
+		<div id="div_Sub_{{id}}" data-parent="{{id}}" class="row col-xs-6 col-sm-6 col-md-8 col-lg-9">
+			{{#if child}}
+				{{> child}}
+			{{/if}}
+		</div>
+		{{/each}}
+	{{/if}}
+{{/inline}}
+
+<div id="div_frm_cat">
+	<div class="box-body row col-12">
+		{{> child}}
+	</div>
+</div>	

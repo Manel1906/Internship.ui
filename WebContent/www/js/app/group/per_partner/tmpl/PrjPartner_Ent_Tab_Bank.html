@@ -1,0 +1,63 @@
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_partner_bank'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7 isManager">
+	             <div class="text-right">
+	                 <button id="btn_add_member" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_partner_add_bank'}}</button>
+	             	<a id="a_btn_save_member" class="mr-3 text-primary hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+		            </a>
+		            <a id="a_btn_cancel_member" class="text-danger hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close font-size-18"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+        <div id="tabBank" class="table-responsive">
+            <table class="table table-centered table-nowrap">
+			    <tbody>
+			     {{#each tpyInfos}}
+			        <tr class="bank-item" data-bankid="{{id}}">
+			            <td data-visible="false"><input	data-name="typ01"	value="{{typ01}}"></input></td>
+			            <td data-visible="true"><input	data-name="lab"		value="{{lab}}" 	disabled="disabled"></input>{{lab}}</td>
+			            <td data-visible="true"><input	data-name="info01"	value="{{info01}}"	data-validation="required" data-plugin="datepicker"></input></td>
+			            <td data-visible="true"><input	data-name="info02"	value="{{info02}}"	data-validation="required"></input></td>
+			            <td data-visible="true"><input	data-name="info03"	value="{{info03}}" 	data-validation="required"></input></td>
+			            <td data-visible="true"><input	data-name="info04"	value="{{info04}}"></input></td>
+			            <td data-visible="true"><input	data-name="info05"	value="{{info05}}"></input></td>
+			            <td class="hide action-item-member isManager">
+                            <a data-bankid="{{id}}" class="mr-3 text-primary member-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><i class="mdi mdi-pencil font-size-18"></i></a>
+                            <a data-bankid="{{id}}" class="text-danger member-delete" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="mdi mdi-close font-size-18"></i></a>
+                        </td>
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>
+        </div>
+        <div class="hide action-item-member isManager">
+        	<div class="mb-3 row">
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_bank_lab" placeholder="{{transl 'per_label'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_bank_info01" placeholder="{{transl 'per_tpy_bank_label_bank'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_bank_info02" placeholder="{{transl 'per_tpy_bank_label_swift'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_bank_info03" placeholder="{{transl 'per_tpy_bank_label_number'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_bank_info04" placeholder="{{transl 'per_tpy_bank_label_owner'}}">
+	        	</div>
+        		<div class="col-md-2">
+			    	<input type="text" class="inner form-control" id="inp_prj_partner_bank_info05" placeholder="{{transl 'per_tpy_bank_label_addr'}}">
+	        	</div>
+        	</div>
+        </div>
+    </div>
+</div>

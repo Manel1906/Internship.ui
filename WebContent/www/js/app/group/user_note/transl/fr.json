@@ -1,0 +1,21 @@
+{
+    "prj_project_sidebar_sticky_note"			: "Pense bête",
+	"prj_sticky_note_all_filter_enter"			: "Cherchez pense bête",
+	"prj_project_sticky_note_title"				: "Pense bête titre",
+	"prj_project_sticky_note_create"			: "Creer bête titre",
+	"prj_project_sticky_note_draw"				: "Cadre de dessin pour les notes",
+
+	"prj_task_tab_remove"								: "Supprimer",
+	"prj_partner_save_all"                              : "Sauvegarde",
+
+    
+	"--PRJ TREEVIEW": "----------------------------------",
+	"prj_treeview_project_title": "Arborescence du projet",
+	"prj_treeview_data_title": "Arborescence du dossier",
+	"prj_treeview_title": "Plan du projet",
+	"prj_treeview_btn": "Plan",
+	"prj_all_task_btn": "Toutes les tâches",
+
+	"prj_task_return"								    : " Sous-groupe"
+
+}

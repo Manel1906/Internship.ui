@@ -1,0 +1,27 @@
+<a id= "a_grp_{{objIDGrp}}" href="javascript: void(0);" class="team-member new_msg d-inline-block" data-toggle="tooltip" data-placement="top" data-idgrp="{{objIDGrp}}" data-idsend="{{uIDSend}}" 
+		data-namesend="{{uNameSend}}" data-name="{{name}}" data-typ01="{{typ01}}">
+    	{{#ifCond typ01 '==' 200}} data-original-title="{{uNameSend}}" {{/ifCond}} {{#ifCond typ01 '==' 201}} data-original-title="{{name}}" {{/ifCond}}>
+    	{{#ifCond typ01 '==' 200}}
+    		{{#if avatar}}
+		    	<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+		     {{else}} 
+		    	{{#ifCond avatar '==' null}}
+		    	<div class="rounded-circle avatar-xs m-1 text-white text-uppercase" style="background-color: {{reqSrcTextColor uNameSend}}"><div class="text-middle mini-text-middle">{{reqSrcTextAvatar uNameSend}}</div></div>
+		    	{{else}}
+		      	<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+		      	{{/ifCond}}
+		     {{/if}}
+	     {{/ifCond}}
+	     
+	     {{#ifCond typ01 '==' 201}}
+	     	{{#if avatar}}
+		    	<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+		     {{else}}
+		     	{{#ifCond avatar '==' null}}
+		    	<div class="rounded-circle avatar-xs m-1 text-uppercase"><div class="avatar-title rounded-circle bg-soft-primary text-primary">{{reqFirstLetter name}}</div></div>
+		    	{{else}}
+		      	<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+		      	{{/ifCond}}
+		     {{/if}}
+	     {{/ifCond}}
+</a>

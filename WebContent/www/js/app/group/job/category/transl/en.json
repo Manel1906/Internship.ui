@@ -1,0 +1,47 @@
+{
+  "prj_tpy_cat_project_report_list": "List of projects for activity report",
+  "prj_typ_cat_label_information": "Main information",
+
+  "tpy_cat_material_list": "Groups list/products list",
+  "tpy_cat_unit_list": "Groups list/unit classification",
+  "tpy_cat_sor_list": "Groups list/receipt and expense classification",
+  "tpy_cat_person_list": "Groups list/customer and partner classification",
+  "tpy_cat_mcq_group_list": "Themes",
+  "tpy_cat_mentor_list": "Groups list mentor's level",
+  "tpy_cat_list_head_code": "Management code",
+  "tpy_cat_list_head_name": "Name",
+  "tpy_cat_name_label": "Name",
+  "tpy_cat_lang_label": "Language",
+  "tpy_cat_parent_type": "Relate to",
+  "tpy_cat_type_01": "Classification number sign",
+  "tpy_cat_type_02": "Other classification number sign",
+  "tpy_cat_code_label": "Management code",
+  "tpy_cat_descr_label": "Discription",
+  "tpy_cat_transl_label": "Translation",
+  "tpy_cat_error_code_exist": "This management code has been existed",
+  "tpy_cat_data_error_msg": "Please check data errors again!",
+  "tpy_cat_msg_mod_save_content": "Do you want to change this content?",
+  "tpy_cat_btn_cancel_title": "Confirm",
+  "tpy_cat_btn_cancel_content": "Do you want to cancel these changes?",
+  "tpy_cat_btn_del_title": "Confirm",
+  "tpy_cat_btn_del_content": "Do you want to delete this information?",
+
+  "tpy_cat_par_material": "Products",
+  "tpy_cat_par_mat_unit": "Basic unit of product",
+  "tpy_cat_par_client_partner": "Customers and partners",
+  "tpy_cat_par_balance": "Receipt and expense",
+  "tpy_cat_par_invoice": "Finace and invoice",
+  "tpy_cat_par_event": "Events with partners",
+
+  "tpy_cat_popup_duplicate_societe": "Company",
+  "tpy_cat_popup_duplicate_societe_help": "Select company",
+  "tpy_cat_popup_duplicate_title": "Duplicate groups/categories for subsidiaries ",
+
+  "tpy_cat_popup_list_20000": "Products",
+  "tpy_cat_popup_list_20400": "Unit",
+  "tpy_cat_popup_list_10101": "Receipt and expense",
+  "tpy_cat_popup_list_30000": "Customers and partners",
+  "tpy_cat_popup_list_title": "Group/categories list",
+
+	"job_report_msg_user_right_error": "You do not have permission to perform this movement."
+}

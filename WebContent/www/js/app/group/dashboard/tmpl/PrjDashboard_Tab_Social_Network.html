@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title mb-4">{{transl 'prj_dashboard_social_network'}}</h4>
+        <div class="row mt-4">
+        	{{#each this}}
+            {{#if v}}
+            <div class="col-4" {{#unless v}}data-toggle="tooltip" title="{{transl 'prj_dashboard_social_network_msg_not_info'}}"{{/unless}}>
+                <div class="social-source text-center mt-3">
+                    <div class="avatar-xs mx-auto mb-3">
+                        <a class="avatar-title rounded-circle bg-{{reqBgColorSocialNetwork k}} font-size-16" href="{{#if v}}{{reqUrlSocialNetwork k v}}{{else}}#{{/if}}" {{#if v}}target="_blank"{{/if}}>
+                            <i class="mdi mdi-{{reqIconSocialNetwork k}} text-white"></i>
+                        </a>
+                    </div>
+                    <h5 class="font-size-15">{{reqNameSocialNetwork k}}</h5>
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+    </div>
+</div>

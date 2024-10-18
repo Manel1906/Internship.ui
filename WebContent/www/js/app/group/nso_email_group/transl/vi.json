@@ -1,0 +1,19 @@
+{
+    "nso_group_email_btn_delete_group"            : "Xóa nhóm",
+    "nso_group_email_search"                      : "Tìm kiếm nhóm  email",
+    "nso_group_email_new"                         : "Tạo mới",
+    "nso_group_email_new_title"                   : "Nhóm email",
+    "nso_group_email_header_title"                : "Thông tin nhóm email",
+    "nso_group_email_not_validated_lst_title"     : "Nhóm email mới tạo",
+    "nso_group_email_validated_lst_title"         : "Nhóm email đã duyệt",
+    "nso_group_email_wait_delete_lst_title"       : "Nhóm email chờ xóa",
+    "nso_group_email_header_name"                 : "Tên nhóm",
+    "nso_group_email_header_date_new"             : "Ngày tạo",
+    "nso_group_email_header_ref"                  : "Mã chủ đề",
+    "nso_group_email_header_status"               : "Trạng thái",
+    "nso_group_email_header_status_not_validated" : "Mới tạo",
+    "nso_group_email_header_status_validated"     : "Đã được duyệt",
+    "nso_group_email_header_status_wait_delete"   : "Chờ xóa",
+    "nso_group_email_header_content_01"           : "Danh sách email",
+    "nso_group_email_header_date_add"             : "Ngày thêm vào"
+}

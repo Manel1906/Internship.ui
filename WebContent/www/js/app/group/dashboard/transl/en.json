@@ -1,0 +1,28 @@
+{
+    "prj_project_stat_undefined"                : "Undefined",
+    "prj_project_stat_100100"                   : "New",
+    "prj_project_stat_100200"                   : "Todo",
+    "prj_project_stat_100300"                   : "In Progress",
+    "prj_project_stat_100400"                   : "Done",
+    "prj_project_stat_100500"                   : "Testing",
+    "prj_project_stat_100600"                   : "Review",
+    "prj_project_stat_100700"                   : "Deploy",
+    "prj_project_stat_100800"                   : "Unresolved",
+    "prj_project_stat_100900"                   : "Closed",
+    "prj_project_stat_title"					: "Status",
+    
+    "prj_project_lev_01"                          		: "Below",
+    "prj_project_lev_02"                          		: "Medium",
+    "prj_project_lev_03"                          		: "High",
+    "prj_project_lev_04"                          		: "Prioritize",
+    
+    "prj_project_task_name"								: "Task name",
+    "prj_project_start_date"							: "Begin date",
+	"prj_project_end_date"								: "Due date",
+    "prj_project_stat"                          		: "Status",
+    "prj_project_member"								: "Members",
+    
+    "prj_task_tab_filter_prj"							: "All projects",
+    "--End------------------------": "----------------------------------------"
+  }
+  

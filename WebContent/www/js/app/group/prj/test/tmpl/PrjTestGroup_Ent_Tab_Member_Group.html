@@ -1,0 +1,187 @@
+{{#* inline "avatarGroup"}}
+<td class="show_mem_group d-lg-none d-xl-block" style="width: 50px;" data-memid="{{entId02}}">
+	{{#if ent02.val01}}
+	{{#ifCond ent02.val01.img '==' null}}
+	<div class="rounded-circle avatar-xs text-primary text-uppercase bg-soft-primary text-center mr-2"><div class="text-middle">{{reqNameMember ent02.name}}</div></div>
+	{{else}}
+	<img src="{{ent02.val01.img}}" class="rounded-circle avatar-xs" alt="">
+	{{/ifCond}}
+	{{else}}
+	<div class="rounded-circle avatar-xs text-primary text-uppercase bg-soft-primary text-center mr-2"><div class="text-middle">{{reqNameMember ent02.name}}</div></div>
+	{{/if}}
+</td>
+<td>	
+	<div class="dropdown">	            	
+		<a href="#" class="text-dark dropdown-toggle rowlink" data-toggle="dropdown"><div class="font-size-16 m-0">{{reqNameMember ent02.name}}</div></a>
+	</div>		            			            	
+</td>
+{{/inline}}
+
+{{#* inline "avatarMember"}}
+<td class="d-lg-none d-xl-block" style="width: 50px;">
+	{{#if ent02.avatar}}
+	<img src="{{reqSrcAvatarMember ent02}}" class="rounded-circle avatar-xs" alt="">
+	{{else}}
+	<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.login01}}"><div class="text-middle">{{reqSrcTextAvatar ent02.name}}</div></div>
+	{{/if}}
+</td>
+<td>	
+	<div class="dropdown">	            	
+		<a href="#" class="text-dark dropdown-toggle rowlink" data-toggle="dropdown"><div class="font-size-16 m-0">{{reqNameMember ent02.login01}}</div></a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+         <li>
+             <a class="dropdown-item font-size-16 align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_user_profile_ent" data-url="view_prj_user_profile.html?id={{ent02.id}}&code={{ent02.login01}}">
+             	<i class="bx bx-user"></i>
+             	<span> {{transl 'prj_project_member_see_profile'}}</span>
+            </a>
+         </li>
+         <li>
+             <a class="dropdown-item font-size-16 align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_dashboard" data-url="view_prj_dashboard.html?id={{ent02.id}}&code={{ent02.code01}}">
+             	<i class="bx bx-briefcase-alt-2"></i>
+             	<span> {{transl 'prj_project_member_see_projects'}}</span>
+             </a>
+         </li>
+     </ul>
+	</div>		            			            	
+</td>
+{{/inline}}
+
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_project_member_group'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7 isManager">
+	             <div class="text-right font-size-20">
+	                 <button data-right="view:40002003|100|103"  id="btn_add_group" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}</button>
+	             	<a id="a_btn_save_member_group" class="mr-2 text-primary hide action-mem-group action-item-group cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save action-item-group"></i>
+		            </a>
+		            <a id="a_btn_cancel_member_group" class="mr-2 text-danger hide action-mem-group action-item-group cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close"></i>
+		            </a>
+		            <a data-divtoogle="#tabGroup" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+        <div id="tabGroup" class="table-responsive">
+            <table class="table table-centered table-nowrap">
+            	<thead>
+            		<tr>
+            			<th class="hide action-item-group isManager"></th>
+            			<th class="d-lg-none d-xl-block">#</th>
+            			<th>{{transl 'prj_project_member_group_header_name'}}</th>
+            			 {{#if isUser}}
+            			<th>{{transl 'prj_project_member_header_role'}}</th>
+            			{{/if}}
+            			<th class="hide">{{transl 'prj_project_member_header_level'}}</th>
+            		</tr>
+            	</thead>
+			    <tbody>
+			     {{#each this}}
+			     	{{#if isUser}}
+			     	<tr class="member-item hide" data-memid="{{entId02}}">
+			            {{#ifOrs isOwner notModif}}
+				            <td class="hide action-item-member isManager"></td>
+				            {{> avatarMember}}
+				            <td><span class="level-content">{{reqLevelMember lev}}</span></td>
+				            <td><span class="typ-content">{{reqTypeMember typ}}</span></td>
+			            {{else}}
+				            <td class="hide action-item-member isManager">
+				            	<div class="dropdown">
+		                             <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+		                                 <i class="mdi mdi-dots-vertical font-size-18"></i>
+		                             </a>
+		                             <ul class="dropdown-menu">
+		                                 <li>
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-edit"><i class="mdi mdi-pencil font-size-16 text-success mr-1"></i>{{transl 'prj_project_member_header_edit'}}</span>
+		                                 </li>
+		                                 <li>
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-delete"><i class="mdi mdi-trash-can font-size-16 text-danger mr-1"></i>{{transl 'prj_project_member_header_delete'}}</span>
+		                                 </li>
+		                             </ul>
+		                         </div>
+	                        </td>
+				            {{> avatarMember}}
+				            <td>
+				            	<span class="level-content content-member">{{reqLevelMember lev}}</span>
+				            	<select class="form-control edit-member level-edit hide isManager hideDev hideTest hideMem hideGuest">
+					        		<option value="0" class="hideBA" {{#equal lev '0'}}selected{{/equal}}>{{transl 'prj_project_member_level_manager'}}</option>
+					        		<option data-external-mem="true" value="10" {{#equal lev '10'}}selected{{/equal}}>{{transl 'prj_project_member_level_reporter'}}</option>
+					        		<option value="20" {{#equal lev '20'}}selected{{/equal}}>{{transl 'prj_project_member_level_developer'}}</option>
+					        		<option value="30" {{#equal lev '30'}}selected{{/equal}}>{{transl 'prj_project_member_level_tester'}}</option>
+					        		<option data-external-mem="true" value="40" {{#equal lev '40'}}selected{{/equal}}>{{transl 'prj_project_member_level_worker'}}</option>
+					        		<option value="50" {{#equal lev '50'}}selected{{/equal}}>{{transl 'prj_project_member_level_watcher'}}</option>
+					        	</select>
+				            </td>
+				            <td class="hide">
+				            	<span class="typ-content content-member">{{reqTypeMember typ}}</span>
+				            	<select class="form-control edit-member typ-edit hide isManager">
+			                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+					        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+					        		<option value="1">{{transl 'prj_project_lev_haute'}}</option>
+					       		</select>
+				            </td>
+			            {{/ifOrs}}
+			        </tr>
+			     	{{else}}
+			        <tr class="member-item" data-memid="{{entId02}}">
+			            {{#ifOrs isOwner notModif}}
+				            <td class="hide action-item-group isManager"></td>
+				            {{> avatarMember}}
+				            <td><span class="level-content">{{reqLevelMember lev}}</span></td>
+				            <td><span class="typ-content">{{reqTypeMember typ}}</span></td>
+			            {{else}}
+				            <td class="hide action-item-group isManager">
+				            	<div class="dropdown">
+		                             <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+		                                 <i class="mdi mdi-dots-vertical font-size-18"></i>
+		                             </a>
+		                             <ul class="dropdown-menu">
+		                                 <li>
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-group-edit"><i class="mdi mdi-pencil font-size-16 text-success mr-1"></i>{{transl 'prj_project_member_header_edit'}}</span>
+		                                 </li>
+		                                 <li>
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-group-delete"><i class="mdi mdi-trash-can font-size-16 text-danger mr-1"></i>{{transl 'prj_project_member_header_delete'}}</span>
+		                                 </li>
+		                             </ul>
+		                         </div>
+	                        </td>
+				            {{> avatarGroup}}
+				            <td class="hide">
+				            	<span class="typ-content content-member">{{reqTypeMember typ}}</span>
+				            	<select class="form-control edit-member typ-edit hide isManager">
+			                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+					        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+					        		<option value="1">{{transl 'prj_project_lev_haute'}}</option>
+					       		</select>
+				            </td>
+			            {{/ifOrs}}
+			        </tr>
+			        {{/if}}
+			     {{/each}}
+			    </tbody>
+			</table>
+        </div>
+        <div class="hide action-item-group isManager">
+        	<div class="mb-3 row">
+	        	<div class="col-md-4 hide">
+	                 <div class="mt-2 mt-md-0">
+	                 	<select class="form-control" id="sel_group_type">
+	                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+			        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+			        		<option value="1" selected>{{transl 'prj_project_lev_haute'}}</option>
+			       		</select>
+	                 </div>
+	             </div>
+	             
+	             <div class="col-md-12">
+			    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_name_group" placeholder="{{transl 'prj_project_enter_name_group'}}">
+	        	</div>
+        	</div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{{#each this}}
+<li class="msg_item" data-id="{{id}}" data-title="{{subj}}" data-date="{{date}}">
+    <div class="col-mail col-mail-1">
+        <div class="checkbox-wrapper-mail">
+            <input type="checkbox" id="chk_{{id}}" class="msg">
+            <label for="chk_{{id}}" class="toggle"></label>
+        </div>
+        <span class="title">{{reqNameEmail (reqDestinationMail @root.folder from to)}}</span><span class="star-toggle far fa-star"></span>
+    </div>
+    <div class="col-mail col-mail-2">
+        <span class="subject"><span class="teaser">{{subj}}</span>
+        </span>
+        <div class="date">{{dateFormatLocalShort date}}</div>
+    </div>
+</li>
+{{/each}}
+	       

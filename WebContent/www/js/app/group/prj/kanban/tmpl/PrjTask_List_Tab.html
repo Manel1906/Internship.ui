@@ -1,0 +1,48 @@
+<div class="">
+	<div class="swiper-container" data-breakpoints="1" data-xs-slides="1" data-sm-slides="3" data-md-slides="4" data-lt-slides="4"  data-slides-per-view="4">
+		<div class="swiper-button-prev visible-lg"></div>
+		<div class="swiper-button-next visible-lg"></div>
+		<div id="swiper-wrapper" class="swiper-wrapper">
+			{{#each this}}
+			<div id='div-stat-task_{{id}}' class="{{#equal show false}} hide {{/equal}} swiper-slide resize div-stat-task">
+				<div class="card">
+				     <div data-stat="{{id}}" class="card-body div-task-stat" style="background-color: {{colorBgr}}">
+				         <div class="float-right">
+				         	<a href="javascript:void(0)" data-stat="{{id}}" class="mr-2 text-primary btn-refrest-list" data-toggle="tooltip" data-placement="top">
+								<i class="mdi mdi-reload font-size-16"></i>
+							</a>
+							
+<!-- 				            <a href="javascript:void(0)" class="arrow-none btn-resize show-task" data-divtoggle="#div_prj_list_stat_{{id}}, #div_prj_pagination_stat_{{id}}"> -->
+<!-- 							    <i class="mdi mdi-window-minimize text-muted h5"></i> -->
+<!-- 							</a> -->
+							
+							<a href="javascript:void(0)" class="mr-2 arrow-none show-task horizontal-menu-btn">
+							    <i class="mdi mdi-window-maximize text-muted h5"></i>
+							</a>
+							
+							 <!-- <a href="javascript:void(0)" data-stat="{{id}}" class="mr-2 text-primary btn-close-list" data-toggle="tooltip" data-placement="top">
+								<i class="mdi mdi-close font-size-16"></i>
+							</a> -->
+				         </div>
+				
+						 <div class="mb-4">
+						 	 <i class="mdi mdi-{{reqStatIcon stat}} font-size-18 text-primary"></i>
+						 	 <span class="card-title h4">
+								{{#if trans}}
+									{{transl trans}}
+								{{else}}
+									{{lab}}
+								{{/if}}
+							</span>
+						 </div>
+				         <div class="pb-1 task-list task-tab-content">
+				             <div id="div_prj_list_stat_{{id}}" class="ent-list min-height-200" data-stat="{{id}}"></div>
+							<div id="div_prj_pagination_stat_{{id}}" class="ent-pagination"></div>
+				          </div>
+				      </div>
+				  </div>
+			</div>
+			{{/each}}
+		</div>
+	</div>
+</div>

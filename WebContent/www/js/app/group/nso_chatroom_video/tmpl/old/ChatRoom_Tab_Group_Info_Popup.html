@@ -1,0 +1,73 @@
+<div class="card mb-0">
+    <div class="card-body">
+		<div class="media-body overflow-hidden">
+			<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_chat_group_name'}}</h5>
+			<input id="chat_group_name" class="objData form-control" type="text" data-name="name" value={{obj.name}}></input>
+		</div>
+        <div class="media mt-4">
+			{{#if obj.isManager}}
+			<div id="frm_dropzone_send" class="fallback">
+
+				<form action="/" method="post" class="dropzone inputfile">
+					<div class="fallback">
+						<input data-name="files" type="file" class="objData" data-typ01="10" data-typ02="1">
+					</div>
+
+					<div class="dz-message needsclick">
+						<div class="mb-3">
+							<i class="display-4 text-muted bx bxs-cloud-upload"></i>
+						</div>
+						<h4>{{transl 'prj_project_drop_files'}}</h4>
+					</div>
+				</form>
+			</div>
+			{{else}}
+			<img src="{{obj.val01.img}}" alt="" class="avatar-sm mr-4">
+			{{/if}}
+		</div>
+		{{#if obj.isManager}}
+		{{#if obj.typ02}}
+		<div>
+			<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_chat_group_typ'}}</h5>
+			<div class="select-wrapper">
+				<select id="chat_group_typ" data-name="typ02" data-validation="required number" class="objData form-control">
+					<option value="401">{{transl 'prj_chat_group_typ_pri'}}</option>
+					<option value="402">{{transl 'prj_chat_group_typ_pub'}}</option>
+				</select>
+			</div>
+		</div>
+		{{/if}}
+		{{/if}}
+
+		{{#if obj.descr}}
+		<div>
+			<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_chat_group_descr'}}</h5>
+			<p class="text-muted " data-name="descr01">{{obj.descr}}</p>
+		</div>
+		{{/if}}
+		
+		<div>
+			<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_chat_group_ref'}}</h5>
+			<p class="text-muted " data-name="descr01">{{obj.ref}}</p>
+		</div>
+		
+		{{#ifCond obj.countMsg '>' 0}}
+		<div>
+			<h5 class="font-size-14 mt-4 info-edit">{{transl 'prj_chat_group_count_msg'}}</h5>
+            <p data-format="date" class="text-muted ">{{obj.countMsg}}</p>
+		</div>
+		 {{/ifCond}}
+		 
+		 {{#ifCond obj.countFile '>' 0}}
+		<div>
+			<h5 class="font-size-14 mt-4 info-edit">{{transl 'prj_chat_group_count_file'}}</h5>
+            <p data-format="date" class="text-muted ">{{obj.countFile}}</p>
+		</div>
+		 {{/ifCond}}
+		 
+		<div>
+			<h5 class="font-size-14 mt-4 info-edit"><i class="bx bx-calendar mr-1 text-primary"></i>{{transl 'prj_chat_group_date_begin'}}</h5>
+            <p data-format="date" class="text-muted " data-name="dtBegin">{{reqFormatDate obj.dt01}}</p>
+		</div>
+    </div>
+</div>

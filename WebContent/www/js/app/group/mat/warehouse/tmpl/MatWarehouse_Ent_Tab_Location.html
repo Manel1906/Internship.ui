@@ -1,0 +1,37 @@
+<!-- *Content here* -->
+<div class="box-header with-border">
+
+	<h3 class="box-title">{{transl "mat_warehouse_tab01_title"}}</h3>
+	
+	<div class="custom-box-tools pull-right">
+		<button id="a_mat_warehouse_tab01_New" type="button" class="objData btn btn-flat btn-primary">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+		</button>
+	</div>
+
+</div>
+
+<div class="box-body">
+	<div class="form-horizontal">
+			<table id="table_mat_warehouse_tab01_detail" class="table table-hover table-bordered objData" data-name="detail" data-primary="mat">
+				<thead>
+					<tr>
+						<th data-name="id" data-visible="false">{{transl "mat_warehouse_tab01_mat_id"}}</th>
+						<th data-name="mat" data-visible="false">{{transl "mat_warehouse_tab01_mat_mat"}}</th>
+						<th data-name="code" data-visible="true"  data-validation="required">{{transl "mat_warehouse_tab01_mat_code"}} *</th>
+						<th data-name="name" data-visible="true" data-editable="none">{{transl "mat_warehouse_tab01_mat_name"}}</th>
+						<th data-name="quant" data-visible="true" data-validation="required" data-msg="none" data-compare="gt 0">{{transl "mat_warehouse_tab01_mat_quant"}} *</th>
+						<th data-name="unitlab" data-visible="true">{{transl "mat_warehouse_tab01_mat_unit"}}</th>
+						<th data-name="dt01" data-visible="true">{{transl "mat_warehouse_tab01_mat_prd"}}</th>
+						<th data-name="dt02" data-visible="true">{{transl "mat_warehouse_tab01_mat_dlc"}}</th>
+						<th data-name="val01" data-visible="true">{{transl "mat_warehouse_tab01_mat_loc"}}</th>
+						<th data-name="val02" data-visible="true">{{transl "mat_warehouse_tab01_mat_cmt"}}</th>
+						<th data-name="action" data-visible="true">{{transl "mat_warehouse_tab01_mat_action"}}</th>
+					</tr>
+				</thead>
+				<tbody style="background-color: white;">
+					
+				</tbody>
+			</table>
+	</div>
+</div>

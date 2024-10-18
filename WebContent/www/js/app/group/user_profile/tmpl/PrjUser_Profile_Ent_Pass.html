@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-body">
+	    <div class="media">
+	    	<div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16"></h5>
+            </div>
+	        <a id="a_btn_pass_save" class="mr-3 text-primary action-item hidden" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+	        	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+	        </a>
+	        <a id="a_btn_pass_calcel" class="text-danger cursor-pointer hidden" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+	        	<i class="mdi mdi-close font-size-20"></i>
+	        </a>
+	    </div>
+		<input type="hidden" class="form-control objData" data-name="id" value="{{id}}">
+		
+		<div class="row" id="div_ent_password_btn">
+			<div class="col-4">
+				<button id="btn_aut_user_change_pass" class="btn btn-primary">{{transl 'aut_user_change_pass'}}</button>
+			</div>
+			
+			<div class="col-4">
+				<button id="btn_aut_user_googleAPI" class="btn btn-primary">{{transl 'aut_user_googleAPI'}}</button>
+			</div>
+		</div>
+		
+		<div id="div_ent_header_password" class="hidden">
+			<div class="row">
+				<div class="col-md-6 col-xs-12">
+					<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_profile_tab_03_change_pwd_01'}}</h5>
+					<input id="inp_autuser_header_oldPwd" class="form-control objData" 
+						type="password"  placeholder="" data-name="oldPwd" data-validation="required"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-xs-12">
+					<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_profile_tab_03_change_pwd_02'}}</h5>
+					<input id="inp_autuser_header_newPwd" class="form-control objData"  
+						type="password" placeholder="" data-name="newPwd" data-validation="required""/>
+				</div>
+				<div class="col-md-6 col-xs-12">
+					<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_profile_tab_03_change_pwd_03'}}</h5>
+					<input id="inp_autprofile_info_newPwdConf" class="form-control objData" 
+						type="password" placeholder="" data-name="newPwdConf" data-validation="required"/>
+				</div>
+			</div>
+		</div>
+		
+		
+    </div>
+</div>

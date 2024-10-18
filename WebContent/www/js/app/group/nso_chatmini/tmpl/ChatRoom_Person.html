@@ -1,0 +1,43 @@
+<div class="search-box chat-search-box py-3">
+    <div class="position-relative">
+        <input type="text" class="form-control" placeholder="{{transl 'prj_chat_chat_search'}}" id="inp_search_mini_chat">
+        <i class="bx bx-search-alt search-icon"></i>
+    </div>
+</div>
+
+<div class="chat-leftsidebar-nav">
+    <ul class="nav nav-pills nav-justified">
+    	  <li class="nav-item person-typChat" data-typ="3">
+            <a href="div_group_relate" data-toggle="tab" aria-expanded="true" class="nav-link tab-person active">
+                <i class="bx bx-chat font-size-20 d-sm-none"></i>
+                <span class="d-none d-sm-block">{{transl 'prj_chat_group_relate'}}</span>
+            </a>
+        </li>
+        <li class="nav-item person-typChat" data-typ="1">
+            <a href="div_user" data-toggle="tab" aria-expanded="false" class="nav-link tab-person">
+                <i class="bx bx-user font-size-18 d-sm-none"></i>
+                <span class="d-none d-sm-block">{{transl 'prj_chat_chat'}}</span>
+            </a>
+        </li>
+        <li class="nav-item person-typChat" data-typ="2">
+            <a href="div_group" data-toggle="tab" aria-expanded="false" class="nav-link tab-person">
+                <i class="bx bx-group font-size-20 d-sm-none"></i>
+                <span class="d-none d-sm-block">{{transl 'prj_chat_group'}}</span>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content pt-3 pb-2">
+    	<div class="tab-pane active" id="div_group_relate">
+			<div id="div_group_relate_list"></div>
+        	<div id="div_group_relate_pagination"></div>
+		</div>
+        <div class="tab-pane" id="div_user_mini_chat">
+        	<div id="div_user_list_mini_chat"></div>
+        	<div id="div_user_pagination_mini_chat"></div>
+        </div>
+		<div class="tab-pane" id="div_group_mini_chat">
+			<div id="div_group_list_mini_chat"></div>
+        	<div id="div_group_pagination_mini_chat"></div>
+		</div>
+    </div>
+</div>

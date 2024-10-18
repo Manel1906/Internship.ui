@@ -1,0 +1,18 @@
+<div id="frm_change_pwd">
+	<div class="form-group">
+		<label for="inp_old_config">{{transl 'prj_email_pwd_config_old'}}</label>
+		<input id="inp_old_config" type="password" data-name="oldPwd" placeholder="{{transl 'prj_email_pwd_config_old_enter'}}" class="form-control objData" data-validation="required"> 
+	</div>
+	
+	<div class="form-group">
+		<label for="inp_new_config">{{transl 'prj_email_pwd_config_new'}}</label>
+		<input id="inp_new_config" type="password" data-name="newPwd" placeholder="{{transl 'prj_email_pwd_config_new_enter'}}" class="form-control objData" data-validation="required"> 
+	</div>
+	
+	<div class="form-group">
+		<label for="inp_repeat_pwd_config">{{transl 'prj_email_pwd_config_new_confirm'}}</label>
+		<input id="inp_repeat_pwd_config" type="password" data-name="repeatPwd" placeholder="{{transl 'prj_email_pwd_config_new_confirm_enter'}}" class="form-control objData" data-validation="required" data-compare="eq #inp_new_config"> 
+	</div>
+</div>
+
+

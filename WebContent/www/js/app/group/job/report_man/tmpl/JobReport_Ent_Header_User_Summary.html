@@ -1,0 +1,94 @@
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-sm-9">
+				<h4 class="card-title mb-4 shp_font_size">{{transl "job_report_label_user_summary"}}</h4>
+			</div>
+
+			<div class="col-sm-3 isManager">
+				<div class="text-right">
+					<a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+		            </a>
+					<a data-divtoogle="#div_frm_tpy_cat" class="btn-resize" data-toggle="tooltip" data-placement="top"
+						title="" data-original-title="Resize">
+						<i class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-horizontal custom-scroll-header">
+			<div class="box-body row">
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<div class="form-group">
+						<label for="inp_name" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_user"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-edit info-content">{{name01}} {{name02}} {{name03}}</p>
+							<input id="inp_name" class="form-control content-edit hide" type="text" value="{{name01}} {{name02}} {{name03}}" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inp_login" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_login"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-edit info-content">{{login01}}</p>
+							<input id="inp_login" class="form-control content-edit hide" type="text" value="{{login01}}" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inp_email" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_email"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-edit info-content">{{email}}</p>
+							<input id="inp_email" class="form-control content-edit hide" type="text" value="{{email}}" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inp_wd_stat" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_rp_label_user_qrcode"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12" style="text-alignment:center;">
+							<a id="a_show_qr_code" data-toggle="tooltip" title="{{transl 'job_rp_btn_show_qr_code'}}"> 
+								<i class="fa fa-qrcode" style="font-size:40px;"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-6 col-md-6 col-sm-12">
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="inp_hldT" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_hldT"}}</label> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12"> -->
+<!-- 							<p class="text-muted info-edit info-content">{{hldT}}</p> -->
+<!-- 							<input id="inp_hldT" class="form-control content-edit hide" type="text" value="{{hldT}}" /> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+					
+					<div class="form-group">
+						<label for="inp_hldR" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_hldR"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-edit info-content">{{hldR}}</p>
+							<input id="inp_hldR" class="form-control content-edit hide" type="text" value="{{hldR}}" />
+						</div>
+					</div>
+					
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="inp_hldA" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_hldA"}}</label> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12"> -->
+<!-- 							<p class="text-muted info-edit info-content">{{hldA}}</p> -->
+<!-- 							<input id="inp_hldA" class="form-control content-edit hide" type="text" value="{{hldA}}" /> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+					<div class="form-group">
+						<label class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_wd"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<button id="btn_new_wd" class="btn btn-primary btn-rounded waves-effect waves-light">	{{transl "job_rp_btn_wd_action_01"}}</button>
+							<button id="btn_display_wd" class="btn btn-primary btn-rounded waves-effect waves-light">{{transl "job_rp_btn_wd_action_02"}}</button>
+							<button id="btn_modify_wd" class="btn btn-primary btn-rounded waves-effect waves-light">	{{transl "job_rp_btn_wd_action_03"}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

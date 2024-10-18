@@ -1,0 +1,54 @@
+<div id="div_config_form" class="box">
+	<div class="row">
+		<div class="col-sm-12 col-lg-6 col-md-6">
+	    	<input id="inp_email_config" class="form-control objData" placeholder="{{transl 'prj_email_config_mail_enter'}}" value="{{email}}" data-name="email" data-validation="required email">
+	  	</div>
+	  	<div class="col-sm-12 col-lg-6 col-md-6">
+	    	<input id="inp_email_pwd_config" type="password" class="form-control objData" placeholder="{{transl 'prj_email_config_pwd_enter'}}" value="{{pwd}}" data-name="pwd" data-validation="required">
+	  	</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-sm-12 col-lg-6 col-md-6">
+		<div class="box-header with-border">
+			<p class="box-title">{{transl 'prj_email_config_imap'}}</p>
+		</div>
+		
+		<div class="box-body" id="div_imap_config">
+			<div class="form-group">
+		    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_imap_host_name'}}" value="{{imap_host_name}}" data-name="imap_host_name" data-name-zone="host_name" id="inp_imap_config">
+		  	</div>
+		  	<div class="form-group">
+		    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_imap_host_url'}}" value="{{imap_addr}}" data-name="imap_addr" data-name-zone="host_addr" data-validation="required">
+		  	</div>
+		  	<div class="form-group">
+		    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_imap_host_port'}}" value="{{imap_port_01}}" data-name="imap_port_01" data-name-zone="host_port_01" data-validation="required">
+		  	</div>
+		  	<div class="form-group">
+		    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_imap_host_port02'}}" value="{{imap_port_02}}" data-name="imap_port_02" data-name-zone="host_port_02">
+	  	</div>
+	</div>
+		</div>
+	  	<div class="col-sm-12 col-lg-6 col-md-6">
+	  		<div class="box-header with-border">
+				<p class="box-title">{{transl 'prj_email_config_smtp'}}</p>
+			</div>
+			
+			<div class="box-body" id="div_smtp_config">
+				<div class="form-group">
+			    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_smtp_host_name'}}" value="{{smtp_host_name}}" data-name="smtp_host_name" data-name-zone="host_name" id="inp_smtp_config">
+			  	</div>
+			  	<div class="form-group">
+			    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_smtp_host_url'}}" value="{{smtp_addr}}" data-name="smtp_addr" data-name-zone="host_addr" data-validation="required">
+			  	</div>
+			  	<div class="form-group">
+			    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_smtp_host_port'}}" value="{{smtp_port_01}}" data-name="smtp_port_01" data-name-zone="host_port_01" data-validation="required">
+			  	</div>
+			  	<div class="form-group">
+			    	<input class="form-control objData" placeholder="{{transl 'prj_email_config_smtp_host_port02'}}" value="{{smtp_port_02}}" data-name="smtp_port_02" data-name-zone="host_port_02">
+			  	</div>
+			</div>
+	  	</div>
+	</div>
+	
+</div>

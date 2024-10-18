@@ -1,0 +1,41 @@
+<div class="page-content container">
+  <div class="container-fluid">
+  		 <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+	              	<div>
+	                  <h4 class="mb-0 font-size-18 d-inline">{{transl 'common_usr_pw_reset'}}</h4>
+	                </div>
+              </div>
+          </div>
+          <div class="col-12">
+          		<div role="tabpanel" id="wygo-loging">
+					<div class="form-group">
+						<i class="icon-profile-male"></i>
+						<input id="inp_Username" type="text" name="username" class="form-control custom" placeholder="{{transl 'signin_username'}}" value="{{login01}}" disabled>
+						<p class="registrationFormAlert" id="divCheckUserLogin"></p>
+					</div>
+					<div class="form-group">
+						<i class="icon-icons208"></i>
+						<input id="inp_Code" type="text" name="code" class="form-control custom" placeholder="{{transl 'signin_validationCode'}}" value="{{code}}" disabled>
+						<p class="registrationFormAlert" id="divCheckPassLogin"></p>
+					</div>
+					
+					<div class="form-group">
+						<i class="icon-lock-stripes"></i>
+						<input type="password" id="txtNewPassword" name="password" class="objData form-control" data-name="pass" placeholder="{{transl 'signin_password'}}">
+						<p class="registrationFormAlert" id="divCheckPassword"></p>
+					</div>
+					
+					<div class="form-group">
+						<i class="icon-lock-stripes"></i>
+						<input type="password" id="txtConfirmPassword" name="confirmpassword" class="objData form-control" data-name="typ"  placeholder="{{transl 'signin_password_confirm'}}">
+						<p class="registrationFormAlert" id="divCheckPasswordMatch"></p>
+					</div>
+					
+					<button id="btn_Submit" class="btn btn-primary btn-block waves-effect waves-light">{{transl 'common_btn_validate'}}</button>
+					</div>					
+          </div>
+      </div> 
+  </div>
+ </div>

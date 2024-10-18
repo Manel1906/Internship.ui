@@ -1,0 +1,9 @@
+<li id="li_msg_read_{{msgId}}" class="message-item message-read"> 
+	<div class="conversation-list conversation-position" id = "div_avatar_{{mem.id}}">
+       	     {{#if mem.avatar}}
+               <img src="{{reqSrcAvatarChat mem}}" class="rounded-circle avatar-read" alt="" onerror="{{imageErrorUser}}">
+               {{else}}
+               <div class="rounded-circle avatar-read text-white text-uppercase" style="background-color: {{reqSrcTextColor mem.login01}}"><div class="text-middle-small">{{reqSrcTextAvatar mem.login01}}</div></div>
+               {{/if}}
+     </div>
+</li>

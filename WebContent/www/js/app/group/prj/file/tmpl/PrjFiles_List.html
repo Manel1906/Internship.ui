@@ -1,0 +1,41 @@
+<div class="page-content">
+	<div class="container-fluid">
+		<div class="container-fluid row align-items-center">
+			<ul class="col-md-1_5 nav nav-pills product-view-nav">
+	            <li class="nav-item">
+	                <a class="nav-link active list-prj-typ" data-typ="1" href="#"><i class="bx bx-grid-alt"></i></a>
+	            </li>
+	            <li class="nav-item">
+	                <a class="nav-link list-prj-typ" data-typ="2" href="#"><i class="bx bx-list-ul"></i></a>
+	            </li>
+	        </ul>
+	        <div class="col-1 col-lg-1 col-md-12 col-sm-6 justify-content-start">
+			<a	id="btn_new_file" data-url="view_prj_file_new.html" data-route="VI_MAIN/prj_file_new" 
+				href="javascript:void(0)"  class="hnv-route arrow-none show-task mr-2" data-right="view:40000002|100|102"  
+				data-toggle="tooltip" data-placement="top" title="{{transl 'prj_project_sidebar_files_create'}}">
+				
+				<i class="mdi mdi-newspaper-plus text-success font-size-18"></i>
+				<span class="tooltiptext">{{transl 'prj_project_sidebar_files_create'}}</span>
+			</a>
+		</div>
+			<form class="col-md-3 app-search" onsubmit="return false">
+				<div class="position-relative">
+					<input type="text" class="form-control inp-search" placeholder="{{transl 'common_filter_keyword'}}">
+					<span class="bx bx-search-alt"></span>
+				</div>
+			</form>
+		</div>
+<!-- 		<div class="mt-3"> -->
+<!-- 			<div class="d-flex mb-2 mr-2 justify-content-end flex-wrap"> -->
+<!-- 				{{#each this}} -->
+<!-- 				<div class="custom-control custom-checkbox task-stat-choose"> -->
+<!-- 				    <input data-stat="{{stat}}" type="checkbox" {{#if isShow}}checked{{/if}} class="custom-control-input prj-stat-cbx" id="customCheck{{stat}}"> -->
+<!-- 				    <label class="custom-control-label" for="customCheck{{stat}}">{{transl (concat 'prj_project_stat_0' stat)}}</label> -->
+<!-- 				</div> -->
+<!-- 				{{/each}} -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+	</div>
+	<div id="div_prj_list" class="ent-list"></div>
+	<div id="div_prj_pagination" class="ent-pagination"></div>
+</div>

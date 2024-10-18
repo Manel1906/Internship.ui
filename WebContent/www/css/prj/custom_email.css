@@ -1,0 +1,25 @@
+.screen-hidden{
+	display: none;
+}
+@media screen and (max-width: 1023px) {
+	
+}
+
+
+@media ( max-width : 567px) {
+	.mobile-hidden{
+		display: none;
+	}
+	
+	.screen-hidden{
+		display: block;
+	}
+	
+	.padding-mobile-0{
+		padding: unset;
+	}
+	
+	.margin-mobile-0{
+		margin: unset;
+	}
+}

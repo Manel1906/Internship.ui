@@ -1,0 +1,33 @@
+<div class="card">
+     <div class="card-body p-2">
+<!--      		<div class="px-2"> -->
+<!-- 				<a class="text-primary font-italic" href="view_prj_project_content.html?id={{id}}&code={{code01}}"><i class="mdi mdi-arrow-left-bold-outline font-size-18"></i>{{transl "common_btn_back"}}</a> -->
+<!-- 			</div> -->
+		 <div class="d-flex p-2">
+		 	 
+		 	<div class="ml-auto">
+		 		<a data-right="view:40002002|102|100" href="javascript:void(0)" class="arrow-none show-task btn_new_sprint mr-2"  data-toggle="tooltip" data-placement="top">
+				    <i class="mdi mdi-newspaper-plus text-success font-size-18"></i>
+				</a>
+				
+			 	<a href="javascript:void(0)" data-id="{{id}}" class="mr-2 text-primary btn-refrest-list" data-toggle="tooltip" data-placement="top">
+					<img class="animation-refresh" src="www/img/prj/icon/icon-refresh.png" alt="Refresh" height="22" title="Refresh">
+				</a>
+				
+	            <a href="javascript:void(0)" class="arrow-none btn-resize-list show-task" data-divtoggle="#div_prj_list_stat, #div_prj_pagination_stat">
+				    <i class="mdi mdi-window-minimize text-muted h5"></i>
+				</a>
+			</div>
+		 </div>
+		 <div class="search-box chat-search-box py-3">
+		    <div class="position-relative">
+		        <input type="text" class="form-control" placeholder="{{transl 'prj_test_group_filter_enter'}}" id="inp_search">
+		        <i class="bx bx-search-alt search-icon"></i>
+		    </div>
+		</div>
+         <div class="pb-1 task-list task-tab-content">
+             <div id="div_prj_list_stat" class="ent-list"></div>
+			<div id="div_prj_pagination_stat" class="ent-pagination"></div>
+          </div>
+      </div>
+  </div>

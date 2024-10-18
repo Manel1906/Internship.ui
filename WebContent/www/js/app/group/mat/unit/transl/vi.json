@@ -1,0 +1,17 @@
+{
+"----------UNIT----------"	        :	"----------UNIT----------",
+
+"mat_unit_lst_stat_act"				: "Đơn vị khả dụng",
+"mat_unit_lst_stat_new"     		: "Đơn vị mới tạo",
+"mat_unit_lst_stat_rev"     		: "Đơn vị cần kiểm tra",
+"mat_unit_lst_stat_del"     		: "Đơn vị bị xóa",
+
+"mat_unit_ent_name"     			:   "Tên đơn vị",
+"mat_unit_ent_code"     			:   "Mã định danh",
+"mat_unit_ent_stat"     			:   "Trạng thái",
+
+"mat_unit_ent_stat_00"              :   "Mới tạo",
+"mat_unit_ent_stat_01"          	:   "Khả dụng",
+"mat_unit_ent_stat_05"       		:   "Cần xem xét",
+"mat_unit_ent_stat_10"       		:   "Sẽ xóa bỏ"
+}

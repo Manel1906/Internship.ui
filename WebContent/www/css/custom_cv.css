@@ -1,0 +1,351 @@
+/*progress bar*/
+.progress-item input[type="range"] { 
+    margin-right: 3%;
+    -webkit-appearance: none;
+    position: relative;
+    overflow: hidden;
+    height: 30px;
+    width: 200px;
+    cursor: pointer;
+    border-radius: 50px;
+    
+}
+
+.progress-item input[type=range]::-webkit-slider-runnable-track {
+    background: #e9eff9;;
+}
+
+.progress-item input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; /* 1 */
+    height: 40px;
+    background: #2457cf;
+    box-shadow: -100vw 0 0 100vw #7c9de9;
+    border: 1px solid #2457cf; /* 1 */
+}
+
+.progress-item input[type=range]::-moz-range-track {
+    height: 40px;
+    background: #e9eff9;;
+}
+
+.progress-item input[type=range]::-moz-range-thumb {
+    background: #fff;
+    height: 40px;
+    width: 20px;
+    border: 3px solid #999;
+    border-radius: 0 !important;
+    box-shadow: -100vw 0 0 100vw dodgerblue;
+    box-sizing: border-box;
+    
+}
+
+.progress-item input[type=range]::-ms-fill-lower { 
+    background: dodgerblue;
+    overflow : hidden;
+}
+
+.progress-item input[type=range]::-ms-thumb { 
+    background: #fff;
+    border: 2px solid #999;
+    height: 40px;
+    width: 20px;
+    box-sizing: border-box;
+}
+
+.progress-item input[type=range]::-ms-ticks-after { 
+    display: none; 
+}
+
+.progress-item input[type=range]::-ms-ticks-before { 
+    display: none; 
+}
+
+.progress-item input[type=range]::-ms-track { 
+    background: #e9eff9;;
+    color: transparent;
+    height: 40px;
+    border: none;
+}
+
+.progress-item input[type=range]::-ms-tooltip { 
+    display: none;
+}
+
+
+.progress-item output { 
+  background-image: linear-gradient(top, #444444, #999999);
+  text-align: center; 
+  color: black; 
+  border-radius: 10px; 
+  display: inline; 
+  font: bold 15px/30px Georgia;
+  bottom: 175%;
+  left: 50%;
+}
+
+/*------- Preview_Cv -----------*/
+.div_Header_Preview {
+	background-color: #859aeb;
+	color: #fff;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.div_Header_Text {
+	padding-left: 5%;
+}
+.div_Header_Text h1, .div_Header_Text h2, .div_Header_Text h3{
+	color: #fff;
+}
+.div_Header_Text h2{
+	margin: 20px 0;
+}
+.div_Header_Text .text{
+	font-size: 16px;
+}
+.div_Header_Image {
+	margin: auto;
+	text-align: center;
+}
+.div_Header_Image img {
+	border-radius: 50%;
+}
+.div_Content_Preview {
+	margin-top: 3px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.div_Descr_Content {
+	margin-bottom: 3px;
+}
+.div_Content_Left .div_Descr_Left{
+	text-align: center;
+}
+.div_Content_Left .div_Descr_Header .div_Descr_Right {	
+	margin-top: 0px;
+}
+.div_Content_Left .div_Descr_Header .div_Descr_Left {	
+	margin: auto;
+	margin-top: 20px;
+}
+.div_Content_Left .div_Descr_Right {
+	border-left-style: solid;
+	border-left-width: 3px;
+	border-left-color: lightgrey;
+}
+.div_Content_Left .div_Descr_Right p {
+	margin: 0 0 0px;
+	font-size: 14px;
+}
+.div_Content_Left .icon_Descr_Header{
+	text-align: center;
+	margin: auto;
+	font-size: 36px;
+	color: #859aeb;
+}
+.div_Content_Left .p_date{
+	font-size: 18px;
+    margin-top: 20px;
+}
+#div_Divers .div_Descr_Content .div_Descr_Right h4 {
+	margin-top: 8px;
+}
+.div_Space {
+	padding-top: 10px;
+}
+.div_Content_Right {
+	background: #859aeb;	
+	position: relative;
+/*   	display: grid; */
+  	grid-template-columns: auto;
+}
+.box-content-right{
+	margin-bottom: 30px;
+}
+.div_Content_Right h3, .div_Content_Right p {
+		color: #fff;
+		text-align: left;
+}
+.div_Content_Right span {
+		color: #fff;
+		text-align: left;
+}
+.div_Content_Right .div_Descr_Header {
+	margin-top: 20px;
+}
+#div_Skills_Tech {
+	position: relative;
+}
+#div_Skills_Soft {
+	position: relative;
+}
+#div_Lang {
+	position: relative;
+}
+#div_Contact  {
+	position: relative;
+    background-color: #f5f5f5s;
+}
+#div_Contact h2, #div_Contact p {
+	text-align: left;
+}
+#div_Contact p {
+	font-size: 16px;
+}
+.progress-item {
+    position: relative;
+}
+.progress-item .progress-title {
+    font-size: 15px;
+    font-weight: 400;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.progress-item .progress {
+    height: 4px;
+    box-shadow: none;
+    border-radius: 5px;
+    width: 90%;
+}
+.progress {
+    height: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.1);
+}
+.progress-item .progress-title {
+    font-size: 15px;
+    font-weight: 400;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+.progress-item .progress-bar {
+    background-color: #2457cf;
+    box-shadow: none;
+    text-align: right;
+}
+.progress-item .progress-percent {
+    font-size: 10px;
+    background-color: #313131;
+    position: absolute;
+    top: 37px;
+    padding: 0 8px;
+    border-radius: 3px;
+}
+
+/*------- Preview_Cv_2 -----------*/
+.div_Preview2_Header {
+	background-color: #2457cf;
+	color: #fff;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.div_Preview2_Header .div_Header_Text {
+	text-align: center;
+}
+.div_Preview2_Left_Content {
+	background: #859aeb;	
+	position: relative;
+  	display: grid;
+  	grid-template-columns: auto;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.div_Preview2_Left_Content h3, .div_Preview2_Left_Content p {
+		color: #fff;
+		text-align: left;
+}
+.div_Preview2_Left_Content span {
+		color: #fff;
+		text-align: left;
+}
+.div_Preview2_Left_Contentt .div_Descr_Header {
+	margin-top: 20px;
+}
+.div_Preview2_Right {	
+	position: relative;
+  	display: grid;
+  	grid-template-columns: auto;
+}
+.div_Preview2_Right .div_Descr_Header .div_Descr_Left {	
+	margin: auto;
+	margin-top: 5px;
+	text-align: center;
+}
+.div_Preview2_Right .div_Descr_Part .div_Descr_Left {
+	padding-left: 0px;
+}
+.div_Preview2_Right .p_date{
+	font-size: 18px;
+    margin-top: 5px;
+    text-align: center;
+}
+.div_Preview2_Right h3, .div_Preview2_Right h4, .div_Preview2_Right p {
+		text-align: left;
+}
+.div_Preview2_Right span {
+		text-align: left;
+}
+.div_Preview2_Right .div_Descr_Header {
+	margin-top: 20px;
+}
+
+/*------- Preview_Cv_3 -----------*/
+.div_Preview3_Header {
+	background-color: #f03ef4;
+	color: #fff;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.div_Preview3_Header .div_Header_Text {
+	text-align: center;
+}
+.div_Preview3_Left_Content {
+	background: #e48bde;	
+	position: relative;
+  	display: grid;
+  	grid-template-columns: auto;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.div_Preview3_Left_Content h3, .div_Preview3_Left_Content p {
+		color: #fff;
+		text-align: left;
+}
+.div_Preview3_Left_Content span {
+		color: #fff;
+		text-align: left;
+}
+.div_Preview3_Left_Contentt .div_Descr_Header {
+	margin-top: 20px;
+}
+.div_Preview3_Right {	
+	position: relative;
+  	display: grid;
+  	grid-template-columns: auto;
+}
+.div_Preview3_Right .div_Descr_Header .div_Descr_Left {	
+	margin: auto;
+	margin-top: 5px;
+	text-align: center;
+}
+.div_Preview3_Right .div_Descr_Part .div_Descr_Left {
+	padding-left: 0px;
+}
+.div_Preview3_Right .p_date{
+	font-size: 18px;
+    margin-top: 5px;
+    text-align: center;
+}
+.div_Preview3_Right h3, .div_Preview3_Right h4, .div_Preview3_Right p {
+		text-align: left;
+}
+.div_Preview3_Right span {
+		text-align: left;
+}
+.div_Preview3_Right .div_Descr_Header {
+	margin-top: 20px;
+}

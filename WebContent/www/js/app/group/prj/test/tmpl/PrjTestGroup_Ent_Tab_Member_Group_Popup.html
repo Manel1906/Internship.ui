@@ -1,0 +1,21 @@
+ <table class="table table-centered table-nowrap">
+			    <tbody>
+			     {{#each this}}
+			     	<tr class="member-item d-flex">
+			     		<td class="d-lg-none d-xl-block border-0" style="width: 20%;">
+							{{#if ent02.avatar}}
+							<img src="{{reqSrcAvatarMember ent02}}" class="rounded-circle avatar-xs" alt="">
+							{{else}}
+							<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.login01}}"><div class="text-middle">{{reqSrcTextAvatar ent02.login01}}</div></div>
+							{{/if}}
+						</td>
+						<td class="d-lg-none d-xl-block border-0" style="width: 30%;">
+							{{ent02.login01}}
+						</td>
+						<td class="d-lg-none d-xl-block border-0" style="width: 30%;">
+							{{reqLevelMember lev}}
+						</td>
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>

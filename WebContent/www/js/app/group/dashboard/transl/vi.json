@@ -1,0 +1,27 @@
+{
+	"prj_project_stat_undefined"                : "Không xác định",
+    "prj_project_stat_100100"                   : "Khởi tạo",
+    "prj_project_stat_100200"                   : "Cần làm",
+    "prj_project_stat_100300"                   : "Tiến hành",
+    "prj_project_stat_100400"                   : "Hoàn thành",
+    "prj_project_stat_100500"                   : "Kiểm thử",
+    "prj_project_stat_100600"                   : "Cần kiểm tra",
+    "prj_project_stat_100700"                   : "Triển khai",
+    "prj_project_stat_100800"                   : "Không khả thi",
+    "prj_project_stat_100900"                   : "Đóng",
+    
+    "prj_project_lev_01"                          		: "Thấp",
+    "prj_project_lev_02"                          		: "Trung bình",
+    "prj_project_lev_03"                          		: "Cao",
+    "prj_project_lev_04"                          		: "Ưu tiên",
+    
+    "prj_project_task_name"								: "Tên phân việc",
+    "prj_project_start_date"							: "Ngày bắt đầu",
+	"prj_project_end_date"								: "Ngày kết thúc",
+	"prj_project_stat"                          		: "Trạng thái",
+	"prj_project_member"                                : "Thành viên",
+	 
+	"prj_task_tab_filter_prj"							: "Tất cả dự án",
+
+"--End------------------------"	: "----------------------------------------"
+}

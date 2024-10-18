@@ -1,0 +1,63 @@
+<div class="login-box">
+
+	<div class="login-logo">
+		<a><b>{{transl "page_logo_name_01"}}</b> {{transl "page_logo_name_02"}}</a>
+	</div>
+	<!-- /.login01-logo -->
+	
+	<div class="login-box-body">
+		<p class="login-box-msg">{{transl "login_title"}}</p>
+
+		<div id="frm_Login">
+			<div class="form-group has-feedback">
+				<input id="inp_Username" type="text" class="form-control" placeholder="{{transl 'login_username'}}" required> 
+					<span class="glyphicon glyphicon-user form-control-feedback"></span>
+			</div>
+			
+			<div class="form-group has-feedback">
+				<input id="inp_Password" type="password" class="form-control" placeholder="{{transl 'login_password'}}" required> 
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			</div>
+			
+			<div class="row">
+				<div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
+					<div class="checkbox icheck">
+						<label style="padding-left: 20px;"> 
+							<input id="inp_remember" type="checkbox"> {{transl "login_remember_me"}}
+						</label>
+					</div>
+				</div>
+				<!-- /.col -->
+				
+				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
+					<button id="btn_Submit" class="btn btn-primary btn-block btn-flat">{{transl "login_sign_in_btn"}}</button>
+				</div>
+				<!-- /.col -->
+			</div>
+			
+		</div>
+
+<!-- 		<div class="social-auth-links text-center"> -->
+<!-- 			<p>- {{transl "login_or"}} -</p> -->
+<!-- 			<a class="btn btn-block btn-social btn-facebook btn-flat"> -->
+<!-- 				<i class="fa fa-facebook"></i> {{transl "login_sign_in_facebook"}}</a> -->
+<!-- 			<a class="btn btn-block btn-social btn-google btn-flat"> -->
+<!-- 				<i class="fa fa-google-plus"></i> {{transl "login_sign_in_google"}}</a> -->
+<!-- 		</div> -->
+		<!-- /.social-auth-links -->
+
+		<a>{{transl "login_forgot_password"}}</a>
+		<br/> 
+		<a class="text-center">{{transl "login_register"}}</a>
+
+	</div>
+	<!-- /.login01-box-body -->
+
+	<div class="help-block text-center">
+		<strong>&copy; </strong>2018 <strong><a href="http://http://hungviet-solution.com/" target="_blank">{{transl "page_company_title"}}</a></strong>
+		<br/>
+		<b>V</b> {{version}}
+	</div>
+
+</div>
+<!-- /.login01-box -->

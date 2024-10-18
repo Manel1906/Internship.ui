@@ -1,0 +1,51 @@
+<div>
+	{{#equal role 'master'}}
+	<div id="master" style="position :relative">
+           <div class="row row_containe_video_master_1 row_stream_master" style="">
+               <div class="col-12 col-sm-12 row_containe_video_master">
+                   <div class="video-container" style="position:relative; height: 100%;">
+                       <i class="btn_lst_video bx bx-collapse hidden" data-role="master"></i>
+                       <i class="btn_chat_in_video bx bx-plus hidden" data-role="master"></i>
+                       <video id="video-master" class="local-view w-100 video-max" autoplay playsinline controls muted ></video>
+                       <i class="btn_zoom_video bx bx-zoom-in" data-role="master"></i>
+                   </div>
+               </div>
+               {{#ifCond nbViewer '==' 1}}
+               <div class='col-12 col-sm-12 row-multi-viewer'>
+           		<div class="mg-right mt-2 row_containe_video_viewer" id="tile-user">
+                    <!-- <div class="video-container" style="position:relative; height: 100%;"><video class="remote-view video-max video_max_height" autoplay playsinline controls></video><i class="btn_zoom_video bx bx-zoom-in" data-role="viewer"></i></div> -->
+                   </div>
+               </div>
+               {{/ifCond}}
+               {{#ifCond nbViewer '>' 1}}
+               <div class='col-12 col-sm-12 row-multi-viewer' id="tile-user">
+                   <!-- {{#for 0 nbViewer 1}}
+                <div class="mg-right mt-2 row_containe_video_viewer">
+                    <div class="video-container" style="position:relative; height: 100%;"><video class="remote-view video_max_height" autoplay playsinline controls></video></div>
+                   </div>
+                   {{/for}} -->
+               </div>
+               {{/ifCond}}
+           </div>
+           
+           <div class="mt-3 mb-3" style="text-align: center">
+               <button id="stop-master-button" type="button" class="btn btn-danger">{{transl 'prj_chat_video_end_call'}}</button>
+           </div>
+       </div>
+       {{/equal}}
+	{{#equal role 'viewer'}}
+       <div id="video-viewer">
+           <div class="row" style="position :relative">
+           	<div class="col-12 col-sm-12 row_containe_video_master">
+                   <div class="video-container" style="position:relative; height: 100%;"><video class="remote-view w-100 video-max video_max_height" autoplay playsinline controls></video><i class="btn_zoom_video bx bx-zoom-in" data-role="master"></i></div>
+               </div>
+               <div class="col-12 col-sm-12 row_containe_video_viewer">
+                   <div class="video-container" style="position:relative; height: 100%;"><video class="local-view w-100 video-max video_max_height" autoplay playsinline controls muted></video><i class="btn_zoom_video bx bx-zoom-in" data-role="viewer"></i></div>
+               </div>
+           </div>
+           <div class="mt-3" style="text-align: center">
+                <button id="stop-viewer-button" type="button" class="btn btn-danger">{{transl 'prj_chat_video_end_call'}}</button>
+            </div>
+        </div>
+        {{/equal}}
+</div>

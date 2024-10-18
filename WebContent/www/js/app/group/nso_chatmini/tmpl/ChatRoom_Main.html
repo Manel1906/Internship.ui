@@ -1,0 +1,41 @@
+<div class="mini-page-content">
+	<div class="container-fluid">
+		<audio id="audio_new_msg">
+			<source src="www/img/prj/audio/nhacchuong.mp3" type="audio/mpeg">
+		</audio>
+		
+		<audio id="audio_call">
+			<source src="www/img/prj/audio/call.mp3" type="audio/mpeg">
+		</audio>
+		
+		<audio id="audio_receive">
+			<source src="www/img/prj/audio/receive.mp3" type="audio/mpeg">
+		</audio>
+
+		<!-- start page title -->
+		<div class="row" style="display: none">
+			<div class="col-12">
+				<div
+					class="page-title-box d-flex align-items-center justify-content-between">
+					<h4 class="mb-0 font-size-18">{{transl 'prj_chat_title'}}</h4>
+
+					<div class="page-title-right d-none">
+						<ol class="breadcrumb m-0">
+							<li class="breadcrumb-item"><a href="javascript: void(0);">{{transl 'prj_chat_title'}}</a></li>
+							<li class="breadcrumb-item breadcrumb-item-chat active"></li>
+						</ol>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="d-lg-flex row" id="div_chat_all">
+			<div class="col-sm-12 col-lg-12 user-chat chatroom_middle div_mobile div_chat_main">
+				<div class="item-chat-div" id="div_video_call"></div>
+				<div class="item-chat-div div_chat mini-chat-header"></div>
+			</div>
+		</div>
+	</div>
+	<!-- container-fluid -->
+</div>

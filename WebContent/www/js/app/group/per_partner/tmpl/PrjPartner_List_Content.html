@@ -1,0 +1,45 @@
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+<!--                         <div class="row"> -->
+<!--                             <div class="col-12"> -->
+<!--                                 <div class="page-title-box d-flex align-items-center justify-content-between"> -->
+<!--                                     <h4 class="mb-0 font-size-18">{{transl 'prj_project_project_grid'}}</h4> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+<!--                         </div>      -->
+                        <!-- end page title -->
+
+                        <div class="row">                        
+						{{#each lst}}
+                            <div class="col-xl-4 col-sm-6">
+                                <div class="card prj-item div_prj_list_elem" data-id="{{id}}">
+                                    <div class="card-body">
+                                        <div class="media">
+                                            <div class="avatar-lg mr-4">
+                                                <span class="avatar-title rounded-circle bg-light text-danger font-size-16">
+                                                    <img src="{{reqSrcAvatarPartner this}}" alt="" height="50">
+                                                </span>
+                                            </div>
+
+                                            <div class="media-body overflow-hidden">
+                                                <h5 class="text-truncate font-size-15"><a href="#" class="text-dark">{{name01}}</a></h5>
+                                                <p class="text-muted mb-4">{{info01}} {{info10}}</p>
+                                                <p class="badge {{reqStatBadgePartner stat}} badge-pill">{{reqStatPartnerPrj stat}}</p>
+                                                <div class="team">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="px-4 py-3 border-top">
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item mr-3" data-toggle="tooltip" data-placement="top" title="" data-original-title="Due Date">
+                                                <i class= "bx bx-calendar mr-1"></i>{{transl 'prj_partner_list_date_new'}}: {{dateFormatLocalShort dtNew}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/each}}
+                        </div>
+                    </div> <!-- container-fluid -->

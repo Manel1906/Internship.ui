@@ -1,0 +1,9 @@
+{
+	"prj_project_start_date"							: "Begin date",
+	"prj_project_end_date"								: "Due date",
+	"prj_project_enter_name_group"						: "Enter name group...",
+    "prj_project_enter_name"							: "Enter name...",
+    
+	"prj_project_member"								: "Members",
+	"prj_chat_group"									: "Group"
+}

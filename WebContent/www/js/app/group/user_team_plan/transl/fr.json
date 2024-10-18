@@ -1,0 +1,9 @@
+{
+	"prj_project_start_date"							: "Date de début",
+	"prj_project_end_date"								: "Date de fin",
+	"prj_project_enter_name_group"						: "Saisir le nom du group...",
+    "prj_project_enter_name"							: "Saisir le nom...",
+    
+	"prj_project_member"								: "Membres",
+	"prj_chat_group"									: "Groupe"
+}

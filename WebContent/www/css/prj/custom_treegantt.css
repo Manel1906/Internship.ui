@@ -1,0 +1,100 @@
+html, body {
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+/* 	overflow: hidden; */
+}
+#layout-wrapper, #div_main_content {
+	height: 100%;
+}
+
+.main-content {
+    overflow: auto;
+}
+
+.red .gantt_cell, .odd.red .gantt_cell,
+.red .gantt_task_cell, .odd.red .gantt_task_cell {
+	background-color: #F9E1DE;
+}
+
+.green .gantt_cell, .odd.green .gantt_cell,
+.green .gantt_task_cell, .odd.green .gantt_task_cell {
+	background-color: #C2FEC8;
+}
+
+.white .gantt_cell, .odd.white .gantt_cell,
+.white .gantt_task_cell, .odd.white .gantt_task_cell {
+	background-color: white;
+}
+
+.closeTask .gantt_cell, .odd.closeTask .gantt_cell,
+.closeTask .gantt_task_cell, .odd.closeTask .gantt_task_cell {
+	text-decoration: line-through;
+	opacity: .9;
+	background-color: black;
+}
+
+.notComplete .gantt_cell, .odd.notComplete .gantt_cell,
+.notComplete .gantt_task_cell, .odd.notComplete .gantt_task_cell {
+	text-decoration: line-through;
+	opacity: .9;
+	background-color: orange;
+}
+
+.notCapable .gantt_cell, .odd.notCapable .gantt_cell,
+.notCapable .gantt_task_cell, .odd.notCapable .gantt_task_cell {
+	text-decoration: line-through;
+	opacity: .9;
+	background-color: #ECF3F5;
+}
+
+.project {
+	border: 2px solid #a09e9e;;
+	color: #d96c49;
+	background: #a29f9e;
+}
+
+.project .gantt_task_progress {
+	background: #8d8a8a;
+}
+
+.epic {
+	border: 2px solid #34c461;
+	color: #34c461;
+	background: #34c461;
+}
+
+.epic .gantt_task_progress {
+	background: #23964d;
+}
+
+.task {
+	border: 2px solid #6ba8e3;
+	color: #09CEFE;
+	background: #09CEFE;
+}
+
+.task.notCapable-task {
+	background: #808688;
+}
+.task.notComplete-task {
+	background: #F93411;
+}
+
+.task .gantt_task_progress {
+	background: #2640FA;
+}
+.gantt_task_content a {
+	color: #eff2f7!important;
+}
+.gantt_task_content a:hover {
+	color: #fff!important;
+	font-size: 16px;
+}
+#gantt_here {
+	width:100%; height:100%;overflow-x: hidden;
+}
+.gantt-prj {
+	height:100%;
+}
+

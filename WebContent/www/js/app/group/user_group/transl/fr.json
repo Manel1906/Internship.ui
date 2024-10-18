@@ -1,0 +1,37 @@
+{
+	"prj_user_group_btn_delete_group"		     		: "Supprimer le groupe",
+    
+	"prj_user_group_name"								: "Nom du groupe",
+    "prj_user_group_descr"								: "Description",
+	"prj_user_group_ref"								: "Code du groupe",
+	"prj_user_group_date_begin"							: "Date de création",
+	
+	"prj_project_member"								: "Miembros",
+	"prj_project_add_member"							: "Agregar",
+	"prj_project_member_header_name"					: "Nombre",
+	"prj_project_member_header_role"					: "Role",
+	
+	"prj_project_member_level_manager"					: "Manager",
+	"prj_project_member_level_reporter"					: "Reporteur",
+	"prj_project_member_level_developer"				: "Développeur",
+	"prj_project_member_level_tester"					: "Testeur",
+	"prj_project_member_level_worker"					: "Agent",
+	"prj_project_member_level_watcher"                  : "Observateur",
+	"prj_project_member_level_owner"					: "Créateur",
+
+    "prj_user_group_name_enter"							: "Saisir le nom du groupe",
+	"prj_user_group_descr_enter"						: "Saisir la description du groupe",
+
+	"prj_user_group_new"								: "Nouveau groupe",
+	"prj_user_chat_search"								: "Recherche l'utilisateur, groupe ...",
+
+	"prj_user_group_new_title"							: "Créer le nouveau groupe",
+	"prj_user_group_new_msg"							: "Créez des groupes de discussion, aidez-vous à travailler plus efficacement!",
+
+	"prj_user_group_avatar"								: "Avatar",
+	"prj_user_group_new_btn_create"						: "Créer le groupe",
+	"prj_project_del_user_group_popup_content" 			: "Êtes-vous sûr de vouloir supprimer le groupe ?",
+	"prj_project_add_avatar"							: "Avatar",
+	"prj_project_drop_files"							: "Glissez-déposez ou cliquez pour ajouter des fichiers"
+	
+}

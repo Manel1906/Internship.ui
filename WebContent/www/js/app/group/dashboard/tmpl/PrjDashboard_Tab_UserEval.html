@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title mb-4">{{transl 'prj_dashboard_tab_user_info_eval_title'}}</h4>
+        <div class="row">
+            <div class="col-sm-6">
+                <p class="text-muted">{{transl 'prj_dashboard_tab_user_info_cumul_task'}}</p>
+                <h3>{{reqFormatNumber cumul}}</h3>
+<!--                 <p class="text-muted"><span class="text-success mr-2"> 12% <i class="mdi mdi-arrow-up"></i> </span> From previous period</p> -->
+
+                <div class="mt-2">
+                    <a href="#" id="btn_view_task" class="btn btn-primary waves-effect waves-light btn-sm">{{transl 'prj_dashboard_tab_user_info_btn_view_more'}} <i class="mdi mdi-arrow-right ml-1"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="mt-4 mt-sm-0">
+                    <div id="radialBar-chart" class="apex-charts"></div>
+                </div>
+            </div>
+        </div>
+        <p class="text-muted mb-0">{{transl 'prj_dashboard_tab_user_info_msg'}}</p>
+    </div>
+</div>

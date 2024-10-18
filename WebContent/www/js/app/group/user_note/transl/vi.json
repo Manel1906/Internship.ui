@@ -1,0 +1,19 @@
+{
+    "prj_project_sidebar_sticky_note"			: "Ghi chép",
+	"prj_sticky_note_all_filter_enter"			: "Tìm kiếm ghi chép",
+	"prj_project_sticky_note_title"				: "Tiêu đề ghi chép",
+	"prj_project_sticky_note_create"			: "Tạo mới ghi chép",
+	"prj_project_sticky_note_draw"				: "Khung vẽ ghi chép",
+
+	"prj_task_tab_remove"								: "Xóa",
+
+	"prj_partner_save_all"                              : "Lưu",
+
+    "--PRJ TREEVIEW"									:"----------------------------------",
+	"prj_treeview_project_title"						: "Sơ đồ dự án",
+	"prj_treeview_data_title"				    		: "Cây thư mục",
+	"prj_treeview_btn"									: "Sơ đồ",
+	"prj_all_task_btn"									: "Tất cả phân việc",
+
+	"prj_task_return"								    : " Phân mục cha"
+}

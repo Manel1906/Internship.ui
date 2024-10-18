@@ -1,0 +1,37 @@
+<!-- *Content here* -->
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+            <div class="col-12 isManager">
+                <div class="text-sm-right">
+                    <a data-divtoogle="#div_Ent_Tab_Rights_List" class="btn-resize" data-toggle="tooltip"
+                        data-placement="top" title="" data-original-title="Resize">
+                        <i class="mdi mdi-window-minimize font-size-18"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+		<div id="div_Ent_Tab_Mem_List" class="row col-12">
+			   <table id="tab_Members"	class="table table-hover table-bordered objData"	data-name="mem"	data-primary="id">
+				<thead>
+					<tr>
+						<th data-name="id" 		data-visible="false" data-validation="numeric" ></th>
+<!-- 						<th data-name="uId"   	data-validation="numeric" data-visible="false"></th> -->
+<!-- 						<th data-name="stat"  	data-validation="numeric" data-visible="false"></th> -->
+<!-- 						<th data-name="typ"   	data-validation="numeric" data-visible="false"></th> -->
+						
+						<th data-name="inf01"    data-visible="true" data-validation="required" >{{transl "ent_mem_uName"}} *</th> <!-- uname  -->
+						<th data-name="statLab"  data-visible="true" data-validation="required" >{{transl "ent_mem_stat"}} *</th>
+						<th data-name="typLab"   data-visible="true" data-validation="required" >{{transl "ent_mem_typ"}} *</th>
+						<th data-name="dt01"  	 data-visible="true" data-plugin="datepicker" data-validation="date date_iso" data-format="date" data-compare="lt dt02">{{transl "ent_mem_dt01"}}</th>
+						<th data-name="dt02"  	 data-visible="true" data-plugin="datepicker" data-validation="date date_iso" data-format="date" data-compare="gt dt01">{{transl "ent_mem_dt02"}}</th>
+						<th data-name="action"></th>
+					</tr>
+				</thead>
+				<tbody style="background-color: white;">
+				</tbody>
+			</table>
+	    </div>
+    </div>
+</div>

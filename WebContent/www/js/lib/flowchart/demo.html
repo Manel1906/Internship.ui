@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- jQuery & jQuery UI are required -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Flowchart CSS and JS -->
+	<link rel="stylesheet" href="jquery.flowchart.css">
+	<script src="jquery.flowchart.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.panzoom/3.2.2/jquery.panzoom.min.js"></script>
+	<style>
+		.flowchart-example-container {
+			width: 100%;
+			height: 1000px;
+			background: white;
+			border: 1px solid #BBB;
+			margin-bottom: 10px;
+		}
+
+		.flowchart-operator-inputs-outputs {
+			min-height: 20px;
+		}
+
+		.form-check-input {
+			margin-top: 0.1rem;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Semi-minimalist usage sample</h1>
+	<h4>Sample created with basis on some from Sebastien Drouyer, original author's <a
+			href="https://sebastien.drouyer.com/jquery.flowchart-demo/">website</a>.</h4>
+	<h4>Flowchart</h4>
+	<div id="chart_container">
+		<div class="flowchart-example-container flowchart-container" id="flowchartworkspace"></div>
+	</div>
+	<button id="btn_get_data" id="get_data">Get data</button>
+	<button id="btn_delete_selected">Delete selected link</button>
+	<button id="btn_create_output">Create output for selected operator</button>
+	<button id="btn_delete_output">Delete outputs for selected operator</button>
+	<div>
+		<textarea id="flowchart_data"></textarea>
+	</div>
+
+	<div class="modal fade" id="modal_create_output" tabindex="-1" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="btn_submit_create_output">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal_delete_output" tabindex="-1" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="btn_submit_delete_output">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		/* global $ */
+		$(document).ready(function () {
+			var $flowchart = $('#flowchartworkspace');
+			var $container = $flowchart.parent();
+
+			var cx = $flowchart.width() / 2;
+			var cy = $flowchart.height() / 2;
+
+			// Apply the plugin on a standard, empty div...
+			$flowchart.flowchart({
+				data: defaultFlowchartData_,
+				defaultSelectedLinkColor: '#000055',
+				grid: 10,
+				multipleLinksOnInput: true,
+				multipleLinksOnOutput: true
+			});
+
+			// Panzoom initialization...
+			$flowchart.panzoom();
+
+			// Centering panzoom
+			$flowchart.panzoom('pan', -cx + $container.width() / 2, -cy + $container.height() / 2);
+
+			// Panzoom zoom handling...
+			var possibleZooms = [0.5, 0.75, 1, 2, 3];
+			var currentZoom = 2;
+			$container.on('mousewheel.focal', function (e) {
+				e.preventDefault();
+				var delta = (e.delta || e.originalEvent.wheelDelta) || e.originalEvent.detail;
+				var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+				currentZoom = Math.max(0, Math.min(possibleZooms.length - 1, (currentZoom + (zoomOut * 2 - 1))));
+				$flowchart.flowchart('setPositionRatio', possibleZooms[currentZoom]);
+				$flowchart.panzoom('zoom', possibleZooms[currentZoom], {
+					animate: false,
+					focal: e
+				});
+			});
+
+
+			function getOperatorData($element) {
+				var nbInputs = parseInt($element.data('nb-inputs'), 10);
+				var nbOutputs = parseInt($element.data('nb-outputs'), 10);
+				var data = {
+					properties: {
+						title: $element.text(),
+						inputs: {},
+						outputs: {}
+					}
+				};
+
+				var i = 0;
+				for (i = 0; i < nbInputs; i++) {
+					data.properties.inputs['input_' + i] = {
+						label: 'Input ' + (i + 1)
+					};
+				}
+				for (i = 0; i < nbOutputs; i++) {
+					data.properties.outputs['output_' + i] = {
+						label: 'Output ' + (i + 1)
+					};
+				}
+
+				return data;
+			}
+
+
+
+			//-----------------------------------------
+			//--- operator and link properties
+			//--- start
+			var $btnDeleteSelected = $('#btn_delete_selected');
+			var $btnCreateOutput = $('#btn_create_output');
+			var $btnDeleteOutput = $('#btn_delete_output');
+			$btnDeleteSelected.hide();
+			$btnCreateOutput.hide();
+			$btnDeleteOutput.hide();
+
+			$flowchart.flowchart({
+				onOperatorSelect: function (operatorId) {
+					$btnCreateOutput.show();
+					$btnDeleteOutput.show();
+
+					$btnDeleteSelected.hide();
+					return true;
+				},
+				onOperatorUnselect: function () {
+					$btnDeleteSelected.hide();
+					$btnCreateOutput.hide();
+					$btnDeleteOutput.hide();
+					return true;
+				},
+				onLinkSelect: function (linkId) {
+					$btnDeleteSelected.show();
+
+					$btnCreateOutput.hide();
+					$btnDeleteOutput.hide();
+					return true;
+				},
+				onLinkUnselect: function () {
+					$btnDeleteSelected.hide();
+					return true;
+				},
+				onLinkCreate: function (linkId, linkData) {
+					const fromOperator = linkData['fromOperator']
+					const toOperator = linkData['toOperator']
+					const fromOutput = linkData['fromConnector']
+
+					const fromStat = fromOperator.split("_")[1]
+					const toStat = toOperator.split("_")[1]
+					let outputLevs = fromOutput.split("_")[1]
+
+					if (outputLevs.includes("|")) {
+						outputLevs = outputLevs.split('|')
+					} else outputLevs = [outputLevs]
+
+					let flowFinded = workflowData.find(e => e.stat01 === fromStat && e.stat02 === toStat && JSON.stringify(e.uRole) === JSON.stringify(outputLevs))
+
+					if (flowFinded) {
+						return true
+					}
+
+					flowFinded = {
+						stat01: fromStat,
+						stat02: toStat,
+						uRole: outputLevs
+					}
+
+					workflowData.push(flowFinded)
+
+					return true
+				},
+				onLinkDelete: function (linkId, forced) {
+                    const data = $flowchart.flowchart("getData")
+                    const selectedLink = data['links'][linkId];
+					const fromOperator = selectedLink['fromOperator']
+					const toOperator = selectedLink['toOperator']
+					const fromOutput = selectedLink['fromConnector']
+
+					const fromStat = fromOperator.split("_")[1]
+					const toStat = toOperator.split("_")[1]
+					let outputLevs = fromOutput.split("_")[1]
+
+					if (outputLevs.includes("|")) {
+						outputLevs = outputLevs.split('|')
+					} else outputLevs = [outputLevs]
+
+					let flowInd = workflowData.findIndex(e => e.stat01 === fromStat && e.stat02 === toStat && JSON.stringify(e.uRole) === JSON.stringify(outputLevs))
+
+					if (flowInd >= 0) {
+						workflowData.splice(flowInd, 1);
+					}
+
+					$("#a_btn_save_chartflow").show()
+
+					return true
+				}
+			});
+			//--- end
+			//--- operator and link properties
+			//-----------------------------------------
+
+			//-----------------------------------------
+			//--- delete operator / link button
+			//--- start
+			$flowchart.parent().siblings('#btn_delete_selected').click(function () {
+				$flowchart.flowchart('deleteSelected');
+			});
+			//--- end
+			//--- delete operator / link button
+			//-----------------------------------------
+
+			//-----------------------------------------
+			//--- Create output
+			//--- start
+			$flowchart.parent().siblings('#btn_create_output').click(function () {
+				const selectedId = $flowchart.flowchart('getSelectedOperatorId');
+				const data = $flowchart.flowchart('getData');
+				const selectedOpe = data['operators'][selectedId];
+
+				if (!selectedOpe) return
+
+				$("#modal_create_output").modal('show');
+
+				const modalBody = $("#modal_create_output .modal-body")
+				modalBody.html("")
+
+				Object.keys(lstLevs).forEach(function (k) {
+					const checkbox = $('<div class="form-check d-flex align-items-center">')
+						.append(`<input class="form-check-input" type="checkbox" id="checkbox_${k}" data-id=${k} />`)
+						.append(`<label class="form-check-label" for="checkbox_${k}">${lstLevs[k].label}</label>`)
+						.append(`<div style="width: 15px; height: 15px; border-radius: 50%; background-color: ${lstLevs[k].color}; margin-left: 10px;"></div>`)
+
+					modalBody.append(checkbox)
+				})
+			});
+
+			$("#btn_submit_create_output").click(function () {
+				const selectedId = $flowchart.flowchart('getSelectedOperatorId');
+				const data = $flowchart.flowchart('getData');
+				const selectedOpe = data['operators'][selectedId];
+
+				if (!selectedOpe) return
+
+				const modalBodyCheckboxs = $("#modal_create_output .modal-body input[type=checkbox]")
+				const outputs = selectedOpe['properties']['outputs']
+				const output = {
+					label: ""
+				}
+				let levs = []
+				let levLabels = []
+
+				modalBodyCheckboxs.each(function () {
+					const isChecked = $(this).is(':checked')
+
+					if (!isChecked) return
+
+					const { id } = $(this).data()
+
+					levs.push(id)
+					const label = `<div style="width: 15px; height: 15px; border-radius: 50%; background-color: ${lstLevs[id].color}; margin-right: 5px;"></div>`
+					levLabels.push(label)
+				});
+
+				if (levs.length <= 0 || outputs[`output_${levs.join("|")}`]) {
+					$("#modal_create_output").modal("hide")
+					return
+				}
+
+				output['label'] = levLabels.join("")
+
+				outputs[`output_${levs.join("|")}`] = output
+
+				$flowchart.flowchart('setData', data);
+				$("#modal_create_output").modal("hide")
+			})
+			//--- end
+			//--- Create output
+			//-----------------------------------------
+
+			//-----------------------------------------
+			//--- Delete output
+			//--- start
+			$flowchart.parent().siblings('#btn_delete_output').click(function () {
+				const selectedId = $flowchart.flowchart('getSelectedOperatorId');
+				const stat01 = selectedId.split("_")[1]
+				const data = $flowchart.flowchart('getData');
+				const selectedOpe = data['operators'][selectedId];
+
+				if (!selectedOpe) return
+
+				$("#modal_delete_output").modal('show');
+
+				const modalBody = $("#modal_delete_output .modal-body")
+				modalBody.html("")
+
+				const outputs = selectedOpe['properties']['outputs']
+
+				Object.keys(outputs).forEach(k => {
+					const checkbox = $('<div class="form-check d-flex align-items-center mb-2">')
+						.append(`<input class="form-check-input" type="checkbox" id="checkbox_${k}" data-id="${k}" data-stat01="${stat01}" />`)
+						.append(`<label class="form-check-label d-flex align-items-center" for="checkbox_${k}">${outputs[k].label}</label>`);
+
+					modalBody.append(checkbox)
+				})
+			});
+
+			$("#btn_submit_delete_output").click(function () {
+				const selectedId = $flowchart.flowchart('getSelectedOperatorId');
+				const data = $flowchart.flowchart('getData');
+				const selectedOpe = data['operators'][selectedId];
+
+				if (!selectedOpe) return
+				const modalBodyOutputs = $("#modal_delete_output .modal-body input[type=checkbox]")
+				const outputs = selectedOpe['properties']['outputs']
+				const links = data['links']
+				const output = {
+					label: ""
+				}
+
+				modalBodyOutputs.each(function () {
+					const isChecked = $(this).is(':checked')
+
+					if (!isChecked) return
+
+					const { id, stat01 } = $(this).data()
+
+					for (let key in links) {
+						if (links[key].fromConnector === id) {
+							delete links[key];
+						}
+					}
+
+					const deleteInds = workflowData.reduce((acc, e, index) => {
+						if (+e.stat01 === +stat01 && e.uRole.join("|") === id.split("_")[1]) acc.push(index);
+						return acc
+					}, [])
+
+					deleteInds.sort((a, b) => b - a);
+
+					deleteInds.forEach(i => {
+						workflowData.splice(i, 1);
+					})
+
+					delete outputs[id]
+				});
+				$flowchart.flowchart('setData', data);
+				$("#modal_delete_output").modal("hide")
+			})
+			//--- end
+			//--- Delete output
+			//-----------------------------------------
+
+			//-----------------------------------------
+			//--- save and load
+			//--- start
+			function Flow2Text() {
+				var data = $flowchart.flowchart('getData');
+				$('#flowchart_data').val(JSON.stringify(data, null, 2));
+			}
+			$('#btn_get_data').click(Flow2Text);
+		});
+
+		const lstStatsJson = "[{\"id\":100100,\"lab\":\"new\",\"trans\":\"prj_project_stat_100100\",\"show\":1,\"ord\":1},{\"id\":100200,\"lab\":\"tod\",\"trans\":\"prj_project_stat_100200\",\"show\":1,\"ord\":2},{\"id\":100300,\"lab\":\"inp\",\"trans\":\"prj_project_stat_100300\",\"show\":1,\"ord\":3},{\"id\":100400,\"lab\":\"don\",\"trans\":\"prj_project_stat_100400\",\"show\":1,\"ord\":4},{\"id\":100500,\"lab\":\"tes\",\"trans\":\"prj_project_stat_100500\",\"show\":1,\"ord\":5},{\"id\":100600,\"lab\":\"rev\",\"trans\":\"prj_project_stat_100600\",\"show\":1,\"ord\":6},{\"id\":100700,\"lab\":\"fai\",\"trans\":\"prj_project_stat_100700\",\"show\":1,\"ord\":7},{\"id\":100800,\"lab\":\"unr\",\"trans\":\"prj_project_stat_100800\",\"show\":1,\"ord\":8},{\"id\":100900,\"lab\":\"clo\",\"trans\":\"prj_project_stat_100900\",\"show\":1,\"ord\":9,\"selected\":true}]"
+		const lstStats = JSON.parse(lstStatsJson)
+		const lstLevs = {
+			"0": { "label": "Manager", "color": "#FF5733" },
+			"10": { "label": "Reporter", "color": "#33FF57" },
+			"20": { "label": "Dev", "color": "#3357FF" },
+			"30": { "label": "Tester", "color": "#FF33A6" },
+			"40": { "label": "Worker", "color": "#FFD133" },
+			"50": { "label": "Watcher", "color": "#33FFF3" }
+		}
+		const workflowData = []
+
+		var defaultFlowchartData_ = {
+			operators: {},
+			links: {}
+		}
+
+		lstStats.forEach((s, i) => {
+			const inputs = {
+				input: {
+					label: ""
+				}
+			}
+			const outputs = {
+			}
+
+			const operator = {
+				top: 50 + 100 * i,
+				left: 100,
+				properties: {
+					title: s['trans'] ? s['trans'] : s['lab'],
+					inputs: inputs,
+					outputs: outputs
+				}
+			}
+
+			defaultFlowchartData_['operators'][`operator_${s['id']}`] = operator
+		})
+	</script>
+</body>
+
+</html>

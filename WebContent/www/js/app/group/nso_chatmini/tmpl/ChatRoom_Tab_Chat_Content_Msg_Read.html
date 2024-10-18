@@ -1,0 +1,11 @@
+<li id="" class="li_msg_read_{{id}} message-item message-read">	
+	{{#each lstHistory}}
+	<div class="conversation-list conversation-position mini-conversation-list" id = "div_avatar_{{avatar.id}}">
+       	      	{{#if avatar.avatar}}
+                <img src="{{reqSrcAvatarChat avatar}}" class="rounded-circle avatar-read mini-avatar-read" alt="" onerror="{{imageErrorUser}}">
+                {{else}}
+                <div class="rounded-circle avatar-read mini-avatar-read text-white text-uppercase" style="background-color: {{reqSrcTextColor avatar.login01}}"><div class="text-middle-small">{{reqSrcTextAvatar avatar.login01}}</div></div>
+                {{/if}}
+     </div>
+	{{/each}}
+</li>

@@ -1,0 +1,31 @@
+<div class="card card-body">
+	<div class="media">
+		<div class="col-sm-5">
+			<h4 class="card-title mb-4 media-body">{{transl 'prj_project_post'}}</h4>
+		</div>
+		<div class="col-sm-7">
+			<div class="dropdown float-right">
+
+				<a href="javascript:void(0)" class="dropdown-toggle card-drop" data-toggle="dropdown"
+					aria-expanded="false">
+					<i class="mdi mdi-dots-vertical font-size-18"></i>
+				</a>
+
+				<a data-divtoggle="#div_post_block" class="btn-resize-post cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+					<i class="mdi mdi-window-maximize font-size-16 text-primary"></i>
+				</a>
+
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li><span id="btn_new_post" class="dropdown-item cursor-pointer"><i
+								class="mdi mdi-newspaper-plus font-size-16 text-primary mr-1"></i>{{transl 'prj_project_new_post'}}</span></li>
+					<li><span id="btn_lst_post" class="dropdown-item cursor-pointer"><i
+								class="mdi mdi-newspaper-variant-multiple font-size-16 text-primary mr-1"></i>{{transl 'prj_project_lst_post'}}</span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div  id="div_post_block" style="display: none;">
+		<div  id="div_post_list"></div>
+	</div>
+	
+</div>

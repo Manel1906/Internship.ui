@@ -1,0 +1,194 @@
+{{#if isViewAllTask}}
+<div class="row" id="div_prj_content_header">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+             	<div>
+<!--                  <h4 class="mb-0 font-size-18 d-inline">{{transl 'prj_project_overview'}}</h4> -->
+                 <button id="btn_treeview" type="button" data-id="{{prj.id}}" data-grp="{{prj.grp}}" class="btn btn-success btn-rounded waves-effect waves-light btn-sm">{{transl 'prj_treeview_btn'}}</button>
+                 <span id="btn_mod_favorite" class="font-size-20 text-{{#if (isFavorite 20000 pri.id)}}danger isFavorite{{else}}primary{{/if}} cursor-pointer"><i class="mdi mdi-heart-outline"></i></span>
+               </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+    	<div class="col-xl-8" id="div_content-left">
+    		<div id="div_prj_content"></div>
+    		{{#equal prj.typ02 '0'}}
+    		<div class="row">
+    			<div class="col-lg-6" id="div_prj_epic"></div>
+        		<div class="col-lg-6" id="div_prj_task"></div>
+    		</div>
+    		{{/equal}}
+    		{{#equal prj.typ02 '1'}}
+    		<div class="row">
+    			{{#if isViewSprint}}
+    			<div class="col-lg-12" id="div_prj_task"></div>
+    			{{else}}
+    			<div class="col-lg-6" id="div_prj_epic"></div>
+    			<div class="col-lg-6" id="div_prj_task"></div>
+    			{{/if}}
+    		</div>
+    		{{/equal}}
+    		
+    	</div>
+    
+    	<div class="col-xl-4" id="div_content-right">
+    		<div id="div_prj_evaluation"></div>
+    		<div id="div_prj_member"></div>
+    		<div id="div_prj_member_group"></div>
+    		<div id="div_prj_docs"></div>
+    		
+    		<div id="div_prj_customers"></div>
+        	<div id="div_prj_comments">
+        		<div id ="div_comment_list"></div>
+        		<div id ="div_comment_pagination"></div>
+        	</div>
+    	</div>
+    	
+    	<div class="col-xl-8 hide" id="div_partner_funct">
+    <div class="card">
+  		<div class="card-body">		
+			<div class="row ">			
+				<button class="btn btn-primary" id="btn_save">{{transl 'prj_partner_save_all'}}</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+{{/if}}
+{{#if isViewSprint}}
+<div class="row">
+        <div class="col-12">
+            <div class="page-title-box d-flex align-items-center justify-content-between">
+             	<div>
+<!--                  <h4 class="mb-0 font-size-18 d-inline">{{transl 'prj_project_overview'}}</h4> -->
+                 <span id="btn_mod_favorite" class="font-size-20 text-{{#if (isFavorite 20000 pri.id)}}danger isFavorite{{else}}primary{{/if}} cursor-pointer"><i class="mdi mdi-heart-outline"></i></span>
+               </div>
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+    	<div class="col-xl-8" id="div_content-left">
+    		<div id="div_prj_content"></div>
+    		{{#equal prj.typ01 '1'}}
+    		<div class="row">
+    			<div class="col-lg-6" id="div_prj_epic"></div>
+        		<div class="col-lg-6" id="div_prj_task"></div>
+    		</div>
+    		{{/equal}}
+    		{{#equal prj.typ01 '2'}}
+    		<div class="row">
+    			{{#if isViewSprint}}
+    			<div class="col-lg-12" id="div_prj_task"></div>
+				<div class="col-lg-12" id="div_prj_history"></div>
+    			{{else}}
+    			<div class="col-lg-6" id="div_prj_epic"></div>
+    			<div class="col-lg-6" id="div_prj_task"></div>
+    			{{/if}}
+    		</div>
+    		{{/equal}}
+    		
+    	</div>
+    
+    	<div class="col-xl-4" id="div_content-right">
+    		<div id="div_prj_evaluation"></div>
+    		<div id="div_prj_member"></div>
+    		<div id="div_prj_member_group"></div>
+    		<div id="div_prj_docs"></div>
+    		
+    		<div id="div_prj_customers"></div>
+        	<div id="div_prj_comments">
+        		<div id ="div_comment_list"></div>
+        		<div id ="div_comment_pagination"></div>
+        	</div>
+    	</div>
+    	
+    	<div class="col-xl-8 hide" id="div_partner_funct">
+    <div class="card">
+  		<div class="card-body">		
+			<div class="row ">			
+				<button class="btn btn-primary" id="btn_save">{{transl 'prj_partner_save_all'}}</button>
+			</div>
+		</div>
+	</div>
+</div>
+ </div>
+ {{/if}}
+{{#if isViewMain}}
+<div class="page-content">
+  <div class="container-fluid">
+  	{{#equalOrs prj.typ02 1 2}}
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+				 <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3">
+					<a id="btn_back" class="text-primary font-italic cursor-pointer hnv-route" data-url="view_prj_sticky_note.html?id=#id&code=#code" data-route="VI_MAIN/prj_sticky_note">
+						<i class="mdi mdi-arrow-left-bold-outline font-size-18"></i>{{transl 'prj_task_return'}}
+					</a>
+				</div>
+                <div  class="col-sm-12 col-md-7 col-lg-8 col-xl-9" class="page-title-right" id="div_prj_path"></div>
+              </div>
+          </div>
+      </div> 
+      {{/equalOrs}}
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+	              	<div>
+<!-- 	                  <h4 class="mb-0 font-size-18 d-inline">{{transl 'prj_project_overview'}}</h4> -->
+	                  <button id="btn_treeview" type="button" data-id="{{prj.id}}" data-grp="{{prj.grp}}" class="btn btn-success btn-rounded waves-effect waves-light btn-sm">{{transl 'prj_treeview_btn'}}</button>
+	                  {{#equal prj.typ02 0}}
+	                  <button id="btn_all_task" type="button" data-id="{{prj.id}}" data-grp="{{prj.grp}}" class="btn btn-primary btn-rounded waves-effect waves-light btn-sm">{{transl 'prj_all_task_btn'}}</button>
+	                  <button id="btn_kanban_board" type="button" data-id="{{prj.id}}" data-grp="{{prj.grp}}" class="btn btn-warning btn-rounded waves-effect waves-light btn-sm">{{transl 'prj_project_sidebar_task_board'}}</button>
+	                  <button id="btn_sprint_board" type="button" data-id="{{prj.id}}" data-grp="{{prj.grp}}" class="btn btn-info btn-rounded waves-effect waves-light btn-sm">{{transl 'prj_project_sidebar_sprint_board'}}</button>
+	                  {{/equal}}
+	                  <span id="btn_mod_favorite" class="font-size-20 text-{{#if (isFavorite 20000 prj.id)}}danger isFavorite{{else}}primary{{/if}} cursor-pointer"><i class="mdi mdi-heart-outline"></i></span>
+	                </div>
+              </div>
+          </div>
+      </div> 
+      <div class="row">
+      	<div class="col-xl-8" id="div_content-left">
+      		<div id="div_prj_content"></div>
+      		{{#equal prj.typ02 '0'}}
+      		<div class="row">
+      			<div class="col-lg-6" id="div_prj_epic"></div>
+          		<div class="col-lg-6" id="div_prj_task"></div>
+      		</div>
+      		{{/equal}}
+      		{{#equal prj.typ02 '1'}}
+      		<div class="row">
+      			<div class="col-lg-6" id="div_prj_epic"></div>
+      			<div class="col-lg-6" id="div_prj_task"></div>
+      		</div>
+      		{{/equal}}
+      		
+      	</div>
+      
+      	<div class="col-xl-4" id="div_content-right">
+      		<div id="div_prj_evaluation"></div>
+      		
+      		<div id="div_prj_member"></div>
+      		<div id="div_prj_member_group"></div>
+      		<div id="div_prj_docs"></div>
+      		
+      		<div id="div_prj_customers"></div>
+          	<div id="div_prj_comments">
+          		<div id ="div_comment_list"></div>
+          		<div id ="div_comment_pagination"></div>
+          	</div>
+      	</div>
+      	
+      	<div class="col-xl-8 hide" id="div_partner_funct">
+		    <div class="card">
+		  		<div class="card-body">		
+					<div class="row ">			
+						<button class="btn btn-primary" id="btn_save">{{transl 'prj_partner_save_all'}}</button>
+					</div>
+				</div>
+			</div>
+		</div>
+      </div>
+  </div>
+</div>
+{{/if}}

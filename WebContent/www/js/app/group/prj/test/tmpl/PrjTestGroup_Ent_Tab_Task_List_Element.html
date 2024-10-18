@@ -1,0 +1,25 @@
+<tr class="mt-3"  data-id="{{id}}">
+    <td><h5 class="font-size-14 m-0">{{order}}</h5></td>
+	<td class="view-test" data-id="{{id}}">
+	   	<a data-route="VI_MAIN/prj_project_ent" data-url="view_prj_project_content.html?id={{id}}&code={{code01}}" class="hnv-route text-dark {{reqClassByStat stat}}">
+	   		<h5 class="font-size-14 m-0">{{name}}</h5>
+	   	</a>
+    </td>
+    
+    <td><h5 class="font-size-14 m-0">{{code01}}</h5></td>
+   
+    <td class="d-flex justify-content-end">
+    	<div class="dropdown float-right">
+           <a href="#" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false">
+               <i class="mdi mdi-dots-vertical m-0 text-muted h5 task-option"></i>
+           </a>
+           <div class="dropdown-menu dropdown-menu-right" style="">
+				<a data-id="{{id}}" class="dropdown-item view-test" href="javascript:void(0)">{{transl 'prj_task_tab_view'}}</a>
+				<a data-right="view:40002004" data-id="{{id}}" class="dropdown-item remove-task_sprint" href="javascript:void(0)">{{transl 'prj_task_tab_remove'}}</a>
+           </div>
+<!--       	<div class="dropdown-menu dropdown-menu-right" style="">-->
+<!--		{{#equalOrs stat 0 1 2 3 4 5}}<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item remove-task_sprint" href="javascript:void(0)">{{transl 'prj_task_tab_remove'}}</a>{{/equalOrs}}-->
+<!--		</div>-->
+       </div>
+    </td>
+</tr>

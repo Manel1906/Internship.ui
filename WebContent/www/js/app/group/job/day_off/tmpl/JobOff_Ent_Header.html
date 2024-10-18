@@ -1,0 +1,163 @@
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-sm-9">
+				<h4 class="card-title mb-4 shp_font_size">{{transl "job_off_label_information"}}</h4>
+			</div>
+
+			<div class="col-sm-3 isManager">
+				<div class="text-right">
+					<a data-divtoogle="#div_job_off_header" class="btn-resize" data-toggle="tooltip" data-placement="top"
+						title="" data-original-title="Resize">
+						<i class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="div_job_off_header" class="form-horizontal custom-scroll-header">
+			<div class="box-body adminzone row">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<input type="radio" name="select_uId03" value="1" checked>
+					</div>
+					<label class="col-lg-12 col-md-12 col-sm-12">{{transl "job_off_label_create_for_me"}}</label>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="col-lg-12 col-md-12 col-sm-12">
+						<input type="radio" name="select_uId03" value="0">
+					</div>
+					<label class="col-lg-12 col-md-12 col-sm-12">{{transl "job_off_label_create_for_other"}}</label>
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12 selectUser">
+					<input id="inp_list_user" class="form-control" type="text" placeholder="{{transl "job_off_label_select_user"}}">
+				</div>
+			</div>
+			<div class="box-body row">
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="form-group">
+						<label for="inp_uId03" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_uId01"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{uId01_name}}</p>
+							<input id="inp_uId01" class="form-control content-edit hide" type="text" value="{{uId01_name}}" disabled/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inp_uId03_name" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_uId03"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{uId03_name}}</p>
+							<input id="inp_uId03_name" class="form-control content-edit hide" type="text" value="{{uId03_name}}" disabled/>
+						</div>
+					</div>
+					
+					<div class="form-group rp_validated_zone">
+						<label for="inp_uId02_name" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_uId02"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{uId02_name}}</p>
+							<input id="inp_uId02_name" class="form-control content-edit hide" type="text" value="{{uId02_name}}" disabled/>
+						</div>
+					</div>
+					
+					<div id="inp_hldR_parent" class="form-group">
+						<label for="inp_hldR" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_hldR"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{hld.realized}}</p>
+							<input id="inp_hldR" class="form-control content-edit hide" value="{{hld.realized}}" disabled/>
+						</div>
+					</div>	
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="inp_hldT" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_hldT"}}</label> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12"> -->
+<!-- 							<p class="text-muted info-content">{{hld.total}}</p> -->
+<!-- 							<input id="inp_hldT" class="form-control content-edit hide" type="text" value="{{hld.total}}" disabled/> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+				</div>
+				
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="form-group">
+						<label for="inp_dt01" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_dt01"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{dateFormatLocal dt01}}</p>
+							<input id="inp_dt01" class="form-control content-edit hide" data-format="date" data-validation="date" value="{{dateFormatLocal dt01}}" disabled/>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inp_uId03_login" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_uId03_login"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{login01}}</p>
+							<input id="inp_uId03_login" class="form-control content-edit hide" type="text" value="{{login01}}" disabled/>
+						</div>
+					</div>
+					
+					<div class="form-group rp_validated_zone">
+						<label for="inp_dt02" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_dt02"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{dateFormatLocal dt02}}</p>
+							<input id="inp_dt02" class="form-control content-edit hide" data-format="date" data-validation="date" value="{{dateFormatLocal dt02}}"  disabled/>
+						</div>
+					</div>
+					
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="inp_hldR" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_hldR"}}</label> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12"> -->
+<!-- 							<p class="text-muted info-content">{{hld.realized}}</p> -->
+<!-- 							<input id="inp_hldR" class="form-control content-edit hide" value="{{hld.realized}}" disabled/> -->
+<!-- 						</div> -->
+<!-- 					</div>	 -->
+				</div>
+				
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="form-group">		
+						<label for="inp_stat" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_stat"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p id="inp_statStr" class="text-muted info-content"></p>
+							<select id="inp_stat" class="form-control objData content-edit hide" data-name="stat" disabled>
+								<option value="0">{{transl "job_off_stat_creating"}}</option>
+								<option value="1">{{transl "job_report_stat_pending"}}</option>
+								<option value="2">{{transl "job_report_stat_validate"}}</option>
+								<option value="3">{{transl "job_report_stat_denied"}}</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label for="inp_uId03_login" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_uId03_email"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{email}}</p>
+							<input id="inp_uId03_email" class="form-control content-edit hide" type="text" value="{{email}}" disabled/>
+						</div>
+					</div>
+					
+					<div class="form-group rp_validated_zone">
+						<label for="inp_cmt" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_off_label_cmt"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<p class="text-muted info-content">{{cmt}}</p>
+							<input id="inp_cmt" class="form-control objData content-edit hide" data-name="cmt" value="{{cmt}}"  disabled/>
+						</div>
+					</div>
+					
+<!-- 					<div class="form-group"> -->
+<!-- 						<label for="inp_hldA" class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "job_report_label_hldA"}}</label> -->
+<!-- 						<div class="col-lg-12 col-md-12 col-sm-12"> -->
+<!-- 							<p class="text-muted info-content">{{hld.available}}</p> -->
+<!-- 							<input id="inp_hldA" class="form-control content-edit hide" type="text" value="{{hld.available}}" disabled/> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+				</div>
+			</div>
+			<div class="box-body hidden">
+					<div class="form-group">
+						<input type="hidden" class="form-control objData" data-name="id" value="{{id}}">
+						<input type="hidden" class="form-control objData" data-name="ref" value="{{ref}}">
+						<input type="hidden" class="form-control objData" data-name="uId01" value="{{uId01}}">
+						<input type="hidden" class="form-control objData" data-name="uId02" value="{{uId02}}">
+						<input id="inp_val03" type="hidden" class="form-control objData" data-name="val03" value="{{val03}}">
+						<input id="inp_uId03" type="hidden" class="form-control objData" data-name="uId03" value="{{uId03}}">
+					</div>
+			</div>
+		</div>
+	</div>
+</div>

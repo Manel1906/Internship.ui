@@ -1,0 +1,14 @@
+{
+  "job_holiday_list_holiday":"Holiday list",
+  "job_holiday_date":"Holiday date",
+  "job_holiday_comment":"Note",
+  "job_holiday_select_date":"Select date",
+  "job_holiday_holiday_name":"Holiday name",
+  "job_holiday_holiday_code":"Month",
+  
+  "job_hld_msg_user_right_error_G":"This account hasn't been allowed to monitor day off list.",
+  "job_hld_msg_user_right_error_N":"This account hasn't been allowed to create day off list.",
+  "job_hld_msg_user_right_error_M":"This account hasn't been allowed to edit day off list.",
+  "job_hld_msg_user_right_error_D":"This account hasn't been allowed to delete day off list."
+  }
+  

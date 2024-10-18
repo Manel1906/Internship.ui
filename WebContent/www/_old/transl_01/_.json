@@ -1,0 +1,34 @@
+{	
+	"001_aut_right_per_self"				: "Thông tin nội bộ",		
+	"002_aut_right_aut_role"				: "Vai trò quyền hạn",		
+	"003_aut_right_aut_position"			: "Vị trí công việc",
+	"004_aut_right_aut_user"				: "Người dùng",
+	
+	"010_aut_right_per_client"				: "Khách hàng",
+	"011_aut_right_per_supplier"			: "Nhà cung ứng",
+	"012_aut_right_per_producer"			: "Nhà sản xuất",
+	"013_aut_right_per_thirdparty"			: "Đối tác khác",
+	"014_aut_right_per_contract"			: "Hợp đồng", 
+					
+	"020_aut_right_mat_material"			: "Sản phẩm",
+	"021_aut_right_mat_unit"				: "Đơn vị xuất nhập",
+	"022_aut_right_mat_provider_pricing"	: "Báo giá",
+	"023_aut_right_sor_pricing"				: "Giá bán",	
+	"024_aut_right_sor_deal"				: "Khuyến mãi",
+	
+	"030_aut_right_mat_warehouse"			: "Kho bãi",
+	"031_aut_right_mat_stock_in_order"		: "Phiếu nhập kho",
+	"032_aut_right_mat_stock_out_order"		: "Phiếu xuất kho",		
+	"033_aut_right_sor_order_in"			: "Đơn hàng nhập",
+	"034_aut_right_sor_order_out"			: "Đơn hàng xuất",
+	"035_aut_right_inv_invoice_in"			: "Hóa đơn nhập",
+	"036_aut_right_inv_invoice_out"			: "Hóa đơn bán",
+	
+	"040_aut_right_inv_balance"				: "Thu chi",
+	"041_aut_right_inv_accounting"			: "Kế toán",
+	"042_aut_right_inv_tax"					: "Hệ thống thuế",	
+				
+	"101_aut_right_tpy_category"			: "Nhóm/phân loại",
+	"102_aut_right_sys_report"				: "Cấu hình báo cáo tổng kết",	
+	"103_aut_right_cfg_group"				: "Cấu hình hệ thống"
+}

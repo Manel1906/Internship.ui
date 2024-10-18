@@ -1,0 +1,108 @@
+<div class="page-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+              	<div class="">
+                  <h4 class="mb-0 font-size-18">{{transl 'prj_user_header_new_title'}}</h4>
+                </div>
+              </div>
+          </div>
+      </div>     
+      <div class="row">
+          <div class="col-lg-6" id="div_prj_content">
+          	<div class="card">
+			    <div class="card-body">
+			        <div class="media">
+			            <div class="media-body overflow-hidden">
+			                <h5 class="text-truncate font-size-16">{{prj_user_header_new_title}}</h5>
+			            </div>
+			        </div>		
+										
+					<form action="/" method="post" class="dropzone inputfile">
+						    <div class="fallback">
+						        <input data-name="file" type="file"/>
+						    </div>
+						
+						    <div class="dz-message needsclick">
+						        <div class="mb-3">
+						            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+						        </div>
+						    </div>
+					</form>	
+					<div class="row">		
+					</div>		
+					<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_login'}}</h5>
+							<input id="inp_autuser_header_login" class="form-control objData" type="text" 
+								data-name="login" data-validation="required"/>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_email'}}</h5>
+							<input id="inp_autuser_header_email" class="form-control objData" type="text" 
+								data-name="email" data-validation="required email"/>
+						</div>
+					</div>
+					<div class="row">						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_type'}}</h5>
+							<select class="form-control objData" data-name="typ" id="inp_autuser_header_typ">
+								<option value=2>{{transl "aut_user_ent_header_type_adm"}}</option>
+<!-- 								<option value=6>{{transl "aut_user_ent_header_type_mentor"}}</option>	 -->
+								<option value=3>{{transl "aut_user_ent_header_type_agent"}}</option>
+<!-- 								<option value=8>{{transl "aut_user_ent_header_type_shipper"}}</option>	 -->
+								<option value=5>{{transl "aut_user_ent_header_type_visistor"}}</option>	
+							</select>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_stat'}}</h5>
+							<select id="inp_autuser_header_stat" class="form-control objData" data-name="stat">
+								<option value="1">{{transl 'aut_user_ent_header_stat_1'}}</option>
+								<option value="2">{{transl 'aut_user_ent_header_stat_2'}}</option>
+								<option value="0">{{transl 'aut_user_ent_header_stat_0'}}</option>
+								<option value="10">{{transl 'aut_user_ent_header_stat_10'}}</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="row">						
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_supervisor'}}</h5>
+							<input type="hidden" class="objData" data-name="supId" id ="supId">
+							<input type="text" class="form-control" id="supName" data-validation="required" placeholder="{{transl 'aut_user_ent_header_supervisor_help'}}">
+						</div>
+						<div class="col-md-6 col-xs-12">
+						</div>
+					</div>
+					
+					<div class="row" id="div_ent_header_password">
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_pass'}}</h5>
+							<input id="inp_autuser_header_pass" class="form-control objData" autocomplete="off"
+										type="password" data-name="pass" data-validation="required" value="" />
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_pass_match'}}</h5>
+							<input id="inp_autuser_header_pass_match" class="form-control objData" autocomplete="off"
+								type="password" data-name="pass_match" data-compare="eq #inp_autuser_header_pass" data-msg="compare:aut_user_pass_match_err" data-validation="required" value="" />
+						</div>
+					</div>					
+		            
+			    </div>
+			</div>
+          </div>
+          <div class="col-lg-6" id="div_prj_info_person">          
+          </div>
+          <div class="col-lg-12" id="div_user_rights"></div>
+          
+      	  <div class="col-lg-12">
+      	 	 <div class="card">
+			    <div class="card-body">
+      				<button type="button" id="a_btn_save" class="btn btn-primary">{{transl 'prj_user_header_new_btn'}}</button>
+      			</div>
+      		</div>
+      	  </div>	
+      </div>
+  </div> <!-- container-fluid -->
+</div>

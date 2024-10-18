@@ -1,0 +1,51 @@
+{
+  "nso_news_post_title"             				: "Tên bài viết",
+  "nso_news_post_cont01"                 			: "Tóm tắt bài viết",
+  "nso_news_post_cont02"                 			: "Nội dung chi tiết",
+  "nso_news_post_save_success"           			: "Bài đăng được lưu thành công",
+  
+  "nso_news_label_date01"							:"Ngày tạo",
+  "nso_news_label_title"							:"Tiêu đề",
+  "nso_news_label_tag"								:"Tag",
+ 
+  "nso_news_post_typ03"								:"Kiểu bài viết",
+  "nso_news_post_typ03_0"							:"Công ty",
+  "nso_news_post_typ03_1"							:"Sự kiện",
+  "nso_news_post_typ03_2"							:"Đào tạo",
+  "nso_news_post_typ03_3"							:"Sản phẩm",
+  "nso_news_post_typ03_4"							:"Thông báo",
+  "nso_news_post_typ03_5"							:"Tất cả",
+  
+  "nso_news_post_stat01"							:"Trạng thái",
+  "nso_news_post_stat01_0"							:"Ẩn",
+  "nso_news_post_stat01_1"							:"Đang duyệt",
+  "nso_news_post_stat01_2"							:"Hiển thị",
+  "nso_news_post_stat01_3"							:"Từ chối",
+  
+  "nso_news_cont02_read_more"						:"Xem thêm",
+  "nso_news_cont02_collapse"						:"Thu gọn",
+  
+  "nso_news_group_avatar"							:"Ảnh đại diện",
+  "nso_news_drop_files"								:"Kéo thả hoặc nhấn để thêm tập tin.",
+  "nso_news_group_files"              				: "Tập tin đính kèm",
+
+  "nso_news_like"								  : "Thích",
+  "nso_news_dislike"							  : "Bỏ thích",
+  "nso_news_comment"							  : "Bình luận",
+  "nso_news_search"								  : "Tìm kiếm",
+  "nso_news_result_search"						  :	"Không tìm thấy bài đăng",
+  "nso_news_return"								  : "Quay lại",
+  
+  "nso_del_post_popup"                    		  : "Xóa bài viết",
+  "nso_detail_post_msg_title"					  : "Bài viết của",
+  "nso_list_like_msg_title"						  : "Lượt thích",
+  "nso_del_post_popup_content"            		  : "Bạn chắc chắn muốn xóa bài viết này?",
+  "nso_del_post_success"						  : "Xóa bài viết thành công",
+  
+  "nso_news_comment_title"                  : "Bình luận",
+  "nso_news_comment_enter"                  : "Viết bình luận.",
+  "nso_news_comment_send"                   : "Gửi",
+  "nso_news_comment_no_cmt"                 : "Chưa có bình luận nào, hãy đánh giá về bài viết này.",
+  "nso_news_comment_reply"                  : "Trả lời",
+  "nso_news_comment_no_login"               : "Vui lòng <a class='cursor-pointer text-info' id='btn_login'>đăng nhập</a> để bình luận"
+}

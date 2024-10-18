@@ -1,0 +1,52 @@
+<div class="form-group">
+	<i class="icon-profile-male"></i>
+	<input id = "idLogin" type="text" class="objData form-control" data-validation="required" data-name="login" placeholder="{{transl 'signup_username'}}">
+</div>
+
+<div class="form-group">
+	<i class="icon-lock-stripes"></i>
+	<input type="password" id="txtNewPassword" class="objData form-control" data-validation="required" data-name="pass" placeholder="{{transl 'signup_password'}}">
+	<div class="registrationFormAlert" id="divCheckPassword"></div>
+</div>
+
+<div class="form-group">
+	<i class="icon-icons208"></i>
+	<input data-group="per" id="idEmail" type="email" class="objData form-control" data-validation="required email" data-name="info10" placeholder="{{transl 'signup_email'}}">
+</div>
+
+<br />
+<h3 class="text-primary">{{transl 'signup_society_info'}}</h3>
+<br />
+
+<div class="form-group">
+	<i class="icon-profile"></i>
+	<input data-group="per" id="name" type="text" class="objData form-control" data-validation="required" data-name="name01" placeholder="{{transl 'signup_partner_name'}}">
+</div>
+
+<div class="form-group">
+	<i class="icon-location3"></i>
+	<input data-group="per"  id="addr" type="text" class="objData form-control" data-validation="required" data-name="info07" placeholder="{{transl 'signup_partner_addr'}}">
+</div>
+
+<div class="form-group">
+	<i class="icon-telephone114"></i>
+	<input data-group="per"  id="phone" type="text" class="objData form-control" data-validation="required" data-name="info09" placeholder="{{transl 'signup_partner_phone'}}">
+</div>
+
+<div class="form-group">
+	<i class="icon-vcard"></i>
+	<input id="idDocNumOrg" type="text" class="objData form-control classDocNum" data-name="idDocNumOrg" placeholder="{{transl 'signup_mst'}}">
+</div>
+
+<div class="form-group class_date">
+	<i class="icon-calendar5"></i>
+	<input id="idDocDate" type="text" class="objData form-control datepicker" data-name="idDocDate" style="border: 1px solid #ced4da;" placeholder="{{transl 'signup_date'}}">
+	<span></span>
+</div>
+
+<div class="form-group">
+	<i class="icon-world"></i>
+	<input id="idDocPlace" type="text" class="objData form-control" data-name="idDocPlace" placeholder="{{transl 'signup_place'}}">
+</div>
+
+<button id="btn_Register" class="btn btn-primary btn-block waves-effect waves-light">{{transl "common_btn_register"}}</button>

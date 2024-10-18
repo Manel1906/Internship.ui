@@ -1,0 +1,180 @@
+<!-- ------------------------------main----------------------------- -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-0">
+            <div class="card-body" id="div_create_prj_appointment">
+                <div class="outer-repeater">
+                    <div data-repeater-list="outer-group" class="outer">
+                        <div data-repeater-item class="outer">
+                            <!-- name -->
+							<div class="form-group row mb-2">
+							    <div class="col-lg-12">
+							        <div class="d-flex justify-content-between align-items-center">
+							            <label for="projectname" class="col-form-label h5">{{transl 'prj_appointment_title'}}</label>
+										<!-- New buttons for color selection -->
+										<div class="row justify-content-end mt-2">
+										    <div class="col-auto" id="div_buttons_container" style="display: flex; gap: 0px;">
+										        <div id="div_button_blue">
+										            <button class="btn btn-sm" style="color: #556ee6; box-shadow: none;">
+										                <i class="fa fa-square ic-blue" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_green">
+										            <button class="btn btn-sm" style="color: #34c38f; box-shadow: none;">
+										                <i class="fa fa-square ic-green" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_yellow">
+										            <button class="btn btn-sm" style="color: #f1c232; box-shadow: none;">
+										                <i class="fa fa-square ic-yellow" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_red">
+										            <button class="btn btn-sm" style="color: #cc0000; box-shadow: none;">
+										                <i class="fa fa-square ic-red" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_white">
+										            <button class="btn btn-sm" style="color: #cccccc; box-shadow: none;">
+										                <i class="fa fa-square ic-grey" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										    </div>
+										</div>
+							        </div>
+							        <div>
+							            {{name}}
+							        </div>
+							    </div>
+							</div>
+
+
+                            <!-- name -->
+                            <div class="form-group row mb-2">
+                                <div class="col-lg-12">
+                                    <label for="cmt03" class="col-form-label h5">{{transl
+                                        'prj_appointment_area'}}</label>
+                                    <div>
+                                        {{inf01}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- descr01 -->
+                            <div class="row mb-2">
+                                <div class="col-lg-12">
+                                    <label for="projectdesc" class="col-form-label h5">{{transl
+                                        'prj_appointment_cmt'}}</label>
+                                    <div>
+                                        {{inf02.desc}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-2">
+                                <!-- date -->
+                                <div class="col-lg-6">
+                                    <label class="col-form-label h5">{{transl 'prj_project_start_date'}}</label>
+                                    <div>
+                                        {{reqFormatDate dtBegin}}
+                                    </div>
+                                </div>
+                             </div>
+                             <div class="row mb-2">
+                                <div class="col-lg-6">
+                                    <label class="col-form-label h5">{{transl 'prj_project_end_date'}}</label>
+                                    <div>
+                                        {{reqFormatDate dtEnd}}
+                                    </div>
+                                </div>
+                               
+                            </div>
+
+						    <!-- addr04 -->
+ 						   {{#if addr04}}
+                           <div class="row mb-2">
+                               <div class="col-lg-12">
+                                   <label class="col-form-label h5">{{transl 'prj_appointment_link_direct'}}</label>
+                                   <div><a href="{{val02}}" target="_blank">{{transl "prj_appointment_link_access"}}</a></div>
+                               </div>
+                           </div>
+                           {{/if}}
+                           
+                             <!-- member -->
+                             <div class="row mb-2" id="div_list_member_par">
+                                <div class="col-lg-12">
+                                <label class="col-form-label h5">{{transl 'prj_project_member_level_worker'}}</label>
+                                    <div class="" id="div_list_member">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- customer -->
+                            <div class="mb-2" id="div_list_email_customer_par">
+                               <label class="col-form-label h5">{{transl 'prj_project_add_customer'}}</label>
+                               <div class="row justify-content-end">
+                                   <div class="col-lg-12" id="div_list_email_customer"></div>
+                               </div>
+                           </div>
+                           
+                            <!-- link -->
+                            <div class="mb-2" id="div_link_direct_par">
+                                <label class="col-form-label h5">{{transl 'prj_appointment_link_direct'}}</label>
+                                <div class="row justify-content-end">
+                                    <div class="col-lg-12" id="div_link_direct"></div>
+                                </div>
+                            </div>
+
+                            <!-- files -->
+
+                            <!-- <div class="col-lg-12">
+                                <div id="div_prj_docs">
+                                    <label class="col-form-label h5">{{transl 'prj_project_attached_files'}}</label>
+                                    <div>
+                                        <form class="dropzone inputfile">
+                                            <div class="fallback">
+                                                <input data-name="file" type="file" multiple />
+                                            </div>
+             
+                                            <div class="dz-message needsclick">
+                                                <div class="mb-3">
+                                                    <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                                                </div>
+                                                <h4>{{transl 'prj_project_drop_files'}}</h4>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- buttons outside card -->
+<div class="row justify-content-end mt-2">
+    <div class="col-auto" id="div_buttons_container" style="display: flex; gap: 8px;">
+        <div id="div_button_edit">
+            <button class="btn btn-primary btn-sm">{{transl "prj_appointment_event_edit"}}</button>
+        </div>
+        <div id="div_button_delete">
+            <button class="btn btn-danger btn-sm">{{transl "prj_appointment_event_del"}}</button>
+        </div>
+        <div id="div_button_accept">
+            <button class="btn btn-success btn-sm">{{transl "prj_appointment_event_accepted"}}</button>
+        </div>
+        <div id="div_button_deny">
+            <button class="btn btn-warning btn-sm">{{transl "prj_appointment_event_denied"}}</button>
+        </div>
+        <div id="div_button_unaccept">
+		    <button class="btn btn-warning btn-sm">{{transl "prj_appointment_event_unaccepted"}}</button>
+		</div>
+		<div id="div_button_undeny">
+		    <button class="btn btn-warning btn-sm">{{transl "prj_appointment_event_undenied"}}</button>
+		</div>
+    </div>
+</div>

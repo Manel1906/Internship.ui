@@ -1,0 +1,78 @@
+{
+  "job_report_msg_user_right_error": "Bạn không có quyền thực hiện thao tác này.",
+  "job_report_list_user_title": "Danh sách nhân viên",
+  "job_report_label_user": "Tên nhân viên",
+  "job_report_label_login": "Tên đăng nhập",
+  "job_report_stat_draft": "Lưu nháp",
+  "job_report_stat_pending": "Đang chờ xác nhận",
+  "job_report_stat_validate": "Đã xác nhận",
+  "job_report_stat_denied": "Từ chối",
+  "job_report_label_hldR": "Số ngày đã nghỉ",
+  "job_off_list_request_all": "Danh sách yêu cầu",
+  "job_off_label_ref": "Mã số",
+  "job_off_label_uId03": "Người yêu cầu",
+  "job_off_label_stat": "Trạng thái",
+  "job_off_label_dt03": "Ngày bắt đầu",
+  "job_off_label_dt04": "Ngày kết thúc",
+
+  "----------JOB OFF-----------": "----------JOB OFF-----------",
+  "job_off_List_Draft": "Ngày nghỉ mới tạo",
+  "job_off_List_Pending": "Ngày nghỉ chờ duyệt",
+  "job_off_List_Validated": "Ngày nghỉ được phép",
+  "job_off_List_Denied": "Ngày nghỉ bị từ chối",
+
+  "job_off_list_request_by_user_title": "Danh sách yêu cầu nghỉ phép",
+
+  "job_off_label_half_day": "Nửa ngày",
+  "job_off_label_information": "Thông tin nghỉ phép",
+  "job_off_label_create_new_request": "Khởi tạo yêu cầu nghỉ phép",
+
+  "job_off_label_uId03_login": "Tài khoản",
+  "job_off_label_uId03_email": "Email",
+
+  "job_off_label_uId01": "Người khởi tạo",
+  "job_off_label_dt01": "TG khởi tạo",
+
+  "job_off_label_uId02": "Người xác nhận",
+  "job_off_label_dt02": "TG xác nhận",
+  "job_off_label_cmt": "Ý kiến quản lý",
+
+  "job_off_label_hld_duration": "Độ dài kỳ nghỉ",
+  "job_off_label_total_dayoff": "Số ngày phép sử dụng",
+
+  "job_off_label_create_for_me": "Khởi tạo cho tôi",
+  "job_off_label_create_for_other": "Khởi tạo cho nhân viên",
+  "job_off_label_select_user": "Vui lòng nhập tên nhân viên",
+  "job_off_request_detail": "Chi tiết yêu cầu",
+  "job_off_request_doc": "Tài liệu",
+
+  "job_off_label_reason": "Lý do nghỉ",
+
+  "job_off_msg_cant_create": "Bạn không có quyền tạo mới",
+  "job_off_msg_cant_modify": "Bạn không có quyền sửa chữa",
+
+  "job_off_stat_creating": "Đang khởi tạo",
+  "job_off_msg_rp_reason_missing": "Vui lòng nhập lý do nghỉ phép",
+  "job_off_msg_rp_user_missing": "Vui lòng điền thông tin người xin nghỉ phép",
+  "job_off_msg_rp_dt03_missing": "Vui lòng nhập ngày bắt đầu nghỉ phép",
+  "job_off_msg_rp_dt04_missing": "Vui lòng nhập ngày kết thúc nghỉ phép",
+  "job_off_msg_rp_daterang_error": "Khoảng thời gian không hợp lệ",
+  "job_off_msg_rp_daterang_plus28": "Vui lòng khởi tạo yêu cầu không quá 28 ngày nghỉ.",
+  "job_off_cant_modify_validated": "Không thể chỉnh sửa yêu cầu đã được xem xét",
+  "job_off_cant_modify_submitted": "Không thể chỉnh sửa yêu cầu đã được gửi đi",
+  "job_off_msg_rp_datestart_error": "Vui lòng kiểm tra lại ngày bắt đầu",
+
+  "job_off_msgbox_confirm_deny_title": "Từ chối một yêu cầu nghỉ phép",
+  "job_off_msgbox_confirm_deny_message": "Bạn chắc chắn từ chối yêu cầu nghỉ phép này?",
+  "job_off_msgbox_confirm_deny_btn1": "Đồng ý từ chối yêu cầu",
+  "job_off_msgbox_confirm_deny_btn2": "Quay lại",
+
+  "job_off_msgbox_confirm_submit_title": "Gửi yêu cầu nghỉ phép cho quản trị viên",
+  "job_off_msgbox_confirm_submit_message": "Bạn sẽ không thể chỉnh sửa yêu cầu này sau khi gửi đi.",
+
+  "job_off_message_OK_0": "Yêu cầu nghỉ phép đã được lưu nháp và chưa được gửi đi",
+  "job_off_message_OK_1": "Yêu cầu nghỉ phép đã được gửi thành công và chờ xác nhận",
+  "job_off_message_OK_2": "Yêu cầu nghỉ phép đã được chấp nhận",
+  "job_off_message_OK_3": "Yêu cầu nghỉ phép đã bị từ chối",
+  "job_off_message_KO": "Đã có lỗi xảy ra trong khi tạo mới/chỉnh sửa yêu cầu nghỉ phép này"
+}

@@ -1,0 +1,29 @@
+<div id= "div_grpChat_unRead" class="team d-flex">
+    {{#each this}}
+    <a id= "a_grp_{{id}}" href="javascript: void(0);" class="team-member new_msg d-inline-block" data-toggle="tooltip" data-placement="top" data-idgrp="{{id}}" data-idsend="{{msgUId}}" data-namesend="{{msgUName}}" data-name="{{name}}" data-typ01="{{typ01}}">
+    	{{#ifCond typ01 '==' 200}} data-original-title="{{msgUName}}" {{/ifCond}} {{#ifCond typ01 '==' 201}} data-original-title="{{name}}" {{/ifCond}}>
+    	{{#ifCond typ01 '==' 200}}
+    		{{#if avatar}}
+	     		<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+	     	{{else}}
+		    	{{#ifCond avatar '==' null}}
+		    	<div class="rounded-circle avatar-xs m-1 text-white text-uppercase" style="background-color: {{reqSrcTextColor msgUName}}"><div class="text-middle mini-text-middle">{{reqSrcTextAvatar msgUName}}</div></div>
+		    	{{else}}
+		      	<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+		      	{{/ifCond}}
+		    {{/if}}
+	     {{/ifCond}}
+	     {{#ifCond typ01 '==' 201}}
+	     	{{#if avatar}}
+	     		<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+	     	{{else}}
+	     		{{#ifCond avatar '==' null}}
+		    	<div class="rounded-circle avatar-xs m-1 text-uppercase"><div class="avatar-title rounded-circle bg-soft-primary text-primary">{{reqFirstLetter name}}</div></div>
+		    	{{else}}
+		      	<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+		      	{{/ifCond}}
+	     	{{/if}}
+	     {{/ifCond}}
+	 </a>
+	{{/each}}
+</div>

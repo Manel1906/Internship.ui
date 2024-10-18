@@ -1,0 +1,20 @@
+{
+    "prj_project_sidebar_sticky_note"			: "Sticky note",
+	"prj_sticky_note_all_filter_enter"			: "Search sticky note",
+	"prj_project_sticky_note_title"				: "Sticky note title",
+	"prj_project_sticky_note_create"			: "Create sticky note",
+	"prj_project_sticky_note_draw"				: "Drawing frame for notes",
+
+	"prj_task_tab_remove"								: "Delete",
+	"prj_partner_save_all"                              : "Save",
+
+    "--PRJ TREEVIEW"									: "----------------------------------",
+	"prj_treeview_project_title"						: "Project plan",
+	"prj_treeview_data_title"				    		: "Folder tree view",
+	"prj_treeview_title"								: "Project plan",
+	"prj_treeview_btn"									: "Plan",
+	"prj_all_task_btn"									: "All task",
+
+	"prj_task_return"								    : " Epic parent"
+
+}

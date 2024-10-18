@@ -1,0 +1,8 @@
+ <select class="form-control w-100" style="margin-bottom:10px" id="filter_prj_select" >
+   <option value="-1">{{transl 'prj_task_tab_filter_prj'}}</option>
+     {{#if prj}}
+	  {{#each prj.lst}}
+	  <option value="{{id}}">{{code01}} - {{name}}</option>
+	  {{/each}}
+	 {{/if}}
+ </select>

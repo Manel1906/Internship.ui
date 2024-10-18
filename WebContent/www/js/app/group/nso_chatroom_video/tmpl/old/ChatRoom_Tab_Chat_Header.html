@@ -1,0 +1,144 @@
+<div class="row">
+	<div class="col-sm-12 col-md-3 col-4">
+		<h5 class="font-size-15 mb-1" id="h_name_ent">{{reqStrTitleChatPrj user.name}}</h5>
+		{{#equal typChat 1}} {{#if isOnline}}
+		<p class="text-muted mb-0">
+			<i class="mdi mdi-circle text-success align-middle mr-1"></i>{{transl
+			'prj_chat_active_now'}}
+		</p>
+		{{else}}
+		<p class="text-muted mb-0">
+			<i class="mdi mdi-circle align-middle mr-1"></i>{{transl
+			'prj_chat_not_active'}}
+		</p>
+		{{/if}} {{/equal}}
+	</div>
+	<div class="col-sm-12 col-md-9 col-8">
+		<ul class="list-inline user-chat-nav text-right mb-0">
+			<li class="list-inline-item d-sm-inline-block">
+				<div class="dropdown">
+					<i class="bx bx-search-alt search-icon icon-chat-search-msg"
+						id="btn_search_chat"></i> <input type="text"
+						class="form-control chat-search"
+						placeholder="{{transl 'prj_chat_search_placeholder'}}"
+						placeholder={{transl 'prj_chat_active_now'}} id="inp_search_chat">
+					<i
+						class="bx bxs-x-circle search-icon icon-chat-cancel-search-msg hide"
+						id="btn_cancel_search_chat"></i>
+				</div>
+			</li>
+			<li class="list-inline-item d-sm-inline-block">
+				<div class="dropdown">
+					<button id="btn_call_video" class="btn nav-btn " type="button"
+						aria-haspopup="true" aria-expanded="false">
+						<i class="bx bx-phone"></i>
+					</button>
+				</div>
+			</li>
+			
+<!-- 			{{#equal typChat 2}} 
+			
+			{{#if isMasterKinesis}}
+			<li class="list-inline-item d-sm-inline-block">
+				<div class="dropdown">
+					<button id="btn_create_stream" class="btn nav-btn " type="button"
+						aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
+						data-placement="top" title="" data-original-title="Stream">
+						<i class="bx bx-slideshow"></i>
+					</button>
+				</div>
+			</li> 
+			{{else}}
+			<li class="list-inline-item d-sm-inline-block">
+				<div class="dropdown">
+					<button id="btn_refresh_channel" class="btn nav-btn " type="button"
+						aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
+						data-placement="top" title="" data-original-title="Watch Stream">
+						<i class="bx  bx-broadcast {{#if isCallKinesis}} flicker {{/if}}"></i>
+					</button>
+				</div>
+			</li>
+			{{/if}}
+			
+			{{/equal}}
+			
+			{{#equal typChat 1}} 
+			<li class="list-inline-item d-sm-inline-block">
+				<div class="dropdown">
+					<button id="btn_create_stream" class="btn nav-btn " type="button"
+						aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
+						data-placement="top" title="" data-original-title="Stream">
+						<i class="bx bx-slideshow"></i>
+					</button>
+				</div>
+			</li>
+			<li class="list-inline-item d-sm-inline-block">
+				<div class="dropdown">
+					<button id="btn_refresh_channel" class="btn nav-btn " type="button"
+						aria-haspopup="true" aria-expanded="false" data-toggle="tooltip"
+						data-placement="top" title="" data-original-title="Watch Stream">
+						<i class="bx  bx-broadcast {{#if isCallKinesis}} flicker {{/if}}"></i>
+					</button>
+				</div>
+			</li>
+			{{/equal}}
+			 -->
+
+			<li class="list-inline-item d-sm-inline-block">
+				<span class="badge badge-danger badge-pill" id="sp_nbWaiting_notify"></span>
+				<div class="dropdown">
+					<button class="btn nav-btn" type="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<i class="bx bx-cog"></i>
+					</button>
+					<div class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="javascript:void(0)" id="btn-sound"><i
+							class='bx bx-volume-full'></i> {{transl 'prj_chat_sound'}}</a> <a
+							class="dropdown-item hide" href="javascript:void(0)"
+							id="btn-sound-off"><i class='bx bx-volume-mute'></i> {{transl
+							'prj_chat_sound'}}</a> {{#equal typChat 1}} <a class="dropdown-item"
+							href="view_prj_user_content.html?id={{user.id}}" target="_blank"><i
+							class='bx bx-check'></i> {{transl
+							'prj_project_member_see_profile'}}</a> <a class="dropdown-item"
+							href="javascript:void(0)" id="btn_clear_chat"><i
+							class='bx bx-trash'></i> {{transl
+							'prj_project_member_see_clear'}}</a> {{/equal}} {{#equalOrs typChat 2
+						10}} <a class="dropdown-item" href="javascript:void(0)"
+							id="btn_view_info"><i class='bx bx-check-double'></i>
+							{{transl 'prj_project_member_see_info_grp'}}</a> {{#if
+						isManager}}{{#if canDelete}}<a class="dropdown-item"
+							href="javascript:void(0)" id="btn_delete_group"><i
+							class='bx bx-trash-alt'></i> {{transl
+							'prj_chat_out_group_btn_delete_group'}}</a>{{/if}}{{/if}} <a
+							class="dropdown-item" href="javascript:void(0)"
+							id="btn_out_group"><i class="mdi mdi-logout"></i> {{transl
+							'prj_chat_out_group_btn_out_group'}}</a> {{#if isManager}}{{#if
+						canDelete}}<a class="dropdown-item" href="javascript:void(0)"
+							id="btn_clear_chat"><i class='bx bx-trash'></i> {{transl
+							'prj_project_member_see_clear'}}</a>{{/if}}{{/if}} {{/equalOrs}}
+
+					</div>
+				</div>
+			</li>
+
+			<li class="list-inline-item d-none d-sm-inline-block">
+				<div class="dropdown show_mobile">
+					<a data-divtoggle="#div_chat_realize"
+						class="btn nav-btn dropdown-toggle btn-resize-middle btn-resize-mobile-hide"
+						type="button" data-toggle="tooltip" data-placement="top" title=""
+						data-original-title="Resize"> <i
+						class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+
+				<div class="dropdown hide_mobile">
+					<a href="javascript:void(0)"
+						class="mr-2 btn nav-btn btn-resize-col"> <i
+						class="mdi mdi-arrow-expand text-muted h5"></i>
+					</a>
+				</div>
+			</li>
+
+		</ul>
+	</div>
+</div>

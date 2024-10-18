@@ -1,0 +1,17 @@
+
+.btn_offer_work_add {
+	color: #fff;
+	background-color: #9999;
+	padding: 2px;
+	width: 100%;
+    position: relative;
+    text-align: center;
+/*     -webkit-border-radius: 22px; */
+/*     border-radius: 22px; */
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #fff;
+    text-transform: capitalize;
+    font: 00 14px/42px Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+}

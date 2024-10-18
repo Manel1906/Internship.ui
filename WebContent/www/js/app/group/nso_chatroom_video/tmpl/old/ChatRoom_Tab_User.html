@@ -1,0 +1,34 @@
+<div>
+<!--     <h5 class="font-size-14 mb-3">{{transl 'prj_chat_user_recent'}}</h5> -->
+    <ul class="list-unstyled chat-list" data-simplebar style="max-height: 410px;">
+    {{#each this}}
+        <li class="chat-element">
+            <a href="javascript:void(0)"  class="chat-item {{#if hasNewMsg}}has-new-msg-item{{/if}}" data-id="{{id}}">
+                <div class="media align-items-center">
+                    <div class="align-self-center mr-3">
+                        <i class="mdi mdi-circle font-size-10 {{#if isOnline}}text-success{{/if}}"></i>
+                    </div>
+                    <div class="align-self-center mr-3">
+                    	{{#if avatar}}
+                        <img src="{{reqSrcAvatarChat this}}" class="rounded-circle avatar-xs" alt="" onerror="{{imageErrorUser}}">
+                        {{else}}
+                        <div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}"><div class="text-middle">{{reqSrcTextAvatar login01}}</div></div>
+                        {{/if}}
+                    </div>
+                    
+                    <div class="media-body overflow-hidden">
+                        {{#canBeGG login01}}
+                        <h5 class="text-truncate font-size-14 mb-1">{{login01}}</h5>
+                        {{else}}
+                        <h5 class="text-truncate font-size-14 mb-1">{{email}}</h5>
+                        {{/canBeGG}}
+                    </div>
+                </div>
+            </a>
+             <div class="show_chat_room" data-typ="1"  data-id="{{id}}">
+                        <i class="mdi mdi-content-copy font-size-16 float-right"></i>
+            	</div>
+        </li>
+       {{/each}}
+    </ul>
+</div>

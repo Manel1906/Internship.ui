@@ -1,0 +1,33 @@
+{{#if data}}
+<div id="demo" class="slide_custom carousel slide" data-ride="carousel">
+
+	<!-- Indicators -->
+	<ul class="carousel-indicators">
+		{{#each data}}
+	  		<li data-target="#demo" data-slide-to={{@index}}></li>
+		{{/each}}
+	</ul>
+	
+	<!-- The slideshow -->
+	<div class="carousel-inner">
+		{{#each data}}
+		<div class="carousel-item {{#ifCond @index '==' 0}}active{{/ifCond}}">
+			<img class="slideshow-img" data-id={{id}} src="{{decodeFile avatar.urlPrev}}" onerror="{{url_image_err_deal}};" alt="{{title}}" height="130px">
+			<div class="slideshow-title mt-3 sp-cat-name_{{id}} font-size-14">
+				{{title}}
+			</div>
+		</div>
+		{{/each}}
+	</div>
+	
+	<!-- Left and right controls -->
+	<a class="carousel-control-prev" href="#demo" data-slide="prev">
+	  <span class="carousel-control-prev-icon"></span>
+	</a>
+	<a class="carousel-control-next" href="#demo" data-slide="next">
+	  <span class="carousel-control-next-icon"></span>
+	</a>
+</div>
+{{else}}
+<div>{{transl "common_null_data"}}</div>
+{{/if}}

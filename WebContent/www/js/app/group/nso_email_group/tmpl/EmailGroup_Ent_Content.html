@@ -1,0 +1,61 @@
+<div class="card mb-3">
+    <div class="card-body">
+	    <div class="media">
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16 info-edit info-content"></h5>
+            </div>
+            <a data-right="view:50000003" id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+            </a>
+            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Calcel">
+            	<i class="mdi mdi-close font-size-18"></i>
+            </a>
+            
+             <div class="dropdown float-right">
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate isManager" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical font-size-18"></i>
+                </a>
+               <a data-divtoogle="#div_group_content" class="btn-resize-list cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+               		<li><span data-right="view:50000004" id="btn_del_group" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can font-size-16 text-primary mr-1"></i>{{transl 'nso_group_email_btn_delete_group'}}</span></li>
+                </ul>
+            </div>
+        </div>
+		
+		<div id="div_group_content" class="row">
+			<input type="hidden" class="objData" data-name="id" 		value="{{id}}">
+			<input type="hidden" class="objData" data-name="typ01" 		value="500">
+			<input type="hidden" class="objData" data-name="grRef" 		value="{{ref}}">
+								
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="form-group">
+					<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_group_email_header_name'}} *</h5>
+					<p class="text-muted info-edit info-content">{{name}}</p>
+					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager">
+				</div>
+				
+				<div class="form-group">
+					<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_group_email_header_status'}} *</h5>
+					<p class="text-muted  info-edit info-content">{{reqStatGroupEmail stat01}}</p>
+					<select class="form-control objData content-edit hide" data-name="stat01" id="stat01">
+						<option {{#equal stat01 0}} selected {{/equal}} value="0">{{transl "nso_group_email_header_status_not_validated"}}</option>
+						<option {{#equal stat01 1}} selected {{/equal}} value="1">{{transl "nso_group_email_header_status_validated"}}</option>
+						<option {{#equal stat01 3}} selected {{/equal}} value="3">{{transl "nso_group_email_header_status_wait_delete"}}</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div class="form-group">
+					<h5 class="font-size-15 mt-3 mb-1 info-edit">{{transl 'nso_group_email_header_content_01'}} *</h5>
+					<p class="text-muted info-edit info-content">{{{val01}}}</p>
+					<div class="content-edit hide">
+						<textarea rows="5" cols="25" id="val01" class="objData form-control" data-name="val01" data-label="{{transl 'nso_group_email_header_content_01'}}" >{{{val01}}}</textarea>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,19 @@
+{
+    "nso_group_email_btn_delete_group"            : "Delete group",
+    "nso_group_email_search"                      : "Search by group name",
+    "nso_group_email_new"                         : "New",
+    "nso_group_email_new_title"                   : "Email group",
+    "nso_group_email_header_title"                : "Email group information",
+    "nso_group_email_not_validated_lst_title"     : "Newly created email group",
+    "nso_group_email_validated_lst_title"         : "Approved email group",
+    "nso_group_email_wait_delete_lst_title"       : "Email group pending deletion",
+    "nso_group_email_header_name"                 : "Group name",
+    "nso_group_email_header_date_new"             : "Date created",
+    "nso_group_email_header_ref"                  : "Subject Code",
+    "nso_group_email_header_status"               : "Status",
+    "nso_group_email_header_status_not_validated" : "New",
+    "nso_group_email_header_status_validated"     : "Validate",
+    "nso_group_email_header_status_wait_delete"   : "Waiting for deletion",
+    "nso_group_email_header_content_01"           : "Email list",
+    "nso_group_email_header_date_add"             : "Date added"
+}

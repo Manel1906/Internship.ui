@@ -1,0 +1,108 @@
+<!-- ------------------------------main----------------------------- -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-0">
+            <div class="card-body" id="div_create_prj_appointment">
+                <div class="outer-repeater">
+                    <div data-repeater-list="outer-group" class="outer">
+                        <div data-repeater-item class="outer">
+                            <!-- name -->
+							<div class="form-group row mb-2">
+							    <div class="col-lg-12">
+							        <div class="d-flex justify-content-between align-items-center">
+							            <label for="projectname" class="col-form-label h5">{{transl 'prj_appointment_title'}}</label>
+										<!-- New buttons for color selection -->
+										<div class="row justify-content-end mt-2">
+										    <div class="col-auto" id="div_buttons_container" style="display: flex; gap: 0px;">
+										        <div id="div_button_blue">
+										            <button class="btn btn-sm" style="color: #556ee6; box-shadow: none;">
+										                <i class="fa fa-square ic-blue" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_green">
+										            <button class="btn btn-sm" style="color: #34c38f; box-shadow: none;">
+										                <i class="fa fa-square ic-green" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_yellow">
+										            <button class="btn btn-sm" style="color: #f1c232; box-shadow: none;">
+										                <i class="fa fa-square ic-yellow" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_red">
+										            <button class="btn btn-sm" style="color: #cc0000; box-shadow: none;">
+										                <i class="fa fa-square ic-red" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										        <div id="div_button_white">
+										            <button class="btn btn-sm" style="color: #cccccc; box-shadow: none;">
+										                <i class="fa fa-square ic-grey" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
+										            </button>
+										        </div>
+										    </div>
+										</div>
+							        </div>
+							        <div>
+							            {{name}}
+							        </div>
+							    </div>
+							</div>
+
+                            <!-- descr01 -->
+                            <div class="row mb-2">
+                                <div class="col-lg-12">
+                                    <label for="projectdesc" class="col-form-label h5">{{transl
+                                        'prj_appointment_cmt'}}</label>
+                                    <div>
+                                        {{inf02.desc}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-2">
+                                <!-- date -->
+                                <div class="col-lg-6">
+                                    <label class="col-form-label h5">{{transl 'prj_project_start_date'}}</label>
+                                    <div>
+                                        {{reqFormatDate dtBegin}}
+                                    </div>
+                                </div>
+                             </div>
+                             <div class="row mb-2">
+                                <div class="col-lg-6">
+                                    <label class="col-form-label h5">{{transl 'prj_project_end_date'}}</label>
+                                    <div>
+                                        {{reqFormatDate dtEnd}}
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <!-- member -->
+                           <div class="row mb-2" id="div_list_member_par">
+                                <div class="col-lg-12">
+                                <label class="col-form-label h5">{{transl 'prj_project_member_level_worker'}}</label>
+                                    <div class="" id="div_list_member">
+                                    </div>
+                                </div>
+                            </div>
+  
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- buttons outside card -->
+<div class="row justify-content-end mt-2">
+    <div class="col-auto" id="div_buttons_container" style="display: flex; gap: 8px;">
+    	<div id="div_button_edit">
+            <button class="btn btn-primary btn-sm">{{transl "prj_appointment_event_edit"}}</button>
+        </div>
+        <div id="div_button_delete">
+            <button class="btn btn-danger btn-sm">{{transl "prj_appointment_event_del"}}</button>
+        </div>
+    </div>
+</div>

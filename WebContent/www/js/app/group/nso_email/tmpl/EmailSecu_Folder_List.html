@@ -1,0 +1,27 @@
+<div class="card">
+	<div class="card-body">
+		<div id="div_email_folder">
+			<div class="media">
+				<h4 class="card-title mb-4 media-body">{{transl 'prj_email_folder'}}</h4>
+				<a data-divtoogle="#div_folder_list_resize" class="btn-resize cursor-pointer mobile-hidden" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
+                </a>
+                <a data-divtoogle="#div_folder_list_resize" class="btn-resize-mobile cursor-pointer screen-hidden" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-maximize font-size-16 text-primary"></i>
+                </a>
+				<p class="breadcrumb-item active">{{mailbox}}</p>
+			</div>
+			<div id="div_folder_list_resize" >
+				<button type="button" class="btn btn-danger btn-block waves-effect waves-light" data-toggle="modal" id="btn_new_msg" data-email="{{mailbox}}">
+			        {{transl 'prj_email_folder_compose'}}
+			    </button>
+			    <div class="mail-list mt-4">
+			    	{{#each listFolder}}
+			    	<a href="javascript:void(0)" data-id="{{id}}" data-folder="{{folder}}" class="folder-item {{#equal folder 'INBOX'}}active{{/equal}}"><i class="mdi {{reqIconFolderMail folder}} mr-2"></i>{{reqNameFolderMail folder}}</a>
+			    	{{/each}}
+			<!--         <a href="#" class="active"><i class="mdi mdi-email-outline mr-2"></i> Inbox <span class="ml-1 float-right">(18)</span></a> -->
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>

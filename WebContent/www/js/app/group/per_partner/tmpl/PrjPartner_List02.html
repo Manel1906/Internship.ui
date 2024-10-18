@@ -1,0 +1,31 @@
+<div class="search-box chat-search-box py-3 border-bottom">
+    <div class="position-relative">
+        <input type="text" class="form-control" placeholder="{{transl 'prj_partner_search'}}" id="inp-search">
+        <i class="bx bx-search-alt search-icon"></i>
+    </div>
+</div>
+
+<div class="chat-leftsidebar-nav">
+    <div class="tab-content pt-3 pb-2">
+		<div class="tab-pane show active" id="div_user">
+			<div class="media pb-3">
+				<div class="col-12">
+			         <div class="text-right">
+			         	<a href="javascript:void(0)" class="text-dark font-size-14 mt-3 font-weight-bold" id="btn_refresh_partner">
+							<i class="mdi mdi-refresh font-size-18 mr-2"></i>
+						</a>
+			            <button id="btn_btn_new_partner" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'common_btn_add'}}</button>
+			        	 <a data-divtoogle="#div_prj_left" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+			                 <i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
+			              </a>
+			         </div>
+			     </div>
+			</div>
+			<div id="div_prj_left">
+				<div id="div_prj_list" class="ent-list"></div>
+				<div id="div_prj_pagination" class="ent-pagination"></div>
+			</div>
+		</div>
+    </div>
+</div>
+<!-- End Page-content -->

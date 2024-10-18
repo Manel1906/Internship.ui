@@ -1,0 +1,93 @@
+<div class="card mb-0">
+    <div class="card-body">
+	    <div class="media">
+	    	{{#if val01}}
+              {{#if val01.img}}
+               	<div>
+	    			<img src="{{val01.img}}" alt="" class="avatar-sm mr-4 rounded-circle"  onerror="{{url_image_err}}">
+	    		</div>
+              {{else}}
+               <div class="avatar-xs mr-3">
+                   <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                       {{reqFirstLetter name}}
+                   </span>
+               </div>
+               {{/if}}
+             {{else}}
+             <div class="avatar-xs mr-3">
+                  <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                      {{reqFirstLetter name}}
+                  </span>
+              </div>
+             {{/if}}
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16 info-edit info-content"></h5>
+            </div>
+            <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+            </a>
+            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+            	<i class="mdi mdi-close font-size-20"></i>
+            </a>
+            
+             <div class="dropdown float-right font-size-20">
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate isManager" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
+                </a>
+               <a data-divtoogle="#div_group_content" class="btn-resize-content cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize text-primary"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                    <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span></li>
+               		<li><span id="btn_del_group" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can text-primary mr-1"></i>{{transl 'prj_user_group_btn_delete_group'}}</span></li>
+                </ul>
+            </div>
+        </div>
+		
+		<div id="div_group_content">
+	        <div class="media">
+				<div id="frm_dropzone_send" class="fallback mt-3 hide">
+					<form action="/" method="post" class="dropzone inputfile">
+						<div class="fallback">
+							<input data-name="files" type="file" class="objData" data-type="avatar" data-typ01="1" data-typ02="1">
+						</div>
+	
+						<div class="dz-message needsclick">
+							<div class="mb-3">
+								<i class="display-4 text-muted bx bxs-cloud-upload"></i>
+							</div>
+							<h4>{{transl 'prj_project_drop_files'}}</h4>
+						</div>
+					</form>
+				</div>
+			</div>
+			<input type="hidden" data-name="id" 	class="form-control objData" value="{{id}}">
+			<input type="hidden" data-name="typ01" 	class="form-control objData" value="{{typ01}}">
+			<input type="hidden" data-name="stat01" class="form-control objData" value="{{stat01}}">
+			
+			<div>
+				<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_user_group_name'}}</h5>
+				<p class="text-muted info-edit info-content" data-name="name">{{name}}</p>
+				<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager">
+			</div>
+			
+			{{#if descr}}
+			<div>
+				<h5 class="font-size-15 mt-4 info-edit">{{transl 'prj_user_group_descr'}}</h5>
+				<p class="text-muted info-edit info-content" data-name="descr01">{{descr}}</p>
+				<input type="text" data-name="descr01" value="{{descr}}" class="form-control objData hide content-edit isManager">
+			</div>
+			{{/if}}
+			
+			<div>
+				<h5 class="font-size-15 mt-4">{{transl 'prj_user_group_ref'}}</h5>
+				<p class="text-muted info-edit" data-name="ref">{{ref}}</p>
+			</div>
+			
+			<div>
+				<h5 class="font-size-14 mt-4"><i class="bx bx-calendar mr-1 text-primary"></i>{{transl 'prj_user_group_date_begin'}}</h5>
+	            <p data-format="date" class="text-muted " data-name="dt01">{{reqFormatDate dt01}}</p>
+			</div>
+		</div>
+    </div>
+</div>

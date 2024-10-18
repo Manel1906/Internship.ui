@@ -1,0 +1,44 @@
+        	{{#if this}}
+            <table class="table table-centered">
+<!--              table-nowrap -->
+			    <tbody id="tbody_task">
+			     {{#each this}}
+			        <tr data-id="{{id}}">		            
+			            <td><p class="font-size-13 m-0">{{inf01.dt1}}</p></td>
+			            <td><p class="font-size-13 m-0">{{inf01.dt2}}</p></td>
+			            <td><p class="font-size-13 m-0">{{inf01.lab}}</p></td>
+			            <td><p class="font-size-13 m-0">{{inf01.autUser.login}}</p></td>
+			            	
+			            <td>
+			            	<p class="font-size-13 m-0 info-edit info-content {{reqTypHistoryColor inf01.stat}}" style="border-radius: 5px; height: 18px; padding: 0 12px;">{{reqTypHistory inf01.stat}}</p>
+<!--			            	{{transl 'prj_project_stat'}}: -->
+							<select data-id="{{id}}" class="sel-stat form-control objData content-edit hide isManager" data-group="inf01" data-name="stat">
+								<option {{#equal inf01.stat 10}}selected{{/equal}} value="10">{{transl "prj_unit_stat_todo"}}</option>
+								<option {{#equal inf01.stat 20}}selected{{/equal}} value="20">{{transl "prj_unit_stat_executing"}}</option>
+								<option {{#equal inf01.stat 30}}selected{{/equal}} value="30">{{transl "prj_unit_stat_blocked"}}</option>								
+								<option {{#equal inf01.stat 40}}selected{{/equal}} value="40">{{transl "prj_unit_stat_pass"}}</option>
+								<option {{#equal inf01.stat 60}}selected{{/equal}} value="60">{{transl "prj_unit_stat_fail"}}</option>
+								<option {{#equal inf01.stat 70}}selected{{/equal}} value="70">{{transl "prj_unit_stat_abort"}}</option>
+							</select>							
+							
+			            </td>
+			         
+			            <td class="d-flex justify-content-end">
+			            	<div class="dropdown float-right">
+			                   <a href="#" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false">
+			                       <i class="mdi mdi-dots-vertical m-0 text-muted h5 task-option"></i>
+			                   </a>
+			                   <div class="dropdown-menu dropdown-menu-right" style="">
+			                       <a data-id="{{id}}" data-stat="" class="dropdown-item view_history" href="javascript:void(0)">{{transl 'msgbox_view_title'}}</a>
+			                       <a data-id="{{id}}" data-stat="" class="dropdown-item del_history" href="javascript:void(0)">{{transl 'common_btn_delete'}}</a>
+			                   </div>
+			               </div>
+			            </td>
+			          
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>
+			{{else}}
+			<div class="mt-3">{{transl 'prj_test_group_no_unit'}}</div>
+			{{/if}}

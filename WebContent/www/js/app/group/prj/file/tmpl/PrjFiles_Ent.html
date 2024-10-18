@@ -1,0 +1,60 @@
+<div class="page-content">
+  <div class="container-fluid">
+  	{{#equalOrs typ02 1}}
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+				 <div class="col-sm-12 col-md-5 col-lg-4 col-xl-3">
+					<a id="btn_back" class="text-primary font-italic cursor-pointer hnv-route" data-url="view_prj_file_content.html?id=#id&code=#code" data-route="VI_MAIN/prj_file_ent">
+						<i class="mdi mdi-arrow-left-bold-outline font-size-18"></i>{{transl 'prj_task_return'}}
+					</a>
+				</div>
+                <div  class="col-sm-12 col-md-7 col-lg-8 col-xl-9" class="page-title-right" id="div_prj_path"></div>
+              </div>
+          </div>
+      </div> 
+      {{/equalOrs}}
+      <div class="row">
+          <div class="col-12">
+              <div class="page-title-box d-flex align-items-center justify-content-between">
+	              	<div>
+	                  <button id="btn_treeview" type="button" data-id="{{id}}" data-id="{{prj.id}}" data-grp="{{grp}}" data-code="{{code01}}" class="btn btn-success btn-rounded waves-effect waves-light btn-sm">{{transl 'prj_treeview_btn'}}</button>
+					  <span id="btn_mod_favorite" class="font-size-20 text-{{#if isFavorite}}danger isFavorite{{else}}primary{{/if}} cursor-pointer"><i class="mdi mdi-heart-outline"></i></span>
+	                </div>
+              </div>
+          </div>
+          
+<!--           <div class="col-4"> -->
+<!-- 			<input class="form-control" id="inp_search_name_file" type="text" placeholder="{{transl 'prj_file_filter_name_enter'}}"> -->
+<!-- 		</div> -->
+      </div> 
+      <div class="row">
+      	<div class="col-xl-8">
+      		<div id="div_prj_content"></div>
+      		
+      		<div class="row">
+      			{{#equalOrs typ02 0 1}}
+      			<div class="col-lg-6" id="div_prj_epic"></div>
+      			{{/equalOrs}}
+      			<div class="col-lg-6" id="div_prj_docs"></div>
+      		</div>
+      		
+      		
+      	</div>
+      
+      	<div class="col-xl-4">
+      		<div id="div_prj_member"></div>
+      	</div>
+      	
+      	<div class="col-lg-12 hide" id="div_partner_funct">
+	    <div class="card">
+	  		<div class="card-body">		
+				<div class="row ">			
+					<button class="btn btn-primary" id="btn_save">{{transl 'prj_partner_save_all'}}</button>
+				</div>
+			</div>
+			</div>
+	</div>
+      </div>
+  </div>
+</div>

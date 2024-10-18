@@ -1,0 +1,372 @@
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-9">
+				<h4 class="card-title mb-4 shp_font_size">{{transl "ent_header_title"}} </h4>
+			</div>
+
+			<div class="col-3 isManager">
+				<div class="text-sm-right">
+					<a data-divtoogle="#div_frm_mat_ent" class="btn-resize" data-toggle="tooltip"
+						data-placement="top" title="" data-original-title="Resize">
+						<i class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+		<form class="form-horizontal" id="div_frm_mat_ent">
+			<div class="row">
+				<input type="hidden" class="objData" data-name="id" value="{{id}}" data-validation="number"> 
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_name01"}}*</label>
+
+						<div class="col-8">
+							<input type="text" class="form-control objData" id="inp_name01" value="{{name01}}"
+								data-name="name01" data-validation="required" placeholder="">
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_name02"}}</label>
+						<div class="col-8">
+							<input type="text" class="form-control objData" id="inp_name02" value="{{name02}}"
+								data-name="name02" placeholder="">
+						</div>
+					</div>
+
+					<div class="form-group row" id="div_material_ent_typ01">
+						<label class="col-4 control-label">{{transl "ent_typ01"}}</label>
+						<div class="col-8">
+							<select class="form-control objData" data-name="typ01" id="sel_typ01" data-validation="required number">
+							{{#select typ01}}	
+								<option value="" 			> 						  </option>
+								<option value="10" 			>{{transl "ent_typ01_10"}}</option>
+								<option value="30" 			>{{transl "ent_typ01_30"}}</option>
+								<option value="50" 			>{{transl "ent_typ01_50"}}</option>
+								<option value="60" 			>{{transl "ent_typ01_60"}}</option>
+								<option value="70" 			>{{transl "ent_typ01_70"}}</option>
+								<option value="80" 			>{{transl "ent_typ01_80"}}</option>
+								<option value="100" 		>{{transl "ent_typ01_100"}}</option>
+							{{/select}}
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group row" id="div_material_ent_typ02">
+						<label class="col-4 control-label">{{transl "ent_typ02"}}</label>
+						<div class="col-8">
+							<select class="form-control objData" data-name="typ02" id="sel_typ02" data-validation="number">
+							{{#select typ02}}		
+								<option value="" ></option>
+								
+								<option class="hide typ01_10" value="10100" >{{transl "ent_typ02_10100"}}</option>
+								<option class="hide typ01_10" value="10101" >{{transl "ent_typ02_10101"}}</option>
+								<option class="hide typ01_10" value="10102" >{{transl "ent_typ02_10102"}}</option>
+								<option class="hide typ01_10" value="10103" >{{transl "ent_typ02_10103"}}</option>
+								
+								<option class="hide typ01_30" value="30101" >{{transl "ent_typ02_30101"}}</option>
+								<option class="hide typ01_30" value="30102" >{{transl "ent_typ02_30102"}}</option>
+								<option class="hide typ01_30" value="30103" >{{transl "ent_typ02_30103"}}</option>
+								<option class="hide typ01_30" value="30104" >{{transl "ent_typ02_30104"}}</option>
+								
+								<option class="hide typ01_50" value="50100" >{{transl "ent_typ02_50100"}}</option>
+								<option class="hide typ01_50" value="50200" >{{transl "ent_typ02_50200"}}</option>
+								
+								<option class="hide typ01_100" value="100100" >{{transl "ent_typ02_100100"}}</option>
+								<option class="hide typ01_100" value="100200" >{{transl "ent_typ02_100200"}}</option>
+								<option class="hide typ01_100" value="100300" >{{transl "ent_typ02_100300"}}</option>
+								<option class="hide typ01_100" value="100400" >{{transl "ent_typ02_100400"}}</option>
+								<option class="hide typ01_100" value="100500" >{{transl "ent_typ02_100500"}}</option>
+								<option class="hide typ01_100" value="100600" >{{transl "ent_typ02_100600"}}</option>
+							{{/select}}
+							
+							</select>
+						</div>
+					</div>
+					
+					<div class="hide typ01_50">
+						<div class="form-group row" id="div_material_ent_typ03">
+							<label class="col-4 control-label">{{transl "ent_typ03"}}</label>
+	
+							<div class="col-8">
+								<select class="form-control objData" data-name="typ03" id="sel_typ03">
+								{{#select typ03}}
+									<option class="typ03 typ01_50" value="50100" 	>{{transl "ent_typ03_50100"}}</option>
+									<option class="typ03 typ01_50" value="50200" 	>{{transl "ent_typ03_50200"}}</option>
+									<option class="typ03 typ01_50" value="50300" 	>{{transl "ent_typ03_50300"}}</option>
+								{{/select}}
+								</select>
+							</div>
+						</div>
+	
+						<div class="form-group row" id="div_material_ent_typ04">
+							<label class="col-4 control-label">{{transl "ent_typ04"}}</label>
+							<div class="col-8">
+								<select class="form-control objData" data-name="typ04" id="sel_typ04">
+								{{#select typ04}}
+									<option class="typ04 typ01_50" value="50032" 	>{{transl "ent_typ04_50032"}}</option>
+									<option class="typ04 typ01_50" value="50064" 	>{{transl "ent_typ04_50064"}}</option>
+								{{/select}}
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_stat01"}}</label>
+						<div class="col-8">
+							<select class="form-control objData" data-name="stat01" id="sel_stat01" data-validation="number">
+							{{#select stat01}}	
+								<option value="-1">{{transl "ent_stat01_undef"}}</option>
+								<option value= "0">{{transl "ent_stat01_00"}}</option>
+								<option value= "1">{{transl "ent_stat01_01"}}</option>
+								<option value= "2">{{transl "ent_stat01_02"}}</option>
+								<option value= "5">{{transl "ent_stat01_05"}}</option>
+								<option value="10">{{transl "ent_stat01_10"}}</option>
+							{{/select}}
+							</select>
+						</div>
+					</div>
+					
+					<div class="hide typ01_50">
+						<div class="form-group row">
+							<label class="col-4 control-label">{{transl "ent_stat02_50"}}</label>
+							<div class="col-8">
+								<select class="form-control objData" data-name="stat0é" id="sel_stat02" data-validation="number">
+								{{#select stat02}}	
+									<option value="1">{{transl "ent_stat_true"}}</option>
+									<option value="0">{{transl "ent_stat_false"}}</option>
+								{{/select}}
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="hide typ01_30">
+						<div class="form-group row">
+							<label class="col-4 control-label">{{transl "ent_stat03_30"}}</label>
+							<div class="col-8">
+								<select class="form-control objData" data-name="stat03" id="sel_stat03" data-validation="number">
+								{{#select stat03}}	
+									<option value="1">{{transl "ent_stat_true"}}</option>
+									<option value="0">{{transl "ent_stat_false"}}</option>
+								{{/select}}
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label class="col-4 control-label">{{transl "ent_stat04_30"}}</label>
+							<div class="col-8">
+								<select class="form-control objData" data-name="stat04" id="sel_stat04" data-validation="number">
+								{{#select stat04}}	
+									<option value="1">{{transl "ent_stat_true"}}</option>
+									<option value="0">{{transl "ent_stat_false"}}</option>
+								{{/select}}
+								</select>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<label class="col-4 control-label">{{transl "ent_stat05_30"}}</label>
+							<div class="col-8">
+								<select class="form-control objData" data-name="stat05" id="sel_stat05" data-validation="number">
+								{{#select stat05}}	
+									<option value="1">{{transl "ent_stat_true"}}</option>
+									<option value="0">{{transl "ent_stat_false"}}</option>
+								{{/select}}
+								</select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-lg-4 col-md-4 col-sm-12">
+
+					<div class="form-group row" id="div_material_ent_code01">
+						<label class="col-4 control-label">{{transl "ent_code01"}}</label>
+
+						<div class="col-8">
+							<input type="text" class="form-control objData" id="inp_code01" value="{{code01}}" data-name="code01" placeholder="">
+						</div>
+					</div>
+
+
+					<div class="form-group row" id="div_material_ent_ref">
+						<label class="col-4 control-label">{{transl "ent_code02"}}</label>
+
+						<div class="col-8">
+							<input type="text" class="form-control objData" id="inp_code02" value="{{code02}}" data-name="code02" placeholder="">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_code03"}}</label>
+
+						<div class="col-8">
+							<input type="text" class="form-control objData" id="inp_code03" value="{{code03}}" data-name="code03" placeholder="">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_code04"}}</label>
+
+						<div class="col-8">
+							<input type="text" class="form-control objData" id="inp_code04" value="{{code04}}" data-name="code04" placeholder="">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_code05"}}</label>
+
+						<div class="col-8">
+							<input type="text" class="form-control objData" id="inp_code05" value="{{code05}}" data-name="code05" placeholder="">
+						</div>
+					</div>
+					
+					
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_dt03"}}</label>
+						<div class="col-8">
+							<input id="inp_ent_dt03" type="text" class="form-control datepicker objData"
+								value="{{dateFormatLocalShort dt03}}" placeholder="" data-name="dt03"
+								data-format="date " data-validation="date">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_dt04"}}</label>
+						<div class="col-8">
+							<input id="inp_ent_dt04" type="text" class="form-control datepicker objData"
+								value="{{dateFormatLocalShort dt04}}" placeholder="" data-name="dt04"
+								data-format="date " data-validation="date">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_dt05"}}</label>
+						<div class="col-8">
+							<input id="inp_ent_dt05" type="text" class="form-control datepicker objData"
+								value="{{dateFormatLocalShort dt05}}" placeholder="" data-name="dt05"
+								data-format="date " data-validation="date">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-md-4 col-sm-12">
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_inf01"}}
+							<a class="btn htmlEditor" data-dest="#inp_descr01" data-funct="val">
+								<i class="fa fa-file-text-o"></i>
+							</a>
+						</label>
+
+						<div class="col-8">
+							<textarea class="form-control objData" id="inp_descr01" rows="2" data-name="inf01"
+								placeholder="">{{inf01}}</textarea>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-4 control-label">
+							<span class="hide typ01_10">  {{transl "ent_inf02_10"}} </span> 
+							<span class="hide typ01_30">  {{transl "ent_inf02_30"}} </span> 
+							<span class="hide typ01_50">  {{transl "ent_inf02_50"}} </span> 
+							<span class="hide typ01_80">  {{transl "ent_inf02_80"}} </span> 
+							<span class="hide typ01_100"> {{transl "ent_inf02_100"}} </span> 
+							
+<!-- 							<a class="btn htmlEditor" data-dest="#inp_descr02" data-funct="val"> -->
+<!-- 								<i class="fa fa-file-text-o"></i> -->
+<!-- 							</a> -->
+						</label>
+
+						<div class="col-8">
+							<textarea class="form-control objData" id="inp_descr02" rows="2" data-name="inf02"
+								placeholder="">{{inf02}}</textarea>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-4 control-label">
+							<span class="hide typ01_10">  {{transl "ent_inf03_10"}} </span> 
+							<span class="hide typ01_30">  {{transl "ent_inf03_30"}} </span> 
+							<span class="hide typ01_50">  {{transl "ent_inf03_50"}} </span> 
+							<span class="hide typ01_80">  {{transl "ent_inf03_80"}} </span> 
+							<span class="hide typ01_100"> {{transl "ent_inf03_100"}} </span> 
+<!-- 							<a class="btn htmlEditor" data-dest="#inp_descr03" data-funct="val"> -->
+<!-- 								<i class="fa fa-file-text-o"></i> -->
+<!-- 							</a> -->
+						</label>
+
+						<div class="col-8">
+							<textarea class="form-control objData" id="inp_descr03" rows="2" data-name="inf03"
+								placeholder="">{{inf03}}</textarea>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-4 control-label">
+							<span class="hide typ01_10">  {{transl "ent_inf04_10"}} </span> 
+							<span class="hide typ01_30">  {{transl "ent_inf04_30"}} </span> 
+							<span class="hide typ01_50">  {{transl "ent_inf04_50"}} </span> 
+							<span class="hide typ01_80">  {{transl "ent_inf04_80"}} </span> 
+							<span class="hide typ01_100"> {{transl "ent_inf04_100"}} </span> 
+							
+<!-- 							<a class="btn htmlEditor" data-dest="#inp_descr04" data-funct="val"> -->
+<!-- 								<i class="fa fa-file-text-o"></i> -->
+<!-- 							</a> -->
+						</label>
+
+						<div class="col-8">
+							<textarea class="form-control objData" id="inp_descr04" rows="2" data-name="inf04"
+								placeholder="">{{inf04}}</textarea>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-4 control-label">
+							<span class="hide typ01_10">  {{transl "ent_inf05_10"}} </span> 
+							<span class="hide typ01_30">  {{transl "ent_inf05_30"}} </span> 
+							<span class="hide typ01_50">  {{transl "ent_inf05_50"}} </span> 
+							<span class="hide typ01_80">  {{transl "ent_inf05_80"}} </span> 
+							<span class="hide typ01_100"> {{transl "ent_inf05_100"}} </span> 
+<!-- 							<a class="btn htmlEditor" data-dest="#inp_descr05" data-funct="val"> -->
+<!-- 								<i class="fa fa-file-text-o"></i> -->
+<!-- 							</a> -->
+						</label>
+
+						<div class="col-8">
+							<textarea class="form-control objData" id="inp_descr05" rows="2" data-name="inf05"
+								placeholder="">{{inf05}}</textarea>
+						</div>
+					</div>
+					
+					
+					<div class="form-group row">
+						<label class="col-4 control-label">{{transl "ent_inf10"}}
+<!-- 							<a class="btn htmlEditor" data-dest="#inp_descr10" data-funct="val"> -->
+<!-- 								<i class="fa fa-file-text-o"></i> -->
+<!-- 							</a> -->
+						</label>
+
+						<div class="col-8">
+							<textarea class="form-control objData" id="inp_descr10" rows="1" data-name="inf10"
+								placeholder="">{{inf10}}</textarea>
+						</div>
+					</div>
+					
+<!-- 					<div class="form-group row" id="div_material_ent_produceur"> -->
+<!-- 						<label class="col-4 control-label">{{transl "ent_produceur"}}</label> -->
+
+<!-- 						<div class="col-8"> -->
+<!-- 							<input type="hidden" class="objData" data-name="prodId" id="inp_producerId" data-validation="number" value="{{prodId}}"> -->
+<!-- 							<input type="text" 	 class="form-control objData" id="inp_producerName" value="{{producer.name01}}"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>

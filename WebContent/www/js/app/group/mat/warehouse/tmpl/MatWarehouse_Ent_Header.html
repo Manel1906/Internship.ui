@@ -1,0 +1,63 @@
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-9">
+				<h4 class="card-title mb-4 shp_font_size">{{transl "mat_warehouse_ent_title"}} </h4>
+			</div>
+
+			<div class="col-3 isManager">
+				<div class="text-sm-right">
+					<a data-divtoogle="#div_frm_mat_warehouse_ent_header" class="btn-resize" data-toggle="tooltip"
+						data-placement="top" title="" data-original-title="Resize">
+						<i class="mdi mdi-window-minimize font-size-18"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<form class="form-horizontal" id="div_frm_mat_warehouse_ent_header">
+			<div class="row">
+				<input type="hidden" class="objData" data-name="id" value="{{wh.id}}" />
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<div class="form-group">
+						<label for="inp_warehouse_ent_name"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "mat_warehouse_ent_name"}}
+							*</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input id="inp_warehouse_ent_name" class="form-control objData" type="text"
+								value="{{wh.name}}" data-name="name" data-validation="required"
+								data-msgClass="errMsgInline" />
+						</div>
+					</div>
+					<div class="form-group" id="div_mat_warehouse_societe">
+						<label for="inp_mat_warehouse_societe"
+							class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "mat_warehouse_ent_header_societe"}}</label>
+						<div class="col-lg-12 col-md-12 col-sm-12">
+							<input type="hidden" class="objData" data-name="manId" id="socId" value="{{manId}}">
+							<input type="text" class="form-control objData" id="inp_mat_warehouse_societe"
+								value="{{name01}}" placeholder="{{transl 'mat_warehouse_ent_header_societe_help'}}">
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="col-lg-6 col-md-6 col-sm-12">
+					<div class="form-group">
+
+						<div class="form-group">
+							<label for="inp_warehouse_ent_inf01"
+								class="col-lg-12 col-md-12 col-sm-12 control-label">{{transl "mat_warehouse_ent_descr"}}</label>
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<textarea id="inp_warehouse_ent_inf01" class="form-control objData" style="resize: none"
+									rows="2" data-name="inf01">{{decodeUTF8 wh.inf01}}</textarea>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

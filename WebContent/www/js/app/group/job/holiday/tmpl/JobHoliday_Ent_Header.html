@@ -1,0 +1,47 @@
+<div class="box-header with-border">
+
+	<h3 class="box-title"></h3>
+	
+<!-- 	*Optional button right* -->
+<!-- 	<div class="box-tools pull-right"> -->
+<!-- 		<button type="button" class="btn btn-box-tool" data-widget="collapse"> -->
+<!-- 			<i class="fa fa-chevron-down"></i> -->
+<!-- 		</button> -->
+<!-- 	</div> -->
+
+</div>
+
+<div class="form-horizontal custom-scroll-header">
+	<div class="box-body">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class="form-group hidden">
+				<input id="inp_id" class="form-control objData" type="text" value="{{id}}"
+					data-name="id" disabled/>
+			</div>
+				
+			<div class="form-group">
+				<label for="inp_date" class="col-lg-3 col-md-3 col-sm-3 control-label">{{transl "job_holiday_select_date"}}</label>
+				<div class="col-lg-9 col-md-9 col-sm-9">
+				<input id="inp_date" class="form-control objData datepicker" data-format="date" value="{{dateFormatLocalShort dt}}" data-name="dt"
+						data-validation="date" disabled/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="inp_comment" class="col-lg-3 col-md-3 col-sm-3 control-label">{{transl "job_holiday_holiday_name"}}</label>
+				<div class="col-lg-9 col-md-9 col-sm-9">
+					<input id="inp_comment" class="form-control objData" type="text" value="{{decodeUTF8 cmt}}"
+					data-name="cmt" data-validation="required" disabled/>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="inp_code" class="col-lg-3 col-md-3 col-sm-3 control-label">{{transl "job_holiday_holiday_code"}}</label>
+				<div class="col-lg-9 col-md-9 col-sm-9">
+					<input id="inp_code" class="form-control objData" type="text" value="{{code01}}" 
+					data-name="code01" data-validation="required" disabled/>
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>

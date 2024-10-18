@@ -1,0 +1,174 @@
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+	        <div id="div_avatar_partner">
+				{{#if avatar}}
+	        	<img src="{{reqSrcImg avatar}}" alt="" class="avatar-xl mr-4 rounded-circle">
+				{{else}}
+	        	<img src="{{reqSrcAvatarPartner @root}}" alt="" class="avatar-xl mr-4 rounded-circle">
+				{{/if}}
+	        </div>
+        	
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16"></h5>
+            </div>
+            <a id="a_btn_save_content" class="mr-2 text-primary hide action-item cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+            </a>
+            <a id="a_btn_cancel_content" class="text-danger mr-2 hide cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+            	<i class="mdi mdi-close font-size-18"></i>
+            </a>
+            
+            <div class="dropdown float-right">
+                <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-horizontal font-size-18"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus font-size-16 text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span></li>
+                </ul>
+            </div>
+        </div>
+		<input type="hidden" class="form-control objData" data-name="id" value="{{id}}">
+		
+		<form id="div_prj_avatar_file_upload" action="/" method="post" class="dropzone inputfile mt-3 hide">
+			    <div class="fallback">
+			        <input data-name="file" type="file"/>
+			    </div>
+			
+			    <div class="dz-message needsclick">
+			        <div class="mb-3">
+			            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+			        </div>
+			        <h4>{{transl 'prj_project_drop_files'}}</h4>
+			    </div>
+		</form>		
+		
+		<div class="row">
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_typ01'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{reqTyp01Partner typ01}}</p>
+				<select id="sel_list_type_person" class="form-control objData content-edit hide isManager" data-name="typ01">
+					{{#select typ01}}
+					<option value="1000002">{{transl 'per_person_type_physic'}}</option> 
+					<option value="1000001">{{transl 'per_person_type_moral'}}</option> 
+					{{/select}}
+				</select>
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_cfgVal02'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{reqCfgVal02Partner stat02}}</p>
+				<select id="sel_list_legal_status" class="form-control objData content-edit hide isManager" data-name="stat02" >
+					{{#select stat02}}
+					<option value="1020003">{{transl 'per_enterprise_sarl'}}</option> 
+					<option value="1020005">{{transl 'per_enterprise_group'}}</option> 
+					<option value="1020004">{{transl 'per_enterprise_sa'}}</option> 
+					{{/select}}
+				</select>
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_name01'}} *</h5>
+				<p class="text-muted info-edit-content info-content">{{name01}}</p>
+				<input type="text" class="form-control objData content-edit hide isManager" id="name01" value="{{decodeUTF8 name01}}" data-name="name01" data-validation="required" >
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_name02'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{name02}}</p>
+				<input type="text" class="form-control objData content-edit hide isManager" id="name02" value="{{decodeUTF8 name02}}" data-name="name02">
+			</div>		
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_typ02'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{reqTyp02Partner typ02}}</p>
+				<select id="sel_list_type_partner" class="form-control objData content-edit hide isManager" data-name="typ02" >
+					{{#select typ02}}
+					<option value="1010002">{{transl 'per_person_typ_02'}}</option> 
+					<option value="1010003">{{transl 'per_person_typ_03'}}</option> 
+					<option value="1010004">{{transl 'per_person_typ_04'}}</option> 
+					<option value="1010006">{{transl 'per_person_typ_06'}}</option> 
+					<option value="1010007">{{transl 'per_person_typ_07'}}</option> 
+					{{/select}}
+				</select>
+			</div>
+			
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_stat_header'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{reqStatPartnerPrj stat01}}</p>
+				<select id="stat" class="form-control objData content-edit hide isManager" data-name="stat01" >
+					{{#select stat01}}
+					<option value="0">{{transl "per_partner_stat_00"}}</option>
+					<option value="1">{{transl "per_partner_stat_01"}}</option>
+					<option value="2">{{transl "per_partner_stat_02"}}</option>
+					<option value="3">{{transl "per_partner_stat_03"}}</option>
+					<option value="10">{{transl "per_partner_stat_10"}}</option>
+					<option value="11">{{transl "per_partner_stat_11"}}</option>
+					{{/select}}
+				</select>
+			</div>	
+		</div>
+		
+		<div class="row">
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_code'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{code01}}</p>
+				<input type="text" class="form-control objData content-edit hide isManager" id="code" value="{{decodeUTF8 code01}}" data-name="code01" >
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_info01'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{inf01}}</p>
+				<input type="text" class="form-control objData content-edit hide isManager" id="info01" value="{{inf01}}" data-name="inf01" placeholder="" >
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_partner_label_info02'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{inf02}}</p>
+				<input type="text" class="form-control objData content-edit hide isManager" id="info02" value="{{inf02}}" data-name="inf02" placeholder="" >
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_header_label_addr_main'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{inf07}}</p>
+				<textarea class="form-control objData content-edit hide isManager" id="info07" data-name="inf07" placeholder="" style="resize: vertical" >{{inf07}}</textarea>
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_header_label_email_main'}} *</h5>
+				<p class="text-muted info-edit-content info-content">{{inf10}}</p>
+				<input type="text" class="form-control objData content-edit hide isManager" id="info10" value="{{inf10}}" data-name="inf10" data-validation="email" placeholder="" >
+			</div>
+		
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_header_label_tel_main'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{inf09}}</p>
+				<input type="text" class="form-control objData content-edit hide isManager" id="info09" value="{{inf09}}" data-name="inf09" placeholder="" >
+			</div>
+		
+	
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'per_header_label_comment'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{inf03}}</p>
+				<textarea class="form-control objData content-edit hide isManager" id="info03" data-name="inf03" placeholder="" style="resize: vertical"  >{{inf03}}</textarea>
+			</div>
+		</div>
+		
+		<div class="row" id="div_prj_partner_date_disable">
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4">{{transl 'nso_offer_header_date_add'}}</h5>
+				<p class="text-muted info-content-disable">{{dateFormatLocal dt01}}</p>
+				<input type="text" class="form-control objData hide" id="dtNew" value="{{dateFormatLocal dt01}}" data-name="dt01" placeholder="" data-editable="false" >
+			</div>
+			
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4">{{transl 'nso_offer_header_date_mod'}}</h5>
+				<p class="text-muted info-content-disable">{{dateFormatLocal dt02}}</p>
+				<input type="text" class="form-control objData hide" id="dtMod" value="{{dateFormatLocal dt02}}" data-name="dt02" placeholder="" data-editable="false">
+			</div>
+		</div>		
+    </div>
+</div>
+

@@ -1,0 +1,2670 @@
+ <!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Content -->
+ <div id="div_prj_info">
+	<div class="card">
+	    <div class="card-body">
+	        <div class="media">
+	        	<div>
+	        		{{#ifCond typ02 '==' 0}}
+	        		<img src="{{reqSrcAvatarPrj @root}}" alt="" class="avatar-sm mr-4 rounded-circle">
+	        		{{/ifCond}}
+	        		{{#ifCond typ02 '==' 1}}
+	        		<img src="{{reqSrcAvatarPrjEpic @root}}" alt="" class="avatar-sm mr-4 rounded-circle">
+	        		{{/ifCond}}
+	        		{{#ifCond typ02 '==' 2}}
+	        		<img src="{{reqSrcAvatarPrjTask @root}}" alt="" class="avatar-sm mr-4 rounded-circle">
+	        		{{/ifCond}}
+	        	</div>
+	            <div class="media-body overflow-hidden">
+	                <h5 class="text-truncate font-size-16 info-edit info-content {{reqClassByStat stat}}">{{name}}</h5>
+	                <input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager hideDev hideTest hideMem hideGuest">
+	                {{{reqDateTimeLateTask dtEnd stat}}}
+	                {{#equal typ02 0}}
+						<a class="btn btn-success btn-rounded waves-effect waves-light btn-sm text-white isManager hideDev hideTest hideMem hideGuest hnv-route" data-route="VI_MAIN/prj_tree_global" data-url="view_prj_tree_global.html?id={{id}}&code={{code01}}">{{transl 'prj_project_btn_global'}}</a>
+						<button id="btn_budget" 		type="button" data-id="{{id}}" data-grp="{{grp}}" data-code="{{code01}}" class="btn btn-primary btn-rounded waves-effect waves-light btn-sm">{{transl 'prj_project_budget'}}</button>
+						<button id="btn_mem_manager" 	type="button" data-id="{{id}}" data-grp="{{grp}}" data-code="{{code01}}" class="btn btn-info hide btn-rounded waves-effect waves-light btn-sm"	>{{transl 'prj_project_mem_manager'}}</button>
+					
+					{{/equal}}
+	            </div>
+	            <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+	            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+	            </a>
+	            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+	            	<i class="mdi mdi-close font-size-20"></i>
+	            </a>
+	            
+	            <div class="dropdown float-right font-size-20">
+	            	<a class="cursor-pointer" id="btn_refresh_content">
+	                   <i class="mdi mdi-refresh text-primary mr-1"></i>
+	                </a>
+	                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate" data-toggle="dropdown" aria-expanded="false">
+	                    <i class="mdi mdi-dots-vertical"></i>
+	                </a>
+	                
+	                <a data-divtoogle="#div_prj_content_01" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize text-primary"></i>
+	                </a>
+	                
+	                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+	                    <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer isManager hideDev hideTest hideMem hideGuest"><i class="mdi mdi-plus  text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span></li>
+	                    <li><span id="btn_refresh_content" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+		                {{#equalOrs typ02 1 2}}
+		                 <li><span id="btn_duplicate_content" class="dropdown-item cursor-pointer isManager hideDev hideTest hideMem hideGuest"><i class="mdi mdi-arrange-send-backward  text-primary mr-1"></i>{{transl 'prj_project_duplicate'}}</span></li>
+		                {{/equalOrs}}
+		                <li><span id="btn_search_file" class="dropdown-item cursor-pointer"><i class="mdi mdi-magnify font-size-16 text-primary mr-1"></i>{{transl 'prj_project_find_file'}}</span></li>
+		                <li><span id="btn_show_history" class="dropdown-item cursor-pointer"><i class="mdi mdi-history  text-primary mr-1"></i>{{transl 'prj_history_btn'}}</span></li>
+						<li><span id="btn_delete" class="dropdown-item cursor-pointer isManager hideBA hideDev hideTest hideMem hideGuest"><i class="mdi mdi-delete  text-primary mr-1"></i>{{transl 'common_btn_delete'}}</span></li>
+						<li><span id="btn_show_wf" class="dropdown-item cursor-pointer"><i class="mdi mdi-account-network  text-primary mr-1"></i>{{transl 'prj_wf_btn'}}</span></li>
+	                </ul>
+	            </div>
+	        </div>
+	        
+	        <div id="div_prj_content_01">
+	        	<div class="mt-2">
+		        	<form id="div_prj_ent_file_avatar" action="/" method="post" class="dropzone inputfile hide">
+					    <div class="fallback">
+					        <input data-name="file" type="file" data-code="20000" data-type="avatar" data-typ01="1" />
+					    </div>
+					
+					    <div class="dz-message needsclick">
+					        <div class="mb-3">
+					            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+					        </div>
+					        <h4>{{transl 'prj_project_drop_files'}}</h4>
+					    </div>
+					</form>
+	        	</div>
+	        	<div>
+	        		<div class="row">
+	        			<div class="col-6">
+	        				<h5 class="font-size-15 mt-4 info-edit h5">{{transl 'prj_project_detail'}}</h5>
+	        			</div>
+	        			<div class="col-6 br-theme-css-stars pt-4" id="div_star_eval" style="display: none">
+							<select id="rating_01">
+				                  <option value="1">1</option>
+				                  <option value="2">2</option>
+				                  <option value="3">3</option>
+				                  <option value="4">4</option>
+				                  <option value="5">5</option>
+				            </select>
+			            </div>
+	        		</div>
+					<div class="info-edit info-content info-content-description"><p class="text-muted text-justify" data-name="descr01">{{{descr01}}}</p></div>
+					<div class="content-edit hide isManager hideDev hideTest hideMem hideGuest"><textarea data-name="descr01" rows="6" cols="" class="form-control objData">{{{descr01}}}</textarea></div>
+				</div>
+				{{#equalOrs typ02 1 2}}
+				<div class="row">
+					<div class="text-muted col-lg-12">
+						<h5 class="font-size-15 mt-2 d-inline">{{transl 'prj_project_descr02'}}</h5>
+						<span class="badge badge-success ml-1 align-bottom cursor-pointer mb-1 isManager hideDev hideTest hideMem hideGuest" id="btn_add_chk_lst">+</span>
+						<div class="pl-3 mt-2" id="div_check_list"></div>
+					</div>
+				</div>
+				{{/equalOrs}}
+		    </div>
+		</div>
+	</div>
+
+	<div class="card">
+	    <div class="card-body">
+	    	<div class="media">
+	            <div class="media-body overflow-hidden font-size-16">
+	                <h5 class="text-truncate info-edit info-content"></h5>
+	            </div>
+	            <a id="a_btn_save02" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+	            	<i class="mdi mdi-content-save action-item font-size-20"></i>
+	            </a>
+	            <a id="a_btn_cancel02" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+	            	<i class="mdi mdi-close font-size-20"></i>
+	            </a>
+	            
+	            <div class="dropdown float-right font-size-20">
+	                <a data-divtoogle="#div_prj_content_02" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize  text-primary"></i>
+	                </a>
+	            </div>
+	        </div>
+	        <div id="div_prj_content_02" >        	
+	        		        	
+				<div class="row">
+					{{#equalOrs typ02 1 2}}
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-data mr-1 text-primary"></i>{{transl 'prj_project_epic'}}</div>
+						<p class="text-muted info-edit info-content noDev noTest noMem noGuest">{{epicName}}</p>
+						<select class="form-control objData content-edit hide hideDev hideTest hideMem hideGuest" data-name="parent" id="projectepic">
+	<!-- 						<option  value="0"></option> -->
+							{{#each epicInf}}
+							<option  value="{{id}}">{{name}}</option>
+							{{/each}}
+						</select>
+					</div>
+					{{/equalOrs}}
+					
+					{{#ifCond typ02 '==' 0}}
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-cloud mr-1 text-primary"></i>{{transl 'prj_project_type'}}</div> 
+						<p class="text-muted info-edit info-content noDev noTest noMem noGuest">{{reqTypPrj typ01}}</p>
+						<select class="form-control objData content-edit hide isManager hideDev hideTest hideMem hideGuest" data-name="typ01" id="typ01">
+							<option {{#equal typ01 2}}selected{{/equal}} value="2">{{transl "prj_project_type_02"}}</option>
+							<option {{#equal typ01 3}}selected{{/equal}} value="3">{{transl "prj_project_type_03"}}</option>
+							<option {{#equal typ01 4}}selected{{/equal}} value="4">{{transl "prj_project_type_04"}}</option>
+						</select>
+					</div>
+					{{/ifCond}}
+					
+					<input type="text" data-name="typ02" value="{{typ02}}" class="form-control objData hide">
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-barcode mr-1 text-primary"></i>{{transl 'prj_project_code'}}</div>
+						<p class="text-muted" data-name="code01">{{code01}}</p>
+						<input type="hidden" data-name="id" value={{id}} class="objData"/>
+<!-- 						<input type="text" data-name="code01" value="{{code01}}" class="form-control objData hide isManager"> -->
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3 hideDev hideTest hideMem hideGuest">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-dollar-circle mr-1 text-primary"></i>{{transl 'prj_project_budget'}}</div> 
+						<p data-format="number" class="text-muted info-edit info-content" data-name="val01">{{reqFormatNumber val01}}</p>
+						<input type="number" data-name="val01" value="{{val01}}" class="form-control objData hide content-edit ">
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3 hideDev hideTest hideMem hideGuest">
+						<div class="font-size-15 mt-2 info-edit h5">
+							<i class="bx bx-dollar-circle mr-1 text-primary"></i>{{transl 'prj_project_budget_reel'}}
+							{{#equalOrs typ02 0 1}}
+							<a href="#" data-id="{{id}}" class="mr-3 text-primary btn-reload" data-name="val02" id="a_budgetReal_reload" data-toggle="tooltip" data-placement="top">
+								<i class="mdi mdi-reload font-size-15"></i>
+							</a>
+							{{/equalOrs}}
+						</div>
+						<p data-format="number" class="text-muted info-edit info-content" data-name="val02">{{reqFormatNumber val02}}</p>
+						<input type="number" data-name="val02" value="{{val02}}" class="form-control objData hide content-edit">
+					</div>
+					
+<!-- 					<div class="col-6 col-sm-6 col-md-4 col-lg-3"> -->
+<!-- 						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-purchase-tag-alt mr-1 text-primary"></i>{{transl 'prj_project_tag'}}</div> -->
+<!-- 						<p class="text-muted info-edit info-content" data-name="code02">{{code02}}</p> -->
+<!-- 						<input type="text" data-name="code02" value="{{code02}}" class="form-control objData hide content-edit isManager hideDev hideTest hideMem hideGuest"> -->
+<!-- 					</div> -->
+					
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-sort-up mr-1 text-primary"></i>{{transl 'prj_project_lev'}}</div> 
+						<p class="text-muted info-edit info-content">{{reqLevPrj lev}}</p>
+						<select class="form-control objData hide content-edit" data-name="lev" id="lev">
+							<option {{#equal lev 1}}selected{{/equal}} value="1">{{transl "prj_project_lev_01"}}</option>
+							<option {{#equal lev 2}}selected{{/equal}} value="2">{{transl "prj_project_lev_02"}}</option>
+							<option {{#equal lev 3}}selected{{/equal}} value="3">{{transl "prj_project_lev_03"}}</option>
+							<option {{#equal lev 4}}selected{{/equal}} value="4">{{transl "prj_project_lev_04"}}</option>
+						</select>
+					</div>
+					
+					<div class="hide col-6 col-sm-6 col-md-4 col-lg-3 hideDev hideTest hideMem hideGuest">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-line-chart mr-1 text-primary"></i>{{transl 'prj_project_kpi'}}</div> 
+						<p data-format="number" class="text-muted info-edit info-content" data-name="val04">{{reqFormatNumber val04}} %</p>
+						<input type="number" data-name="val04" value="{{val04}}" class="form-control objData hide content-edit">
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-bar-chart mr-1 text-primary"></i>{{transl 'prj_project_stat'}}
+							<button id="quick_stat_00" value="0" class="flowchartW0 btn btn-sm hide" 	title="{{transl 'prj_project_stat_00'}}">N</button>
+							<button id="quick_stat_01" value="1" class="flowchartW1 btn btn-sm hide" 	title="{{transl 'prj_project_stat_01'}}">P</button>
+							<button id="quick_stat_02" value="2" class="flowchartW2 btn btn-sm hide" 	title="{{transl 'prj_project_stat_02'}}">I</button>
+							<button id="quick_stat_03" value="3" class="flowchartW3 btn btn-sm hide" 	title="{{transl 'prj_project_stat_03'}}">R</button>
+							<button id="quick_stat_04" value="4" class="flowchartW4 btn btn-sm hide" 	title="{{transl 'prj_project_stat_04'}}">D</button>
+							<button id="quick_stat_05" value="5" class="flowchartW5 btn btn-sm hide" 	title="{{transl 'prj_project_stat_05'}}">CL</button>
+							<button id="quick_stat_06" value="6" class="flowchartW6 btn btn-sm hide" 	title="{{transl 'prj_project_stat_06'}}">U</button>
+							<button id="quick_stat_07" value="7" class="flowchartW7 btn btn-sm hide" 	title="{{transl 'prj_project_stat_07'}}">CA</button>
+						</div>
+
+						<p class="text-muted info-edit info-content isManager">{{reqSelectedStat lstStats stat}}</p>
+						
+						<select class="form-control objData content-edit hide hideGuest" data-name="stat" id="stat">
+							{{#each lstStats}}
+								{{#equalOr show true 1}}
+								<option {{#if selected}}selected{{/if}} value="{{id}}">{{#if trans}} {{transl trans}} {{else}} {{lab}} {{/if}}</option>
+								{{/equalOr}}
+							{{/each}}
+						</select>
+						
+						<!-- <p class="text-muted info-edit info-content-worker isWorker hideAdm hideBA hideDev hideTest">{{reqSelectedStat lstStats stat}}</p>
+						<select class="form-control objData content-edit hide isWorker" data-name="stat" id="stat">
+							{{#each lstStats}}
+								{{#equalOr show true 1}}
+								<option {{#if selected}}selected{{/if}} value="{{id}}">{{#if trans}} {{transl trans}} {{else}} {{lab}} {{/if}}</option>
+								{{/equalOr}}
+							{{/each}}
+						</select>
+						
+						<p class="text-muted info-edit info-content isWatcher">{{reqSelectedStat lstStats stat}}</p> -->
+					</div>
+					
+					
+					
+					<div class="hide col-6 col-sm-6 col-md-4 col-lg-3">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-trending-up mr-1 text-primary"></i>{{transl 'prj_project_percent'}}
+							<a href="#" data-id="{{id}}" class="mr-3 text-primary btn-reload" data-name="val05" id="a_percent_reload" data-toggle="tooltip" data-placement="top">
+								<i class="mdi mdi-reload font-size-15"></i>
+							</a>
+						</div>
+						<p data-format="number" class="text-muted info-edit info-content hideMem hideGuest" data-name="val05">{{reqFormatNumber val05}} %</p>
+						<input type="number" data-name="val05" value="{{val05}}" class="val05 form-control objData hide content-edit hideMem hideGuest">
+						
+						<!-- <p data-format="number" class="text-muted info-edit info-content-worker isWorker" data-name="val05">{{reqFormatNumber val05}} %</p>
+						<input type="number" data-name="val05" value="{{val05}}" class="val05 form-control objData hide content-edit isWorker">
+						
+						<p data-format="number" class="text-muted info-edit isWatcher" data-name="val05">{{reqFormatNumber val05}} %</p> -->
+					</div>
+					
+
+					<div class="hide col-6 col-sm-6 col-md-4 col-lg-3">
+						<div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-line-chart mr-1 text-primary"></i>{{transl 'prj_project_sla'}}</div> 
+						<p data-format="number" class="text-muted info-edit info-content" data-name="val06">{{reqFormatNumber val06}}</p>
+						<input type="number" data-name="val06" value="{{val06}}" class="form-control objData hide content-edit hideMem hideGuest">
+					</div>
+					
+					<div class="col-6 col-sm-6 col-md-4 col-lg-3 task-dates">
+		                <div class="mt-2">
+		                    <div class="font-size-15 mt-2 info-edit h5"><i class="bx bx-calendar mr-1 text-primary"></i>{{transl 'prj_project_start_date'}}</div>
+		                    <p data-format="date" class="text-muted info-edit info-content noDev noTest noMem noGuest" data-name="dtBegin">{{reqFormatDate dtBegin}}</p>
+		                    <div class="input-daterange input-group hide content-edit hideDev hideTest hideMem hideGuest">
+		                    	<input data-format="date" data-validation="date" type="text" value="{{reqFormatShortDate dtBegin}}" data-group="dtBegin" data-name="date" class="form-control objData" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+		                   		<input type="text" class="form-control objData tmpicker" value="{{reqFormatISOTime dtBegin}}" data-group="dtBegin" data-name="time" data-provide="timepicker"/>
+		                    </div>
+		                </div>
+		            </div>
+		
+		            <div class="col-6 col-sm-6 col-md-4 col-lg-3 task-dates">
+		                <div class="mt-2">
+		                    <div class="font-size-14 info-edit h5"><i class="bx bx-calendar-check mr-1 text-primary"></i>{{transl 'prj_project_end_date'}}</div>
+		                    <p data-format="date" class="text-muted info-edit info-content noDev noTest noMem noGuest" data-name="dtEnd">{{reqFormatDate dtEnd}}</p>
+		                    <div class="input-daterange input-group hide content-edit hideDev hideTest hideMem hideGuest">
+		                    	<input data-format="date" data-validation="date" type="text" value="{{reqFormatShortDate dtEnd}}" data-group="dtEnd" data-name="date" class="form-control objData" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+		                   		<input type="text" class="form-control objData tmpicker" value="{{reqFormatISOTime dtEnd}}" data-group="dtEnd" data-name="time" data-provide="timepicker"/>
+		                    </div>
+			            </div>
+			        </div>
+					
+					
+					
+				</div>				
+				
+		    </div>
+		</div>
+	</div>
+</div>
+
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Budget_Header_Popup -->
+<div class="tabs-info-area">
+	<div class="container">
+    	<div class="row">
+        	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			    <div class="widget-tabs-list">
+			        <ul id="hnv-main-menu" class="nav nav-tabs">
+			            <li id="li-tab-budget-detail" class=""	><a data-toggle="tab" href="#tab1" class="">{{transl 'prj_project_budget_detail'}}</a></li>
+			            <li id="li-tab-budget-overview"  class=""	><a data-toggle="tab" href="#tab2">{{transl 'prj_project_budget_overview'}}</a></li>
+			        </ul>
+			        <a id="a_btn_export" class="mr-2 text-primary pt-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Export">
+						<i class="mdi mdi-download font-size-18"></i>
+					</a>
+					<a id="a_btn_copy" class="mr-2 text-primary pt-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Copy">
+						<i class="mdi mdi-content-copy cursor-pointer copy_codee ml-1 hide"></i>
+					</a>
+					
+			    </div>
+			</div>
+		</div>
+		<div class="tab-content tab-custom-st">
+            <div id="tab1" class="tab-pane fade in ">
+                <div id="tab_detail" class="tab-dt">
+                	 <div class="row mt-2">
+				          <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex">
+				           <div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_select_month'}}</div>
+				              <input id="monthPicker" type="text" value="" data-name="inf02" class="form-control objData text-left" data-date-format="mm/yyyy"  readonly>
+				     		  <i id="calendar" class="bx bx-calendar text-primary" style="position:absolute;right:10px;margin:5px;cursor:pointer;font-size:24px;"></i>
+				     	  </div>
+				          
+				           <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex mr-5">
+		                  	  <div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_start_day'}}  </div>
+		                  	  <input id="dtBegin" type="text" value="{{reqFormatShortDate dtBegin}}" data-group="inf01" data-name="dtBegin" class="form-control objData" data-date-format="mm/yyyy" readonly> 
+				          </div>
+				          
+				          <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex mr-2">
+				               <div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_end_day'}}</div>
+				               <input id="dtEnd" type="text" value="{{reqFormatShortDate dtBegin}}" data-group="inf01"  data-name="dtEnd" class="form-control objData" data-date-format="mm/yyyy" readonly>
+				          </div>
+				          
+				         <div class="col-6 col-sm-6 col-md-4 col-lg-1 d-flex"> 
+						 </div>
+						 <div class="col-1 col-lg-1 col-md-12 col-sm-6 d-flex" style="margin-top: -1%;">
+<!-- 							<a	id="btn_new_budget" class="hnv-route arrow-none show-task mr-2"  -->
+<!-- 								data-toggle="tooltip" data-placement="top" title="{{transl 'prj_project_sidebar_prj_create'}}"> -->
+								
+<!-- 								<i class="mdi mdi-newspaper-plus text-success font-size-18"></i> -->
+<!-- 								<span class="tooltiptext">{{transl 'prj_project_sidebar_prj_create'}}</span> -->
+<!-- 							</a> -->
+<!-- 							<i class="mdi mdi-content-copy cursor-pointer copy_code font-size-18 mr-2"></i> -->
+							<a id="a_btn_sav" class="mr-2 text-primary action-item action-item-duplicate hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+				           		<i class="mdi mdi-content-save font-size-18 action-item"></i>
+				            </a> 
+				                       
+				            <a id="a_btn_canc" class="mr-2 text-danger action-item-duplicate cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+				            	<i class="mdi mdi-close font-size-18"></i>
+				            </a>
+						</div>
+					    </div>
+					   <div  id="budget">
+					    <div class="row mt-2">
+						   <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center">
+						   		<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_title_budget_view'}}</div>
+		                  		<input id="ip_budget" type="number" data-group="inf01" data-name="budget" value="{{budget}}" class="form-control objData disabled content-edit remove-item-chk text-right" disabled>
+						   </div>
+						    <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center mr-5">
+						    	<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_bg'}}</div>
+						  		<input id="ip_total" type="number" data-group="inf01"  data-name="total" value="{{total}}" class="form-control objData content-edit text-right" disabled>
+						   </div>
+						    <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center">
+						    	<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_difference'}}</div>
+						    	<input id="ip_difference" type="number" data-group="inf01" data-name="difference" value="{{val01}}" class="form-control objData content-edit text-right" disabled>
+						   </div>
+					   </div>
+					   <div class="row mt-2">
+					    	<div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center">
+						   		<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">$</div>
+		                  		<div class=""><b>{{transl 'prj_project_budget_unit_vnd'}}</b></div>
+						   </div>
+					   	 
+					   </div>
+					   
+					   <div class="row mt-2">
+					        <div class="table-responsive"  style="max-height: 400px; overflow-y: auto;">
+					         	<table class="table table-budget table-centered table-nowrap mb-0">
+					               <thead class="thead-light">
+									   <tr style="text-align: center; position: sticky; z-index: 1;top: 0;">
+					                        <th style="width:15%">{{transl 'prj_project_budget_type_cost'}}</th>
+					                        <th>{{transl 'prj_project_budget_content'}}</th>
+					                        <th>{{transl 'prj_project_budget_price'}}</th>
+					                        <th>{{transl 'prj_project_budget_quantity'}}</th>
+					                        <th>{{transl 'prj_project_budget_total'}}</th>
+					                        <th>{{transl 'prj_project_budget_note'}}</th>
+					                       	<th  id="addRowBtn" class="hide">
+								                <button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">+</button>
+								            </th>
+					                    </tr>
+					                </thead>
+					                 <tbody id="tbody_budget">
+					                 </tbody>
+					            </table>
+			        	  </div>
+			    	</div>
+			      </div> 
+			   </div>
+            </div>
+            <div id="tab2" class="tab-pane fade">
+                <div id="tab-overview" class="tab-ctn">
+                     <div class="row mt-2">
+	                     <div class="col-6 col-sm-6 col-md-4 col-lg-2 d-flex mr-5"></div>
+                      	 <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex mr-5">
+	                  	  	<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_start_month'}}  </div>
+	                  	  	<input id="dtBeginMonth" type="text" value="{{reqFormatShortDate dtBegin}}" data-name="inf02" class="form-control objData" data-date-format="mm/yyyy"  style=" text-align: center;  vertical-align: middle;" readonly>
+				         </div>
+				         <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex mr-2">
+			                <div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_end_month'}}</div>
+			                <input id="dtEndMonth" type="text" value="{{reqFormatShortDate dtEnd}}" data-name="inf02" class="form-control objData" data-date-format="mm/yyyy"  style=" text-align: center;  vertical-align: middle;" readonly>
+				         </div>
+					</div>
+					<div class="row mt-2" id="table-budget"></div>
+			    	<div class="row mt-5">
+			    	<div id="chart_budget_real" style="width: 50%;">
+			    			<div id="div_chart_budget_real" class="apex-charts mr-5" dir="ltr"></div>
+			    		</div>
+			    	 	<div id="chart_budget_plan1" style="width:  50%;">
+			    	 		<div id="div_chart_budget_plan1" class="apex-charts" dir="ltr"></div>
+			    	 	</div>
+			    	</div>
+			    	<div class="row mt-5">
+			    	 	<div id="chart_budget_plan" style="width:  50%;">
+			    	 		<div id="div_chart_budget_plan" class="apex-charts mr-5" dir="ltr"></div>
+			    	 	</div>
+			    	 	<div id="chart_budget_real1" style="width:  50%;">
+			    	 		<div id="div_chart_budget_real1" class="apex-charts" dir="ltr"></div>
+			    	 	</div>
+			    	</div>
+                </div>
+            </div>
+            
+            </div> 
+        </div>
+	</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Table_Budget -->   
+<div class="table-responsive"  style="max-height: 400px; overflow-y: auto;">
+   	<table class="table table-budget table-centered table-nowrap mb-0">
+         <thead class="thead-light">
+            <tr style="text-align: center; position: sticky; z-index: 1;top: 0;">
+                 <th style="width:15%">{{transl 'prj_project_budget_type_cost'}}</th>
+                 <th>{{transl 'prj_project_budget_total'}}</th>
+                 {{#each list}}
+                 <th>{{transl 'prj_project_budget_month'}} {{monthFormat inf02}}</th>
+                 {{/each}}
+            </tr>
+          </thead>
+          <tbody id="tbody_budget">
+            <tr>
+          	  <td class="text-left">
+          	   		<span class="font-size-12">{{transl 'prj_project_title_budget_view'}}</span>
+          	  </td>
+          	  <td class="text-right">
+               	    <span class="font-size-12">{{budgetSum}}</span>
+               </td>
+               {{#each list}}
+               <td class="text-right">
+               	    <span class="font-size-12">{{inf01.budget}}</span>
+               </td>
+          	  {{/each}}
+          	</tr>
+          	 <tr>
+          	  <td class="text-left">
+          	   		<span class="font-size-12">{{transl 'prj_project_budget_real'}}</span>
+          	  </td>
+          	   <td class="text-right">
+               	    <span class="font-size-12">{{totalSum}}</span>
+               </td>
+               {{#each list}}
+               <td class="text-right">
+               	    <span class="font-size-12">{{inf01.total}}</span>
+               </td>
+          	  {{/each}}
+          	</tr>
+          	 <tr>
+          	  <td class="text-left">
+          	   		<span class="font-size-12">{{transl 'prj_project_budget_difference'}}</span>
+          	  </td>
+          	   <td class="text-right">
+               	    <span class="font-size-12">{{formatDifference differenceSum}}</span>
+               </td>
+               {{#each list}}
+               <td class="text-right">
+               	    <span class="font-size-12">{{formatDifference inf01.difference}}</span>
+               </td>
+          	  {{/each}}
+          	</tr>
+          </tbody>
+    </table>
+</div>
+<!--END TMPL-->
+<!--************************************-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Table_Budget-Copy -->
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-7 d-flex">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-5 font-size-13 info-edit h5 mt-2">
+            {{transl 'prj_project_budget_select_month'}}
+        </div>
+        <input id="monthPickerCopy" type="text" value="" data-name="inf02" class="form-control objData text-left" data-date-format="mm/yyyy" readonly>
+        <i id="calendarCopy" class="bx bx-calendar text-primary" style="position:absolute; right:10px; margin:5px; cursor:pointer; font-size:24px;"></i>
+    </div>
+</div>
+
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Table_Budget_Line --> 
+
+<tr>
+	<td style="text-align: right;" id="stt"></td>
+	<td class="text-center">
+		<select class="row-budget inf-budget objData form-control typ_cost" data-group="inf01" 
+     	data-gindex="list" data-type="number" data-name="typ" style="margin-left: 10px; display: unset">
+			<option value="0" >{{transl 'prj_project_budget_type_member'}}	 	</option>
+			<option value="10">{{transl 'prj_project_budget_type_permanent'}}	</option>
+			<option value="20">{{transl 'prj_project_budget_type_hardware'}}	</option>
+			<option value="30">{{transl 'prj_project_budget_type_software'}}	</option>
+			<option value="40">{{transl 'prj_project_budget_type_different'}}	</option>
+		</select>
+	</td>
+	<td class="text-left budget_content">
+		<div class="col-lg-12 select-name-member hide"></div>
+		<input id="ip-content" type="text" data-group="inf01" data-gindex="list" data-name="content" class="form-control inf-budget ip-name-member remove-item-chk ip_content text-left" placeholder="{{transl 'prj_project_enter_name'}}" value="">
+	</td>
+	<td class="text-right">
+		<input type="number" data-group="inf01" data-gindex="list" data-name="price" class="copy-col-price row-budget inf-budget objData form-control remove-item-chk text-right" value="" step="1000">
+	</td>
+	<td class="text-right">
+		<input type="number" data-group="inf01" data-gindex="list" data-name="quantity" class="copy-col-quantity row-budget inf-budget objData form-control remove-item-chk text-right" value="" step="1">
+	</td>
+	<td class="text-right">
+		<input type="number" data-group="inf01" data-gindex="list" data-name="total" class="copy-col-total row-budget inf-budget objData form-control remove-item-chk text-right" value="" step="1000" disabled>
+	</td>
+	<td class="text-left">
+		<input type="text" data-group="inf01" data-gindex="list" data-name="note" class="copy-col-note row-budget inf-budget objData form-control remove-item-chk text-left" value="">
+	</td>
+	<td  id="removeRowBtn">
+		<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
+	</td>
+	
+</tr>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Budget_Popup -->      
+	   <div class="row mt-2">
+		   <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center">
+		   		<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_title_budget_view'}}</div>
+                <input id="ip_budget" type="text" data-group="inf01" data-name="budget" value="{{reqFormatNumber inf01.budget}}" class="form-control objData disabled content-edit remove-item-chk text-right" disabled>
+		   </div>
+		    <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center mr-5">
+		    	<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_bg'}}</div>
+		  		<input id="ip_total" type="text" data-group="inf01"  data-name="total" value="{{reqFormatNumber inf01.total}}" class="form-control objData content-edit text-right" disabled>
+		   </div>
+		    <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center">
+		    	<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_difference'}}</div>
+		    	<input id="ip_difference" type="text" data-group="inf01" data-name="difference" value="{{reqFormatNumber inf01.difference}}" class="form-control objData content-edit text-right" disabled>
+		   </div>
+	   </div>
+	   <div class="row mt-2">
+	    	<div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center">
+		   		<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">$</div>
+                		<div class=""><b>{{transl 'prj_project_budget_unit_vnd'}}</b></div>
+		   </div>
+	   	 
+	  </div>
+	  <div class="row mt-2">
+        <div class="table-responsive"  style="max-height: 400px; overflow-y: auto;">
+         	<table class="table table-centered table-nowrap mb-0">
+               <thead class="thead-light">
+				   <tr style="text-align: center; position: sticky; z-index: 1;top: 0;">
+				   		<th style="width:6%">{{transl 'prj_project_budget_stt'}}</th>
+                        <th>{{transl 'prj_project_budget_type_cost'}}</th>
+                        <th>{{transl 'prj_project_budget_content'}}</th>
+                        <th>{{transl 'prj_project_budget_price'}}</th>
+                        <th>{{transl 'prj_project_budget_quantity'}}</th>
+                        <th>{{transl 'prj_project_budget_total'}}</th>
+                        <th>{{transl 'prj_project_budget_note'}}</th>
+                       	<th id="addRowBtn">
+			                <button  style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">+</button>
+			            </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody_budget">
+                 {{#if inf01.list}}
+              	 {{#each inf01.list}}
+                 <tr>
+                 	  <td style="text-align: right;" id="stt">{{stt}}</td>
+                      <td class="text-center">
+                       <span class="font-size-12 edit-budget">{{reqLevBudget typ}}</span>
+                        <select class="objData form-control typ_cost inf-budget remove-item-chk hide" 
+							data-group="inf01" data-gindex="list" data-type="number" data-name="typ"
+							style="margin-left: 10px; display: unset; width: 150px;">
+							{{#select typ}}
+							<option value="0">{{transl 'prj_project_budget_type_member'}}</option>
+							<option value="10">{{transl 'prj_project_budget_type_permanent'}}</option>
+							<option value="20" >{{transl 'prj_project_budget_type_hardware'}}</option>
+							<option value="30" >{{transl 'prj_project_budget_type_software'}}</option>
+							<option value="40" >{{transl 'prj_project_budget_type_different'}}</option>
+					        {{/select}}
+				   		 </select>
+                       </td>
+                       <td class="text-left">
+                       		<span class="font-size-12 edit-budget select-name-member hide"></span>
+                       			
+                       		{{#if member}}
+                       		<div class='member-item hide inf-budget'>
+                       		<input type="text" data-group="inf01" data-gindex="list" data-name="member" class="hidden inf-budget objData form-control remove-item-chk" value="{{idMember}}">
+								   	
+                       			<div class="media align-items-center">
+                       				<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}">
+                       					<div class="text-middle"></div>
+                       				</div>
+                       				{{#if img}}
+                       				<img src="{{img}}" class="rounded-circle avatar-xs mr-2">
+                       				{{else}}
+                                       <div class="rounded-circle avatar-xs text-white text-uppercase text-center mr-2" style="background-color: grey"><div class="text-middle">{{reqSrcTextAvatar textAvatar}}</div></div>
+                                     {{/if}}
+                       				   {{member}}
+                       			<a class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>
+                       			</div>
+                       		</div>
+                       		{{/if}}
+                       		 <span class="font-size-12 edit-budget">{{#if content}}{{content}}{{/if}}{{#if member}} 
+                       		 {{#if img}}
+                       				<img src="{{img}}" class="rounded-circle avatar-xs mr-2"> {{member}}
+                       				{{else}}
+                                       <div class="media align-items-center"><div class="rounded-circle avatar-xs text-white text-uppercase text-center mr-2" style="background-color: grey"><div class="text-middle">{{textAvatar}}</div></div> {{member}}</div>
+                                     {{/if}}
+                       				  {{/if}}
+                       		</span>
+                       	    <input type="text" id="in-hide" style="text-align: right;" data-group="inf01" data-gindex="list" data-name="content" class="objData form-control {{#notEqual typ 0}}inf-budget{{/notEqual}} remove-item-chk {{#unless content}}{{#unless member}}ip_hide{{/unless}}{{/unless}} hide ip_content {{#equal typ 0}}ip-name-member{{/equal}}" {{#equal typ 0}}placeholder="{{ transl 'prj_project_enter_name'}}"{{/equal}} value="{{content}}">
+                       </td>
+                        <td class="text-right">
+                       	    <span class="font-size-12 edit-budget">{{reqFormatNumber price}}</span>
+                           <input type="number" style="text-align: right;" data-group="inf01" data-gindex="list" data-name="price" class="objData form-control inf-budget remove-item-chk hide" value="{{price}}" step="1000">
+                       </td>
+                       <td class="text-right">
+                          <span class="font-size-12 edit-budget">{{quantity}}</span>
+                           <input type="number" style="text-align: right;" data-group="inf01" data-gindex="list" data-name="quantity" class="objData form-control inf-budget remove-item-chk hide" value="{{quantity}}" step="1">
+                       </td>
+                       <td class="text-right">
+                          <span class="font-size-12 edit-budget">{{reqFormatNumber total}}</span>
+                           <input type="number" style="text-align: right;" data-group="inf01" data-gindex="list" data-name="total" class="objData form-control inf-budget remove-item-chk hide" value="{{total}}" readonly>
+                       </td>
+                       <td class="text-left">
+                          <span class="font-size-12 edit-budget">{{note}}</span>
+                           <input type="text"  data-group="inf01" data-gindex="list" data-name="note" class="objData form-control inf-budget remove-item-chk hide" value="{{note}}">
+                       </td>
+                       <td  id="removeRowBtn" class="remove-btn">
+			               <button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
+			           </td>
+			           	<td>
+							<a class="a_btn_copy-col mr-2 text-primary pt-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Copy">
+								<i class="mdi mdi-content-copy cursor-pointer copy_code ml-1"></i>
+							</a>
+						</td>
+                   </tr>
+                   {{/each}}
+              	   {{else}}
+                 	
+                   {{/if}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+<!--END TMPL-->
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Prj_Files_Ent_Popup_Search_File -->
+<div class="inner-repeater">
+	 <div data-repeater-list="inner-group" class="inner form-group mb-0 row">
+	     <div data-repeater-item class="inner col-lg-12 ml-md-auto">
+	         <div class="mb-3 row align-items-center">
+	             <div class="col-md-12">
+	                 <input type="text" class="inner form-control" id="inp_name_file" placeholder="{{transl 'prj_file_filter_name_enter'}}"/>
+	             </div>
+	             
+			 </div>
+			 
+			 <div class="mb-3 row align-items-center">
+				<div class="col-md-12">
+					<div id="div_list_file" class=''></div>
+				</div>
+				
+			</div>
+	     </div>
+	</div>
+</div>
+<!--END TMPL-->
+
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_New_Budget_Popup -->  
+ <div class="row mt-2">
+  	  <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex">
+         <div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_select_month'}}</div>
+            <input id="monthPicker" type="text" value="" data-name="inf02" class="form-control objData" data-date-format="mm/yyyy"  style=" text-align: center;  vertical-align: middle;" readonly>
+   		   <i id="calendar" class="bx bx-calendar text-primary" style="position: absolute;right: 20px;top: 40%;transform: translateY(-50%);cursor: pointer;font-size: 24px;"></i>
+   	  </div>
+				       
+          
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex mr-5">
+           <div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_start_day'}}  </div>
+           <input id="dtBegin" type="text" value="{{reqFormatShortDate dtBegin}}" data-group="inf01" data-name="dtBegin" class="form-control objData" data-date-format="mm/yyyy" readonly> 
+      </div>
+          
+      <div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex mr-2">
+           <div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">{{transl 'prj_project_budget_end_day'}}</div>
+           <input id="dtEnd" type="text" value="{{reqFormatShortDate dtBegin}}" data-group="inf01"  data-name="dtEnd" class="form-control objData" data-date-format="mm/yyyy" readonly>
+      </div>
+          
+      <div class="col-6 col-sm-6 col-md-4 col-lg-1 d-flex"> 
+	  </div>
+	  <div class="col-1 col-lg-1 col-md-12 col-sm-6 d-flex" style="margin-top: -1%;">
+<!-- 	   	<a	id="btn_new_budget" data-url="view_prj_project_new.html" data-route="VI_MAIN/prj_project_new"  -->
+<!-- 			href="javascript:void(0)"  class="hnv-route arrow-none show-task mr-2" data-right="view:40000002|100|102"   -->
+<!-- 			data-toggle="tooltip" data-placement="top" title="{{transl 'prj_project_sidebar_prj_create'}}"> -->
+		
+<!-- 	   		<i class="mdi mdi-newspaper-plus text-success font-size-18"></i> -->
+<!-- 	   		<span class="tooltiptext">{{transl 'prj_project_sidebar_prj_create'}}</span> -->
+<!-- 	    </a> -->
+<!-- 		<i class="mdi mdi-content-copy cursor-pointer copy_code font-size-18 mr-2 hide"></i> -->
+		<a id="a_btn_sav" class="mr-2 text-primary action-item action-item-duplicate hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+          		<i class="mdi mdi-content-save font-size-18 action-item"></i>
+        </a>         
+        <a id="a_btn_canc" class="mr-2 a_btn_canc_new text-danger action-item-duplicate cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+           	<i class="mdi mdi-close font-size-18"></i>
+        </a>
+	 </div>
+</div>
+<div  id="budget">
+	<div class="row mt-2">
+    	<div class="col-6 col-sm-6 col-md-4 col-lg-3 d-flex align-items-center">
+	   		<div class=" col-6 col-sm-6 col-md-4 col-lg-5 font-size-13 info-edit h5 mt-2">$</div>
+               	<div class=""><b>{{transl 'prj_project_budget_unit_vnd'}}</b></div>
+	   </div>
+   </div>  
+	<div class="row mt-2">
+     	<div class="table-responsive"  style="max-height: 400px; overflow-y: auto;">
+       	 	<table class="table table-budget table-centered table-nowrap mb-0">
+             	<thead class="thead-light">
+			     	<tr style="text-align: center; position: sticky; z-index: 1;top: 0;">
+                     	<th>{{transl 'prj_project_project_date'}}</th>
+                     	<th>{{transl 'prj_project_budget_budget'}}</th>
+                     	<th></th>    	
+	             	</tr>
+             	</thead>
+             	<tbody id="tbody_budget_new">
+             	    {{#if list}}
+              	    {{#each list}}
+	              	 	<tr>
+	                       <td class="text-center">
+	                       	    <span class="font-size-12 edit-budget month">{{inf02}}</span>
+	                       </td>
+	                       <td class="text-center">
+	                       	    <span class="font-size-12 edit-budget">{{inf01.total}}</span>
+	                       </td>
+	                       <td class="text-center" >
+				               <button class="viewBudget" style="background: none; border: none; color: #007bff; cursor: pointer;">{{transl 'prj_project_budget_detail'}}</button>
+				           </td>
+	                   </tr>
+              	   {{/each}}
+              	   {{else}}
+	              	  
+                   {{/if}}
+               </tbody>
+          </table>
+       </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Content_Print -->
+<div style="text-align: left; margin-top: 20px;">
+    <strong>INOTEV JOINT STOCK COMPANY</strong>
+</div>
+<div id="print01" class="row" style="margin-top: 10px; display: flex;">
+    <div style="width: 25%; display: flex; align-items: center;">
+        <div style="width: 50%; font-size: 13px; margin-top: 10px;">{{transl 'prj_project_title_budget_view'}}: {{reqFormatNumber inf01.budget}}</div>
+    </div>
+    <div style="width: 25%; display: flex; align-items: center; margin-right: 5px;">
+        <div style="width: 50%; font-size: 13px; margin-top: 10px;">{{transl 'prj_project_budget_bg'}} : {{reqFormatNumber inf01.total}}</div>
+    </div>
+    <div style="width: 25%; display: flex; align-items: center;">
+        <div style="width: 50%; font-size: 13px; margin-top: 10px;">{{transl 'prj_project_budget_difference'}} : {{reqFormatNumber inf01.difference}}</div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 10px;">
+    <div style="width: 25%; display: flex; align-items: center;">
+        <div style="width: 50%; font-size: 13px; margin-top: 10px;">$</div>
+        <div><b>{{transl 'prj_project_budget_unit_vnd'}}</b></div>
+    </div>
+</div>
+
+<div class="row" style="margin-top: 10px;">
+    <div>
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #5A2E91; color: #FFFFFF; position: sticky; top: 0; z-index: 1; text-align: center;">
+                <tr>
+                    <th style="padding: 10px; border: 1px solid #ccc;">{{transl 'prj_project_budget_stt'}}</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">{{transl 'prj_project_budget_type_cost'}}</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">{{transl 'prj_project_budget_content'}}</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">{{transl 'prj_project_budget_price'}}</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">{{transl 'prj_project_budget_quantity'}}</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">{{transl 'prj_project_budget_total'}}</th>
+                    <th style="padding: 10px; border: 1px solid #ccc;">{{transl 'prj_project_budget_note'}}</th>
+                    <th id="addRowBtn" style="display: none;">
+                        <button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">+</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="tbody_budget">
+                {{#if inf01.list}}
+                {{#each inf01.list}}
+                <tr style="background-color: #f9f9f9;">
+                    <td style="text-align: right; padding: 10px; border: 1px solid #ccc;">{{stt}}</td>
+                    <td style="text-align: center; padding: 10px; border: 1px solid #ccc;">
+                        <span style="font-size: 12px;">{{reqLevBudget typ}}</span>
+                    </td>
+                    <td style="padding: 10px; border: 1px solid #ccc;">
+                        <span style="font-size: 12px;">{{#if content}}{{content}}{{/if}}{{#if member}}<img src="{{img}}" style="border-radius: 50%; width: 24px; height: 24px;"> {{member}}{{/if}}</span>
+                    </td>
+                    <td style="text-align: right; padding: 10px; border: 1px solid #ccc;">
+                        <span style="font-size: 12px;">{{reqFormatNumber price}}</span>
+                    </td>
+                    <td style="text-align: right; padding: 10px; border: 1px solid #ccc;">
+                        <span style="font-size: 12px;">{{quantity}}</span>
+                    </td>
+                    <td style="text-align: right; padding: 10px; border: 1px solid #ccc;">
+                        <span style="font-size: 12px;">{{reqFormatNumber total}}</span>
+                    </td>
+                    <td style="padding: 10px; border: 1px solid #ccc;">
+                        <span style="font-size: 12px;">{{note}}</span>
+                    </td>
+                </tr>
+                {{/each}}
+                {{/if}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--END TMPL-->
+<!--************************************-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Content_Check_List -->
+{{#if lstClone}}
+{{#each lstClone}}
+<div class="custom-control custom-checkbox mb-3 row d-flex align-items-center">
+	<input type="checkbox" class="custom-control-input item-chk-box" data-index="{{@index}}" id="customCheck{{@index}}" {{#equal stat 2}}checked{{/equal}}>
+        	<label class="custom-control-label {{#equal stat 2}}text-through{{/equal}}" for="customCheck{{@index}}">{{item}}</label>
+        	<div class="dropdown isManager hideDev hideTest hideMem hideGuest d-inline font-size-20">
+              <a href="javascript:void(0)" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                  <i class="mdi mdi-dots-vertical"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-left">
+                  <li class="isManager"><a href="javascript:void(0)" class="dropdown-item edit-item-chk" data-index="{{@index}}"><i class="mdi mdi-pencil font-size-18 text-success mr-1"></i> {{transl 'prj_project_descr02_edit'}}</a></li>
+                  <li class="isManager hideBA"><a href="javascript:void(0)" class="dropdown-item remove-item-chk" data-index="{{@index}}"><i class="mdi mdi-trash-can font-size-18 text-danger mr-1"></i> {{transl 'prj_project_descr02_delete'}}</a></li>
+              </ul>
+          </div>
+      </div>
+{{/each}}
+{{/if}}
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Content_Path -->
+{{#* inline "getPar"}}
+	{{#if path}}
+	{{> getPar path}}
+	{{/if}}
+	<li class="breadcrumb-item active"><a data-route="VI_MAIN/prj_project_ent" data-url="view_prj_project_content.html?id={{id}}&code={{code01}}" class="hnv-route">{{cutStrNumber name 20}}</a></li>
+{{/inline}}
+
+<ol class="breadcrumb m-0">
+    {{#if path}}
+		{{> getPar path}}
+	{{/if}}	
+ </ol>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Evaluation --> 
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+	   		<div class="col-8 col-sm-8">
+	   			 {{#unless isViewSprint}}
+	   			<h4 class="card-title mb-4">{{#equal typ02 1}} {{transl 'prj_project_eval_title_epic'}} {{else}}{{transl 'prj_project_eval_title'}}{{/equal}}</h4>
+	   			{{else}}
+	   			<h4 class="card-title mb-4">{{transl 'prj_sprint_eval_title'}}</h4>
+	   			{{/unless}}
+	   		</div>
+	   		<div class="col-4 col-sm-4">
+	             <div class="text-right">
+		            <a data-divtoogle="#tabEvaluation" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize font-size-18"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+		{{#unless isViewSprint}}
+        <div id="tabEvaluation" class="table-responsive">
+        	<div class="media">
+        		<p class="text-muted mb-4 col-sm-12">{{transl 'prj_project_eval_msg'}}</p>
+        	</div>
+            <table class="table table-nowrap mb-0">
+                <tbody>
+                	<!-- {{#ifCond totalEpic '>' 0}}
+                	<tr>
+                        <th scope="row">{{transl 'prj_project_eval_total_epic'}} :</th>
+                        <td>{{reqFormatNumber totalEpic}}</td>
+                    </tr>
+                    {{/ifCond}} -->
+                	<tr>
+                        <th scope="row">{{transl 'prj_project_eval_total_task'}} :</th>
+                        <td>{{reqFormatNumber totalTask}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{transl 'prj_project_eval_close'}} :</th>
+                        <td>{{reqFormatNumber totalClose}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{transl 'prj_project_eval_done'}} :</th>
+                        <td>{{reqFormatNumber totalFinish}}</td>
+                    </tr>
+                     <tr>
+                        <th scope="row">{{transl 'prj_project_eval_inprogress'}} :</th>
+                        <td>{{reqFormatNumber totalInprogress}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{transl 'prj_project_eval_late'}} :</th>
+                        <td>{{reqFormatNumber totalLate}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{transl 'prj_project_eval_review'}} :</th>
+                        <td>{{reqFormatNumber totalReview}}</td>
+                    </tr>
+                    <!--  <tr>
+                        <th scope="row">{{transl 'prj_project_eval_expired_msg'}} : </th>
+                        <td>{{nbWarning}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">{{transl 'prj_project_eval_calcel'}} :</th>
+                        <td>{{nbUnreSolved}}</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+        {{else}}
+        <div id="tabEvaluation" class="table-responsive">
+        	<div class="media">
+        		<p class="text-muted mb-4 col-sm-12">{{transl 'prj_project_eval_msg'}}</p>
+        	</div>
+            <table class="table table-nowrap mb-0">
+                <tbody>
+                    {{#ifCond totalTask '>' 0}}
+                	<tr>
+                        <th scope="row">{{transl 'prj_project_eval_total_task'}} :</th>
+                        <td>{{reqFormatNumber totalTask}}</td>
+                    </tr>
+                    {{/ifCond}}
+                    <tr>
+                        <th scope="row">{{transl 'prj_project_eval_done'}} :</th>
+                        <td>{{reqFormatNumber percentFinish}} %</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {{/unless}}
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Stat -->
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+	        <div class="col-sm-9">
+				<h4 class="card-title mb-4 media-body d-inline-block">{{transl 'prj_project_stats'}}</h4>
+			</div>
+	   		<div class="col-sm-3 no-padding">
+            	<div class="dropdown float-right font-size-20">
+					<a id="btn_add_stat_lst" class="isManager cursor-pointer hideDev hideTest hideMem hideGuest"
+						title="{{transl 'prj_project_add_epic'}}"> <i
+						class="mdi mdi-plus text-success"></i>
+					</a> 
+					<a id="a_btn_save_stats" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+	            		<i class="mdi mdi-content-save action-item"></i>
+	           		</a>
+		            <a id="a_btn_cancel_stats" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close"></i>
+		            </a>
+		            
+		           
+					  <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                          <i class="mdi mdi-dots-vertical"></i>
+                      </a>
+                      
+                      <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                      	<li><span id="btn_modify_stats" class="dropdown-item cursor-pointer">
+                      		<i class="mdi mdi-plus text-success mr-1"></i>{{transl 'prj_project_stats_mod'}}</span>
+                      	</li>
+                     </ul>
+		            <a data-divtoogle="#div_stat_cont" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize"></i>
+		            </a>
+				</div>
+	    	</div>
+		</div>
+	    
+		<div id="div_stat_cont" class="col-xl-12 ml-2">
+		
+			{{#if lstStatsClone}}
+			{{#each lstStatsClone}}
+			<div class="custom-control custom-checkbox mb-2 row d-flex align-items-center">
+				<input type="checkbox" {{#equal show 1}}checked{{/equal}} class="custom-control-input item-stat-show" data-index="{{@index}}" id="customStatShow{{@index}}" {{#equal stat 2}}checked{{/equal}}>
+	          	<label class="custom-control-label {{#equal stat 2}}text-through{{/equal}}" for="customCheck{{@index}}">
+					{{#if trans}}
+						{{transl trans}}
+					{{else}}
+						{{lab}}
+					{{/if}}
+				</label>
+	       	   	<div class="dropdown d-inline isManager hideDev hideTest hideMem hideGuest font-size-20">
+	                <a href="javascript:void(0)" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+	                    <i class="mdi mdi-dots-vertical"></i>
+	                </a>
+	                <ul class="dropdown-menu dropdown-menu-left">
+						{{#notEqual def 1}}
+	                    <li><a href="javascript:void(0)" class="dropdown-item edit-item-stat" data-index="{{@index}}"><i class="mdi mdi-pencil font-size-18 text-success mr-1"></i> {{transl 'prj_project_descr02_edit'}}</a></li>
+						{{/notEqual}}
+						<li><a href="javascript:void(0)" class="dropdown-item up-item-stat" data-index="{{@index}}"><i class="mdi mdi-arrow-up font-size-18 text-info mr-1"></i> {{transl 'prj_project_stat_up'}}</a></li>
+						<li><a href="javascript:void(0)" class="dropdown-item down-item-stat" data-index="{{@index}}"><i class="mdi mdi-arrow-down font-size-18 text-info mr-1"></i> {{transl 'prj_project_stat_down'}}</a></li>
+						{{#notEqual def 1}}
+	                    <li><a href="javascript:void(0)" class="dropdown-item remove-item-stat hideBA" data-index="{{@index}}"><i class="mdi mdi-trash-can font-size-18 text-danger mr-1"></i> {{transl 'prj_project_descr02_delete'}}</a></li>
+						{{/notEqual}}
+					</ul>
+	            </div>
+		       </div>
+			{{/each}}
+			{{/if}}
+		
+		</div>
+	</div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Member -->
+{{#* inline "avatarMember"}}
+<td class="d-lg-none d-xl-block" style="width: 50px;">
+	{{#if ent02.avatar}}
+	<img src="{{reqSrcImg ent02.avatar}}" class="rounded-circle avatar-xs" alt="">
+	{{else}}
+	<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.login01}}"><div class="text-middle">{{reqSrcTextAvatar ent02.login01}}</div></div>
+	{{/if}}
+</td>
+<td>	
+	<div class="dropdown font-size-18">	            	
+		<a href="#" class="text-dark dropdown-toggle rowlink" data-toggle="dropdown"><div class="m-0">{{ent02.login01}}</div></a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+         <li>
+            <a class="dropdown-item align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_user_profile_ent" data-url="view_prj_user_profile.html?id={{ent02.id}}&code={{ent02.login01}}">
+             	<i class="bx bx-user"></i>
+             	<span> {{transl 'prj_project_member_see_profile'}}</span>
+            </a>
+         </li>
+         <li>
+             <a class="dropdown-item align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_dashboard" data-url="view_prj_dashboard.html?id={{ent02.id}}&code={{ent02.login01}}">
+             	<i class="bx bx-briefcase-alt-2"></i>
+             	<span> {{transl 'prj_project_member_see_projects'}}</span>
+             </a>
+         </li>
+     </ul>
+	</div>		            			            	
+</td>
+{{/inline}}
+
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_project_member'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7 isManager hideDev hideTest hideMem hideGuest">
+	             <div class="text-right">
+	                 <button id="btn_add_member" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}</button>
+	             	<a id="a_btn_save_member" class="mr-2 text-primary hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+		            </a>
+		            <a id="a_btn_cancel_member" class="mr-2 text-danger hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close font-size-18"></i>
+		            </a>
+		            <a data-divtoogle="#tabMember" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize font-size-18"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+        <div id="tabMember" class="table-responsive">
+            <table class="table table-centered table-nowrap">
+            	<thead>
+            		<tr>
+            			<th class="hide action-item-member isManager hideDev hideTest hideMem hideGuest"></th>
+            			<th class="d-lg-none d-xl-block">#</th>
+            			<th>{{transl 'prj_project_member_header_name'}}</th>
+            			<th>{{transl 'prj_project_member_header_role'}}</th>
+            			<th class="hide">{{transl 'prj_project_member_header_level'}}</th>
+            		</tr>
+            	</thead>
+			    <tbody>
+			     {{#each this}}
+			        <tr class="member-item" data-memid="{{entId02}}">
+			            {{#ifOrs isOwner notModif}}
+				            <td class="hide action-item-member isManager hideDev hideTest hideMem hideGuest"></td>
+				            {{> avatarMember}}
+				            <td><span class="level-content">{{reqLevelMember lev}}</span></td>
+				            <td class="hide"><span class="typ-content">{{reqTypeMember typ}}</span></td>
+			            {{else}}
+				            <td class="hide action-item-member isManager hideDev hideTest hideMem hideGuest font-size-20">
+				            	<div class="dropdown">
+		                             <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+		                                 <i class="mdi mdi-dots-vertical"></i>
+		                             </a>
+		                             <ul class="dropdown-menu font-size-18">
+		                                 <li>
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-edit"><i class="mdi mdi-pencil text-success mr-1"></i>{{transl 'prj_project_member_header_edit'}}</span>
+		                                 </li>
+		                                 <li class="hideBA hideDev hideTest hideMem hideGuest">
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-delete"><i class="mdi mdi-trash-can text-danger mr-1"></i>{{transl 'prj_project_member_header_delete'}}</span>
+		                                 </li>
+		                                 <li class="hideBA hideDev hideTest hideMem hideGuest">
+		                                 	<span data-memid="{{entId02}}" class="dropdown-item member-treeview"><i class="mdi mdi-checkbox-marked-outline text-primary mr-1"></i>{{transl 'prj_project_member_header_role'}}</span>
+		                                 </li>
+		                             </ul>
+		                         </div>
+	                        </td>
+				            {{> avatarMember}}
+				            <td>
+				            	<span class="level-content content-member">{{reqLevelMember lev}}</span>
+				            	<select class="form-control edit-member level-edit hide isManager hideDev hideTest hideMem hideGuest">
+					        		<option value="0" class="hideBA" {{#equal lev '0'}}selected{{/equal}}>{{transl 'prj_project_member_level_manager'}}</option>
+					        		<option data-external-mem="true" value="10" {{#equal lev '10'}}selected{{/equal}}>{{transl 'prj_project_member_level_reporter'}}</option>
+					        		<option value="20" {{#equal lev '20'}}selected{{/equal}}>{{transl 'prj_project_member_level_developer'}}</option>
+					        		<option value="30" {{#equal lev '30'}}selected{{/equal}}>{{transl 'prj_project_member_level_tester'}}</option>
+					        		<option data-external-mem="true" value="40" {{#equal lev '40'}}selected{{/equal}}>{{transl 'prj_project_member_level_worker'}}</option>
+					        		<option value="50" {{#equal lev '50'}}selected{{/equal}}>{{transl 'prj_project_member_level_watcher'}}</option>
+					        	</select>
+				            </td>
+				            
+				            <td class="hide">
+				            	<span class="typ-content content-member">{{reqTypeMember typ}}</span>
+				            	<select class="form-control edit-member typ-edit hide isManager hideDev hideTest hideMem hideGuest">
+			                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+					        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+					        		<option value="1">{{transl 'prj_project_lev_haute'}}</option>
+					       		</select>
+				            </td>
+			            {{/ifOrs}}
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>
+        </div>
+        <div class="hide action-item-member isManager hideDev hideTest hideMem hideGuest">
+        	<div class="mb-3 row">
+        		
+	        	<div class="col-md-4 hide">
+	                 <div class="mt-2 mt-md-0">
+	                 	<select class="form-control" id="sel_member_type">
+	                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+			        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+			        		<option value="1" selected>{{transl 'prj_project_lev_haute'}}</option>
+			       		</select>
+	                 </div>
+	             </div>
+	             <div class="col-md-5">
+	                 <div class="mt-2 mt-md-0">
+	                 	<select class="form-control" id="sel_member_level">
+			        		<option value="0" class="hideBA">{{transl 'prj_project_member_level_manager'}}</option>
+			        		<option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option>
+							<option value="20">{{transl 'prj_project_member_level_developer'}}</option>
+					        <option value="30">{{transl 'prj_project_member_level_tester'}}</option>
+			        		<option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
+			        		<option value="50">{{transl 'prj_project_member_level_watcher'}}</option>
+			        	</select>
+	                 </div>
+	             </div>
+	             
+	             <div class="col-md-7">
+			    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_name_member" placeholder="{{transl 'prj_project_enter_name'}}">
+	        	</div>
+        	</div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Member_Group -->
+{{#* inline "avatarGroup"}}
+<td class="show_mem_group d-lg-none d-xl-block" style="width: 50px;" data-grpid="{{id}}">
+	{{#if ent02.val01}}
+	{{#ifCond ent02.val01.img '==' null}}
+	<div class="rounded-circle avatar-xs text-primary text-uppercase bg-soft-primary text-center mr-2"><div class="text-middle">{{reqSrcTextAvatar ent02.name}}</div></div>
+	{{else}}
+	<img src="{{ent02.val01.img}}" class="rounded-circle avatar-xs" alt="">
+	{{/ifCond}}
+	{{else}}
+	<div class="rounded-circle avatar-xs text-primary text-uppercase bg-soft-primary text-center mr-2"><div class="text-middle">{{reqSrcTextAvatar ent02.name}}</div></div>
+	{{/if}}
+</td>
+{{/inline}}
+
+{{#* inline "avatarMember"}}
+<td class="d-lg-none d-xl-block" style="width: 50px;">
+	{{#if ent02.avatar}}
+	<img src="{{reqSrcAvatarMember ent02}}" class="rounded-circle avatar-xs" alt="">
+	{{else}}
+	<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor ent02.name}}"><div class="text-middle">{{reqSrcTextAvatar ent02.name}}</div></div>
+	{{/if}}
+</td>
+<td>	
+	<div class="dropdown font-size-20">	            	
+		<a href="#" class="text-dark dropdown-toggle rowlink" data-toggle="dropdown"><div class="m-0">{{reqNameMember ent02.name}}</div></a>
+		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+         <li>
+             <a class="dropdown-item align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_user_profile_ent" data-url="view_prj_user_profile.html?id={{ent02.id}}&code={{ent02.login01}}">
+             	<i class="bx bx-user"></i>
+             	<span> {{transl 'prj_project_member_see_profile'}}</span>
+            </a>
+         </li>
+         <li>
+             <a class="dropdown-item align-middle mr-1 cursor-pointer hnv-route" tabindex="-1" data-route="VI_MAIN/prj_dashboard" data-url="view_prj_dashboard.html?id={{ent02.id}}&code={{ent02.code01}}">
+             	<i class="bx bx-briefcase-alt-2"></i>
+             	<span> {{transl 'prj_project_member_see_projects'}}</span>
+             </a>
+         </li>
+     </ul>
+	</div>		            			            	
+</td>
+{{/inline}}
+
+<div class="card isManager hideDev isTest hideMem hideGuest">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-8">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_project_member_group'}}</h4>
+	   		</div>
+		</div>
+        <div id="tabGroup" class="table-responsive">
+            <table class="table table-centered table-nowrap">
+            	<thead>
+            		<tr>
+            			<th class="d-lg-none d-xl-block">#</th>
+            			<th>{{transl 'prj_project_member_group_header_name'}}</th>
+            			
+            			<th class="hide">{{transl 'prj_project_member_header_level'}}</th>
+            		</tr>
+            	</thead>
+			    <tbody>
+			     {{#each this}}
+			        <tr class="member-item" data-grpid="{{id}}">
+			            {{#ifOrs isOwner notModif}}
+				            <td class="hide action-item-group isManager hideDev hideTest hideMem hideGuest"></td>
+				            {{> avatarMember}}
+				            <td><span class="level-content">{{reqLevelMember lev}}</span></td>
+				            <td><span class="typ-content">{{reqTypeMember typ}}</span></td>
+			            {{else}}
+				            {{> avatarGroup}}
+							<td>	
+								<div class="dropdown font-size-18">	            	
+									<a href="#" class="text-dark dropdown-toggle rowlink" data-toggle="dropdown"><div class="m-0">{{reqNameMember ent02.name}}</div></a>
+								</div>		            			            	
+							</td>	
+							<td>
+				              	<i class="mdi mdi-trash-can font-size-18 text-danger mr-1 member-group-delete isManager hideDev hideTest hideMem hideGuest" data-grpid="{{id}}" ></i>
+				            </td>			            
+				            
+				            <td class="hide">
+				            	<span class="typ-content content-member">{{reqTypeMember typ}}</span>
+				            	<select class="form-control edit-member typ-edit hide isManager hideDev hideTest hideMem hideGuest">
+			                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+					        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+					        		<option value="1">{{transl 'prj_project_lev_haute'}}</option>
+					       		</select>
+				            </td>
+			            {{/ifOrs}}
+			        </tr>
+			     {{/each}}
+			    </tbody>
+			</table>
+        </div>
+        <div class="action-item-group isManager hideDev hideTest hideMem hideGuest">
+        	<div class="mb-3 row">
+	        	<div class="col-md-4 hide">
+	                 <div class="mt-2 mt-md-0">
+	                 	<select class="form-control" id="sel_group_type">
+	                 		<option value="0">{{transl 'prj_project_member_level'}}</option>
+			        		<option value="0">{{transl 'prj_project_lev_bas'}}</option>
+			        		<option value="1" selected>{{transl 'prj_project_lev_haute'}}</option>
+			       		</select>
+	                 </div>
+	             </div>
+
+				 <div class="col-md-5 hide">
+					<div class="mt-2 mt-md-0">
+						<select class="form-control" id="sel_group_level">
+						   <option value="0" class="hideBA">{{transl 'prj_project_member_level_manager'}}</option>
+						   <option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option>
+						   <option value="20">{{transl 'prj_project_member_level_developer'}}</option>
+					       <option value="30">{{transl 'prj_project_member_level_tester'}}</option>
+						   <option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
+						   <option value="50">{{transl 'prj_project_member_level_watcher'}}</option>
+					   </select>
+					</div>
+				</div>
+	             
+	             <div class="col-md-12">
+			    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_name_group"  placeholder="{{transl 'prj_project_enter_name_group'}}">
+	        	</div>
+        	</div>
+        </div>
+    </div>
+</div>
+
+<!--END TMPL-->
+
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Member_Group_Popup -->
+ <table class="table table-centered table-nowrap">
+   <tbody>
+    {{#each ent02.mems}}
+    	<tr class="member-item d-flex">
+    		<td>
+				<input class="objData" type="hidden" data-group="mems" data-gindex="{{id}}" value="{{stat}}" data-type="number" data-name="stat">
+				<input class="objData" type="hidden" data-group="mems" data-gindex="{{id}}" value="{{typ}}" data-type="number" data-name="typ">
+				<input class="objData" type="hidden" data-group="mems" data-gindex="{{id}}" value="{{uId}}" data-type="number" data-name="uId">
+			</td>
+    		<td class="d-lg-none d-xl-block border-0" style="width: 25%;">
+    			<input class="check-mem-{{uId}}" type="checkbox" {{#equal check 1}}checked{{/equal}}>
+    		</td>
+    		<td class="d-lg-none d-xl-block border-0" style="width: 35%;">
+				{{#if mem.avatar}}
+				<img src="{{reqSrcAvatarMember mem}}" class="rounded-circle avatar-xs" alt="">
+				{{else}}
+				<div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor mem.login01}}"><div class="text-middle">{{reqSrcTextAvatar mem.login01}}</div></div>
+				{{/if}}
+			</td>
+			<td class="d-lg-none d-xl-block border-0" style="width: 45%;">
+				{{mem.login01}}
+			</td>
+
+			<td class="d-lg-none d-xl-block border-0" style="width: 100%;">
+				<select class="objData form-control edit-member level-edit isManager hideDev hideTest hideMem hideGuest" 
+					data-group="mems" data-gindex="{{id}}" data-type="number" data-name="lev"
+					style="margin-bottom: 10px; margin-left: 10px; display: unset">
+					{{#select lev}}
+					<option value="0" class="hideBA" >{{transl 'prj_project_member_level_manager'}}</option>
+					<option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option>
+					<option value="20" >{{transl 'prj_project_member_level_developer'}}</option>
+					<option value="30" >{{transl 'prj_project_member_level_tester'}}</option>
+					<option data-external-mem="true" value="40">{{transl 'prj_project_member_level_worker'}}</option>
+					<option value="50" >{{transl 'prj_project_member_level_watcher'}}</option>
+					<option value="1000" >{{transl 'prj_project_member_level_none'}}</option>
+			        {{/select}}
+		   		 </select>
+		   	</td>
+        </tr>
+     {{/each}}
+    </tbody>
+</table>
+<!--END TMPL-->
+
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Docs -->
+<div class="card">
+    <div class="card-body">
+	    <div class="media">
+	    	<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'common_files'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7">
+	             <div class="text-right font-size-20">
+	                <button id="btn_add_doc" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm hideGuest">
+	                	<i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}
+	                </button>
+	             	<a id="a_btn_save_doc" class="mr-3 text-primary hide action-item-doc action-item-duplicate hideGuest" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save action-item"></i>
+		            </a>
+		            <a id="a_btn_cancel_doc" class="text-danger hide action-item-doc hideGuest" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close"></i>
+		            </a>
+		            <a data-divtoogle="#div_document" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize"></i>
+		            </a>
+	             </div>
+	         </div>
+	    </div>
+	    <div id="div_document">
+	    	<form id="div_prj_ent_file_upload" action="/" method="post" class="dropzone inputfile hide">
+			    <div class="fallback">
+<!-- 			        <input data-name="file" type="file"/> -->
+			    </div>
+			
+			    <div class="dz-message needsclick">
+			        <div class="mb-3">
+			            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+			        </div>
+			        <h4>{{transl 'prj_project_drop_files'}}</h4>
+			    </div>
+			</form>		
+
+			<input type="hidden" class="objData" data-name="id"	value="{{id}}">
+	        <div class="table-responsive">
+	            <table class="table table-nowrap table-centered table-hover mb-0 objData" data-name="files" data-primary="id">
+	                <tbody>
+							{{log files}}
+	                		{{#each files}}
+                			{{#equal typ01 '2'}}
+	                		<tr>
+	                		 <td class="hide objData" data-name="id"		data-group="files" data-gindex="{{@index}}" >{{id}}</td>
+	                		 <td class="hide objData" data-name="stat"		data-group="files" data-gindex="{{@index}}" >{{stat}}</td>
+	                		 <td class="hide objData" data-name="code"		data-group="files" data-gindex="{{@index}}" >{{code}}</td>
+	                		 <td class="hide objData" data-name="entType"	data-group="files" data-gindex="{{@index}}" >{{entType}}</td>
+	                		 <td class="hide objData" data-name="entId"		data-group="files" data-gindex="{{@index}}" >{{entId}}</td>
+	                		 <td class="hide objData" data-name="url"		data-group="files" data-gindex="{{@index}}" >{{url}}</td>
+	                		 <td class="hide objData" data-name="urlPrev"	data-group="files" data-gindex="{{@index}}" >{{urlPrev}}</td>
+	                		 <td class="hide objData" data-name="fSize"		data-group="files" data-gindex="{{@index}}" >{{size}}</td>
+	                		 
+	                		 <td class="hide objData" data-name="typ01"		data-group="files" data-gindex="{{@index}}" >{{typ01}}</td>
+	                		 <td class="hide objData" data-name="typ02"		data-group="files" data-gindex="{{@index}}" >{{typ02}}</td>
+	                		 <td class="hide objData" data-name="typ03"		data-group="files" data-gindex="{{@index}}" >{{typ03}}</td>
+	                		 <td class="hide objData" data-name="name"		data-group="files" data-gindex="{{@index}}" >{{name}}</td>
+	                		 <td class="hide objData" data-name="fname"		data-group="files" data-gindex="{{@index}}" >{{fname}}</td>
+	                         <td style="width: 45px;">
+	                             <div class="avatar-sm">
+	                                 <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-24">
+	                                     <i class="bx bxs-file-{{getFileExtensionIcon fName}}"></i>
+	                                 </span>
+	                             </div>
+	                         </td>
+	                         <td>
+	                             <h5 class="font-size-14 mb-1"><a href="javascript:void(0)" data-path="{{reqPathDoc url}}" class="text-dark item-file-download cursor-pointer" title='{{fName}}'>{{reqNameFilePrj (reqNameStringFile fName)}}</a></h5>
+	                             <small>{{reqSizeFile fSize}}</small>
+	                         </td>
+	                         <td>
+	                             <div class="text-center">
+	                                 <a data-path="{{reqPathDoc url}}" class="text-dark item-file-download cursor-pointer"><i class="bx bx-download h3 m-0"></i></a>
+	                              {{#if ../iduIsUse}}
+	                                 	{{#equal ../iduIsUse  uId01}}
+	                                 <a data-id="{{id}}" class="text-dark item-file-delete cursor-pointer hideGuest"><i class="bx bx-minus-circle h3 m-0"></i></a>
+	                             	 	{{else}}
+	                             	 <a data-id="{{id}}" class="text-dark item-file-delete cursor-pointer hideDev hideTest hideMem hideGuest"><i class="bx bx-minus-circle h3 m-0"></i></a>
+	                             	 	{{/equal}}
+	                             	 	
+	                             	 {{else}}
+	                             	 	<a data-id="{{id}}" class="text-dark item-file-delete cursor-pointer hideDev hideTest hideMem hideGuest"><i class="bx bx-minus-circle h3 m-0"></i></a>
+	                             	 {{/if}}
+	                             </div>
+	                         </td>
+	                    	</tr>
+	                    	{{/equal}}
+	                		{{/each}}
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+		
+    </div>
+</div>
+<!--END TMPL-->
+
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Comment -->
+<div class="card">
+	<div class="card-body">
+		<div class="media">
+			<div class="col-sm-5">
+	   			<h4 class="card-title">{{transl 'prj_project_comment'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7 text-right">
+		   		<a data-divtoogle=".comment-element, #div_comment_pagination" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		        	 <i class="mdi mdi-window-minimize font-size-18"></i>
+		        </a>
+	   		</div>
+		</div>
+        
+	</div>
+	<div id ="div_comment_list"></div>
+	<div id ="div_comment_pagination"></div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Comment_List -->
+
+<div class="p-3 chat-input-section comment-element">
+        <div class="row">
+            <div class="col-12">
+                <div class="position-relative">
+                	 <input type="hidden" id="inp_parent_reply">
+<!--                      <input id="inp_comment" type="text" class="form-control chat-input" placeholder="{{transl 'prj_project_comment_enter'}}"> -->
+                	 <textarea class="form-control chat-input" id="inp_comment" rows="5" placeholder="{{transl 'prj_project_comment_enter'}}"></textarea>
+                    
+<!--                      <div class="chat-input-links"> -->
+<!--                          <ul class="list-inline mb-0"> -->
+<!--                              <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Emoji"><i class="mdi mdi-emoticon-happy-outline"></i></a></li> -->
+<!--                              <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Images"><i class="mdi mdi-file-image-outline"></i></a></li> -->
+<!--                              <li class="list-inline-item"><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add Files"><i class="mdi mdi-file-document-outline"></i></a></li> -->
+<!--                          </ul> -->
+<!--                      </div> -->
+                </div>
+            </div>
+            <div class="col-12 mt-3">
+                <button id="btn_send_comment" type="button" class="btn btn-primary btn-rounded chat-send w-md waves-effect waves-light float-right"><span class="d-none d-sm-inline-block mr-2">{{transl 'prj_project_comment_send'}}</span> <i class="mdi mdi-send"></i></button>
+            </div>
+        </div>
+    </div>
+   <div class="card-body comment-element" id="div_list_item">
+	{{#if lst}}
+		{{#each lst}}
+        <div class="media mb-4 post-lement-content" data-id="{{id}}">
+            <div class="mr-3">
+            	{{#if uN01.avatar}}
+                <img class="media-object rounded-circle avatar-xs" alt="" src="{{reqSrcAvatarMember uN01}}">
+                {{else}}
+                <div class="media-object rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor uN01.login01}}"><div class="text-middle">{{reqSrcTextAvatar uN01.login01}}</div></div>
+                {{/if}}
+            </div>
+            <div class="media-body comment_content" data-id="{{id}}">
+                <div>
+                	<span class="font-size-13 h5 mb-1">{{uN01.login01}}</span>
+                	<span class="font-size-10 ml-1 text-secondary">{{dateFormatLocal dt01}}</span>
+<!-- 	                	<a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false"> -->
+<!-- 	                         <i class="mdi mdi-dots-horizontal font-size-18"></i> -->
+<!-- 	                     </a> -->
+<!-- 	                     <ul class="dropdown-menu dropdown-menu-left"> -->
+<!-- 	                        <li><span id="btn_detele_comment" class="dropdown-item"><i class="mdi mdi-refresh font-size-16 text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li> -->
+<!-- 	                     </ul> -->
+                </div>
+
+                <p class="text-muted mb-1" data-name="cont01" data-id="{{id}}">
+			    <a href="" class="text-success"></a>
+			    <span class="comment-text" id="comment_text_{{id}}">
+    				{{{cont01}}}
+				</span>
+			    <textarea id="change_comment_{{id}}" class="hide" rows="" cols="">{{{cont01}}}</textarea>
+			</p>
+           
+                {{#each childs}}
+                <div class="media mt-3 post-lement-content" data-id="{{id}}">
+                    <div class="avatar-xs mr-3">
+<!-- 	                        <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-16"> -->
+<!-- 	                            J -->
+<!-- 	                        </span> -->
+						{{#if uN01.avatar}}
+                        <img class="media-object rounded-circle avatar-xs" alt="" src="{{reqSrcAvatarMember uN01}}">
+                        {{else}}
+                        <div class="media-object rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor uN01.login01}}"><div class="text-middle">{{reqSrcTextAvatar uN01.login01}}</div></div>
+                        {{/if}}
+                    </div>
+                    <div class="media-body comment_content" data-id="{{id}}">
+                        <div><span class="font-size-13 h5 mb-1">{{uN01.login01}}</span><span class="font-size-10 ml-1 text-secondary">{{dateFormatLocal dtAdd}}</span></div>
+                        <p class="text-muted mb-1">{{{cont01}}}</p>
+                    </div>
+                    <div class="ml-3">
+                        <a href="javascript: void(0);" data-parent="{{../id}}" data-user="{{uN01.login01}}" class="text-primary a-reply mr-1 cursor-pointer" title="{{transl 'prj_project_comment_reply'}}"><i class="mdi mdi-reply"></i></a>
+                        <a href="javascript: void(0);" data-id="{{id}}" data-userId="{{uN01.id}}" class="text-danger a-delete {{#if (isShowDelCmt @this)}}d-none{{/if}} cursor-pointer" title="{{transl 'prj_project_comment_delete'}}"><i class="mdi mdi-trash-can-outline"></i></a>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            <div class="ml-3">
+                <a href="javascript: void(0);" data-id="{{id}}" data-parent="{{id}}" data-user="{{uN01.login01}}" class="text-primary a-reply mr-1 cursor-pointer comment_action_{{id}}" title="{{transl 'prj_project_comment_reply'}}"><i class="mdi mdi-reply"></i></a>
+                <a href="javascript: void(0);" data-id="{{id}}" data-userId="{{uN01.id}}" class="text-danger a-delete {{#if (isShowDelCmt @this)}}d-none{{/if}} cursor-pointer comment_action_{{id}}" title="{{transl 'prj_project_comment_delete'}}"><i class="mdi mdi-trash-can-outline"></i></a>
+                <a href="javascript: void(0);" data-id="{{id}}" data-userId="{{uN01.id}}" class="a-change {{#if (isShowDelCmt @this)}}d-none{{/if}} cursor-pointer comment_action_{{id}}" title="{{transl ''}} "><i class="mdi mdi-pencil font-size-16 text-success mr-1"></i></a>
+	            <a data-id="{{id}}" id="a_btn_save_comment" class="mr-2 text-primary hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save"> <i class="mdi mdi-content-save font-size-18 action-item"></i> </a>
+	            <a data-id="{{id}}" id="a_btn_cancel_comment" class="mr-2 text-danger hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel"> <i class="mdi mdi-close font-size-18"></i> </a>
+            </div>
+        </div>
+        {{/each}}
+    {{else}}
+    	<div><p>{{transl 'prj_project_comment_no_cmt'}}</p></div>
+    {{/if}}
+   </div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Report -->
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-9">
+	   			<h4 class="card-title mb-4 media-body d-inline-block">{{transl 'prj_project_list_report'}}</h4>
+	   			<span class="task-filter text-muted" id="sp_text_filter"></span>
+	   		</div>
+	   		<div class="col-sm-3 no-padding">
+	             <div class="dropdown float-right font-size-20">
+	             	 {{#unless isViewSprint}}
+	             	 <a  id="btn_add_report" class="cursor-pointer isManager hideDev hideTest hideMem hideGuest" title="{{transl 'prj_project_add_epic'}}">
+	             	 	<i class="mdi mdi-plus text-success"></i>
+	             	 </a>
+	             	 {{/unless}}
+	             	 
+	             	 {{#if isViewSprint}}
+	             	 <a id="a_btn_save_report_sprint" class="mr-2 text-primary hide action-mem" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save action-item"></i>
+		             </a>
+		             <a id="a_btn_cancel_report_sprint" class="mr-2 text-danger hide action-mem" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close"></i>
+		             </a>
+		            {{/if}}
+		            
+		            {{#if isViewSprint}}
+                     <a class="cursor-pointer" id="btn_refresh_report_sprint">
+	                   <i class="mdi mdi-refresh  text-primary mr-1"></i>
+	                </a>
+	                {{else}}
+                     <a class="cursor-pointer" id="btn_refresh_report">
+	                   <i class="mdi mdi-refresh  text-primary mr-1"></i>
+	                </a>
+	                {{/if}}
+                     
+		            
+                     <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                         <i class="mdi mdi-dots-vertical "></i>
+                     </a>
+                     
+                    <a data-divtoogle="#div_rep_cont" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize  text-primary"></i>
+	                </a>
+                    <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                     	 {{#if isViewSprint}}
+                     	<li><span id="btn_refresh_report_sprint" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+                     	 {{else}}
+                      	<li><span id="btn_filter_search_report" class="dropdown-item cursor-pointer"><i class="mdi mdi-card-search-outline  text-primary mr-1"></i>{{transl 'prj_project_report_search_inp'}}</span></li>
+                       	<li><span id="btn_refresh_report" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+                       	{{/if}}
+                     	
+<!--                      	<li><span data-divtoogle="#tabTask" class="btn-resize dropdown-item"><i class="mdi mdi-window-minimize  text-primary mr-1"></i><span class="label-resize">{{transl 'prj_project_resize_min'}}</span></span></li> -->
+                     </ul>
+                 </div>
+	         </div>
+		</div>
+		<div id="div_rep_cont">
+			<div class="media task-filter" style="display: none" id="div_search_report">
+				<div class="col-sm-12">
+					<input type="text" id="inp_filter_report" class="form-control" placeholder="{{transl 'prj_project_report_search_inp_enter'}}"/>
+				</div>
+			</div>
+			
+			{{#if isViewSprint}}
+			<div class="media task-filter" id="div_add_report">
+				<div class="col-sm-12">
+					<input type="text" id="inp_add_report" class="form-control" placeholder="{{transl 'prj_sprint_add_inp_enter'}}"/>
+				</div>
+			</div>
+			{{/if}}
+			
+	        <div id="tabReport" class="table-responsive">
+	        </div>
+			<div id="tabReportPagination">
+	        </div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Report_Content -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body" id="div_create_prj">
+                <form class="outer-repeater">
+                    <div data-repeater-list="outer-group" class="outer">
+                        <div data-repeater-item class="outer">
+                            <input data-name="id" value="{{id}}" type="text" class="objData hide">
+                            <!-- name -->
+                            <div class="form-group row mb-1">
+                                <div class="col-lg-12">
+<!--                                     <label for="projectname" class="h5">{{transl 'prj_project_report_title'}} *</label> -->
+                                    <div class="media-body overflow-hidden">
+                                        <h5 class="text-truncate font-size-16 info-edit info-content">
+                                            {{inf01}}</h5>
+                                        <input id="projectname" data-name="inf01" value="{{inf01}}" type="text"
+                                            class="form-control objData hide content-edit isManager hideDev hideTest hideMem hideGuest"
+                                            placeholder="{{transl 'prj_project_report_enter_title'}}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- descr01 -->
+                            <div class="row mb-1">
+                                <div class="col-lg-12">
+<!--                                     <label for="projectdesc" class="h5">{{transl 'prj_project_report_des'}} *</label> -->
+                                    <div class="">
+                                        <div class="info-edit info-content info-content-description">
+                                            <p class="text-muted text-justify" data-name="inf02">{{{inf02}}}</p>
+                                        </div>
+                                        <div class="content-edit hide isManager hideDev hideTest hideMem hideGuest">
+                                            <textarea class="form-control objData" data-name="inf02" id="projectdesc"
+                                                rows="5"
+                                                placeholder="{{transl 'prj_project_enter_project_des'}}">{{inf02}}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="inner-repeater row mb-1" data-external-mem="hide">
+                                <!-- date -->
+                                <div class="col-lg-6">
+                                    <label class="h5">{{transl 'prj_project_start_date'}}</label>
+                                    <div>
+                                        <p data-format="date" class="text-muted info-edit info-content"
+                                            data-name="dt01">{{reqFormatDate dt01}}</p>
+<!--                                         <div class="input-daterange input-group hide content-edit isManager hideDev hideTest hideMem hideGuest"> -->
+                                        <div class="input-daterange input-group hide content-edit isManager hideMem hideGuest">
+                                            <input data-format="date" data-validation="date" type="text"
+                                                value="{{reqFormatShortDate dt01}}" data-group="dt01" data-name="date"
+                                                class="form-control objData" data-provide="datepicker"
+                                                data-date-format="dd/mm/yyyy">
+                                            <input type="text" class="form-control objData tmpicker"
+                                                value="{{reqFormatISOTime dt01}}" data-group="dt01" data-name="time"
+                                                data-provide="timepicker" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- member -->
+                                <div class="col-lg-6">
+                                    <label class="h5">{{transl 'prj_project_end_date'}}</label>
+                                    <div>
+                                        <p data-format="date" class="text-muted info-edit info-content"
+                                            data-name="dt02">{{reqFormatDate dt02}}</p>
+<!--                                         <div class="input-daterange input-group hide content-edit isManager hideDev hideTest hideMem hideGuest"> -->
+                                        <div class="input-daterange input-group hide content-edit isManager hideMem hideGuest">
+                                            <input data-format="date" data-validation="date" type="text"
+                                                value="{{reqFormatShortDate dt02}}" data-group="dt02" data-name="date"
+                                                class="form-control objData" data-provide="datepicker"
+                                                data-date-format="dd/mm/yyyy">
+                                            <input type="text" class="form-control objData tmpicker"
+                                                value="{{reqFormatISOTime dt02}}" data-group="dt02" data-name="time"
+                                                data-provide="timepicker" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="row mb-1">
+                    <div class="col-lg-12 hideGuest">
+                        <!-- doc -->
+                        <div id="div_report_docs">
+                            <label class="h5">{{transl 'prj_project_attached_files'}}</label>
+<!--                             <button id="btn_edit_doc" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm isManager"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}</button> -->
+							<button id="btn_edit_doc" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm isManager hideMem"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}</button>
+                            <div>
+                                <form id="div_report_ent_file_upload" action="/" method="post" class="dropzone hide inputfile">
+                                    <div class="fallback">
+                                        <input class="d-none" data-name="file" type="file" multiple />
+                                    </div>
+
+                                    <div class="dz-message needsclick">
+                                        <div class="mb-3">
+                                            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                                        </div>
+                                        <h4>{{transl 'prj_project_drop_files'}}</h4>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive col-lg-12">
+                        <table class="table table-nowrap table-centered table-hover mb-0 objData" data-name="files"
+                            data-primary="id">
+                            <tbody>
+                                {{#each files}}
+                                {{#equal typ01 '2'}}
+                                <tr>
+                                    <td class="hide objData" data-name="id" data-group="files" data-gindex="{{@index}}">{{id}}</td>
+                                    <td class="hide objData" data-name="stat" data-group="files" data-gindex="{{@index}}">{{stat}}</td>
+                                    <td class="hide objData" data-name="code" data-group="files" data-gindex="{{@index}}">{{code}}</td>
+                                    <td class="hide objData" data-name="entType" data-group="files"
+                                        data-gindex="{{@index}}">{{entType}}</td>
+                                    <td class="hide objData" data-name="entId" data-group="files" data-gindex="{{@index}}">{{entId}}</td>
+                                    <td class="hide objData" data-name="url" data-group="files" data-gindex="{{@index}}">{{url}}</td>
+                                    <td class="hide objData" data-name="urlPrev" data-group="files"
+                                        data-gindex="{{@index}}">{{urlPrev}}</td>
+                                    <td class="hide objData" data-name="fSize" data-group="files" data-gindex="{{@index}}">{{size}}</td>
+    
+                                    <td class="hide objData" data-name="typ01" data-group="files" data-gindex="{{@index}}">{{typ01}}</td>
+                                    <td class="hide objData" data-name="typ02" data-group="files" data-gindex="{{@index}}">{{typ02}}</td>
+                                    <td class="hide objData" data-name="typ03" data-group="files" data-gindex="{{@index}}">{{typ03}}</td>
+<!--                                     <td class="hide objData" data-name="name" data-group="files" data-gindex="{{@index}}">{{name}}</td> -->
+                                    <td class="hide objData" data-name="fname" data-group="files" data-gindex="{{@index}}">{{fname}}</td>
+                                    <td style="width: 45px;">
+                                        <div class="avatar-sm">
+                                            <span
+                                                class="avatar-title rounded-circle bg-soft-primary text-primary font-size-24">
+                                                <i class="bx bxs-file-{{getFileExtensionIcon fName}}"></i>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <h5 class="font-size-14 mb-1">
+                                        	<a href="javascript:void(0)"  data-path="{{reqPathDoc url}}" class="text-dark item-file-download cursor-pointer" title='{{fName}}'>
+                                        		{{reqNameFilePrj (reqNameStringFile fName)}}
+                                        	</a>
+                                        </h5>
+                                        <small>{{reqSizeFile fSize}}</small>
+                                    </td>
+                                    <td>
+                                        <div class="text-center">
+                                            <a data-path="{{reqPathDoc url}}"
+                                                class="text-dark item-file-download cursor-pointer"><i
+                                                    class="bx bx-download h3 m-0"></i></a>
+                                            <a data-id="{{id}}"
+                                                class="text-dark item-file-delete hide cursor-pointer isManager hideDev hideTest hideMem hideGuest"><i
+                                                    class="bx bx-minus-circle h3 m-0"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/equal}}
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Report_List -->
+{{#if this}}
+<table class="table table-centered">
+	<!-- table-nowrap -->
+	<tbody id="tbody_report">
+		{{#each this}}
+		<tr data-id="{{id}}">
+			<td class="td-report" data-id="{{id}}">
+				<h5 class="font-size-14 m-0">
+					<a class="text-dark cursor-pointer">{{inf01}}</a>
+					{{{reqDateTimeLateTask dtEnd stat}}}
+				</h5>
+				<p></p>
+				<p class="font-size-12 m-0">{{{extractMsgHtml inf02 200}}}</p>
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>
+{{else}}
+<div class="mt-3">{{transl 'prj_project_report_no'}}</div>
+{{/if}}
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Report_List_Element -->
+<tr class="mt-3"  data-id="{{id}}">
+    <td class="td-task" data-id="{{id}}">
+   		<h5 class="font-size-14 m-0">
+     	<a data-route="VI_MAIN/prj_project_ent" data-url="" class="hnv-route text-dark {{reqClassByStat stat}}">{{inf01}}</a>
+     	{{{reqDateTimeLateTask dtEnd stat}}}
+    	</h5>
+    	<p></p>
+    	<p class="font-size-12 m-0">{{{extractMsgHtml inf02 200}}}</p>
+    	<p class="font-size-12 m-0"><a class="text-dark">{{transl 'prj_project_percent'}}: {{digitFixed val05 2}} %</a></p>
+    </td>
+    <td class="d-flex justify-content-end">
+    	<div class="dropdown float-right isManager hideDev hideTest hideMem hideGuest">
+           <a href="#" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false">
+               <i class="mdi mdi-dots-vertical m-0 text-muted h5 task-option"></i>
+           </a>
+           <div class="dropdown-menu dropdown-menu-right" style="">
+               {{#equalOrs stat 0 1 2 3 4 5}}<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item remove-task_report" href="javascript:void(0)">{{transl 'prj_task_tab_remove'}}</a>{{/equalOrs}}
+<!--                {{#equalOrs stat 0 1 2 3 5 6}}<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item complete-task" href="#">{{transl 'prj_task_tab_complete'}}</a>{{/equalOrs}} -->
+<!--                {{#equalOrs stat 0 1 2 3 4 6}}<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item close-task" href="#">{{transl 'prj_task_tab_close'}}</a>{{/equalOrs}} -->
+<!--                {{#equalOrs stat 0}}			<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item span-delete-task" href="#">{{transl 'prj_task_tab_delete'}}</a>{{/equalOrs}} -->
+           </div>
+       </div>
+    </td>
+</tr>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Report_New -->
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-body" id="div_create_prj">
+				<form class="outer-repeater">
+					<div data-repeater-list="outer-group" class="outer">
+						<div data-repeater-item class="outer">
+							<!-- name -->
+							<div class="form-group row mb-1">
+								<div class="col-lg-12">
+<!-- 									<label for="projectname" class="col-form-label h5">{{transl 'prj_project_report_title'}} *</label> -->
+									<div>
+										<input id="projectname" data-name="inf01" type="text"
+											class="form-control objData"
+											placeholder="{{transl 'prj_project_report_enter_title'}}"
+											data-validation="required" value="{{inf01}}">
+									</div>
+								</div>
+							</div>
+
+							<!-- descr01 -->
+							<div class="row mb-1">
+								<div class="col-lg-12">
+									<label for="projectdesc" class="col-form-label h5">{{transl 'prj_project_report_des'}} *</label>
+									<div class="">
+										<textarea class="form-control objData" data-name="inf02" id="projectdesc"
+											rows="5" placeholder="{{transl 'prj_project_enter_project_des'}}"
+											data-validation="required">{{inf02}}</textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="inner-repeater row mb-1" data-external-mem="hide">
+								<!-- date -->
+								<div class="col-lg-6">
+									<label class="col-form-label h5">{{transl 'prj_project_start_date'}}</label>
+									<div class="row">
+										<div class="input-daterange input-group">
+											<div class="col-md-6">
+												<input data-format="date" type="text" data-validation="date"
+													class="form-control objData" id="dtpicker_Begin"
+													placeholder="{{transl 'prj_project_start_date'}}" data-group="dt01"
+													data-name="date" data-provide="datepicker"
+													data-date-format="dd/mm/yyyy" value="{{reqFormatShortDate dt01}}" />
+											</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control objData tmpicker mr-4"
+													id="tmpicker_Begin"
+													placeholder="{{transl 'prj_project_start_date'}}" data-group="dt01"
+													data-name="time" data-provide="timepicker"
+													value="{{reqFormatISOTime dt01}}" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- member -->
+								<div class="col-lg-6">
+									<label class="col-form-label h5">{{transl 'prj_project_end_date'}}</label>
+									<div class="row">
+										<div class="input-daterange input-group">
+											<div class="col-md-6">
+												<input data-format="date" type="text" data-validation="date"
+													class="form-control objData" id="dtpicker_End"
+													placeholder="{{transl 'prj_project_end_date'}}" data-group="dt02"
+													data-name="date" data-provide="datepicker"
+													data-date-format="dd/mm/yyyy" value="{{reqFormatShortDate dt02}}" />
+											</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control objData tmpicker"
+													id="tmpicker_End" placeholder="{{transl 'prj_project_start_date'}}"
+													data-group="dt02" data-name="time" data-provide="timepicker"
+													value="{{reqFormatISOTime dt02}}" />
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+
+				<div class="row mb-1">
+					<div class="col-lg-12">
+						<!-- doc -->
+						<div id="div_report_docs">
+							<label class="col-form-label h5">{{transl 'prj_project_attached_files'}}</label>
+							<div>
+								<form class="dropzone inputfile" action="/" method="post">
+									<div class="fallback">
+										<input class="d-none" data-name="file" type="file" multiple />
+									</div>
+
+									<div class="dz-message needsclick">
+										<div class="mb-3">
+											<i class="display-4 text-muted bx bxs-cloud-upload"></i>
+										</div>
+										<h4>{{transl 'prj_project_drop_files'}}</h4>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Epic -->
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-9">
+	   			<h4 class="card-title mb-4 media-body d-inline-block">{{transl 'prj_project_list_epic'}}</h4>
+	   			<span class="epic-filter text-muted" id="sp_text_filter_epic"></span>
+	   		</div>
+	   		<div class="col-sm-3 no-padding">
+	             <div class="dropdown float-right font-size-20">
+	             	 <a id="btn_add_epic" class="cursor-pointer isManager hideDev hideTest hideMem hideGuest"  title="{{transl 'prj_project_add_epic'}}">
+	             	 	<i class="mdi mdi-plus text-success"></i>
+	             	 </a>
+                      <a class="cursor-pointer" id="btn_refresh_epic">
+	                   <i class="mdi mdi-refresh text-primary mr-1"></i>
+	                </a>
+                     
+                     <a href="javascript:void(0)" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                         <i class="mdi mdi-dots-vertical"></i>
+                     </a>
+                    
+                    <a data-divtoogle="#tabEpic" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize text-primary"></i>
+	                </a>
+	                
+                     <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                         <li><span id="btn_add_epic_others" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus  text-success mr-1"></i>{{transl 'prj_project_add_epic'}}</span></li>
+                        <li><span id="btn_refresh_epic" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+                        <li><span id="btn_filter_complete_epic" class="dropdown-item cursor-pointer"><i class="mdi mdi-hand-okay text-success  mr-1"></i>{{transl 'prj_project_epic_search_compete'}}</span></li>
+                     	<li><span id="btn_filter_not_complete_epic" class="dropdown-item cursor-pointer"><i class="mdi mdi-hand-pointing-right  text-primary mr-1"></i>{{transl 'prj_project_epic_search_not_compete'}}</span></li>
+                     	<li><span id="btn_filter_search_epic" class="dropdown-item cursor-pointer"><i class="mdi mdi-card-search-outline  text-primary mr-1"></i>{{transl 'prj_project_epic_search_inp'}}</span></li>
+                         
+<!--                         <li><span data-divtoogle="#tabEpic" class="btn-resize dropdown-item"><i class="mdi mdi-window-minimize  text-primary mr-1"></i><span class="label-resize">{{transl 'prj_project_resize_min'}}</span></span></li> -->
+                     </ul>
+                 </div>
+	         </div>
+		</div>
+		
+		<div class="media epic-filter" style="display: none" id="div_search_epic">
+			<div class="col-sm-12">
+				<input type="text" id="inp_filter_epic" class="form-control" placeholder="{{transl 'prj_project_epic_search_inp_enter'}}"/>
+			</div>
+		</div>
+		
+        <div id="tabEpic" class="table-responsive">
+        </div>
+    </div>
+</div>
+
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Epic_List -->
+{{#if this}}
+   <table class="table table-centered">
+<!--              table-nowrap -->
+    <tbody>
+     {{#each this}}
+        <tr>
+            <td class="td-epic" data-id="{{id}}" data-code="{{code01}}">
+            	
+            	<h5 class="font-size-14 m-0">
+            		<i class="bx bx-package font-size-15"></i>
+            		&nbsp;
+            		<a data-url="view_prj_project_content.html?id={{id}}&code={{code01}}" data-route="VI_MAIN/prj_project_ent" class="hnv-route text-dark cursor-pointer {{reqClassByStat stat}}">{{name}}</a> 
+					&nbsp;
+					<span class="text-success font-size-16 cursor-pointer span-show-epic mr-1" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-eye-outline"></i></span>
+            		<span class="text-default font-size-16 cursor-pointer span-hide-epic mr-1 d-none" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-eye-off-outline"></i></span>
+				</h5>
+            	<a class="font-italic text-success mt-1">{{nbEpic}} {{transl "prj_project_epic_number_epic"}}</a>,
+            	<a class="font-italic text-info mt-1">{{nbTask}} {{transl "prj_project_epic_number_task"}}</a>
+<!--             	<p></p> -->
+<!--             	<p class="font-size-12 m-0"><a class="text-dark">{{{extractMsgHtml descr01 200}}}</a></p> -->
+<!--             	<p class="font-size-12 m-0"><a class="text-dark">{{transl 'prj_project_percent'}}: {{twoDigitFixed val05 2}} %</a></p> -->
+            	
+            </td>
+            
+			<td></td>
+            <td style="width:40%">
+            	{{{reqShortDateStr dtEnd}}} &nbsp; &nbsp; &nbsp; {{{reqDateTimeLateTask dtEnd stat}}}
+            </td>
+            <td style="width:5%">
+        	</td>
+<!--             <td class="d-flex justify-content-end"> -->
+<!--             	{{#if (reqStatNew stat)}} -->
+<!--             	<span class="text-danger font-size-16 cursor-pointer span-delete-epic hideBA hideDev hideTest hideMem hideGuest" data-id="{{id}}" data-code="{{code01}}" data-stat="{{stat}}"><i class="mdi mdi-trash-can-outline"></i></span> -->
+<!--             	{{/if}} -->
+<!--             </td> -->
+        </tr>
+        <tr>
+        	<td colspan="3"><p class="tab_show_epic_detail bg-light m-0" data-id="{{id}}"></p></td>
+        </tr>
+     {{/each}}
+    </tbody>
+</table>
+{{else}}
+<div>{{transl 'prj_project_epic_no'}}</div>
+{{/if}}
+
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Epic_List_Show_Child -->
+<div class="py-2">
+	<table class="table table-centered"> <tbody>
+	{{#if epics}}
+	<tr><td colspan="3"><span class="font-weight-bold">{{epics.length}} {{transl "prj_project_epic_number_epic"}}</span></td></tr>
+	{{#each epics}}
+	<tr>
+		<td>
+			<a data-route="VI_MAIN/prj_project_ent" data-url="view_prj_project_content.html?id={{id}}&code={{code01}}" class="hnv-route text-dark {{reqClassByStat stat}}">{{name}}</a>
+		</td>
+		<td></td>
+		<td>
+			{{reqShortDateStr dtEnd}} &nbsp; &nbsp; &nbsp; {{{reqDateTimeLateTask dtEnd stat}}}
+		</td>
+	</tr>
+	{{/each}}
+	{{/if}}
+	
+	{{#if tasks}}
+	<tr><td colspan="3" ><span class="font-weight-bold">{{tasks.length}} {{transl "prj_project_epic_number_task"}}</span></td></tr>
+	{{#each tasks}}
+	<tr>
+		<td>
+			<a data-route="VI_MAIN/prj_project_ent" data-url="view_prj_project_content.html?id={{id}}&code={{code01}}" class="hnv-route text-dark {{reqClassByStat stat}}">{{name}}</a>
+		</td>
+		<td style="width:20%">
+            <span class="{{reqClassByStat stat}}">[{{reqLabByStat stat}}] </span>
+        </td>
+        <td style="width:30%">
+          	{{reqShortDateStr dtEnd}} &nbsp; &nbsp; &nbsp; {{{reqDateTimeLateTask dtEnd stat}}}
+        </td>
+	</tr>
+	{{/each}}
+	{{/if}}
+	</tbody></table>
+	
+	
+	
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Task -->
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-9">
+	   			<h4 class="card-title mb-4 media-body d-inline-block">{{transl 'prj_project_list_task'}}</h4>
+	   			<span class="task-filter text-muted" id="sp_text_filter"></span>
+	   		</div>
+	   		<div class="col-sm-3 no-padding">
+	             <div class="dropdown float-right font-size-20">
+	             	 <a  id="btn_add_task" class="cursor-pointer isManager hideDev hideTest hideMem hideGuest" title="{{transl 'prj_project_add_epic'}}">
+	             	 	<i class="mdi mdi-plus text-success"></i>
+	             	 </a>
+	             	 <a class="cursor-pointer" id="btn_refresh_task" data-placement="top" data-toggle="tooltip" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-refresh text-primary mr-1"></i>
+	                </a>
+                     <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                         <i class="mdi mdi-dots-vertical"></i>
+                     </a>
+                     
+                     
+                    <a data-divtoogle="#tabTask" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize text-primary"></i>
+	                </a>
+                     <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                        <li><span id="btn_add_task_others" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus  text-success mr-1"></i>{{transl 'prj_project_add_epic'}}</span></li>
+                       	<li><span id="btn_filter_complete_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-hand-okay text-success  mr-1"></i>{{transl 'prj_project_task_search_compete'}}</span></li>
+                     	<li><span id="btn_filter_not_complete_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-hand-pointing-right  text-primary mr-1"></i>{{transl 'prj_project_task_search_not_compete'}}</span></li>
+                      	<li><span id="btn_filter_search_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-card-search-outline  text-primary mr-1"></i>{{transl 'prj_project_task_search_inp'}}</span></li>
+                       	<li><span id="btn_refresh_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+                     	
+<!--                      	<li><span data-divtoogle="#tabTask" class="btn-resize dropdown-item"><i class="mdi mdi-window-minimize  text-primary mr-1"></i><span class="label-resize">{{transl 'prj_project_resize_min'}}</span></span></li> -->
+                     </ul>
+                 </div>
+	         </div>
+		</div>
+		
+		<div class="media task-filter" style="display: none" id="div_search_task">
+			<div class="col-sm-12">
+				<input type="text" id="inp_filter_task" class="form-control" placeholder="{{transl 'prj_project_task_search_inp_enter'}}"/>
+			</div>
+		</div>
+		
+        <div id="tabTask" class="table-responsive">
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Task_List -->
+{{#if this}}
+<table class="table table-centered">
+<!--              table-nowrap -->
+<tbody id="tbody_task">
+{{#each this}}
+    <tr data-id="{{id}}">
+        <td class="td-task" data-id="{{id}}">
+       		<h5 class="font-size-14 m-0">
+				<i class="bx bx-task font-size-15 "></i>
+				&nbsp;
+				<a data-url="view_prj_project_content.html?id={{id}}&code={{code01}}" data-route="VI_MAIN/prj_project_ent" class="hnv-route text-dark cursor-pointer {{reqClassByStat stat}}">{{name}}</a>
+        		
+        	</h5>
+        </td>
+        <td style="width:20%">
+            <span class="{{reqClassByStat stat}}">[{{reqLabByStat stat}}] </span>
+        </td>
+        <td style="width:30%">
+          	{{reqShortDateStr dtEnd}} &nbsp; &nbsp; &nbsp; {{{reqDateTimeLateTask dtEnd stat}}}
+        </td>
+        <td style="width:5%">
+          	{{#if (reqStatNew stat)}}
+            	<span class="text-danger font-size-16 cursor-pointer span-delete-epic hideBA hideDev hideTest hideMem hideGuest" data-id="{{id}}" data-code="{{code01}}" data-stat="{{stat}}">
+            		<i class="mdi mdi-trash-can-outline"></i>
+            	</span>
+            {{/if}}
+        </td>
+    </tr>
+{{/each}}
+</tbody>
+</table>
+{{else}}
+<div class="mt-3">{{transl 'prj_project_task_no'}}</div>
+{{/if}}
+
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Task_List_Element -->
+<tr class="mt-3"  data-id="{{id}}">
+    <td class="td-task" data-id="{{id}}">
+   		<h5 class="font-size-14 m-0">
+     	<a data-route="VI_MAIN/prj_project_ent" data-url="view_prj_project_content.html?id={{id}}&code={{code01}}" class="hnv-route text-dark {{reqClassByStat stat}}">{{name}}</a>
+     	{{{reqDateTimeLateTask dtEnd stat}}}
+    	</h5>
+    	<p></p>
+    	<p class="font-size-12 m-0">{{{extractMsgHtml descr01 200}}}</p>
+    	<p class="font-size-12 m-0"><a class="text-dark">{{transl 'prj_project_percent'}}: {{digitFixed val05 2}} %</a></p>
+    </td>
+    <td class="d-flex justify-content-end">
+    	<div class="dropdown float-right isManager hideDev hideTest hideMem hideGuest">
+           <a href="#" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false">
+               <i class="mdi mdi-dots-vertical m-0 text-muted h5 task-option"></i>
+           </a>
+           <div class="dropdown-menu dropdown-menu-right" style="">
+               {{#equalOrs stat 0 1 2 3 4 5}}<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item remove-task_sprint" href="javascript:void(0)">{{transl 'prj_task_tab_remove'}}</a>{{/equalOrs}}
+<!--                {{#equalOrs stat 0 1 2 3 5 6}}<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item complete-task" href="#">{{transl 'prj_task_tab_complete'}}</a>{{/equalOrs}} -->
+<!--                {{#equalOrs stat 0 1 2 3 4 6}}<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item close-task" href="#">{{transl 'prj_task_tab_close'}}</a>{{/equalOrs}} -->
+<!--                {{#equalOrs stat 0}}			<a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item span-delete-task" href="#">{{transl 'prj_task_tab_delete'}}</a>{{/equalOrs}} -->
+           </div>
+       </div>
+    </td>
+</tr>
+
+<!--END TMPL-->
+<!--************************************-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Tab_Manage_Member -->
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-5">
+                <h4 class="card-title mb-4">{{ transl 'prj_project_mem_manage' }}</h4>
+            </div>
+            <div class="col-sm-7">
+                <div class="dropdown float-right font-size-20">
+                	<a id="a_btn_sav" class="mr-2 text-primary action-item action-item-duplicate hide isManager hideDev hideTest hideMem hideGuest" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+				           		<i class="mdi mdi-content-save font-size-18 action-item"></i>
+				            </a> 
+				                       
+				    <a id="a_btn_canc" class="mr-2 text-danger action-item-duplicate cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+				            	<i class="mdi mdi-close font-size-18"></i>
+				    </a>
+                    <a id="addRowBtn" class="cursor-pointer isManager hideDev hideTest hideMem hideGuest" title="{{transl 'prj_project_add_epic'}}">
+                        <i class="mdi mdi-plus text-success"></i>
+                    </a>
+                    <a class="cursor-pointer" id="btn_refresh_report">
+                        <i class="mdi mdi-refresh text-primary mr-1"></i>
+                    </a>
+                    <a data-divtoogle="#div_rep_cont" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                        <i class="mdi mdi-window-minimize text-primary"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2">
+            <div class="col-12">
+                <div class="table-responsive" style="overflow-y: auto;">
+                    <table class="table table-budget table-centered table-nowrap mb-0">
+                        <thead class="thead-light">
+                            <tr style="text-align: center; position: sticky; z-index: 1; top: 0;">
+                                <th style="width: 20%">{{transl 'prj_project_member_level_worker'}}</th>
+                                <th>{{transl 'prj_project_customer_date_begin'}}</th>
+                                <th>{{transl 'prj_project_customer_date_end'}}</th>
+                                <th>{{transl 'prj_project_customer_time_deadline'}}</th>
+                                <th>{{transl 'prj_project_customer_time_real'}}</th>
+                                <th>{{transl 'prj_project_budget_note'}}</th>
+                                <th id="tr-empty" class="hide">
+								</th>
+                            </tr>
+                        </thead>
+					<tbody id="tbody_calendar">
+					    <input type="text" data-name="name" class="hidden inf-schedule objData form-control " value="{{name}}"> 
+					  {{#if inf01.length}}
+					    {{#each inf01}}
+					      <tr>
+					        <!--
+					        <td class="text-left">
+					          <span class="font-size-12 edit-schedule select-name-member hide"></span>
+					          <input type="text" style="text-align: right;" data-group="inf01" data-gindex="list" data-name="content" 
+					                 class="objData form-control {{#notEqual typ 0}}inf-budget{{/notEqual}} remove-item-chk hide ip_content {{#equal typ 0}}ip-name-member{{/equal}}" 
+					                 {{#equal typ 0}}placeholder="{{transl 'prj_project_enter_name'}}"{{/equal}} 
+					                 value="{{content}}">
+					        </td>
+					        -->
+					        <td class="text-center">
+					          <div class="d-flex align-items-center justify-content-between">
+					            <!-- Input và avatar -->
+					            <div class="d-flex align-items-center flex-grow-1">
+					              <input type="text" data-group="inf01" data-gindex="list" data-name="id" 
+					                     class="hidden inf-schedule objData form-control" value="{{id}}">
+					              {{#if avatar.url}}
+								  <img src="{{avatar.url}}" class="rounded-circle avatar-xs" alt="">
+								{{else}}
+								  {{#if member}}
+								    <div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor member}}">
+								      <div class="text-middle">{{reqSrcTextAvatar member}}</div>
+								    </div>
+								  {{else}}
+								    <div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}">
+								      <div class="text-middle">{{reqSrcTextAvatar login01}}</div>
+								    </div>
+								  {{/if}}
+								{{/if}}
+      
+					
+					              {{#if member}}
+					                <span class="font-size-12 edit-schedule mr-4 flex-grow-1">{{member}}</span>
+					                <input type="text" style="text-align: left; margin-right: 10px;" 
+					                       data-group="inf01" data-gindex="list" data-name="member" 
+					                       class="objData form-control {{#notEqual typ 0}}inf-schedule{{/notEqual}} remove-item-chk hide ip_content {{#equal typ 0}}ip-name-member{{/equal}}"
+					                       {{#equal typ 0}}placeholder="{{transl 'prj_project_enter_name'}}"{{/equal}} 
+					                       value="{{member}}" readonly>
+					              {{else}}
+					                <span class="font-size-12 edit-schedule mr-4 flex-grow-1">{{name01}} {{login01}}</span>
+					                <input type="text" style="text-align: left; margin-right: 10px;" 
+					                       data-group="inf01" data-gindex="list" data-name="member" 
+					                       class="objData form-control {{#notEqual typ 0}}inf-schedule{{/notEqual}} remove-item-chk hide ip_content {{#equal typ 0}}ip-name-member{{/equal}}"
+					                       {{#equal typ 0}}placeholder="{{transl 'prj_project_enter_name'}}"{{/equal}} 
+					                       value="{{login01}}" readonly>
+					              {{/if}}
+					            </div>
+					            <button id="btn_show_schedule_{{id}}" class="btn btn-primary ml-auto isManager hideDev hideTest hideMem hideGuest" value="{{id}}">
+					              <span class="mdi mdi-calendar-month text-white font-size-18"></span>
+					            </button>
+					          </div>
+					        </td>
+					
+					        <td class="text-right">
+					          <span class="font-size-12 edit-schedule">{{reqShortDateStr dtBegin}}</span>
+					          <input id="" type="text" value="{{reqShortDateStr dtBegin}}" data-group="inf01" data-name="dtBegin" class="form-control hide inf-schedule" data-date-format="mm/yyyy" readonly> 
+					           <input id="dtBegin_{{id}}" type="hidden" value="{{dtBegin}}" data-group="inf01" data-name="dtBegin" class="form-control objData hide inf-schedule" readonly>
+					        </td>
+					
+					        <input type="text" data-group="inf01" data-name="id" class="hidden inf-schedule objData form-control " value="{{id}}">
+					        <input type="text" data-group="inf01" data-name="code" class="hidden inf-schedule objData form-control " value="{{code}}">
+							 <input type="text" data-group="inf01" data-name="name" class="hidden inf-schedule objData form-control " value="{{name}}"> 	
+					        <td class="text-right">
+					          <span class="font-size-12 edit-schedule">{{reqShortDateStr dtEnd}}</span>
+					          <input id="" type="text" value="{{reqShortDateStr dtEnd}}" data-group="inf01" data-name="dtEnd" class="form-control hide inf-schedule" data-date-format="mm/yyyy" readonly>
+					           <input id="dtEnd" type="hidden" value="{{dtEnd}}" data-group="inf01" data-name="dtEnd" class="form-control objData hide inf-schedule" readonly>
+					        </td>
+					
+					        <td class="text-right">
+					          <span class="font-size-12 edit-schedule">{{time}}</span>
+					          <input type="number" style="text-align: right;" data-group="inf01" data-gindex="list" data-name="time" 
+					                 class="objData form-control inf-budget remove-item-chk inf-schedule hide" value="{{time}}" readonly>
+					        </td>
+					
+					        <td class="text-left">
+					          <span class="font-size-12 edit-schedule">{{timeReal}}</span>
+					          <input type="text" data-group="inf01" data-gindex="list" data-name="timeReal" class="objData form-control remove-item-chk hide inf-schedule" value="{{timeReal}}" readonly>
+					        </td>
+					
+					        <td class="text-left">
+					          <span class="font-size-12 edit-schedule">{{note}}</span>
+					          <input type="text" data-group="inf01" data-gindex="list" data-name="note" class="objData form-control remove-item-chk hide inf-schedule" value="{{note}}">
+					        </td>
+					
+					        <td id="removeRowBtn" class="remove-btn hide">
+					          <button style="background: none; border: none; color: red; font-size: 24px; cursor: pointer;">
+					            <span class="mdi mdi-trash-can-outline"></span>
+					          </button>
+					        </td>
+					      </tr>
+					    {{/each}}
+					  {{/if}}
+					</tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END TMPL-->
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Table_Manage_Member_Line --> 
+ {{#if obj.length}}
+ {{#each obj}}
+		<tr>
+			<!-- {{#if member}} -->
+			<!--  	 {{#each member}} -->
+		   <td class="text-left budget_content">
+		    <div style="display: flex; align-items: center; gap: 10px">
+		        {{#if member.avatar}}
+		           <img src="{{member.avatar.url}}" alt="" class="avatar-xs mr-2 rounded-circle">
+		        {{else}}
+		           {{#if avatar}}
+		           <img src="{{avatar}}" alt="" class="avatar-xs mr-2 rounded-circle">
+		           {{else}}
+		            <div class="rounded-circle avatar-xs text-white text-uppercase" style="background-color: {{reqSrcTextColor member.member}}">
+			    		<div class="text-middle">{{reqSrcTextAvatar member.member}}</div>
+			  		</div>
+		           {{/if}}
+		        {{/if}}
+		        
+		        {{#if member.member}}
+		            <span class="font-size-12 edit-schedule mr-4 flex-grow-1">
+		                {{member.member}} 
+		            </span>
+		            <input id="member_name_user" type="text" style="text-align: left; margin-right: 10px;" 
+		                   data-group="inf01" data-gindex="list" data-name="member" 
+		                   class="objData form-control {{#notEqual typ 0}}inf-schedule{{/notEqual}} remove-item-chk hide ip_content {{#equal typ 0}}ip-name-member{{/equal}}"
+		                   {{#equal typ 0}}placeholder="{{transl 'prj_project_enter_name'}}"{{/equal}} 
+		                   value="{{member.member}} " readonly>
+		        {{else if member.login01}}
+		         <span class="font-size-12 edit-schedule mr-4 flex-grow-1">
+		                {{member.login01}} 
+		            </span>
+		            <input id="member_name_user" type="text" style="text-align: left; margin-right: 10px;" 
+		                   data-group="inf01" data-gindex="list" data-name="member" 
+		                   class="objData form-control {{#notEqual typ 0}}inf-schedule{{/notEqual}} remove-item-chk hide ip_content {{#equal typ 0}}ip-name-member{{/equal}}"
+		                   {{#equal typ 0}}placeholder="{{transl 'prj_project_enter_name'}}"{{/equal}} 
+		                   value="{{member.login01}}" readonly>
+				{{else if member.username}}
+		         <span class="font-size-12 edit-schedule mr-4 flex-grow-1">
+		                {{member.username}} 
+		            </span>
+		            <input id="member_name_user" type="text" style="text-align: left; margin-right: 10px;" 
+		                   data-group="inf01" data-gindex="list" data-name="" 
+		                   class="objData form-control {{#notEqual typ 0}}inf-schedule{{/notEqual}} remove-item-chk hide ip_content {{#equal typ 0}}ip-name-member{{/equal}}"
+		                   {{#equal typ 0}}placeholder="{{transl 'prj_project_enter_name'}}"{{/equal}} 
+		                   value="{{member.username}}" readonly>
+		        {{/if}}
+		        
+		        <input type="text" data-group="inf01" data-name="id" 
+		               class="inf-schedule objData form-control remove-item-chk text-left hide" 
+		               value="{{member.id}}" style="display: none;">
+		               
+		        <input type="text" data-group="inf01" data-name="name" 
+		               class="inf-schedule objData form-control remove-item-chk text-left hide" 
+		               value="{{name}}" style="display: none;">
+		               
+		        <button id="btn_show_schedule_line" value="{{member.id}}" 
+		                style="background-color: blue; border: none; padding: 8px; cursor: pointer; border-radius: 5px;">
+		            <span class="mdi mdi-calendar-month" style="color: white; font-size: 18px;"></span>
+		        </button>
+		    </div>
+		</td>
+		
+			<input type="number" class="hide name_prj inf-schedule objData form-control remove-item-chk" value="{{name}}">
+		   <td class="text-right">
+		    <input data-format="date" type="text" data-validation="date required" 
+		           class="form-control inf-schedule" id="dtpicker_Begin" 
+		           placeholder="{{transl 'prj_project_start_date'}}" data-group="inf01" 
+		            data-name="dtBegin" data-provide="datepicker" 
+		           data-date-format="dd/mm/yyyy" value="{{reqFormatShortDate dateBegin}}" readonly/>
+			 <input type="hidden" data-group="inf01"  data-name="dtBegin" 
+		               class="inf-schedule objData form-control remove-item-chk text-right" 
+		               value="{{dateBegin}}" step="1">
+		</td>
+		<td class="text-right">
+		    <input data-format="date" type="text" data-validation="date required" 
+		           class="form-control inf-schedule" id="dtpicker_End" 
+		           placeholder="{{transl 'prj_project_end_date'}}" data-group="inf01" 
+		           data-name="dtEnd" data-provide="datepicker" 
+		           data-date-format="dd/mm/yyyy" value="{{reqFormatShortDate dateEnd}}" readonly/>
+			 <input type="hidden" data-group="inf01"  data-name="dtEnd" 
+		               class="inf-schedule objData form-control remove-item-chk text-right" 
+		               value="{{dateEnd}}" step="1">
+		</td>
+		
+		    <td class="text-right">
+		        <input type="number" data-group="inf01" data-name="time" 
+		               class="inf-schedule objData form-control remove-item-chk text-right" 
+		               value="{{totalTime}}" step="1" readonly/>
+		    </td>
+		    <td class="text-right">
+		        <input type="number" data-group="inf01"  data-name="timeReal" 
+		               class="inf-schedule objData form-control remove-item-chk text-right" 
+		               value="{{timeReal}}" step="1" readonly>
+		    </td>
+		    <td class="text-left">
+		        <input type="text" data-group="inf01"  data-name="note" 
+		               class="inf-schedule objData form-control remove-item-chk text-left" 
+		               value="{{note}}">
+		    </td>
+		    <td id="removeRowBtn">
+		        <button style="background: none; border: none; color: red; font-size: 24px; cursor: pointer;">
+					<span class="mdi mdi-trash-can-outline"></span>
+				</button>
+		    </td>
+		</tr>
+{{/each}}
+  {{/if}}
+<!--END TMPL-->
+<!--************************************-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:PrjProject_Ent_Table_Manage_Member_Add --> 
+<tr>
+    <td class="text-left budget_content">
+    <div style="display: flex; align-items: center; gap: 10px;">
+    <!-- The div with the select-name-member class should be inline with the button and input -->
+    <div class="select-name-member hide" style="flex: 1;"></div>
+
+    <input id="ip-content" type="text" data-group="inf01" data-name="" 
+           class="form-control inf-schedule ip-name-member remove-item-chk ip_content text-left" 
+           placeholder="{{transl 'prj_project_enter_name'}}" value=""
+           style="flex: 1;">
+	
+    <button id="btn_show_schedule_add" style="background-color: blue; border: none; padding: 8px; cursor: pointer; border-radius: 5px;">
+        <span class="mdi mdi-calendar-month" style="color: white; font-size: 18px;"></span>
+    </button>
+</div>
+</td>
+
+    <td class="text-right">
+        <input data-format="date" type="text" data-validation="date required" 
+               class="form-control objData inf-schedule" id="dtpicker_Begin" 
+               placeholder="{{transl 'prj_project_start_date'}}" data-group="dtBegin" 
+               data-name="date" data-provide="datepicker" 
+               data-date-format="dd/mm/yyyy" readonly/>
+    </td>
+    <td class="text-right">
+        <input data-format="date" type="text" data-validation="date required" 
+               class="form-control objData inf-schedule" id="dtpicker_End" 
+               placeholder="{{transl 'prj_project_end_date'}}" data-group="dtEnd" 
+               data-name="date" data-provide="datepicker" 
+               data-date-format="dd/mm/yyyy" readonly/>
+    </td>
+    <td class="text-right">
+        <input type="number" data-group="inf01" data-name="timeDeadline" 
+               class="row-budget inf-schedule objData form-control remove-item-chk text-right" 
+               value="" step="1" readonly>
+    </td>
+    <td class="text-right">
+        <input type="number" data-group="inf01" data-name="timeReal" 
+               class="row-budget inf-schedule objData form-control remove-item-chk text-right" 
+               value="" step="1" readonly>
+    </td>
+    <td class="text-left">
+        <input type="text" data-group="inf01" data-name="note" 
+               class="row-budget inf-schedule objData form-control remove-item-chk text-left" 
+               value="">
+    </td>
+    <td id="removeRowBtn">
+        <button style="background: none; border: none; color: red; font-size: 24px; cursor: pointer;">
+			<span class="mdi mdi-trash-can-outline"></span>
+		</button>
+    </td>
+</tr>
+<!--END TMPL-->
+<!--************************************-->
+
+
+
+
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->
+
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+<!--END TMPL-->

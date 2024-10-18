@@ -1,0 +1,328 @@
+<div id="flow-devices" class="flow hide">
+	<div class="container">
+		<form id="form-devices">
+			<h1 class="h3 mb-3 font-weight-normal text-center">Select
+				devices</h1>
+			<div class="row mt-3">
+				<div class="col-12 col-sm-8">
+					<label for="audio-input block">Microphone</label> <select
+						id="audio-input" class="custom-select" style="width: 100%"></select>
+				</div>
+
+				<div class="text-center col-sm-4 d-sm-block">
+					<label>Preview</label>
+					<div class="w-100 progress" style="margin-top: 0.75rem">
+						<div id="audio-preview" class="progress-bar bg-success"
+							role="progressbar" aria-valuenow="0" aria-valuemin="0"
+							aria-valuemax="100"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div id="voice-focus-setting" class="col-12 col-sm-8 hidden">
+					<input autocomplete="off" type="checkbox" id="add-voice-focus"></input>
+					<label style="margin-left: 0.5em" for="voice-focus-setting block">Add
+						Voice Focus</label>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-12 col-sm-8">
+					<label for="video-input block">Camera</label> <select
+						id="video-input" class="custom-select" style="width: 100%"></select>
+				</div>
+				<div class="col-sm-4 text-center d-sm-block video-preview">
+					<video id="video-preview" class="w-100 h-100"
+						style="max-width: 137px; max-height: 82px; border-radius: 8px"></video>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-12 col-sm-8">
+					<select id="video-input-quality" class="custom-select"
+						style="width: 100%">
+						<option value="360p">360p (nHD) @ 15 fps (600 Kbps max)</option>
+						<option value="540p" selected>540p (qHD) @ 15 fps (1.4
+							Mbps max)</option>
+						<option value="720p">720p (HD) @ 15 fps (1.4 Mbps max)</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-12 col-sm-8">
+					<label for="audio-output block">Speaker</label> <select
+						id="audio-output" class="custom-select" style="width: 100%"></select>
+				</div>
+				<div class="col-sm-4">
+					<button id="button-test-sound"
+						class="btn btn-outline-secondary btn-block h-50 d-sm-block"
+						style="margin-top: 2rem">Test</button>
+				</div>
+			</div>
+
+			<div class="row mt-3">
+				<div class="col-lg">
+					<button id="joinButton" class="btn btn-lg btn-primary btn-block"
+						type="submit">Join</button>
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-lg">
+					<p>
+						Ready to join meeting <b><span id="info-meeting"></span></b> as <b><span
+							id="info-name"></span></b>.
+					</p>
+				</div>
+			</div>
+		</form>
+		<div id="progress-join" class="w-100 progress progress-hidden">
+			<div
+				class="w-100 progress-bar progress-bar-striped progress-bar-animated"
+				role="progressbar" aria-valuenow="100" aria-valuemin="0"
+				aria-valuemax="100"></div>
+		</div>
+	</div>
+</div>
+
+
+
+
+<div id="flow-meeting" class="flow div-meeting">
+	<div class="p-2 d-none d-sm-block align-items-end" style="position: fixed; right: 0; bottom: 0; left: 0;">
+		<div class="row align-items-end">
+			<div class="col">
+				<div id="chime-meeting-id" class="text-muted"></div>
+				<div id="desktop-attendee-id" class="text-muted"></div>
+			</div>
+			<div class="col d-none d-lg-block">
+				<div id="video-uplink-bandwidth" class="text-muted text-right"></div>
+				<div id="video-downlink-bandwidth" class="text-muted text-right"></div>
+			</div>
+		</div>
+	</div>
+	<audio id="meeting-audio" style="display: none"></audio>
+	<div id="meeting-container" class="container-fluid h-100" style="display: flex; flex-flow: column">
+		<div class="row mb-3 mb-lg-0" style="flex: unset;">
+			<div class="col-12 col-lg-3 order-1 order-lg-1 text-center text-lg-left">
+				<div id="meeting-id" class="navbar-brand text-muted m-0 m-lg-2"></div>
+				<div id="mobile-chime-meeting-id" class="text-muted d-block d-sm-none" style="font-size: 0.65rem;"></div>
+				<div id="mobile-attendee-id" class="text-muted d-block d-sm-none mb-2" style="font-size: 0.65rem;"></div>
+			</div>
+			<div class="col-8 col-lg-6 order-2 order-lg-2 text-left text-lg-center">
+				<div class="btn-group mx-1 mx-xl-2 my-2" role="group" aria-label="Toggle microphone">
+					<button id="button-microphone" type="button" class="btn btn-success" title="Toggle microphone">
+						<span><i class="mdi mdi-microphone"></i></span>
+					</button>
+					<div class="btn-group" role="group">
+						<button id="button-microphone-drop" type="button" class="btn btn-success dropdown-toggle chime" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"	title="Select microphone"></button>
+						<div id="dropdown-menu-microphone" class="dropdown-menu dropdown-menu-right" aria-labelledby="button-microphone-drop" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+							<a class="dropdown-item" href="#">Default microphone</a>
+						</div>
+					</div>
+				</div>
+				<div class="btn-group mx-1 mx-xl-2 my-2" role="group"
+					aria-label="Toggle camera">
+					<button id="button-camera" type="button" class="btn btn-success" title="Toggle camera">
+						<span><i class="mdi mdi-video"></i></span>
+					</button>
+					<div class="btn-group" role="group">
+						<button id="button-camera-drop" type="button" class="btn btn-success dropdown-toggle chime" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select camera"></button>
+						<div id="dropdown-menu-camera" class="dropdown-menu dropdown-menu-right" aria-labelledby="button-camera-drop" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+							<a class="dropdown-item" href="#">Default camera</a>
+						</div>
+					</div>
+				</div>
+				<div class="btn-group mx-1 mx-xl-2 my-2 hide" role="group" aria-label="Apply filter">
+					<button id="button-video-filter" type="button" class="btn btn-success" title="Apply filter">
+						<span><i class="mdi mdi-contrast-circle"></i></span>
+					</button>
+					<div class="btn-group" role="group">
+						<button id="button-video-filter-drop" type="button"	class="btn btn-success dropdown-toggle chime" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select filter"></button>
+						<div id="dropdown-menu-filter" class="dropdown-menu dropdown-menu-right" aria-labelledby="button-video-filter-drop"	x-placement="bottom-start">
+							<a class="dropdown-item" href="#">No filter</a>
+						</div>
+					</div>
+				</div>
+				<div class="btn-group mx-1 mx-xl-2 my-2" role="group" aria-label="Toggle content share">
+					<button id="button-content-share" type="button"	class="btn btn-success" title="Toggle content share">
+						<span><i class="mdi mdi-camera"></i></span>
+					</button>
+					<div class="btn-group" role="group">
+						<button id="button-content-share-drop" type="button" class="btn btn-success dropdown-toggle chime" data-toggle="dropdown"	aria-haspopup="true" aria-expanded="false" title="Select content to share"></button>
+						<div id="dropdown-menu-content-share" class="dropdown-menu dropdown-menu-right"	aria-labelledby="button-content-share-drop"	x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+							<a id="dropdown-item-content-share-screen-capture" class="dropdown-item" href="#">{{transl 'prj_chat_chime_video_share'}}</a> 
+							<a id="dropdown-item-content-share-screen-test-video" class="dropdown-item" href="#">{{transl 'prj_chat_chime_video_test'}}</a> 
+							<a id="dropdown-item-content-share-file-item" class="dropdown-item hide" href="#"><input id="content-share-item" type="file"></a>
+						</div>
+					</div>
+				</div>
+				<button id="button-pause-content-share" type="button" class="btn btn-success mx-1 mx-xl-2 my-2"	title="Pause and unpause content share">
+					<span><i class="mdi mdi-pause"></i></span>
+				</button>
+				<div class="btn-group mx-1 mx-xl-2 my-2" role="group" aria-label="Toggle speaker">
+					<button id="button-speaker" type="button" class="btn btn-success" title="Toggle speaker">
+						<span><i class="mdi mdi-volume-medium"></i></span>
+					</button>
+					<div class="btn-group" role="group">
+						<button id="button-speaker-drop" type="button" class="btn btn-success dropdown-toggle chime" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Select speaker"></button>
+						<div id="dropdown-menu-speaker"	class="dropdown-menu dropdown-menu-right" aria-labelledby="button-speaker-drop" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+							<a class="dropdown-item" href="#">Default speaker</a>
+						</div>
+					</div>
+				</div>
+				<button id="button-video-stats" type="button" class="btn btn-success mx-1 mx-xl-2 my-2 hide" title="Toggle video WebRTC stats display" data-toggle="button" aria-pressed="false" autocomplete="off">
+					<span><i class="mdi mdi-signal"></i></span>
+				</button>
+				
+				<button id="button-video-comment" type="button"	class="btn btn-success mx-1 mx-xl-2 my-2"	title="Show chat" data-toggle="button" aria-pressed="false" autocomplete="off">
+					<span><i class="mdi mdi-comment-text-multiple-outline"></i></span>
+				</button>
+			</div>
+			<div class="col-4 col-lg-3 order-3 order-lg-3 text-right text-lg-right">
+<!-- 				<button id="button-video-comment" type="button"	class="btn btn-outline-secondary mx-1 mx-xl-2 my-2"	title="Show chat" data-toggle="button" aria-pressed="false" autocomplete="off"> -->
+<!-- 					<span><i class="mdi mdi-comment-text-multiple-outline"></i></span> -->
+<!-- 				</button> -->
+				
+				<button id="button-meeting-leave" type="button"	class="btn btn-outline-success mx-1 mx-xl-2 my-2 px-4" title="Leave meeting">
+					<span><i class="mdi mdi-logout"></i></span>
+				</button>
+				{{#if isMaster}}
+				<button id="button-meeting-end" type="button" class="btn btn-outline-danger mx-1 mx-xl-2 my-2 px-4"	title="End meeting">
+					<span><i class="mdi mdi-power-standby"></i></span>
+				</button>
+				{{/if}}
+			</div>
+		</div>
+		<div id="roster-tile-container"	class="row flex-sm-grow-1 overflow-hidden h-100" style="flex: unset;">
+			<div id="roster-message-container" class="d-flex flex-column col-12 col-sm-6 col-md-5 col-lg-4 h-100" style="max-height: unset!important;">
+				<div class="bs-component" style="flex: 1 1 auto; overflow-y: auto; height: 50%;">
+					<ul id="roster" class="list-group"style="max-height: 200px;overflow: auto;"></ul>
+				</div>
+				<div class="message d-flex flex-column pt-3 hide" style="flex: 1 1 auto; overflow: hidden; height: 50%;max-height: unset!important;">
+					<div class="list-group receive-message" id="receive-message" style="flex: 1 1 auto; overflow-y: auto; border: 1px solid rgba(0, 0, 0, 0.125); background-color: #fff"></div>
+					<div class="input-group send-message" style="display: flex; flex: 0 0 auto; margin-top: 0.2rem">
+						<textarea class="form-control shadow-none" id="send-message" rows="1" placeholder="Type a message (markdown supported)"	style="display: inline-block; width: 100%; resize: none; border-color: rgba(0, 0, 0, 0.125); outline: none; padding-left: 1.4rem"></textarea>
+					</div>
+				</div>
+			</div>
+			{{#if isMaster}}
+			<div id="div_waiting_reponse" class="col-12 col-sm-6 col-md-7 col-lg-8 my-4 my-sm-0 h-100">
+				<i class="Phone is-animating"></i><span class="mb-3">Đang thực hiện cuộc gọi...</span>
+			</div>
+			{{/if}}
+			<div id="tile-container" class="col-12 col-sm-6 col-md-7 col-lg-8 my-4 my-sm-0 h-100" style="overflow-y: scroll">
+				<div id="tile-area" class="v-grid">
+					<div id="tile-0" class="video-tile my-3">
+						<video id="video-0" class="video-tile-video w-100"></video>
+						<div id="nameplate-0" class="video-tile-nameplate"></div>
+						<button id="video-pause-0" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-0" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-1" class="video-tile my-3">
+						<video id="video-1" class="video-tile-video w-100"></video>
+						<div id="nameplate-1" class="video-tile-nameplate"></div>
+						<button id="video-pause-1" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-1" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-2" class="video-tile my-3">
+						<video id="video-2" class="video-tile-video w-100"></video>
+						<div id="nameplate-2" class="video-tile-nameplate"></div>
+						<button id="video-pause-2" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-2" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-3" class="video-tile my-3">
+						<video id="video-3" class="video-tile-video w-100"></video>
+						<div id="nameplate-3" class="video-tile-nameplate"></div>
+						<button id="video-pause-3" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-3" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-4" class="video-tile my-3">
+						<video id="video-4" class="video-tile-video w-100"></video>
+						<div id="nameplate-4" class="video-tile-nameplate"></div>
+						<button id="video-pause-4" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-4" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-5" class="video-tile my-3">
+						<video id="video-5" class="video-tile-video w-100"></video>
+						<div id="nameplate-5" class="video-tile-nameplate"></div>
+						<button id="video-pause-5" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-5" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-6" class="video-tile my-3">
+						<video id="video-6" class="video-tile-video w-100"></video>
+						<div id="nameplate-6" class="video-tile-nameplate"></div>
+						<button id="video-pause-6" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-6" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-7" class="video-tile my-3">
+						<video id="video-7" class="video-tile-video w-100"></video>
+						<div id="nameplate-7" class="video-tile-nameplate"></div>
+						<button id="video-pause-7" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-7" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-8" class="video-tile my-3">
+						<video id="video-8" class="video-tile-video w-100"></video>
+						<div id="nameplate-8" class="video-tile-nameplate"></div>
+						<button id="video-pause-8" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-8" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-9" class="video-tile my-3">
+						<video id="video-9" class="video-tile-video w-100"></video>
+						<div id="nameplate-9" class="video-tile-nameplate"></div>
+						<button id="video-pause-9" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-9" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-10" class="video-tile my-3">
+						<video id="video-10" class="video-tile-video w-100"></video>
+						<div id="nameplate-10" class="video-tile-nameplate"></div>
+						<button id="video-pause-10" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-10" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-11" class="video-tile my-3">
+						<video id="video-11" class="video-tile-video w-100"></video>
+						<div id="nameplate-11" class="video-tile-nameplate"></div>
+						<button id="video-pause-11" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-10" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-12" class="video-tile my-3">
+						<video id="video-12" class="video-tile-video w-100"></video>
+						<div id="nameplate-12" class="video-tile-nameplate"></div>
+						<button id="video-pause-12" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-12" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-13" class="video-tile my-3">
+						<video id="video-13" class="video-tile-video w-100"></video>
+						<div id="attendeeid-13" class="video-tile-attendeeid"></div>
+						<div id="nameplate-13" class="video-tile-nameplate"></div>
+						<button id="video-pause-13" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-13" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-14" class="video-tile my-3">
+						<video id="video-14" class="video-tile-video w-100"></video>
+						<div id="nameplate-14" class="video-tile-nameplate"></div>
+						<button id="video-pause-14" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-14" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-15" class="video-tile my-3">
+						<video id="video-15" class="video-tile-video w-100"></video>
+						<div id="nameplate-15" class="video-tile-nameplate"></div>
+						<button id="video-pause-15" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-15" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-16" class="video-tile my-3">
+						<video id="video-16" class="video-tile-video w-100"></video>
+						<div id="nameplate-16" class="video-tile-nameplate"></div>
+						<button id="video-pause-16" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-16" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+					<div id="tile-17" class="video-tile my-3">
+						<video id="video-17" class="video-tile-video w-100"></video>
+						<div id="nameplate-17" class="video-tile-nameplate"></div>
+						<button id="video-pause-17" class="btn btn-primary video-tile-pause"><span><i class="mdi mdi-pause"></i></span></button>
+						<button id="video-zoom-17" class="btn btn-primary video-tile-zoom"><span><i class="mdi mdi-plus"></i></span></button>
+					</div>
+				</div>
+			</div>
+			<video id="content-share-video" crossOrigin="anonymous"
+				style="display: none"></video>
+		</div>
+	</div>
+</div>

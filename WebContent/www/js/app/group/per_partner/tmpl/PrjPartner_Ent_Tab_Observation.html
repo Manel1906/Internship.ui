@@ -1,0 +1,107 @@
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_partner_tab_observ_title'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7 isManager">
+	             <div class="text-right">
+  					<button id="btn_add_obs" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_partner_tab_observ_add'}}</button>
+	             	<a id="a_btn_save_obs" class="mr-3 text-primary hide action-item-obs cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save font-size-18 action-item"></i>
+		            </a>
+		            <a id="a_btn_cancel_obs" class="text-danger hide action-item-obs cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close font-size-18"></i>
+		            </a>
+	             </div>
+	         </div>
+	         
+	         
+		</div>
+<!--         <div class="table-responsive"> -->
+<!--             <table class="table table-centered table-nowrap"> -->
+<!-- 			    <thead id="div_prj_observation_tab_body"> -->
+<!-- 			    	<tr> -->
+<!-- 			    		<th>{{transl 'per_tab_observation_user'}}</th> -->
+<!-- 			    		<th>{{transl 'per_tab_observation_date'}}</th> -->
+<!-- 			    		<th>{{transl 'per_tab_observation_event'}}</th> -->
+<!-- 			    		<th>{{transl 'per_tab_observation_status'}}</th> -->
+<!-- 			    		<th>{{transl 'per_tab_observation_cmt'}}</th> -->
+<!-- 			    		<th>{{transl 'per_tab_observation_cmt02'}}</th> -->
+<!-- 			    	</tr> -->
+<!-- 			    </thead> -->
+<!-- 			</table> -->
+<!--         </div> -->
+        <div id="" class="action-item-observ table-responsive">
+        	<div class="mb-3">
+        		 <table class="table table-centered table-nowrap">
+        		 <thead>
+			    	<tr>
+			    		<th>{{transl 'per_tab_observation_user'}}</th>
+			    		<th>{{transl 'per_tab_observation_date'}}</th>
+			    		<th>{{transl 'per_tab_observation_event'}}</th>
+			    		<th>{{transl 'per_tab_observation_status'}}</th>
+			    		<th>{{transl 'per_tab_observation_cmt'}}</th>
+			    		<th>{{transl 'per_tab_observation_cmt02'}}</th>
+			    	</tr>
+			    </thead>
+			    <tbody id="div_prj_observation_tab_body">
+				{{log inf04}}
+			     {{#if inf04}}
+			     {{#each inf04}}
+			        <tr class="observ-item" data-observid="{{id}}" data-name="inf04" data-primary="id">
+			            <td data-visible="true">
+			            	<div	class="min-height-20 cursor-pointer">{{lab}}</div>
+		            		<input	class="objData hide"	data-group="inf04" data-gindex="{{@index}}" 	data-name="id"	value="{{id}}">
+			            	<input	class="hide objData"	data-group="inf04" data-gindex="{{@index}}"
+			            	data-name="lab"		value="{{lab}}" 	disabled="disabled">
+			            </td>
+			            <td data-visible="true">
+			            	<div	class="min-height-20 cursor-pointer">{{dateFormatLocal info01}}</div>
+							<div class="input-daterange input-group" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+			                	<input class="hide  objData" type="text"	data-group="inf04" data-gindex="{{@index}}"
+			                	data-name="info01" value="{{dateFormatLocal info01}}" data-validation="date required" data-format="date" disabled="disabled">
+			                </div>
+			            </td>
+			            <td data-visible="true">
+			            	<div	class="min-height-20 cursor-pointer">{{info02}}</div>
+			            	 <select class="hide objData" data-group="inf04" data-gindex="{{@index}}"
+						            	data-name="info02" data-validation="required">
+						   		<option value='{{info02}}'></option>
+						   </select>
+			            </td>
+			            <td data-visible="true">
+			            	<div	class="min-height-20 cursor-pointer">{{info05}}</div>
+			            	<select class="hide objData" data-group="inf04" data-gindex="{{@index}}"
+						            	data-name="info05" data-validation="required">
+						   		<option value='{{info05}}'></option>
+						   </select>
+			            </td>
+			            
+			            <td data-visible="true">			            
+			            	<div class="content-observ-textarea min-height-20 cursor-pointer max-width-200" style= "max-height:200px;overflow: auto;" >{{{info04}}}</div>
+			            	<textarea	class="hide objData"	data-group="inf04" data-gindex="{{@index}}" 	data-name="info04">{{{info04}}}</textarea>
+			            </td>
+			            <td data-visible="true">
+			            	<div	class="content-observ-textarea min-height-20 cursor-pointer max-width-200" style= "max-height:200px;overflow: auto;" >{{{info03}}}</div>
+			            	<textarea	class=" hide objData"	data-group="inf04" data-gindex="{{@index}}" 	data-name="info03">{{{info03}}}</textarea>
+			            </td>
+			            <td class="action-item-observ">
+                            <a data-observid="{{id}}" class="text-primary observ-view cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{transl 'prj_partner_tab_observation_view'}}"><i class="mdi mdi-eye-outline font-size-16"></i></a>
+                        </td>
+			            <td class="action-item-observ action-delete" style="display: none;">
+                            <a data-observid="{{id}}" class="text-danger observ-delete cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="{{transl 'prj_partner_tab_observation_delete'}}"><i class="mdi mdi-trash-can-outline font-size-16"></i></a>
+                        </td>
+			        </tr>
+			     {{/each}}
+			     {{else}}
+			     	<tr>
+			            <td data-visible="true">{{transl "common_null_data"}}</td>
+			        </tr>
+			     {{/if}}
+			     </tbody>
+			     </table>
+        	</div>
+        </div>
+    </div>
+</div>

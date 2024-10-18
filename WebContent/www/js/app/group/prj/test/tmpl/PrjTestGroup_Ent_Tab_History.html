@@ -1,0 +1,54 @@
+<div class="card">
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-9">
+	   			<h4 class="card-title mb-4 media-body d-inline-block">{{transl 'prj_project_test_group_history'}}</h4>
+	   			<span class="task-filter text-muted" id="sp_text_filter"></span>
+	   		</div>
+	   		<div class="col-sm-3 no-padding">
+	            <div class="dropdown float-right font-size-20">
+	             	 <a id="a_btn_save_history" class="mr-2 text-primary hide action-mem" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save action-item"></i>
+		             </a>
+		             <a id="a_btn_cancel_history" class="mr-2 text-danger hide action-mem" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close"></i>
+		             </a>
+		             <a id="btn_add_history" class="cursor-pointer action-mem isManager hideDev hideTest hideMem hideGuest" title="{{transl 'prj_project_add_epic'}}">
+						<i class="mdi mdi-plus text-success"></i>
+					 </a>
+		            
+                     <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
+                         <i class="mdi mdi-dots-vertical"></i>
+                     </a>
+                     
+                    <a data-divtoogle="#tabTask" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+	                   <i class="mdi mdi-window-minimize text-primary"></i>
+	                </a>
+                     <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                     	<li><span id="btn_refresh_history" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li>
+<!--                       	<li><span id="btn_add_history" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus  text-success mr-1"></i>{{transl 'prj_project_add_epic'}}</span></li>-->
+<!--                        <li><span data-right="view:40002002" id="btn_add_history" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus  text-success mr-1"></i>{{transl 'prj_project_add_epic'}}</span></li>-->
+                       	
+
+						<!-- <li><span id="btn_filter_complete_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-hand-okay text-success  mr-1"></i>{{transl 'prj_project_task_search_compete'}}</span></li>
+                     	<li><span id="btn_filter_not_complete_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-hand-pointing-right  text-primary mr-1"></i>{{transl 'prj_project_task_search_not_compete'}}</span></li>
+                      	<li><span id="btn_filter_search_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-card-search-outline  text-primary mr-1"></i>{{transl 'prj_project_task_search_inp'}}</span></li>
+                       	<li><span id="btn_refresh_task" class="dropdown-item cursor-pointer"><i class="mdi mdi-refresh  text-primary mr-1"></i>{{transl 'common_refresh'}}</span></li> -->
+                     	
+                     </ul>
+                </div>
+
+				<a id="a_btn_cancel03" class="float-right mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+	            	<i class="mdi mdi-close font-size-20"></i>
+	            </a>
+				<a id="a_btn_save03" class="float-right mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+	            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+	            </a>
+	         </div>
+		</div>
+		
+		
+        <div id="tabHistory" class="table-responsive tabHistoryCustom">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+ <div class="card">
+     <div class="card-body">
+     	<div class="row input-daterange input-group" id="div_date_period">
+     		<div class="col-lg-3 col-md-3">
+	     		<h4 class="card-title mb-4 d-inline mr-2">{{transl 'prj_dashboard_tab_task_chart'}}</h4>
+	     		<span id="span_periode">
+	     		</span>
+     		</div>
+     		<div class="col-lg-3 col-md-3">
+				<input data-format="date" type="text" id="inp_dt_begin" data-validation="date" class="form-control objData" placeholder="{{transl 'prj_project_start_date'}}" data-group="dtBegin" data-name="date"  data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+			</div>
+			
+			<div class="col-lg-3 col-md-3">
+				<input data-format="date" type="text" id="inp_dt_end" data-validation="date" class="form-control objData" placeholder="{{transl 'prj_project_end_date'}}" data-group="dtEnd" data-name="date" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+			</div>
+     	</div>
+       	<br/>
+       	<div class="row form-group" id="div_user_kpi"></div>
+     </div>
+ </div>

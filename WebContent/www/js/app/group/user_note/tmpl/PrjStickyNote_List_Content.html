@@ -1,0 +1,26 @@
+<!-- <div class="container-fluid"> -->
+	{{#each lst}}
+       <div class="task-item card task-box mb-1" data-id="{{id}}" data-stat="{{stat}}">
+               <div class="card-body p-2">
+	               <div class="dropdown float-right">
+	               	   
+	                   <a href="#" class="dropdown-toggle arrow-none" data-toggle="dropdown" aria-expanded="false">
+	                       <i class="mdi mdi-dots-vertical m-0 text-muted h5 task-option"></i>
+	                   </a>
+	                   <div class="dropdown-menu dropdown-menu-right">
+	                   	   <a data-id="{{id}}" data-stat="{{stat}}" class="dropdown-item remove-note" href="javascript:void(0)">{{transl 'prj_task_tab_remove'}}</a>
+	                   </div>
+	                  
+	               </div>
+                   <div class="media note-item-name" data-id="{{id}}" >
+                       <div class="media-body overflow-hidden cursor-pointer">
+	                       	<div>
+	                       		<h5 class="font-size-15 h-inline">{{title}}</h5>
+	                           	<span class="badge badge-{{reqLevColor lev}} badge-pill">{{reqLevPrj lev}}</span>
+	                       	</div>
+	                       	
+                       </div>
+                   </div>
+               </div>
+           </div>
+       {{/each}}

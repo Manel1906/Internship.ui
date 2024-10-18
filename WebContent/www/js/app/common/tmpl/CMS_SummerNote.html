@@ -1,0 +1,57 @@
+<!--BEGIN TMPL-->
+<!--NAME TMPL:CMS_SummerNote -->
+<div class="form-group">
+    <label for="btn_search_img_editor">{{transl 'common_image_search'}}</label>
+    <input type="text" class="form-control" id="btn_search_img_editor" placeholder="{{transl 'common_image_search_placeholder'}}">
+  </div>
+<div>
+	<div id="div_img_list"></div>
+	<div id="div_img_pagination"></div>
+</div>
+<!--END TMPL-->
+
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:CMS_SummerNote_List -->
+{{#if lst}}
+	<div class="row">
+		{{#each lst}}
+		<div class="item-doc col-xm-6 col-sm-4 col-md-3 mt-2 position-relative">
+			<img class="w-75 h-75" alt="" src="{{reqSrcImg this}}">
+			<div class="mt-2" >{{fName}}</div>
+			<span class="position-absolute" style="right: 20px; bottom: 5px"><input class="item-doc-check" type="checkbox" data-src="{{url}}"></span>
+		</div>
+		{{/each}}
+	</div>
+{{else}}
+
+{{/if}}
+<!--END TMPL-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL:CMS_SummerNote_Math -->
+<div class="note-btn-group btn-group open">
+    <i class="fa fa-plus"></i>
+    <ul id="drop_math" class="note-dropdown-menu dropdown-menu">
+        <div class="note-btn-group btn-group note-align">
+            <button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">
+                <i class="note-icon-align-left"></i>
+            </button>
+            <button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">
+                <i class="note-icon-align-left"></i>
+            </button>
+            <button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">
+                <i class="note-icon-align-left"></i>
+            </button>
+            <button type="button" class="note-btn btn btn-default btn-sm" tabindex="-1">
+                <i class="note-icon-align-left"></i>
+            </button>
+        </div>
+    </ul>
+</div>
+<!--END TMPL-->
+
+<!--BEGIN TMPL-->
+<!--NAME TMPL: -->
+
+<!--END TMPL-->

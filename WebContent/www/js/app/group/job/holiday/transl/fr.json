@@ -1,0 +1,13 @@
+{
+  "job_holiday_list_holiday": "Liste des jour fériés",
+  "job_holiday_date": "Jour férié",
+  "job_holiday_comment": "Note",
+  "job_holiday_select_date": "Sélectionnez une date",
+  "job_holiday_holiday_name": "Nom du jour férié",
+  "job_holiday_holiday_code": "Mois concerné",
+
+  "job_hld_msg_user_right_error_G": "Ce compte n'a pas le droit de consulter la liste des jours fériés",
+  "job_hld_msg_user_right_error_N": "Ce compte n'a pas le droit de créer un jour férié",
+  "job_hld_msg_user_right_error_M": "Ce compte n'a pas le droit de modifier un jour férié",
+  "job_hld_msg_user_right_error_D": "Ce compte n'a pas le droit de supprimé un jour férié plannifié."
+}

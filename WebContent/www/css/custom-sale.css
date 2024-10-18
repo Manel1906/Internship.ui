@@ -1,0 +1,126 @@
+.sidebar > .div-sidebar-menu {
+	position: fixed;
+    width: 100%;
+/*     height: 90vh; */
+    overflow: hidden;
+}
+
+.sidebar > .div-sidebar-menu > ul {
+    width: 110%;
+/*     height: 100%; */
+    overflow-x: hidden;
+   	overflow-y: visible;
+   	font-size: 14px;
+}
+
+
+.nav-elt-01 {
+	padding: 15px 75px !important;
+}
+
+.nav-elt-02 {
+	width: 150%;
+	margin: 8px 10px 0;
+}
+
+.nav-elt-03 {
+	padding: 15px 75px !important;
+}
+
+.nav-elt-04 {
+	padding: 15px 75px !important;
+}
+
+.nav-elt-05 {
+	padding: 15px 20px !important;
+	display: block !important;
+	font-size: 300%;
+}
+
+.table-sor-sale>tbody>tr {
+	height: 50px;
+}
+
+.box-sor-sale {
+	overflow-x: hidden;
+}
+
+.text-align-center {
+	text-align: center;
+}
+
+.image-center {
+    min-height: 150px;
+    min-width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.custom-h4 {
+	margin-top: 0;
+}
+
+.custom-btn-lg {
+	padding: 30px 16px;
+}
+
+.custom-form-group {
+    margin-bottom: 50px;
+}
+
+.medicine_tickmark span {
+    display: none;
+    position: absolute;
+}
+
+.medicine_tickmark span.selected {
+	display: block;
+	top: 1%;
+    left: 20%;
+    color: #0f0;
+    font-size: xx-large;
+}
+
+.sorSale_unit_choice_wrapper {
+	margin: 5px;
+	background-color: #bede69;
+	border: 1px solid #bede69;
+	height: 60px;
+	font-size: 1.2em;
+	border-radius : 5px;
+}
+
+.sorSale_unit_choice_inner {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.no-padding-lelf {
+	padding-left: 0;
+}
+
+.no-padding-right {
+	padding-right: 0;
+}
+
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 60px;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.2;
+    -khtml-opacity: 0.2;
+    opacity: 0.2;
+    z-index: 999;
+}
+
+.btn-block:not(.btn-empl) {
+	 height: 40px;
+	 min-width:40px;
+}
