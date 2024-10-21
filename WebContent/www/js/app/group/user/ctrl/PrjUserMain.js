@@ -13,6 +13,8 @@ define([
 	'text!group/user/tmpl/PrjUser_Ent_Tab_Person_Info.html',	
     'text!group/user/tmpl/PrjUser_Sel_List_Legal_Status.html'	,
 	'text!group/user/tmpl/PrjUser_Ent_Tab_Rights.html',
+	'text!group/user/tmpl/PrjDropzone_File.html'
+
 	], function(
 			PrjUserList,
 			PrjUserEnt,
@@ -27,7 +29,9 @@ define([
 			PrjUser_Ent_Tab_JobPosition	,	
 			PrjUser_Ent_Tab_Person_Info,
 			PrjUser_Sel_List_Legal_Status,
-			PrjUser_Ent_Tab_Rights
+			PrjUser_Ent_Tab_Rights,
+			
+			PrjDropzone_File
 	) {
 
 	var PrjUserMain     			= function (grpName, header, content, footer) {
@@ -64,7 +68,8 @@ define([
 			tmplName.PRJ_USER_ENT_TAB_JOBPOSITION		= "PrjUser_Ent_Tab_JobPosition";
 			tmplName.PRJ_USER_ENT_TAB_RIGHTS			= "PrjUser_Ent_Tab_Rights";
 			tmplName.PRJ_USER_ENT_TAB_PERSON_INFO		= "PrjUser_Ent_Tab_Person_Info";
-			tmplName.PRJ_USER_LEGAL_STAT				= "PrjUser_Sel_List_Legal_Status";	
+			tmplName.PRJ_USER_LEGAL_STAT				= "PrjUser_Sel_List_Legal_Status";
+			tmplName.PRJ_DROPZONE_FILE					= "PrjDropzone_File"
 			
 			
 			
@@ -78,6 +83,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_ENT_TAB_RIGHTS		, PrjUser_Ent_Tab_Rights); 		
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_ENT_TAB_PERSON_INFO	, PrjUser_Ent_Tab_Person_Info);
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_LEGAL_STAT			, PrjUser_Sel_List_Legal_Status); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_DROPZONE_FILE				, PrjDropzone_File);
 			
 			//---------------------------------------------------------------------------------------------
 			

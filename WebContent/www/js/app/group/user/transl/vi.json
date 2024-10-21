@@ -26,6 +26,7 @@
     "prj_project_stat_100900"                   : "Đóng",
 
     "----------AUT USER----------"			:	"----------AUT USER----------",
+    
 	"prj_user_list_info"					: "Người dùng",
 	"prj_user_header_new_title"				: "Tạo người dùng mới",
 	"prj_user_header_new_btn"				: "Tạo người dùng",
@@ -35,6 +36,8 @@
 	"prj_user_list_btn_dashboard"			: "Xem tổng kết",
 	"prj_user_save_all"                     : "Lưu",
     "prj_user_list_search"                  : "Tìm kiếm",
+    "prj_user_list_title"					: "Danh sách tài khoản người dùng",
+    "prj_user_list_new_file_title"			: "Thêm tập tin vào đây",
 
     "aut_user_profile_header_title"         :   "Thông tin tài khoản",
     "aut_user_list_login"					:	"Tài khoản",
@@ -47,9 +50,21 @@
     "aut_user_tab_cat"						:	"Cấp bậc",
     "aut_user_tab_cat_tabtitle"				:	"Cấp bậc tư vấn viên",
 
-    "aut_right_prj_test_unit"               : "Các bước kiểm tra",
-    "aut_right_prj_test_group"              : "Kiểm tra tổng hợp",
-    "aut_right_sys_cfg"						: "Cấu hình hệ thống",
+    "aut_right_prj_test_unit"               	: "Các bước kiểm tra",
+    "aut_right_prj_test_group"              	: "Kiểm tra tổng hợp",
+    "aut_right_sys_cfg"							: "Cấu hình hệ thống",
+    "aut_right_department_management"       	: "Quản lý phòng ban",
+    "aut_right_directory_of_doctors"       		: "Danh mục bác sĩ",
+    "aut_right_directory_of_patient"       		: "Danh mục bệnh nhân",
+    "aut_right_manage_work_schedule"       		: "Quản lý lịch làm việc",
+    "aut_right_manage_appointment_schedules"    : "Quản lý lịch hẹn",
+    "aut_right_patient_management"    			: "Quản lý bệnh nhân",
+    "aut_right_medication_management"    		: "Quản lý thuốc",
+    "aut_right_disease_management"    			: "Quản lý bệnh",
+    "aut_right_medical_records"    				: "Hồ sơ bệnh án",
+    "aut_right_manage_test_portfolio"    		: "Quản lý danh mục xét nghiệm",
+    "aut_right_manage_CDHA_portfolio"    		: "Quản lý danh mục CĐHA",
+    "aut_right_general_report"    				: "Báo cáo tổng quát",
     
     
     "aut_user_list_header_choice_title"     :   "Các user vừa chọn",
@@ -88,7 +103,9 @@
     "aut_user_ent_header_type_super_adm"	:	"Quản trị cao nhất",
     "aut_user_ent_header_type_adm"			:	"Quản trị",
     "aut_user_ent_header_type_mentor"       :   "Tư vấn viên",
-    "aut_user_ent_header_type_agent"		:	"Nhân viên hoặc cộng tác viên",
+    "aut_user_ent_header_type_agent"		:	"Nhân viên",
+    "aut_user_ent_header_type_doctor"		:	"Bác sĩ",
+    "aut_user_ent_header_type_patient"		:	"Bệnh nhân",
     "aut_user_ent_header_type_shipper"      :   "Shipper",
     "aut_user_ent_header_type_member"		:	"Thành viên bên ngoài",
     "aut_user_ent_header_type_seller"       :   "Seller",
@@ -191,7 +208,11 @@
     "per_person_type_physic"				:	"Cá nhân",
 
     "per_person_mr"							:	"Ông",
-    "per_person_mrs"						:	"Bà",
+   	"per_person_mrs"						:	"Bà",
+    
+    "per_person_men"						:	"Nam",
+    "per_person_women"						:	"Nữ",
+    "per_person_other"						:	"Khác",
     
     "per_enterprise_sa"						:	"Công ty TNHH",
     "per_enterprise_group"					:	"Tập đoàn",
@@ -294,5 +315,8 @@
 
     "per_tab_detail"						:	"Chi tiết",
 
-    "per_tab_analysis"                      :   "Kết quả phân tích"
+    "per_tab_analysis"                      :   "Kết quả phân tích",
+    
+	"msgbox_confirm_delete"					:	"Hủy bỏ tạo mới tài khoản ?",
+	"msgbox_confirm_save"					:	"Lưu thông tin tài khoản ?"
 }

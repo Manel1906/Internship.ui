@@ -285,8 +285,51 @@ define([
 		}
 		
 		const do_lc_binding_events = function (obj, mode){
-			$("#div_user_funct").off("click").on("click",function(){
-				self.do_lc_Save_Entity("#div_user_ent", obj, var_lc_MODE_NEW); 
+			$("#btn_aut_user_save_all").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_save"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_Save_Entity,
+							param	: ["#div_user_ent", obj, var_lc_MODE_NEW],
+							classBtn: "btn-primary"
+						}
+					}
+				});
+//				self.do_lc_Save_Entity("#div_user_ent", obj, var_lc_MODE_NEW); 
+			})
+			
+			$("#btn_aut_user_cancel").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_delete"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: do_lc_show_blocks,
+							param	: [],
+							classBtn: "btn-primary"
+						}
+					}
+				});
 			})
 			
 			$("#btn_mod_favorite").off("click").on("click", function() {

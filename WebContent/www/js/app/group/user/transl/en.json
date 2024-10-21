@@ -36,6 +36,8 @@
   "prj_user_list_btn_dashboard": "View dashboard",
   "prj_user_save_all": "Save",
   "prj_user_list_search": "Search",
+  "prj_user_list_title": "List of user accounts",
+  "prj_user_list_new_file_title": "Add files here",
 
   "aut_user_list_login": "Account",
   "aut_user_list_name": "Full name",
@@ -50,6 +52,18 @@
   "aut_right_prj_test_unit": "Test Unit",
   "aut_right_prj_test_group": "Test Campaign",
   "aut_right_sys_cfg"		: "System configuration",
+  "aut_right_department_management"				: "Department management",
+  "aut_right_directory_of_doctors"      		: "Directory of doctors",
+  "aut_right_directory_of_patient"      		: "Directory of patient",
+  "aut_right_manage_work_schedule"      		: "Manage work schedule",
+  "aut_right_manage_appointment_schedules"    	: "Manage appointment schedules",
+  "aut_right_patient_management"    			: "Patient management",
+  "aut_right_medication_management"    			: "Medication management",
+  "aut_right_disease_management"    			: "Disease management",
+  "aut_right_medical_records"    				: "Medical records",
+  "aut_right_manage_test_portfolio"    			: "Manage test portfolio",
+  "aut_right_manage_CDHA_portfolio"    			: "Manage CDHA portfolio",
+  "aut_right_general_report"    				: "General report",
 
   "aut_user_list_header_choice_title": "The selected users",
   "aut_user_list_header_lst_05_01_title": "List of active members",
@@ -89,7 +103,9 @@
   "aut_user_ent_header_type": "User type",
   "aut_user_ent_header_type_super_adm": "Super Administration",
   "aut_user_ent_header_type_adm": "Administration",
-  "aut_user_ent_header_type_agent": "Employee or collaborator",
+  "aut_user_ent_header_type_agent": "Employee",
+  "aut_user_ent_header_type_doctor": "Doctor",
+  "aut_user_ent_header_type_patient": "Patient",
   "aut_user_ent_header_type_member": "External member",
   "aut_user_ent_header_type_member_externe": "External member",
 
@@ -195,6 +211,10 @@
 
   "per_person_mr": "Mr.",
   "per_person_mrs": "Ms.",
+  
+  "per_person_men": "Male",
+  "per_person_women": "Female",
+  "per_person_other": "Other",
 
   "per_enterprise_sa": "Limited liability company",
   "per_enterprise_group": "Group",
@@ -368,5 +388,8 @@
   "per_partner_list_thirdparty_reported": "Partners reported",
   "per_partner_list_thirdparty_delete": "Partners deleted",
 
-  "per_partner_header_select": "Option"
+  "per_partner_header_select": "Option",
+  
+  "msgbox_confirm_delete": "Cancel create new account?",
+  "msgbox_confirm_save": "Save account information ?"
 }

@@ -36,6 +36,8 @@
   "prj_user_list_btn_dashboard": "Voir tableau de bord",
   "prj_user_save_all": "Sauvegarde",
   "prj_user_list_search": "Rechercher",
+  "prj_user_list_title": "Liste des comptes utilisateurs",
+  "prj_user_list_new_file_title": "Ajouter des fichiers ici",
 
   "aut_user_list_login": "Référence utilisateur",
   "aut_user_list_name": "Libellé",
@@ -46,7 +48,19 @@
 
   "aut_right_prj_test_unit": "Étapes de test",
   "aut_right_prj_test_group": "Tests regroupés",
-   "aut_right_sys_cfg"						: "Configurer le système",
+  "aut_right_sys_cfg"							: "Configurer le système",
+  "aut_right_department_management"       		: "Gestion du département",
+  "aut_right_directory_of_doctors"       		: "Annuaire des médecins",
+  "aut_right_directory_of_patient"       		: "Annuaire des patients",
+  "aut_right_manage_work_schedule"       		: "Gérer l'horaire de travail",
+  "aut_right_manage_appointment_schedules"    	: "Gérer les plannings de rendez-vous",
+  "aut_right_patient_management"    			: "Prise en charge des patients",
+  "aut_right_medication_management"    			: "Gestion des médicaments",
+  "aut_right_disease_management"    			: "Gestion des maladies",
+  "aut_right_medical_records"    				: "Dossiers médicaux",
+  "aut_right_manage_test_portfolio"    			: "Gérer le portefeuille de tests",
+  "aut_right_manage_CDHA_portfolio"    			: "Gérer le portefeuille de l'ACHD",
+  "aut_right_general_report"    				: "Rapport général",
 
   "aut_user_list_header_lst_01_title": "Liste des utilisateurs",
   "aut_user_list_header_lst_02_title": "Liste des administrateurs",
@@ -75,7 +89,9 @@
   "aut_user_ent_header_type": "Type d'utilisateur",
   "aut_user_ent_header_type_super_adm": "Super Administrateur",
   "aut_user_ent_header_type_adm": "Administrateur",
-  "aut_user_ent_header_type_agent": "Utilisateur",
+  "aut_user_ent_header_type_agent": "Personnel",
+  "aut_user_ent_header_type_doctor": "Médecin",
+  "aut_user_ent_header_type_patient": "Patient",
   "aut_user_ent_header_type_member": "Membre externe",
   "aut_user_ent_header_type_member_externe": "Membre externe",
 
@@ -162,6 +178,10 @@
 
   "per_person_mr": "Monsieur",
   "per_person_mrs": "Madame",
+  
+  "per_person_men": "Mâle",
+  "per_person_women": "Femelle",
+  "per_person_other": "Autre",
 
   "per_enterprise_sa": "SARL",
   "per_enterprise_group": "GROUPE",
@@ -230,5 +250,8 @@
   "per_tab_observation_status_03": "Validé",
   "per_tab_observation_status_04": "Annulé",
 
-  "per_tab_detail": "Détails"
+  "per_tab_detail": "Détails",
+  
+  "msgbox_confirm_delete": "Annuler, créer un nouveau compte ?",
+  "msgbox_confirm_save": "Enregistrer les informations du compte ?"
 }

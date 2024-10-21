@@ -155,8 +155,128 @@ define(['jquery'], function($) {
 				
 				do_get_list_ByAjax();
 			})
+			
+			$(".item-file-download").off("click").on("click", function(){
+				let {path} = $(this).data();
+				path && window.open(path, "_blank");
+			})
+			
+			$(".item-file-delete").off("click").on("click", function(){
+				let fileId			= $(this).data("id");	
+				var lineToRemove 	= $(this).parents("tr");
+				
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_delete"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: do_lc_del_files_prj,
+							param	: [prj, fileId, lineToRemove],
+							classBtn: "btn-success"
+						},
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+							classBtn: "btn-danger"
+						}
+					}
+				});
+			})
+			
+			$("#btn_add_doc").off("click").on("click", function(){
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("prj_user_list_new_file_title"),
+					width	: "500px",
+					autoclose	: true,
+					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_DROPZONE_FILE, {}),
+					buttons	: {
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: do_lc_dropzone_file,
+							param	: [data],
+							classBtn: "btn-primary"
+						},
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: []
+						}
+					}
+				});
+				
+				data.files 		= [];
+				let option		= {
+						fileinput	: { parallelUploads	: 10, uploadMultiple	: true},//option here
+						obj			: data//show empty box
+				}
+				
+				do_gl_init_fileDropzone($("#div_dropzone_send"), option);
+			})
+		}
+		
+		var do_lc_dropzone_file = function(lst){
+			lst.files 		= lst.files ? [...lst.files].filter(Boolean) : [];
+			if(!lst.files)	lst.files = [];
+			let	data	= req_gl_data({
+				dataZoneDom		: $("#div_dropzone_send"),
+				skipError		: true
+			});
+
+//			if(data.hasError)	return false;
+
+			let newprj 		= data.data;
+			
+			newprj.files 	= lst.files;
+
+			do_lc_save_files_prj(newprj);
+		}	
+		
+		var do_lc_save_files_prj = function(newprj){
+			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVImport", {obj: {files: newprj.files}});	
+
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_afterSave_files_prj, [newprj]));
+
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
+		var do_lc_afterSave_files_prj = function(sharedJson, prj){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				do_lc_get_list();
+				do_gl_show_Notify_Msg_Success($.i18n('prj_user_group_msg_success') );
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		
+		var do_lc_del_files_prj = function(prj, fileId, lineToRemove){
+			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_DEL_FILES, {'id': prj.id, 'code': prj.code01, 'fileId':fileId});	
+
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_afterDel_files_prj, [prj, fileId, lineToRemove]));
+
+			let fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Msg, [$.i18n("common_err_ajax")]);	
+
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
+		}
+
+		var do_lc_afterDel_files_prj = function(sharedJson, prj, fileId, lineToRemove){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				lineToRemove.remove();
+				if (prj.files) 
+					prj.files = prj.files.filter(f => f.id != fileId);
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		
 		const reqStr_from_to = (m, n) => {
 			var list = [m];
 			

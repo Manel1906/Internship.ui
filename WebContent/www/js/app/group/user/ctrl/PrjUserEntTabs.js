@@ -504,21 +504,81 @@ define(['jquery'], function($) {
 		}
 		
 		let arr_auth = [
+//			{	"id1" : 1000001, "id2"	: 1000002, "id3" : 1000003, "id4" : 1000004, "id5" : 1000005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" :  1000000 , "title" :"aut_right_aut_user"},
+//			
+//			{	"id1" : 30000011, "id2": 30000012, "id3" : 30000013, "id4" : 30000014, "id5" : 30000015, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 30000010 , "title" :"aut_right_per_client"},					
+//			
+//			{	"id1" : 40000001, "id2": 40000002, "id3" : 40000003, "id4" : 40000004, "id5" : 40000005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 40000000 , "title" :"aut_right_prj_project"},
+//				
+//			{	"id1" : 40000101, "id2": 40000102, "id3" : 40000103, "id4" : 40000104, "id5" : 40000105, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 40000100 , "title" :"aut_right_prj_files"},
+//				
+//			// {	"id1"  : 2002001, "id2": 2002002, "id3" : 2002003, "id4" : 2002004, "id5" : 2002005, 
+//			// 	"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//			// 	"rId" : 2002000 , "title" :"aut_right_prj_cra"},
+//				
+//			{	"id1" : 2002011, "id2": 2002012, "id3" : 2002013, "id4" : 2002014, "id5" : 2002015, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 2002010 , "title" :"aut_right_prj_cra_management"},
+//				
+//			{	"id1" : 2001001, "id2": 2001002, "id3" : 2001003, "id4" : 2001004, "id5" : 2001005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 2001000 , "title" :"aut_right_prj_hiloday_management"},
+//			
+//			{	"id1" : 7000001, "id2": 7000002, "id3" : 7000003, "id4" : 7000004, "id5" : 7000005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 7000000 , "title" :"aut_right_prj_project_cra_management"},
+//			
+//			{	"id1" : 50000001, "id2": 50000002, "id3" : 50000003, "id4" : 50000004, "id5" : 50000005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 50000000 , "title" :"aut_right_nso_email_grp"},						
+//				
+//			{	"id1" : 50000101, "id2": 50000102, "id3" : 50000103, "id4" : 50000104, "id5" : 50000105, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 50000100 , "title" :"aut_right_nso_email_campaign"},	
+//				
+//			{	"id1" : 40001001, "id2": 40001002, "id3" : 40001003, "id4" : 40001004, "id5" : 40001005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 40001000 , "title" :"aut_right_prj_test_unit"},						
+//				
+//			{	"id1" : 40002001, "id2": 40002002, "id3" : 40002003, "id4" : 40002004, "id5" : 40002005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 40002000 , "title" :"aut_right_prj_test_group"},
+//				
+//			{	"id1" : 5000001, "id2": 5000002, "id3" : 5000003, "id4" : 5000004, "id5" : 5000005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 5000000 , "title" :"aut_right_prj_news"},	
+//				
+//			{	"id1" : 50010001, "id2": 50010002, "id3" : 50010003, "id4" : 50010004, "id5" : 50010005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 50010000 , "title" :"aut_right_prj_news"},
+				
+//			{	"id1"  : 	1001, "id2": 	1002, "id3" : 	1003, "id4" : 	1004, "id5" : 	1005, 
+//				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+//				"rId" : 1000 , "title" :"aut_right_sys_cfg"},	
+
 			{	"id1" : 1000001, "id2"	: 1000002, "id3" : 1000003, "id4" : 1000004, "id5" : 1000005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
 				"rId" :  1000000 , "title" :"aut_right_aut_user"},
 			
 			{	"id1" : 30000011, "id2": 30000012, "id3" : 30000013, "id4" : 30000014, "id5" : 30000015, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 30000010 , "title" :"aut_right_per_client"},					
+				"rId" : 30000010 , "title" :"aut_right_department_management"},					
 			
 			{	"id1" : 40000001, "id2": 40000002, "id3" : 40000003, "id4" : 40000004, "id5" : 40000005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 40000000 , "title" :"aut_right_prj_project"},
+				"rId" : 40000000 , "title" :"aut_right_directory_of_doctors"},
 				
 			{	"id1" : 40000101, "id2": 40000102, "id3" : 40000103, "id4" : 40000104, "id5" : 40000105, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 40000100 , "title" :"aut_right_prj_files"},
+				"rId" : 40000100 , "title" :"aut_right_directory_of_patient"},
 				
 			// {	"id1"  : 2002001, "id2": 2002002, "id3" : 2002003, "id4" : 2002004, "id5" : 2002005, 
 			// 	"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
@@ -526,39 +586,39 @@ define(['jquery'], function($) {
 				
 			{	"id1" : 2002011, "id2": 2002012, "id3" : 2002013, "id4" : 2002014, "id5" : 2002015, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 2002010 , "title" :"aut_right_prj_cra_management"},
+				"rId" : 2002010 , "title" :"aut_right_manage_work_schedule"},
 				
 			{	"id1" : 2001001, "id2": 2001002, "id3" : 2001003, "id4" : 2001004, "id5" : 2001005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 2001000 , "title" :"aut_right_prj_hiloday_management"},
+				"rId" : 2001000 , "title" :"aut_right_manage_appointment_schedules"},
 			
 			{	"id1" : 7000001, "id2": 7000002, "id3" : 7000003, "id4" : 7000004, "id5" : 7000005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 7000000 , "title" :"aut_right_prj_project_cra_management"},
+				"rId" : 7000000 , "title" :"aut_right_patient_management"},
 			
 			{	"id1" : 50000001, "id2": 50000002, "id3" : 50000003, "id4" : 50000004, "id5" : 50000005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 50000000 , "title" :"aut_right_nso_email_grp"},						
+				"rId" : 50000000 , "title" :"aut_right_medication_management"},						
 				
 			{	"id1" : 50000101, "id2": 50000102, "id3" : 50000103, "id4" : 50000104, "id5" : 50000105, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 50000100 , "title" :"aut_right_nso_email_campaign"},	
+				"rId" : 50000100 , "title" :"aut_right_disease_management"},	
 				
 			{	"id1" : 40001001, "id2": 40001002, "id3" : 40001003, "id4" : 40001004, "id5" : 40001005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 40001000 , "title" :"aut_right_prj_test_unit"},						
+				"rId" : 40001000 , "title" :"aut_right_medical_records"},						
 				
 			{	"id1" : 40002001, "id2": 40002002, "id3" : 40002003, "id4" : 40002004, "id5" : 40002005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 40002000 , "title" :"aut_right_prj_test_group"},
+				"rId" : 40002000 , "title" :"aut_right_manage_test_portfolio"},
 				
 			{	"id1" : 5000001, "id2": 5000002, "id3" : 5000003, "id4" : 5000004, "id5" : 5000005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 5000000 , "title" :"aut_right_prj_news"},	
+				"rId" : 5000000 , "title" :"aut_right_manage_CDHA_portfolio"},	
 				
-			{	"id1"  : 	1001, "id2": 	1002, "id3" : 	1003, "id4" : 	1004, "id5" : 	1005, 
+			{	"id1" : 50010001, "id2": 50010002, "id3" : 50010003, "id4" : 50010004, "id5" : 50010005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 1000 , "title" :"aut_right_sys_cfg"},	
+				"rId" : 50010000 , "title" :"aut_right_general_report"},
 		]
 		this.do_lc_show		= function(obj, mode){
 			pr_object 	= obj;
