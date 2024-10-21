@@ -370,7 +370,7 @@ define(['jquery',
 
 		var loadCMS = function(shareJson, nameVar, header, view, newConn, remember, hash){			
 			//Check visitor / Guest denied access:
-			if(self.can_lc_User_Guest() || self.can_lc_User_Client_Public()) {
+			if(self.can_lc_User_Guest()) {
 				do_gl_show_Notify_Msg_Error($.i18n("common_access_deny_for_client_user"));
 				App.router.controller.do_lc_run(App.router.routes.LOGOUT+'/'+App.router.routes.HOME_VIEW);
 				return;
@@ -437,18 +437,21 @@ define(['jquery',
 		}
 
 		//--------------------------------------------------------------------------------------------
-		//check current user is visitor or client public
-		this.can_lc_User_Guest = function() {
-			return App.data.user.typ == 1;
-		}
-		//check current user is client public
-		this.can_lc_User_Client_Public = function() {
-			return App.data.user.typ == 5;
+		this.can_lc_User_SuperAdmin = function() {
+			return App.data.user.typ01 == 1 ? true : false;
 		}
 
-		this.can_lc_User_SuperAdmin = function(){
-			return App.data.user.typ == 10;
+		this.can_lc_User_Admin = function() {
+			return App.data.user.typ01 == 2 ? true : false;
 		}
+
+		this.can_lc_User_Agent = function() {
+			return App.data.user.typ01 == 3 ? true : false;
+		}
+
+		this.can_lc_User_Guest = function() {
+			return !App.data.user ? true : false;
+		}		
 
 		//--------------------------------------------------------------------------------------------------
 		//--------------------------------------------------------------------------------------------------
