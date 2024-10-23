@@ -78,7 +78,7 @@ define(['require',
 		
 		this.do_lc_show	= function(nextView){
 			try {
-//				if(App.controller.Login.can_lc_User_Guest() || App.controller.Login.can_lc_User_Client_Public()) {
+//				if(App.controller.Login.can_lc_User_Guest() ) {
 //					do_gl_show_Notify_Msg_Error($.i18n("common_access_deny_for_client_user"));				
 //					App.router.controller.do_lc_run(App.router.routes.LOGIN);
 //					return;

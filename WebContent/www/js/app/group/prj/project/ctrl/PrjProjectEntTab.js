@@ -2558,7 +2558,7 @@ define([
 				data = Object.values(data)
 			}
 			const is_Me 		= data.find(m => m.entId02 == App.data.user.id);
-			const isSuperAdmin 	= App.controller.UI.Login && App.controller.UI.Login.can_lc_User_SuperAdmin();
+			const isSuperAdmin 	= App.controller.common.Login && App.controller.common.Login.can_lc_User_SuperAdmin();
 			const isOwner		= App.data.user.id === prj.autUser01;
 			
 			let 	members 	= data.reduce((currentObj, mem)=>{
