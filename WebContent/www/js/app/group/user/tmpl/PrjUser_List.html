@@ -22,6 +22,15 @@
 				        <i class="bx bx-search-alt search-icon"></i>
 				    </div>
 				</div>
+				<div id="div_choose_stat">
+					<select id="choose_multi_stat" multiple="multiple">
+						{{#each this}}
+							<option value="{{typ}}" class="user-typ-cbx" {{#if isShow}}selected{{/if}}>
+								{{transl (concat 'aut_user_typ_' typ)}}
+							</option>
+						{{/each}}
+					</select>
+				</div>
 
 				<div id="div_prj_list" class="ent-list"></div>
 				<div id="div_prj_pagination" class="ent-pagination"></div>

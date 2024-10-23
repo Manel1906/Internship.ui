@@ -117,7 +117,12 @@
 
   "aut_user_ent_header_societe_help": "Sélectionnez une entreprise",
   "aut_user_ent_header_societe": "Entreprise management",
-  "aut_user_lst_filter": "Entreprise",
+  "aut_user_lst_filter" : "Entreprise",
+  "aut_user_typ_title" : "Type d'utilisateur",
+  "aut_user_typ_2" : "Administration",
+  "aut_user_typ_20" : "Médecin",
+  "aut_user_typ_30" : "Personnel",
+  "aut_user_typ_40"	 : "Patient",
 
   "aut_user_tab_post": "Publier",
   "aut_user_tab_post_title": "Titre",

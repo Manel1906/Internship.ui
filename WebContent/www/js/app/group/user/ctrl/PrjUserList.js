@@ -54,6 +54,24 @@ define(['jquery'], function($) {
 		const RIGHT_A_G				= 101;
 		const RIGHT_A_N	        	= 102;
 		
+		const TYP_USER_02 			= 2;
+		const TYP_USER_20 			= 20;
+		const TYP_USER_30 			= 30;
+		const TYP_USER_40 			= 40;
+		
+		const paramStats 			= {
+			[TYP_USER_02] : {typ: TYP_USER_02				, isShow : true},
+			[TYP_USER_20] : {typ: TYP_USER_20				, isShow : true},
+			[TYP_USER_30] : {typ: TYP_USER_30				, isShow : true},
+			[TYP_USER_40] : {typ: TYP_USER_40				, isShow : true},
+		}
+		var pr_stats = [
+			TYP_USER_02,
+			TYP_USER_20,
+			TYP_USER_30,
+			TYP_USER_40,
+		]
+		
 		var pr_DIV_CONTENT          = "#div_user_ent";
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
@@ -67,7 +85,7 @@ define(['jquery'], function($) {
 			try{
 				if (type02) pr_List_Type02 = type02;
 				
-				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, {}));
+				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, paramStats));
 				
 				do_get_list_ByAjax();
 			}catch(e) {				
@@ -76,6 +94,28 @@ define(['jquery'], function($) {
 		};
 
 		var do_binding_event = function(div, type01, type02, data){
+			$('#choose_multi_stat').multiselect({
+				buttonWidth: '100%', 
+				buttonText: function() {
+				    return $.i18n("aut_user_typ_title");
+					}
+				});
+				$('.multiselect').css({
+				    'display': 'flex',
+				    'justify-content': 'space-between',
+				    'align-items': 'center'
+				});
+
+				$('.mdi-arrow-down-drop-circle-outline').css({
+				    'margin-left': '8px',
+				    'float': 'right'
+				});
+				
+				$('.user-typ-cbx').off('change').on('change',function(){
+					do_lc_get_checked()
+					do_get_list_ByAjax()
+				})
+			
 			$(".user-item-name").off("click").on("click", function(){
 				let listUserRight = App.data.user.rights;
 				if(!listUserRight){
@@ -288,6 +328,22 @@ define(['jquery'], function($) {
 		  }
 		  
 
+		  const do_lc_get_checked = () => {
+  		      var isCheckedAll = $('#choose_multi_stat option').length === $('#choose_multi_stat option:selected').length;
+  			  pr_stats = []
+  		      if (isCheckedAll) {
+  		          pr_stats = [2, 20, 30, 40];
+  		      } else {
+  		          let isSelecteds = $("#choose_multi_stat > option:selected");
+  		          
+  		          if (isSelecteds && isSelecteds.length) {
+  		              for (let isSelected of isSelecteds) {
+  		                  pr_stats.push(+$(isSelected).val());
+  		              }
+  		          }
+  		      }
+  		  }
+		  
 		var do_get_list_ByAjax = function(hardLoad = false){
 			let divList = $("#div_prj_list");
 			let divPan  = $("#div_prj_pagination");
@@ -297,7 +353,7 @@ define(['jquery'], function($) {
 					searchKey: pr_searchKey, 
 					buildInfo: true, hardLoad, 
 					stats: pr_STAT_ACTIVE + "," + pr_STAT_INACTIVE + "," + pr_STAT_ACTIVE_HIDDEN,
-					typs: reqStr_from_to(+App.data.user.typ01, 40)
+					typs: pr_stats
 				});
 			
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);

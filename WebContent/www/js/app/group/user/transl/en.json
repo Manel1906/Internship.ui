@@ -163,6 +163,11 @@
   "aut_user_ent_header_societe_help": "Select company",
   "aut_user_ent_header_societe": "Management company",
   "aut_user_lst_filter": "Company",
+  "aut_user_typ_title" : "User type",
+  "aut_user_typ_2"	: "Administration",
+  "aut_user_typ_20"	: "Doctor",
+  "aut_user_typ_30"	: "Employee",
+  "aut_user_typ_40"	: "Patient",
 
   "----------AUT ROLE----------": "----------AUT ROLE----------",
   "aut_role_list_code": "Code",
