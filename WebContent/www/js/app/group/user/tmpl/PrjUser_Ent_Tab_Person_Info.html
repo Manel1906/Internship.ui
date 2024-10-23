@@ -55,7 +55,7 @@
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_dtBirthday'}} </h5>
 				<p class="text-muted info-edit info-content">{{reqFormatShortDate inf02.d}}</p>
 				<div class="input-daterange input-group content-edit">
-                	<input id="inp_autuser_tab01_birthday" data-provide="datepicker" class="form-control objData content-edit hide isManager" type="text" data-group="inf02" 
+                	<input id="inp_autuser_tab01_birthday" data-provide="datepicker" autocomplete="off" class="form-control objData content-edit hide isManager" type="text" data-group="inf02" 
                 	data-name="dtBirthday" data-format="date" data-validation="date" {{#if inf02.d}}value="{{reqFormatShortDate inf02.d}}"{{/if}}>
                 </div>
 			</div>

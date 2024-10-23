@@ -51,7 +51,19 @@ define([
 		var RIGHT_U_G	        	= 1000001;
 		var RIGHT_ADM	        	= 100;
 		var RIGHT_A_G	        	= 101;
-
+		
+		var Handlebars		=  require('handlebars');
+		const TYP_USER = {
+				2: "aut_user_ent_header_type_adm"	,	20: "aut_user_ent_header_type_doctor"	,	30: "aut_user_ent_header_type_agent",
+				40: "aut_user_ent_header_type_patient"
+		}
+		Handlebars.registerHelper('reqTypOfUser', function(typ) {
+			if(!typ)				return $.i18n(TYP_USER[3]);
+			if(!TYP_USER[typ])		return $.i18n(TYP_USER[3]);
+	
+			return $.i18n(TYP_USER[typ]);
+		});
+		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			if(!tmplName) {

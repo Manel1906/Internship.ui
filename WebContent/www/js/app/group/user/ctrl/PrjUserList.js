@@ -189,6 +189,13 @@ define(['jquery'], function($) {
 			})
 			
 			$("#btn_add_doc").off("click").on("click", function(){
+				if(!data)	data = [];
+				data.files = [];
+				let option		= {
+						fileinput	: { parallelUploads	: 10, uploadMultiple	: true},//option here
+						obj			: data//show empty box
+				}
+				
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("prj_user_list_new_file_title"),
 					width	: "500px",
@@ -208,20 +215,13 @@ define(['jquery'], function($) {
 						}
 					}
 				});
-				
-				data.files 		= [];
-				let option		= {
-						fileinput	: { parallelUploads	: 10, uploadMultiple	: true},//option here
-						obj			: data//show empty box
-				}
-				
 				do_gl_init_fileDropzone($("#div_dropzone_send"), option);
 			})
 		}
 		
-		var do_lc_dropzone_file = function(lst){
-			lst.files 		= lst.files ? [...lst.files].filter(Boolean) : [];
-			if(!lst.files)	lst.files = [];
+		var do_lc_dropzone_file = function(obj){
+			obj.files 		= obj.files ? [...obj.files].filter(Boolean) : [];
+			if(!obj.files)	obj.files = [];
 			let	data	= req_gl_data({
 				dataZoneDom		: $("#div_dropzone_send"),
 				skipError		: true
@@ -229,18 +229,18 @@ define(['jquery'], function($) {
 
 //			if(data.hasError)	return false;
 
-			let newprj 		= data.data;
+			let newobj 		= data.data;
 			
-			newprj.files 	= lst.files;
+			newobj.files 	= obj.files;
 
-			do_lc_save_files_prj(newprj);
+			do_lc_save_files_prj(newobj);
 		}	
 		
-		var do_lc_save_files_prj = function(newprj){
-			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVImport", {obj: {files: newprj.files}});	
+		var do_lc_save_files_prj = function(newobj){
+			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVImport", {obj: {files: newobj.files}});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_afterSave_files_prj, [newprj]));
+			fSucces.push(req_gl_funct(null, do_lc_afterSave_files_prj, [newobj]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
@@ -297,7 +297,7 @@ define(['jquery'], function($) {
 					searchKey: pr_searchKey, 
 					buildInfo: true, hardLoad, 
 					stats: pr_STAT_ACTIVE + "," + pr_STAT_INACTIVE + "," + pr_STAT_ACTIVE_HIDDEN,
-					typs: reqStr_from_to(+App.data.user.typ01, 3)
+					typs: reqStr_from_to(+App.data.user.typ01, 40)
 				});
 			
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
