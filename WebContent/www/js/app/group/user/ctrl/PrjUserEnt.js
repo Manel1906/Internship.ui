@@ -255,7 +255,7 @@ define([
 				}, {});
 			}
 
-			ent.inf05 = do_req_inf05(per.inf05)
+			ent.inf05 = per? do_req_inf05(per.inf05) : null;
 
 			if(ent.files && !ent.avatar) {
 				ent.files.forEach(e => {
