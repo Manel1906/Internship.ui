@@ -57,19 +57,19 @@ define(['jquery'], function($) {
 		const TYP_USER_02 			= 2;
 		const TYP_USER_20 			= 20;
 		const TYP_USER_30 			= 30;
-		const TYP_USER_40 			= 40;
-		
-		const paramStats 			= {
-			[TYP_USER_02] : {typ: TYP_USER_02				, isShow : true},
-			[TYP_USER_20] : {typ: TYP_USER_20				, isShow : true},
-			[TYP_USER_30] : {typ: TYP_USER_30				, isShow : true},
-			[TYP_USER_40] : {typ: TYP_USER_40				, isShow : true},
-		}
+//		const TYP_USER_40 			= 40;
+//		
+//		const paramStats 			= {
+//			[TYP_USER_02] : {typ: TYP_USER_02				, isShow : true},
+//			[TYP_USER_20] : {typ: TYP_USER_20				, isShow : true},
+//			[TYP_USER_30] : {typ: TYP_USER_30				, isShow : true},
+////			[TYP_USER_40] : {typ: TYP_USER_40				, isShow : true},
+//		}
 		var pr_stats = [
 			TYP_USER_02,
 			TYP_USER_20,
 			TYP_USER_30,
-			TYP_USER_40,
+//			TYP_USER_40,
 		]
 		
 		var pr_DIV_CONTENT          = "#div_user_ent";
@@ -85,7 +85,8 @@ define(['jquery'], function($) {
 			try{
 				if (type02) pr_List_Type02 = type02;
 				
-				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, paramStats));
+//				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, paramStats));
+				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, {}));
 				
 				do_get_list_ByAjax();
 			}catch(e) {				
@@ -94,25 +95,10 @@ define(['jquery'], function($) {
 		};
 
 		var do_binding_event = function(div, type01, type02, data){
-			$('#choose_multi_stat').multiselect({
-				buttonWidth: '100%', 
-				buttonText: function() {
-				    return $.i18n("aut_user_typ_title");
-					}
-				});
-				$('.multiselect').css({
-				    'display': 'flex',
-				    'justify-content': 'space-between',
-				    'align-items': 'center'
-				});
-
-				$('.mdi-arrow-down-drop-circle-outline').css({
-				    'margin-left': '8px',
-				    'float': 'right'
-				});
-				
-				$('.user-typ-cbx').off('change').on('change',function(){
-					do_lc_get_checked()
+				$('.user-typ-select').off('click').on('click',function(){
+					const dataCode = $(this).data('code');
+					console.log("hello")
+					do_lc_get_checked(dataCode)
 					do_get_list_ByAjax()
 				})
 			
@@ -186,6 +172,19 @@ define(['jquery'], function($) {
 				pr_searchKey	= $(this).val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
 			})
+			
+		    $('#inp-search').on('focus', function() {
+				$(this).attr('style', function(i, style) {
+		            return style + '; border-color: black !important; box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) !important;';
+		        });
+		    });
+			
+		    $('#inp-search').on('blur', function() {
+		        $(this).css({
+		            'border-color': 'black', // Đảm bảo màu viền vẫn đen khi không focus
+		            'box-shadow': 'none' // Loại bỏ hiệu ứng đổ bóng
+		        });
+		    });
 			
 			$("#btn_search_responsive").off("click").on("click", function(e){
 				e.preventDefault();
@@ -328,19 +327,12 @@ define(['jquery'], function($) {
 		  }
 		  
 
-		  const do_lc_get_checked = () => {
-  		      var isCheckedAll = $('#choose_multi_stat option').length === $('#choose_multi_stat option:selected').length;
+		  const do_lc_get_checked = (dataCode) => {
   			  pr_stats = []
-  		      if (isCheckedAll) {
-  		          pr_stats = [2, 20, 30, 40];
+  		      if (dataCode == 0) {
+				  pr_stats = [2, 20, 30];
   		      } else {
-  		          let isSelecteds = $("#choose_multi_stat > option:selected");
-  		          
-  		          if (isSelecteds && isSelecteds.length) {
-  		              for (let isSelected of isSelecteds) {
-  		                  pr_stats.push(+$(isSelected).val());
-  		              }
-  		          }
+				pr_stats.push(dataCode);
   		      }
   		  }
 		  

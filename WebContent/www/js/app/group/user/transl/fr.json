@@ -114,11 +114,13 @@
   "aut_user_ent_tab01_info05_t": "Compte Twitter",
   "aut_user_ent_tab01_info07": "Adresse",
   "aut_user_ent_tab01_info09": "Téléphone",
+  "aut_user_ent_tab01_info10": "Sexe",
 
   "aut_user_ent_header_societe_help": "Sélectionnez une entreprise",
   "aut_user_ent_header_societe": "Entreprise management",
   "aut_user_lst_filter" : "Entreprise",
   "aut_user_typ_title" : "Type d'utilisateur",
+  "aut_user_typ_0" : "Tous",
   "aut_user_typ_2" : "Administration",
   "aut_user_typ_20" : "Médecin",
   "aut_user_typ_30" : "Personnel",
@@ -145,6 +147,7 @@
   "aut_role_ent_header_descr": "Description",
   "aut_role_ent_header_domain": "Groupe",
 
+  "aut_role_tab_01_title" :	"Liste des pouvoirs",
   "aut_role_tab_01_tabtitle": "Droits",
   "aut_role_tab_01_read": "Voir",
   "aut_role_tab_01_add": "Créer",

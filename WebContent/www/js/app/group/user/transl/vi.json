@@ -130,6 +130,7 @@
     "aut_user_ent_tab01_info07"             :   "Địa chỉ",
     "aut_user_ent_tab01_dtBirthday"			:	"Ngày sinh",
     "aut_user_ent_tab01_info09"				:	"Số điện thoại",
+    "aut_user_ent_tab01_info10"			    :	"Giới tính",
     
     "aut_user_tab_post"						:	"Bài đăng",
     "aut_user_tab_post_title"				:	"Tiêu đề",
@@ -162,6 +163,7 @@
     "aut_user_ent_header_societe"			:	"Công ty quản lý",
     "aut_user_lst_filter"					:	"Công ty",
     "aut_user_typ_title"					: 	"Kiểu người dùng",
+    "aut_user_typ_0"						:	"Tất cả",
     "aut_user_typ_2"						: 	"Quản trị",
     "aut_user_typ_20"						:	"Bác sĩ",
     "aut_user_typ_30"						:	"Nhân viên",
@@ -177,7 +179,8 @@
     "aut_role_ent_header_descr"				:	"Mô tả",
     "aut_role_ent_header_domain"			:	"Nhóm",
     
-    "aut_role_tab_01_tabtitle"				:	"Quyền hạn quản lý",
+   	"aut_role_tab_01_title"					:	"Danh sách quyền hạn",
+    "aut_role_tab_01_tabtitle"				:	"Quyền hạn",
     "aut_role_tab_01_read"					:	"Xem",
     "aut_role_tab_01_add"					:	"Tạo",
     "aut_role_tab_01_modify"				:	"Sửa",

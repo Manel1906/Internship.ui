@@ -132,6 +132,7 @@
   "aut_user_ent_tab01_info07": "Address",
   "aut_user_ent_tab01_dtBirthday": "Date of birth",
   "aut_user_ent_tab01_info09": "Tel",
+  "aut_user_ent_tab01_info10": "Sex",
 
   "aut_user_tab_post": "Post",
   "aut_user_tab_post_title": "Title",
@@ -164,6 +165,7 @@
   "aut_user_ent_header_societe": "Management company",
   "aut_user_lst_filter": "Company",
   "aut_user_typ_title" : "User type",
+  "aut_user_typ_0"	: "All",
   "aut_user_typ_2"	: "Administration",
   "aut_user_typ_20"	: "Doctor",
   "aut_user_typ_30"	: "Employee",
@@ -179,6 +181,7 @@
   "aut_role_ent_header_descr": "Description",
   "aut_role_ent_header_domain": "Domain",
 
+  "aut_role_tab_01_title":	"List of authority",
   "aut_role_tab_01_tabtitle": "Authority",
   "aut_role_tab_01_read": "Read",
   "aut_role_tab_01_add": "Add",
