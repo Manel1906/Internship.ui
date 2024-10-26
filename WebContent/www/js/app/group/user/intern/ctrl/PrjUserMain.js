@@ -71,17 +71,17 @@ define([
 				tmplName = App.template.names[pr_grpName]
 			}
 			
-			tmplName.PRJ_USER_MAIN 						= "PrjUser_Main";
-			tmplName.PRJ_USER_LIST						= "PrjUser_List";
-			tmplName.PRJ_USER_LIST_CONTENT				= "PrjUser_List_Content";
+			tmplName.PRJ_USER_MAIN 						= pr_grpName + "PrjUser_Main";
+			tmplName.PRJ_USER_LIST						= pr_grpName + "PrjUser_List";
+			tmplName.PRJ_USER_LIST_CONTENT				= pr_grpName + "PrjUser_List_Content";
 			
-			tmplName.PRJ_USER_ENT						= "PrjUser_Ent";
-			tmplName.PRJ_USER_ENT_CONTENT				= "PrjUser_Ent_Content";
-			tmplName.PRJ_USER_ENT_TAB_JOBPOSITION		= "PrjUser_Ent_Tab_JobPosition";
-			tmplName.PRJ_USER_ENT_TAB_RIGHTS			= "PrjUser_Ent_Tab_Rights";
-			tmplName.PRJ_USER_ENT_TAB_PERSON_INFO		= "PrjUser_Ent_Tab_Person_Info";
-			tmplName.PRJ_USER_LEGAL_STAT				= "PrjUser_Sel_List_Legal_Status";
-			tmplName.PRJ_DROPZONE_FILE					= "PrjDropzone_File"
+			tmplName.PRJ_USER_ENT						= pr_grpName + "PrjUser_Ent";
+			tmplName.PRJ_USER_ENT_CONTENT				= pr_grpName + "PrjUser_Ent_Content";
+			tmplName.PRJ_USER_ENT_TAB_JOBPOSITION		= pr_grpName + "PrjUser_Ent_Tab_JobPosition";
+			tmplName.PRJ_USER_ENT_TAB_RIGHTS			= pr_grpName + "PrjUser_Ent_Tab_Rights";
+			tmplName.PRJ_USER_ENT_TAB_PERSON_INFO		= pr_grpName + "PrjUser_Ent_Tab_Person_Info";
+			tmplName.PRJ_USER_LEGAL_STAT				= pr_grpName + "PrjUser_Sel_List_Legal_Status";
+			tmplName.PRJ_DROPZONE_FILE					= pr_grpName + "PrjDropzone_File"
 			
 			
 			
