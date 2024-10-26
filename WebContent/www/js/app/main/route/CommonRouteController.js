@@ -63,6 +63,7 @@ define(['require',
 				PRJ_USER_ENT					: "prj_user_ent",
 				PRJ_USER_CREATE					: "prj_user_new",
 				PRJ_USER_GROUP					: "prj_user_grp",
+				PRJ_USER_CLIENT					: "prj_user_client",
 				PRJ_TEAM_PLANNING				: "prj_team_planning",
 				
 				PRJ_CHATROOM					: "prj_chatroom",

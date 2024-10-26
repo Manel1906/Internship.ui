@@ -1,0 +1,105 @@
+<div class="card">
+  <div class="card-body">
+
+    <div class="media">
+      <div class="">
+        <h4 class="card-title mb-4 shp_font_size">{{transl "aut_role_tab_01_title"}} </h4>
+      </div>
+	  <div class="media-body overflow-hidden">
+          <h5 class="text-truncate font-size-16"></h5>
+      </div>
+      
+      <a id="a_btn_save_rights" class="mr-2 text-primary hide action-item cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+       	  <i class="mdi mdi-content-save font-size-20 action-item"></i>
+       </a>
+      <a id="a_btn_cancel_rights" class="text-danger mr-2 hide cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+      	  <i class="mdi mdi-close font-size-20"></i>
+      </a>
+       
+     <div id="dropdown-rights" class="dropdown float-right isManager">
+		<div id="btn_modify" class="cursor-pointer isManager mr-1"><i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i></div>
+	   <div data-divtoogle="#tab_Aut_User_Ent_Tab_Roles_Resize" class="btn-resize cursor-pointer" data-toggle="tooltip"
+	data-placement="top" title="" data-original-title="Resize"><i class="mdi mdi-window-minimize text-dark mr-1" style="font-size: 20px;"></i></div>
+     </div>
+            
+<!--       <div class="col-sm-3 isManager"> -->
+<!--         <div class="text-right"> -->
+<!--           <a data-divtoogle="#tab_Aut_User_Ent_Tab_Roles_Resize" class="btn-resize" data-toggle="tooltip" -->
+<!--             data-placement="top" title="" data-original-title="Resize"> -->
+<!--             <i class="mdi mdi-window-minimize font-size-18"></i> -->
+<!--           </a> -->
+<!--         </div> -->
+<!--       </div> -->
+    </div>
+
+    <div id='tab_Aut_User_Ent_Tab_Roles_Resize'>
+      <div class="box-body form-horizontal table_width_max shp_table_max_height">
+        <table class="table table-hover ">
+          <tr>
+            <th style="text-align: left;">{{transl 'aut_role_tab_01_tabtitle'}}</th>
+            <th></th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_read'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_add'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_modify'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_delete'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_report'}}</th>
+          </tr>
+          {{#each this}}
+          <tr>
+            <td>{{transl title}}
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{id1}}" data-validation="double required" 
+                value="{{id1}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{id2}}" data-validation="double required" 
+                value="{{id2}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{id3}}" data-validation="double required" 
+                value="{{id3}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{id4}}" data-validation="double required" 
+                value="{{id4}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{id5}}" data-validation="double required" 
+                value="{{id5}}" />
+            </td>
+
+            <td class="d-flex align-items-center justify-content-center"><span class="mdi mdi-checkbox-marked-outline disabled btn_check_role_all" data-role="{{rId}}" style="font-size: 16px; line-height: 14px;"></span></td>
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r1" type="checkbox" data-group="rights" data-gIndex="{{id1}}" data-role="{{rId}}"
+                {{#ifCond r1 '>' 0}} checked {{/ifCond}} /></td>
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r2" type="checkbox" data-group="rights" data-gIndex="{{id2}}" data-role="{{rId}}"
+                {{#ifCond r2 '>' 0}} checked {{/ifCond}} /></td>
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r3" type="checkbox" data-group="rights" data-gIndex="{{id3}}" data-role="{{rId}}"
+                {{#ifCond r3 '>' 0}} checked {{/ifCond}} /></td>
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r4" type="checkbox" data-group="rights" data-gIndex="{{id4}}" data-role="{{rId}}"
+                {{#ifCond r4 '>' 0}} checked {{/ifCond}} /></td>
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r5" type="checkbox" data-group="rights" data-gIndex="{{id5}}" data-role="{{rId}}"
+                {{#ifCond r5 '>' 0}} checked {{/ifCond}} /></td>
+          </tr>
+
+          <!-- <tr>
+            <td>{{title}}
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{rId}}" data-name="{{id1}}" data-validation="double required" 
+                value="{{id1}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{rId}}" data-name="{{id2}}" data-validation="double required" 
+                value="{{id2}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{rId}}" data-name="{{id3}}" data-validation="double required" 
+                value="{{id3}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{rId}}" data-name="{{id4}}" data-validation="double required" 
+                value="{{id4}}" />
+              <input class="objData" type="hidden" data-group="rights" data-gindex="{{rId}}" data-name="{{id5}}" data-validation="double required" 
+                value="{{id5}}" />
+            </td>
+
+            <td><input class="objData {{rId}}_r1" type="checkbox" data-group="rights" data-gindex="{{rId}}" data-name="{{id1}}"
+                {{#ifCond r1 '>' 0}} checked {{/ifCond}} /></td>
+            <td><input class="objData {{rId}}_r2" type="checkbox" data-group="rights" data-gindex="{{rId}}" data-name="{{id2}}"
+                {{#ifCond r2 '>' 0}} checked {{/ifCond}} /></td>
+            <td><input class="objData {{rId}}_r3" type="checkbox" data-group="rights" data-gindex="{{rId}}" data-name="{{id3}}"
+                {{#ifCond r3 '>' 0}} checked {{/ifCond}} /></td>
+            <td><input class="objData {{rId}}_r4" type="checkbox" data-group="rights" data-gindex="{{rId}}" data-name="{{id4}}"
+                {{#ifCond r4 '>' 0}} checked {{/ifCond}} /></td>
+            <td><input class="objData {{rId}}_r5" type="checkbox" data-group="rights" data-gindex="{{rId}}" data-name="{{id5}}"
+                {{#ifCond r5 '>' 0}} checked {{/ifCond}} /></td>
+          </tr> -->
+          {{/each}}
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

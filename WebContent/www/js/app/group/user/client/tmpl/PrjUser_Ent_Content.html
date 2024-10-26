@@ -1,0 +1,131 @@
+<div class="card">
+    <div class="card-body">
+        <div class="media">
+        	<div id="div_img_avatar">
+        		{{#if avatar}}
+        		<img src="{{reqSrcImg avatar}}" alt="" class="avatar-xl mr-4 rounded-circle">
+        		{{else}}
+        		<div class="avatar-xl mr-4 rounded-circle text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}">
+        			<div class="text-large">{{reqSrcTextAvatar login01}}</div>
+        		</div>
+        		{{/if}}
+        	</div>
+        	
+			<div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16">{{name}}</h5>
+            </div>
+<!--             <a id="a_btn_edit" class="mr-3 text-primary action-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> -->
+<!--             	<i class="mdi mdi-content-save-edit font-size-18 action-item"></i> -->
+<!--             </a> -->
+            <a id="a_btn_save_content" class="mr-2 text-primary hide action-item cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+            </a>
+            <a id="a_btn_cancel_content" class="text-danger mr-2 hide cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+            	<i class="mdi mdi-close font-size-20"></i>
+            </a>
+            
+            <div class="dropdown float-right font-size-20">
+                <a href="#" class="dropdown-toggle card-drop cursor-pointer" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-horizontal"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                    <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer">
+                    	<i class="mdi mdi-plus text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span>
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+		<input type="hidden" class="form-control objData" data-name="id" value="{{id}}"> 	
+							
+		<form id="div_prj_ent_file_upload" action="/" method="post" class="dropzone inputfile mt-3 hide">
+			    <div class="fallback">
+			        <input data-name="file" type="file"/>
+			    </div>
+			
+			    <div class="dz-message needsclick">
+			        <div class="mb-3">
+			            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+			        </div>
+			        <h4>{{transl 'prj_project_drop_files'}}</h4>
+			    </div>
+		</form>		
+			
+		<div class="row">
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_login'}} *</h5>
+				<p class="text-muted info-edit-content info-content" data-name="login01">{{login01}}</p>
+				<input id="inp_autuser_header_login" class="form-control objData hide content-edit isManager" type="text" data-name="login01" data-validation="required" value="{{login01}}"/>
+			</div>
+			
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_email'}} *</h5>
+				<p class="text-muted info-edit-content info-content" data-name="email">{{email}}</p>
+				<input id="inp_autuser_header_email" class="form-control objData hide content-edit isManager" type="text" data-name="email" data-validation="required email" value="{{email}}"/>
+			</div>
+								
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_type'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{reqTypOfUser typ01}}</p>
+				<select class="form-control objData content-edit hide isManager" data-name="typ01" id="inp_autuser_header_typ">
+					<option {{#equal typ01 20}}selected{{/equal}} value="20">{{transl "aut_user_ent_header_type_doctor"}}</option>
+<!-- 					<option {{#equal typ 6}}selected{{/equal}} value="6">{{transl "aut_user_ent_header_type_mentor"}}</option>	 -->
+					<option {{#equal typ01 30}}selected{{/equal}} value="30">{{transl "aut_user_ent_header_type_agent"}}</option>
+<!-- 					<option {{#equal typ01 40}}selected{{/equal}} value="40">{{transl "aut_user_ent_header_type_patient"}}</option> -->
+					<option {{#equal typ01 2}}selected{{/equal}} value="2">{{transl "aut_user_ent_header_type_adm"}}</option>
+<!-- 					<option {{#equal typ 8}}selected{{/equal}} value="8">{{transl "aut_user_ent_header_type_shipper"}}</option>	 -->
+					<!-- <option {{#equal typ 4}}selected{{/equal}} value="4">{{transl "aut_user_ent_header_type_member_externe"}}</option>	quan sat vien -->
+				</select>
+			</div>
+			
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_stat'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{reqStatUser stat}}</p>
+				<select id="inp_autuser_header_stat" class="form-control objData content-edit hide isManager" data-name="stat">
+					<option {{#equal stat 2}}selected{{/equal}} value="2">{{transl 'aut_user_ent_header_stat_2'}}</option>
+					<option {{#equal stat 3}}selected{{/equal}} value="3">{{transl 'aut_user_ent_header_stat_3'}}</option>
+					<option {{#equal stat 1}}selected{{/equal}} value="1">{{transl 'aut_user_ent_header_stat_1'}}</option>
+					<option {{#equal stat 0}}selected{{/equal}} value="0">{{transl 'aut_user_ent_header_stat_0'}}</option>
+					<option {{#equal stat 10}}selected{{/equal}} value="10">{{transl 'aut_user_ent_header_stat_10'}}</option>
+				</select>
+			</div>
+			
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_supervisor'}}</h5>
+				<p class="text-muted info-edit-content info-content">{{sup.login01}} {{sup.name01}}</p>
+				<input type="hidden" class="objData" data-name="supId" id ="supId" value="{{supId}}" >
+				<input type="text" class="form-control objData hide content-edit isManager" id="supName" value="{{sup.login01}} {{sup.name01}}"  placeholder="{{transl 'aut_user_ent_header_supervisor_help'}}" autocomplete="off" > 
+			</div>
+			
+			<div class="col-md-6 col-xs-12"></div>
+<!-- 		<div class="row"> -->
+<!-- 			<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_societe'}}</h5> -->
+<!-- 			<input type="hidden" class="objData" data-name="manId" id ="manId" value="{{manId}}"> -->
+<!-- 			<input type="text" class="form-control objData" id="inp_autuser_societe" placeholder="{{transl 'aut_user_ent_header_societe_help'}}"> -->
+<!-- 		</div> -->		
+	</div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+    	<div class="row" id="div_ent_password_btn">
+		    <div class="col-12 d-flex justify-content-end">
+		        {{#if id}}
+		        <button id="btn_aut_user_change_pass" class="btn btn-primary objData">{{transl 'aut_user_change_pass'}}</button>
+		        {{/if}}
+		    </div>
+		</div>
+		<div class="row noData" id="div_ent_header_password" style="display: none">
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass'}} *</h5>
+				<input id="inp_autuser_header_pass" class="form-control noData" autocomplete="off"
+							type="password" data-name="pass01" data-validation="required" value="" />
+			</div>
+			<div class="col-md-6 col-xs-12">
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass_match'}} *</h5>
+				<input id="inp_autuser_header_pass_match" class="form-control noData" autocomplete="off"
+					type="password" data-name="pass_match" data-compare="eq #inp_autuser_header_pass" data-msg="compare:aut_user_pass_match_err" data-validation="required" value="" />
+			</div>
+		</div>
+    </div>
+</div>
