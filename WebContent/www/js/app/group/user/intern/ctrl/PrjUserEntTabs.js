@@ -659,7 +659,8 @@ define(['jquery'], function($) {
 
 				do_lc_bind_btn_role_all(true)
 				
-				$("#dropdown-rights").addClass("hide");
+				$("#btn_modify").addClass("hide");
+				$(".btn-resize").addClass("hide");
 			})
 			
 			$("#a_btn_cancel_rights").off("click").on("click", function(){

@@ -15,17 +15,12 @@
       <a id="a_btn_cancel_rights" class="text-danger mr-2 hide cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
       	  <i class="mdi mdi-close font-size-20"></i>
       </a>
-            
-      <div id="dropdown-rights" class="dropdown float-right isManager">
-           <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false">
-               <i class="mdi mdi-dots-horizontal font-size-18"></i>
-           </a>
-           <ul class="dropdown-menu dropdown-menu-right">
-               <li><span id="btn_modify" class="dropdown-item cursor-pointer isManager"><i class="mdi mdi-plus font-size-16 text-primary mr-1"></i>{{transl 'prj_project_modify'}}</span></li>
-               <li><span data-divtoogle="#tab_Aut_User_Ent_Tab_Roles_Resize" class="btn-resize dropdown-item cursor-pointer" data-toggle="tooltip"
-            data-placement="top" title="" data-original-title="Resize"><i class="mdi mdi-window-minimize font-size-16 text-primary mr-1"></i><span class="label-resize">{{transl 'prj_project_resize_min'}}</span></span></li>
-           </ul>
-       </div>
+       
+     <div id="dropdown-rights" class="dropdown float-right isManager">
+		<div id="btn_modify" class="cursor-pointer isManager mr-1"><i class="mdi mdi-pencil-outline" style="font-size: 20px;"></i></div>
+	   <div data-divtoogle="#tab_Aut_User_Ent_Tab_Roles_Resize" class="btn-resize cursor-pointer" data-toggle="tooltip"
+	data-placement="top" title="" data-original-title="Resize"><i class="mdi mdi-window-minimize text-dark mr-1" style="font-size: 20px;"></i></div>
+     </div>
             
 <!--       <div class="col-sm-3 isManager"> -->
 <!--         <div class="text-right"> -->
