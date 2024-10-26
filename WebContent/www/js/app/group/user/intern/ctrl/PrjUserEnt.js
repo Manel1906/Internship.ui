@@ -324,7 +324,7 @@ define([
 						},
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
-							funct	: do_lc_show_blocks,
+							funct	: do_lc_hide_div,
 							param	: [],
 							classBtn: "btn-primary"
 						}
@@ -580,6 +580,10 @@ define([
 			do_lc_show_entity(prj, mode);
 
 			pr_ctr_Sidebar.do_lc_show_favorite()
+		}
+		
+		const do_lc_hide_div = () => {
+			pr_ctr_Main.do_lc_show();
 		}
 	}
 	
