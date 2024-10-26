@@ -80,7 +80,7 @@
   "aut_user_ent_header_stat_1": "Actif",
   "aut_user_ent_header_stat_2": "Verrouillé",
   "aut_user_ent_header_stat_3": "Actif et caché",
-  "aut_user_ent_header_stat_10": "Supprimé",
+  "aut_user_ent_header_stat_10": "Désactiver",
   "aut_user_googleAPI": "Google OAuth autorisation",
   "aut_user_googleAPI_inf_done": "L'authorisation est acceptée",
 

@@ -90,10 +90,10 @@
     "aut_user_pass_match_err"				:	"Mật khẩu không đồng nhất",
     "aut_user_ent_header_stat"				:	"Trạng thái",
     "aut_user_ent_header_stat_2"			:	"Chưa kích hoạt",
-    "aut_user_ent_header_stat_1"			:	"Kích hoạt",
+    "aut_user_ent_header_stat_1"			:	"Đang hoạt động",
     "aut_user_ent_header_stat_3"			:	"Kích hoạt và ẩn",
-    "aut_user_ent_header_stat_0"			:	"Khóa",
-    "aut_user_ent_header_stat_10"			:	"Đã xóa",
+    "aut_user_ent_header_stat_0"			:	"Không hoạt động",
+    "aut_user_ent_header_stat_10"			:	"Vô hiệu hóa",
     "aut_user_googleAPI"					:	"Kết nối tài khoản Google",
     "aut_user_googleAPI_inf_done"			:	"Kết nối tài khoản đã được thực hiện thành công",
     

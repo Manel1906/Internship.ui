@@ -91,10 +91,10 @@
   "aut_user_pass_match_err": "Password does not match",
   "aut_user_ent_header_stat": "Status",
   "aut_user_ent_header_stat_3": "Not activated",
-  "aut_user_ent_header_stat_1": "Activate",
+  "aut_user_ent_header_stat_1": "Active",
   "aut_user_ent_header_stat_2": "Activate and hidden",
-  "aut_user_ent_header_stat_0": "Lock",
-  "aut_user_ent_header_stat_10": "Deleted",
+  "aut_user_ent_header_stat_0": "Inactive",
+  "aut_user_ent_header_stat_10": "Disable",
   "aut_user_googleAPI": "Google OAuth consent",
   "aut_user_googleAPI_inf_done": "Authorisation is aldready accepted",
 
