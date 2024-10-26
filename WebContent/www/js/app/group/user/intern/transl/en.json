@@ -399,5 +399,7 @@
   "per_partner_header_select": "Option",
   
   "msgbox_confirm_delete": "Cancel create new account?",
-  "msgbox_confirm_save": "Save account information ?"
+  "msgbox_confirm_save": "Save account information ?",
+  
+  "btn_add_file": "Add files"
 }

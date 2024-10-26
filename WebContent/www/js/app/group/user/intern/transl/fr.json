@@ -261,5 +261,7 @@
   "per_tab_detail": "Détails",
   
   "msgbox_confirm_delete": "Annuler, créer un nouveau compte ?",
-  "msgbox_confirm_save": "Enregistrer les informations du compte ?"
+  "msgbox_confirm_save": "Enregistrer les informations du compte ?",
+  
+  "btn_add_file": "Ajouter des fichiers"
 }

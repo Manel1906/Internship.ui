@@ -326,5 +326,7 @@
     "per_tab_analysis"                      :   "Kết quả phân tích",
     
 	"msgbox_confirm_delete"					:	"Hủy bỏ tạo mới tài khoản ?",
-	"msgbox_confirm_save"					:	"Lưu thông tin tài khoản ?"
+	"msgbox_confirm_save"					:	"Lưu thông tin tài khoản ?",
+	
+	"btn_add_file"							:	"Thêm tập tin"
 }
