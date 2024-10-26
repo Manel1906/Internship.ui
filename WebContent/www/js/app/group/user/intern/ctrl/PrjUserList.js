@@ -173,19 +173,6 @@ define(['jquery'], function($) {
 				do_gl_execute_debounce(do_get_list_ByAjax);
 			})
 			
-		    $('#inp-search').on('focus', function() {
-				$(this).attr('style', function(i, style) {
-		            return style + '; border-color: black !important; box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) !important;';
-		        });
-		    });
-			
-		    $('#inp-search').on('blur', function() {
-		        $(this).css({
-		            'border-color': 'black', // Đảm bảo màu viền vẫn đen khi không focus
-		            'box-shadow': 'none' // Loại bỏ hiệu ứng đổ bóng
-		        });
-		    });
-			
 			$("#btn_search_responsive").off("click").on("click", function(e){
 				e.preventDefault();
 				
