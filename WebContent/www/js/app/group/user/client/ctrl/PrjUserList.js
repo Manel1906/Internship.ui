@@ -43,6 +43,7 @@ define(['jquery'], function($) {
 		const pr_STAT_ACTIVE        = 1;
 		const pr_STAT_INACTIVE      = 2;
 		const pr_STAT_ACTIVE_HIDDEN = 3;
+		const pr_STAT_DISABLE 		= 10;
 		
 		const var_lc_MODE_SEL       = 0;
 		const var_lc_MODE_NEW       = 1;
@@ -54,23 +55,23 @@ define(['jquery'], function($) {
 		const RIGHT_A_G				= 101;
 		const RIGHT_A_N	        	= 102;
 		
-		const TYP_USER_02 			= 2;
-		const TYP_USER_20 			= 20;
-		const TYP_USER_30 			= 30;
-//		const TYP_USER_40 			= 40;
+//		const TYP_USER_02 			= 2;
+//		const TYP_USER_20 			= 20;
+//		const TYP_USER_30 			= 30;
+		const TYP_USER_40 			= 40;
 //		
 //		const paramStats 			= {
-//			[TYP_USER_02] : {typ: TYP_USER_02				, isShow : true},
-//			[TYP_USER_20] : {typ: TYP_USER_20				, isShow : true},
-//			[TYP_USER_30] : {typ: TYP_USER_30				, isShow : true},
-////			[TYP_USER_40] : {typ: TYP_USER_40				, isShow : true},
+////			[TYP_USER_02] : {typ: TYP_USER_02				, isShow : true},
+////			[TYP_USER_20] : {typ: TYP_USER_20				, isShow : true},
+////			[TYP_USER_30] : {typ: TYP_USER_30				, isShow : true},
+//			[TYP_USER_40] : {typ: TYP_USER_40				, isShow : true},
 //		}
-		var pr_stats = [
-			TYP_USER_02,
-			TYP_USER_20,
-			TYP_USER_30,
-//			TYP_USER_40,
-		]
+		var pr_typ = [
+			pr_STAT_ACTIVE,
+			pr_STAT_INACTIVE,
+			pr_STAT_ACTIVE_HIDDEN,
+			pr_STAT_DISABLE
+		];
 		
 		var pr_DIV_CONTENT          = "#div_user_ent";
 		//--------------------APIs--------------------------------------//
@@ -315,11 +316,11 @@ define(['jquery'], function($) {
 		  
 
 		  const do_lc_get_checked = (dataCode) => {
-  			  pr_stats = []
-  		      if (dataCode == 0) {
-				  pr_stats = [2, 20, 30];
+  			  pr_typ = []
+  		      if (dataCode == -1) {
+				  pr_typ = [1,2,3,10];
   		      } else {
-				pr_stats.push(dataCode);
+				pr_typ.push(dataCode);
   		      }
   		  }
 		  
@@ -331,8 +332,8 @@ define(['jquery'], function($) {
 				{
 					searchKey: pr_searchKey, 
 					buildInfo: true, hardLoad, 
-					stats: pr_STAT_ACTIVE + "," + pr_STAT_INACTIVE + "," + pr_STAT_ACTIVE_HIDDEN,
-					typs: pr_stats
+					stats: pr_typ,
+					typs: TYP_USER_40
 				});
 			
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);

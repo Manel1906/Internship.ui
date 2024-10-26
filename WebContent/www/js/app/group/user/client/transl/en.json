@@ -37,6 +37,7 @@
   "prj_user_save_all": "Save",
   "prj_user_list_search": "Search",
   "prj_user_list_title": "List of user accounts",
+  "prj_user_list_client_title": "Patient management",
   "prj_user_list_new_file_title": "Add files here",
 
   "aut_user_list_login": "Account",
@@ -401,5 +402,6 @@
   "msgbox_confirm_delete": "Cancel create new account?",
   "msgbox_confirm_save": "Save account information ?",
   
-  "btn_add_file": "Add files"
+  "btn_add_file": "Add files",
+  "btn_more_info": "Add patient information"
 }

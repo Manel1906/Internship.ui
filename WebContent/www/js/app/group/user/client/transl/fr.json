@@ -37,6 +37,7 @@
   "prj_user_save_all": "Sauvegarde",
   "prj_user_list_search": "Rechercher",
   "prj_user_list_title": "Liste des comptes utilisateurs",
+  "prj_user_list_client_title": "Prise en charge des patients",
   "prj_user_list_new_file_title": "Ajouter des fichiers ici",
 
   "aut_user_list_login": "Référence utilisateur",
@@ -263,5 +264,6 @@
   "msgbox_confirm_delete": "Annuler, créer un nouveau compte ?",
   "msgbox_confirm_save": "Enregistrer les informations du compte ?",
   
-  "btn_add_file": "Ajouter des fichiers"
+  "btn_add_file": "Ajouter des fichiers",
+  "btn_more_info": "Ajouter des informations sur le patient"
 }

@@ -279,8 +279,10 @@ define([
 			
 			if(mode == var_lc_MODE_NEW){
 				$("#div_user_funct").removeClass("hide");
+				$("#div_user_more_info").addClass("hide");
 			}else{
 				$("#div_user_funct").addClass("hide");
+				$("#div_user_more_info").removeClass("hide");
 			}
 		}
 		

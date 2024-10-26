@@ -37,6 +37,7 @@
 	"prj_user_save_all"                     : "Lưu",
     "prj_user_list_search"                  : "Tìm kiếm",
     "prj_user_list_title"					: "Danh sách tài khoản người dùng",
+    "prj_user_list_client_title"			: "Quản lý bệnh nhân",
     "prj_user_list_new_file_title"			: "Thêm tập tin vào đây",
 
     "aut_user_profile_header_title"         :   "Thông tin tài khoản",
@@ -328,5 +329,6 @@
 	"msgbox_confirm_delete"					:	"Hủy bỏ tạo mới tài khoản ?",
 	"msgbox_confirm_save"					:	"Lưu thông tin tài khoản ?",
 	
-	"btn_add_file"							:	"Thêm tập tin"
+	"btn_add_file"							:	"Thêm tập tin",
+	"btn_more_info"							:	"Thêm thông tin bệnh nhân"
 }
