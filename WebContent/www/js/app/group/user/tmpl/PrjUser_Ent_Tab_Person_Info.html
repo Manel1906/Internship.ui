@@ -2,7 +2,7 @@
     <div class="card-body">
     	 <div class="media">
         	<div class="media-body overflow-hidden">
-                <h5 class="text-truncate font-size-16">{{name}}</h5>
+<!--                 <h5 class="text-truncate font-size-16">{{name}}</h5> -->
             </div>
 <!--             <a id="a_btn_edit" class="mr-3 text-primary action-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> -->
 <!--             	<i class="mdi mdi-content-save-edit font-size-18 action-item"></i> -->
@@ -15,35 +15,6 @@
             </a>
         </div>
 		<input type="hidden" class="form-control objData" data-group="per" data-name="id" value="{{per.id}}">
-		<div class="row">
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_legalstat'}} *</h5>
-				<p class="text-muted info-edit info-content">
-					{{#equal per.v02 1020001}}{{transl "per_person_mr" }}{{/equal}}
-					{{#equal per.v02 1020002}}{{transl "per_person_mrs" }}{{/equal}}
-				</p>
-				<select id="sel_autuser_header_legalstat" class="form-control objData content-edit hide isManager" data-validation="required" data-group="per" data-name="v02">
-					<option {{#equal per.v02 1020001}}selected{{/equal}} value="1020001">{{transl "per_person_mr"}}</option>
-					<option {{#equal per.v02 1020002}}selected{{/equal}} value="1020002">{{transl "per_person_mrs"}}</option>
-				</select>
-			</div>
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info02'}}</h5>
-				<p class="text-muted info-edit info-content">
-					{{#equal per.inf10 0}}{{transl "per_person_men" }}{{/equal}}
-					{{#equal per.inf10 1}}{{transl "per_person_women" }}{{/equal}}
-					{{#equal per.inf10 2}}{{transl "per_person_other" }}{{/equal}}
-				</p>
-<!-- 				<input id="inp_autuser_tab01_info_02" class="form-control objData content-edit hide isManager" type="text" data-validation="" -->
-<!-- 					data-group="inf02" data-name="job" value="{{inf02.j}}"/> -->
-				<select id="sel_autuser_header_legalstat" class="form-control objData content-edit hide isManager" data-validation="" data-group="per" data-name="inf10">
-					<option {{#equal per.inf10 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
-					<option {{#equal per.inf10 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
-					<option {{#equal per.inf10 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
-				</select>
-			</div>
-		</div>
-		
 		<div class="row">
 			<div class="col-6">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_01'}} *</h5>
@@ -61,7 +32,7 @@
 			</div>
 		</div>
 		
-		<div class="row">
+		<div class="row mt-4">
 			<div class="col-6">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_02'}}</h5>
 				<p class="text-muted info-edit info-content">{{per.name02}}</p>
@@ -75,7 +46,7 @@
 			</div>
 		</div>
 		
-		<div class="row">
+		<div class="row mt-4">
 			<div class="col-6">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_03'}} *</h5>
 				<p class="text-muted info-edit info-content">{{per.name03}}</p>
@@ -87,6 +58,24 @@
 				<p class="text-muted info-edit info-content">{{per.inf09}}</p>
 				<input id="inp_autuser_tab01_info_09" class="form-control objData content-edit hide isManager" type="text" data-validation=""
 					data-group="per" data-name="inf09" data-format="numeric" value="{{per.inf09}}"/>
+			</div>
+		</div>
+		
+		<div class="row mt-4">
+			<div class="col-6">
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info10'}}</h5>
+				<p class="text-muted info-edit info-content">
+					{{#equal per.inf10 0}}{{transl "per_person_men" }}{{/equal}}
+					{{#equal per.inf10 1}}{{transl "per_person_women" }}{{/equal}}
+					{{#equal per.inf10 2}}{{transl "per_person_other" }}{{/equal}}
+				</p>
+<!-- 				<input id="inp_autuser_tab01_info_02" class="form-control objData content-edit hide isManager" type="text" data-validation="" -->
+<!-- 					data-group="inf02" data-name="job" value="{{inf02.j}}"/> -->
+				<select id="sel_autuser_header_legalstat" class="form-control objData content-edit hide isManager" data-validation="" data-group="per" data-name="inf10">
+					<option {{#equal per.inf10 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
+					<option {{#equal per.inf10 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
+					<option {{#equal per.inf10 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
+				</select>
 			</div>
 		</div>
 		
