@@ -41,7 +41,7 @@
       <div class="box-body form-horizontal table_width_max shp_table_max_height">
         <table class="table table-hover ">
           <tr>
-            <th style="text-align: center;">{{transl 'aut_role_tab_01_tabtitle'}}</th>
+            <th style="text-align: left;">{{transl 'aut_role_tab_01_tabtitle'}}</th>
             <th></th>
             <th style="text-align: center;">{{transl 'aut_role_tab_01_read'}}</th>
             <th style="text-align: center;">{{transl 'aut_role_tab_01_add'}}</th>
@@ -65,15 +65,15 @@
             </td>
 
             <td class="d-flex align-items-center justify-content-center"><span class="mdi mdi-checkbox-marked-outline disabled btn_check_role_all" data-role="{{rId}}" style="font-size: 16px; line-height: 14px;"></span></td>
-            <td><input class="objData cb_right cb_{{rId}} {{rId}}_r1" type="checkbox" data-group="rights" data-gIndex="{{id1}}" data-role="{{rId}}"
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r1" type="checkbox" data-group="rights" data-gIndex="{{id1}}" data-role="{{rId}}"
                 {{#ifCond r1 '>' 0}} checked {{/ifCond}} /></td>
-            <td><input class="objData cb_right cb_{{rId}} {{rId}}_r2" type="checkbox" data-group="rights" data-gIndex="{{id2}}" data-role="{{rId}}"
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r2" type="checkbox" data-group="rights" data-gIndex="{{id2}}" data-role="{{rId}}"
                 {{#ifCond r2 '>' 0}} checked {{/ifCond}} /></td>
-            <td><input class="objData cb_right cb_{{rId}} {{rId}}_r3" type="checkbox" data-group="rights" data-gIndex="{{id3}}" data-role="{{rId}}"
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r3" type="checkbox" data-group="rights" data-gIndex="{{id3}}" data-role="{{rId}}"
                 {{#ifCond r3 '>' 0}} checked {{/ifCond}} /></td>
-            <td><input class="objData cb_right cb_{{rId}} {{rId}}_r4" type="checkbox" data-group="rights" data-gIndex="{{id4}}" data-role="{{rId}}"
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r4" type="checkbox" data-group="rights" data-gIndex="{{id4}}" data-role="{{rId}}"
                 {{#ifCond r4 '>' 0}} checked {{/ifCond}} /></td>
-            <td><input class="objData cb_right cb_{{rId}} {{rId}}_r5" type="checkbox" data-group="rights" data-gIndex="{{id5}}" data-role="{{rId}}"
+            <td class="text-center align-middle"><input class="objData cb_right cb_{{rId}} {{rId}}_r5" type="checkbox" data-group="rights" data-gIndex="{{id5}}" data-role="{{rId}}"
                 {{#ifCond r5 '>' 0}} checked {{/ifCond}} /></td>
           </tr>
 
