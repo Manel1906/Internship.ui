@@ -1,5 +1,5 @@
 define([
-	'group/user/ctrl/PrjUserEntTabs'
+	'group/user/intern/ctrl/PrjUserEntTabs'
 	],
 	function(
 			{PrjUserEntContent, PrjUserEntTabJobPosition, PrjUserEntTabPersonInfo, PrjUserEntTabRights}

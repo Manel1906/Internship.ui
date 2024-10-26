@@ -1,19 +1,19 @@
 define([
-	'group/user/ctrl/PrjUserList',
-	'group/user/ctrl/PrjUserEnt',
+	'group/user/intern/ctrl/PrjUserList',
+	'group/user/intern/ctrl/PrjUserEnt',
 	'group/dashboard/ctrl/PrjDashboardEnt',
 	
-	'text!group/user/tmpl/PrjUser_Main.html',
-	'text!group/user/tmpl/PrjUser_List.html', 
-	'text!group/user/tmpl/PrjUser_List_Content.html', 
+	'text!group/user/intern/tmpl/PrjUser_Main.html',
+	'text!group/user/intern/tmpl/PrjUser_List.html', 
+	'text!group/user/intern/tmpl/PrjUser_List_Content.html', 
 	
-	'text!group/user/tmpl/PrjUser_Ent.html',
-	'text!group/user/tmpl/PrjUser_Ent_Content.html'	,
-	'text!group/user/tmpl/PrjUser_Ent_Tab_JobPosition.html'	,
-	'text!group/user/tmpl/PrjUser_Ent_Tab_Person_Info.html',	
-    'text!group/user/tmpl/PrjUser_Sel_List_Legal_Status.html'	,
-	'text!group/user/tmpl/PrjUser_Ent_Tab_Rights.html',
-	'text!group/user/tmpl/PrjDropzone_File.html'
+	'text!group/user/intern/tmpl/PrjUser_Ent.html',
+	'text!group/user/intern/tmpl/PrjUser_Ent_Content.html'	,
+	'text!group/user/intern/tmpl/PrjUser_Ent_Tab_JobPosition.html'	,
+	'text!group/user/intern/tmpl/PrjUser_Ent_Tab_Person_Info.html',	
+    'text!group/user/intern/tmpl/PrjUser_Sel_List_Legal_Status.html'	,
+	'text!group/user/intern/tmpl/PrjUser_Ent_Tab_Rights.html',
+	'text!group/user/intern/tmpl/PrjDropzone_File.html'
 
 	], function(
 			PrjUserList,
@@ -125,7 +125,7 @@ define([
 		}     
 		
 		//--------show-------------------------------------------------------------------
-		var pr_grpPath 		= 'group/user';
+		var pr_grpPath 		= 'group/user/intern';
 		var pr_showed		= false;
 		this.do_lc_show = function(){
 			if (!pr_showed){

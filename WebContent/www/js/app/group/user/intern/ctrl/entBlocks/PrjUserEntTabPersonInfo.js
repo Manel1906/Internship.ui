@@ -1,6 +1,6 @@
 define([
-	'text!group/user/tmpl/PrjUser_Ent_Tab_Person_Info.html',	
-    'text!group/user/tmpl/PrjUser_Sel_List_Legal_Status.html'
+	'text!group/user/intern/tmpl/PrjUser_Ent_Tab_Person_Info.html',	
+    'text!group/user/intern/tmpl/PrjUser_Sel_List_Legal_Status.html'
 	],
 	function(	
 			PrjUser_Ent_Tab_Person_Info,

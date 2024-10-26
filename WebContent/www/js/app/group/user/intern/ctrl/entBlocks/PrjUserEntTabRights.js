@@ -1,6 +1,6 @@
 define([
 	'jquery',
-	'text!group/user/tmpl/PrjUser_Ent_Tab_Rights.html'     
+	'text!group/user/intern/tmpl/PrjUser_Ent_Tab_Rights.html'     
 
 	],
 	function($,

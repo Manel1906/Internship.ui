@@ -1,5 +1,5 @@
 define([
-	'text!group/user/tmpl/PrjUser_Ent_Content.html'
+	'text!group/user/intern/tmpl/PrjUser_Ent_Content.html'
 	],
 	function(	
 			PrjUser_Ent_Content

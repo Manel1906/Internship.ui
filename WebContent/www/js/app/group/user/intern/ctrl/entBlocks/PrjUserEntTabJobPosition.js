@@ -1,5 +1,5 @@
 define([
-	'text!group/user/tmpl/PrjUser_Ent_Tab_JobPosition.html'
+	'text!group/user/intern/tmpl/PrjUser_Ent_Tab_JobPosition.html'
 	],
 	function(	
 			PrjUser_Ent_Tab_JobPosition

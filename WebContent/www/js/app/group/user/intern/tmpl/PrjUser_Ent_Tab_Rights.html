@@ -41,13 +41,13 @@
       <div class="box-body form-horizontal table_width_max shp_table_max_height">
         <table class="table table-hover ">
           <tr>
-            <th>{{transl 'aut_role_tab_01_tabtitle'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_tabtitle'}}</th>
             <th></th>
-            <th>{{transl 'aut_role_tab_01_read'}}</th>
-            <th>{{transl 'aut_role_tab_01_add'}}</th>
-            <th>{{transl 'aut_role_tab_01_modify'}}</th>
-            <th>{{transl 'aut_role_tab_01_delete'}}</th>
-            <th>{{transl 'aut_role_tab_01_report'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_read'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_add'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_modify'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_delete'}}</th>
+            <th style="text-align: center;">{{transl 'aut_role_tab_01_report'}}</th>
           </tr>
           {{#each this}}
           <tr>
@@ -64,7 +64,7 @@
                 value="{{id5}}" />
             </td>
 
-            <td class="d-flex align-items-start"><span class="mdi mdi-checkbox-marked-outline disabled btn_check_role_all" data-role="{{rId}}" style="font-size: 16px; line-height: 14px;"></span></td>
+            <td class="d-flex align-items-center justify-content-center"><span class="mdi mdi-checkbox-marked-outline disabled btn_check_role_all" data-role="{{rId}}" style="font-size: 16px; line-height: 14px;"></span></td>
             <td><input class="objData cb_right cb_{{rId}} {{rId}}_r1" type="checkbox" data-group="rights" data-gIndex="{{id1}}" data-role="{{rId}}"
                 {{#ifCond r1 '>' 0}} checked {{/ifCond}} /></td>
             <td><input class="objData cb_right cb_{{rId}} {{rId}}_r2" type="checkbox" data-group="rights" data-gIndex="{{id2}}" data-role="{{rId}}"
