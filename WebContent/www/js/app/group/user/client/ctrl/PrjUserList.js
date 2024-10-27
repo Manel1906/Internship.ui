@@ -96,12 +96,11 @@ define(['jquery'], function($) {
 		};
 
 		var do_binding_event = function(div, type01, type02, data){
-				$('.user-typ-select').off('click').on('click',function(){
-					const dataCode = $(this).data('code');
-					console.log("hello")
-					do_lc_get_checked(dataCode)
-					do_get_list_ByAjax()
-				})
+			$('.user-typ-select').off('click').on('click',function(){
+				const dataCode = $(this).data('code');
+				do_lc_get_checked(dataCode)
+				do_get_list_ByAjax()
+			})
 			
 			$(".user-item-name").off("click").on("click", function(){
 				let listUserRight = App.data.user.rights;
