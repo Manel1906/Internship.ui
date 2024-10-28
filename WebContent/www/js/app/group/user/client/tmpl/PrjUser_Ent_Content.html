@@ -1,9 +1,9 @@
 <div class="card">
     <div class="card-body">
         <div class="media">
-        	<div id="div_img_avatar">
+        	<div id="div_img_avatar" class="msg-body-forme">
         		{{#if avatar}}
-        		<img src="{{reqSrcImg avatar}}" alt="" class="avatar-xl mr-4 rounded-circle">
+        		<img src="{{reqSrcImg avatar}}" alt="" data-path="{{reqSrcImg avatar}}" class="files_content_user avatar-xl mr-4 rounded-circle cursor-pointer">
         		{{else}}
         		<div class="avatar-xl mr-4 rounded-circle text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}">
         			<div class="text-large">{{reqSrcTextAvatar login01}}</div>
@@ -11,7 +11,7 @@
         		{{/if}}
         	</div>
         	
-			<div class="media-body overflow-hidden">
+			<div class="msg-body-other media-body overflow-hidden">
                 <h5 class="text-truncate font-size-16">{{name}}</h5>
             </div>
 <!--             <a id="a_btn_edit" class="mr-3 text-primary action-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> -->

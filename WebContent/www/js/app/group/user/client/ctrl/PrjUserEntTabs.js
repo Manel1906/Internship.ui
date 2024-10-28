@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	var PrjUserEntContent 			= function (grpName, header, content, footer) {
 		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
 		var tmplName				= App.template.names[pr_grpName];
@@ -111,7 +111,20 @@ define(['jquery'], function($) {
 			}			
 			do_gl_init_fileDropzone($(pr_divContent), option);
 			
-			
+			$(".files_content_user").off("click").on("click", function() {
+				const {path} = $(this).data();
+				let isImage = do_lc_check_image(path);
+				if(isImage){
+					const viewer = new Viewer(document.getElementById('div_user_content'), {
+						filterImgClass: ['msg-body-forme', 'msg-body-other'],
+						hide: function () {
+							viewer.destroy();
+						},
+					});
+				}else{
+					window.open(path, "_blank");
+				}
+			})
 			if(mode == var_lc_MODE_MOD || mode == var_lc_MODE_SEL){
 				if(mode == var_lc_MODE_SEL){
 					let el = $("#inp_autuser_header_login").parent();
@@ -234,7 +247,27 @@ define(['jquery'], function($) {
 //				}
 //			}
 		}
-		
+		function do_lc_getExtension_from_name(filename) {
+			var parts = filename.split('.');
+			return parts[parts.length - 1];
+		}
+
+
+		function do_lc_check_image(filename) {
+			var ext = do_lc_getExtension_from_name(filename);
+			switch (ext.toLowerCase()) {
+			case 'jpg':
+			case 'jpeg':
+			case 'gif':
+			case 'bmp':
+			case 'png':
+			case 'PNG':
+			case 'webp':
+				//etc
+				return true;
+			}
+			return false;
+		}
 		this.do_verify_user_right_soc_manage = function(){
 			for(var i = 0; i< pr_right_soc_manage.length; i++){
 				if(App.data.user.rights.includes(pr_right_soc_manage[i]))
