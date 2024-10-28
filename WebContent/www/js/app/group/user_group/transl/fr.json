@@ -1,10 +1,18 @@
 {
 	"prj_user_group_btn_delete_group"		     		: "Supprimer le groupe",
+	"prj_user_group_btn_edit_group"				    	: "Modifier",
     
 	"prj_user_group_name"								: "Nom du groupe",
     "prj_user_group_descr"								: "Description",
 	"prj_user_group_ref"								: "Code du groupe",
 	"prj_user_group_date_begin"							: "Date de création",
+	"prj_user_group_locate"								: "Emplacement",
+	"prj_user_group_phone"								: "Numéro de téléphone",
+	"prj_user_group_email"								: "Email",
+	"prj_user_group_introduce"							: "Introduction générale",
+	"prj_user_group_service"							: "Prestations spécialisées",
+	"prj_user_group_mission"							: "Tâches fonctionnelles",
+	"prj_user_group_information"						: "Autres informations",
 	
 	"prj_project_member"								: "Miembros",
 	"prj_project_add_member"							: "Agregar",
@@ -18,6 +26,11 @@
 	"prj_project_member_level_worker"					: "Agent",
 	"prj_project_member_level_watcher"                  : "Observateur",
 	"prj_project_member_level_owner"					: "Créateur",
+	"prj_project_member_level_doctor"					: "Médecin",
+	"prj_project_member_level_dean"						: "Doyen",
+	"prj_project_member_level_deputy"					: "Vice-doyen",
+	"prj_project_member_header_edit"					: "Modifier membre",
+	"prj_project_member_header_delete"					: "Supprimer membre",
 
     "prj_user_group_name_enter"							: "Saisir le nom du groupe",
 	"prj_user_group_descr_enter"						: "Saisir la description du groupe",
@@ -25,13 +38,26 @@
 	"prj_user_group_new"								: "Nouveau groupe",
 	"prj_user_chat_search"								: "Recherche l'utilisateur, groupe ...",
 
-	"prj_user_group_new_title"							: "Créer le nouveau groupe",
+	"prj_user_group_new_title"							: "Créer une nouvelle spécialité",
 	"prj_user_group_new_msg"							: "Créez des groupes de discussion, aidez-vous à travailler plus efficacement!",
 
 	"prj_user_group_avatar"								: "Avatar",
-	"prj_user_group_new_btn_create"						: "Créer le groupe",
+	"prj_user_group_files"              				: "Pièces joints",
+	"prj_user_group_new_btn_save"						: "Sauvegarder",
+	"prj_user_group_new_btn_cancel"						: "Annuler",
 	"prj_project_del_user_group_popup_content" 			: "Êtes-vous sûr de vouloir supprimer le groupe ?",
 	"prj_project_add_avatar"							: "Avatar",
-	"prj_project_drop_files"							: "Glissez-déposez ou cliquez pour ajouter des fichiers"
+	"prj_project_drop_files"							: "Glissez-déposez ou cliquez pour ajouter des fichiers",
+	"prj_project_new_file_title"						: "Ajouter des fichiers ici",
+	"prj_project_enter_name"							: "Saisir le nom...",
+	
+	"prj_specialty_list_title"							: "Liste des spécialités",
+	"btn_add_file"										: "Ajouter des fichiers",
+	"prj_user_group_room"								: "Chambre",
+	
+	"msgbox_confirm_creat"								: "Enregistrer le contenu spécialisé ?",
+	"msgbox_confirm_cancel_create"						: "Annuler le nouveau processus de création ?",
+	"msgbox_confirm_save"								: "Enregistrer le contenu modifié ?",
+	"msgbox_confirm_save_cancel"						: "Annuler le contenu modifié ?"
 	
 }

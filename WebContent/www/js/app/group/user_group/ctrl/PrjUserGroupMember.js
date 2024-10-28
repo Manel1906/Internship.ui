@@ -45,8 +45,14 @@ define([
 
     const pr_TYP_CHAT_USER = 1;
 
-		const PRJ_MEMBER_LEVEL 		= {0: "prj_project_member_level_manager", 10: "prj_project_member_level_reporter", 20: "prj_project_member_level_developer", 30: "prj_project_member_level_tester", 40: "prj_project_member_level_worker", 50: "prj_project_member_level_watcher"};
+	const PRJ_MEMBER_LEVEL 		= {0: "prj_project_member_level_manager", 10: "prj_project_member_level_dean", 20: "prj_project_member_level_doctor", 30: "prj_project_member_level_deputy"};
 
+	var Handlebars		=  require('handlebars');
+	Handlebars.registerHelper("reqLevelMemberGroup", function(level) {
+		if(level === undefined)	return "";
+		return $.i18n(PRJ_MEMBER_LEVEL[+level]);
+	});
+	
     //--------------------APIs--------------------------------------//
     this.do_lc_init = function () {
       if (!tmplName) {
@@ -136,16 +142,14 @@ define([
           }
         });
 
-      $(".member-delete")
-        .off("click")
-        .on("click", function () {
-          let { memid } = $(this).data();
-          let mem = pr_MEM_TEMP[memid];
-          if (mem) {
-            delete pr_MEM_TEMP[memid];
-            $(this).closest("tr").remove();
-            $(".action-mem").removeClass("hide");
-          }
+      $(".member-delete").off("click").on("click", function () {
+			let { memid } = $(this).data();
+			let mem = pr_MEM_TEMP[memid];
+			if (mem) {
+		        delete pr_MEM_TEMP[memid];
+		        $(this).closest("tr").remove();
+		        $(".action-mem").removeClass("hide");
+		      }
         });
 
       $(".btn-resize")
@@ -209,7 +213,7 @@ define([
       };
       do_gl_req_autocompleteNew(el, options);
     };
-
+	
     var do_lc_bind_event_autocomplete = function (pr_MEM_TEMP) {
       $(".btn-remove-member")
         .off("click")

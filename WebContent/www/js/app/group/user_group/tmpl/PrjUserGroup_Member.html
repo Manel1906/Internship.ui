@@ -35,7 +35,7 @@
 	   		</div>
 	   		<div class="col-sm-7">
 	             <div class="text-right font-size-20">
-	                 <button id="btn_add_member" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm isManager"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}</button>
+	                <i id="btn_add_member" class="mdi mdi-pencil-outline text-success cursor-pointer isManager mr-1" style="font-size: 20px;"></i>
 	             	<a id="a_btn_save_member" class="mr-2 text-primary hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
 		            	<i class="mdi mdi-content-save action-item"></i>
 		            </a>
@@ -64,7 +64,7 @@
 			            {{#ifOrs isOwner notModif}}
 				            <td class="hide action-item-member isManager"></td>
 				            {{> avatarMember}}
-				            <td><span class="level-content">{{reqLevelMember typ}}</span></td>
+				            <td><span class="level-content">{{reqLevelMemberGroup typ}}</span></td>
 			            {{else}}
 				            <td class="hide action-item-member isManager">
 				            	<div class="dropdown">
@@ -83,14 +83,17 @@
 	                        </td>
 				            {{> avatarMember}}
 				            <td>
-				            	<span class="level-content content-member">{{reqLevelMember typ}}</span>
+				            	<span class="level-content content-member">{{reqLevelMemberGroup typ}}</span>
 				            	<select class="form-control edit-member level-edit hide isManager hideDev hideTest hideMem hideGuest">
-					        		<option value="0" class="hideBA" {{#equal lev '0'}}selected{{/equal}}>{{transl 'prj_project_member_level_manager'}}</option>
-					        		<option data-external-mem="true" value="10" {{#equal lev '10'}}selected{{/equal}}>{{transl 'prj_project_member_level_reporter'}}</option>
-					        		<option value="20" {{#equal lev '20'}}selected{{/equal}}>{{transl 'prj_project_member_level_developer'}}</option>
-					        		<option value="30" {{#equal lev '30'}}selected{{/equal}}>{{transl 'prj_project_member_level_tester'}}</option>
-					        		<option data-external-mem="true" value="40" {{#equal lev '40'}}selected{{/equal}}>{{transl 'prj_project_member_level_worker'}}</option>
-					        		<option value="50" {{#equal lev '50'}}selected{{/equal}}>{{transl 'prj_project_member_level_watcher'}}</option>
+				        		<option value="0" class="hideBA" {{#equal lev '0'}}selected{{/equal}}>{{transl 'prj_project_member_level_manager'}}</option>
+					        		<option value="10" {{#equal lev '10'}}selected{{/equal}}>{{transl 'prj_project_member_level_dean'}}</option>
+					        		<option value="30" {{#equal lev '30'}}selected{{/equal}}>{{transl 'prj_project_member_level_deputy'}}</option>
+					        		<option value="20" {{#equal lev '20'}}selected{{/equal}}>{{transl 'prj_project_member_level_doctor'}}</option>
+<!-- 					        		<option data-external-mem="true" value="10" {{#equal lev '10'}}selected{{/equal}}>{{transl 'prj_project_member_level_reporter'}}</option> -->
+<!-- 					        		<option value="20" {{#equal lev '20'}}selected{{/equal}}>{{transl 'prj_project_member_level_developer'}}</option> -->
+<!-- 					        		<option value="30" {{#equal lev '30'}}selected{{/equal}}>{{transl 'prj_project_member_level_tester'}}</option> -->
+<!-- 					        		<option data-external-mem="true" value="40" {{#equal lev '40'}}selected{{/equal}}>{{transl 'prj_project_member_level_worker'}}</option> -->
+<!-- 					        		<option value="50" {{#equal lev '50'}}selected{{/equal}}>{{transl 'prj_project_member_level_watcher'}}</option> -->
 					        	</select>
 				            </td>
 			            {{/ifOrs}}
@@ -106,11 +109,14 @@
 	                 <div class="mt-2 mt-md-0">
 	                 	<select class="form-control" id="sel_member_level">
 			        		<option value="0" class="hideBA">{{transl 'prj_project_member_level_manager'}}</option>
-			        		<option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option>
-							<option value="20">{{transl 'prj_project_member_level_developer'}}</option>
-					        <option value="30">{{transl 'prj_project_member_level_tester'}}</option>
-			        		<option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
-			        		<option value="50">{{transl 'prj_project_member_level_watcher'}}</option>
+			        		<option value="10">{{transl 'prj_project_member_level_dean'}}</option>
+			        		<option value="30">{{transl 'prj_project_member_level_deputy'}}</option>
+			        		<option value="20">{{transl 'prj_project_member_level_doctor'}}</option>
+<!-- 			        		<option data-external-mem="true" value="10">{{transl 'prj_project_member_level_reporter'}}</option> -->
+<!-- 							<option value="20">{{transl 'prj_project_member_level_developer'}}</option> -->
+<!-- 					        <option value="30">{{transl 'prj_project_member_level_tester'}}</option> -->
+<!-- 			        		<option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option> -->
+<!-- 			        		<option value="50">{{transl 'prj_project_member_level_watcher'}}</option> -->
 			        	</select>
 	                 </div>
 	             </div>

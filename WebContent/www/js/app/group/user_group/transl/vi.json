@@ -1,10 +1,18 @@
 {
 	"prj_user_group_btn_delete_group"				    : "Xóa nhóm",
+	"prj_user_group_btn_edit_group"				    	: "Chỉnh sửa",
 
     "prj_user_group_name"								: "Tên nhóm",
 	"prj_user_group_descr"								: "Mô tả",
     "prj_user_group_ref"								: "Mã nhóm",
 	"prj_user_group_date_begin"							: "Ngày tạo",
+	"prj_user_group_locate"								: "Vị trí",
+	"prj_user_group_phone"								: "SĐT",
+	"prj_user_group_email"								: "Email",
+	"prj_user_group_introduce"							: "Giới thiệu chung",
+	"prj_user_group_service"							: "Dịch vụ chuyên khoa",
+	"prj_user_group_mission"							: "Nhiệm vụ chức năng",
+	"prj_user_group_information"						: "Thông tin khác",
 	
 	"prj_project_member"								: "Thành viên",
 	"prj_project_add_member"							: "Thêm",
@@ -18,20 +26,38 @@
 	"prj_project_member_level_worker"					: "Thành viên",
 	"prj_project_member_level_watcher"                  : "Quan sát",
 	"prj_project_member_level_owner"					: "Người tạo",
-		
+	"prj_project_member_level_doctor"					: "Bác sĩ",
+	"prj_project_member_level_dean"						: "Tưởng khoa",
+	"prj_project_member_level_deputy"					: "Phó TK",
+	"prj_project_member_header_edit"					: "Chỉnh sửa thành viên",
+	"prj_project_member_header_delete"					: "Xóa thành viên",
+	
     "prj_user_group_name_enter"							: "Nhập tên nhóm",
 	"prj_user_group_descr_enter"						: "Nhập mô tả nhóm",
 
 	"prj_user_group_new"								: "Tạo nhóm",
 	"prj_user_chat_search"								: "Tìm kiếm người dùng, nhóm ...",
 
-	"prj_user_group_new_title"							: "Tạo nhóm",
+	"prj_user_group_new_title"							: "Tạo mới chuyên khoa",
 	"prj_user_group_new_msg"							: "Tạo nhóm trò chuyện, giúp bạn làm việc hiệu quả hơn!",
 
 	"prj_user_group_avatar"								: "Ảnh đại diện",
-	"prj_user_group_new_btn_create"						: "Tạo nhóm",
+	"prj_user_group_files"              				: "Tập tin đính kèm",
+	"prj_user_group_new_btn_save"						: "Lưu",
+	"prj_user_group_new_btn_cancel"						: "Hủy bỏ",
 	"prj_project_del_user_group_popup_content"			: "Bạn chắc chắn muốn xóa nhóm ?",
 	"prj_project_add_avatar" 							: "Ảnh đại diện",
-	"prj_project_drop_files"							: "Kéo thả hoặc nhấn để thêm tập tin"
+	"prj_project_drop_files"							: "Kéo thả hoặc nhấn để thêm tập tin",
+	"prj_project_new_file_title"						: "Thêm tập tin vào đây",
+	"prj_project_enter_name"							: "Nhập tên thành viên...",
+	
+	"prj_specialty_list_title"							: "Danh sách chuyên khoa",
+	"btn_add_file"										: "Thêm tập tin",
+	"prj_user_group_room"								: "Phòng",
+	
+	"msgbox_confirm_creat"								: "Lưu nội dung chuyên khoa ?",
+	"msgbox_confirm_cancel_create"						: "Hủy bỏ quá trình tạo mới ?",
+	"msgbox_confirm_save"								: "Lưu nội dung chỉnh sửa ?",
+	"msgbox_confirm_save_cancel"						: "Hủy bỏ nội dung chỉnh sửa ?"
 	
 }
