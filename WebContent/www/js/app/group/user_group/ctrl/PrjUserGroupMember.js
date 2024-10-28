@@ -274,8 +274,12 @@ define([
         const data = sharedJson[App["const"].RES_DATA];
 
         const isSuperAdmin =
-          App.controller.common.Login &&
-          App.controller.common.Login.can_lc_User_SuperAdmin();
+		App.controller.common.Login &&
+		(
+			App.controller.common.Login.can_lc_User_SuperAdmin()||
+			App.controller.common.Login.can_lc_User_Admin()		||
+			App.controller.common.Login.can_lc_User_Agent()
+		);
 
         let objData = data.reduce((currentObj, item) => {
           if (item.uId == App.data.user.id) item.isOwner = true;

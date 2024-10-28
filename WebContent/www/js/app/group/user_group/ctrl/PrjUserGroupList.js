@@ -43,6 +43,8 @@ define([
 		
 		var pr_SEARCH_KEY			= "";
 		
+		const pr_TYP01_ADMIN		= 2;
+		
 		const pr_TYP_MSG_PRIVATE 	= 200;
 		const pr_TYP_MSG_PUBLIC 	= 201;
 		
@@ -320,6 +322,10 @@ define([
 		}
 
 		const do_lc_bind_event__list_header = () => {
+			if(App.data.user.typ01 == pr_TYP01_ADMIN){
+				$("#btn_btn_new_group").removeClass('hide');
+				$("#btn_add_doc").removeClass('hide');
+			}
 			$("#btn_btn_new_group").off("click").on("click", function(){
 				var listUserRight = App.data.user.rights;
 				var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_S)
@@ -826,10 +832,26 @@ define([
 		}
 
 		this.do_lc_reqRole_User = function(){
+			let isAdmin 		= App.controller.common.Login &&
+				(
+					App.controller.common.Login.can_lc_User_SuperAdmin()||
+					App.controller.common.Login.can_lc_User_Admin()		||
+					App.controller.common.Login.can_lc_User_Agent()
+				);
+			if (isAdmin) {
+				return;
+			}			
+			
+			//-----------------------------------------------------------------------------------
+			//---check role from this entity
 			let uRole = self.pr_member_role;
 			if(uRole === null || uRole === undefined){
 				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"), null);
+				$(".isManager")			.remove();
+				$(".info-edit")		    .off("click").removeClass("info-content");
+				return;
 			}
+			
 			if(uRole == pr_member_lev_manager){
 			}else if(uRole == pr_member_lev_reporter){
 			}else if(uRole == pr_member_lev_worker){
@@ -837,6 +859,8 @@ define([
 				$(".info-edit")		    .off("click").removeClass("info-content");
 			}else{
 				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"), null);
+				$(".isManager")			.remove();
+				$(".info-edit")		    .off("click").removeClass("info-content");
 			}
 		}
 
