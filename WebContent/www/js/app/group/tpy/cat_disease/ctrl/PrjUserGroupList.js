@@ -167,7 +167,7 @@ define([
 				}
 				
 				App.MsgboxController.do_lc_show({
-					title	: $.i18n("prj_project_new_file_title"),
+					title	: $.i18n("tpy_cat_disease_new_file_title"),
 					width	: "500px",
 					autoclose	: true,
 					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_DROPZONE_FILE, {}),
@@ -337,10 +337,14 @@ define([
 				$("#div_usergroup_member").html("");
 				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, {}));
 
-				App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
-				App.SummerNoteController.do_lc_show("#div_create_service");//text editor
-				App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
-				App.SummerNoteController.do_lc_show("#div_create_information");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
+				App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_transmission");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_subjects");//text editor 
+				App.SummerNoteController.do_lc_show("#div_create_prevent");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_diagnose");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_treatment");//text editor
 				
 				
 				do_lc_bind_event_for_group(obj = {files: []});

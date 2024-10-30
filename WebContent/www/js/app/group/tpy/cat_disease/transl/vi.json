@@ -35,6 +35,26 @@
 
 "tpy_cat_disease_list_title"			:	"Quản lý thông tin bệnh",
 "tpy_cat_disease_new"					: 	"Thêm mới",
-"tpy_cat_disease_search"				:	"Tìm kiếm theo mã ICD, tên bệnh ..."
+"tpy_cat_disease_search"				:	"Tìm kiếm theo mã ICD, tên bệnh ...",
+"tpy_cat_disease_new_title"				: 	"Thêm mới bệnh",
+
+"tpy_cat_disease_new_file_title"		: 	"Thêm tập tin vào đây",
+"tpy_cat_disease_drop_files"			: 	"Kéo thả hoặc nhấn để thêm tập tin",
+
+"tpy_cat_disease_code_enter"			: 	"Nhập mã bệnh",
+"tpy_cat_disease_name_enter"			: 	"Nhập tên bệnh",
+"tpy_cat_disease_new_btn_save"			: 	"Lưu",
+"tpy_cat_disease_new_btn_cancel"		: 	"Hủy bỏ",
+
+"tpy_cat_disease_code"					: 	"Mã bệnh",
+"tpy_cat_disease_name"					: 	"Tên bệnh",
+"tpy_cat_disease_reason"				: 	"Nguyên nhân",
+"tpy_cat_disease_symptom"				: 	"Triệu chứng",
+"tpy_cat_disease_transmission"			: 	"Đường lây truyền",
+"tpy_cat_disease_subjects"				: 	"Đối tượng nguy cơ",
+"tpy_cat_disease_prevent"				: 	"Phòng ngừa",
+"tpy_cat_disease_diagnose"				: 	"Các biện pháp chẩn đoán",
+"tpy_cat_disease_treatment"				: 	"Các biện pháp điều trị",
+"tpy_cat_disease_describe"				: 	"Mô tả tổng quan"
 
 }

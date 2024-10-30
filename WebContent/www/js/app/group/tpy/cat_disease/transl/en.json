@@ -35,6 +35,26 @@
 
 "tpy_cat_disease_list_title"			:	"Disease information management",
 "tpy_cat_disease_new"					: 	"New",
-"tpy_cat_disease_search"				: 	"Search by ICD code, disease name ..."
+"tpy_cat_disease_search"				: 	"Search by ICD code, disease name ...",
+"tpy_cat_disease_new_title"				: 	"Add new disease",
+
+"tpy_cat_disease_new_file_title"		: 	"Add files here",
+"tpy_cat_disease_drop_files"			: 	"Drag and drop or click to add files",
+
+"tpy_cat_disease_code_enter"			: 	"Enter disease code",
+"tpy_cat_disease_name_enter"			: 	"Enter disease name",
+"tpy_cat_disease_new_btn_save"			: 	"Save",
+"tpy_cat_disease_new_btn_cancel"		: 	"Cancel",
+
+"tpy_cat_disease_code"					: 	"Disease code",
+"tpy_cat_disease_name"					: 	"Disease name",
+"tpy_cat_disease_reason"				: 	"Cause",
+"tpy_cat_disease_symptom"				: 	"Symptom",
+"tpy_cat_disease_transmission"			: 	"Transmission route",
+"tpy_cat_disease_subjects"				: 	"Risk subjects",
+"tpy_cat_disease_prevent"				: 	"Prevention",
+"tpy_cat_disease_diagnose"				: 	"Diagnostic measures",
+"tpy_cat_disease_treatment"				: 	"Treatments",
+"tpy_cat_disease_describe"				: 	"General description"
 
 }

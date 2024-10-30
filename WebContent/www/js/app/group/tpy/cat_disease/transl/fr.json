@@ -35,6 +35,26 @@
 
 "tpy_cat_disease_list_title"			:	"Gestion des informations sur les maladies",
 "tpy_cat_disease_new"					: 	"Nouveau",
-"tpy_cat_disease_search"				: 	"Recherche par code CIM, nom de la maladie ..."
+"tpy_cat_disease_search"				: 	"Recherche par code CIM, nom de la maladie ...",
+"tpy_cat_disease_new_title"				: 	"Ajouter une nouvelle maladie",
+
+"tpy_cat_disease_new_file_title"		: 	"Ajouter des fichiers ici",
+"tpy_cat_disease_drop_files"			: 	"Glissez-déposez ou cliquez pour ajouter des fichiers",
+
+"tpy_cat_disease_code_enter"			: 	"Entrez le code de la maladie",
+"tpy_cat_disease_name_enter"			: 	"Entrez le nom de la maladie",
+"tpy_cat_disease_new_btn_save"			: 	"Sauvegarder",
+"tpy_cat_disease_new_btn_cancel"		: 	"Annuler",
+
+"tpy_cat_disease_code"					: 	"Code maladie",
+"tpy_cat_disease_name"					: 	"Nom de la maladie",
+"tpy_cat_disease_reason"				: 	"Cause",
+"tpy_cat_disease_symptom"				: 	"Symptôme",
+"tpy_cat_disease_transmission"			: 	"Route de transmission",
+"tpy_cat_disease_subjects"				: 	"Sujets à risque",
+"tpy_cat_disease_prevent"				: 	"Prévention",
+"tpy_cat_disease_diagnose"				: 	"Mesures de diagnostic",
+"tpy_cat_disease_treatment"				: 	"Traitements",
+"tpy_cat_disease_describe"				: 	"Description générale"
 
 }
