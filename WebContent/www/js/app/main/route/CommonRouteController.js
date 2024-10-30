@@ -115,6 +115,8 @@ define(['require',
 				
 				PRJ_CFG_GROUP					: "prj_cfg_group",
 				
+				TPY_CAT_DISEASE					: "tpy_cat_disease"
+				
 			}
 
 

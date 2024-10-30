@@ -634,10 +634,20 @@ define([
 					fShow		: "do_lc_show"											, fShowParams	: [],
 					rights		: "view:"
 				},
+				
 				//---------------------------------------------------------------------------------------------------------------------------
 				[App.router.part.PRJ_CFG_GROUP]		: {
 					grpName		: "CfgGroup"								, ctrlName 		: "Main", 
 					ctrlPath    : "group/cfg/value/ctrl/Main"				, ctrlParams 	: ["CfgGroup", null, null , null, ], 
+					fInit		: "do_lc_init"								, fInitParams	: [],
+					fShow		: "do_lc_show"								, fShowParams	: [],
+					rights		: "view:"
+				},
+				
+				//---------------------------------------------------------------------------------------------------------------------------
+				[App.router.part.TPY_CAT_DISEASE]		: {
+					grpName		: "TpyCat"									, ctrlName 		: "PrjUserGroupMain", 
+					ctrlPath    : "group/tpy/cat_disease/ctrl/PrjUserGroupMain"			, ctrlParams 	: ["TpyCat", null, null , null, ], 
 					fInit		: "do_lc_init"								, fInitParams	: [],
 					fShow		: "do_lc_show"								, fShowParams	: [],
 					rights		: "view:"
