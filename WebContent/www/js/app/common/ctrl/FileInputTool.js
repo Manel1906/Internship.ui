@@ -447,6 +447,7 @@ if(typeof Dropzone !== 'undefined'){
 			content : question,
 			buttons	: {
 				OK: {
+					classBtn	: "btn-primary",
 					lab		: $.i18n("common_btn_ok"),
 					funct	: function(){
 						if(fnAccepted)	fnAccepted();
