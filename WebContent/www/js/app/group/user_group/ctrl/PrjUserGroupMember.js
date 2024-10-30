@@ -45,8 +45,8 @@ define([
 
     const pr_TYP_CHAT_USER = 1;
 
-	const PRJ_MEMBER_LEVEL 		= {0: "prj_project_member_level_manager", 1: "prj_project_member_level_dean", 10: "prj_project_member_level_doctor", 2: "prj_project_member_level_deputy",
-									20: "prj_project_member_level_pharmacist", 30: "prj_project_member_level_member"};
+	const PRJ_MEMBER_LEVEL 		= {1: "prj_project_member_level_dean", 2: "prj_project_member_level_deputy", 10: "prj_project_member_level_doctor",
+									20: "prj_project_member_level_pharmacist", 30: "prj_project_member_level_nurse", 100: "prj_project_member_level_member"};
 
 	var Handlebars		=  require('handlebars');
 	Handlebars.registerHelper("reqLevelMemberGroup", function(level) {
