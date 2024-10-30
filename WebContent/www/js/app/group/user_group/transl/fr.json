@@ -29,6 +29,8 @@
 	"prj_project_member_level_doctor"					: "Médecin",
 	"prj_project_member_level_dean"						: "Doyen",
 	"prj_project_member_level_deputy"					: "Vice-doyen",
+	"prj_project_member_level_pharmacist"				: "Pharmacien",
+	"prj_project_member_level_member"					: "D'autres membres",
 	"prj_project_member_header_edit"					: "Modifier membre",
 	"prj_project_member_header_delete"					: "Supprimer membre",
 

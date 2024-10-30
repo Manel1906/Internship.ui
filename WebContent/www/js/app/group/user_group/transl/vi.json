@@ -29,6 +29,8 @@
 	"prj_project_member_level_doctor"					: "Bác sĩ",
 	"prj_project_member_level_dean"						: "Tưởng khoa",
 	"prj_project_member_level_deputy"					: "Phó TK",
+	"prj_project_member_level_pharmacist"				: "Dược sĩ",
+	"prj_project_member_level_member"					: "Thành viên khác",
 	"prj_project_member_header_edit"					: "Chỉnh sửa thành viên",
 	"prj_project_member_header_delete"					: "Xóa thành viên",
 	
