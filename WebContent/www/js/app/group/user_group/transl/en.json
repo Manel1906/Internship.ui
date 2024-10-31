@@ -30,6 +30,7 @@
 	"prj_project_member_level_dean"						: "Dean",
 	"prj_project_member_level_deputy"					: "Deputy dean",
 	"prj_project_member_level_pharmacist"				: "Pharmacist",
+	"prj_project_member_level_nurse"					: "Nurse",
 	"prj_project_member_level_member"					: "Other members",
 	"prj_project_member_header_edit"					: "Edit",
 	"prj_project_member_header_delete"					: "Delete",
