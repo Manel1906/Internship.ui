@@ -1,11 +1,11 @@
 define([
-  "text!group/tpy/cat_disease/tmpl/PrjUserGroup_Member.html",
+  "text!group/tpy/cat_disease/tmpl/TpyCatDisease_Member.html",
   //	'text!group/user_group/tmpl/PrjUserGroup_Member_Detail.html',
 ], function (
   PrjUserGroup_Member
   //			PrjUserGroup_Member_Detail
 ) {
-  const PrjUserGroupMember = function (grpName, header, content, footer) {
+  const TpyCatDiseaseMember = function (grpName, header, content, footer) {
     var pr_divHeader = header;
     var pr_divContent = content;
     var pr_divFooter = footer;
@@ -62,11 +62,11 @@ define([
       }
 
       pr_ctr_Main = App.controller.UI.Main;
-      pr_ctr_Main = App.controller.PrjUserGroup.Main;
-      pr_ctr_List = App.controller.PrjUserGroup.List;
+      pr_ctr_Main = App.controller.TpyCatDisease.Main;
+      pr_ctr_List = App.controller.TpyCatDisease.List;
 
-      tmplName.PRJ_USER_GROUP_MEMBER = "PrjUserGroup_Member";
-      tmplName.PRJ_USER_GROUP_MEMBER_DETAIL = "PrjUserGroup_Member_Detail";
+      tmplName.PRJ_USER_GROUP_MEMBER = "TpyCatDisease_Member";
+      tmplName.PRJ_USER_GROUP_MEMBER_DETAIL = "TpyCatDisease_Member_Detail";
     };
 
     const initialValues = {
@@ -368,5 +368,5 @@ define([
     };
   };
 
-  return PrjUserGroupMember;
+  return TpyCatDiseaseMember;
 });

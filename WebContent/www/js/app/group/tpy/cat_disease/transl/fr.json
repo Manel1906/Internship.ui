@@ -55,6 +55,12 @@
 "tpy_cat_disease_prevent"				: 	"Prévention",
 "tpy_cat_disease_diagnose"				: 	"Mesures de diagnostic",
 "tpy_cat_disease_treatment"				: 	"Traitements",
-"tpy_cat_disease_describe"				: 	"Description générale"
+"tpy_cat_disease_describe"				: 	"Description générale",
+
+"msgbox_confirm_creat"					: 	"Enregistrer les informations sur la maladie ?",
+"msgbox_confirm_cancel_create"			: 	"Annuler la nouvelle maladie ?",
+
+"tpy_cat_disease_btn_delete"			: 	"Supprimer",
+"tpy_cat_disease_btn_edit"				: 	"Modifier"
 
 }

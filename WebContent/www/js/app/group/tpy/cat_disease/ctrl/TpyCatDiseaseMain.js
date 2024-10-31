@@ -1,15 +1,15 @@
 define([
-	'group/tpy/cat_disease/ctrl/PrjUserGroupList',
-	'group/tpy/cat_disease/ctrl/PrjUserGroupMember',
+	'group/tpy/cat_disease/ctrl/TpyCatDiseaseList',
+	'group/tpy/cat_disease/ctrl/TpyCatDiseaseMember',
 	
-	'text!group/tpy/cat_disease/tmpl/PrjUserGroup_Main.html',
+	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_Main.html',
 	], function(
-			PrjUserGroupList,
-			PrjUserGroupMember,
+			TpyCatDiseaseList,
+			TpyCatDiseaseMember,
 
-			PrjUserGroup_Main) {
+			TpyCatDisease_Main) {
 
-	var PrjUserGroupMain     		= function (header,content,footer, grpName) {
+	var TpyCatDiseaseMain     		= function (header,content,footer, grpName) {
 		var pr_divHeader 			= header;
 		var pr_divContent 			= content;
 		var pr_divFooter 			= footer;
@@ -48,21 +48,21 @@ define([
 				App.template.names[pr_grpName] = {}
 				tmplName = App.template.names[pr_grpName]
 			}
-			if (!App.controller.PrjUserGroup) App.controller.PrjUserGroup = {};
+			if (!App.controller.TpyCatDisease) App.controller.TpyCatDisease = {};
 			
 			
-			if (!App.controller.PrjUserGroup.List)  
-				App.controller.PrjUserGroup.List				= new PrjUserGroupList		(null, null, null);
+			if (!App.controller.TpyCatDisease.List)  
+				App.controller.TpyCatDisease.List				= new TpyCatDiseaseList		(null, null, null);
 			
-			if (!App.controller.PrjUserGroup.Member)  
-				App.controller.PrjUserGroup.Member				= new PrjUserGroupMember	(null, null, null);
+			if (!App.controller.TpyCatDisease.Member)  
+				App.controller.TpyCatDisease.Member				= new TpyCatDiseaseMember	(null, null, null);
 			
 			
-			App.controller.PrjUserGroup.List					.do_lc_init();
-			App.controller.PrjUserGroup.Member					.do_lc_init();
+			App.controller.TpyCatDisease.List					.do_lc_init();
+			App.controller.TpyCatDisease.Member					.do_lc_init();
 			
-			tmplName.PRJ_USER_GROUP_MAIN = "PrjUserGroup_Main";
-			tmplCtrl										.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_MAIN, PrjUserGroup_Main); 
+			tmplName.TPY_CAT_DISEASE_MAIN = "TpyCatDisease_Main";
+			tmplCtrl										.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_MAIN, TpyCatDisease_Main); 
 		}     
 		
 		this.do_lc_show = function(){
@@ -85,9 +85,9 @@ define([
 				}
 				
 				
-				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_MAIN, {}));
+				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_MAIN, {}));
 
-				App.controller.PrjUserGroup.List.do_lc_show();
+				App.controller.TpyCatDisease.List.do_lc_show();
 				$(document).prop('title',$.i18n('prj_project_sidebar_user_grp'));
 
 			}catch(e) {				
@@ -97,5 +97,5 @@ define([
 		
 	};
 
-	return PrjUserGroupMain;
+	return TpyCatDiseaseMain;
 });

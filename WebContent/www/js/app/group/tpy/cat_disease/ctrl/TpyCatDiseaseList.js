@@ -1,18 +1,18 @@
 define([
-	'text!group/tpy/cat_disease/tmpl/PrjUserGroup_List.html',
-	'text!group/tpy/cat_disease/tmpl/PrjUserGroup_List_Content.html',
-	'text!group/tpy/cat_disease/tmpl/PrjUserGroup_Ent_Content.html',
-	'text!group/tpy/cat_disease/tmpl/PrjUserGroup_New.html',
-	'text!group/tpy/cat_disease/tmpl/PrjDropzone_File.html'
+	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_List.html',
+	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_List_Content.html',
+	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_Ent_Content.html',
+	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_New.html',
+	'text!group/tpy/cat_disease/tmpl/TpyDropzone_File.html'
 	
 	],
-	function(PrjUserGroup_List, 
-			PrjUserGroup_List_Content,
-			PrjUserGroup_Ent_Content,
-			PrjUserGroup_New,
-			PrjDropzone_File
+	function(TpyCatDisease_List, 
+			TpyCatDisease_List_Content,
+			TpyCatDisease_Ent_Content,
+			TpyCatDisease_New,
+			TpyDropzone_File
 			) {
-	const PrjUserGroupList = function (grpName, header, content, footer) {
+	const TpyCatDiseaseList = function (grpName, header, content, footer) {
 		var pr_divHeader 			= header;
 		var pr_divContent 			= content;
 		var pr_divFooter 			= footer;
@@ -65,18 +65,18 @@ define([
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
-			pr_ctr_Main 			= App.controller.PrjUserGroup.Main;
-			pr_ctr_List 			= App.controller.PrjUserGroup.List
+			pr_ctr_Main 			= App.controller.UI.Main;
+			pr_ctr_List 			= App.controller.TpyCatDisease.List
 			if(!tmplName) {
 				App.template.names[pr_grpName] = {}
 				tmplName = App.template.names[pr_grpName]
 			}
 			
-			tmplName.PRJ_USER_GROUP_LIST				= "PrjUserGroup_List";
-			tmplName.PRJ_USER_GROUP_LIST_CONTENT		= "PrjUserGroup_List_Content";
-			tmplName.PRJ_USER_GROUP_ENT_CONTENT		    = "PrjUserGroup_Ent_Content";
-			tmplName.PRJ_USER_GROUP_NEW  				= "PrjUserGroup_New";
-			tmplName.PRJ_DROPZONE_FILE					= "PrjDropzone_File";
+			tmplName.TPY_CAT_DISEASE_LIST				= "TpyCatDisease_List";
+			tmplName.TPY_CAT_DISEASE_LIST_CONTENT		= "TpyCatDisease_List_Content";
+			tmplName.TPY_CAT_DISEASE_ENT_CONTENT		= "TpyCatDisease_Ent_Content";
+			tmplName.TPY_CAT_DISEASE_NEW  				= "TpyCatDisease_New";
+			tmplName.TPY_DROPZONE_FILE					= "TpyDropzone_File";
 		}
 
 		//---------show-----------------------------------------------------------------------------
@@ -88,13 +88,13 @@ define([
 		
 		//---------load view-----------------------------------------------------------------------------
 		const do_lc_load_view = function(){
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_LIST			, PrjUserGroup_List); 
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT	, PrjUserGroup_List_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_ENT_CONTENT		, PrjUserGroup_Ent_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_NEW				, PrjUserGroup_New); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_DROPZONE_FILE				, PrjDropzone_File);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST			, TpyCatDisease_List); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT	, TpyCatDisease_List_Content); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT		, TpyCatDisease_Ent_Content); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_NEW				, TpyCatDisease_New); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_DROPZONE_FILE				, TpyDropzone_File);
 			
-			$("#div_usergroup_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST, {}));
+			$("#div_usergroup_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST, {}));
 		}
 		
 		//----------------------------------------------------------------------------------------------
@@ -104,7 +104,7 @@ define([
 		}
 		
 		const do_lc_get_list_member = (group) => {
-			App.controller.PrjUserGroup.Member.do_lc_show(group);
+			App.controller.TpyCatDisease.Member.do_lc_show(group);
 		};
 		
 		//----------------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ define([
 					title	: $.i18n("tpy_cat_disease_new_file_title"),
 					width	: "500px",
 					autoclose	: true,
-					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_DROPZONE_FILE, {}),
+					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_DROPZONE_FILE, {}),
 					buttons	: {
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
@@ -282,7 +282,7 @@ define([
 			
 				
 				if (!lst.length) {
-					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT, {}));
+					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT, {}));
 					do_lc_bind_event__list_header();
 					return;
 				}
@@ -297,7 +297,7 @@ define([
 				}
 
 				App.data["listGroupWork"] = data.lst;
-				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT, { "data": data.lst }));
+				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT, { "data": data.lst }));
 				do_lc_bind_event_list();
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
@@ -335,7 +335,7 @@ define([
 				}
 
 				$("#div_usergroup_member").html("");
-				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, {}));
+				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, {}));
 
 				App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 				App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
@@ -521,7 +521,7 @@ define([
 				data.inf02 = JSON.parse(data.inf02);
 			}
 			
-			$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_ENT_CONTENT, data));
+			$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT, data));
 			
 			do_bind_event_show_group(data);
 		}
@@ -673,12 +673,16 @@ define([
 					}
 
 					$("#div_usergroup_member").html("");
-					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, data));
+					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, data));
 
-					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
-					App.SummerNoteController.do_lc_show("#div_create_service");//text editor
-					App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
-					App.SummerNoteController.do_lc_show("#div_create_information");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
+					App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_transmission");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_subjects");//text editor 
+					App.SummerNoteController.do_lc_show("#div_create_prevent");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_diagnose");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_treatment");//text editor
 					
 					do_lc_group_showMod_FileUploader(data);
 					do_lc_bind_event_mod_group(data, id);
@@ -870,5 +874,5 @@ define([
 
 	}
 
-	return PrjUserGroupList;
+	return TpyCatDiseaseList;
 });
