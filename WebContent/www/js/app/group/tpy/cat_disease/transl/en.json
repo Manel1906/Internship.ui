@@ -56,11 +56,17 @@
 "tpy_cat_disease_diagnose"				: 	"Diagnostic measures",
 "tpy_cat_disease_treatment"				: 	"Treatments",
 "tpy_cat_disease_describe"				: 	"General description",
+"tpy_cat_disease_note"					: 	"Note",
+
+"tpy_cat_disease_list"					: 	"List of related diseases",
 
 "msgbox_confirm_creat"					: 	"Save disease information ?",
 "msgbox_confirm_cancel_create"			: 	"Cancel new disease ?",
 
 "tpy_cat_disease_btn_delete"			: 	"Delete",
-"tpy_cat_disease_btn_edit"				: 	"Edit"
+"tpy_cat_disease_btn_edit"				: 	"Edit",
+
+"msgbox_confirm_save_cancel"			:	"Cancel the editing process ?",
+"msgbox_confirm_save"					: 	"Save editing information ?"
 
 }

@@ -3,14 +3,18 @@ define([
 	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_List_Content.html',
 	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_Ent_Content.html',
 	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_New.html',
-	'text!group/tpy/cat_disease/tmpl/TpyDropzone_File.html'
+	'text!group/tpy/cat_disease/tmpl/TpyDropzone_File.html',
+	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_Ent_Content_Row.html',
+	'text!group/tpy/cat_disease/tmpl/TpyCatDisease_Ent_Content_Row_add.html'
 	
 	],
 	function(TpyCatDisease_List, 
 			TpyCatDisease_List_Content,
 			TpyCatDisease_Ent_Content,
 			TpyCatDisease_New,
-			TpyDropzone_File
+			TpyDropzone_File,
+			TpyCatDisease_Ent_Content_Row,
+			TpyCatDisease_Ent_Content_Row_add
 			) {
 	const TpyCatDiseaseList = function (grpName, header, content, footer) {
 		var pr_divHeader 			= header;
@@ -28,15 +32,19 @@ define([
 		var RIGHT_U_S	        	= 1000005;
 		var RIGHT_ADM	        	= 100;
 		var RIGHT_A_S	        	= 105;
+		
+		var RIGHT_NEW	        	= 50000102;
 		//-----------------------------------------------------------------------------------
 		
-		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroup";
-		const pr_SV_GROUP_LIST_DYN			= "SVLstSearch"; 
+		const pr_SERVICE_CLASS_DYN	= "ServiceTpyCategory";
+		const pr_SV_LIST_DYN		= "SVLstPage"; 
 		
-		const pr_SERVICE_CLASS_GROUP		= "ServiceNsoGroup";
-		const pr_SV_NEW_GROUP				= "SVNewWork";
-		const pr_SV_MOD_GROUP               = "SVModWork";
-		const pr_SV_DEL_GROUP               = "SVDelWork";
+		const pr_SERVICE_CLASS		= "ServiceTpyCategory";
+		const pr_SV_NEW				= "SVNewDisease";
+		const pr_SV_MOD             = "SVModDisease";
+		const pr_SV_DEL             = "SVDelDisease";
+		
+		const pr_SV_NEW_SUB			= "SVNewDiseaseSub";
 		
 		var   self                  = this;
 		this.pr_member_role			= null;
@@ -48,7 +56,8 @@ define([
 		const pr_TYP_MSG_PRIVATE 	= 200;
 		const pr_TYP_MSG_PUBLIC 	= 201;
 		
-		const pr_TYP_GROUP_WORK 	= 300;
+		const pr_TYP_DISEASE 		= 300;
+		const pr_TYP_DISEASE_SUB	= 400;
 		
 		const pr_KEY_ENTER			= 13;
 		const pr_NUMBER_RECORD		= 10;
@@ -57,7 +66,10 @@ define([
 		const pr_member_lev_reporter= 10;
 		const pr_member_lev_worker 	= 40;
 		
-		const pr_STAT_GRP_ACTIVE    = 1;
+		const pr_STAT_DISEASE_ACTIVE    = 1;
+		
+		var pr_DISEASE_TEMP			= {};
+		var pr_DISEASE_TEMP_EXIST	= {};
 		
 		var pr_CURRENT_GROUP_ID     = null;
 		
@@ -72,11 +84,13 @@ define([
 				tmplName = App.template.names[pr_grpName]
 			}
 			
-			tmplName.TPY_CAT_DISEASE_LIST				= "TpyCatDisease_List";
-			tmplName.TPY_CAT_DISEASE_LIST_CONTENT		= "TpyCatDisease_List_Content";
-			tmplName.TPY_CAT_DISEASE_ENT_CONTENT		= "TpyCatDisease_Ent_Content";
-			tmplName.TPY_CAT_DISEASE_NEW  				= "TpyCatDisease_New";
-			tmplName.TPY_DROPZONE_FILE					= "TpyDropzone_File";
+			tmplName.TPY_CAT_DISEASE_LIST					= "TpyCatDisease_List";
+			tmplName.TPY_CAT_DISEASE_LIST_CONTENT			= "TpyCatDisease_List_Content";
+			tmplName.TPY_CAT_DISEASE_ENT_CONTENT			= "TpyCatDisease_Ent_Content";
+			tmplName.TPY_CAT_DISEASE_NEW  					= "TpyCatDisease_New";
+			tmplName.TPY_DROPZONE_FILE						= "TpyDropzone_File";
+			tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW		= "TpyCatDisease_Ent_Content_Row";
+			tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD	= "TpyCatDisease_Ent_Content_Row_add";
 		}
 
 		//---------show-----------------------------------------------------------------------------
@@ -88,11 +102,13 @@ define([
 		
 		//---------load view-----------------------------------------------------------------------------
 		const do_lc_load_view = function(){
-			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST			, TpyCatDisease_List); 
-			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT	, TpyCatDisease_List_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT		, TpyCatDisease_Ent_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_NEW				, TpyCatDisease_New); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_DROPZONE_FILE				, TpyDropzone_File);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST					, TpyCatDisease_List); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT			, TpyCatDisease_List_Content); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT			, TpyCatDisease_Ent_Content); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_NEW					, TpyCatDisease_New); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_DROPZONE_FILE						, TpyDropzone_File);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW		, TpyCatDisease_Ent_Content_Row);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD	, TpyCatDisease_Ent_Content_Row_add);
 			
 			$("#div_usergroup_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST, {}));
 		}
@@ -253,7 +269,7 @@ define([
 			let divList = $("#div_group_list");
 			let divPan  = $("#div_group_pagination");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP_DYN, pr_SV_GROUP_LIST_DYN, {typ01s: pr_TYP_GROUP_WORK, searchKey: pr_SEARCH_KEY, stats : pr_STAT_GRP_ACTIVE, hardLoad});
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01s: pr_TYP_DISEASE, searchKey: pr_SEARCH_KEY, stats : pr_STAT_DISEASE_ACTIVE, hardLoad, wChild: true});
 			
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
 			
@@ -289,9 +305,7 @@ define([
 
 				for (const userOrGrp of lst) {
 					try {
-						userOrGrp.val01 = JSON.parse(userOrGrp.val01);
-						userOrGrp.inf01 = JSON.parse(userOrGrp.inf01);
-						userOrGrp.inf02 = JSON.parse(userOrGrp.inf02);
+						userOrGrp.inf = JSON.parse(userOrGrp.inf);
 					} catch (error) {}
 					data.lst[userOrGrp.id] = userOrGrp;
 				}
@@ -322,7 +336,7 @@ define([
 		}
 
 		const do_lc_bind_event__list_header = () => {
-			if(App.data.user.typ01 == pr_TYP01_ADMIN){
+			if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
 				$("#btn_btn_new_group").removeClass('hide');
 				$("#btn_add_doc").removeClass('hide');
 			}
@@ -416,17 +430,28 @@ define([
 				});
 			})
 			
-			let option	= {
-					obj : obj,
-					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here for avatar
-			}			
-			do_gl_init_fileDropzone($("#frm_dropzone_send"), option);
-							
-			let option2	= {
-					obj : obj,
-					fileinput		: {param : {typ01: 2, typ02: 10} },//option here for files
-			}			
-			do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
+			$("#cancel_header").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_cancel_create"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_cancel,
+							param	: [],
+							classBtn: "btn-danger"
+						}
+					}
+				});
+			})
 		}
 		
 		this.do_lc_save = function(obj){
@@ -445,7 +470,7 @@ define([
 		//-----------------new group-------------------------------------------------------------------------
 		
 		const do_lc_new_group = function(group){
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP, pr_SV_NEW_GROUP, {obj: group});
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_NEW, {obj: group});
 
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_afterCreat_Group, [group]));
@@ -472,7 +497,7 @@ define([
 		
 		const do_lc_get_info_group = (group) => {
 			
-			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVGet", {id: group.id});	
+			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyCategory", "SVGet", {id: group.id, wChild: true});	
 
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_reponse_get_group, []));
@@ -509,20 +534,15 @@ define([
 		
 		const do_lc_show_info_group = (data) => {
 			
-			if(data.val01 && typeof data.val01 == "string"){
-				data.val01 = JSON.parse(data.val01);
-			}
-			
-			if(data.inf01 && typeof data.inf01 == "string"){
-				data.inf01 = JSON.parse(data.inf01);
-			}
-			
-			if(data.inf02 && typeof data.inf02 == "string"){
-				data.inf02 = JSON.parse(data.inf02);
+			if(data.inf && typeof data.inf == "string"){
+				data.inf = JSON.parse(data.inf);
 			}
 			
 			$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT, data));
 			
+			$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, data));
+			$(".info-edit").removeClass('hide');
+			$(".inf-disease").addClass('hide');
 			do_bind_event_show_group(data);
 		}
 		
@@ -543,14 +563,80 @@ define([
 				path && window.open(path, "_blank");
 			})
 			
-			$(".info-edit").on("click", function(){
-				let $parent = $(this).parent();
-				$parent.find(".info-content")			.addClass("hide");
-				$parent.find(".content-edit")	.removeClass("hide");
-
-				$("#a_btn_save, #a_btn_cancel")	.removeClass("hide");
-
+			$("#btn_modify").off("click").on("click", function(){
+				
+				do_lc_get_disease_sub(data);
 			})
+			
+			$('#a_btn_canc').on('click', function() {
+				if(data.child != null || data.child == null ) {
+					if(pr_DISEASE_TEMP != null) {
+						$("#btn_modify").removeClass("hide");
+						$("#a_btn_sav").addClass("hide");
+						$("#a_btn_canc").addClass("hide");
+						$("#removeRowBtn").addClass("hide");
+						$("#addRowBtn").addClass("hide");
+						$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, {data: pr_DISEASE_TEMP}));
+						$(".info-edit").removeClass("hide");
+						$(".inf-disease").addClass("hide");
+					} else {
+						$("#btn_modify").removeClass("hide");
+						$("#a_btn_sav").addClass("hide");
+						$("#a_btn_canc").addClass("hide");
+						$("#removeRowBtn").addClass("hide");
+						$("#addRowBtn").addClass("hide");
+						$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, data));
+						$(".info-edit").removeClass("hide");
+						$(".inf-disease").addClass("hide");
+					}
+				}
+			});
+			
+			$("#a_btn_sav").off("click").on("click", function(){
+							
+				let parentID = data.id;
+				
+				let myObject = {};
+				
+//				let	obj	 				= req_gl_data({
+//					dataZoneDom		: $("#div_usergroup_ent"),
+//					oldObject 		: myObject,
+//				});
+
+//				if(obj.hasError)	return false;
+
+				const rows = $('#tbody_disease').find('tr');
+				const dataArray = [];
+				
+				
+				for (let i = 0; i < rows.length; i++) {
+				    const row = rows[i];
+				    const inputs = $(row).find('input.inf-disease, select.inf-disease');
+				    const dataObject = {};
+				
+				    inputs.each(function() {
+				        const input = $(this);
+				        const key = input.data('name');
+				        let value = input.val();
+				       	value = value.replace(/,/g, '');
+				        dataObject[key] = value;
+				    });
+				    
+					dataObject['stat'] = pr_STAT_DISEASE_ACTIVE;
+					dataObject['typ01'] = pr_TYP_DISEASE_SUB;
+					dataObject['parId'] = parentID;
+				    dataArray.push(dataObject); 
+				}
+								
+				myObject['parId'] = parentID;
+				myObject['lst'] = dataArray;
+				
+				do_lc_save_disease_sub(myObject, dataArray);
+			})
+			
+			$('#addRowBtn').on('click', function() {
+				do_lc_bind_event_new_row_table(data);
+		    });
 			
 			$("#a_btn_save").off("click").on("click", function(){
 				data.files 	= data.files ? [...data.files].filter(Boolean) : [];
@@ -634,11 +720,94 @@ define([
 			})
 		}
 		
+		const do_lc_bind_event_new_row_table = function() {
+		    $("#a_btn_sav, #a_btn_canc")	.removeClass("hide");
+	        var newRow = tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD, {});
+			
+	        $('#tbody_disease').append(newRow);
+	        let addedRow = $('#tbody_disease tr').last();
+    		addedRow[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+	        $('#removeRowBtn button').on('click', function() {
+				$(this).closest('tr').remove();
+			});
+	       
+		};
+		
+		const do_lc_bind_event_new_disease_sub = function(){
+			
+			$('#removeRowBtn button').on('click', function() {
+				$(this).closest('tr').remove();
+			});
+		}
+		
+		const do_lc_get_disease_sub = (data) => {
+					
+			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyCategory", "SVGetDiseaseSub", {id: data.id});	
+
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_after_get_disease_sub, []));
+
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
+		
+		const do_lc_after_get_disease_sub = function(sharedJson){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				const data = sharedJson[App['const'].RES_DATA];
+				if(data){
+					pr_DISEASE_TEMP = data
+					$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, {data: data}));
+					$("#btn_modify").addClass("hide");
+					$("#a_btn_sav").removeClass("hide");
+					$("#a_btn_canc").removeClass("hide");
+					$('#addRowBtn').removeClass('hide');
+					$('#removeRowBtn').removeClass('hide');
+					$(".info-edit").addClass('hide');
+					
+					$('#removeRowBtn button').on('click', function() {
+						$(this).closest('tr').remove();
+					});
+				}
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		
+		const do_lc_save_disease_sub = function(myObject, dataArray){
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_NEW_SUB, {obj: myObject});
+			
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_after_save_disease_sub, {}));
+
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+
+			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
+		}
+		
+		const do_lc_after_save_disease_sub = function(sharedJson){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				let data 	= sharedJson[App['const'].RES_DATA];
+				
+//				$('.inf-disease').addClass('hide');
+				$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, {data: data}));
+				$(".inf-disease").addClass('hide');
+				$("#btn_modify").removeClass("hide");
+				$("#a_btn_sav").addClass("hide");
+				$("#a_btn_canc").addClass("hide");
+				$("#addRowBtn").addClass("hide");
+				
+				do_lc_bind_event_new_disease_sub(data);
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
+			}
+		}
+		
 		//-----------------edit group-------------------------------------------------------------------------
 		
 		const do_lc_edit_group = (group) => {
 						
-			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVGet", {id: group.id});	
+			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyCategory", "SVGet", {id: group.id});	
 	
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_reponse_edit_group, [group.id]));
@@ -653,18 +822,10 @@ define([
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
 					
-					if(data.val01 && typeof data.val01 == "string"){
-						data.val01 = JSON.parse(data.val01);
+					if(data.inf && typeof data.inf == "string"){
+						data.inf = JSON.parse(data.inf);
 					}
 					
-					if(data.inf01 && typeof data.inf01 == "string"){
-						data.inf01 = JSON.parse(data.inf01);
-					}
-					
-					if(data.inf02 && typeof data.inf02 == "string"){
-						data.inf02 = JSON.parse(data.inf02);
-					}
-
 					var listUserRight = App.data.user.rights;
 					var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_S)
 					if(!isRight){
@@ -752,9 +913,32 @@ define([
 						},
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
-							funct	: self.do_lc_cancel,
-							param	: [],
+							funct	: do_lc_get_info_group,
+							param	: [obj],
 							classBtn: "btn-primary"
+						}
+					}
+				});
+			})
+			
+			$("#cancel_header").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_cancel_create"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: do_lc_get_info_group,
+							param	: [obj],
+							classBtn: "btn-danger"
 						}
 					}
 				});
@@ -782,7 +966,7 @@ define([
 		//-----------------update group-------------------------------------------------------------------------
 
 		const do_lc_update_chat_group = function(ent) {
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP, pr_SV_MOD_GROUP, {obj: JSON.stringify(ent)});	
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, "SVMod", {obj: JSON.stringify(ent)});	
 
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_update_group_success, []));
@@ -807,7 +991,7 @@ define([
 		//------------------------------------------------------------------------------------------------
 		
 		const do_lc_del_group = function(groupId){
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP, pr_SV_DEL_GROUP, {id : groupId});	
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, "SVDel", {id : groupId});	
 
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_afterDel_group, []));

@@ -1,0 +1,48 @@
+{{#if child}}
+	{{#each child}}
+		<tr>
+			<input type="hidden" data-name="id" class="form-control objData inf-disease" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
+			<td class="text-center">
+				<input type="text" data-name="code" class="form-control objData inf-disease" autocomplete="off" id="inp_group_name" value="{{code}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="">
+				<span class="edit-text info-edit">{{code}}</span>
+			</td>
+			<td class="text-center">
+				<input type="text" data-name="name" class="form-control objData inf-disease" autocomplete="off" id="inp_group_locate" value="{{name}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" data-validation="">
+				<span class="edit-text info-edit">{{name}}</span>
+			</td>
+			<td class="text-center">
+				<input type="text" data-name="inf" class="form-control objData inf-disease" autocomplete="off" id="inp_group_locate" value="{{inf}}" placeholder="{{transl 'tpy_cat_disease_describe'}}" data-validation="">
+				<span class="edit-text info-edit">{{inf}}</span>
+			</td>
+			<td  id="removeRowBtn" class="text-center inf-disease">
+				<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
+			</td>
+		</tr>
+	{{/each}}
+{{/if}}
+
+
+
+
+{{#if data}}
+	{{#each data}}
+		<tr>
+			<input type="hidden" data-name="id" class="form-control objData inf-disease" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
+			<td class="text-center">
+				<input type="text" data-name="code" class="form-control objData inf-disease" autocomplete="off" id="inp_group_name" value="{{code}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="">
+				<span class="edit-text info-edit">{{code}}</span>
+			</td>
+			<td class="text-center">
+				<input type="text" data-name="name" class="form-control objData inf-disease" autocomplete="off" id="inp_group_locate" value="{{name}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" data-validation="">
+				<span class="edit-text info-edit">{{name}}</span>
+			</td>
+			<td class="text-center">
+				<input type="text" data-name="inf" class="form-control objData inf-disease" autocomplete="off" id="inp_group_locate" value="{{inf}}" placeholder="{{transl 'tpy_cat_disease_describe'}}" data-validation="">
+				<span class="edit-text info-edit">{{inf}}</span>
+			</td>
+			<td  id="removeRowBtn" class="text-center inf-disease">
+				<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
+			</td>
+		</tr>
+	{{/each}}
+{{/if}}
