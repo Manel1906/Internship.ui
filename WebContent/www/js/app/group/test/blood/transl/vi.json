@@ -1,0 +1,88 @@
+{
+
+"----------TPY CATEGORY----------"		:	"----------TPY CATEGORY----------",
+"tpy_cat_list_type_01_selection"		:	"Các nhóm giá trị chọn lựa",
+"tpy_cat_list_type_01_others"			:	"Các nhóm khác",
+
+"tpy_cat_list_code"						:	"Mã QL",
+"tpy_cat_list_name"						:	"Tên",
+"tpy_cat_list_parent"					:	"Nhóm cha",
+
+"tpy_cat_ent_avatar"					:   "Hình đại diện",
+"tpy_cat_ent_name"						:	"Tên đặt",
+"tpy_cat_ent_code"						:	"Mã QL",
+"tpy_cat_ent_stat"						:	"Trạng thái",
+"tpy_cat_ent_type_01"					:	"Kiểu phân loại",
+"tpy_cat_ent_type_02"					:	"Phân cấp",
+"tpy_cat_ent_parent"					:	"Nhóm cha",
+"tpy_cat_ent_transl"					:	"Dịch thuật",
+"tpy_cat_ent_lang"						:	"Ngôn ngữ",
+"tpy_cat_ent_sub"						:	"Phân nhóm",
+
+"tpy_cat_ent_stat_new"					:	"Mới tạo",
+"tpy_cat_ent_stat_activ"				:	"Hoạt động",
+"tpy_cat_ent_stat_desactiv"				:	"Tạm ngừng",
+
+"tpy_cat_ent_type_01_selection"         :   "Nhóm giá trị chọn lựa",
+"tpy_cat_ent_type_01_others"            :   "Nhóm khác",
+
+"tpy_cat_ent_type_02_01"                :   "Nhóm cấp I",
+"tpy_cat_ent_type_02_02"                :   "Nhóm cấp II",
+"tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
+"tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
+
+"btn_add_file"							: 	"Thêm tập tin",
+
+"tpy_cat_test_list_title"				:	"Quản lý doanh mục xét nghiệm",
+"tpy_cat_disease_new"					: 	"Thêm mới",
+"tpy_cat_disease_search"				:	"Tìm kiếm xét nghiệm",
+"tpy_cat_disease_new_title"				: 	"Thêm mới dịch vụ",
+
+"tpy_cat_disease_new_file_title"		: 	"Thêm tập tin vào đây",
+"tpy_cat_disease_drop_files"			: 	"Kéo thả hoặc nhấn để thêm tập tin",
+
+"tpy_cat_disease_code_enter"			: 	"Nhập mã bệnh",
+"tpy_cat_disease_name_enter"			: 	"Nhập tên bệnh",
+"tpy_cat_disease_room_enter"			: 	"Nhập phòng xét nghiệm",
+"tpy_cat_disease_time_enter"			: 	"Nhập thời gian thực hiện",
+"tpy_cat_disease_new_btn_save"			: 	"Lưu",
+"tpy_cat_disease_new_btn_cancel"		: 	"Hủy bỏ",
+
+"tpy_cat_test_name"						:   "Tên xét nghiệm",
+"tpy_cat_test_code"						: 	"Mã xét nghiệm",
+"tpy_cat_test_group"					: 	"Nhóm xét nghiệm",
+"tpy_cat_test_room"						: 	"Phòng xét nghiệm",
+"tpy_cat_test_time"						: 	"Thời gian thực hiện",
+"tpy_cat_test_unit"						: 	"Đơn vị đo lường",
+"tpy_cat_disease_prevent"				: 	"Phòng ngừa",
+"tpy_cat_disease_diagnose"				: 	"Các biện pháp chẩn đoán",
+"tpy_cat_disease_treatment"				: 	"Các biện pháp điều trị",
+"tpy_test_describe"						: 	"Mô tả dịch vụ",
+"tpy_test_service"						: 	"Dịch vụ xét nghiệm",
+"tpy_test_procedure"					: 	"Quy trình xét nghiệm",
+"tpy_test_required"						: 	"Điều kiện xét nghiệm",
+
+"tpy_cat_disease_list"					: 	"Danh sách bệnh liên quan",
+
+"msgbox_confirm_creat"					: 	"Lưu thông tin bệnh ?",
+"msgbox_confirm_cancel_create"			: 	"Hủy bỏ thêm mới bệnh ?",
+
+"tpy_cat_disease_btn_delete"			: 	"Xóa",
+"tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
+"aut_test_ent_header_stat_0"			: 	"Tất cả",
+"aut_test_ent_header_stat_1"			:	"Huyết học",
+"aut_test_ent_header_stat_2"			:	"Hóa Sinh",
+"aut_test_ent_header_stat_3"			:	"Vi sinh",
+"aut_test_ent_header_stat_4"			:	"HIV",
+"aut_test_ent_header_stat_10"			:	"Khác",
+
+"aut_test_unit_header_stat_3"			:	"mg/dL",
+"aut_test_unit_header_stat_4"			:	"g/dL",
+"aut_test_unit_header_stat_5"			:	"mmol/L",
+"aut_test_unit_header_stat_6"			:	"cells/u",
+"aut_test_unit_header_stat_10"			:	"...",
+"msgbox_confirm_save"					: 	"Lưu nội dung chỉnh sửa ?",
+"msgbox_confirm_save_cancel"			: 	"Hủy bỏ nội dung chỉnh sửa ?",
+"prj_project_del_user_group_popup_content"			: "Xóa dịch vụ?",
+"prj_user_group_btn_delete_group"				    : "Xóa dịch vụ xét nghiệm"
+}

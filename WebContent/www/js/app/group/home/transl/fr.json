@@ -2346,6 +2346,9 @@
 	
 	"prj_project_noti_title_delete"                 	: "Supprimer notification",
     "prj_project_noti_title_delete_content"         	: "Êtes-vous sûr à supprimer cette notification ?",
-    
+    "---MANAGE CATEGORY-------------------------"	: "----------------------------------------",
+    "prj_project_mana_dashboard"		: "Gestion de portefeuille",
+    "prj_project_mana_test"				: "Test",
+    "prj_project_diagnostic_img"		: "Imagerie diagnostique",	
 	"--End------------------------": "----------------------------------------"
 }

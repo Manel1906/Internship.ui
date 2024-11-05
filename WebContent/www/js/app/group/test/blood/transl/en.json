@@ -1,0 +1,88 @@
+{
+    "----------TPY CATEGORY----------"       :   "----------TPY CATEGORY----------",
+    "tpy_cat_list_type_01_selection"        :   "Value selection groups",
+    "tpy_cat_list_type_01_others"           :   "Other groups",
+
+    "tpy_cat_list_code"                     :   "Management Code",
+    "tpy_cat_list_name"                     :   "Name",
+    "tpy_cat_list_parent"                   :   "Parent Group",
+
+    "tpy_cat_ent_avatar"                    :   "Avatar",
+    "tpy_cat_ent_name"                      :   "Assigned Name",
+    "tpy_cat_ent_code"                      :   "Management Code",
+    "tpy_cat_ent_stat"                      :   "Status",
+    "tpy_cat_ent_type_01"                   :   "Classification Type",
+    "tpy_cat_ent_type_02"                   :   "Hierarchy",
+    "tpy_cat_ent_parent"                    :   "Parent Group",
+    "tpy_cat_ent_transl"                    :   "Translation",
+    "tpy_cat_ent_lang"                      :   "Language",
+    "tpy_cat_ent_sub"                       :   "Subgroup",
+
+    "tpy_cat_ent_stat_new"                  :   "Newly Created",
+    "tpy_cat_ent_stat_activ"                :   "Active",
+    "tpy_cat_ent_stat_desactiv"             :   "Inactive",
+
+    "tpy_cat_ent_type_01_selection"         :   "Value Selection Group",
+    "tpy_cat_ent_type_01_others"            :   "Other Group",
+
+    "tpy_cat_ent_type_02_01"                :   "Level I Group",
+    "tpy_cat_ent_type_02_02"                :   "Level II Group",
+    "tpy_cat_ent_type_02_03"                :   "Level III Group",
+    "tpy_cat_ent_type_02_04"                :   "Level IV Group",
+
+    "btn_add_file"                          :   "Add File",
+
+    "tpy_cat_test_list_title"               :   "Test Category Management",
+    "tpy_cat_disease_new"                   :   "Add New",
+    "tpy_cat_disease_search"                :   "Search Tests",
+    "tpy_cat_disease_new_title"             :   "Add New Service",
+
+    "tpy_cat_disease_new_file_title"        :   "Add Files Here",
+    "tpy_cat_disease_drop_files"            :   "Drag or click to add files",
+
+    "tpy_cat_disease_code_enter"            :   "Enter disease code",
+    "tpy_cat_disease_name_enter"            :   "Enter disease name",
+    "tpy_cat_disease_room_enter"            :   "Enter test room",
+    "tpy_cat_disease_time_enter"            :   "Enter execution time",
+    "tpy_cat_disease_new_btn_save"          :   "Save",
+    "tpy_cat_disease_new_btn_cancel"        :   "Cancel",
+
+    "tpy_cat_test_name"                     :   "Test Name",
+    "tpy_cat_test_code"                     :   "Test Code",
+    "tpy_cat_test_group"                    :   "Test Group",
+    "tpy_cat_test_room"                     :   "Test Room",
+    "tpy_cat_test_time"                     :   "Execution Time",
+    "tpy_cat_test_unit"                     :   "Measurement Unit",
+    "tpy_cat_disease_prevent"               :   "Prevention",
+    "tpy_cat_disease_diagnose"              :   "Diagnostic Measures",
+    "tpy_cat_disease_treatment"             :   "Treatment Measures",
+    "tpy_test_describe"                     :   "Service Description",
+    "tpy_test_service"                      :   "Testing Service",
+    "tpy_test_procedure"                    :   "Testing Procedure",
+    "tpy_test_required"                     :   "Testing Conditions",
+
+    "tpy_cat_disease_list"                  :   "List of Related Diseases",
+
+    "msgbox_confirm_creat"                  :   "Save disease information?",
+    "msgbox_confirm_cancel_create"          :   "Cancel adding new disease?",
+
+    "tpy_cat_disease_btn_delete"            :   "Delete",
+    "tpy_cat_disease_btn_edit"              :   "Edit",
+    "aut_test_ent_header_stat_0"			: 	"All",
+    "aut_test_ent_header_stat_1"            :   "Hematology",
+    "aut_test_ent_header_stat_2"            :   "Biochemistry",
+    "aut_test_ent_header_stat_3"            :   "Microbiology",
+    "aut_test_ent_header_stat_4"            :   "HIV",
+    "aut_test_ent_header_stat_10"           :   "Other",
+
+    "aut_test_unit_header_stat_3"           :   "mg/dL",
+    "aut_test_unit_header_stat_4"           :   "g/dL",
+    "aut_test_unit_header_stat_5"           :   "mmol/L",
+    "aut_test_unit_header_stat_6"           :   "cells/u",
+    "aut_test_unit_header_stat_10"          :   "...",
+    "msgbox_confirm_save"                   :   "Save edited content?",
+    "msgbox_confirm_save_cancel"            :   "Cancel edited content?",
+    "prj_project_del_user_group_popup_content"			: "Delete Service?",
+    "prj_user_group_btn_delete_group"				    : "Delete Service Test"
+    
+}

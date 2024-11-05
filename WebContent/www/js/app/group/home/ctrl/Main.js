@@ -652,7 +652,20 @@ define([
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"
 				},
-								
+				[App.router.part.PRJ_MNG_TEST]		: {
+					grpName		: "PrjManaTest"								, ctrlName 		: "Main", 
+					ctrlPath    : "group/test/blood/ctrl/TpyCatBloodMain"	, ctrlParams 	: ["PrjManaTest", null, null , null, ], 
+					fInit		: "do_lc_init"								, fInitParams	: [],
+					fShow		: "do_lc_show"								, fShowParams	: [],
+					rights		: "view:"
+				},
+				[App.router.part.PRJ_TEST_IMG]		: {
+					grpName		: "PrjTestImg"								, ctrlName 		: "Main", 
+					ctrlPath    : "group/test/img/ctrl/TpyTestImgMain"		, ctrlParams 	: ["PrjTestImg", null, null , null, ], 
+					fInit		: "do_lc_init"								, fInitParams	: [],
+					fShow		: "do_lc_show"								, fShowParams	: [],
+					rights		: "view:"
+				},
 		}
 		
 		//--------------------------------------------------------------------------------------------

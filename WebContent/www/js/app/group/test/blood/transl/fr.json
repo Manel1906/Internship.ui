@@ -1,0 +1,69 @@
+{
+
+"----------TPY CATEGORY----------"		:	"----------TPY CATEGORY----------",
+"tpy_cat_list_type_01_selection"		:	"Các nhóm giá trị chọn lựa",
+"tpy_cat_list_type_01_others"			:	"Các nhóm khác",
+
+"tpy_cat_list_code"						:	"Mã QL",
+"tpy_cat_list_name"						:	"Tên",
+"tpy_cat_list_parent"					:	"Nhóm cha",
+
+"tpy_cat_ent_avatar"					:   "Hình đại diện",
+"tpy_cat_ent_name"						:	"Tên đặt",
+"tpy_cat_ent_code"						:	"Mã QL",
+"tpy_cat_ent_stat"						:	"Trạng thái",
+"tpy_cat_ent_type_01"					:	"Kiểu phân loại",
+"tpy_cat_ent_type_02"					:	"Phân cấp",
+"tpy_cat_ent_parent"					:	"Nhóm cha",
+"tpy_cat_ent_transl"					:	"Dịch thuật",
+"tpy_cat_ent_lang"						:	"Ngôn ngữ",
+"tpy_cat_ent_sub"						:	"Phân nhóm",
+
+"tpy_cat_ent_stat_new"					:	"Mới tạo",
+"tpy_cat_ent_stat_activ"				:	"Hoạt động",
+"tpy_cat_ent_stat_desactiv"				:	"Tạm ngừng",
+
+"tpy_cat_ent_type_01_selection"         :   "Nhóm giá trị chọn lựa",
+"tpy_cat_ent_type_01_others"            :   "Nhóm khác",
+
+"tpy_cat_ent_type_02_01"                :   "Nhóm cấp I",
+"tpy_cat_ent_type_02_02"                :   "Nhóm cấp II",
+"tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
+"tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
+
+"btn_add_file"							: 	"Ajouter des fichiers",
+
+"tpy_cat_disease_list_title"			:	"Gestion des informations sur les maladies",
+"tpy_cat_disease_new"					: 	"Nouveau",
+"tpy_cat_disease_search"				: 	"Recherche par code CIM, nom de la maladie ...",
+"tpy_cat_disease_new_title"				: 	"Ajouter une nouvelle maladie",
+
+"tpy_cat_disease_new_file_title"		: 	"Ajouter des fichiers ici",
+"tpy_cat_disease_drop_files"			: 	"Glissez-déposez ou cliquez pour ajouter des fichiers",
+
+"tpy_cat_disease_code_enter"			: 	"Entrez le code de la maladie",
+"tpy_cat_disease_name_enter"			: 	"Entrez le nom de la maladie",
+"tpy_cat_disease_new_btn_save"			: 	"Sauvegarder",
+"tpy_cat_disease_new_btn_cancel"		: 	"Annuler",
+
+"tpy_cat_disease_code"					: 	"Code maladie",
+"tpy_cat_disease_name"					: 	"Nom de la maladie",
+"tpy_cat_disease_reason"				: 	"Cause",
+"tpy_cat_disease_symptom"				: 	"Symptôme",
+"tpy_cat_disease_transmission"			: 	"Route de transmission",
+"tpy_cat_disease_subjects"				: 	"Sujets à risque",
+"tpy_cat_disease_prevent"				: 	"Prévention",
+"tpy_cat_disease_diagnose"				: 	"Mesures de diagnostic",
+"tpy_cat_disease_treatment"				: 	"Traitements",
+"tpy_cat_disease_describe"				: 	"Description générale",
+"tpy_cat_disease_note"					: 	"Note",
+
+"tpy_cat_disease_list"					: 	"Liste des maladies associées",
+
+"msgbox_confirm_creat"					: 	"Enregistrer les informations sur la maladie ?",
+"msgbox_confirm_cancel_create"			: 	"Annuler la nouvelle maladie ?",
+
+"tpy_cat_disease_btn_delete"			: 	"Supprimer",
+"tpy_cat_disease_btn_edit"				: 	"Modifier"
+
+}

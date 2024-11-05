@@ -1663,6 +1663,10 @@
 	
 	"prj_project_noti_title_delete"                 	: "Xóa thông báo",
     "prj_project_noti_title_delete_content"         	: "Bạn muốn xóa bỏ tất cả thông báo này ?",
+    "---MANAGE CATEGORY-------------------------"	: "----------------------------------------",
+    "prj_project_mana_dashboard"		: "Quản lý danh mục",
+    "prj_project_mana_test"				: "Xét nghiệm",
+    "prj_project_diagnostic_img"		: "Chẩn đoán hình ảnh",	
 
 	"--End------------------------"	: "----------------------------------------"
 }

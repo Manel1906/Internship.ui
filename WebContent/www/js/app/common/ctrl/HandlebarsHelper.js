@@ -1336,7 +1336,9 @@ const do_gl_Handlebars_Register = function (){
 	const defautNumberFormat 		= "#,###.##";
 	const PRJ_MEMBER_LEVEL 		= {0: "prj_project_member_level_manager", 10: "prj_project_member_level_reporter", 20: "prj_project_member_level_developer", 30: "prj_project_member_level_tester", 40: "prj_project_member_level_worker", 50: "prj_project_member_level_watcher"};
 	const PRJ_MEMBER_TYPE 			= {0: "prj_project_lev_bas"				, 1: "prj_project_lev_haute"};
-
+	const PRJ_TEST_TYPE 			= {1: "aut_test_ent_header_stat_1"	, 2: "aut_test_ent_header_stat_2"	, 3: "aut_test_ent_header_stat_3"	, 4: "aut_test_ent_header_stat_4", 10: "aut_test_ent_header_stat_10"};
+	const PRJ_TEST_IMG 				= {1: "aut_test_ent_header_stat_1"	, 2: "aut_test_ent_header_stat_2"	, 3: "aut_test_ent_header_stat_3"	, 4: "aut_test_ent_header_stat_4", 10: "aut_test_ent_header_stat_10"};
+	const PRJ_UNIT_TYPE 			= {3: "aut_test_unit_header_stat_3"	, 4: "aut_test_unit_header_stat_4"	, 5: "aut_test_unit_header_stat_5"	, 6: "aut_test_unit_header_stat_6", 10: "aut_test_unit_header_stat_10"};
 	const PRJ_LEVEL 				= {1: "prj_project_lev_01"	, 2: "prj_project_lev_02"	, 3: "prj_project_lev_03"	, 4: "prj_project_lev_04"};
 	const PRJ_TYPE01 				= {1: "prj_project_type_01"	, 2: "prj_project_type_02"	, 3: "prj_project_type_03"	, 4: "prj_project_type_04"};
 	const PRJ_STAT 					= {0: "prj_project_stat_00"	, 1: "prj_project_stat_01"	, 2: "prj_project_stat_02"	, 3: "prj_project_stat_03", 4: "prj_project_stat_04", 5: "prj_project_stat_05", 6: "prj_project_stat_06", 7: "prj_project_stat_07"};
@@ -1412,6 +1414,18 @@ const do_gl_Handlebars_Register = function (){
 	Handlebars.registerHelper("reqTypeMember", function(typ) {
 		if(typ === undefined)	return "";
 		return $.i18n(PRJ_MEMBER_TYPE[+typ]);
+	});
+	Handlebars.registerHelper("reqTypeTest", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_TEST_TYPE[+typ]);
+	});
+	Handlebars.registerHelper("reqTestImg", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_TEST_IMG[+typ]);
+	});
+	Handlebars.registerHelper("reqTypeUnit", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_UNIT_TYPE[+typ]);
 	});
 
 	Handlebars.registerHelper("reqTypPrj", function(typ) {

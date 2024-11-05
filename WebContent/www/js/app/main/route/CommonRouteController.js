@@ -115,7 +115,11 @@ define(['require',
 				
 				PRJ_CFG_GROUP					: "prj_cfg_group",
 				
-				TPY_CAT_DISEASE					: "tpy_cat_disease"
+				TPY_CAT_DISEASE					: "tpy_cat_disease",
+				
+				PRJ_MNG_TEST					: "prj_mng_test",
+				PRJ_TEST_IMG					: "prj_test_img"
+
 				
 			}
 
