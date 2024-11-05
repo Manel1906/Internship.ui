@@ -1,11 +1,11 @@
 define([
-	'text!group/test/blood/tmpl/TpyCatBlood_List.html',
-	'text!group/test/blood/tmpl/TpyCatBlood_List_Content.html',
-	'text!group/test/blood/tmpl/TpyCatBlood_Ent_Content.html',
-	'text!group/test/blood/tmpl/TpyCatBlood_New.html',
-	'text!group/test/blood/tmpl/TpyDropzone_File.html',
-	'text!group/test/blood/tmpl/TpyCatBlood_Ent_Content_Row.html',
-	'text!group/test/blood/tmpl/TpyCatBlood_Ent_Content_Row_add.html'
+	'text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_List.html',
+	'text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_List_Content.html',
+	'text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_Ent_Content.html',
+	'text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_New.html',
+	'text!group/tpy/cat_test_blood/tmpl/TpyDropzone_File.html',
+	'text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_Ent_Content_Row.html',
+	'text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_Ent_Content_Row_add.html'
 	
 	],
 	function(TpyCatBlood_List, 

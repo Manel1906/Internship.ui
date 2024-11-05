@@ -1,5 +1,5 @@
 define([
-  "text!group/test/blood/tmpl/TpyCatBlood_Member.html",
+  "text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_Member.html",
   //	'text!group/user_group/tmpl/PrjUserGroup_Member_Detail.html',
 ], function (
   PrjUserGroup_Member

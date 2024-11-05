@@ -1,8 +1,8 @@
 define([
-	'group/test/blood/ctrl/TpyCatBloodList',
-	'group/test/blood/ctrl/TpyCatBloodMember',
+	'group/tpy/cat_test_blood/ctrl/TpyCatBloodList',
+	'group/tpy/cat_test_blood/ctrl/TpyCatBloodMember',
 	
-	'text!group/test/blood/tmpl/TpyCatBlood_Main.html',
+	'text!group/tpy/cat_test_blood/tmpl/TpyCatBlood_Main.html',
 	], function(
 			TpyCatBloodList,
 			TpyCatBloodMember,
@@ -16,7 +16,7 @@ define([
 		
 		//------------------------------------------------------------------------------------
 		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
-		var pr_grpPath				= 'group/test/blood';
+		var pr_grpPath				= 'group/tpy/cat_test_blood';
 		App.template.names[pr_grpName] = {}; //---init only one time in Main ctrl
 		
 		//------------------------------------------------------------------------------------
