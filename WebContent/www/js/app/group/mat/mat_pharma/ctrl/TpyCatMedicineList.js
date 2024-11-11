@@ -30,13 +30,13 @@ define([
 		var RIGHT_A_S	        	= 105;
 		//-----------------------------------------------------------------------------------
 		
-		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroup";
+		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceMatMaterial";
 		const pr_SV_GROUP_LIST_DYN			= "SVLstSearch"; 
 		
-		const pr_SERVICE_CLASS_GROUP		= "ServiceNsoGroup";
-		const pr_SV_NEW_GROUP				= "SVPharm";
-		const pr_SV_MOD_GROUP               = "SVModWork";
-		const pr_SV_DEL_GROUP               = "SVDelWork";
+		const pr_SERVICE_CLASS_GROUP		= "ServiceMatMaterial";
+		const pr_SV_NEW_GROUP				= "SVNew";
+		const pr_SV_MOD_GROUP               = "SVMod";
+		const pr_SV_DEL_GROUP               = "SVDel";
 		
 		var   self                  = this;
 		this.pr_member_role			= null;
@@ -48,7 +48,7 @@ define([
 		const pr_TYP_MSG_PRIVATE 	= 200;
 		const pr_TYP_MSG_PUBLIC 	= 201;
 		
-		const pr_TYP_GROUP_WORK 	= 300;
+		const pr_TYP_GROUP_WORK 	= 1;
 		
 		const pr_KEY_ENTER			= 13;
 		const pr_NUMBER_RECORD		= 10;
@@ -65,7 +65,7 @@ define([
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
-			pr_ctr_Main 			= App.controller.PrjUserGroup.Main;
+			pr_ctr_Main 			= App.controller.UI.Main;
 			pr_ctr_List 			= App.controller.PrjUserGroup.List
 			if(!tmplName) {
 				App.template.names[pr_grpName] = {}
@@ -103,9 +103,6 @@ define([
 			do_get_list_ByAjax(hardLoad);
 		}
 		
-		const do_lc_get_list_member = (group) => {
-			App.controller.PrjUserGroup.Member.do_lc_show(group);
-		};
 		
 		//----------------------------------------------------------------------------------------------
 		
@@ -297,6 +294,12 @@ define([
 				}
 
 				App.data["listGroupWork"] = data.lst;
+			//	console.log(data.lst)
+				Object.values(data.lst).forEach(item => {
+				  if (item.inf10) {
+				    item.inf10 = JSON.parse(item.inf10);
+				  }
+				});
 				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT, { "data": data.lst }));
 				do_lc_bind_event_list();
 			} else {
@@ -316,7 +319,7 @@ define([
 					$("#div_chat").css("display", "block");
 					
 					do_lc_get_info_group(App.data["listGroupWork"][idGroup]);
-					do_lc_get_list_member(App.data["listGroupWork"][idGroup]);
+				//	do_lc_get_list_member(App.data["listGroupWork"][idGroup]);
 				}
 			})
 		}
@@ -411,7 +414,28 @@ define([
 					}
 				});
 			})
-			
+			$("#cancel_header").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_cancel_create"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_cancel,
+							param	: [],
+							classBtn: "btn-danger"
+						}
+					}
+				});
+			})
 			let option	= {
 					obj : obj,
 					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here for avatar
@@ -468,7 +492,7 @@ define([
 		
 		const do_lc_get_info_group = (group) => {
 			
-			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVGet", {id: group.id});	
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP, "SVGet", {id: group.id});	
 
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_reponse_get_group, []));
@@ -512,11 +536,19 @@ define([
 			if(data.inf01 && typeof data.inf01 == "string"){
 				data.inf01 = JSON.parse(data.inf01);
 			}
+			if(data.inf03 && typeof data.inf03 == "string"){
+				data.inf03 = JSON.parse(data.inf03);
+			}
+			if(data.inf10 && typeof data.inf10 == "string"){
+				data.inf10 = JSON.parse(data.inf10);
+			}
 			
 			if(data.inf02 && typeof data.inf02 == "string"){
 				data.inf02 = JSON.parse(data.inf02);
 			}
-			
+			if(data.files && data.files[0].url){
+				data.fileUrl = data.files[0].url
+			}
 			$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_ENT_CONTENT, data));
 			
 			do_bind_event_show_group(data);
@@ -634,8 +666,8 @@ define([
 		
 		const do_lc_edit_group = (group) => {
 						
-			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVGet", {id: group.id});	
-	
+	//		const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVGet", {id: group.id});	
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP, "SVGet", {id: group.id});	
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_reponse_edit_group, [group.id]));
 	
@@ -656,9 +688,14 @@ define([
 					if(data.inf01 && typeof data.inf01 == "string"){
 						data.inf01 = JSON.parse(data.inf01);
 					}
-					
 					if(data.inf02 && typeof data.inf02 == "string"){
 						data.inf02 = JSON.parse(data.inf02);
+					}
+					if(data.inf10 && typeof data.inf10 == "string"){
+						data.inf10 = JSON.parse(data.inf10);
+					}
+					if(data.inf03 && typeof data.inf03 == "string"){
+						data.inf03 = JSON.parse(data.inf03);
 					}
 
 					var listUserRight = App.data.user.rights;
@@ -670,7 +707,9 @@ define([
 
 					$("#div_usergroup_member").html("");
 					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, data));
-
+					
+					$("#dtpicker_End").datepicker( "setDate", data.dt03);
+					
 					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
 					App.SummerNoteController.do_lc_show("#div_create_service");//text editor
 					App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
@@ -751,6 +790,28 @@ define([
 					}
 				});
 			})
+			$("#cancel_header").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_cancel_create"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_cancel,
+							param	: [],
+							classBtn: "btn-danger"
+						}
+					}
+				});
+			})
 		}
 		
 		this.do_lc_mod = function(obj){
@@ -810,6 +871,7 @@ define([
 
 		const do_lc_afterDel_group = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
+				do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 				$("#div_usergroup_ent, #div_usergroup_member").html("");
 				do_lc_get_list(true);
 			}else{

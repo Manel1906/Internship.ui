@@ -58,55 +58,49 @@
 
             <div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
 
-            <!-- Displaying information or avatars -->
-            <div class="media">
-                <div>
-                    <hr class="badge-info" style="height: 1px; width: 100%;">
-                </div>
-                {{#if val01}}
-				    {{#if val01.img}}
-				        <div class="d-flex align-items-center p-4 bg-info rounded-3 border border-light" style="height: 150px; width: 80%;">
-						    <div>
-						        <img src="{{val01.img}}" alt="" class="avatar-lg mr-4" style="width: 80px; height: 80px; object-fit: cover;" onerror="{{url_image_err}}">
-						    </div>
-						    <div class="text-dark">
-						        <p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
-						        <p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
-						        <p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
-						        <p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
-						    </div>
-						</div>
-				    {{else}}
-				        <div class="d-flex align-items-center p-4 bg-primary rounded-3" style="height: 150px;">
-				            <div class="avatar-lg mr-4">
-				                <span class="avatar-title rounded-circle bg-soft-primary text-primary" style="width: 80px; height: 80px; font-size: 36px;">
-				                    {{reqFirstLetter name}}
-				                </span>
-				            </div>
-				            <div class="text-white">
-				                <p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
-				                <p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
-				                <p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
-				                <p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
-				            </div>
-				        </div>
-				    {{/if}}
-                {{else}}
-                    <div class="d-flex align-items-center p-3 bg-primary rounded-3">
-                        <div class="avatar-xs mr-3">
-                            <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                                {{reqFirstLetter name}}
-                            </span>
-                        </div>
-                        <div class="text-white">
-                            <p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
-                            <p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
-                            <p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
-                            <p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
-                        </div>
-                    </div>
-                {{/if}}
-            </div>
+          <div class="media" style="width: 100%; margin: auto; display: flex; align-items: center">
+		    {{#if fileUrl}}
+		        <div class="align-items-start pl-3 p-2 rounded-3" 
+		             style="width: 100%; height: auto; max-height: none; display: flex; align-items: flex-start; background-color: #dff9fb; border: 2px solid #686de0;border-radius: 10px;">
+		            <img src="{{fileUrl}}" alt="" style="width: 350px; height: 190px; margin-right: 10px;" onerror="{{url_image_err}}">
+		            
+		            <div class="text-dark" style="flex: 1;">
+		                <p class="fw-bold h5 text-uppercase mb-0">{{name01}}</p>
+		                <br>
+		                <div class="d-flex align-items-center">
+					        <p class="fw-bold h5 me-2">{{transl 'prj_brand_group_room'}}:</p>
+					        <p class="text-muted mb-2 fs-5">{{name02}}</p>
+					    </div>
+		                <br>
+		                 <div class="d-flex align-items-center">
+					        <p class="fw-bold h5 me-2">{{transl 'prj_brand_group_package'}}:</p>
+					        <p class="text-muted mb-2 fs-5">{{reqGrpPkg inf02}}</p>
+					    </div>
+		            </div>
+		        </div>
+		    {{else}}
+		        <div class="align-items-start pl-3 p-2 rounded-3" 
+		             style="width: 100%; height: auto; max-height: none; display: flex; align-items: flex-start; background-color: #dff9fb; border: 2px solid #686de0;border-radius: 10px;">
+		            <img src="{{url_image_err}}" alt="" style="width: 350px; height: 190px; margin-right: 10px;" onerror="{{url_image_err}}">
+		            
+		            <div class="text-dark" style="flex: 1;">
+		                <p class="fw-bold h5 text-uppercase mb-0">{{name01}}</p>
+		                <br>
+		                <div class="d-flex align-items-center">
+					        <p class="fw-bold h5 me-2">{{transl 'prj_brand_group_room'}}:</p>
+					        <p class="text-muted mb-2 fs-5"> {{name02}}</p>
+					    </div>
+		                <br>
+		                 <div class="d-flex align-items-center">
+					        <p class="fw-bold h5 me-2">{{transl 'prj_brand_group_package'}}:</p>
+					        <p class="text-muted mb-2 fs-5"> {{reqGrpPkg inf02}}</p>
+					    </div>
+		            </div>
+		        </div>
+		    {{/if}}
+		</div>
+
+
 
             <!-- Information sections -->
             <div>
@@ -127,7 +121,7 @@
             </div>
             <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_medicine'}}</h5>
-                <div class="info-content-description"><p class="text-muted text-justify">{{{typ03}}}</p></div>
+                <div class="info-content-description"><p class="text-muted text-justify">{{{reqGrpMedi typ03}}}</p></div>
             </div>
             <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_reg_number_visa'}}</h5>
@@ -135,7 +129,8 @@
             </div>
              <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_exp_visa'}}</h5>
-                <div class="info-content-description"><p class="text-muted text-justify">{{{dt03}}}</p></div>
+           <!--    <div class="info-content-description"><p class="text-muted text-justify">{{{dt03}}}</p></div>  --> 
+                <p data-format="date" class="info-content-description">{{reqFormatDate dt03}}</p>
             </div>
              <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_producer'}}</h5>
