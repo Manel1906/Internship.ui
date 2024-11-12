@@ -1,18 +1,18 @@
 define([
-	'text!group/mat/mat_pharma/tmpl/PrjUserGroup_List.html',
-	'text!group/mat/mat_pharma/tmpl/PrjUserGroup_List_Content.html',
-	'text!group/mat/mat_pharma/tmpl/PrjUserGroup_Ent_Content.html',
-	'text!group/mat/mat_pharma/tmpl/PrjUserGroup_New.html',
+	'text!group/mat/mat_pharma/tmpl/PrjPharmaGroup_List.html',
+	'text!group/mat/mat_pharma/tmpl/PrjPharmaGroup_List_Content.html',
+	'text!group/mat/mat_pharma/tmpl/PrjPharmaGroup_Ent_Content.html',
+	'text!group/mat/mat_pharma/tmpl/PrjPharmaGroup_New.html',
 	'text!group/mat/mat_pharma/tmpl/PrjDropzone_File.html'
 	
 	],
-	function(PrjUserGroup_List, 
-			PrjUserGroup_List_Content,
-			PrjUserGroup_Ent_Content,
-			PrjUserGroup_New,
+	function(PrjPharmaGroup_List, 
+			PrjPharmaGroup_List_Content,
+			PrjPharmaGroup_Ent_Content,
+			PrjPharmaGroup_New,
 			PrjDropzone_File
 			) {
-	const PrjUserGroupList = function (grpName, header, content, footer) {
+	const PrjPharmaGroupList = function (grpName, header, content, footer) {
 		var pr_divHeader 			= header;
 		var pr_divContent 			= content;
 		var pr_divFooter 			= footer;
@@ -66,16 +66,16 @@ define([
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
-			pr_ctr_List 			= App.controller.PrjUserGroup.List
+			pr_ctr_List 			= App.controller.PrjPharmaGroup.List
 			if(!tmplName) {
 				App.template.names[pr_grpName] = {}
 				tmplName = App.template.names[pr_grpName]
 			}
 			
-			tmplName.PRJ_USER_GROUP_LIST				= "PrjUserGroup_List";
-			tmplName.PRJ_USER_GROUP_LIST_CONTENT		= "PrjUserGroup_List_Content";
-			tmplName.PRJ_USER_GROUP_ENT_CONTENT		    = "PrjUserGroup_Ent_Content";
-			tmplName.PRJ_USER_GROUP_NEW  				= "PrjUserGroup_New";
+			tmplName.PRJ_USER_GROUP_LIST				= "PrjPharmaGroup_List";
+			tmplName.PRJ_USER_GROUP_LIST_CONTENT		= "PrjPharmaGroup_List_Content";
+			tmplName.PRJ_USER_GROUP_ENT_CONTENT		    = "PrjPharmaGroup_Ent_Content";
+			tmplName.PRJ_USER_GROUP_NEW  				= "PrjPharmaGroup_New";
 			tmplName.PRJ_DROPZONE_FILE					= "PrjDropzone_File";
 		}
 
@@ -88,10 +88,10 @@ define([
 		
 		//---------load view-----------------------------------------------------------------------------
 		const do_lc_load_view = function(){
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_LIST			, PrjUserGroup_List); 
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT	, PrjUserGroup_List_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_ENT_CONTENT		, PrjUserGroup_Ent_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_NEW				, PrjUserGroup_New); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_LIST			, PrjPharmaGroup_List); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT	, PrjPharmaGroup_List_Content); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_ENT_CONTENT		, PrjPharmaGroup_Ent_Content); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_NEW				, PrjPharmaGroup_New); 	
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_DROPZONE_FILE				, PrjDropzone_File);
 			
 			$("#div_usergroup_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST, {}));
@@ -928,5 +928,5 @@ define([
 
 	}
 
-	return PrjUserGroupList;
+	return PrjPharmaGroupList;
 });

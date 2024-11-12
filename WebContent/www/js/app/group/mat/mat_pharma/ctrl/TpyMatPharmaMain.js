@@ -1,13 +1,13 @@
 define([
-	'group/mat/mat_pharma/ctrl/TpyCatMedicineList',
+	'group/mat/mat_pharma/ctrl/TpyMatPharmaList',
 	
-	'text!group/mat/mat_pharma/tmpl/PrjUserGroup_Main.html',
+	'text!group/mat/mat_pharma/tmpl/PrjPharmaGroup_Main.html',
 	], function(
-			PrjUserGroupList,
+			PrjPharmaGroupList,
 
-			PrjUserGroup_Main) {
+			PrjPharmaGroup_Main) {
 
-	var PrjUserGroupMain     		= function (header,content,footer, grpName) {
+	var PrjPharmaGroupMain     		= function (header,content,footer, grpName) {
 		var pr_divHeader 			= header;
 		var pr_divContent 			= content;
 		var pr_divFooter 			= footer;
@@ -46,18 +46,18 @@ define([
 				App.template.names[pr_grpName] = {}
 				tmplName = App.template.names[pr_grpName]
 			}
-			if (!App.controller.PrjUserGroup) App.controller.PrjUserGroup = {};
+			if (!App.controller.PrjPharmaGroup) App.controller.PrjPharmaGroup = {};
 			
 			
-			if (!App.controller.PrjUserGroup.List)  
-				App.controller.PrjUserGroup.List				= new PrjUserGroupList		(null, null, null);
+			if (!App.controller.PrjPharmaGroup.List)  
+				App.controller.PrjPharmaGroup.List				= new PrjPharmaGroupList		(null, null, null);
 			
 			
 			
-			App.controller.PrjUserGroup.List					.do_lc_init();
+			App.controller.PrjPharmaGroup.List					.do_lc_init();
 			
-			tmplName.PRJ_USER_GROUP_MAIN = "PrjUserGroup_Main";
-			tmplCtrl										.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_MAIN, PrjUserGroup_Main); 
+			tmplName.PRJ_USER_GROUP_MAIN = "PrjPharmaGroup_Main";
+			tmplCtrl										.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_MAIN, PrjPharmaGroup_Main); 
 		}     
 		
 		this.do_lc_show = function(){
@@ -82,15 +82,15 @@ define([
 				
 				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_MAIN, {}));
 
-				App.controller.PrjUserGroup.List.do_lc_show();
+				App.controller.PrjPharmaGroup.List.do_lc_show();
 				$(document).prop('title',$.i18n('prj_project_sidebar_user_grp'));
 
 			}catch(e) {				
-				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "PrjUserGroupMain", "do_lc_show", e.toString()) ;
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "PrjPharmaGroupMain", "do_lc_show", e.toString()) ;
 			}
 		};
 		
 	};
 
-	return PrjUserGroupMain;
+	return PrjPharmaGroupMain;
 });
