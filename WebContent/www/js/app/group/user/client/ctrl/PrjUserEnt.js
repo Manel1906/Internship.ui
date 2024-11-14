@@ -6,7 +6,7 @@ define([
 	){
 	
 	var PrjUserEnt 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PrjUserMan";
+		var pr_grpName				= grpName?grpName:"PrjUserClientEnt";
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
@@ -76,17 +76,17 @@ define([
 			pr_ctr_Main 			= App.controller.UI.Main;
 			pr_ctr_Sidebar 			= App.controller.UI.Sidebar;
 			pr_ctr_Fav 				= App.controller.UI.Fav;
-			pr_ctr_List 			= App.controller.PrjUser.List;
-			pr_ctr_Ent				= App.controller.PrjUser.Ent;
+			pr_ctr_List 			= App.controller.PrjUserClient.List;
+			pr_ctr_Ent				= App.controller.PrjUserClient.Ent;
 			
-			if (!App.controller.PrjUser)					App.controller.PrjUser						= {};
+			if (!App.controller.PrjUserClient)					App.controller.PrjUserClient						= {};
 			
-			if (!App.controller.PrjUser.Ent)				App.controller.PrjUser.Ent 					= this;
+			if (!App.controller.PrjUserClient.Ent)			App.controller.PrjUserClient.Ent 			= this;
 			
-			if(!App.controller.PrjUser.EntContent)			App.controller.PrjUser.EntContent 			= new PrjUserEntContent			(grpName, null, null, null);
-//			if(!App.controller.PrjUser.EntTabJobPosition)	App.controller.PrjUser.EntTabJobPosition 	= new PrjUserEntTabJobPosition	(grpName, null, null, null);
-			if(!App.controller.PrjUser.EntTabPersonInfo)	App.controller.PrjUser.EntTabPersonInfo		= new PrjUserEntTabPersonInfo	(grpName, null, null, null);
-			if(!App.controller.PrjUser.EntTabRights	)		App.controller.PrjUser.EntTabRights			= new PrjUserEntTabRights		(grpName, null, null, null);
+			if(!App.controller.PrjUserClient.EntContent)			App.controller.PrjUserClient.EntContent 			= new PrjUserEntContent			(grpName, null, null, null);
+//			if(!App.controller.PrjUser.EntTabJobPosition)	App.controller.PrjUser.EntTabJobPosition 					= new PrjUserEntTabJobPosition	(grpName, null, null, null);
+			if(!App.controller.PrjUserClient.EntTabPersonInfo)	App.controller.PrjUserClient.EntTabPersonInfo			= new PrjUserEntTabPersonInfo	(grpName, null, null, null);
+			if(!App.controller.PrjUserClient.EntTabRights	)		App.controller.PrjUserClient.EntTabRights			= new PrjUserEntTabRights		(grpName, null, null, null);
 			
 			
 			do_get_per_societe(societePartnerSupp+","+societePartnerOther);
@@ -272,10 +272,10 @@ define([
 		}
 		
 		const do_lc_show_blocks = function(obj, mode){
-			App.controller.PrjUser.EntContent 		.do_lc_show(obj, mode);
+			App.controller.PrjUserClient.EntContent 		.do_lc_show(obj, mode);
 //			App.controller.PrjUser.EntTabJobPosition.do_lc_show(obj, mode);
-			App.controller.PrjUser.EntTabPersonInfo .do_lc_show(obj, mode);
-			App.controller.PrjUser.EntTabRights 	.do_lc_show(obj, mode);
+			App.controller.PrjUserClient.EntTabPersonInfo 	.do_lc_show(obj, mode);
+			App.controller.PrjUserClient.EntTabRights 		.do_lc_show(obj, mode);
 			
 			if(mode == var_lc_MODE_NEW){
 				$("#div_user_funct").removeClass("hide");

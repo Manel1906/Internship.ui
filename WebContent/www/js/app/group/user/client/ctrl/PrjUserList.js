@@ -1,7 +1,7 @@
 define(['jquery'], function($) {
 
 	var PrjUserList 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PrjUserMan";
+		var pr_grpName				= grpName?grpName:"PrjUserList";
 		
 		const tmplName				= App.template.names[pr_grpName];
 		const tmplCtrl				= App.template.controller;
@@ -77,7 +77,7 @@ define(['jquery'], function($) {
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
-			pr_ctr_Ent				= App.controller.PrjUser.Ent;
+			pr_ctr_Ent				= App.controller.PrjUserClient.Ent;
 			pr_ctr_dashboard		= App.controller.PrjDashboard.Ent
 		}
 

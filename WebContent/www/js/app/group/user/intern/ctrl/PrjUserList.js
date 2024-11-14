@@ -1,7 +1,7 @@
 define(['jquery'], function($) {
 
 	var PrjUserList 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PrjUserMan";
+		var pr_grpName				= grpName?grpName:"PrjUserList";
 		
 		const tmplName				= App.template.names[pr_grpName];
 		const tmplCtrl				= App.template.controller;

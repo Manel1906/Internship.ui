@@ -40,7 +40,7 @@ define([
 		var pr_divFooter 			= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"PrjUserClient";
+		var pr_grpName				= grpName?grpName:"PrjClientMain";
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
@@ -57,7 +57,7 @@ define([
 //				2: "aut_user_ent_header_type_adm"	,	20: "aut_user_ent_header_type_doctor"	,	30: "aut_user_ent_header_type_agent"
 				40: "aut_user_ent_header_type_patient"
 		}
-		Handlebars.registerHelper('reqTypOfUser', function(typ) {
+		Handlebars.registerHelper('reqTypeClient', function(typ) {
 			if(!typ)				return $.i18n(TYP_USER[3]);
 			if(!TYP_USER[typ])		return $.i18n(TYP_USER[3]);
 	
@@ -107,18 +107,18 @@ define([
 			
 			
 			//---------------------------------------------------------------------------------------------
-			if (!App.controller.PrjUser) App.controller.PrjUser = {};
+			if (!App.controller.PrjUserClient) App.controller.PrjUserClient = {};
 			
-			if (!App.controller.PrjUser.List)  
-				App.controller.PrjUser.List				= new PrjUserList		(grpName, null, null, null);
+			if (!App.controller.PrjUserClient.List)  
+				App.controller.PrjUserClient.List				= new PrjUserList		(grpName, null, null, null);
 			
-			if (!App.controller.PrjUser.Ent)  
-				App.controller.PrjUser.Ent				= new PrjUserEnt		(grpName, null, null, null);
+			if (!App.controller.PrjUserClient.Ent)  
+				App.controller.PrjUserClient.Ent				= new PrjUserEnt		(grpName, null, null, null);
 			
 			
 			
-			App.controller.PrjUser.List					.do_lc_init();
-			App.controller.PrjUser.Ent					.do_lc_init();
+			App.controller.PrjUserClient.List					.do_lc_init();
+			App.controller.PrjUserClient.Ent					.do_lc_init();
 			
 			
 			
@@ -155,11 +155,11 @@ define([
 				
 				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_MAIN, {}));
 
-				App.controller.PrjUser.List.do_lc_show("#div_user_list");
+				App.controller.PrjUserClient.List.do_lc_show("#div_user_list");
 				$(document).prop('title',$.i18n('prj_project_sidebar_user'));
 
 			}catch(e) {				
-				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "PrjUserMain", "do_lc_show", e.toString()) ;
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "PrjClientMain", "do_lc_show", e.toString()) ;
 			}
 		}
 		

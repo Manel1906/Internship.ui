@@ -15,7 +15,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
 		
-		const pr_prjUser		    = App.controller.PrjUser;
+		const pr_prjUser		    = App.controller.PrjUserClient;
 		
 		var svClass 				= App['const'].SV_CLASS;
 		var svName					= App['const'].SV_NAME;
@@ -391,7 +391,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
 		
-		const pr_prjUser		    = App.controller.PrjUser;
+		const pr_prjUser		    = App.controller.PrjUserClient;
 		
 		var svClass 				= App['const'].SV_CLASS;
 		var svName					= App['const'].SV_NAME;
@@ -515,7 +515,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var pr_ctr_EntBtn 			= null;
 		var pr_ctr_EntTabs 			= null;
 
-		const pr_prjUser		    = App.controller.PrjUser;
+		const pr_prjUser		    = App.controller.PrjUserClient;
 		//-----------------------------------------------------------------------------------
 		var pr_object				= null;
 		var pr_mode					= null;
