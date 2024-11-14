@@ -674,6 +674,13 @@ define([
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"
 				},
+				[App.router.part.PRJ_MNG_MED]		: {
+					grpName		: "PrjMngMed"										, ctrlName 		: "Main", 
+					ctrlPath    : "group/mat/mat_pharma/ctrl/TpyMatPharmaMain"		, ctrlParams 	: ["PrjMngMed", null, null , null, ], 
+					fInit		: "do_lc_init"										, fInitParams	: [],
+					fShow		: "do_lc_show"										, fShowParams	: [],
+					rights		: "view:"
+				},
 		}
 		
 		//--------------------------------------------------------------------------------------------

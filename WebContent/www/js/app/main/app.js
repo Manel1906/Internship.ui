@@ -4,11 +4,14 @@ var APP_NAME="Zino";
 var	APP_API_URL=window.location.origin;
 //var	APP_API_URL="https://zino...."; //--use for mobile app
 
-var	CDN_JS 	="https://zino.pages.dev/www/js/"; 
-//var	CDN_JS 	=""; 
+var	CDN_JS 	=""; 
+var	CDN_JS 	=""; 
 var	CDN_IMG ="";
 var	CDN_CSS ="";
-//var	CDN_JS="https://zino.pages.dev/www/js/";
+
+if (APP_ENV==1){
+	CDN_JS 	="https://zino.pages.dev/www/js/"; 
+}
 
 var UI_URL_ROOT = "www/";
 //var UI_URL_ROOT	= can_gl_MobileOrTablet() ? "" : "www/";
