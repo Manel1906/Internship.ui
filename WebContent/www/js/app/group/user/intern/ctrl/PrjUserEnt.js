@@ -6,7 +6,7 @@ define([
 	){
 	
 	var PrjUserEnt 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PrjUserMan";
+		var pr_grpName				= grpName?grpName:"PrjUserEnt";
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
