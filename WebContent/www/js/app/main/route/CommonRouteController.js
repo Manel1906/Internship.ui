@@ -98,6 +98,7 @@ define(['require',
 				PRJ_JOB_REPORT_MAN				: "prj_job_report_man",
 				
 				PRJ_JOB_OFF						: "prj_job_off",
+				PRJ_JOB_WORK					: "prj_job_work",
 				PRJ_JOB_OFF_MAN					: "prj_job_off_man",
 				
 				PRJ_USR_PW_RESET    			: "prj_usr_pw_reset_view",

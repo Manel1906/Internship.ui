@@ -1,0 +1,185 @@
+<!-- ------------------------------main----------------------------- -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-0">
+            <div class="card-body" id="div_create_prj_appointment">
+                <div class="outer-repeater">
+                    <div data-repeater-list="outer-group" class="outer">
+                        <div data-repeater-item class="outer">
+                            <!-- name -->
+							<div class="form-group row mb-2">
+							    <div class="col-lg-12">
+							        <div class="d-flex align-items-center">
+							            <label for="projectname" style="width:200px" class="col-form-label h5">{{transl 'prj_appointment_title'}}</label>
+							        	{{name}}
+							        </div>
+							            
+							    </div>
+							</div>
+							<div class="form-group row mb-2">
+                                <div class="col-lg-12">
+	                                <div class="d-flex align-items-center">
+	                                    <label for="cmt03" style="width:200px" class="col-form-label h5">{{transl 'prj_schedule_work'}}</label>
+										  	{{#equal typ02 100}}
+						                    	{{transl 'prj_appointment_option_zero'}}
+							                {{/equal}}
+							                {{#equal typ02 200}}
+							                    {{transl 'prj_appointment_option_one'}}
+							                {{/equal}}
+							                {{#equal typ02 300}}
+							                    {{transl 'prj_appointment_option_two'}}
+							                {{/equal}}
+							                {{#equal typ02 400}}
+							                    {{transl 'prj_appointment_option_three'}}
+							                {{/equal}}
+							                {{#equal typ02 500}}
+							                    {{transl 'prj_appointment_option_four'}}
+							                {{/equal}}
+							                {{#equal typ02 600}}
+							                    {{transl 'prj_appointment_option_five'}}
+							                {{/equal}}
+						                    
+						  
+	                                </div>
+                                 </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <div class="col-lg-12">
+                               		<div class="d-flex align-items-center">
+								    <label for="cmt03" style="width:200px" class="col-form-label h5">{{transl 'prj_departments_level'}}</label>
+								    {{#equal parId 100}}
+								        {{transl 'prj_department_one'}}
+								    {{/equal}}
+								    {{#equal parId 200}}
+								        {{transl 'prj_department_two'}}
+								    {{/equal}}
+								    {{#equal parId 300}}
+								        {{transl 'prj_department_three'}}
+								    {{/equal}}
+								    {{#equal parId 400}}
+								        {{transl 'prj_department_four'}}
+								    {{/equal}}
+								    {{#equal parId 500}}
+								        {{transl 'prj_department_five'}}
+								    {{/equal}}
+								    {{#equal parId 600}}
+								        {{transl 'prj_department_six'}}
+								    {{/equal}}
+								    {{#equal parId 700}}
+								        {{transl 'prj_department_seven'}}
+								    {{/equal}}
+								    {{#equal parId 800}}
+								        {{transl 'prj_department_eight'}}
+								    {{/equal}}
+								    {{#equal parId 900}}
+								        {{transl 'prj_department_nine'}}
+								    {{/equal}}
+								    {{#equal parId 1000}}
+								        {{transl 'prj_department_ten'}}
+								    {{/equal}}
+								    {{#equal parId 1100}}
+								        {{transl 'prj_department_eleven'}}
+								    {{/equal}}
+								    {{#equal parId 1200}}
+								        {{transl 'prj_department_twelve'}}
+								    {{/equal}}
+								    {{#equal parId 1300}}
+								        {{transl 'prj_department_thirteen'}}
+								    {{/equal}}
+								    {{#equal parId 1400}}
+								        {{transl 'prj_department_fourteen'}}
+								    {{/equal}}
+								</div>
+
+                                   
+                                </div>
+                            </div>
+
+                            <!-- name -->
+                            <div class="form-group row mb-2">
+                                <div class="col-lg-12">
+                                    <div class="d-flex align-items-center">
+	                                    <label for="cmt03" style="width:200px" class="col-form-label h5">{{transl
+                                        'prj_appointment_area'}}</label>
+                                        {{inf01}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- descr01 -->
+                            <div class="row mb-2">
+                                <div class="col-lg-12">
+                                	<div class="d-flex align-items-center">
+                                    <label for="projectdesc" style="width:200px" class="col-form-label h5">{{transl
+                                        'prj_appointment_cmt'}}</label>
+                                        {{inf02.desc}}
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-2">
+                                <!-- date -->
+                                <div class="col-lg-12">
+                                	<div class="d-flex align-items-center">
+                                    	<label style="width:200px" class="col-form-label h5">{{transl 'prj_project_start_date'}}</label>
+                                        {{reqFormatDate dtBegin}}
+                                </div>
+                                </div>
+                             </div>
+                             <div class="row mb-2">
+                                <div class="col-lg-12">
+                                	<div class="d-flex align-items-center">
+                                    	<label style="width:200px" class="col-form-label h5">{{transl 'prj_project_end_date'}}</label>
+                                        {{reqFormatDate dtEnd}}
+                                    </div>
+                                    </div>
+                                </div>
+                               
+
+                           
+                             <!-- member -->
+                             <div class="row mb-2" id="div_list_member_par">
+                                <div class="col-lg-12">
+                                <label class="col-form-label h5">{{transl 'prj_project_member_level_worker'}}</label>
+                                    <div class="" id="div_list_member">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- customer -->
+                            <div class="mb-2" id="div_list_email_customer_par">
+                               <label class="col-form-label h5">{{transl 'prj_project_add_customer'}}</label>
+                               <div class="row justify-content-end">
+                                   <div class="col-lg-12" id="div_list_email_customer"></div>
+                               </div>
+                           </div>
+                           
+                            <!-- link -->
+                            <div class="mb-2" id="div_link_direct_par">
+                                <label class="col-form-label h5">{{transl 'prj_appointment_link_direct'}}</label>
+                                <div class="row justify-content-end">
+                                    <div class="col-lg-12" id="div_link_direct"></div>
+                                </div>
+                            </div>
+
+                         
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- buttons outside card -->
+<div class="row justify-content-end mt-2">
+    <div class="col-auto" id="div_buttons_container" style="display: flex; gap: 8px;">
+        <div id="div_button_edit">
+            <button class="btn btn-primary btn-sm">{{transl "prj_appointment_event_edit"}}</button>
+        </div>
+        <div id="div_button_delete">
+            <button class="btn btn-danger btn-sm">{{transl "prj_appointment_event_del"}}</button>
+        </div>
+    </div>
+</div>

@@ -570,6 +570,14 @@ define([
 					rights		: "view:"
 				},
 				
+				[App.router.part.PRJ_JOB_WORK]	: {
+					grpName		: "PrjAppointmentListWork"									, ctrlName 		: "List", 
+					ctrlPath    : "group/user_appointment_work/ctrl/PrjAppointmentListWork"	, ctrlParams 	: ["PrjAppointmentListWork", null, null , null, ], 
+					fInit		: "do_lc_init"											, fInitParams	: [],
+					fShow		: "do_lc_show"											, fShowParams	: [],
+					rights		: "view:"
+				},
+				
 				[App.router.part.PRJ_JOB_OFF_MAN]	: {
 					grpName		: "PrjJobOffMan"									, ctrlName 		: "Main", 
 					ctrlPath    : "group/job/day_off_man/ctrl/JobOffMain"			, ctrlParams 	: ["PrjJobOffMan", null, "#div_main_content" , null], 

@@ -1,0 +1,178 @@
+<div id="div_video_call_calendar"></div>
+<div id="div_video_call"></div>
+<div class="page-content">
+    <div class="container my-4">
+        <div class="row align-items-center" id="div_search_prj_appointment">
+            <!-- Department Selection -->
+            <div class="col-md-3 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">{{transl 'prj_departments_level'}}</span>
+                    <select data-name="parId" id="department" class="form-control objData">
+					    <option value="100">{{transl 'prj_department_one'}}</option>
+					    <option value="200">{{transl 'prj_department_two'}}</option>
+					    <option value="300">{{transl 'prj_department_three'}}</option>
+					    <option value="400">{{transl 'prj_department_four'}}</option>
+					    <option value="500">{{transl 'prj_department_five'}}</option>
+					    <option value="600">{{transl 'prj_department_six'}}</option>
+					    <option value="700">{{transl 'prj_department_seven'}}</option>
+					    <option value="800">{{transl 'prj_department_eight'}}</option>
+					    <option value="900">{{transl 'prj_department_nine'}}</option>
+					    <option value="1000">{{transl 'prj_department_ten'}}</option>
+					    <option value="1100">{{transl 'prj_department_eleven'}}</option>
+					    <option value="1200">{{transl 'prj_department_twelve'}}</option>
+					    <option value="1300">{{transl 'prj_department_thirteen'}}</option>
+					    <option value="1400">{{transl 'prj_department_fourteen'}}</option>
+					</select>
+
+                </div>
+            </div>
+
+            <!-- Member Information -->
+            <div class="col-md-4 mb-3">
+                <div data-repeater-list="inner-group">
+                    <div data-repeater-item class="inner">
+                        <div class="row">
+                            <!-- Member Type -->
+                            <div class="col-md-6">
+                                <select class="form-control hide" id="sel_member_type_all">
+                                    <option value="0">{{transl 'prj_project_member_level'}}</option>
+                                    <option value="0">{{transl 'prj_project_lev_bas'}}</option>
+                                    <option value="1" selected>{{transl 'prj_project_lev_haute'}}</option>
+                                </select>
+                            </div>
+                            <!-- Member Level -->
+                            <div class="col-md-6">
+                                <select class="form-control hide" id="sel_member_level_all">
+                                    <option value="0" class="d-none">{{transl 'prj_project_member_level_manager'}}</option>
+                                    <option data-external-mem="true" value="10" class="d-none">{{transl 'prj_project_member_level_reporter'}}</option>
+                                    <option value="20" class="d-none">{{transl 'prj_project_member_level_developer'}}</option>
+                                    <option value="30" class="d-none">{{transl 'prj_project_member_level_tester'}}</option>
+                                    <option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
+                                    <option value="50" class="d-none">{{transl 'prj_project_member_level_watcher'}}</option>
+                                </select>
+                            </div>
+                            <!-- Member Name Input -->
+                            <div class="col-md-12 d-flex">
+                            	<label for="list_member_all" class="input-group-text">{{transl 'prj_doctor_level'}}</label>
+                                <input type="text" id="list_member_all" class="form-control inp-name-member_all" placeholder="{{transl 'prj_project_enter_name'}}" />
+                                <div id="selected_members_all"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Work Schedule -->
+            <div class="col-md-3 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text">{{transl 'prj_schedule_work'}}</span>
+                    <select data-name="typ02" id="typ02" class="form-control objData">
+                        <option value="100">{{transl 'prj_appointment_option_zero'}}</option>
+                        <option value="200">{{transl 'prj_appointment_option_one'}}</option>
+                        <option value="300">{{transl 'prj_appointment_option_two'}}</option>
+                        <option value="400">{{transl 'prj_appointment_option_three'}}</option>
+                        <option value="500">{{transl 'prj_appointment_option_four'}}</option>
+                        <option value="600">{{transl 'prj_appointment_option_five'}}</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="col-md-2 d-flex align-items-center mb-3">
+                <button id="btn_search" type="button" class="btn btn-primary w-100">{{transl 'prj_schedule_work_search'}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+	<div>
+		<div class="row">
+		    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex justify-content-around align-items-center">
+		        <div class="d-flex align-items-center">
+		            <div id="dp_nav_btn" class="gap-1 align-items-center ml-2">
+		            	<b class="h1"><span id="day-now"></span></b>
+		                <button id="previous" class="btn btn-light rounded-circle border mx-1">
+		                    <i class='bx bx-chevron-left' style="font-size: 15px; color: #808080;"></i>
+		                </button>
+		                <button id="next" class="btn btn-light rounded-circle border mx-1">
+		                    <i class='bx bx-chevron-right' style="font-size: 15px; color: #808080;"></i>
+		                </button>
+		                <input type="text" id="nav_calendar_show" class="position-absolute" style="opacity: 0; pointer-events: none; top: 20px">
+		                <div class="btn btn-light rounded-circle border mx-1" id="nav_calendar">
+		                    <img src="www/img/icon/appointment.png" alt="Calendar" style="height: 20px; filter: grayscale(100%);">
+		                </div>
+		                
+		            </div>
+		        </div>
+		        <div></div>
+		        <div></div>
+		        <div></div>
+		        <div class="d-flex align-items-center">
+		            <button class="btn btn-primary ml-1 hide" type="button" id="btn_create_prj">{{transl "prj_appointment_btn_new"}}</button>
+		        </div>
+		    </div>
+		</div>
+
+		<br />
+		<div class="row">
+			<div class="col-md-12">
+				{{#if forDesktop}}
+				<div class="main" style="display: flex;">
+					<div style="flex-grow: 1; margin-left: 5px;">
+						<div id="dp_schedule"></div>
+						<div class="container mt-4">
+						    <div class="row">
+						        <div class="col-6 d-flex flex-column gap-2">
+						            <div class="legend-item">
+						                <div class="legend-color-box gray-box"></div>
+						                <span>{{transl "prj_appointment_option_zero"}}</span>
+						            </div>
+						            <div class="legend-item">
+						                <div class="legend-color-box blue-box"></div>
+						                <span>{{transl "prj_appointment_option_one"}}</span>
+						            </div>
+						            <div class="legend-item">
+						                <div class="legend-color-box orange-box"></div>
+						                <span>{{transl "prj_appointment_option_two"}}</span>
+						            </div>
+						        </div>
+						        <div class="col-6 d-flex flex-column gap-2">
+						            <div class="legend-item">
+						                <div class="legend-color-box green-box"></div>
+						                <span>{{transl "prj_appointment_option_three"}}</span>
+						            </div>
+						            <div class="legend-item">
+						                <div class="legend-color-box pink-box"></div>
+						                <span>{{transl "prj_appointment_option_four"}}</span>
+						            </div>
+						            <div class="legend-item">
+						                <div class="legend-color-box yellow-box"></div>
+						                <span>{{transl "prj_appointment_option_five"}}</span>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+
+					</div>
+				</div>
+
+				{{else}}
+				<!-- 				<div class="col-12"> -->
+				<!-- 				</div> -->
+				<!-- 				<div class="col-12"> -->
+				<div id="dp_schedule_work"></div>
+				<!-- 				</div> -->
+				{{/if}} <br />
+				<div class="wygo-order-box-description" style="display: none"
+					id="schedule_toolTip">
+					<b><i><span style="color: blue"> </span></i></b>
+				</div>
+				{{#ifCond listSize '==' 0 }}
+				<div class="errMsg" style="display: contents;">{{transl
+					"order_placeorder_nolist"}}</div>
+				{{/ifCond}}
+			</div>
+		</div>
+	</div>
+
+</div>

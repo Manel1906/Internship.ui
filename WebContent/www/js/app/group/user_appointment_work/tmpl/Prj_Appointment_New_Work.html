@@ -1,0 +1,205 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-0">
+            <div class="card-body" id="div_create_prj_appointment">
+                <div class="outer-repeater">
+                    <!-- Event Name -->
+                    <input type="hidden" class="objData" data-name="id" data-validation="number" value="{{ent.id}}">
+                    <div class="form-group row mb-2">
+                        <div class="col-lg-12">
+                            <label for="title" class="col-form-label h5">{{transl 'prj_appointment_title'}}</label>
+                            <input id="cmt03" data-name="name" type="text"
+                                            class="form-control objData" placeholder="{{getPlaceHolderName typ02}}"
+                                            data-validation="required" value="{{ent.inf01}}">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row mb-2">
+                        <div class="col-lg-12">
+                            <label for="typ02" for="scheduleType" class="col-form-label h5">{{transl 'prj_schedule_work_type'}}</label>
+                            <select data-name="typ02" id="typ02" class="form-control objData typ02">
+							    <option {{#equal ent.typ02 100}}selected{{/equal}} value="100" data-color="#d3d3d3">{{transl 'prj_appointment_option_zero'}}</option>
+							    <option {{#equal ent.typ02 200}}selected{{/equal}} value="200" data-color="#87cefa">{{transl 'prj_appointment_option_one'}}</option>
+							    <option {{#equal ent.typ02 300}}selected{{/equal}} value="300" data-color="#ffa500">{{transl 'prj_appointment_option_two'}}</option>
+							    <option {{#equal ent.typ02 400}}selected{{/equal}} value="400" data-color="#34c38f">{{transl 'prj_appointment_option_three'}}</option>
+							    <option {{#equal ent.typ02 500}}selected{{/equal}} value="500" data-color="#ffb6c1">{{transl 'prj_appointment_option_four'}}</option>
+							    <option {{#equal ent.typ02 600}}selected{{/equal}} value="600" data-color="#ffff99">{{transl 'prj_appointment_option_five'}}</option>
+							</select>
+							<input type="hidden" id="colorValue" data-group="inf02" data-name="cl" />
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="form-group row mb-2">
+                        <div class="col-lg-12">
+                            <label for="location" class="col-form-label h5">{{transl 'prj_appointment_area'}}</label>
+                            <input type="hidden" class="objData" data-name="lev" value="{{lev}}">
+                                        <input id="cmt03" data-name="inf01" type="text"
+                                            class="form-control objData" placeholder="{{getPlaceHolderName typ02}}"
+                                            data-validation="required" value="{{ent.inf01}}">
+                        </div>
+                    </div>
+
+                    <!-- Department -->
+                    <div class="form-group row mb-2">
+                        <div class="col-lg-12">
+                            <label for="department" class="col-form-label h5">{{transl 'prj_departments_level'}}</label>
+                            <input id="department_input_id" type="hidden" data-name="parId" class="form-control objData" disabled>
+                            <input id="department_input" type="text" class="form-control" disabled>
+                        </div>
+                    </div>
+
+                    <!-- Notes -->
+                    <div class="form-group row mb-2">
+                        <div class="col-lg-12">
+                            <label for="projectdesc" class="col-form-label h5">{{transl 'prj_appointment_cmt'}}</label>
+                                    <div class="">
+                                        <textarea class="form-control objData" data-group="inf02" data-name="desc" id="projectdesc"
+                                            rows="3" placeholder="{{transl 'prj_project_enter_project_des'}}">{{ent.inf02.desc}}</textarea>
+                                    </div>	
+                        </div>
+                    </div>
+
+                    <!-- Date and Time -->
+                    <div class="form-group row mb-2">
+                        <div class="col-lg-12">
+                                    <label class="col-form-label h5">{{transl 'prj_project_project_date'}} *</label>
+                                    <div>
+                                        <div class="input-daterange input-group">
+                                            <input data-format="date" type="text" data-validation="date required"
+                                                class="form-control objData" id="dtpicker_Begin"
+                                                placeholder="{{transl 'prj_project_start_date'}}" data-group="dtBegin"
+                                                data-name="date" data-provide="datepicker"
+                                                data-date-format="dd/mm/yyyy"/>
+
+                                            <input type="text" class="form-control objData tmpicker mr-4"
+                                                id="tmpicker_Begin" placeholder="{{transl 'prj_project_start_date'}}"
+                                                data-group="dtBegin" data-name="time" data-provide="timepicker" data-validation="required"/>
+
+                                            <input data-format="date" type="text" data-validation="date required"
+                                                class="form-control objData" id="dtpicker_End"
+                                                placeholder="{{transl 'prj_project_end_date'}}" data-group="dtEnd"
+                                                data-name="date" data-provide="datepicker"
+                                                data-date-format="dd/mm/yyyy"/>
+
+                                            <input type="text" class="form-control objData tmpicker" id="tmpicker_End"
+                                                placeholder="{{transl 'prj_project_end_date'}}" data-group="dtEnd"
+                                                data-name="time" data-provide="timepicker" data-validation="required"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+
+                    <div  class="form-group row mb-2 mod-repeat-hide">
+					    <div class="col-lg-6">
+					        <label class="col-form-label h5">{{transl 'prj_project_project_repeat'}}</label>
+					        <div id="toggleDropDown" style="position: relative; display: inline-block; width: 100%; cursor: pointer;">
+					            <div style="
+					                padding: 5px;
+					                border: 1px solid #ccc;
+					                background-color: #f9f9f9;
+					                width: 100%;
+					                text-align: left;
+					                font-size: 16px;
+					            ">
+					                {{transl 'prj_project_project_repeat'}}
+					            </div>
+					            <div id="weekdayDropdown" style="
+					                display: none;
+					                position: absolute;
+					                background-color: #f9f9f9;
+					                border: 1px solid #ccc;
+					                width: 100%;
+					                max-height: 200px;
+					                overflow-y: auto;
+					                box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+					                z-index: 1;
+					            ">
+					                <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
+					                    <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Mon" style="margin-right: 8px;"> {{transl 'prj_repeat_one'}}
+					                </label>
+					                <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
+					                    <input type="checkbox"   data-group="inf02" data-name="repeat-day"  value="Tue" style="margin-right: 8px;">  {{transl 'prj_repeat_two'}}
+					                </label>
+					                <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
+					                    <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Wed" style="margin-right: 8px;"> {{transl 'prj_repeat_three'}}
+					                </label>
+					                <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
+					                    <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Thu" style="margin-right: 8px;"> {{transl 'prj_repeat_four'}}
+					                </label>
+					                <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
+					                    <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Fri" style="margin-right: 8px;"> {{transl 'prj_repeat_five'}}
+					                </label>
+					                <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
+					                    <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Sat" style="margin-right: 8px;"> {{transl 'prj_repeat_six'}}
+					                </label>
+					                <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
+					                    <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Sun" style="margin-right: 8px;"> {{transl 'prj_repeat_seven'}}
+					                </label>
+					            </div>
+					        </div>
+					    </div>
+                        <div class="col-lg-6">
+                            <label for="" class="col-form-label h5">{{transl 'prj_project_project_frequency'}}</label>
+                            <select data-group="inf02" data-name="repeat" class="form-control objData">
+                                <option value="1">{{transl 'prj_frequency_one'}}</option>
+                                <option value="2">{{transl 'prj_frequency_two'}}</option>
+                                <option value="3">{{transl 'prj_frequency_three'}}</option>
+                                <option value="4">{{transl 'prj_frequency_four'}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-2">
+                        <div class="col-lg-12">
+                                    <div data-repeater-list="inner-group" class="inner form-group mb-0 row">
+                                        <div class="col-lg-12">
+                                            <label class="col-form-label h5">{{transl 'prj_project_add_team'}}</label>
+                                            <div data-repeater-item class="inner ml-md-auto">
+                                                <div class="mb-3 row align-items-center">
+                                                    <div class="col-md-3 hide">
+                                                        <div class="mt-2 mt-md-0">
+                                                            <select class="form-control" id="sel_member_type">
+                                                                <option value="0">{{transl 'prj_project_member_level'}}
+                                                                </option>
+                                                                <option value="0">{{transl 'prj_project_lev_bas'}}
+                                                                </option>
+                                                                <option value="1" selected>{{transl 'prj_project_lev_haute'}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="mt-2 mt-md-0">
+                                                          <!-- <select class="form-control" id="sel_member_level">
+    														<option value="0" class="hide">{{transl 'prj_project_member_level_manager'}}</option>
+    														<option data-external-mem="true" value="10" class="hide">{{transl 'prj_project_member_level_reporter'}}</option>
+    														<option value="20" class="hide">{{transl 'prj_project_member_level_developer'}}</option>
+    														<option value="30" class="hide">{{transl 'prj_project_member_level_tester'}}</option>
+    														<option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
+    														<option value="50" class="hide">{{transl 'prj_project_member_level_watcher'}}</option>
+														</select> -->
+															<div class="form-control" id="sel_member_level" data-external-mem="true" value="40">{{transl 'prj_project_member_level_worker'}}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="inner form-control inp-name-member"
+                                                            placeholder="{{transl 'prj_project_enter_name'}}" />
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                        <div class="col-lg-12" id="div_list_member"></div>
+                                    </div>
+                                </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
