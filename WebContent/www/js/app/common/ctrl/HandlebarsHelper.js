@@ -1339,6 +1339,10 @@ const do_gl_Handlebars_Register = function (){
 	const PRJ_TEST_TYPE 			= {1: "aut_test_ent_header_stat_1"	, 2: "aut_test_ent_header_stat_2"	, 3: "aut_test_ent_header_stat_3"	, 4: "aut_test_ent_header_stat_4", 10: "aut_test_ent_header_stat_10"};
 	const PRJ_TEST_IMG 				= {1: "aut_test_ent_header_stat_1"	, 2: "aut_test_ent_header_stat_2"	, 3: "aut_test_ent_header_stat_3"	, 4: "aut_test_ent_header_stat_4", 10: "aut_test_ent_header_stat_10"};
 	const PRJ_UNIT_TYPE 			= {3: "aut_test_unit_header_stat_3"	, 4: "aut_test_unit_header_stat_4"	, 5: "aut_test_unit_header_stat_5"	, 6: "aut_test_unit_header_stat_6", 10: "aut_test_unit_header_stat_10"};
+	const PRJ_GRP_MED 				= {100: "aut_test_ent_grp_medicine_stat_100"	, 200: "aut_test_ent_grp_medicine_stat_200"	, 500: "aut_test_ent_grp_medicine_stat_500"	, 300: "aut_test_ent_grp_medicine_stat_300", 700: "aut_test_ent_grp_medicine_stat_700", 900: "aut_test_ent_grp_medicine_stat_900"};
+	const PRJ_GRP_PRD 				= {2: "aut_test_ent_manu_medicine_stat_2"	, 3: "aut_test_ent_manu_medicine_stat_3"	, 4: "aut_test_ent_manu_medicine_stat_4"	, 10: "aut_test_ent_manu_medicine_stat_10"};
+	const PRJ_GRP_PKG 				= {5: "aut_test_ent_package_medicine_stat_5"	, 6: "aut_test_ent_package_medicine_stat_6"	, 7: "aut_test_ent_package_medicine_stat_7"	, 10: "aut_test_ent_package_medicine_stat_10"};
+	const PRJ_GRP_UNIT 				= {6: "aut_test_ent_unit_medicine_stat_6"	, 7: "aut_test_ent_unit_medicine_stat_7"	, 8: "aut_test_ent_unit_medicine_stat_8"	, 10: "aut_test_ent_unit_medicine_stat_10"};
 	const PRJ_LEVEL 				= {1: "prj_project_lev_01"	, 2: "prj_project_lev_02"	, 3: "prj_project_lev_03"	, 4: "prj_project_lev_04"};
 	const PRJ_TYPE01 				= {1: "prj_project_type_01"	, 2: "prj_project_type_02"	, 3: "prj_project_type_03"	, 4: "prj_project_type_04"};
 	const PRJ_STAT 					= {0: "prj_project_stat_00"	, 1: "prj_project_stat_01"	, 2: "prj_project_stat_02"	, 3: "prj_project_stat_03", 4: "prj_project_stat_04", 5: "prj_project_stat_05", 6: "prj_project_stat_06", 7: "prj_project_stat_07"};
@@ -1426,6 +1430,22 @@ const do_gl_Handlebars_Register = function (){
 	Handlebars.registerHelper("reqTypeUnit", function(typ) {
 		if(typ === undefined)	return "";
 		return $.i18n(PRJ_UNIT_TYPE[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpMedi", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_MED[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpPrd", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_PRD[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpPkg", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_PKG[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpUnit", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_UNIT[+typ]);
 	});
 
 	Handlebars.registerHelper("reqTypPrj", function(typ) {
