@@ -315,20 +315,20 @@ define([
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_delete"),
+					content : $.i18n("msgbox_confirm_delete_account"),
 					width	: "400px",
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("common_btn_cancel_account"),
 							funct	: self.do_lc_clear_timeout_viewer,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("common_btn_can"),
 							funct	: do_lc_hide_div,
 							param	: [],
-							classBtn: "btn-primary"
+							classBtn: "btn-danger"
 						}
 					}
 				});
@@ -527,7 +527,6 @@ define([
 			ref["forPublic"]	= 0;
 			
 			var fSucces			= [];
-			fSucces.push(req_gl_funct(App	, do_gl_show_Notify_Msg_Success, [null, null, mode])); 
 			fSucces.push(req_gl_funct(null	, do_lc_afterSave_EntContent	, [mode]));
 			
 			var fError 			= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	

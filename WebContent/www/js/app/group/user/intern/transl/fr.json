@@ -260,8 +260,13 @@
 
   "per_tab_detail": "Détails",
   
-  "msgbox_confirm_delete": "Annuler, créer un nouveau compte ?",
+  "msgbox_confirm_delete_account": "Annuler la création du compte ?",
   "msgbox_confirm_save": "Enregistrer les informations du compte ?",
   
-  "btn_add_file": "Ajouter des fichiers"
+  "btn_add_file": "Ajouter des fichiers",
+  "prj_project_favorite_title_delete"                 : "Supprimer cette favorite",
+  "prj_project_favorite_title_delete_content"         : "Êtes-vous sûr à supprimer cette favorite?",
+  "job_report_msg_user_right_error"				  	  : "Vous n'avez pas l'autorisation d'ajouter un compte",
+  "aut_user_new_profile_header_title"     			  : "Ajouter un nouveau compte",
+  "common_btn_add"									  : "Ajouter Nouveau"
 }

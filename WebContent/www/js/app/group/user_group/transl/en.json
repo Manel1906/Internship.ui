@@ -61,6 +61,8 @@
 	"msgbox_confirm_creat"								: "Save specialty content ?",
 	"msgbox_confirm_cancel_create"						: "Cancel the new creation process ?",
 	"msgbox_confirm_save"								: "Save edited content ?",
-	"msgbox_confirm_save_cancel"						: "Cancel the edited content ?"
+	"msgbox_confirm_save_cancel"						: "Cancel the edited content ?",
+	"prj_project_member_see_projects"					: "See dashboard",
+	"prj_project_member_see_profile"					: "See profile"
 	
 }

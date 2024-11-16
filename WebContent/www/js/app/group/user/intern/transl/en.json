@@ -398,8 +398,16 @@
 
   "per_partner_header_select": "Option",
   
-  "msgbox_confirm_delete": "Cancel create new account?",
+  "msgbox_confirm_delete_account": "Cancel account creation?",
   "msgbox_confirm_save": "Save account information ?",
   
-  "btn_add_file": "Add files"
+  "btn_add_file": "Import",
+  "prj_project_favorite_title_delete"                 : "Remove favorite",
+  "prj_project_favorite_title_delete_content"         : "Are you sure remove this favorite ?",
+  "job_report_msg_user_right_error"					  : "You do not have permission to add an account",
+  "aut_user_new_profile_header_title"     			  : "Add new account",
+  "common_btn_add"									  : "Add New",
+  "common_btn_can"									  : "Cancel",
+  "common_btn_cancel"								  : "Back",
+  "common_btn_yes"									  : "Save"
 }

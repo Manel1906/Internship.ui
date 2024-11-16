@@ -685,7 +685,7 @@ define([
 							lab			: $.i18n("common_btn_ok"),
 							funct		: do_lc_del_group,
 							param		: [id],
-							classBtn	: "btn-primary"
+							classBtn	: "btn-danger"
 						}
 					}
 				});
@@ -860,9 +860,9 @@ define([
 						return;
 					}
 
+					data.edit 	= true
 					$("#div_usergroup_member").html("");
 					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, data));
-
 					App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 					App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
 					App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor
@@ -942,7 +942,7 @@ define([
 							lab		: $.i18n("common_btn_yes"),
 							funct	: self.do_lc_cancel,
 							param	: [],
-							classBtn: "btn-primary"
+							classBtn: "btn-danger"
 						}
 					}
 				});

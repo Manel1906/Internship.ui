@@ -31,7 +31,7 @@
 "tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
 "tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
 
-"btn_add_file"							: 	"Add files",
+"btn_add_file"							: 	"Import",
 
 "tpy_cat_disease_list_title"			:	"Disease information management",
 "tpy_cat_disease_new"					: 	"New",
@@ -59,7 +59,7 @@
 "tpy_cat_disease_note"					: 	"Note",
 
 "tpy_cat_disease_list"					: 	"List of related diseases",
-
+"tpy_cat_disease_edit_title"			: "Edit Disease Information",
 "msgbox_confirm_creat"					: 	"Save disease information ?",
 "msgbox_confirm_cancel_create"			: 	"Cancel new disease ?",
 

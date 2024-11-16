@@ -22,7 +22,7 @@
 	"prj_project_add_member": "Ajouter",
 	"prj_project_member_header_name": "Nom",
 	"prj_project_member_header_role": "Rôle",
-
+	"tpy_cat_disease_edit_title": "Modifier les informations sur le médicament/appareil",
 	"prj_project_member_level_manager": "Gestionnaire",
 	"prj_project_member_level_reporter": "Superviseur",
 	"prj_project_member_level_developer": "Développeur",
@@ -58,10 +58,10 @@
 	"prj_project_enter_name": "Entrez le nom du membre...",
 
 	"prj_specialty_list_title": "Gestion des informations des médicaments",
-	"btn_add_file": "Ajouter un fichier",
+	"btn_add_file": "Importer",
 	"prj_tpy_group_room": "Chambre",
 
-	"msgbox_confirm_creat": "Enregistrer le contenu de la spécialité ?",
+	"msgbox_confirm_creat": "Enregistrer les informations sur le médicament ?",
 	"msgbox_confirm_cancel_create": "Annuler la création ?",
 	"msgbox_confirm_save": "Enregistrer les modifications ?",
 	"msgbox_confirm_save_cancel": "Annuler les modifications ?",

@@ -31,7 +31,7 @@
 "tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
 "tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
 
-"btn_add_file"							: 	"Thêm tập tin",
+"btn_add_file"							: 	"Import",
 
 "tpy_cat_test_list_title"				:	"Quản lý doanh mục xét nghiệm",
 "tpy_cat_disease_new"					: 	"Thêm mới",
@@ -64,9 +64,9 @@
 
 "tpy_cat_disease_list"					: 	"Danh sách bệnh liên quan",
 
-"msgbox_confirm_creat"					: 	"Lưu thông tin bệnh ?",
+"msgbox_confirm_creat"					: 	"Lưu thông tin dịch vụ ?",
 "msgbox_confirm_cancel_create"			: 	"Hủy bỏ thêm mới bệnh ?",
-
+"tpy_cat_disease_edit_title"			:   "Chỉnh sữa thông tin dịch vụ",
 "tpy_cat_disease_btn_delete"			: 	"Xóa",
 "tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
 "aut_test_ent_header_stat_0"			: 	"Tất cả",

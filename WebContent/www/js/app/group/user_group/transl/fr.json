@@ -61,6 +61,8 @@
 	"msgbox_confirm_creat"								: "Enregistrer le contenu spécialisé ?",
 	"msgbox_confirm_cancel_create"						: "Annuler le nouveau processus de création ?",
 	"msgbox_confirm_save"								: "Enregistrer le contenu modifié ?",
-	"msgbox_confirm_save_cancel"						: "Annuler le contenu modifié ?"
+	"msgbox_confirm_save_cancel"						: "Annuler le contenu modifié ?",
+	"prj_project_member_see_projects"					: "Voir son tableau de bord",
+	"prj_project_member_see_profile"					: "Voir le profile"
 	
 }

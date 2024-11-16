@@ -31,7 +31,7 @@
 "tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
 "tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
 
-"btn_add_file"							: 	"Thêm tập tin",
+"btn_add_file"							: 	"Import",
 
 "tpy_cat_disease_list_title"			:	"Quản lý thông tin bệnh",
 "tpy_cat_disease_new"					: 	"Thêm mới",
@@ -57,15 +57,18 @@
 "tpy_cat_disease_treatment"				: 	"Các biện pháp điều trị",
 "tpy_cat_disease_describe"				: 	"Mô tả tổng quan",
 "tpy_cat_disease_note"					: 	"Ghi chú",
-
+"tpy_cat_disease_edit_title"			: 	"Chỉnh sữa thông tin bệnh",
 "tpy_cat_disease_list"					: 	"Danh sách bệnh liên quan",
 
 "msgbox_confirm_creat"					: 	"Lưu thông tin bệnh ?",
-"msgbox_confirm_cancel_create"			: 	"Hủy bỏ thêm mới bệnh ?",
+"msgbox_confirm_cancel_create"			: 	"Hủy bỏ quá trình chỉnh sữa ?",
 
 "tpy_cat_disease_btn_delete"			: 	"Xóa",
 "tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
-
+"common_btn_yes"						: 	"Hủy bỏ",
+"common_btn_cancel"						: 	"Quay lại",
 "msgbox_confirm_save_cancel"			:	"Hủy bỏ quá trình chỉnh sửa ?",
-"msgbox_confirm_save"					: 	"Lưu thông tin chỉnh sửa ?"
+"msgbox_confirm_save"					: 	"Lưu thông tin chỉnh sửa ?",
+"prj_project_del_user_group_popup_content": "Xóa thông tin bệnh",
+"prj_user_group_btn_delete_group"		:   "Xác nhận"
 }

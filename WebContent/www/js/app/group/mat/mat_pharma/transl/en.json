@@ -43,7 +43,7 @@
 	"prj_tpy_group_descr_enter"							: "Enter Group Description",
 	"prj_tpy_group_name_enter"							: "Medicine Name",
 	"tpy_cat_disease_new_title"							: "Add Medicine/Device",
-
+	"tpy_cat_disease_edit_title"						: "Edit Medicine/Device Information",
 	"prj_tpy_group_new"									: "Add New",
 	"prj_tpy_group_new_msg"								: "Create a chat group to work more efficiently!",
 
@@ -58,10 +58,10 @@
 	"prj_project_enter_name"							: "Enter Member Name...",
 
 	"prj_specialty_list_title"							: "Manage Medicine Information",
-	"btn_add_file"										: "Add File",
+	"btn_add_file"										: "Import",
 	"prj_tpy_group_room"								: "Room",
 
-	"msgbox_confirm_creat"								: "Save specialty content?",
+	"msgbox_confirm_creat"								: "Save the medicine information?",
 	"msgbox_confirm_cancel_create"						: "Cancel the creation process?",
 	"msgbox_confirm_save"								: "Save edited content?",
 	"msgbox_confirm_save_cancel"						: "Cancel edited content?",

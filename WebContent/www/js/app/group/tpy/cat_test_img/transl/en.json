@@ -30,7 +30,7 @@
     "tpy_cat_ent_type_02_03"                      : "Level III Group",
     "tpy_cat_ent_type_02_04"                      : "Level IV Group",
 
-    "btn_add_file"                                : "Add File",
+    "btn_add_file"                                : "Import",
 
     "tpy_test_img_list_title"                     : "Diagnostic Imaging Management",
     "tpy_cat_disease_new"                         : "Add New",
@@ -64,9 +64,10 @@
 
     "tpy_cat_disease_list"                        : "Related Disease List",
 
-    "msgbox_confirm_creat"                        : "Save disease information?",
+    "msgbox_confirm_creat"                        : "Save service information?",
     "msgbox_confirm_cancel_create"                : "Cancel adding new disease?",
-
+	"tpy_cat_disease_edit_title"				  : "Edit service information",
+	
     "tpy_cat_disease_btn_delete"                  : "Delete",
     "tpy_cat_disease_btn_edit"                    : "Edit",
     "aut_test_ent_header_stat_0"				  :	"All",

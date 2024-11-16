@@ -1544,7 +1544,6 @@
 	"prj_project_test_group_history"			: "Lịch sử kiểm tra",
 	"prj_project_add_history_popup"				: "Tạo lịch sử kiểm tra",
 	"prj_project_history_name"					: "Tên lịch sử kiểm tra",
-
 	
 	"prj_minichat"								: "Mini chat",
 
@@ -1583,6 +1582,7 @@
 	"nso_plan_email_campagne_lst_ref": "Mã",
 	"nso_plan_email_campagne_lst_title": "Tiêu đề",
 	"nso_plan_email_campagne_not_validated_lst_header_title": "Chiến dịch email chưa được xác thực",
+	"prj_project_header_work"								: "Lịch làm việc",
 	"nso_plan_email_campagne_validated_lst_header_title": "Chiến dịch email đã được xác thực",
 	"nso_plan_email_campagne_reported_lst_header_title": "Chiến dịch email được báo cáo",
 	

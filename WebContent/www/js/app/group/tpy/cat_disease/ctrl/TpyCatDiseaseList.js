@@ -401,7 +401,7 @@ define([
 							lab		: $.i18n("common_btn_yes"),
 							funct	: self.do_lc_save,
 							param	: [obj],
-							classBtn: "btn-primary"
+							classBtn: "btn-danger"
 						}
 					}
 				});
@@ -696,13 +696,13 @@ define([
 					},
 					buttons		: {
 						NO: {
-							lab		:  $.i18n("common_btn_cancel"),
+							lab		:  $.i18n("common_btn_yes"),
 						},
 						OK: {
-							lab			: $.i18n("common_btn_ok"),
+							lab			: $.i18n("tpy_cat_disease_btn_delete"),
 							funct		: do_lc_del_group,
 							param		: [id],
-							classBtn	: "btn-primary"
+							classBtn	: "btn-danger"
 						}
 					}
 				});
@@ -821,7 +821,6 @@ define([
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
-					
 					if(data.inf && typeof data.inf == "string"){
 						data.inf = JSON.parse(data.inf);
 					}
@@ -832,6 +831,7 @@ define([
 						do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
 						return;
 					}
+					data.edit 	   = true
 
 					$("#div_usergroup_member").html("");
 					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, data));
@@ -847,8 +847,6 @@ define([
 					
 					do_lc_group_showMod_FileUploader(data);
 					do_lc_bind_event_mod_group(data, id);
-					
-					console.log(data)
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
@@ -915,7 +913,7 @@ define([
 							lab		: $.i18n("common_btn_yes"),
 							funct	: do_lc_get_info_group,
 							param	: [obj],
-							classBtn: "btn-primary"
+							classBtn: "btn-danger"
 						}
 					}
 				});

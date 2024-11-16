@@ -31,7 +31,7 @@
 	"prj_project_member_level_watcher"                  : "Quan sát",
 	"prj_project_member_level_owner"					: "Người tạo",
 	"prj_project_member_level_doctor"					: "Bác sĩ",
-	"prj_project_member_level_dean"						: "Tưởng khoa",
+	"prj_project_member_level_dean"						: "Trưởng khoa",
 	"prj_project_member_level_deputy"					: "Phó TK",
 	"prj_project_member_level_pharmacist"				: "Dược sĩ",
 	"prj_project_member_level_nurse"					: "Y tá",
@@ -43,7 +43,8 @@
 	"prj_tpy_group_descr_enter"							: "Nhập mô tả nhóm",
 	"prj_tpy_group_name_enter"							: "Tên thuốc",
 	"tpy_cat_disease_new_title"							: "Thêm thuốc/thiết bị",
-
+	"tpy_cat_disease_edit_title"						: "Chỉnh sữa thông tin thuốc/thiết bị",
+	
 	"prj_tpy_group_new"									: "Thêm mới",
 	"prj_tpy_group_new_msg"								: "Tạo nhóm trò chuyện, giúp bạn làm việc hiệu quả hơn!",
 
@@ -58,10 +59,10 @@
 	"prj_project_enter_name"							: "Nhập tên thành viên...",
 	
 	"prj_specialty_list_title"							: "Quản lý thông tin thuốc",
-	"btn_add_file"										: "Thêm tập tin",
+	"btn_add_file"										: "Import",
 	"prj_tpy_group_room"								: "Phòng",
 	
-	"msgbox_confirm_creat"								: "Lưu nội dung chuyên khoa ?",
+	"msgbox_confirm_creat"								: "Lưu thông tin thuốc ?",
 	"msgbox_confirm_cancel_create"						: "Hủy bỏ quá trình tạo mới ?",
 	"msgbox_confirm_save"								: "Lưu nội dung chỉnh sửa ?",
 	"msgbox_confirm_save_cancel"						: "Hủy bỏ nội dung chỉnh sửa ?",
@@ -88,7 +89,11 @@
 	"aut_test_ent_unit_medicine_stat_8"					: "Ống",
 	"aut_test_ent_unit_medicine_stat_10"				: "...",
 	"prj_user_group_btn_edit_group"						: "Chỉnh sữa",
-	"prj_user_group_btn_delete_group"					: "Xóa",
 	"prj_brand_group_room"								: "Biệt dược và hàm lượng",
-	"prj_brand_group_package"							: "Hình thức đóng gói"
+	"prj_brand_group_package"							: "Hình thức đóng gói",
+	"prj_project_del_user_group_popup_content"			: "Xóa thông tin thuốc",
+	"prj_user_group_btn_delete_group"					: "Xác nhận",
+	"common_btn_del"									: "Xóa",
+	"common_btn_can"									: 	"Hủy bỏ",
+	"common_btn_cancel"									: 	"Quay lại"
 }

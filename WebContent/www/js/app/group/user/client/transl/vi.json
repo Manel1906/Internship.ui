@@ -326,9 +326,17 @@
 
     "per_tab_analysis"                      :   "Kết quả phân tích",
     
-	"msgbox_confirm_delete"					:	"Hủy bỏ tạo mới tài khoản ?",
+	"msgbox_confirm_delete_account"			:	"Hủy bỏ tạo mới tài khoản ?",
 	"msgbox_confirm_save"					:	"Lưu thông tin tài khoản ?",
 	
-	"btn_add_file"							:	"Thêm tập tin",
-	"btn_more_info"							:	"Thêm thông tin bệnh nhân"
+	"btn_add_file"							:	"Import",
+	"btn_more_info"							:	"Thêm thông tin bệnh nhân",
+	"prj_project_favorite_title_delete"                 : "Bỏ yêu thích",
+    "prj_project_favorite_title_delete_content"         : "Bạn muốn xóa bỏ yêu thích người dùng này ?",
+    "job_report_msg_user_right_error"		:	"Bạn không có quyền thêm tài khoản",
+    "aut_user_new_profile_header_title"     :   "Thêm mới tài khoản",
+    "common_btn_add"						:   "Thêm mới",
+    "common_btn_yes"						: 	"Lưu",
+    "common_btn_can"						: 	"Hủy bỏ",
+    "common_btn_cancel_account"				:   "Quay lại"
 }

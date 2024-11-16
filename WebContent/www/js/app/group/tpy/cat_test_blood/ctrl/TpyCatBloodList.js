@@ -684,7 +684,7 @@ define([
 							lab			: $.i18n("common_btn_ok"),
 							funct		: do_lc_del_group,
 							param		: [id],
-							classBtn	: "btn-primary"
+							classBtn	: "btn-danger"
 						}
 					}
 				});
@@ -858,7 +858,7 @@ define([
 						do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
 						return;
 					}
-
+					data.edit 	 = true
 					$("#div_usergroup_member").html("");
 					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_Blood_NEW, data));
 
@@ -941,7 +941,7 @@ define([
 							lab		: $.i18n("common_btn_yes"),
 							funct	: self.do_lc_cancel,
 							param	: [],
-							classBtn: "btn-primary"
+							classBtn: "btn-danger"
 						}
 					}
 				});

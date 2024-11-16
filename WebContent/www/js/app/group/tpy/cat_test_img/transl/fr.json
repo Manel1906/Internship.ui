@@ -31,7 +31,7 @@
 "tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
 "tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
 
-"btn_add_file"							: 	"Ajouter des fichiers",
+"btn_add_file"							: 	"Importer",
 
 "tpy_cat_disease_list_title"			:	"Gestion des informations sur les maladies",
 "tpy_cat_disease_new"					: 	"Nouveau",
@@ -40,6 +40,7 @@
 
 "tpy_cat_disease_new_file_title"		: 	"Ajouter des fichiers ici",
 "tpy_cat_disease_drop_files"			: 	"Glissez-déposez ou cliquez pour ajouter des fichiers",
+"tpy_cat_disease_edit_title"			: 	"Modifier les informations du service",
 
 "tpy_cat_disease_code_enter"			: 	"Entrez le code de la maladie",
 "tpy_cat_disease_name_enter"			: 	"Entrez le nom de la maladie",
@@ -60,7 +61,7 @@
 
 "tpy_cat_disease_list"					: 	"Liste des maladies associées",
 
-"msgbox_confirm_creat"					: 	"Enregistrer les informations sur la maladie ?",
+"msgbox_confirm_creat"					: 	"Enregistrer les informations du service ?",
 "msgbox_confirm_cancel_create"			: 	"Annuler la nouvelle maladie ?",
 
 "tpy_cat_disease_btn_delete"			: 	"Supprimer",

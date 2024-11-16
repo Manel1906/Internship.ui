@@ -612,7 +612,7 @@ define([
 							lab			: $.i18n("common_btn_ok"),
 							funct		: do_lc_del_group,
 							param		: [id],
-							classBtn	: "btn-primary"
+							classBtn	: "btn-danger"
 						}
 					}
 				});
@@ -746,7 +746,7 @@ define([
 							lab		: $.i18n("common_btn_yes"),
 							funct	: self.do_lc_cancel,
 							param	: [],
-							classBtn: "btn-primary"
+							classBtn: "btn-danger"
 						}
 					}
 				});
