@@ -1,5 +1,5 @@
 var APP_ENV=0; //--1:PRO, 0:DEV
-var APP_NAME="Zino";
+var APP_NAME="TeleMed";
 
 var	APP_API_URL=window.location.origin;
 //var	APP_API_URL="https://zino...."; //--use for mobile app
@@ -20,7 +20,7 @@ var COMP_DOM    = "hnv";
 var AUTHOR_NAME = "hnv";
 var IDEA_NAME   = "hnv";
 var CLIENT_NAME = "ROOT";
-var PROJ_NAME   = "Zino";
+var PROJ_NAME   = "TeleMed";
 
 //-----load csss-----------------------------------------------		
 var CSS_PATH    = {	0: ["www/css/_main_lib.css", "www/css/_main_route.css" ], 

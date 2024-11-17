@@ -72,7 +72,7 @@ const do_gl_load_JSController_ByRequireJS = function(AppVar, ctrConfig){
 	 */
 	try{
 //		let {nameGroup, name, path, initParams, fInit, fInitParams, fShow, fShowParams, fCallBack, fCallBackParams} = ctrConfig;
-//		cách khai báo trên phải truy�?n đủ, không là sai
+//		cách khai báo trên phải truyền đủ, không là sai
 		
 		let nameGroup		= ctrConfig.nameGroup		? ctrConfig.nameGroup		: ctrConfig.grpName; 
 		let name			= ctrConfig.name	 		? ctrConfig.name	 		: ctrConfig.ctrlName;
@@ -162,7 +162,7 @@ const can_gl_VisibleInViewport = (el, partiallyVisible = false) => {
 			: top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;
 };
 //------AJAX Tool----------------------------------------------
-//tạo 1 data Send ajax với nhi�?u object params
+//tạo 1 data Send ajax với nhiều object params
 const req_gl_Request_Content_Send_With_Params = (serviceClass, serviceName, ...params) => {
 	const {SV_CLASS: svClass, SV_NAME: svName, SESS_ID: sessId, USER_ID: userId} = App['const'];
 	let ref = {
@@ -232,7 +232,14 @@ $.fn.extend({
 		tree.addClass("tree");
 		tree.find('li').has("ul").each(function () {
 			var branch = $(this); //li with children ul
-			branch.prepend("<i class='font-size-17 text-info indicator mdi " + closedClass + "'></i>");
+			var posAdd = branch;
+			
+			var firstDiv = $(this).find('> div.row:first');
+			if (firstDiv.length>0) {
+				posAdd = firstDiv.find('div:first');
+			}
+			
+			posAdd.prepend("<i class='font-size-18 text-info indicator mdi " + closedClass + "'></i>");
 			branch.addClass('branch');
 			branch.not("span").on('click', function (e) {
 				if (this == e.target) {
@@ -387,9 +394,9 @@ const req_gl_strToURL = function(encodeStr) {
 	try {
 		encodeStr = encodeStr.toString().toLowerCase().trim();
 		encodeStr = encodeStr.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g	, "a");
-		encodeStr = encodeStr.replace(/è|é|ẹ|ẻ|ẽ|ê|�?|ế|ệ|ể|ễ.+/g			, "e");
+		encodeStr = encodeStr.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ.+/g			, "e");
 		encodeStr = encodeStr.replace(/ì|í|ị|ỉ|ĩ/g							, "i");
-		encodeStr = encodeStr.replace(/ò|ó|�?|�?|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|�?|ớ|ợ|ở|ỡ.+/g, "o");
+		encodeStr = encodeStr.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ.+/g, "o");
 		encodeStr = encodeStr.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g				, "u");
 		encodeStr = encodeStr.replace(/ỳ|ý|ỵ|ỷ|ỹ/g							, "y");
 		encodeStr = encodeStr.replace(/đ/g									, "d");
@@ -492,6 +499,22 @@ var do_gl_initSwiper = function(){
 		swipers['swiper-'+$(this).attr('id')].params.control = swipers['swiper-'+$(this).closest('.swipers-couple-wrapper').find('.swiper-control-top').attr('id')];
 	});
 };
+var req_gl_Capitalize = function (str){
+	if (!str) return "";
+	if (str.length==0) return "";
+	str = str.trim();
+	return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+/*
+Object.defineProperty(String.prototype, 'capitalize', {
+	value: function() {
+		if (this.length==0) return "";
+		
+    	return this.charAt(0).toUpperCase() + this.slice(1);
+	},
+	enumerable: false,
+	configurable: true
+});*/
 
 
 //-----WebContent/www/js/app/common/ctrl/NetworkController.js------------------------------
@@ -1566,10 +1589,6 @@ const do_gl_Handlebars_Register = function (){
 	Handlebars.registerHelper("url_image", function(path) {
 		return  UI_URL_ROOT + path;
 	});
-	Handlebars.registerHelper("url_avatar", function(path, path2) {
-		if(path) return path
-		return path2;
-	});
 	Handlebars.registerHelper("url_image_remote", function(path) {
 		return  URL_DOMAIN + path;
 	});
@@ -2125,7 +2144,7 @@ const do_gl_Handlebars_Register = function (){
 			}else if(diff >= 1 && diff < 24){
 				diff = Math.abs(Math.round(diff));
 				if (langId==1){
-					strDate = diff + " gi�? trước";
+					strDate = diff + " giờ trước";
 				}else if (langId==2){
 					strDate = diff + " hours ago";
 				}
@@ -2267,7 +2286,7 @@ const do_gl_Handlebars_Register = function (){
 			return diffNum      + reqLangAgoFormat("phút trước", "minute#s ago");
 		} else if(diff < 24) {
 			diffNum = Math.floor(diff);
-			return diffNum      + reqLangAgoFormat("gi�? trước", "hour#s ago");
+			return diffNum      + reqLangAgoFormat("giờ trước", "hour#s ago");
 		} else if(diff < 24 * 30) {
 			diffNum = Math.floor(diff / 24);
 			return diffNum      + reqLangAgoFormat("ngày trước", "day#s ago");
@@ -2489,6 +2508,13 @@ const do_gl_Handlebars_Register = function (){
 	const defautNumberFormat 		= "#,###.##";
 	const PRJ_MEMBER_LEVEL 		= {0: "prj_project_member_level_manager", 10: "prj_project_member_level_reporter", 20: "prj_project_member_level_developer", 30: "prj_project_member_level_tester", 40: "prj_project_member_level_worker", 50: "prj_project_member_level_watcher"};
 	const PRJ_MEMBER_TYPE 			= {0: "prj_project_lev_bas"				, 1: "prj_project_lev_haute"};
+	const PRJ_TEST_TYPE 			= {1: "aut_test_ent_header_stat_1"	, 2: "aut_test_ent_header_stat_2"	, 3: "aut_test_ent_header_stat_3"	, 4: "aut_test_ent_header_stat_4", 10: "aut_test_ent_header_stat_10"};
+	const PRJ_TEST_IMG 				= {1: "aut_test_ent_header_stat_1"	, 2: "aut_test_ent_header_stat_2"	, 3: "aut_test_ent_header_stat_3"	, 4: "aut_test_ent_header_stat_4", 10: "aut_test_ent_header_stat_10"};
+	const PRJ_UNIT_TYPE 			= {3: "aut_test_unit_header_stat_3"	, 4: "aut_test_unit_header_stat_4"	, 5: "aut_test_unit_header_stat_5"	, 6: "aut_test_unit_header_stat_6", 10: "aut_test_unit_header_stat_10"};
+	const PRJ_GRP_MED 				= {100: "aut_test_ent_grp_medicine_stat_100"	, 200: "aut_test_ent_grp_medicine_stat_200"	, 500: "aut_test_ent_grp_medicine_stat_500"	, 300: "aut_test_ent_grp_medicine_stat_300", 700: "aut_test_ent_grp_medicine_stat_700", 900: "aut_test_ent_grp_medicine_stat_900"};
+	const PRJ_GRP_PRD 				= {2: "aut_test_ent_manu_medicine_stat_2"	, 3: "aut_test_ent_manu_medicine_stat_3"	, 4: "aut_test_ent_manu_medicine_stat_4"	, 10: "aut_test_ent_manu_medicine_stat_10"};
+	const PRJ_GRP_PKG 				= {5: "aut_test_ent_package_medicine_stat_5"	, 6: "aut_test_ent_package_medicine_stat_6"	, 7: "aut_test_ent_package_medicine_stat_7"	, 10: "aut_test_ent_package_medicine_stat_10"};
+	const PRJ_GRP_UNIT 				= {6: "aut_test_ent_unit_medicine_stat_6"	, 7: "aut_test_ent_unit_medicine_stat_7"	, 8: "aut_test_ent_unit_medicine_stat_8"	, 10: "aut_test_ent_unit_medicine_stat_10"};
 	const PRJ_LEVEL 				= {1: "prj_project_lev_01"	, 2: "prj_project_lev_02"	, 3: "prj_project_lev_03"	, 4: "prj_project_lev_04"};
 	const PRJ_TYPE01 				= {1: "prj_project_type_01"	, 2: "prj_project_type_02"	, 3: "prj_project_type_03"	, 4: "prj_project_type_04"};
 	const PRJ_STAT 					= {0: "prj_project_stat_00"	, 1: "prj_project_stat_01"	, 2: "prj_project_stat_02"	, 3: "prj_project_stat_03", 4: "prj_project_stat_04", 5: "prj_project_stat_05", 6: "prj_project_stat_06", 7: "prj_project_stat_07"};
@@ -2500,53 +2526,9 @@ const do_gl_Handlebars_Register = function (){
 			"content"	: "prj_dashboard_history_tab_content", "member"	: "prj_dashboard_history_tab_member"	, "prj"		: "prj_dashboard_history_tab_prj"		, "epic"	: "prj_dashboard_history_tab_epic",
 			"task"		: "prj_dashboard_history_tab_task"	, "comment"	: "prj_dashboard_history_tab_comment", "file"	: "prj_dashboard_history_tab_file"		, "customer": "prj_dashboard_history_tab_customer"
 	}
-	Handlebars.registerHelper("reqSrcAvatarPrj", function(prj) {
-		if(!prj.avatar){
-			return "wwww/img/logo/logo.png";
-		}else{
-			return prj.avatar.urlPrev;
-		}
-	});
-	Handlebars.registerHelper("reqSrcAvatarPartner", function(partner) {
-		if(!partner.files || !partner.files.length){
-			return "www/img/logo/logo.png";
-		}else{
-			return partner.files[0].path01;
-		}
-	});
-	Handlebars.registerHelper("reqSrcAvatarMember", function(mem) {
-		if(!mem.avatar){
-			return "www/img/users/avatar-" 		+ do_lc_reqRandom_number(1, 1) 	+ ".jpg";
-		}else{
-			return mem.avatar.urlPrev;
-		}
-	});
-	Handlebars.registerHelper("reqSrcAvatarChat", function(mem) {
-		if(!mem.avatar){
-			return "www/img/users/avatar-" 		+ do_lc_reqRandom_number(1, 1) 	+ ".jpg";
-		}else{
-			return mem.avatar[0].path01;
-		}
-	});
-	Handlebars.registerHelper("reqSrcAvatarUser", function(prj) {
-		if(!prj.files){
-			return "www/img/users/avatar-" 		+ do_lc_reqRandom_number(1, 1) 	+ ".jpg";
-		}else{
-			let path = "";
-			try {
-				path = prj.files.filter(f => f.typ01==2 && f.typ02==1)[0].path01;
-			}catch(e){}
-			return path;
-		}
-	});
-	Handlebars.registerHelper("reqSrcAvatarUserDashbord", function(user) {
-		if(user.avatar)	return user.avatar.urlPrev;
-		if(user.files){
-			let fileAvatar = user.files.find(f => f.typ01 == 2 && f.typ02 == 1);
-			if(fileAvatar)	return fileavatar.urlPrev;
-		}
-		return "www/img/users/avatar-" 		+ do_lc_reqRandom_number(1, 1) 	+ ".jpg";
-	});
+	
+	
+	
 	Handlebars.registerHelper("reqSubStrDescrPrj", function(str) {
 		if(!str)	return "";
 		if(str && str.length > 25){
@@ -2596,6 +2578,34 @@ const do_gl_Handlebars_Register = function (){
 	Handlebars.registerHelper("reqTypeMember", function(typ) {
 		if(typ === undefined)	return "";
 		return $.i18n(PRJ_MEMBER_TYPE[+typ]);
+	});
+	Handlebars.registerHelper("reqTypeTest", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_TEST_TYPE[+typ]);
+	});
+	Handlebars.registerHelper("reqTestImg", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_TEST_IMG[+typ]);
+	});
+	Handlebars.registerHelper("reqTypeUnit", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_UNIT_TYPE[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpMedi", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_MED[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpPrd", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_PRD[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpPkg", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_PKG[+typ]);
+	});
+	Handlebars.registerHelper("reqGrpUnit", function(typ) {
+		if(typ === undefined)	return "";
+		return $.i18n(PRJ_GRP_UNIT[+typ]);
 	});
 	Handlebars.registerHelper("reqTypPrj", function(typ) {
 		if(typ === undefined)	return "";
@@ -2673,13 +2683,7 @@ const do_gl_Handlebars_Register = function (){
 		}
 		return str;
 	});
-	Handlebars.registerHelper("reqSrcAvatarCustomer", function(cus) {
-		if(!cus.avatar){
-			return "www/img/users/avatar-" 		+ do_lc_reqRandom_number(1, 1) 	+ ".jpg";
-		}else{
-			return cus.avatar.urlPrev;
-		}
-	});
+	
 	Handlebars.registerHelper('reqCodePrjNotify', function(content) {
 		if(!content)	return "";
 		let data 		= typeof content === 'string' ? JSON.parse(content) : content;
@@ -2892,7 +2896,7 @@ var SummerNoteController 	= function () {
 				height		: 400,
 				minHeight	: null,
 				maxHeight	: null,
-				focus		: true, 
+//				focus		: true, 
 				dialogsInBody: true,
 				callbacks: {
 					onImageUpload: function(files) {
@@ -2907,8 +2911,8 @@ var SummerNoteController 	= function () {
 					},
 				},
 				toolbar: [
-					['style', ['style']],
-					['font', ['bold', 'underline', 'clear']],
+					['style', ['style', 'clear']],
+					['font', ['bold', 'underline', 'italic']],
 					['fontname', ['fontname']],
 					['color', ['color']],
 					['para', ['ul', 'ol', 'paragraph']],
@@ -2928,8 +2932,8 @@ var SummerNoteController 	= function () {
 	this.do_lc_show = function(div, options = {}, modSimple = false, entTyp, entId, typ01, typ02, typ03) {
 		pr_div  = div;
 		let symbole = [
-			['style', ['style']],
-			['font', ['bold', 'underline', 'clear']],
+			['style', ['style', 'clear']],
+			['font', ['bold', 'underline', 'italic']],
 			['fontsize', ['fontsize']],
 			['height', ['height']],
 			['fontname', ['fontname']],
@@ -2948,7 +2952,7 @@ var SummerNoteController 	= function () {
 				height		: 180,
 				minHeight	: null,
 				maxHeight	: null,
-				focus		: true, 
+//				focus		: true, 
 				dialogsInBody: true,
 				callbacks: {
 					onImageUpload: function(files) {
@@ -2993,8 +2997,8 @@ var SummerNoteController 	= function () {
 	this.do_lc_show_withMathSymbole = function(div, options = {}, modSimple = false, entTyp, entId, typ01, typ02, typ03) {
 		pr_div  = div;
 		let symbole = [
-			['style', ['style']],
-			['font', ['bold', 'underline', 'clear']],
+			['style', ['style', 'clear']],
+			['font', ['bold', 'underline', 'italic']],
 			['fontsize', ['fontsize']],
 			['fontname', ['fontname']],
 			['color', ['color']],
@@ -3023,7 +3027,7 @@ var SummerNoteController 	= function () {
 				height		: 180,
 				minHeight	: null,
 				maxHeight	: null,
-				focus		: true, 
+//				focus		: true, 
 				dialogsInBody: true,
 				callbacks: {
 					onImageUpload: function(files) {
@@ -3386,6 +3390,7 @@ var MsgboxController 	= function () {
 			// bootstrap removes the modal-open class when a modal is closed; add it back
 			$('body').addClass('modal-open-hnv');
 		} else{
+			pr_NUMBER_MSGBOX = 0;
 			$('body').removeClass('modal-open-hnv');
 		}
 	};
@@ -3394,15 +3399,18 @@ var MsgboxController 	= function () {
 		if (pr_NUMBER_MSGBOX > 0) {
 			// bootstrap removes the modal-open class when a modal is closed; add it back
 			$('body').addClass('modal-open-hnv');
+		}else{
+			pr_NUMBER_MSGBOX = 0;
+			$('body').removeClass('modal-open-hnv');
 		}
 	};
 	this.do_lc_reset = function() {
 		if (pr_NUMBER_MSGBOX > 0) {
 			for (var i=1;i<=pr_NUMBER_MSGBOX;i++)
 				$(pr_msgboxDivId + i).modal("hide");
-			pr_NUMBER_MSGBOX =0;
-			$('body').removeClass('modal-open-hnv');
 		}
+		pr_NUMBER_MSGBOX =0;
+		$('body').removeClass('modal-open-hnv');
 	}
 	//--------------------------------------------------------------------------------------------
 	var bindDefaultEvent = function() {
@@ -3756,6 +3764,7 @@ var req_gl_LS_SecurityInfo 				= function (route)
 const do_gl_LS_SecurityInfo_Remove  		= function (route)
 var req_gl_LS_SecurityHeader 			= function (route)
 var req_gl_LS_SecurityHeaderBearer 		= function (route)
+var req_gl_LS_Username 					= function (route)
  */
 var SECU_PREFIX='/hnv/';
 const do_gl_LocalStorage_Save  = function (route, data){
@@ -3897,13 +3906,11 @@ var req_gl_LS_SecurityHeaderBearer = function (route){
 		}
 	return aut_Header;
 }
-var req_gl_Security_Token = function (route){
-	return reqSecurityToken(route);
-}
-var reqSecurityToken = function (route){
-	var tok = localStorage.getItem(SECU_PREFIX+route+ '/tok');
-	if (!tok) return null; 
-	return tok;
+var req_gl_LS_Username = function (route){
+	route		= SECU_PREFIX+route;
+	var uname 	= localStorage.getItem(route+'/login');
+	if (!uname) return null;
+	return uname;
 }
 var req_gl_Security_Session = function (route){
 	return reqSecuritySession(route);
@@ -5783,9 +5790,9 @@ function do_gl_sort_object(object, itemSort) {
 function do_gl_change_alias(string) {
     str = string.toLowerCase();
     str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
-    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|�?|ế|ệ|ể|ễ/g,"e"); 
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
     str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
-    str = str.replace(/ò|ó|�?|�?|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|�?|ớ|ợ|ở|ỡ/g,"o"); 
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
     str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
     str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
     str = str.replace(/đ/g,"d");
@@ -5820,7 +5827,7 @@ function do_gl_change_characters_for_sort(string) {
 	str = str.replace('ẩ','azzzzzzzzzz');
 	str = str.replace('ẫ','azzzzzzzzzzz');
 	str = str.replace('ậ','azzzzzzzzzzzz');
-	str = str.replace('�?','Dz');
+	str = str.replace('Đ','Dz');
 	str = str.replace('đ','dz');
 	str = str.replace('Ê','Ez');
 	str = str.replace('Ề','Ezz');
@@ -5829,14 +5836,14 @@ function do_gl_change_characters_for_sort(string) {
 	str = str.replace('Ễ','Ezzzzz');
 	str = str.replace('Ệ','Ezzzzzz');
 	str = str.replace('ê','ezzzzzzz');
-	str = str.replace('�?','ezzzzzzzz');
+	str = str.replace('ề','ezzzzzzzz');
 	str = str.replace('ê','ezzzzzzzzz');
 	str = str.replace('ể','ezzzzzzzzzz');
 	str = str.replace('ễ','ezzzzzzzzzzz');
 	str = str.replace('ệ','ezzzzzzzzzzzz');
 	str = str.replace('Ô','Oz');
 	str = str.replace('Ồ','Ozz');
-	str = str.replace('�?','Ozzz');
+	str = str.replace('Ố','Ozzz');
 	str = str.replace('Ổ','Ozzzz');
 	str = str.replace('Ỗ','Ozzzzz');
 	str = str.replace('Ộ','Ozzzzzz');
@@ -5853,7 +5860,7 @@ function do_gl_change_characters_for_sort(string) {
 	str = str.replace('ỗ','ozzzzz');
 	str = str.replace('ộ','ozzzzzz');
 	str = str.replace('ơ','ozzzzzzz');
-	str = str.replace('�?','ozzzzzzzz');
+	str = str.replace('ờ','ozzzzzzzz');
 	str = str.replace('ớ','ozzzzzzzzz');
 	str = str.replace('ở','ozzzzzzzzzz');
 	str = str.replace('ỡ','ozzzzzzzzzzz');
@@ -7923,8 +7930,8 @@ var DataType = new function () {
 	this.dataType.email.pattern 			= /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 	this.dataType.double.pattern 			= /^-?\d{0,22}((?:\.|\,)\d{0,15}){0,1}$/;
 	this.dataType.alphabetic.pattern 		= /^[a-zA-Z]*$/;
-	this.dataType.alphabetic_utf8.pattern 	= /^[a-zA-ZâêôûÄéÆÇàèÊÉÀùÌ�?Î�?�?îÒÓÔÕÖ×ØÙÚÛÜ�?Þßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿấầăẩẫậ]*$/;
-	this.dataType.alphanumeric_utf8.pattern = /^[a-zA-Z0-9âêôûÄéÆÇàèÊÉÀùÌ�?Î�?�?îÒÓÔÕÖ×ØÙÚÛÜ�?Þßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ]*$/;
+	this.dataType.alphabetic_utf8.pattern 	= /^[a-zA-ZâêôûÄéÆÇàèÊÉÀùÌÍÎÏÐîÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿấầăẩẫậ]*$/;
+	this.dataType.alphanumeric_utf8.pattern = /^[a-zA-Z0-9âêôûÄéÆÇàèÊÉÀùÌÍÎÏÐîÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ]*$/;
 	this.dataType.date.pattern_frShortDate	= /^[0-3]{1}[0-9]{1}\/[0-1]{1}[0-9]{1}\/[0-9]{4}/;
 	this.dataType.date.pattern_enShortDate	= /^[0-3]{1}[0-9]{1}\/[0-1]{1}[0-9]{1}\/[0-9]{4}/;
 	this.dataType.date.pattern_viShortDate	= /^[0-3]{1}[0-9]{1}\/[0-1]{1}[0-9]{1}\/[0-9]{4}/;
@@ -9548,12 +9555,51 @@ var replaceHtmlEntites = (function (str) {
 const do_gl_reqRandom_number = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const do_gl_req_autocompleteNew = function (div, options) {
 	let el = $(div);
-	let { dataSrc, autoFocus = false, selectFirst = true, appendTo, fSelect, minLength = 1, dataService: [serviceClass, serviceName], customShowList, svParams } = options;
+	
+	
+	let { 	svParams  		,
+			hintSvParams	,
+			dataSrc			, 
+			customShowList	,
+			autoFocus 		= false, 
+			selectFirst 	= true, 
+			appendTo		, 
+			fSelect			, 
+			minLength 		= 1} = options;
+	
+	var serviceClass 		= null;
+	var serviceName 		= null;
+	if (options.dataService){
+		serviceClass 		= options.dataService[0];
+		serviceName 		= options.dataService[1];
+	}
+	var hintSvClass 		= null;
+	var hintSvName 			= null;
+	if (options.hintService){
+		hintSvClass 		= options.hintService[0];
+		hintSvName 			= options.hintService[1];
+	}
 	var do_getLst_article = function (request, response) {
-		if (!serviceClass || !serviceName) return false;
-		let ref = req_gl_Request_Content_Send(serviceClass, serviceName);
-		ref.searchkey = request.term; 
-		if (svParams) $.extend( true, ref, svParams);
+		var sKey = request.term.trim();
+		let ref = null;
+		
+		if (!sKey){
+			if (hintSvClass && hintSvName) 
+				ref = req_gl_Request_Content_Send(hintSvClass, hintSvName);
+			else 
+				return;
+			
+			if (hintSvParams) $.extend( true, ref, hintSvParams);
+		}else{
+			if (serviceClass && serviceName) 
+				ref = req_gl_Request_Content_Send(serviceClass, serviceName);
+			else 
+				return;
+			
+			if (svParams) $.extend( true, ref, svParams);
+		}
+		ref.searchkey = sKey;
+		
 		let fSucces = [];
 		fSucces.push(req_gl_funct(null, do_req_article_response, [request, response]));
 		let fError = req_gl_funct(null, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);
@@ -9574,31 +9620,40 @@ const do_gl_req_autocompleteNew = function (div, options) {
 		}
 	}
 	el.autocomplete({
-		source: function (request, response) {
-			if (!dataSrc) do_getLst_article(request, response);
+		source		: function (request, response) {
+			if (!dataSrc) {
+				do_getLst_article(request, response);
+				return;
+			}
+			
 			if (typeof (dataSrc) == "array") {
 				response($.ui.autocomplete.filter(arrSource, request.term));
 			} else {
 				do_getLst_article(request, response);
 			}
 		},
-		autoFocus: autoFocus,
-		minLength: minLength,
-		selectFirst: selectFirst,
-		appendTo: appendTo,
-		select: function (event, ui) {
+		autoFocus	: autoFocus,
+		minLength	: minLength,
+		selectFirst	: selectFirst,
+		appendTo	: appendTo,
+		select		: function (event, ui) {
 			let item = ui.item;
 			if (item.noData === false) return false;
 			fSelect(event, item);
 			return false;
 		},
-		messages: {
+		messages	: {
 			noResults: '',
 			results: function (count) {
 				return '';
 			}
 		},
-	}).autocomplete("instance")._renderItem = function (ul, item) {
+	}).focus(function(){     
+        //Use the below line instead of triggering keydown
+        $(this).data("uiAutocomplete").search(" ");//--trim after
+    })
+	.autocomplete("instance")
+	._renderItem = function (ul, item) {
 		let selOpt = "<div>";
 		if (item.noData === false) {
 			selOpt += " No Result ";
@@ -9625,61 +9680,86 @@ FileInput = function(selector, options, obj) {
 	}
 	var supportedFileType = ['image', 'html', 'text', 'video', 'audio', 'flash', 'object'];
 	var defaultOption = {
-			language: App.language,
-			showClose: false,
-			showCapture: can_gl_iOSDevices()?false:true,
-					showFileURL				: true,
-					maxFileSize				: 1024*1024*512, //512MB
-					allowedFileTypes		: ['image', 'html', 'text', 'video', 'audio', 'flash', 'object', 'jasper', 'jrxml'],
-					allowedFileExtensions	: ['jpg', 'png', 'txt', 'pdf', 'jasper', 'jrxml', 'webm', 'mp4', 'doc', 'xls','docx', 'xlsx'],
-					allowedPreviewTypes		: ['image', 'html', 'text', 'video', 'audio', 'flash', 'object', 'jasper', 'jrxml', 'pdf', 'doc', 'xls'],
-					uploadUrl				:  App.path.BASE_URL_API_UPLOAD,
-					ajaxSettings			: {
-						headers :  			{
-												Authorization: "Bearer " + App.data.user.headerURLSecu
-												//--multipart request: cannot use req_gl_LS_SecurityHeaderBearer (App.keys.KEY_STORAGE_CREDENTIAL)
-											}
-					},
-					uploadExtraData 		: {
-						sv_class 			: "ServiceTpyDocument",
-						sv_name 			: "SVNew",
-						typ01 				: 1,
-						typ02 				: 10
-					},
-					uploadAsync 			: false,
-					overwriteInitial		: false,
-					
-					deleteUrl				: App.path.BASE_URL_API_PRIV,
-					ajaxDeleteSettings		: {
-						headers 			: req_gl_LS_SecurityHeaderBearer (App.keys.KEY_STORAGE_CREDENTIAL)
-					},
-					deleteExtraData 		: {
-						sv_class 			: "ServiceTpyDocument",
-						sv_name 			: "SVDel"
-					},
-					layoutTemplates: {
+			language				: App.language,
+			showClose				: false,
+			showCapture				: can_gl_iOSDevices()?false:true,
+			showFileURL				: true,
+			maxFileSize				: 1024*1024*512, //512MB
+			allowedFileTypes		: ['image', 'html', 'text', 'video', 'audio', 'flash', 'object', 'jasper', 'jrxml'],
+			allowedFileExtensions	: ['jpg', 'png', 'txt', 'pdf', 'jasper', 'jrxml', 'webm', 'mp4', 'doc', 'xls','docx', 'xlsx'],
+			allowedPreviewTypes		: ['image', 'html', 'text', 'video', 'audio', 'flash', 'object', 'jasper', 'jrxml', 'pdf', 'doc', 'xls'],
+			uploadUrl				:  App.path.BASE_URL_API_UPLOAD,
+			ajaxSettings			: {
+				headers :  			{
+					Authorization: "Bearer " + App.data.user.headerURLSecu
+					//--multipart request: cannot use req_gl_LS_SecurityHeaderBearer (App.keys.KEY_STORAGE_CREDENTIAL)
+				}
+			},
+			uploadExtraData 		: {
+				sv_class 			: "ServiceTpyDocument",
+				sv_name 			: "SVNew",
+				typ01 				: 1,
+				typ02 				: 10
+			},
+			uploadAsync 			: false,
+			overwriteInitial		: false,
+			deleteUrl				: App.path.BASE_URL_API_PRIV,
+			ajaxDeleteSettings		: {
+				headers 			: req_gl_LS_SecurityHeaderBearer (App.keys.KEY_STORAGE_CREDENTIAL)
+			},
+			deleteExtraData 		: {
+				sv_class 			: "ServiceTpyDocument",
+				sv_name 			: "SVDel"
+			},
+			layoutTemplates: {
 //						actionDrag: ''
-					},
+			},
+	};
+	
+	var defaultOptionImage = {
+			language				: App.language,
+			showClose				: false,
+			showCapture				: true,
+			showFileURL				: true,
+			maxFileSize				: 1024*1024*20, //20MB
+			allowedFileTypes		: ['image'],
+			allowedFileExtensions	: ['jpg', 'png', 'webm',  "gif"],
+			isCaptureAvatar			: true,
+			browseLabel				: "",
+			captureLabel 			: "",
+			allowedPreviewTypes		: ['image'],
+			uploadUrl				:  App.path.BASE_URL_API_UPLOAD,
+			ajaxSettings			: {
+				headers :  			{
+					Authorization: "Bearer " + App.data.user.headerURLSecu
+					//--multipart request: cannot use req_gl_LS_SecurityHeaderBearer (App.keys.KEY_STORAGE_CREDENTIAL)
+				}
+			},
+			uploadExtraData 		: {
+				sv_class 			: "ServiceTpyDocument",
+				sv_name 			: "SVNew",
+				typ01 				: 1,
+				typ02 				: 10
+			},
+			uploadAsync 			: false,
+			overwriteInitial		: false,
+			deleteUrl				: App.path.BASE_URL_API_PRIV,
+			ajaxDeleteSettings		: {
+				headers 			: req_gl_LS_SecurityHeaderBearer (App.keys.KEY_STORAGE_CREDENTIAL)
+			},
+			deleteExtraData 		: {
+				sv_class 			: "ServiceTpyDocument",
+				sv_name 			: "SVDel"
+			},
+			layoutTemplates: {
+//				actionDrag: ''
+			},
 					
 	};
 	this.do_lc_init_input_file = function() {
 		var input_file_type = this.input.data("type");
 		if(input_file_type && input_file_type == "avatar") {
-			var avatar_options = {
-//					overwriteInitial: true,
-					maxFileSize: 1024*1024*100,
-//					showClose: false,
-//					showCaption: false,
-//					showBrowse: false,
-//					showCapture: false,
-//					browseOnZoneClick: true,
-//					layoutTemplates: {main2: '{preview} '},
-					isCaptureAvatar	: true,
-					browseLabel		: "",
-					captureLabel 	: "",
-					allowedFileExtensions: ["jpg", "png", "gif"]
-			};
-			$.extend(true, this.options, avatar_options);
+			$.extend(true, this.options, defaultOptionImage);
 //			$(this.input.parent()).addClass("kv-avatar");
 		}
 		this.input.fileinput(this.options);
@@ -9990,6 +10070,7 @@ if(typeof Dropzone !== 'undefined'){
 			content : question,
 			buttons	: {
 				OK: {
+					classBtn	: "btn-primary",
 					lab		: $.i18n("common_btn_ok"),
 					funct	: function(){
 						if(fnAccepted)	fnAccepted();
@@ -10021,21 +10102,21 @@ const Dzopzone = function(selector, options, obj = {files: []}) {
 	if (!maxFiles) maxFiles = 1000;
 		
 	var defaultOption = {
-			url			: App.path.BASE_URL_API_UPLOAD,
-			headers 	: {
+			url				: App.path.BASE_URL_API_UPLOAD,
+			headers 		: {
 				Authorization: "Bearer " + App.data.user.headerURLSecu
 				//--multipart request: cannot use req_gl_LS_SecurityHeaderBearer (App.keys.KEY_STORAGE_CREDENTIAL)
 			},
-			params 		: {
-				sv_class : "ServiceTpyDocument",
-				sv_name : "SVNew",
-				typ01 : (!param || !param.typ01) ? 1 : param.typ01,
-				typ02 : (!param || !param.typ02) ? 2 : param.typ02
+			params 			: {
+				sv_class 	: "ServiceTpyDocument",
+				sv_name 	: "SVNew",
+				typ01 		: (!param || !param.typ01) ? 1 : param.typ01,
+				typ02 		: (!param || !param.typ02) ? 2 : param.typ02
 			},
-//			acceptedFiles: 'image,html,text,video,audio,flash,object,jasper,jrxml',
-			accept : function(file, done){
-				done();
-			},
+			acceptedFiles: options.acceptedFiles,
+//			accept : function(file, done){
+//				done();
+//			},
 			init: function(){
 				let _this = this;
 				this.on("processing", function (file) {
