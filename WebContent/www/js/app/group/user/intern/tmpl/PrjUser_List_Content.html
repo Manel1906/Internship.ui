@@ -1,7 +1,7 @@
 	{{#each lst}}
-       <div class="task-item card task-box mb-1" data-id="{{id}}" data-stat="{{stat}}">
+       <div class="user-item-name task-item card task-box mb-1" data-id="{{id}}" data-stat="{{stat}}" data-login="{{login01}}">
                <div class="card-body px-2 py-3">
-                   <div class="media user-item-name" data-id="{{id}}" data-login="{{login01}}">
+                   <div class="media" data-id="{{id}}" data-login="{{login01}}">
                   		<div class="align-self-center mr-3">
 		                    {{#if avatar}}
                             <img src="{{reqSrcImg avatar}}" class="avatar-sm rounded-circle">
@@ -12,10 +12,10 @@
                        <div class="media-body overflow-hidden cursor-pointer">
 	                       	<div>
 	                       		<h5 data-id="{{id}}" class="font-size-15 h-inline">{{login01}}</h5>
-	                           	<span class="badge {{reqTypBadgeUser typ01}} badge-pill">{{reqTypeIntern typ01}}</span>
 	                       	</div>
 	                       	<div>
 	                       		<p class="text-muted mb-0 mt-1">{{perObj.name01}} {{perObj.name02}} {{perObj.name03}}</p>
+	                           	<span class="badge badge-pill {{reqTypBadgeUser typ01}} text-white fw-semibold px-3 py-2 mt-1">{{reqTypeIntern typ01}}</span>
 	                       	</div>
                        </div>
                    </div>

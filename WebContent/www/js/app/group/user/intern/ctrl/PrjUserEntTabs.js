@@ -110,7 +110,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					obj				: ent//file existing here					
 			}			
 			do_gl_init_fileDropzone($(pr_divContent), option);
-			
 			$(".files_content_user").off("click").on("click", function() {
 				const {path} = $(this).data();
 				let isImage = do_lc_check_image(path);
@@ -147,7 +146,41 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					
 					pr_prjUser.Ent.do_lc_reqRole_User();
 				})
+				function toggleEyeIconVisibility(inputSelector, eyeIconSelector) {
+				    var $inputElement = $(inputSelector);
+				    var $eyeIcon = $(eyeIconSelector);
 				
+				    function updateEyeIconVisibility() {
+				        if ($inputElement.val()) {
+				            $eyeIcon.removeClass("hide");
+				        } else {
+				            $eyeIcon.addClass("hide");
+				        }
+				    }
+				    $inputElement.on('input', updateEyeIconVisibility);
+				    updateEyeIconVisibility();
+				}
+				// Show Password Input 1
+				toggleEyeIconVisibility('#inp_autuser_header_pass', '.eye-icon');
+				togglePasswordVisibility('#inp_autuser_header_pass', '.eye-icon');
+				
+				function togglePasswordVisibility(inputSelector, eyeIconSelector) {
+				    var $inputElement = $(inputSelector);
+				    var $eyeIcon = $(eyeIconSelector);
+				    $eyeIcon.on('click', function() {
+				        if ($inputElement.attr('type') === 'password') {
+				            $inputElement.attr('type', 'text');
+				            $eyeIcon.removeClass('mdi-eye-off-outline').addClass('mdi-eye-outline'); 
+				        } else {
+				            $inputElement.attr('type', 'password'); 
+				            $eyeIcon.removeClass('mdi-eye-outline').addClass('mdi-eye-off-outline'); 
+				        }
+				    });
+				}
+				// Show Password Input 2
+				toggleEyeIconVisibility('#inp_autuser_header_pass_2', '.eye-icon_2');
+				togglePasswordVisibility('#inp_autuser_header_pass_2', '.eye-icon_2');
+
 				$("#a_btn_save_content").off("click").on("click", function(){
 					ent.files 		= ent.files ? [...ent.files].filter(Boolean) : [];
 //					ent.files		= ent.files.concat(obj.files);
@@ -602,6 +635,10 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			{	"id1" : 1000001, "id2"	: 1000002, "id3" : 1000003, "id4" : 1000004, "id5" : 1000005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
 				"rId" :  1000000 , "title" :"aut_right_aut_user"},
+				
+			{	"id1" : 7000001, "id2": 7000002, "id3" : 7000003, "id4" : 7000004, "id5" : 7000005, 
+				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+				"rId" : 7000000 , "title" :"aut_right_patient_management"},
 			
 			{	"id1" : 30000011, "id2": 30000012, "id3" : 30000013, "id4" : 30000014, "id5" : 30000015, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
@@ -615,6 +652,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
 				"rId" : 40000100 , "title" :"aut_right_directory_of_patient"},
 				
+			{	"id1" : 40001001, "id2": 40001002, "id3" : 40001003, "id4" : 40001004, "id5" : 40001005, 
+				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
+				"rId" : 40001000 , "title" :"aut_right_medical_records"},						
 			// {	"id1"  : 2002001, "id2": 2002002, "id3" : 2002003, "id4" : 2002004, "id5" : 2002005, 
 			// 	"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
 			// 	"rId" : 2002000 , "title" :"aut_right_prj_cra"},
@@ -627,9 +667,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
 				"rId" : 2001000 , "title" :"aut_right_manage_appointment_schedules"},
 			
-			{	"id1" : 7000001, "id2": 7000002, "id3" : 7000003, "id4" : 7000004, "id5" : 7000005, 
-				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 7000000 , "title" :"aut_right_patient_management"},
 			
 			{	"id1" : 50000001, "id2": 50000002, "id3" : 50000003, "id4" : 50000004, "id5" : 50000005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
@@ -639,9 +676,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
 				"rId" : 50000100 , "title" :"aut_right_disease_management"},	
 				
-			{	"id1" : 40001001, "id2": 40001002, "id3" : 40001003, "id4" : 40001004, "id5" : 40001005, 
-				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,
-				"rId" : 40001000 , "title" :"aut_right_medical_records"},						
 				
 			{	"id1" : 40002001, "id2": 40002002, "id3" : 40002003, "id4" : 40002004, "id5" : 40002005, 
 				"r1"  : 0, "r2"	: 0, "r3" : 0, "r4" : 0, "r5" :0,

@@ -1,17 +1,17 @@
 <div class="card">
     <div class="card-body">
-        <div class="media">
-        	<div id="div_img_avatar" class="msg-body-forme">
+        <div class="media msg-body-forme"">
+        	<div id="div_img_avatar" class="">
         		{{#if avatar}}
-        		<img src="{{reqSrcImg avatar}}" alt="" data-path="{{reqSrcImg avatar}}" class="files_content_user avatar-xl mr-4 rounded-circle cursor-pointer">
+        		<img src="{{reqSrcImg avatar}}" alt="" data-path="{{reqSrcImg avatar}}" class="files_content_user avatar-xl rounded-circle cursor-pointer">
         		{{else}}
-        		<div class="avatar-xl mr-4 rounded-circle text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}">
+        		<div class="avatar-xl rounded-circle text-white text-uppercase" style="background-color: {{reqSrcTextColor login01}}">
         			<div class="text-large">{{reqSrcTextAvatar login01}}</div>
         		</div>
         		{{/if}}
         	</div>
         	
-			<div class="msg-body-other media-body overflow-hidden">
+			<div class="media-body overflow-hidden">
                 <h5 class="text-truncate font-size-16">{{name}}</h5>
             </div>
 <!--             <a id="a_btn_edit" class="mr-3 text-primary action-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> -->
@@ -36,7 +36,7 @@
             </div>
             
         </div>
-		<input type="hidden" class="form-control objData" data-name="id" value="{{id}}"> 	
+		<input type="hidden" class="form-control objData msg-body-other" data-name="id" value="{{id}}"> 	
 							
 		<form id="div_prj_ent_file_upload" action="/" method="post" class="dropzone inputfile mt-3 hide">
 			    <div class="fallback">
@@ -116,15 +116,35 @@
 		    </div>
 		</div>
 		<div class="row noData" id="div_ent_header_password" style="display: none">
-			<div class="col-md-6 col-xs-12">
-				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass'}} *</h5>
-				<input id="inp_autuser_header_pass" class="form-control noData" autocomplete="off"
-							type="password" data-name="pass01" data-validation="required" value="" />
+			<div class="col-md-6 col-xs-12 position-relative">
+			    <h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass'}} *</h5>
+			    <div class="position-relative">
+			        <input id="inp_autuser_header_pass" 
+			               class="form-control noData pr-5" 
+			               autocomplete="off" 
+			               type="password" 
+			               data-name="pass01" 
+			               data-validation="required" 
+			               value="" />
+			        <i class="eye-icon hide mdi mdi-eye-off-outline position-absolute"
+			           style="top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;"></i>
+			    </div>
 			</div>
-			<div class="col-md-6 col-xs-12">
-				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass_match'}} *</h5>
-				<input id="inp_autuser_header_pass_match" class="form-control noData" autocomplete="off"
-					type="password" data-name="pass_match" data-compare="eq #inp_autuser_header_pass" data-msg="compare:aut_user_pass_match_err" data-validation="required" value="" />
+			<div class="col-md-6 col-xs-12 position-relative">
+			    <h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass_match'}} *</h5>
+			    <div class="position-relative">
+			        <input id="inp_autuser_header_pass_2" 
+			               class="form-control noData pr-5" 
+			               autocomplete="off" 
+			               type="password" 
+			               data-name="pass_match" 
+			               data-compare="eq #inp_autuser_header_pass" 
+			               data-msg="compare:aut_user_pass_match_err" 
+			               data-validation="required" 
+			               value="" />
+			        <i class="eye-icon_2 hide mdi mdi-eye-off-outline position-absolute"
+			           style="top: 50%; right: 10px; transform: translateY(-50%); cursor: pointer;"></i>
+			    </div>
 			</div>
 		</div>
     </div>

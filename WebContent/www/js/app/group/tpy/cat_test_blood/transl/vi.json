@@ -84,5 +84,7 @@
 "msgbox_confirm_save"					: 	"Lưu nội dung chỉnh sửa ?",
 "msgbox_confirm_save_cancel"			: 	"Hủy bỏ nội dung chỉnh sửa ?",
 "prj_project_del_user_group_popup_content"			: "Xóa dịch vụ?",
-"prj_user_group_btn_delete_group"				    : "Xóa dịch vụ xét nghiệm"
+"prj_user_group_btn_delete_group"				    : "Xóa dịch vụ xét nghiệm",
+"tpy_cat_Blood_new_file_title"			:   "Thêm tập tin vào đây"	,
+"common_btn_yes"						:	"Lưu"
 }

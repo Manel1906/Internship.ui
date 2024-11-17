@@ -285,6 +285,40 @@ define([
 		}
 		
 		const do_lc_binding_events = function (obj, mode){
+			function toggleEyeIconVisibility(inputSelector, eyeIconSelector) {
+				    var $inputElement = $(inputSelector);
+				    var $eyeIcon = $(eyeIconSelector);
+				
+				    function updateEyeIconVisibility() {
+				        if ($inputElement.val()) {
+				            $eyeIcon.removeClass("hide");
+				        } else {
+				            $eyeIcon.addClass("hide");
+				        }
+				    }
+				    $inputElement.on('input', updateEyeIconVisibility);
+				    updateEyeIconVisibility();
+				}
+				// Show Password Input 1
+				toggleEyeIconVisibility('#inp_autuser_header_pass', '.eye-icon');
+				togglePasswordVisibility('#inp_autuser_header_pass', '.eye-icon');
+				
+				function togglePasswordVisibility(inputSelector, eyeIconSelector) {
+				    var $inputElement = $(inputSelector);
+				    var $eyeIcon = $(eyeIconSelector);
+				    $eyeIcon.on('click', function() {
+				        if ($inputElement.attr('type') === 'password') {
+				            $inputElement.attr('type', 'text');
+				            $eyeIcon.removeClass('mdi-eye-off-outline').addClass('mdi-eye-outline'); 
+				        } else {
+				            $inputElement.attr('type', 'password'); 
+				            $eyeIcon.removeClass('mdi-eye-outline').addClass('mdi-eye-off-outline'); 
+				        }
+				    });
+				}
+				// Show Password Input 2
+				toggleEyeIconVisibility('#inp_autuser_header_pass_2', '.eye-icon_2');
+				togglePasswordVisibility('#inp_autuser_header_pass_2', '.eye-icon_2');
 			$("#btn_aut_user_save_all").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
