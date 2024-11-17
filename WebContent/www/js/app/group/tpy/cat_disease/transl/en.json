@@ -61,10 +61,14 @@
 "tpy_cat_disease_list"					: 	"List of related diseases",
 "tpy_cat_disease_edit_title"			: "Edit Disease Information",
 "msgbox_confirm_creat"					: 	"Save disease information ?",
-"msgbox_confirm_cancel_create"			: 	"Cancel new disease ?",
 
 "tpy_cat_disease_btn_delete"			: 	"Delete",
 "tpy_cat_disease_btn_edit"				: 	"Edit",
+"msgbox_confirm_cancel_create"			: "Cancel the editing process?",  
+"prj_user_group_btn_delete_group"		: "Confirm",  
+"disease_cant_duplicate"				: "Disease code must not be duplicated",  
+"disease_cant_save"						: "Save",  
+"common_btn_save"						: "Save",
 
 "msgbox_confirm_save_cancel"			:	"Cancel the editing process ?",
 "msgbox_confirm_save"					: 	"Save editing information ?"

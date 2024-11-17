@@ -62,7 +62,7 @@
 		    {{#if fileUrl}}
 		        <div class="align-items-start pl-3 p-2 rounded-3" 
 		             style="width: 100%; height: auto; max-height: none; display: flex; align-items: flex-start; background-color: #dff9fb; border: 2px solid #686de0;border-radius: 10px;">
-		            <img src="{{fileUrl}}" alt="" style="width: 350px; height: 190px; margin-right: 10px;" onerror="{{url_image_err}}">
+		            <img src="{{fileUrl}}" alt="" style="width: 350px; height: 190px; margin-right: 10px;object-fit: cover;border-radius: 5px" onerror="{{url_image_err}}">
 		            
 		            <div class="text-dark" style="flex: 1;">
 		                <p class="fw-bold h5 text-uppercase mb-0">{{name01}}</p>
@@ -81,7 +81,7 @@
 		    {{else}}
 		        <div class="align-items-start pl-3 p-2 rounded-3" 
 		             style="width: 100%; height: auto; max-height: none; display: flex; align-items: flex-start; background-color: #dff9fb; border: 2px solid #686de0;border-radius: 10px;">
-		            <img src="{{url_image_err}}" alt="" style="width: 350px; height: 190px; margin-right: 10px;" onerror="{{url_image_err}}">
+		            <img src="{{url_image_err}}" alt="" style="width: 350px; height: 190px; margin-right: 10px;object-fit: cover;border-radius: 5px" onerror="{{url_image_err}}">
 		            
 		            <div class="text-dark" style="flex: 1;">
 		                <p class="fw-bold h5 text-uppercase mb-0">{{name01}}</p>

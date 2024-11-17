@@ -51,6 +51,7 @@
 	"prj_user_group_files"              				: "Tập tin đính kèm",
 	"prj_user_group_new_btn_save"						: "Lưu",
 	"prj_user_group_new_btn_cancel"						: "Hủy bỏ",
+	"prj_user_group_new_btn_back"						: "Quay lại",
 	"prj_project_del_user_group_popup_content"			: "Bạn chắc chắn muốn xóa nhóm ?",
 	"prj_project_add_avatar" 							: "Ảnh đại diện",
 	"prj_project_drop_files"							: "Kéo thả hoặc nhấn để thêm tập tin",

@@ -61,10 +61,14 @@
 "tpy_cat_disease_list"					: 	"Liste des maladies associées",
 
 "msgbox_confirm_creat"					: 	"Enregistrer les informations sur la maladie ?",
-"msgbox_confirm_cancel_create"			: 	"Annuler la nouvelle maladie ?",
 
 "tpy_cat_disease_btn_delete"			: 	"Supprimer",
 "tpy_cat_disease_btn_edit"				: 	"Modifier",
+"msgbox_confirm_cancel_create"			: "Annuler le processus de modification ?",  
+"prj_user_group_btn_delete_group"		: "Confirmer",  
+"disease_cant_duplicate"				: "Le code de la maladie ne doit pas être dupliqué",  
+"disease_cant_save"						: "Enregistrer",  
+"common_btn_save"						: "Enregistrer",
 
 "msgbox_confirm_save_cancel"			:	"Annuler le processus de modification ?",
 "msgbox_confirm_save"					: 	"Enregistrer les informations de modification ?"

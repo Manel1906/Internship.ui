@@ -61,14 +61,17 @@
 "tpy_cat_disease_list"					: 	"Danh sách bệnh liên quan",
 
 "msgbox_confirm_creat"					: 	"Lưu thông tin bệnh ?",
-"msgbox_confirm_cancel_create"			: 	"Hủy bỏ quá trình chỉnh sữa ?",
+"msgbox_confirm_cancel_create"			: 	"Hủy bỏ quá trình chỉnh sửa ?",
 
 "tpy_cat_disease_btn_delete"			: 	"Xóa",
 "tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
 "common_btn_yes"						: 	"Hủy bỏ",
+"common_btn_save"						: 	"Lưu",
 "common_btn_cancel"						: 	"Quay lại",
 "msgbox_confirm_save_cancel"			:	"Hủy bỏ quá trình chỉnh sửa ?",
 "msgbox_confirm_save"					: 	"Lưu thông tin chỉnh sửa ?",
 "prj_project_del_user_group_popup_content": "Xóa thông tin bệnh",
-"prj_user_group_btn_delete_group"		:   "Xác nhận"
+"prj_user_group_btn_delete_group"		:   "Xác nhận",
+"disease_cant_duplicate"				:   "Mã bệnh không được trùng",
+"disease_cant_save"						:   "Lưu"
 }

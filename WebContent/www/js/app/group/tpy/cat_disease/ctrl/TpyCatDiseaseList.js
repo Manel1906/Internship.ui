@@ -393,15 +393,15 @@ define([
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("common_btn_yes"),
 							funct	: self.do_lc_clear_timeout_viewer,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("disease_cant_save"),
 							funct	: self.do_lc_save,
 							param	: [obj],
-							classBtn: "btn-danger"
+							classBtn: "btn-primary"
 						}
 					}
 				});
@@ -598,13 +598,12 @@ define([
 				
 				let myObject = {};
 				
-//				let	obj	 				= req_gl_data({
-//					dataZoneDom		: $("#div_usergroup_ent"),
-//					oldObject 		: myObject,
-//				});
-
-//				if(obj.hasError)	return false;
-
+				let	obj	 				= req_gl_data({
+					dataZoneDom		: $("#tab_detail"),
+					oldObject 		: myObject,
+				});
+				console.log(obj)
+				if(obj.hasError)	return false;
 				const rows = $('#tbody_disease').find('tr');
 				const dataArray = [];
 				
@@ -630,7 +629,14 @@ define([
 								
 				myObject['parId'] = parentID;
 				myObject['lst'] = dataArray;
+				const codes = obj.data.lst.map(item => item.code.trim()); // Lấy danh sách code (bỏ khoảng trắng nếu có)
+				const hasDuplicate = codes.some((code, index) => codes.indexOf(code) !== index); // Kiểm tra trùng lặp
 				
+				if (hasDuplicate) {
+				    do_gl_show_Notify_Msg_Error($.i18n("disease_cant_duplicate")); // Hiển thị lỗi nếu trùng lặp
+				    return;
+				}
+
 				do_lc_save_disease_sub(myObject, dataArray);
 			})
 			
@@ -718,6 +724,16 @@ define([
 
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
+			$(".btn-resize-content_ds").off("click").on("click", function () {
+				let $this = $(this);
+				let { divtoogle } = $this.data();
+				let child = $this.find("i");
+				let label = $this.find(".label-resize");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize")
+				$(divtoogle).toggle("hide");
+
+				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
+			})
 		}
 		
 		const do_lc_bind_event_new_row_table = function() {
@@ -764,6 +780,7 @@ define([
 					$('#addRowBtn').removeClass('hide');
 					$('#removeRowBtn').removeClass('hide');
 					$(".info-edit").addClass('hide');
+					$(".btn-resize-content_ds").addClass('hide');
 					
 					$('#removeRowBtn button').on('click', function() {
 						$(this).closest('tr').remove();
@@ -887,7 +904,7 @@ define([
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("common_btn_save"),
 							funct	: self.do_lc_mod,
 							param	: [obj],
 							classBtn: "btn-primary"
