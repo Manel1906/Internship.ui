@@ -725,7 +725,7 @@ var AppCommon = {
 
 var App = {
 	path: {
-		
+		LOCATION_URL_HREF : ""
 	},
 	// Globals Constants routes
 	router: {
