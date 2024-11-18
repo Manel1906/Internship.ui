@@ -403,22 +403,9 @@
 .ic-gray { color: #808080; }
 .h1{
   color: #800080;
-  letter-spacing: 5px;
   cursor: pointer
 }
 .h1 span{
   transition: .5s linear;
   font-size: 15px;
-}
-.h1:hover span:nth-child(1){
-  margin-right: 5px
-}
-.h1:hover span:nth-child(2){
-  margin-left: 30px
-}
-.h1:hover span{
-  color: #fff;
-  text-shadow: 0 0 10px #800080,
-               0 0 20px #800080, 
-               0 0 40px #800080;
 }

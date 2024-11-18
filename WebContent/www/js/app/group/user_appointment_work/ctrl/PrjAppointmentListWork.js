@@ -1116,7 +1116,7 @@ define([
 		}
 		var do_lc_mod_prj_appointment = function (prj) {
 			let dataSend	= {obj: JSON.stringify(prj), member: JSON.stringify(Object.values(members)), customersAdd: JSON.stringify(customersAdd), customersDel: JSON.stringify(customersDel)};
-			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVModMeet", dataSend);			
+			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVModWorkPlan", dataSend);			
 
 			let fSucces		= [];		
 			fSucces.push(req_gl_funct(null, do_lc_mod_prj_appointment_success, [prj]));
