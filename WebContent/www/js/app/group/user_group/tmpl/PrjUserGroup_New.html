@@ -10,7 +10,7 @@
            		<div class="col-12 form-group mb-2 mt-2">	
 		            <div class="form-group">
 <!-- 		                <label for="inp_group_name">{{transl 'prj_user_group_name'}} *</label> -->
-		                <input type="text" data-name="name" class="form-control objData" id="inp_group_name" value="{{name}}" placeholder="{{transl 'prj_user_group_name_enter'}}" data-validation="required">
+		                <input type="text" data-name="name" class="form-control objData" id="inp_group_name" value="{{name}}" placeholder="{{transl 'prj_user_group_name_enter'}}" data-validation="required" maxlength="150">
 					</div>	
 <!-- 		            <div class="form-group">
 		                <label for="inp_group_descr">{{transl 'prj_user_group_descr'}}</label>
@@ -19,16 +19,16 @@
 		        </div>
             	<div class="col-md-12 mb-4 d-flex justify-content-between p-0">	
 		            <div class="form-group col-4">
-		                <label for="inp_group_locate">{{transl 'prj_user_group_room'}}</label>
-		                <input type="text" data-group="inf01" data-name="room" class="form-control objData" id="inp_group_locate" value="{{inf01.room}}" placeholder="{{transl 'prj_user_group_room_enter'}}" data-validation="">
+		                <label for="inp_group_locate">{{transl 'prj_user_group_position'}}</label>
+		                <input type="text" data-group="inf01" data-name="room" class="form-control objData" id="inp_group_locate" value="{{inf01.room}}" placeholder="{{transl 'prj_user_group_room_enter'}}" data-validation="" maxlength="50">
 					</div>
 					<div class="form-group col-4">
 		                <label for="inp_group_phone">{{transl 'prj_user_group_phone'}}</label>
-		                <input type="text" data-group="inf01" data-name="phone" class="form-control objData" id="inp_group_phone" value="{{inf01.phone}}" placeholder="{{transl 'prj_user_group_sdt_enter'}}" data-validation="">
+		                <input type="text" data-group="inf01" data-name="phone" class="form-control objData" id="inp_group_phone" value="{{inf01.phone}}" placeholder="{{transl 'prj_user_group_sdt_enter'}}" data-validation="" maxlength="50">
 					</div>
 					<div class="form-group col-4">
 		                <label for="inp_group_email">{{transl 'prj_user_group_email'}}</label>
-		                <input type="email" data-group="inf01" data-name="email" class="form-control objData" id="inp_group_email" value="{{inf01.email}}" placeholder="{{transl 'prj_user_group_email_enter'}}" data-validation="">
+		                <input type="email" data-group="inf01" data-name="email" class="form-control objData" id="inp_group_email" value="{{inf01.email}}" placeholder="{{transl 'prj_user_group_email_enter'}}" data-validation="" maxlength="50">
 					</div>
 		        </div>
 	        </div>

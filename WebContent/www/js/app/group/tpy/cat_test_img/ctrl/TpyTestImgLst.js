@@ -144,7 +144,7 @@ define([
 				do_lc_get_checked(dataCode)
 				do_get_list_ByAjax()
 			})
-			$("#inp_search").off("keydown").on("keydown", function(e){
+			$("#inp_search").off("input").on("input", function(e){
 				pr_SEARCH_KEY	= $(this).val();
 				do_gl_execute_debounce(do_lc_get_list);
 			});
