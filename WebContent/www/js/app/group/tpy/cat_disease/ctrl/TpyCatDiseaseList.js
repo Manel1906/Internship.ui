@@ -363,6 +363,20 @@ define([
 				
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
+			const $inputField = $("#inp_search");
+		    const $clearIcon = $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		    });
 
 			$("#btn_refresh_group").off("click").on("click", function(){
 				do_lc_get_list(true);

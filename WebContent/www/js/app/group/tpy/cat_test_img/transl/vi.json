@@ -67,7 +67,7 @@
 
 "msgbox_confirm_creat"					: 	"Lưu thông tin dịch vụ ?",
 "msgbox_confirm_cancel_create"			: 	"Hủy bỏ thêm mới bệnh ?",
-"tpy_cat_disease_edit_title"			:   "Chỉnh sữa thông tin dịch vụ",
+"tpy_cat_disease_edit_title"			:   "Chỉnh sửa thông tin dịch vụ",
 "tpy_cat_disease_btn_delete"			: 	"Xóa",
 "tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
 "aut_test_ent_header_stat_0"			:	"Tất cả",

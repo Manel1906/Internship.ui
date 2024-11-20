@@ -53,11 +53,11 @@
 	"prj_project_drop_files"							: "Drag and drop or click to add files",
 	"prj_project_new_file_title"						: "Add files here",
 	"prj_project_enter_name"							: "Enter name...",
-	
+	"prj_user_group_position"							: "Position",
 	"prj_specialty_list_title"							: "List of specialties",
 	"btn_add_file"										: "Add files",
 	"prj_user_group_room"								: "Room",
-	
+	"btn_add_file"										: "Import",
 	"msgbox_confirm_creat"								: "Save specialty content ?",
 	"msgbox_confirm_cancel_create"						: "Cancel the new creation process ?",
 	"msgbox_confirm_save"								: "Save edited content ?",

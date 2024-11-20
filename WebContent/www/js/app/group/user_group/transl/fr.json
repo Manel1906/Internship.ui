@@ -53,11 +53,11 @@
 	"prj_project_drop_files"							: "Glissez-déposez ou cliquez pour ajouter des fichiers",
 	"prj_project_new_file_title"						: "Ajouter des fichiers ici",
 	"prj_project_enter_name"							: "Saisir le nom...",
-	
+	"prj_user_group_position"							: "Position",
 	"prj_specialty_list_title"							: "Liste des spécialités",
 	"btn_add_file"										: "Ajouter des fichiers",
 	"prj_user_group_room"								: "Chambre",
-	
+	"btn_add_file"										: "Ajouter des fichiers",
 	"msgbox_confirm_creat"								: "Enregistrer le contenu spécialisé ?",
 	"msgbox_confirm_cancel_create"						: "Annuler le nouveau processus de création ?",
 	"msgbox_confirm_save"								: "Enregistrer le contenu modifié ?",
