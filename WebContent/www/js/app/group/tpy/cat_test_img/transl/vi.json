@@ -33,9 +33,9 @@
 
 "btn_add_file"							: 	"Import",
 
-"tpy_test_img_list_title"				:	"Quản lý doanh mục chẩn đoán hình ảnh",
+"tpy_test_img_list_title"				:	"Quản lý danh mục chẩn đoán hình ảnh",
 "tpy_cat_disease_new"					: 	"Thêm mới",
-"tpy_cat_disease_search"				:	"Tìm kiếm doanh mục chẩn đoán hình ảnh",
+"tpy_cat_disease_search"				:	"Tìm kiếm danh mục",
 "tpy_cat_disease_new_title"				: 	"Thêm mới dịch vụ",
 
 "tpy_cat_disease_new_file_title"		: 	"Thêm tập tin vào đây",

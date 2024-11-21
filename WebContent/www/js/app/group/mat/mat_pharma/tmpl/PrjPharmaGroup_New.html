@@ -15,24 +15,30 @@
             <div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
            	
            	<div class="row">
-           		<div class="col-12 form-group mb-2 mt-2">	
+           		<div class="col-12 form-group mt-1">	
 		            <div class="form-group">
 <!-- 		                <label for="inp_group_name">{{transl 'prj_ tpy_group_name'}} *</label> -->
-		                <input type="text" data-name="name01" class="form-control objData" id="inp_group_name" value="{{name01}}" placeholder="{{transl 'prj_tpy_group_name_enter'}}" data-validation="required">
+		                <input type="text" data-name="name01" class="form-control objData" id="inp_group_name" value="{{name01}}" placeholder="{{transl 'prj_tpy_group_name_enter'}}" data-validation="required" >
 					</div>	
 		        </div>
+		        <div class="col-12 form-group mb-1 mt-1">	
+			        <div class="form-group">
+<!-- 			    <label for="inp_group_locate">{{transl 'prj_tpy_group_brand_name_medicine'}}</label> -->
+				        <input type="text" data-name="name02" class="form-control objData" id="inp_group_locate" placeholder="{{transl 'prj_tpy_group_brand_name_medicine'}}" value="{{name02}}" data-validation="required">
+				    </div>
+			    </div>
             	<div class="col-md-12 mb-4 d-flex justify-content-start p-0">	
-		           <div class="form-group col-3">
+		           <div class="form-group col-4">
 					    <label for="inp_group_locate">{{transl 'prj_tpy_group_bar_code_ori'}}</label>
 					    <div class="input-group">
-					        <input type="text" data-name="code01" class="form-control objData" id="inp_group_locate" value="{{code01}}" data-validation="">
+					        <input type="text" data-name="code01" class="form-control objData" id="inp_group_locate" value="{{code01}}" data-validation="required">
 					        <div class="input-group-append">
 					            <span class="input-group-text"><i class="mdi mdi-qrcode-scan"></i></span>
 					        </div>
 					    </div>
 					</div>
 
-					<div class="form-group col-3">
+					<div class="form-group col-4">
 					    <label for="inp_group_phone">{{transl 'prj_tpy_group_bar_code_internal_1'}}</label>
 					    <div class="input-group">
 					        <input type="text"  data-name="code03" class="form-control objData" id="inp_group_phone" value="{{code03}}" data-validation="">
@@ -42,7 +48,7 @@
 					    </div>
 					</div>
 				
-					<div class="form-group col-3">
+					<div class="form-group col-4">
 					    <label for="inp_group_email">{{transl 'prj_tpy_group_bar_code_internal_2'}}</label>
 					    <div class="input-group">
 					        <input type="text" data-name="code04" class="form-control objData" id="inp_group_email" value="{{code04}}" data-validation="">
@@ -52,12 +58,8 @@
 					    </div>
 					</div>
 		        </div>
-		        <div class="col-md-12 mb-4 d-flex justify-content-between p-0">	
-		            <div class="form-group col-3">
-		                <label for="inp_group_locate">{{transl 'prj_tpy_group_brand_name_medicine'}}</label>
-		                <input type="text" data-name="name02" class="form-control objData" id="inp_group_locate" value="{{name02}}"   data-validation="">
-					</div>
-					<div class="col-3">	
+		        <div class="col-md-12 mb-4 d-flex justify-content-between align-items-center p-0">
+				    <div class="form-group col-4 px-2">
 				        <label for="inp_group_select">{{transl 'prj_tpy_group_medicine'}}</label>
 				        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="typ03">
 				            <option {{#equal typ03 100}}selected{{/equal}} value="100">{{transl 'aut_test_ent_grp_medicine_stat_100'}}</option>
@@ -67,21 +69,28 @@
 				            <option {{#equal typ03 700}}selected{{/equal}} value="700">{{transl 'aut_test_ent_grp_medicine_stat_700'}}</option>
 				            <option {{#equal typ03 900}}selected{{/equal}} value="900">{{transl 'aut_test_ent_grp_medicine_stat_900'}}</option>
 				        </select>
-			    	</div>
-					<div class="form-group col-3">
-		                <label for="inp_group_email">{{transl 'prj_tpy_group_reg_number_visa'}}</label>
-		                <input type="email" data-name="code02" class="form-control objData" id="inp_group_email" value="{{code02}}"   data-validation="">
-					</div>
-					<div class="form-group col-3">
-		                <label for="inp_group_email">{{transl 'prj_tpy_group_exp_visa'}}</label>
-		                <input data-format="date" type="text" data-validation="date required"
-                         class="form-control objData" id="dtpicker_End"
-                         data-name="dt03" data-provide="datepicker"
-                         data-date-format="dd/mm/yyyy" />
-					</div>
-		        </div>
+				    </div>
+				    <div class="form-group col-4 px-2">
+				        <label for="inp_group_email">{{transl 'prj_tpy_group_reg_number_visa'}}</label>
+				        <input type="number" data-name="code02" class="form-control objData" id="inp_group_email" value="{{code02}}" data-validation="required">
+				    </div>
+				    <div class="form-group input-daterange col-4 px-2">
+				        <label for="inp_group_email">{{transl 'prj_tpy_group_exp_visa'}}</label>
+				        <div class="input-group ">
+					        <input data-format="date" type="text" data-validation="date required"
+					               class="form-control objData" id="dtpicker_exp"
+					               placeholder="" data-group="dt03"
+					               data-name="date" data-provide="datepicker"
+					               data-date-format="dd/mm/yyyy" data-validation="required" />
+					        <input type="text" class="form-control objData tmpicker"
+					               id="tmpicker_exp" placeholder=""
+					               data-group="dt03" data-name="time" data-provide="timepicker" data-validation="required" />
+				        </div>
+				    </div>
+				</div>
+
 		        <div class="col-md-12 mb-4 d-flex justify-content-start p-0">	
-		            <div class="col-3 mb-2 mt-2">	
+		            <div class="col-4 mb-2 mt-2">	
 				        <label for="inp_group_select">{{transl 'prj_tpy_group_producer'}}</label>
 				        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="prodId">
 				            <option {{#equal typ03 2}}selected{{/equal}} value="2">{{transl 'aut_test_ent_manu_medicine_stat_2'}}</option>
@@ -90,7 +99,7 @@
 				            <option {{#equal typ03 10}}selected{{/equal}} value="10">{{transl 'aut_test_ent_manu_medicine_stat_10'}}</option>
 				        </select>
 			    	</div>
-					<div class="col-3 mb-2 mt-2"">	
+					<div class="col-4 mb-2 mt-2"">	
 				        <label for="inp_group_select">{{transl 'prj_tpy_group_package'}}</label>
 				        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="inf02">
 				            <option {{#equal typ03 5}}selected{{/equal}} value="5">{{transl 'aut_test_ent_package_medicine_stat_5'}}</option>
@@ -99,7 +108,7 @@
 				            <option {{#equal typ03 10}}selected{{/equal}} value="10">{{transl 'aut_test_ent_package_medicine_stat_10'}}</option>
 				        </select>
 			    	</div>
-					<div class="col-3 mb-2 mt-2"">	
+					<div class="col-4 mb-2 mt-2"">	
 				        <label for="inp_group_select">{{transl 'prj_tpy_group_unit_min'}}</label>
 				        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="inf01">
 				            <option {{#equal typ03 6}}selected{{/equal}} value="6">{{transl 'aut_test_ent_unit_medicine_stat_6'}}</option>

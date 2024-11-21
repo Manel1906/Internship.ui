@@ -107,10 +107,24 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event = function(obj){
-			$("#inp_search").off("keydown").on("keydown", function(e){
-				pr_SEARCH_KEY	= $(this).val();
+			const $inputField = $("#inp_search");
+		    const $clearIcon = $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_SEARCH_KEY	= $inputField.val();
 				do_gl_execute_debounce(do_lc_get_list);
-			});
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_SEARCH_KEY	= $inputField.val();
+				do_gl_execute_debounce(do_lc_get_list);
+		    });
 			
 			$(".btn-resize").off("click").on("click", function () {
 				let $this = $(this);
@@ -383,7 +397,7 @@ define([
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_tpy_group_new_btn_save"),
 							funct	: self.do_lc_save,
 							param	: [obj],
 							classBtn: "btn-primary"
@@ -406,7 +420,7 @@ define([
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_tpy_group_new_btn_cancel"),
 							funct	: self.do_lc_cancel,
 							param	: [],
 							classBtn: "btn-danger"
@@ -459,7 +473,11 @@ define([
 			if (obj.files){
 				data.data.files = obj.files;
 			}
-			do_lc_new_group(data.data);
+			let dataMed = data.data;
+			dataMed.dt03 = do_lc_convert_date(dataMed.dt03).replace("T", " ");
+		    const date03 = req_gl_DateObj_From_DateStr(dataMed.dt03);
+		    dataMed.dt03 = formatDateToLocalString(date03);
+			do_lc_new_group(dataMed);
 		}
 		
 		//-----------------new group-------------------------------------------------------------------------
@@ -480,13 +498,26 @@ define([
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
 					do_lc_show_info_group(data);
-					do_lc_get_list_member(data);
 					do_lc_get_list(true); // hard Reload list group
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
+		const do_lc_convert_date = (objDate) => {
+			if (objDate.time.length < 5) objDate.time = "0" + objDate.time;
+			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
+		}
+		function formatDateToLocalString(date) {
+			    const year = date.getFullYear();
+			    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Tháng phải cộng 1
+			    const day = ('0' + date.getDate()).slice(-2);
+			    const hours = ('0' + date.getHours()).slice(-2);
+			    const minutes = ('0' + date.getMinutes()).slice(-2);
+			    const seconds = ('0' + date.getSeconds()).slice(-2);
+			    
+			    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+			}
 		
 		//-----------------get group-------------------------------------------------------------------------
 		
@@ -707,9 +738,20 @@ define([
 
 					$("#div_usergroup_member").html("");
 					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, data));
+					const [date, time] = data.dt03.split(" ");
+					data.dt03 = { date, time };
 					
-					$("#dtpicker_End").datepicker( "setDate", data.dt03);
-					
+					const [year, month, day] = data.dt03.date.split("-");
+					const formattedDate = `${day}/${month}/${year}`;
+					$("#dtpicker_exp").datepicker( "setDate", formattedDate);
+					$("#tmpicker_exp"	)	.timepicker({
+						showMeridian: false,
+						defaultTime : data.dt03.time,
+						icons		: {
+							up		: "mdi mdi-chevron-up",
+							down	: "mdi mdi-chevron-down"
+						}
+					});
 					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
 					App.SummerNoteController.do_lc_show("#div_create_service");//text editor
 					App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
@@ -757,7 +799,7 @@ define([
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("common_btn_save_med"),
 							funct	: self.do_lc_mod,
 							param	: [obj],
 							classBtn: "btn-primary"
@@ -780,10 +822,10 @@ define([
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_tpy_group_new_btn_cancel"),
 							funct	: self.do_lc_cancel,
 							param	: [],
-							classBtn: "btn-primary"
+							classBtn: "btn-danger"
 						}
 					}
 				});
@@ -823,7 +865,11 @@ define([
 				data.data.files = obj.files;
 			}
 			data.data.id = obj.id;
-			do_lc_update_chat_group(data.data);
+			let dataMed = data.data;
+			dataMed.dt03 = do_lc_convert_date(dataMed.dt03).replace("T", " ");
+		    const date03 = req_gl_DateObj_From_DateStr(dataMed.dt03);
+		    dataMed.dt03 = formatDateToLocalString(date03);
+			do_lc_update_chat_group(dataMed);
 		}
 		
 		this.do_lc_cancel = function(){
