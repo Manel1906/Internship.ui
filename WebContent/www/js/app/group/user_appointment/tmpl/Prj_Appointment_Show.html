@@ -9,52 +9,98 @@
                             <!-- name -->
 							<div class="form-group row mb-2">
 							    <div class="col-lg-12">
-							        <div class="d-flex justify-content-between align-items-center">
-							            <label for="projectname" class="col-form-label h5">{{transl 'prj_appointment_title'}}</label>
-										<!-- New buttons for color selection -->
-										<div class="row justify-content-end mt-2">
-										    <div class="col-auto" id="div_buttons_container" style="display: flex; gap: 0px;">
-										        <div id="div_button_blue">
-										            <button class="btn btn-sm" style="color: #556ee6; box-shadow: none;">
-										                <i class="fa fa-square ic-blue" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
-										            </button>
-										        </div>
-										        <div id="div_button_green">
-										            <button class="btn btn-sm" style="color: #34c38f; box-shadow: none;">
-										                <i class="fa fa-square ic-green" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
-										            </button>
-										        </div>
-										        <div id="div_button_yellow">
-										            <button class="btn btn-sm" style="color: #f1c232; box-shadow: none;">
-										                <i class="fa fa-square ic-yellow" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
-										            </button>
-										        </div>
-										        <div id="div_button_red">
-										            <button class="btn btn-sm" style="color: #cc0000; box-shadow: none;">
-										                <i class="fa fa-square ic-red" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
-										            </button>
-										        </div>
-										        <div id="div_button_white">
-										            <button class="btn btn-sm" style="color: #cccccc; box-shadow: none;">
-										                <i class="fa fa-square ic-grey" style="font-size: 24px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'"></i>
-										            </button>
-										        </div>
-										    </div>
-										</div>
+							        <div class="d-flex align-items-center">
+							            <label for="projectname" style="width:200px" class="col-form-label h5">{{transl 'prj_appointment_title'}}</label>
+							        	{{name}}
 							        </div>
-							        <div>
-							            {{name}}
-							        </div>
+							            
 							    </div>
 							</div>
+							<div class="form-group row mb-2">
+                                <div class="col-lg-12">
+	                                <div class="d-flex align-items-center">
+	                                    <label for="cmt03" style="width:200px" class="col-form-label h5">{{transl 'prj_schedule_work'}}</label>
+										  	{{#equal typ02 100}}
+						                    	{{transl 'prj_appointment_option_zero'}}
+							                {{/equal}}
+							                {{#equal typ02 200}}
+							                    {{transl 'prj_appointment_option_one'}}
+							                {{/equal}}
+							                {{#equal typ02 300}}
+							                    {{transl 'prj_appointment_option_two'}}
+							                {{/equal}}
+							                {{#equal typ02 400}}
+							                    {{transl 'prj_appointment_option_three'}}
+							                {{/equal}}
+							                {{#equal typ02 500}}
+							                    {{transl 'prj_appointment_option_four'}}
+							                {{/equal}}
+							                {{#equal typ02 600}}
+							                    {{transl 'prj_appointment_option_five'}}
+							                {{/equal}}
+						                    
+						  
+	                                </div>
+                                 </div>
+                            </div>
+                            <div class="form-group row mb-2">
+                                <div class="col-lg-12">
+                               		<div class="d-flex align-items-center">
+								    <label for="cmt03" style="width:200px" class="col-form-label h5">{{transl 'prj_departments_level'}}</label>
+								    {{#equal parId 100}}
+								        {{transl 'prj_department_one'}}
+								    {{/equal}}
+								    {{#equal parId 200}}
+								        {{transl 'prj_department_two'}}
+								    {{/equal}}
+								    {{#equal parId 300}}
+								        {{transl 'prj_department_three'}}
+								    {{/equal}}
+								    {{#equal parId 400}}
+								        {{transl 'prj_department_four'}}
+								    {{/equal}}
+								    {{#equal parId 500}}
+								        {{transl 'prj_department_five'}}
+								    {{/equal}}
+								    {{#equal parId 600}}
+								        {{transl 'prj_department_six'}}
+								    {{/equal}}
+								    {{#equal parId 700}}
+								        {{transl 'prj_department_seven'}}
+								    {{/equal}}
+								    {{#equal parId 800}}
+								        {{transl 'prj_department_eight'}}
+								    {{/equal}}
+								    {{#equal parId 900}}
+								        {{transl 'prj_department_nine'}}
+								    {{/equal}}
+								    {{#equal parId 1000}}
+								        {{transl 'prj_department_ten'}}
+								    {{/equal}}
+								    {{#equal parId 1100}}
+								        {{transl 'prj_department_eleven'}}
+								    {{/equal}}
+								    {{#equal parId 1200}}
+								        {{transl 'prj_department_twelve'}}
+								    {{/equal}}
+								    {{#equal parId 1300}}
+								        {{transl 'prj_department_thirteen'}}
+								    {{/equal}}
+								    {{#equal parId 1400}}
+								        {{transl 'prj_department_fourteen'}}
+								    {{/equal}}
+								</div>
 
+                                   
+                                </div>
+                            </div>
 
                             <!-- name -->
                             <div class="form-group row mb-2">
                                 <div class="col-lg-12">
-                                    <label for="cmt03" class="col-form-label h5">{{transl
+                                    <div class="d-flex align-items-center">
+	                                    <label for="cmt03" style="width:200px" class="col-form-label h5">{{transl
                                         'prj_appointment_area'}}</label>
-                                    <div>
                                         {{inf01}}
                                     </div>
                                 </div>
@@ -63,9 +109,9 @@
                             <!-- descr01 -->
                             <div class="row mb-2">
                                 <div class="col-lg-12">
-                                    <label for="projectdesc" class="col-form-label h5">{{transl
+                                	<div class="d-flex align-items-center">
+                                    <label for="projectdesc" style="width:200px" class="col-form-label h5">{{transl
                                         'prj_appointment_cmt'}}</label>
-                                    <div>
                                         {{inf02.desc}}
                                     </div>
                                 </div>
@@ -74,32 +120,23 @@
 
                             <div class="row mb-2">
                                 <!-- date -->
-                                <div class="col-lg-6">
-                                    <label class="col-form-label h5">{{transl 'prj_project_start_date'}}</label>
-                                    <div>
+                                <div class="col-lg-12">
+                                	<div class="d-flex align-items-center">
+                                    	<label style="width:200px" class="col-form-label h5">{{transl 'prj_project_start_date'}}</label>
                                         {{reqFormatDate dtBegin}}
-                                    </div>
+                                </div>
                                 </div>
                              </div>
                              <div class="row mb-2">
-                                <div class="col-lg-6">
-                                    <label class="col-form-label h5">{{transl 'prj_project_end_date'}}</label>
-                                    <div>
+                                <div class="col-lg-12">
+                                	<div class="d-flex align-items-center">
+                                    	<label style="width:200px" class="col-form-label h5">{{transl 'prj_project_end_date'}}</label>
                                         {{reqFormatDate dtEnd}}
+                                    </div>
                                     </div>
                                 </div>
                                
-                            </div>
 
-						    <!-- addr04 -->
- 						   {{#if addr04}}
-                           <div class="row mb-2">
-                               <div class="col-lg-12">
-                                   <label class="col-form-label h5">{{transl 'prj_appointment_link_direct'}}</label>
-                                   <div><a href="{{val02}}" target="_blank">{{transl "prj_appointment_link_access"}}</a></div>
-                               </div>
-                           </div>
-                           {{/if}}
                            
                              <!-- member -->
                              <div class="row mb-2" id="div_list_member_par">
@@ -126,27 +163,7 @@
                                 </div>
                             </div>
 
-                            <!-- files -->
-
-                            <!-- <div class="col-lg-12">
-                                <div id="div_prj_docs">
-                                    <label class="col-form-label h5">{{transl 'prj_project_attached_files'}}</label>
-                                    <div>
-                                        <form class="dropzone inputfile">
-                                            <div class="fallback">
-                                                <input data-name="file" type="file" multiple />
-                                            </div>
-             
-                                            <div class="dz-message needsclick">
-                                                <div class="mb-3">
-                                                    <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                                                </div>
-                                                <h4>{{transl 'prj_project_drop_files'}}</h4>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> -->
+                         
                         </div>
                     </div>
                 </div>
@@ -164,20 +181,5 @@
         <div id="div_button_delete">
             <button class="btn btn-danger btn-sm">{{transl "prj_appointment_event_del"}}</button>
         </div>
-        <div id="div_button_call">
-            <button class="btn btn-success btn-sm">{{transl "prj_appointment_event_call"}}</button>
-        </div>
-        <div id="div_button_accept">
-            <button class="btn btn-success btn-sm">{{transl "prj_appointment_event_accepted"}}</button>
-        </div>
-        <div id="div_button_deny">
-            <button class="btn btn-warning btn-sm">{{transl "prj_appointment_event_denied"}}</button>
-        </div>
-        <div id="div_button_unaccept">
-		    <button class="btn btn-warning btn-sm">{{transl "prj_appointment_event_unaccepted"}}</button>
-		</div>
-		<div id="div_button_undeny">
-		    <button class="btn btn-warning btn-sm">{{transl "prj_appointment_event_undenied"}}</button>
-		</div>
     </div>
 </div>

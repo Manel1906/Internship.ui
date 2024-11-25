@@ -1,0 +1,32 @@
+{{#each appointments}}
+<div class="card meeting-card" style="width: 250px; margin-bottom: 1rem;">
+  <div class="card-body">
+    <div class=" d-flex justify-content-between align-items-center">
+    <span class="bg-danger text-white rounded px-2 py-1" id="countdown-{{@index}}">
+      <i class="mdi mdi-bell"></i> <span class="time-remaining" data-appointment-time="{{obj.dtBegin}}"></span>
+    </span>
+    <p class="mb-2"><i class="mdi mdi-clock"></i> {{formatDate obj.dtBegin "date"}}</p>
+  </div>
+    <h5 class="card-title">Appppp</h5>
+    
+    <p class="mb-2"><i class="mdi mdi-map-marker"></i> {{obj.inf02.desc}}</p>
+    <p><i class="mdi mdi-calendar-clock"></i> {{formatDate obj.dtBegin "time"}} - {{formatDate obj.dtEnd "time"}}</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <button class="btn btn-info text-white">Tham gia</button>
+      <div class="div_list_member d-flex">
+        {{#each members}}
+          <div class='team-member member-item d-flex align-items-center'>
+            {{#if avatar}}
+              <img src='{{avatar}}' class='rounded-circle avatar-xs {{opacity}} mr-1'/>
+            {{else}}
+              <div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center {{opacity}}" style="background-color: {{textColor}}">
+                <div class="text-middle">{{textAvatar}}</div>
+              </div>
+            {{/if}}
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+{{/each}}

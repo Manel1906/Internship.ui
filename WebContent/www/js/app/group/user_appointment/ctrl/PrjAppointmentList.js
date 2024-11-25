@@ -2,12 +2,32 @@ define([
 	'text!group/user_appointment/tmpl/Prj_Appointment_View.html',
 	'text!group/user_appointment/tmpl/Prj_Appointment_New.html',
 	'text!group/user_appointment/tmpl/Prj_Appointment_Show.html',
-
+	'text!group/user_appointment/tmpl/Prj_Appointment_Show_Notification.html',
 	], function(
 			Prj_Appointment_View, 
 			Prj_Appointment_New,
-			Prj_Appointment_Show
+			Prj_Appointment_Show,
+			Prj_Appointment_Show_Notification
 	){
+	var Handlebars				=  require('handlebars');
+	Handlebars.registerHelper("formatDate", function (dateString, formatType) {
+	  if (!dateString) return ""; 
+	
+	  const date = new Date(dateString.replace(" ", "T"));
+	  if (formatType === "date") {
+	    return date.toLocaleDateString("vi-VN", {
+	      day: "2-digit",
+	      month: "2-digit",
+	      year: "numeric",
+	    });
+	  } else if (formatType === "time") {
+	    return date.toLocaleTimeString("vi-VN", {	
+	      hour: "2-digit",
+	      minute: "2-digit",
+	    });
+	  }
+	  return dateString;
+	});
 
 	var PrjAppointmentList = function (grpName, header, content, footer) {
 		const tmplName				= App.template.names;
@@ -71,11 +91,12 @@ define([
 
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init	= function(){
-			pr_ctr_Main 					= App.controller.UI.Main;
+			pr_ctr_Main 								= App.controller.UI.Main;
 
-			tmplName.PRJ_APPOINTMENT_VIEW	= 	"Prj_Appointment_View";
-			tmplName.PRJ_APPOINTMENT_NEW	= 	"Prj_Appointment_New";
-			tmplName.PRJ_APPOINTMENT_SHOW	= 	"Prj_Appointment_Show";
+			tmplName.PRJ_APPOINTMENT_VIEW				= 	"Prj_Appointment_View";
+			tmplName.PRJ_APPOINTMENT_NEW				= 	"Prj_Appointment_New";
+			tmplName.PRJ_APPOINTMENT_SHOW				= 	"Prj_Appointment_Show";
+			tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION	= 	"Prj_Appointment_Show_Notification";
 		}
 
 		//---------show-----------------------------------------------------------------------------
@@ -105,6 +126,7 @@ define([
 				
 				do_get_availableTimeList(dp_schedule);
 				do_lc_bind_eventPage();
+				updateCountdowns();
 				$(document).prop('title',$.i18n('prj_project_sidebar_schedule'));
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.project", "PrjAppointmentList", "do_lc_show", e.toString()) ;
@@ -186,6 +208,8 @@ define([
 
 				if(eDate < sDate) $( "#dtpicker_End" ).val(sDate)
 			})
+			
+			
 			$("#tmpicker_Begin").off("change").on("change", function() {
 				const sDate = $( "#dtpicker_Begin" ).val()
 				const eDate = $( "#dtpicker_End" ).val()
@@ -242,7 +266,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, Prj_Appointment_View);
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_NEW, Prj_Appointment_New);
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, Prj_Appointment_Show);
-
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, Prj_Appointment_Show_Notification);
 			
 			if ($(window).width() < 600) {
 				pr_ForDesktop = false;
@@ -273,6 +297,7 @@ define([
 			let tmp = localStorage.getItem("language");
 			if (tmp == "en") locale = "en-us";
 			else locale = tmp + "-" + tmp;
+			
 		}
 
 		var pr_backColor_01 = "#fff";
@@ -291,27 +316,11 @@ define([
 				startDate.setDate(startDate.getDate() - 1); // get 2 days before
 				startDate = getDateISOShort(startDate);
 			}
-		
-			 
-		
-
-			dp_nav 				= new DayPilot.Navigator("dp_nav");
 			dp_schedule 		= new DayPilot.Calendar	("dp_schedule");
 			
 			
-			dp_nav.showMonths = pr_ForDesktop?(pr_ForVertial?4:3):2;
-			dp_nav.orientation= pr_ForDesktop?"Vertical":"Horizontal",
-			dp_nav.skipMonths = 1;
-			dp_nav.selectMode = "week";
-		
-			dp_nav.onTimeRangeSelected = function (args) {
-				dp_schedule.startDate = args.day;
-				do_get_availableTimeList(dp_schedule, args.start.value.replace("T", " "), args.end.value.replace("T", " "));
-			};
 	//		do_get_availableTimeList(dp_schedule,startDate, dtEnd);
 
-			dp_nav.locale = locale;
-			dp_nav.init();
 
 			dp_schedule.showNonBusiness             =false;
 			dp_schedule.showNonBusinessForceHours = true;
@@ -320,8 +329,14 @@ define([
 			dp_schedule.viewType 					= "Week";
 //			dp_schedule.viewType 					= "Days";
 
-			dp_schedule.startDate 					= startDate;
-
+			console.log(pr_dtBegin);
+			if(pr_dtBegin != null)
+			{
+				dp_schedule.startDate 					= pr_dtBegin;
+			}
+			else{
+				dp_schedule.startDate 					= startDate;
+			}
 			dp_schedule.days 						= TIME_RANGE*2+1;
 			dp_schedule.eventClickHandling 			= "Select";
 			dp_schedule.allowMultiSelect 			= false;
@@ -347,70 +362,12 @@ define([
 			}
 
 			dp_schedule.onBeforeCellRender = function(args) {
-	//		    var cellDatePart = args.cell.start.getDatePart().getTime();
-	//		    var currentDatePart = new DayPilot.Date().getDatePart().getTime();
 			 	var currentTime = new DayPilot.Date().getTime();
-	//		    if (cellDatePart === currentDatePart) {
-	//		        args.cell.backColor = "#f3f3f3"; 
-	//		    }
 			    var cellStart = args.cell.start.getTime();
 		        var cellEnd = args.cell.end.getTime();
 			    if (currentTime >= cellStart && currentTime < cellEnd) {
 			        args.cell.properties.cssClass = "workadm_now";
 			    }
-				
-				var memberInf10 = App.data.user;
-				if(memberInf10.inf10 != "" ||  App.data.selectedUser != null)
-				{
-						if (App.data.selectedUser) {
-						 	var memberInf = App.data.selectedUser;
-						 	var currentDateStart = JSON.parse(memberInf.wdCfg);
-						 }
-						 else {
-						    var currentDateStart = JSON.parse(memberInf10.inf10);
-						}
-						var dayOfWeek = args.cell.start.getDayOfWeek()
-						var weekMap = {
-				        0: "sun", 
-				        1: "mon",
-				        2: "tue",
-				        3: "wed", 
-				        4: "thu", 
-				        5: "fri",
-				        6: "sat"  
-				    };
-				    var dayKey = weekMap[dayOfWeek];
-				    if (currentDateStart[dayKey] === "A") {
-				    		args.cell.backColor = "#f3f3f3";    
-	        		}
-	        		else{
-	        			var startTime = currentDateStart[dayKey + "S"];
-					    var endTime = currentDateStart[dayKey + "E"];
-					    var cellStart = args.cell.start;
-					    var startTimeParts = startTime.split(':');
-						var endTimeParts = endTime.split(':');
-						var startHour = parseInt(startTimeParts[0], 10);
-						var startMinute = parseInt(startTimeParts[1], 10);
-						var endHour = parseInt(endTimeParts[0], 10);
-						var endMinute = parseInt(endTimeParts[1], 10);
-						
-						var cellStartHour = cellStart.getHours();
-						var cellStartMinute = cellStart.getMinutes();
-						
-						if (
-						    (cellStartHour > startHour || (cellStartHour === startHour && cellStartMinute >= startMinute)) &&
-						    (cellStartHour < endHour || (cellStartHour === endHour && cellStartMinute < endMinute))
-						) {
-						    args.cell.backColor = "#fff"; 
-						} else {
-						    args.cell.backColor = "#f3f3f3";
-						}
-						
-					    if (cellStart.getHours() === 12) {
-						     args.cell.backColor = "#f3f3f3";
-						}
-	        		}
-				}
 			
 			};
 			setInterval(function() {
@@ -426,9 +383,7 @@ define([
 
 					let userColor = null;
 
-					if (Array.isArray(args.data.obj.inf02.color)) {
-					    userColor = args.data.obj.inf02.color.find(item => item.id === App.data.user.id);
-					}
+					userColor = args.data.obj.inf02;
 
 					if (userColor) {
 					    args.data.borderColor = userColor.cl;
@@ -593,7 +548,7 @@ define([
 						    "margin"	: "auto"
 						}
 					});
-
+					
 					// Handle div file
 					var divFile = "";
 					if (args.e.data.obj.files) {
@@ -766,12 +721,13 @@ define([
 					    do_lc_build_view_customer(args.e.data.obj.val01, "#div_list_email_customer");
 					    do_lc_binding_event_add_customer(true);
 					    do_lc_bind_event_autocomplete(); // bind event delete for each member element
-
+						$(".mod-repeat-hide").hide();	
 					    do_lc_req_autocomplete();
 					    /*$(".member-item").css({
 					        "display": "flex",
 					        "flex-direction": "row",
-					    })*/								
+					    })*/
+					    							
 					});
 					
 					divButtonDelete.on('click', function() {
@@ -917,7 +873,6 @@ define([
 
 				do_lc_mod_prj_appointment(obj)
 			};
-
 			dp_schedule.contextMenu = new DayPilot.Menu({
 				items: [
 					{
@@ -958,7 +913,7 @@ define([
 							do_lc_build_view_customer(args.source.data.obj.val01, "#div_list_email_customer");
 							do_lc_binding_event_add_customer(true);
 							do_lc_bind_event_autocomplete(); // bind event delete for each member element
-
+							$(".mod-repeat-hide").hide();
 							do_lc_req_autocomplete();
 							/*$(".member-item").css({
 								"display": "flex",
@@ -1011,30 +966,6 @@ define([
 					},
 					{
 						text: "-"
-					},
-					{
-						text: $.i18n("prj_appointment_color_blue"),
-						icon: "fa fa-square ic-blue",
-						color: "#556ee6",
-						onClick: function (args) { updateColor(args.source, args.item.color); }
-					},
-					{
-						text: $.i18n("prj_appointment_color_green"),
-						icon: "fa fa-square ic-green",
-						color: "#34c38f",
-						onClick: function (args) { updateColor(args.source, args.item.color); }
-					},
-					{
-						text: $.i18n("prj_appointment_color_yellow"),
-						icon: "fa fa-square ic-yellow",
-						color: "#f1c232",
-						onClick: function (args) { updateColor(args.source, args.item.color); }
-					},
-					{
-						text: $.i18n("prj_appointment_color_red"),
-						icon: "fa fa-square ic-red",
-						color: "#cc0000",
-						onClick: function (args) { updateColor(args.source, args.item.color); }
 					},
 
 					],
@@ -1097,21 +1028,22 @@ define([
 			dp_schedule.init();
 			
 			const picker = new DayPilot.DatePicker({
-		    target: 'nav_calendar_show',
-		    pattern: 'yyyy-MM-dd',
-		    onTimeRangeSelected: (args) => {
-		        dp_schedule.update({startDate: args.start});
-		    }
-		});
-
+			    target: 'nav_calendar_show',
+			    pattern: 'yyyy-MM-dd',
+			    onTimeRangeSelected: (args) => {
+			        dp_schedule.update({ startDate: args.start });
+			    }
+			});
+			
 			const app = {
 			    elements: {
-			        previous: document.getElementById("previous"),
-			        next: document.getElementById("next"),
-			        nav_calendar: document.getElementById("nav_calendar")
+			        previous: $("#previous"),
+			        next: $("#next"),
+			        nav_calendar: $("#nav_calendar")
 			    },
+			
 			    addEventHandlers() {
-			        app.elements.previous.addEventListener("click", (e) => {
+			        app.elements.previous.on("click", (e) => {
 			            e.preventDefault();
 			            const newDate = dp_schedule.startDate.addDays(-7);
 			            app.changeDate(newDate);
@@ -1121,7 +1053,7 @@ define([
 			            do_get_availableTimeList(dp_schedule, startDate.toString(), endDate.toString());
 			        });
 			
-			        app.elements.next.addEventListener("click", (e) => {
+			        app.elements.next.on("click", (e) => {
 			            e.preventDefault();
 			            const newDate = dp_schedule.startDate.addDays(7);
 			            app.changeDate(newDate);
@@ -1132,15 +1064,21 @@ define([
 			            do_get_availableTimeList(dp_schedule, startDate.toString(), endDate.toString());
 			        });
 			
-			        app.elements.nav_calendar.addEventListener('click', (e) => {
+			        app.elements.nav_calendar.on("click", (e) => {
 			            e.preventDefault();
 			            picker.show();
+			
+			           	if (prjSearch && prjSearch.parId) {
+			                do_lc_search_prj_appointment(prjSearch, dp_schedule);
+			            }
 			        });
 			    },
+			
+			    // Update dp_schedule with a new date and reset events
 			    changeDate(date) {
 			        const startDate = date.firstDayOfWeek();
 			        const days = 7;
-			        const events = [];
+			        const events = [];  // Reset or reload events if necessary
 			
 			        dp_schedule.update({
 			            startDate,
@@ -1148,20 +1086,22 @@ define([
 			            events
 			        });
 			    },
+			
 			    init() {
-			        app.addEventHandlers();
+			        this.addEventHandlers();
 			    }
 			};
 			
+			// Initialize the app
 			app.init();
-			
-		}
+			}
 
 		var do_lc_mod_appointment = function (e) {
 			let	data	 		= req_gl_data({
 				dataZoneDom		: $("#div_create_prj_appointment")
 			});
 			let prj 	= data.data;
+			prj.inf02.cl = pr_Color;
 			prj.dtBegin = do_lc_convert_date(prj.dtBegin).replace("T"," ");
 			prj.dtEnd 	= do_lc_convert_date(prj.dtEnd).replace("T"," ");
 
@@ -1176,22 +1116,8 @@ define([
 				do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_today_msg_err"));
 				return;
 			}
-
-			//	if(req_gl_Date_CompareObj(req_gl_DateObj_From_DateStr(prj.dtEnd), req_gl_DateObj_From_DateStr(prj.dtBegin)) < 0) {
-			//		do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_msg_err"))
-
-			//		return
-			//	}
-			//	if(req_gl_Date_CompareObj(req_gl_DateObj_From_DateStr(currentDate), req_gl_DateObj_From_DateStr(prj.dtBegin)) > 0) {
-			//		do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_msg_err"))
-
-			//		return
-			//	}
-
-
-
 			prj.files 	= files.files;
-			prj.typ01 	= TYP_01_MEETING;
+			prj.typ01 	= 900;
 			// prj.typ02 	= TYP_02_APPOINTMENT;
 			prj.nb 		= 0;
 			prj.val01 	= JSON.stringify(customers);
@@ -1206,21 +1132,20 @@ define([
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVModMeet", dataSend);			
 
 			let fSucces		= [];		
-			fSucces.push(req_gl_funct(null, do_lc_mod_prj_appointment_success, []));
+			fSucces.push(req_gl_funct(null, do_lc_mod_prj_appointment_success, [prj]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	
 
 			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 
 		}
-		var do_lc_mod_prj_appointment_success = function (sharedJson) {
+		var do_lc_mod_prj_appointment_success = function (sharedJson,prj) {
 			if(can_gl_AjaxSuccess(sharedJson)) {	
 			//	dp_schedule.message($.i18n("prj_appointment_msg_update"));
 				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_update_ajax"));
 
-				// reload
-				if (dp_nav && dp_schedule) {
-					do_get_availableTimeList(dp_schedule, dp_nav.selectionStart.value.replace("T", " "), dp_nav.selectionEnd.addDays(1).value.replace("T", " "));	
+				if (dp_schedule) {
+					do_get_availableTimeList(dp_schedule);	
 				}
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
@@ -1260,9 +1185,6 @@ define([
 		//		dp_schedule.message($.i18n("prj_appointment_msg_update_color"));
 				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_update_ajax"));
 				// reload
-				if (dp_nav && dp_schedule) {
-					do_get_availableTimeList(dp_schedule, dp_nav.selectionStart.value.replace("T", " "), dp_nav.selectionEnd.addDays(1).value.replace("T", " "));	
-				}  
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
 			}
@@ -1275,20 +1197,20 @@ define([
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVDelMeet", dataSend);			
 
 			let fSucces		= [];		
-			fSucces.push(req_gl_funct(null, do_lc_remove_appointment_success, [e]));	
+			fSucces.push(req_gl_funct(null, do_lc_remove_appointment_success, [e,prj]));	
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	
 
 			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
-		var do_lc_remove_appointment_success = function (sharedJson, e) {
+		var do_lc_remove_appointment_success = function (sharedJson, e,prj) {
 			if(can_gl_AjaxSuccess(sharedJson)) {	
 				dp_schedule.events.remove(e);
 		//		dp_schedule.message($.i18n("prj_appointment_msg_del")); 
 				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_del_ajax"));
 				// reload
-				if (dp_nav && dp_schedule) {
-					do_get_availableTimeList(dp_schedule, dp_nav.selectionStart.value.replace("T", " "), dp_nav.selectionEnd.addDays(1).value.replace("T", " "));	
+				if (dp_schedule) {
+					do_get_availableTimeList(dp_schedule)
 				}
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
@@ -1381,69 +1303,137 @@ define([
 		//-------------------------------------------------------------------------------------------------
 
 		var do_lc_create_appointment = function () {
-			let	data	 		= req_gl_data({
-				dataZoneDom		: $("#div_create_prj_appointment")
-			});
-			let prj 	= data.data;
-			prj.stat01	= STAT_ACTIVE; //Active
-			prj.dtBegin = do_lc_convert_date(prj.dtBegin).replace("T"," ");
-			prj.dtEnd 	= do_lc_convert_date(prj.dtEnd).replace("T"," ");
+			
+		    let data = req_gl_data({
+		        dataZoneDom: $("#div_create_prj_appointment")
+		    });
+		    var selectedWorkType = $("input[name='workType']:checked").val();
+		    let prj = data.data;
+		    prj.inf02.cl = pr_Color;
+		    prj.inf02.workType = selectedWorkType;
+		    prj.stat01 = STAT_ACTIVE; // Active
+		    prj.dtBegin = do_lc_convert_date(prj.dtBegin).replace("T", " ");
+		    prj.dtEnd = do_lc_convert_date(prj.dtEnd).replace("T", " ");
+		    const dtBeginn = req_gl_DateObj_From_DateStr(prj.dtBegin);
+		    const dtEndd = req_gl_DateObj_From_DateStr(prj.dtEnd);
+		    const currentDate = new Date();
+		    
+		    if (req_gl_Date_CompareObj(dtEndd, dtBeginn) <= 0) {
+		        do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_msg_err"));
+		        return;
+		    } else if (req_gl_Date_CompareObj(dtBeginn, currentDate) <= 0) {
+		        do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_today_msg_err"));
+		        return;
+		    }
+		    let selectedDays = [];
+		    $("#weekdayDropdown input[type='checkbox']:checked").each(function () {
+		        selectedDays.push($(this).val());
+		    });
+		    
+		    let frequency = $(".objData[data-name='repeat']").val() || 1;
+		    let prjArr = [];
 		
-			const dtBeginn		= req_gl_DateObj_From_DateStr(prj.dtBegin);
-			const dtEndd		= req_gl_DateObj_From_DateStr(prj.dtEnd);
-			const currentDate 	= new Date();
+		    function getNextWeekdayDate(startDate, weekday, weekOffset) {
+		        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		        const startDay = startDate.getDay();
+		        const targetDay = daysOfWeek.indexOf(weekday);
+		        
+		        // Tính số ngày chênh lệch từ startDay đến targetDay
+		        let diff = targetDay - startDay;
+		        if (diff < 0) {
+		            diff += 7;
+		        }
+		        
+		        let nextDate = new Date(startDate);
+		        nextDate.setDate(startDate.getDate() + diff + (weekOffset * 7));
+		        
+		        return nextDate;
+		    }
+		
+		    function addAdditionalData(appointment) {
+		        appointment.files = files.files;
+		        appointment.typ01 = 900;
+		        appointment.nb = 0;
+		        appointment.val01 = JSON.stringify(customers);
+		        if (appointment.val02 && !/^https?:\/\//i.test(appointment.val02)) {
+		            appointment.val02 = 'http://' + appointment.val02;
+		        }
+			    members[App.data.user] = {
+						uId: App.data.user.id,
+						typ: 0,
+						email: App.data.user.email,
+						
+				}
+				Object.values(members).map(e => e.stat = pr_stat_pending)
+		    }
+			function formatDateToLocalString(date) {
+			    const year = date.getFullYear();
+			    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Tháng phải cộng 1
+			    const day = ('0' + date.getDate()).slice(-2);
+			    const hours = ('0' + date.getHours()).slice(-2);
+			    const minutes = ('0' + date.getMinutes()).slice(-2);
+			    const seconds = ('0' + date.getSeconds()).slice(-2);
+			    
+			    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+			}
+		    let initialAppointment = Object.assign({}, prj);
+		    initialAppointment.dtBegin = formatDateToLocalString(dtBeginn);
+			initialAppointment.dtEnd = formatDateToLocalString(dtEndd);
+		    addAdditionalData(initialAppointment);
+		    prjArr.push(initialAppointment);
+		
+		    if (selectedDays.length > 0) {
+		        selectedDays.forEach((day) => {
+		            for (let i = 0; i < frequency; i++) {
+		                let nextDate = getNextWeekdayDate(dtBeginn, day, i);
+		
+		                let appointment = Object.assign({}, prj);
+		                let newDtBegin = new Date(nextDate);
+		                let newDtEnd = new Date(nextDate);
+		
+		                newDtEnd.setHours(dtEndd.getHours());
+		                newDtEnd.setMinutes(dtEndd.getMinutes());
+		
+						appointment.dtBegin = formatDateToLocalString(newDtBegin);
+					    appointment.dtEnd = formatDateToLocalString(newDtEnd);
+		
+		                addAdditionalData(appointment);
+		                prjArr.push(appointment);
+		            }
+		        });
+		    }
+		    
+		     do_lc_create_prj_appointment(prjArr);
+		    
+		};
 
-			if(req_gl_Date_CompareObj(dtEndd, dtBeginn) <= 0) {
-				do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_msg_err"));
-				return;
-			}
-			else if(req_gl_Date_CompareObj(dtBeginn, currentDate) <= 0){
-				do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_today_msg_err"));
-				return;
-			}
 
-			prj.cinf02mt01 	= {
-					"dtBegin" 	: prj.dtBegin,
-					"dtEnd" 	: prj.dtEnd,
-			}
-			prj.files 	= files.files;
-			prj.typ01 	= TYP_01_MEETING;
-			// prj.typ02 	= TYP_02_APPOINTMENT;
-			prj.nb 		= 0;
-			prj.val01  	= JSON.stringify(customers);
-			if (prj.val02 && !/^https?:\/\//i.test(prj.val02)) {
-				prj.val02 = 'http://' + prj.val02;
-			}
 
-			members[App.data.user.id] = {
-					uId: App.data.user.id,
-					typ: 0
-			}
-			Object.values(members).map(e => e.stat = pr_stat_pending)
 
-			do_lc_create_prj_appointment(prj);
+
+		const do_lc_convert_date = (objDate) => {
+			if (objDate.time.length < 5) objDate.time = "0" + objDate.time;
+			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
 		}
-
-		const do_lc_create_prj_appointment = prj => {
-			let dataSend	= {obj: JSON.stringify(prj), member: JSON.stringify(Object.values(members)), customers: JSON.stringify(customers)};
-			// let dataSend	= {obj: JSON.stringify(prj)};
-			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVNewMeet", dataSend);			
+		const do_lc_create_prj_appointment = (prjArr) => {
+			let dataSend	= {obj: prjArr, member: JSON.stringify(Object.values(members))};
+			console.log(dataSend)
+			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVNewWorkPlan", dataSend);			
 
 			let fSucces		= [];		
-			fSucces.push(req_gl_funct(null, do_lc_create_prj_appointment_success, [prj]));	
+			fSucces.push(req_gl_funct(null, do_lc_create_prj_appointment_success, [prjArr]));	
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	
 
 			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
-		const do_lc_create_prj_appointment_success = (sharedJson, prj) => {
+		const do_lc_create_prj_appointment_success = (sharedJson, prjArr) => {
 			if(can_gl_AjaxSuccess(sharedJson)) {	
 				// reload
 				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_new_ajax"));
-				if (dp_nav && dp_schedule) {
-					do_get_availableTimeList(dp_schedule, dp_nav.selectionStart.value.replace("T", " "), dp_nav.selectionEnd.addDays(1).value.replace("T", " "));	
-				}
+				do_get_availableTimeList(dp_schedule)
+				
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 			}
@@ -1451,24 +1441,79 @@ define([
 //			membersDel = [];w
 		}
 
-		const do_lc_convert_date = (objDate) => {
+/*		const do_lc_convert_date = (objDate) => {
 			if (objDate.time.length < 5) objDate.time = "0" + objDate.time;
 			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
-		}
+		}*/
+		function do_lc_search_prj_appointment(prj,dp_schedule,dtBegin,dtEnd) {
+			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointmentSearch");
+			if (prj != null) {
+			    if (prj.parId != null) {
+			        ref.parId = prj.parId;
+			    }
+			    if (prj.typ02 != null) {
+			        ref.type02 = prj.typ02;
+			    }
+			    if (prj.memberId != null) {
+			        ref.memberId = prj.memberId;
+			    }
+			}
+			ref.dtBegin	= dtBegin;
+			ref.dtEnd	= dtEnd;
 
+
+			var fSucces	= [];
+			fSucces.push(req_gl_funct(		null, do_show_list_available_time, [true, dp_schedule]));
+
+			var fError 		= req_gl_funct(	null, do_show_list_available_time, [false]);
+			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
 		const do_lc_bind_eventPage = () => {
-			$("#toggleNav").off('click').click(() => {
-		      const $dpNav = $("#dp_nav");
-		      const $dpNavBtn = $("#dp_nav_btn");
+				var currentDate = new Date();
+				var formattedDate = currentDate.toLocaleDateString('vi-VN');
+				$("#day-now").text(formattedDate);
+				$("#btn_search").off('click').click(() => {
+				 let data = req_gl_data({
+			        dataZoneDom: $("#div_search_prj_appointment")
+			    });
+			    let prj = data.data;
+			    var memberElement = document.querySelector('#selected_members_all .member-item .btn-remove-member');
+			    if (memberElement) {
+			        var memberId = memberElement.getAttribute('data-id');
+			        prj.memberId = memberId;
+			    }
+			    do_lc_search_prj_appointment(prj,dp_schedule);
+			    $("#btn_create_prj").removeClass("hide");
+				const membersData = [];
+				 $("#selected_members_all .member-item").each(function() {
+		            const $memberItem = $(this);
+		            const memberId = $memberItem.find(".btn-remove-member").data("id");
+		            let memberName = $memberItem.text().trim();
+		            $memberItem.find(".text-middle").each(function() {
+				        memberName = memberName.replace($(this).text().trim(), '').trim();
+				    });
+		            const imgSrc = $memberItem.find("img").attr("src");
 		
-		      if ($dpNav.is(':visible')) {
-		        $dpNav.hide();
-		        $dpNavBtn.show();
-		      } else {
-		        $dpNav.show();
-		        $dpNavBtn.hide();
-		      }
-	    	});
+		            membersData.push({
+		                id: memberId,
+		                name: memberName,
+		                imgSrc: imgSrc
+		            });
+		        });
+		      
+			    const name = $("#list_member").val();
+			    const workSchedule = $("#work-schedule").val();
+		
+			
+			    prj_work = {
+			        name: name,
+			        workSchedule: workSchedule,
+			        members: membersData
+			    };
+			    prjSearch = prj
+			
+			});
+
 			$("#btn_create_prj").off('click').click(() => {
 				App.MsgboxController.do_lc_show({
 					title		: $.i18n("prj_appointment_msg_title"),
@@ -1506,7 +1551,7 @@ define([
 				"display": "flex",
 				"flex-direction": "row",
 			})
-		}
+		}	
 //		sua
 		const do_lc_req_autocomplete = () => {
 			let el = ".inp-name-member";
@@ -1529,13 +1574,16 @@ define([
 			}
 
 			let reqSelectMember = (event, item) => {
+		
+			
 				if(members[item.id])			return false;
 				let lev 			= $("#sel_member_level").val();
 				let typ 			= $("#sel_member_type").val();
 				let user 			= {
 						"uId": item.id, 
 						"typ": +lev, 
-						"stat": pr_stat_pending
+						"stat": pr_stat_pending,
+						"email":item.inf01
 						// "typ": +typ
 				};
 
@@ -1557,7 +1605,7 @@ define([
 					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.login01}`;
 				else 			
 					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}`;
-
+				selOpt 				+= `<input type="hidden" value="${item.inf01}" class='email'>`;
 				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 				selOpt 				+= `</div>`;
 
@@ -1582,17 +1630,42 @@ define([
 		const do_lc_bind_event_autocomplete = () => {
 			$(".btn-remove-member").off("click").on("click", function(){
 				let $this 	= $(this);
-				let parent 	= $this.parent();
 				let {id} 	= $this.data();
 
 //				if(members.id)	delete members.id;
 //				membersDel.push(id);
 				if(members[id])	delete members[id];
-				parent.remove();
+				$(this).closest(".member-item").remove();
+				$("#list_member_all").show();
+				
 			})
 		}
 
 		const do_lc_binding_event_add_customer = function(mod){
+			$('.typ02').on('change', function() {
+		        var selectedColor = $(this).find(':selected').data('color');
+		        $('#colorValue').val(selectedColor);
+		        pr_Color = selectedColor;
+		    });
+		    $('.typ02').trigger('change');
+			 $("#toggleDropDown").off('click').click(() => {
+		       $("#weekdayDropdown").toggle();
+		    });
+			$("#toggleDropDown").off('click').click((event) => {
+			    event.stopPropagation();
+			    $("#weekdayDropdown").toggle();
+			});
+			
+
+			$(document).click((event) => {
+			    if (!$(event.target).closest("#toggleDropDown, #weekdayDropdown").length) {
+			        $("#weekdayDropdown").hide();
+			    }
+			});
+
+		    $(".objData").click(function() {
+	        $(this).toggleClass("active");
+	    });
 			$("#btn_add_customer").off("click").on("click", function(){
 				let email = $(".inp-email-customer").val();
 				let validate = validateEmail(email);
@@ -1640,76 +1713,87 @@ define([
 		//-------------------------------------------------------------------------------------------------
 		function do_get_availableTimeList(dp, dtBegin, dtEnd) {
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointment");
-			ref.typ01s 	= TYP_01_MEETING;
+		//	ref.typ01s 	= TYP_01_MEETING;
+			ref.typ01s 	= 900;
 			ref.dtBegin	= dtBegin;
 			ref.dtEnd	= dtEnd;
-
+			
 			var fSucces	= [];
 			fSucces.push(req_gl_funct(		null, do_show_list_available_time, [true, dp]));
-
 			var fError 		= req_gl_funct(	null, do_show_list_available_time, [false]);
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		//--------------------------------------------------------------------------------------------
-		function do_show_list_available_time(sharedJson, ajaxStat, dp) {
-			if(ajaxStat){
-				var code = sharedJson[App['const'].SV_CODE];
-				if(code == App['const'].SV_CODE_API_YES) {
-					pr_lstAvailableTime = [];
-					var lstTime	= sharedJson[App['const'].RES_DATA];
-					if(lstTime.length > 0){
-//						const dataSend = [];
-						const lstCurObj = [];
-						var curTime  = (new Date()).getTime();
-						for (let i = 0; i < lstTime.length; i++) {
-							if(lstTime[i]) {
-								var curObj    		= {};
-								curObj.start  	 	= lstTime[i].dtBegin;
-								curObj.end    	 	= lstTime[i].dtEnd;
-
-								if (!curObj.start || !curObj.end) continue;
-
-								//curObj.text	  		= lstTime[i].name;
-								// Check mems.stat and strike-through name if mem.stat == 1 for current user
-								const currentUser = App.data.user.id;
-								const userMem = lstTime[i].mems && lstTime[i].mems.find(mem => mem.uId === currentUser);
-
-								if (userMem && userMem.stat === 1) {
-								    curObj.text = `<span style="text-decoration: line-through; text-decoration-thickness: 2px;">${lstTime[i].name}</span>`;
-								} else {
-								    curObj.text = lstTime[i].name;
-								}
-								curObj.id	 		= DayPilot.guid();
-								curObj.toolTip  	= lstTime[i].inf02.desc;
-								curObj.tags   		= {};
-
-//								curObj.backColor 	= "#fff";
-//								curObj.borderColor  = "#1066a8";
-								curObj.obj 		 	= lstTime[i];
-
-								// curObj.obj.cmt01 = JSON.parse(lstTime[i].cmt01);
-								curObj.obj.inf02.dt01 = new Date(curObj.obj.inf02.dt01);
-								curObj.obj.inf02.dt02 = new Date(curObj.obj.inf02.dt02);
-								// get lst member
-								//dataSend.push(req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", pr_SV_GET_MEMBER, {id: lstTime[i].id}));
-
-								lstCurObj.push(curObj);
-							}
-
-						};	
-
-						do_lc_show_list_member(dp, lstCurObj);
-						do_lc_req_appointment_noti(lstCurObj);
-
-						// do_lc_get_list_member_when(dp, dataSend, lstTime, lstCurObj);
-					}
-				}				
-			} else {
-				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
-			}
-
-			if (dp) dp.update();
+		
+		function formatTime(hour, minute, second) {
+		    return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
 		}
+		function do_show_list_available_time(sharedJson, ajaxStat, dp) {
+		    // Reset the available time list to avoid showing old data
+		    pr_lstAvailableTime = [];
+		
+		    const lstCurObj = [];
+		    if (ajaxStat) {
+		        var code = sharedJson[App['const'].SV_CODE];
+		        
+		        if (code == App['const'].SV_CODE_API_YES) {
+		            var lstTime = sharedJson[App['const'].RES_DATA];
+					console.log("aa",lstTime);
+		            // If there are any available times
+		            if (lstTime.length > 0) {
+		                var curTime = (new Date()).getTime();
+		
+		                for (let i = 0; i < lstTime.length; i++) {
+		                    if (lstTime[i]) {
+		                        var curObj = {};
+		                        curObj.start = lstTime[i].dtBegin;
+		                        curObj.end = lstTime[i].dtEnd;
+		
+		                        if (!curObj.start || !curObj.end) continue;
+		
+		                        // Check mems.stat and strike-through name if mem.stat == 1 for current user
+		                        const currentUser = App.data.user.id;
+		                        const userMem = lstTime[i].mems && lstTime[i].mems.find(mem => mem.uId === currentUser);
+		
+		                        if (userMem && userMem.stat === 1) {
+		                            curObj.text = `<span style="text-decoration: line-through; text-decoration-thickness: 2px;">${lstTime[i].inf01}</span>`;
+		                        } else {
+		                            curObj.text = lstTime[i].inf01;
+		                        }
+		                        
+		                        curObj.id = DayPilot.guid();
+		                        curObj.tags = {};
+		                        curObj.obj = lstTime[i];
+		
+		                        // Convert time objects to Date
+		                        curObj.obj.inf02.dt01 = new Date(curObj.obj.inf02.dt01);
+		                        curObj.obj.inf02.dt02 = new Date(curObj.obj.inf02.dt02);
+		
+		                        lstCurObj.push(curObj);
+		                    }
+		                }
+		
+		               do_lc_show_list_member(dp, lstCurObj);
+		               do_lc_req_appointment_noti(lstCurObj);
+		             
+		              
+		            } else {
+		                do_lc_show_list_member(dp, lstCurObj);
+		                do_lc_req_appointment_noti(lstCurObj);
+		                do_gl_show_Notify_Msg_Error($.i18n("common_no_data_found"));
+		            }
+		        }
+		    } else {
+		        do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
+		    }
+		
+		    dp.update();
+		}
+
+
+
+
+
 
 
 		const do_lc_show_list_member = (dp, lstTime) => {
@@ -1749,81 +1833,91 @@ define([
 		}
 
 		const do_lc_req_appointment_noti = (lstTime) => {
-			const curDate 			= new Date();
-			const curDay 			= curDate.getDay() === 0 ? 7 : curDate.getDay() + 1;
-			const diffDayCheck 		= req_gl_DayDiff(req_gl_DateObj_From_DateStr(pr_dtBegin));
+		    const today = new Date();
+		    today.setHours(0, 0, 0, 0);
+		    const endOfDay = new Date(today);
+		    endOfDay.setHours(23, 59, 59, 999);
+		
+		    const appointmentsToday = lstTime.filter(item => {
+		        const dtBegin = new Date(item.end.value);
+		        const dtEnd = new Date(item.start.value);
+		        return dtBegin >= today && dtEnd <= endOfDay;
+		    }).map(item => {
+		        const members = Object.values(item.members || {}).map(mem => {
+		            let classCss = "", opacity = "", textStyle = "";
+		            if (mem.stat === 2) {
+		                classCss = "text-decoration-line-through";
+		                opacity = "opacity-03";
+		            } else if (mem.stat === pr_stat_accept) {
+		                textStyle = "color: #32CD32;";
+		            } else if (mem.stat === 1) {
+		                classCss = "text-decoration-line-through text-danger";
+		                textStyle = "text-decoration-thickness: 1.5px;";
+		            }
+		
+		            const memberItem = mem.mem;
+		            let textColor = "", textAvatar = "";
+		            if (!memberItem.avatar) {
+		                const first = memberItem.login01.charAt(0);
+		                const last = memberItem.login01.charAt(memberItem.login01.length - 1);
+		                textColor = App.controller.UI.Def.reqSrcTextColor(memberItem.login01);
+		                textAvatar = first + last;
+		            }
+		
+		            return {
+		                name: memberItem.name,
+		                avatar: memberItem.avatar ? (memberItem.avatar.urlPrev || memberItem.avatar.url) : null,
+		                textAvatar,
+		                textColor,
+		                classCss,
+		                opacity,
+		                textStyle
+		            };
+		        });
+		        return {
+		            ...item,
+		            members
+		        };
+		    });
+		
+		    const data = { appointments: appointmentsToday };
+		    $("#dp_nav").html(
+		        tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, data)
+		    );
+		};
 
-			if((diffDayCheck + 1) > (7 - curDay)) return;
 
-			if(lstTime.length <= 0) {
-				$("#last_appointment"		).html($.i18n("prj_appointment_msg_no_last"));
-				$("#daily_appointment b"	).html(req_gl_DateStr_LocalFormatShort(new Date()));
-				$("#daily_appointment span"	).html(0);
-				$("#weekly_appointment span").html(0);
+		const updateCountdowns = () => {
+		  const now = new Date();
+		  $('.time-remaining').each(function () {
+		    const element = this;
+		
+		    const appointmentTime = new Date($(element).data('appointment-time'));
+		
+		    const timeDiff = appointmentTime - now;
+		
+		    const minutesLeft = Math.ceil(timeDiff / 60000);
+		
+		    const countdownElement = $(element).closest('.bg-danger')[0];
+		
+		    if (minutesLeft <= 30 && minutesLeft > 0) {
+		      $(countdownElement).css('display', 'flex');
+		      $(element).text(`${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}`);
+		    } else {
+		      $(countdownElement).css('opacity', '0');
+		    }
+		
+		    if (minutesLeft <= 0) {
+		      $(countdownElement).css('opacity', '0');
+		    }
+		  });
+		};
+		
+		setInterval(updateCountdowns, 1000);
+		
+		updateCountdowns();
 
-				return;
-			}
 
-			let lastAppointment 	= [];
-			let cDaily 				= 0;
-			let cWeeklyRemaining 	= 0;
-			
-			lstTime.forEach(appoinment => {
-				const dtBeginObj= req_gl_DateObj_From_DateStr(appoinment.obj.dtBegin);
-				const dtEndObj	= req_gl_DateObj_From_DateStr(appoinment.obj.dtEnd);
-
-				if(req_gl_Date_CompareObj(dtEndObj, dtBeginObj) <= 0) return;
-
-				const curCompare= req_gl_Date_CompareObj(dtBeginObj, curDate);
-
-				if(curCompare >= 0) {
-					if(lastAppointment.length > 0) {
-						const last 			= req_gl_DateObj_From_DateStr(lastAppointment[0].obj.dtBegin);
-						const compareLast 	= req_gl_Date_CompareObj(dtBeginObj, last);
-						
-						if(compareLast >= 0) 
-							lastAppointment.push(appoinment);
-						else if(compareLast < 0) 
-							lastAppointment = [appoinment];
-						
-					} else lastAppointment.push(appoinment);
-					
-					var toDayEnd= req_gl_DateStr_From_DateObj (curDate, "yyyy-MM-dd") + " 23:59:59";
-					if (appoinment.obj.dtBegin<=toDayEnd) cDaily++;
-					
-					var diffDay = req_gl_DayDiff(req_gl_DateObj_From_DateStr(appoinment.obj.dtBegin));
-					if(diffDay > 0 && (diffDay - 1) <= (7 - curDay)) ++cWeeklyRemaining;
-				}
-//				const diffDay = req_gl_DayDiff(req_gl_DateObj_From_DateStr(appoinment.obj.dtBegin));
-//				if(diffDay === 1 || diffDay === 0) ++cDaily;
-
-				
-			})
-
-			pr_lastAppointment 	= lastAppointment
-			pr_cDaily			= cDaily
-			pr_cWeeklyRemaining	= cWeeklyRemaining
-
-			do_lc_build_noti(lastAppointment, cDaily, cWeeklyRemaining)
-		}
-
-		const do_lc_build_noti = (lastAppointment, cDaily, cWeeklyRemaining) => {
-			if(lastAppointment.length > 0) {
-				const lastAppointmentObj 			= req_gl_DateObj_From_DateStr(lastAppointment[0].obj.dtBegin);
-				const lastAppointmentMinutes 		= lastAppointmentObj.getMinutes();
-				const lastAppointmentMinutesText 	= lastAppointmentMinutes < 10 ? "0" + lastAppointmentMinutes : lastAppointmentMinutes;
-				const lastAppointmentTime 			= lastAppointmentObj.getHours() + "h" + lastAppointmentMinutesText;
-				
-				$("#last_appointment").html(lastAppointment[0].obj.name + " " + lastAppointmentTime)
-				
-			} else $("#last_appointment").html($.i18n("prj_appointment_msg_no_last"))
-   
-			const curDateStr = req_gl_DateStr_LocalFormatShort(new Date())
-			$("#daily_appointment b"	).html(curDateStr)
-			$("#daily_appointment span"	).html(cDaily)
-
-			$("#weekly_appointment span").html(cWeeklyRemaining)
-		}
 
 		var do_lc_handle_date = (strDate) => {
 			let tmp = getDateEN(strDate);
