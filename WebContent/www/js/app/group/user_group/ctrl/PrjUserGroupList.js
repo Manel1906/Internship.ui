@@ -25,9 +25,13 @@ define([
 		var pr_ctr_Main 			= null;
 		var pr_ctr_Chat		 		= null;
 
-		var RIGHT_U_S	        	= 1000005;
+		var RIGHT_U_G	        	= 30000011;
+		var RIGHT_U_N	        	= 30000012;
+		var RIGHT_U_M	        	= 30000013;
+		var RIGHT_U_D	        	= 30000014;
+		
 		var RIGHT_ADM	        	= 100;
-		var RIGHT_A_S	        	= 105;
+		var RIGHT_A_S	        	= 101;
 		//-----------------------------------------------------------------------------------
 		
 		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroup";
@@ -110,11 +114,28 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event = function(obj){
-			$("#inp_search").off("keydown").on("keydown", function(e){
-				pr_SEARCH_KEY	= $(this).val();
+//			$("#inp_search").off("input").on("input", function(e){
+//				pr_SEARCH_KEY	= $(this).val();
+//				do_gl_execute_debounce(do_lc_get_list);
+//			});
+			const $inputField = $("#inp_search");
+		    const $clearIcon = $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_SEARCH_KEY	= $inputField.val();
 				do_gl_execute_debounce(do_lc_get_list);
-			});
-			
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_SEARCH_KEY	= $inputField.val();
+				do_gl_execute_debounce(do_lc_get_list);
+		    });
 			$(".btn-resize").off("click").on("click", function () {
 				let $this = $(this);
 				let { divtoogle } = $this.data();
@@ -250,6 +271,13 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_get_list_ByAjax = function(hardLoad){	
+			var listUserRight = App.data.user.rights;
+					var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_G)
+					if(!isRight){
+						do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
+						return;
+			}
+				
 			let divList = $("#div_group_list");
 			let divPan  = $("#div_group_pagination");
 			
@@ -280,7 +308,6 @@ define([
 				const data = { lst: {} };
 				let lst = list.lst || [];
 			
-				
 				if (!lst.length) {
 					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT, {}));
 					do_lc_bind_event__list_header();
@@ -328,7 +355,7 @@ define([
 			}
 			$("#btn_btn_new_group").off("click").on("click", function(){
 				var listUserRight = App.data.user.rights;
-				var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_S)
+				var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_N)
 				if(!isRight){
 					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
 					return;
@@ -336,21 +363,36 @@ define([
 
 				$("#div_usergroup_member").html("");
 				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, {}));
-
+				
 				App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
 				App.SummerNoteController.do_lc_show("#div_create_service");//text editor
 				App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
 				App.SummerNoteController.do_lc_show("#div_create_information");//text editor
-				
-				
+				do_lc_bind_event();
+				const update_place_holders = () => {
+				    const width = window.innerWidth; 
+				    if (width < 1270) {
+		            	$("#inp_group_phone").attr("placeholder", "Nhập SĐT");
+			        } 
+				}
+				window.addEventListener("resize", update_place_holders);
+		        update_place_holders();
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
-
 			$("#btn_refresh_group").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list();
 			})
+			$(".btn-resize").off("click").on("click", function () {
+				let $this = $(this);
+				let { divtoogle } = $this.data();
+				let child = $this.find("i");
+				let label = $this.find(".label-resize");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize")
+				$(divtoogle).toggle("hide");
 
+				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
+			});
 			$(".btn-resize-list").off("click").on("click", function () {
 				let $this = $(this);
 				let { divtoogle } = $this.data();
@@ -366,6 +408,16 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event_for_group = function(obj){
+			$(".btn-resize").off("click").on("click", function () {
+				let $this = $(this);
+				let { divtoogle } = $this.data();
+				let child = $this.find("i");
+				let label = $this.find(".label-resize");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize")
+				$(divtoogle).toggle("hide");
+
+				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
+			});
 			$("#btn_create_group").off("click").on("click", function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
@@ -398,12 +450,12 @@ define([
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("prj_user_group_new_btn_back"),
 							funct	: self.do_lc_clear_timeout_viewer,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_cancel"),
 							funct	: self.do_lc_cancel,
 							param	: [],
 							classBtn: "btn-danger"
@@ -486,6 +538,7 @@ define([
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+				return;
 			}
 		}
 		
@@ -538,7 +591,6 @@ define([
 				let {path} = $(this).data();
 				path && window.open(path, "_blank");
 			})
-			
 			$(".info-edit").on("click", function(){
 				let $parent = $(this).parent();
 				$parent.find(".info-content")			.addClass("hide");
@@ -617,7 +669,16 @@ define([
 					}
 				});
 			})
-			
+			$(".btn-resize").off("click").on("click", function () {
+				let $this = $(this);
+				let { divtoogle } = $this.data();
+				let child = $this.find("i");
+				let label = $this.find(".label-resize");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize")
+				$(divtoogle).toggle("hide");
+
+				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
+			});
 			$(".btn-resize-content").off("click").on("click", function () {
 				let $this = $(this);
 				let { divtoogle } = $this.data();
@@ -662,7 +723,7 @@ define([
 					}
 
 					var listUserRight = App.data.user.rights;
-					var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_S)
+					var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_M)
 					if(!isRight){
 						do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
 						return;

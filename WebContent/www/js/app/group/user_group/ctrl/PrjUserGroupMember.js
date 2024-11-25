@@ -42,7 +42,8 @@ define([
 
     const CHAT_GROUP_PRIVATE = 401;
     const CHAT_GROUP_PUBLIC = 402;
-
+	const pr_SERVICE_USER_CLASS	= "ServiceAutUser";
+	const pr_SV_USER_BY_RELATION= "SVLstByRelation";
     const pr_TYP_CHAT_USER = 1;
 
 	const PRJ_MEMBER_LEVEL 		= {1: "prj_project_member_level_dean", 2: "prj_project_member_level_deputy", 10: "prj_project_member_level_doctor",
@@ -118,6 +119,10 @@ define([
       $("#a_btn_save_member")
         .off("click")
         .on("click", function () {
+		if (Object.keys(pr_MEM_TEMP).length === Object.keys(members).length) {
+		    do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
+		    return;
+		}
           do_lc_save_member_toGroup(members, idGroup);
         });
 
@@ -205,10 +210,14 @@ define([
         do_lc_bind_event_autocomplete(pr_MEM_TEMP);
         $(el).blur().val("");
       };
+		let typ01Arr 	= [App.data.user.typ01, 2, 3, 4, 5];
+		let typ01Str 	= typ01Arr.join(',');
 
       let options = {
         dataService: [pr_SERVICE_PER_CLASS, pr_SV_USER_SEARCH],
-		svParams	: {wAvatar:true}, 
+		svParams: {wAvatar: true, nbline: 20, typ01s: typ01Str, stats: 1}, 
+		hintService: [pr_SERVICE_USER_CLASS, pr_SV_USER_BY_RELATION],
+		hintSvParams: {wAvatar: true, typ01s: typ01Str, stats: 1, entId01: idGroup},
         fSelect: reqSelectMember,
         customShowList: do_lc_customLst_user_autocomplete,
       };

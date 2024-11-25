@@ -42,8 +42,10 @@
     "prj_tpy_group_name_enter"							: "Nhập tên thuốc/thiết bị",
 	"prj_tpy_group_descr_enter"							: "Nhập mô tả nhóm",
 	"prj_tpy_group_name_enter"							: "Tên thuốc",
+	"prj_tpy_group_inf_medicine"						: "Thông tin thuốc",
+	"prj_tpy_group_brand_name_medicine_enter"			: "Nhập biệt dược và hàm lượng",
 	"tpy_cat_disease_new_title"							: "Thêm thuốc/thiết bị",
-	"tpy_cat_disease_edit_title"						: "Chỉnh sữa thông tin thuốc/thiết bị",
+	"tpy_cat_disease_edit_title"						: "Chỉnh sửa thông tin thuốc/thiết bị",
 	
 	"prj_tpy_group_new"									: "Thêm mới",
 	"prj_tpy_group_new_msg"								: "Tạo nhóm trò chuyện, giúp bạn làm việc hiệu quả hơn!",
@@ -88,12 +90,13 @@
 	"aut_test_ent_unit_medicine_stat_7"					: "Viên nang",
 	"aut_test_ent_unit_medicine_stat_8"					: "Ống",
 	"aut_test_ent_unit_medicine_stat_10"				: "...",
-	"prj_user_group_btn_edit_group"						: "Chỉnh sữa",
+	"prj_user_group_btn_edit_group"						: "Chỉnh sửa",
 	"prj_brand_group_room"								: "Biệt dược và hàm lượng",
 	"prj_brand_group_package"							: "Hình thức đóng gói",
 	"prj_project_del_user_group_popup_content"			: "Xóa thông tin thuốc",
 	"prj_user_group_btn_delete_group"					: "Xác nhận",
 	"common_btn_del"									: "Xóa",
 	"common_btn_can"									: 	"Hủy bỏ",
-	"common_btn_cancel"									: 	"Quay lại"
+	"common_btn_cancel"									: 	"Quay lại",
+	"common_btn_save_med"								: "Lưu"
 }

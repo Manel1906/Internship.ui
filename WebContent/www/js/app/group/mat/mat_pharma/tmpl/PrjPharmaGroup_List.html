@@ -16,11 +16,13 @@
 			</div>
 			
 			<div id="div_group">
-				<div class="search-box chat-search-box py-1 pb-1 border-bottom d-flex align-items-center">
-				    <div class="position-relative col-10">
-				        <input type="text" class="form-control" placeholder="{{transl 'prj_tpy_chat_search'}}" id="inp_search">
-				        <i class="bx bx-search-alt search-icon"></i>
+				<div class="search-box chat-search-box py-1 pb-1 border-bottom">
+				    <div class="position-relative">
+				        <input type="text" class="form-control pe-5" placeholder="{{transl 'prj_tpy_chat_search'}}" id="inp_search">
+				        <i class="bx bx-search-alt search-icon position-absolute start-0 top-50 translate-middle-y ms-2"></i>
+				        <i  id="clear_icon" style="left: 90%;cursor: pointer;" class="hide mdi mdi-close text-danger search-icon position-absolute end-0 left-50 top-0 translate-middle-y me-2" ></i>
 				    </div>
+				</div>
 			<!--     <div id="dropdown-rights" class="dropdown ml-auto col-2"> 
 				        <a href="#" class="dropdown-toggle card-drop" data-toggle="dropdown" aria-expanded="false" style="margin: auto; font-size: 25px;"> 
 				            <i class="mdi mdi-filter-outline"></i> 
@@ -35,11 +37,8 @@
 				        </ul> 
 				    </div> 
 				    -->	
-				</div>
-
-
 				<div id="div_group_list"></div>
-        	<div id="div_group_pagination"></div>
+        		<div id="div_group_pagination"></div>
 			</div>
 		</div>
     </div>
