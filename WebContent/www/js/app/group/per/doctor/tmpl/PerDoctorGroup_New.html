@@ -1,0 +1,157 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="Save">
+                    <i class="mdi mdi-content-save font-size-20 action-item"></i>
+                </a>
+                <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="Cancel">
+                    <i class="mdi mdi-close font-size-20"></i>
+                </a>
+            </div>
+            <div class="dropdown font-size-20">
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate isManager" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
+                </a>
+                <a data-divtoogle="#div_group_content" class="btn-resize-content cursor-pointer" data-toggle="tooltip" data-placement="top" title="Resize">
+                    <i class="mdi mdi-window-minimize text-primary"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                    <li>
+                        <span id="btn_edit" class="dropdown-item cursor-pointer" data-id="{{id}}">
+                            <i class="mdi mdi-pencil-outline text-success mr-1"></i>{{transl 'prj_user_group_btn_edit_group'}}
+                        </span>
+                    </li>
+                    <li>
+                        <span id="btn_del_group" class="dropdown-item cursor-pointer" data-id="{{id}}">
+                            <i class="mdi mdi-trash-can text-danger mr-1"></i>{{transl 'prj_user_group_btn_delete_group'}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <form class="needs-validation" id="frm_new_group" novalidate>
+            <input type="hidden" data-name="typ01" class="form-control objData" value="100">
+            <input type="hidden" data-name="stat" class="form-control objData" value="1">
+            
+            <div class="row mb-3">
+                <div class="col-3 d-flex justify-content-center align-items-center">
+            <!--     <img src="{{avatar.url}}" style="object-fit: cover" alt="" class="img-fluid rounded-circle" onerror="{{url_image_err}}">  --> 
+                     <img 
+                            src="{{avatar.url}}{{url_image_err}}" 
+                            style="width: 120px; height: 100px; object-fit: cover;border-radius: 10px" 
+                            class="avatar-xs" 
+                            alt="Avatar" 
+                            onerror="{{url_image_err}}">
+                </div>
+                <div class="col-9">
+                 	<div class="row">
+	                     <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_doctor_full_surname'}}</label>
+                            <input type="text"  data-name="name01" class="form-control objData" id="inp_group_phone" value="{{name01}}" maxlength="250">
+                        </div>
+                         <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_doctor_middle_name'}}</label>
+                            <input type="text"  data-name="name02" class="form-control objData" id="inp_group_phone" value="{{name02}}" maxlength="250">
+                        </div>
+                         <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_doctor_name'}}</label>
+                            <input type="text"  data-name="name03" class="form-control objData" id="inp_group_phone" value="{{name03}}" maxlength="250">
+                        </div>
+                 	</div>
+            	</div>
+                <div class="row col-12 ml-1">
+	                    <div class="form-group col-4">
+					        <label for="inp_group_select">{{transl 'per_person_doctor_title'}}</label>
+					        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="code02">
+					            <option {{#equal code02 4}}selected{{/equal}} value="4">{{transl 'per_person_doctor_title_4'}}</option>
+					            <option {{#equal code02 5}}selected{{/equal}} value="5">{{transl 'per_person_doctor_title_5'}}</option>
+					            <option {{#equal code02 6}}selected{{/equal}} value="6">{{transl 'per_person_doctor_title_6'}}</option>
+					            <option {{#equal code02 7}}selected{{/equal}} value="7">{{transl 'per_person_doctor_title_7'}}</option>
+					            <option {{#equal code02 8}}selected{{/equal}} value="8">{{transl 'per_person_doctor_title_8'}}</option>
+					        </select>
+					    </div>
+                        <div class="form-group col-4">
+                            <label for="inp_group_locate">{{transl 'per_person_doctor_speciality_main'}}</label>
+                            <input type="text"  data-name="inf03" class="form-control objData" id="inp_group_locate" value="{{inf03}}"  maxlength="250">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_doctor_role'}}</label>
+                            <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="code03">
+					            <option {{#equal code03 0}}selected{{/equal}} value="0">{{transl 'prj_project_member_level_dean'}}</option>
+					            <option {{#equal code03 1}}selected{{/equal}} value="1">{{transl 'prj_project_member_level_deputy'}}</option>
+					            <option {{#equal code03 2}}selected{{/equal}} value="2">{{transl 'prj_project_member_level_doctor'}}</option>
+					            <option {{#equal code03 10}}selected{{/equal}} value="10">{{transl 'prj_project_member_level_pharmacist'}}</option>
+					            <option {{#equal code03 20}}selected{{/equal}} value="20">{{transl 'prj_project_member_level_nurse'}}</option>
+					            <option {{#equal code03 30}}selected{{/equal}} value="30">{{transl 'prj_project_member_level_member'}}</option>
+					        </select>
+                        </div>
+                    </div>
+                    <div class="row col-12  ml-1">
+                         <div class="form-group col-4">
+                            <label for="inp_group_email">{{transl 'per_person_doctor_phone'}}</label>
+                            <input type="number" data-name="inf09" class="form-control objData" id="inp_group_email" value="{{inf09}}" maxlength="50">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inp_group_email">{{transl 'per_person_doctor_mail'}}</label>
+                            <input type="email" data-name="inf01" class="form-control objData" id="inp_group_email" value="{{inf01}}" maxlength="250">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inp_group_email">{{transl 'per_person_doctor_cccd'}}</label>
+                            <input type="number" data-name="inf04" class="form-control objData" id="inp_group_email" value="{{inf04}}" maxlength="250">
+                        </div>
+                    </div>
+                     <div class="row col-12  ml-1">
+                         <div class="form-group col-4">
+                            <label for="inp_group_email">{{transl 'prj_user_group_gender'}}</label>
+                            <select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="" data-name="inf10">
+								<option {{#equal inf10 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
+								<option {{#equal inf10 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
+								<option {{#equal inf10 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
+							</select>
+                        </div>
+                        
+                        <div class="form-group col-4">
+                            <label for="inp_group_locate">{{transl 'prj_user_group_nation'}}</label>
+                            <input type="text"  data-name="inf07" class="form-control objData" id="inp_group_locate" value="{{inf07}}"  maxlength="250">
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="inp_group_locate">{{transl 'prj_user_group_nationality'}}</label>
+                            <input type="text"  data-name="inf08" class="form-control objData" id="inp_group_locate" value="{{inf08}}"  maxlength="250">
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-12 form-group">	
+		            <div class="form-group">
+<!-- 		                <label for="inp_group_name">{{transl 'prj_ tpy_group_name'}} *</label> -->
+		                <input type="text" data-name="code04" class="form-control objData" id="inp_group_name" value="{{code04}}" placeholder="{{transl 'prj_tpy_group_address_enter'}}" data-validation="required" >
+					</div>	
+		        </div>
+
+            <hr class="badge-info" style="height: 1px;">
+            
+            <div class="col-lg-12 mt-4" id="div_create_introduce">
+                <label for="introduce" class="col-form-label">{{transl 'per_person_doctor_introduce'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="introduce" id="introduce" rows="5" placeholder="{{transl 'prj_user_group_introduce'}}">{{{inf06.introduce}}}</textarea>
+            </div>
+            <div class="col-lg-12 mt-4" id="div_create_service">
+                <label for="service" class="col-form-label">{{transl 'per_person_doctor_treatment'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="treatment" id="service" rows="5" placeholder="{{transl 'prj_user_group_service'}}">{{{inf06.treatment}}}</textarea>
+            </div>
+            <div class="col-lg-12 mt-4" id="div_create_mission">
+                <label for="mission" class="col-form-label">{{transl 'per_person_doctor_collab'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="collab" id="mission" rows="5" placeholder="{{transl 'prj_user_group_mission'}}">{{{inf06.collab}}}</textarea>
+            </div>
+            <div class="col-lg-12 mt-4" id="div_create_information">
+                <label for="information" class="col-form-label">{{transl 'per_person_doctor_research'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="research" id="information" rows="5" placeholder="{{transl 'prj_user_group_information'}}">{{{inf06.research}}}</textarea>
+            </div>
+
+            <div class="d-flex justify-content-end mt-4">
+                <button id="btn_cancel_group" class="btn btn-secondary" type="button">{{transl 'prj_user_group_new_btn_cancel'}}</button>
+                <button id="btn_create_group" class="btn btn-primary" type="button">{{transl 'prj_user_group_new_btn_save'}}</button>
+            </div>
+        </form>
+    </div>
+</div>
