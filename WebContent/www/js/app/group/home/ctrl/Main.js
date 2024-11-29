@@ -655,7 +655,7 @@ define([
 				//---------------------------------------------------------------------------------------------------------------------------
 				[App.router.part.TPY_CAT_DISEASE]	: {
 					grpName		: "TpyCatDisease"									, ctrlName 		: "Main", 
-					ctrlPath    : "group/tpy/cat_disease/ctrl/TpyCatDiseaseMain"	, ctrlParams 	: ["TpyCatDisease", null, null, null, ], 
+					ctrlPath    : "group/tpy/cat_disease/ctrl/Main"					, ctrlParams 	: ["TpyCatDisease", null, null, null, ], 
 					fInit		: "do_lc_init"										, fInitParams	: [],
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"

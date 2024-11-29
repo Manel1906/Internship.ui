@@ -142,7 +142,7 @@ define(['jquery'], function($) {
 				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW, pr_DIV_CONTENT);
 			})
 			
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_get_list_ByAjax(true);
 			})
 			

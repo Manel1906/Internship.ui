@@ -243,7 +243,7 @@ define(['jquery'], function($) {
 		}
 		
 		const do_lc_bind_event_for_group = function(){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				const data = req_gl_data({
 					dataZoneDom: $("#frm_new_group")
 				});

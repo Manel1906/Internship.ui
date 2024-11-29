@@ -375,7 +375,7 @@ define([
 
 		const do_lc_bind_event__list_header = () => {
 		//	if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
-			//	$("#btn_btn_new_group").removeClass('hide');
+			//	$("#btn_new_entity").removeClass('hide');
 			//	$("#btn_add_doc").removeClass('hide');
 		//	}
 			$("#btn_btn_new_test").off("click").on("click", function(){
@@ -397,7 +397,7 @@ define([
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
 
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list();
 			})
@@ -417,7 +417,7 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event_for_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -440,7 +440,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -567,7 +567,7 @@ define([
 			$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, data));
 			
 			$(".info-edit").removeClass('hide');
-			$(".inf-disease").addClass('hide');
+			$(".inf-entity").addClass('hide');
 			do_bind_event_show_group(data);
 		}
 		
@@ -591,13 +591,13 @@ define([
 			$(".info-edit").on("click", function(){
 				let $parent = $(this).parent();
 				$parent.find(".info-edit")			.addClass("hide");
-				$parent.find(".inf-disease")	.removeClass("hide");
+				$parent.find(".inf-entity")	.removeClass("hide");
 
 				$("#a_btn_sav, #a_btn_canc")	.removeClass("hide");
 
 			})
 			
-//			$(".inf-disease").on("click", function(){
+//			$(".inf-entity").on("click", function(){
 //				let $parent = $(this).parent();
 //				$parent.find(".info-content")			.addClass("hide");
 //				$parent.find(".content-edit")	.removeClass("hide");
@@ -612,7 +612,7 @@ define([
 				$("#a_btn_canc").removeClass("hide");
 				$('#addRowBtn').removeClass('hide');
 				$('#removeRowBtn').removeClass('hide');
-				$(".inf-disease").addClass('hide');
+				$(".inf-entity").addClass('hide');
 				$(".info-edit").addClass('hide');
 				do_lc_get_disease_sub(data);
 			})
@@ -734,7 +734,7 @@ define([
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				let data 	= sharedJson[App['const'].RES_DATA];
 				
-//				$('.inf-disease').addClass('hide');
+//				$('.inf-entity').addClass('hide');
 				if (dataArray != null) {
 					pr_DISEASE_TEMP = dataArray;
 					$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, pr_DISEASE_TEMP));
@@ -744,7 +744,7 @@ define([
 					$("#removeRowBtn").addClass("hide");
 					$("#addRowBtn").addClass("hide");
 					$(".info-edit").removeClass("hide");
-					$(".inf-disease").addClass("hide");$("#btn_modify").removeClass("hide");
+					$(".inf-entity").addClass("hide");$("#btn_modify").removeClass("hide");
 				} else {
 					$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, data));
 					$(".info-edit").addClass('hide');
@@ -778,7 +778,7 @@ define([
 				
 				for (let i = 0; i < rows.length; i++) {
 				    const row = rows[i];
-				    const inputs = $(row).find('input.inf-disease, select.inf-disease');
+				    const inputs = $(row).find('input.inf-entity, select.inf-entity');
 				    const dataObject = {};
 				
 				    inputs.each(function() {
@@ -809,7 +809,7 @@ define([
 				$("#addRowBtn").addClass("hide");
 				$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, pr_DISEASE_TEMP));
 				$(".info-edit").removeClass("hide");
-				$(".inf-disease").addClass("hide");
+				$(".inf-entity").addClass("hide");
 //				do_lc_get_disease_sub(data);
 			});
 			
@@ -901,7 +901,7 @@ define([
 		}
 		
 		const do_lc_bind_event_mod_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
@@ -925,7 +925,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),

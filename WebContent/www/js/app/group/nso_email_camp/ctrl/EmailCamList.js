@@ -87,7 +87,7 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event = function(obj){
-			$("#btn_btn_new_group").off("click").on("click", function(){
+			$("#btn_new_entity").off("click").on("click", function(){
 				$("#div_emailcam_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.EMAIL_CAM_NEW, {}));
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
@@ -214,7 +214,7 @@ define([
 			})
 			
 			
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list();
 			})
@@ -233,7 +233,7 @@ define([
 			}
 			do_gl_init_fileDropzone($("#div_files"), option);
 			
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				const data = req_gl_data({
 					dataZoneDom: $("#frm_new_group")
 				});

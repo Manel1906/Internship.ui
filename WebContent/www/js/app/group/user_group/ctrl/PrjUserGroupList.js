@@ -350,10 +350,10 @@ define([
 
 		const do_lc_bind_event__list_header = () => {
 			if(App.data.user.typ01 == pr_TYP01_ADMIN){
-				$("#btn_btn_new_group").removeClass('hide');
+				$("#btn_new_entity").removeClass('hide');
 				$("#btn_add_doc").removeClass('hide');
 			}
-			$("#btn_btn_new_group").off("click").on("click", function(){
+			$("#btn_new_entity").off("click").on("click", function(){
 				var listUserRight = App.data.user.rights;
 				var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_N)
 				if(!isRight){
@@ -379,7 +379,7 @@ define([
 		        update_place_holders();
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list();
 			})
@@ -418,7 +418,7 @@ define([
 
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			});
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -441,7 +441,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -766,7 +766,7 @@ define([
 		}
 		
 		const do_lc_bind_event_mod_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
@@ -790,7 +790,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),

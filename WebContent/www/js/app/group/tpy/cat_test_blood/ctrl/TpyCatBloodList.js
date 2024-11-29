@@ -374,7 +374,7 @@ define([
 
 		const do_lc_bind_event__list_header = () => {
 		//	if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
-			//	$("#btn_btn_new_group").removeClass('hide');
+			//	$("#btn_new_entity").removeClass('hide');
 			//	$("#btn_add_doc").removeClass('hide');
 		//	}
 			$("#btn_btn_new_test").off("click").on("click", function(){
@@ -396,7 +396,7 @@ define([
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
 
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list();
 			})
@@ -416,7 +416,7 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event_for_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -439,7 +439,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -900,7 +900,7 @@ define([
 		}
 		
 		const do_lc_bind_event_mod_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
@@ -924,7 +924,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
