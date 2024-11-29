@@ -20,9 +20,6 @@ define([], function() {
 			//-----------------------------------------------------------------------------------
 			const pr_SERVICE_CLASS		= "ServiceTpyCategory";
 			const pr_SV_NEW				= "SVNewDisease";
-			const pr_SV_MOD             = "SVModDisease";
-			const pr_SV_DEL             = "SVDelDisease";
-			
 			const pr_SV_NEW_SUB			= "SVNewDiseaseSub";
 			
 			var   self                  = this;
@@ -73,7 +70,7 @@ define([], function() {
 				if (obj.files) {
 					data.data.files = obj.files;
 				}
-				do_lc_new_group(data.data);
+				do_lc_new_entity(data.data);
 			}
 			
 			this.do_lc_mod = function(obj) {
@@ -149,7 +146,7 @@ define([], function() {
 				
 				$("#btn_modify").off("click").on("click", function(){
 					
-					do_lc_get_disease_sub(data);
+					do_lc_get_entity_sub(data);
 				})
 				
 				$('#a_btn_canc').on('click', function() {
@@ -221,7 +218,7 @@ define([], function() {
 					    return;
 					}
 
-					do_lc_save_disease_sub(myObject, dataArray);
+					do_lc_save_entity_sub(myObject, dataArray);
 				})
 				
 				$('#addRowBtn').on('click', function() {
@@ -333,26 +330,19 @@ define([], function() {
 		       
 			};
 			
-			const do_lc_bind_event_new_disease_sub = function(){
-				
-				$('#removeRowBtn button').on('click', function() {
-					$(this).closest('tr').remove();
-				});
-			}
-			
-			const do_lc_get_disease_sub = (data) => {
+			const do_lc_get_entity_sub = (data) => {
 						
 				const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyCategory", "SVGetDiseaseSub", {id: data.id});	
 
 				let fSucces		= [];
-				fSucces.push(req_gl_funct(null, do_lc_after_get_disease_sub, []));
+				fSucces.push(req_gl_funct(null, do_lc_get_entity_sub_callback, []));
 
 				let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 				App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 			}
 			
-			const do_lc_after_get_disease_sub = function(sharedJson){
+			const do_lc_get_entity_sub_callback = function(sharedJson){
 				if(can_gl_AjaxSuccess(sharedJson)) {
 					const data = sharedJson[App['const'].RES_DATA];
 					if(data){
@@ -375,18 +365,18 @@ define([], function() {
 				}
 			}
 			
-			const do_lc_save_disease_sub = function(myObject, dataArray){
+			const do_lc_save_entity_sub = function(myObject, dataArray){
 				const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_NEW_SUB, {obj: myObject});
 				
 				let fSucces		= [];
-				fSucces.push(req_gl_funct(null, do_lc_after_save_disease_sub, {}));
+				fSucces.push(req_gl_funct(null, do_lc_save_entity_sub_callback, {}));
 
 				let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 				App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 			}
 			
-			const do_lc_after_save_disease_sub = function(sharedJson){
+			const do_lc_save_entity_sub_callback = function(sharedJson){
 				if(can_gl_AjaxSuccess(sharedJson)) {
 					let data 	= sharedJson[App['const'].RES_DATA];
 					
@@ -398,7 +388,10 @@ define([], function() {
 					$("#a_btn_canc").addClass("hide");
 					$("#addRowBtn").addClass("hide");
 					
-					do_lc_bind_event_new_disease_sub(data);
+					$('#removeRowBtn button').on('click', function() {
+						$(this).closest('tr').remove();
+					});
+									
 				} else {   
 					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
 				}
@@ -542,10 +535,7 @@ define([], function() {
 				})
 			}
 			
-			
-			
 			//-----------------update group-------------------------------------------------------------------------
-
 			const do_lc_update_entity = function(ent) {
 				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, "SVMod", {obj: JSON.stringify(ent)});	
 
@@ -570,7 +560,6 @@ define([], function() {
 			}
 			
 			//------------------------------------------------------------------------------------------------
-			
 			const do_lc_del_entity = function(groupId){
 				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, "SVDel", {id : groupId});	
 
@@ -665,18 +654,18 @@ define([], function() {
 			
 			
 			//-----------------new group-------------------------------------------------------------------------
-			const do_lc_new_group = function(group){
+			const do_lc_new_entity = function(group){
 				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_NEW, {obj: group});
 
 				let fSucces		= [];
-				fSucces.push(req_gl_funct(null, do_lc_new_group_callback, [group]));
+				fSucces.push(req_gl_funct(null, do_lc_new_entity_callback, [group]));
 
 				let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 				App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 			}
 			
-			const do_lc_new_group_callback = function(sharedJson, group){
+			const do_lc_new_entity_callback = function(sharedJson, group){
 				if(can_gl_AjaxSuccess(sharedJson)) {
 					const data = sharedJson[App['const'].RES_DATA];
 					if(data){
