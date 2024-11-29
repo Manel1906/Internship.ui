@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="card-body">
+	    <div class="media">
+	    	<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'common_files'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7">
+	             <div class="text-right">
+<!-- 	                 <button id="btn_add_doc" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_project_add_member'}}</button> -->
+<!-- 	             	<a id="a_btn_save_doc" class="mr-3 text-primary hide action-item-doc" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save"> -->
+<!-- 		            	<i class="mdi mdi-content-save font-size-18 action-item"></i> -->
+<!-- 		            </a> -->
+<!-- 		            <a id="a_btn_cancel_doc" class="text-danger hide action-item-doc" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel"> -->
+<!-- 		            	<i class="mdi mdi-close font-size-18"></i> -->
+<!-- 		            </a> -->
+	             </div>
+	         </div>
+	    </div>
+		<form id="div_prj_ent_file_upload" action="/" method="post" class="dropzone inputfile hide">
+		    <div class="fallback">
+		        <input data-name="file" type="file" multiple />
+		    </div>
+		
+		    <div class="dz-message needsclick">
+		        <div class="mb-3">
+		            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+		        </div>
+		        <h4>{{transl 'prj_project_drop_files'}}</h4>
+		    </div>
+		</form>		
+<!-- 		<input type="hidden" class="objData" data-name="id"	value="{{id}}"> -->
+        <div class="table-responsive">
+            <table class="table table-nowrap table-centered table-hover mb-0 objData" data-name="files" data-primary="id">
+                <tbody>
+                		{{#each files}}
+                		<tr>
+                		 <td class="hide objData" data-name="id"		data-group="files" data-gindex="{{@index}}" >{{id}}</td>
+                		 <td class="hide objData" data-name="stat"		data-group="files" data-gindex="{{@index}}" >{{stat}}</td>
+                		 <td class="hide objData" data-name="code"		data-group="files" data-gindex="{{@index}}" >{{code}}</td>
+                		 <td class="hide objData" data-name="parId"		data-group="files" data-gindex="{{@index}}" >{{parId}}</td>
+                		 <td class="hide objData" data-name="path02"	data-group="files" data-gindex="{{@index}}" >{{path02}}</td>
+                		 <td class="hide objData" data-name="path01"	data-group="files" data-gindex="{{@index}}" >{{path01}}</td>
+                		 <td class="hide objData" data-name="fCode"		data-group="files" data-gindex="{{@index}}" >{{fCode}}</td>
+                		 <td class="hide objData" data-name="size"		data-group="files" data-gindex="{{@index}}" >{{size}}</td>
+                		 <td class="hide objData" data-name="parType"	data-group="files" data-gindex="{{@index}}" >{{parType}}</td>
+                		 <td class="hide objData" data-name="typ02"		data-group="files" data-gindex="{{@index}}" >{{typ02}}</td>
+                		 <td class="hide objData" data-name="typ01"		data-group="files" data-gindex="{{@index}}" >{{typ01}}</td>
+                		 <td class="hide objData" data-name="name"		data-group="files" data-gindex="{{@index}}" >{{name}}</td>
+                         <td style="width: 45px;">
+                             <div class="avatar-sm">
+                                 <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-24">
+                                     <i class="bx bxs-file-doc"></i>
+                                 </span>
+                             </div>
+                         </td>
+                         <td>
+                             <h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{reqNameFilePrj name}}</a></h5>
+                             <small>{{reqSizeFile size}}</small>
+                         </td>
+                         <td>
+                             <div class="text-center">
+                                 <a data-path="{{reqPathDoc path01}}" class="text-dark item-file-download"><i class="bx bx-download h3 m-0"></i></a>
+                                 <a data-id="{{id}}" class="text-dark item-file-delete hide isManager"><i class="bx bx-minus-circle h3 m-0"></i></a>
+                             </div>
+                         </td>
+                    	</tr>
+                		{{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
