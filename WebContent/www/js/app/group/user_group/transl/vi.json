@@ -1,5 +1,5 @@
 {
-	"prj_user_group_btn_delete_group"				    : "Xóa nhóm",
+	"common_title_confirm"				    : "Xóa nhóm",
 	"prj_user_group_btn_edit_group"				    	: "Chỉnh sửa",
 
     "prj_user_group_name"								: "Tên nhóm",
@@ -52,7 +52,7 @@
 	"prj_user_group_new_btn_save"						: "Lưu",
 	"prj_user_group_new_btn_cancel"						: "Hủy bỏ",
 	"prj_user_group_new_btn_back"						: "Quay lại",
-	"prj_project_del_user_group_popup_content"			: "Bạn chắc chắn muốn xóa nhóm ?",
+	"msg_del_entity_popup_content"			: "Bạn chắc chắn muốn xóa nhóm ?",
 	"prj_project_add_avatar" 							: "Ảnh đại diện",
 	"prj_project_drop_files"							: "Kéo thả hoặc nhấn để thêm tập tin",
 	"prj_project_new_file_title"						: "Thêm tập tin vào đây",

@@ -1,5 +1,5 @@
 {
-	"prj_user_group_btn_delete_group"		     		: "Supprimer le groupe",
+	"common_title_confirm"		     		: "Supprimer le groupe",
 	"prj_user_group_btn_edit_group"				    	: "Modifier",
     
 	"prj_user_group_name"								: "Nom du groupe",
@@ -48,7 +48,7 @@
 	"prj_user_group_files"              				: "Pièces joints",
 	"prj_user_group_new_btn_save"						: "Sauvegarder",
 	"prj_user_group_new_btn_cancel"						: "Annuler",
-	"prj_project_del_user_group_popup_content" 			: "Êtes-vous sûr de vouloir supprimer le groupe ?",
+	"msg_del_entity_popup_content" 			: "Êtes-vous sûr de vouloir supprimer le groupe ?",
 	"prj_project_add_avatar"							: "Avatar",
 	"prj_project_drop_files"							: "Glissez-déposez ou cliquez pour ajouter des fichiers",
 	"prj_project_new_file_title"						: "Ajouter des fichiers ici",

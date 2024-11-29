@@ -276,7 +276,7 @@ define([], function() {
 					let {id} = $(this).data();
 					App.MsgboxController.do_lc_show({
 						title		: $.i18n("prj_user_g_entitytn_delete_group"),
-						content 	: $.i18n("prj_project_del_user_group_popup_content"),
+						content 	: $.i18n("msg_del_entity_popup_content"),
 						autoclose	: false,
 						css			: {
 							"max-width":"450px"
@@ -286,7 +286,7 @@ define([], function() {
 								lab		:  $.i18n("common_btn_yes"),
 							},
 							OK: {
-								lab			: $.i18n("tpy_cat_disease_btn_delete"),
+								lab			: $.i18n("common_btn_delete"),
 								funct		: do_lc_del_entity,
 								param		: [id],
 								classBtn	: "btn-danger"

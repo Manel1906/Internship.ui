@@ -74,7 +74,7 @@ define([], function() {
 				}
 				
 				App.MsgboxController.do_lc_show({
-					title	: $.i18n("tpy_cat_disease_new_file_title"),
+					title	: $.i18n("common_btn_new_file_title"),
 					width	: "500px",
 					autoclose	: true,
 					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_DROPZONE_FILE, {}),

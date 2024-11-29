@@ -670,8 +670,8 @@ define([
 			$("#btn_del_group").off("click").on("click", function(){
 				let {id} = $(this).data();
 				App.MsgboxController.do_lc_show({
-					title		: $.i18n("prj_user_group_btn_delete_group"),
-					content 	: $.i18n("prj_project_del_user_group_popup_content"),
+					title		: $.i18n("common_title_confirm"),
+					content 	: $.i18n("msg_del_entity_popup_content"),
 					autoclose	: false,
 					css			: {
 						"max-width":"450px"

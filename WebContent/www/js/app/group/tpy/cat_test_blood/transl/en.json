@@ -33,19 +33,19 @@
     "btn_add_file"                          :   "Importer",
 
     "tpy_cat_test_list_title"               :   "Test Category Management",
-    "tpy_cat_disease_new"                   :   "Add New",
+    "common_btn_new"                   :   "Add New",
     "tpy_cat_disease_search"                :   "Search Tests",
-    "tpy_cat_disease_new_title"             :   "Add New Service",
+    "common_btn_new_title"             :   "Add New Service",
 
-    "tpy_cat_disease_new_file_title"        :   "Add Files Here",
+    "common_btn_new_file_title"        :   "Add Files Here",
     "tpy_cat_disease_drop_files"            :   "Drag or click to add files",
 
     "tpy_cat_disease_code_enter"            :   "Enter disease code",
     "tpy_cat_disease_name_enter"            :   "Enter disease name",
     "tpy_cat_disease_room_enter"            :   "Enter test room",
     "tpy_cat_disease_time_enter"            :   "Enter execution time",
-    "tpy_cat_disease_new_btn_save"          :   "Save",
-    "tpy_cat_disease_new_btn_cancel"        :   "Cancel",
+    "common_btn_new_btn_save"          :   "Save",
+    "common_btn_cancel"        :   "Cancel",
 
     "tpy_cat_test_name"                     :   "Test Name",
     "tpy_cat_test_code"                     :   "Test Code",
@@ -67,8 +67,8 @@
     "msgbox_confirm_cancel_create"          :   "Cancel adding new disease?",
 	"tpy_cat_disease_edit_title"			:   "Edit service information",
 	
-    "tpy_cat_disease_btn_delete"            :   "Delete",
-    "tpy_cat_disease_btn_edit"              :   "Edit",
+    "common_btn_delete"            :   "Delete",
+    "common_btn_edit"              :   "Edit",
     "aut_test_ent_header_stat_0"			: 	"All",
     "aut_test_ent_header_stat_1"            :   "Hematology",
     "aut_test_ent_header_stat_2"            :   "Biochemistry",
@@ -83,7 +83,7 @@
     "aut_test_unit_header_stat_10"          :   "...",
     "msgbox_confirm_save"                   :   "Save edited content?",
     "msgbox_confirm_save_cancel"            :   "Cancel edited content?",
-    "prj_project_del_user_group_popup_content"			: "Delete Service?",
-    "prj_user_group_btn_delete_group"				    : "Delete Service Test"
+    "msg_del_entity_popup_content"			: "Delete Service?",
+    "common_title_confirm"				    : "Delete Service Test"
     
 }

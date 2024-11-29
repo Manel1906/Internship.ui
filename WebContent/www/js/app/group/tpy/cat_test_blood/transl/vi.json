@@ -34,19 +34,19 @@
 "btn_add_file"							: 	"Import",
 
 "tpy_cat_test_list_title"				:	"Quản lý doanh mục xét nghiệm",
-"tpy_cat_disease_new"					: 	"Thêm mới",
+"common_btn_new"					: 	"Thêm mới",
 "tpy_cat_disease_search"				:	"Tìm kiếm xét nghiệm",
-"tpy_cat_disease_new_title"				: 	"Thêm mới dịch vụ",
+"common_btn_new_title"				: 	"Thêm mới dịch vụ",
 
-"tpy_cat_disease_new_file_title"		: 	"Thêm tập tin vào đây",
+"common_btn_new_file_title"		: 	"Thêm tập tin vào đây",
 "tpy_cat_disease_drop_files"			: 	"Kéo thả hoặc nhấn để thêm tập tin",
 
 "tpy_cat_disease_code_enter"			: 	"Nhập mã bệnh",
 "tpy_cat_disease_name_enter"			: 	"Nhập tên bệnh",
 "tpy_cat_disease_room_enter"			: 	"Nhập phòng xét nghiệm",
 "tpy_cat_disease_time_enter"			: 	"Nhập thời gian thực hiện",
-"tpy_cat_disease_new_btn_save"			: 	"Lưu",
-"tpy_cat_disease_new_btn_cancel"		: 	"Hủy bỏ",
+"common_btn_new_btn_save"			: 	"Lưu",
+"common_btn_cancel"		: 	"Hủy bỏ",
 
 "tpy_cat_test_name"						:   "Tên xét nghiệm",
 "tpy_cat_test_code"						: 	"Mã xét nghiệm",
@@ -67,8 +67,8 @@
 "msgbox_confirm_creat"					: 	"Lưu thông tin dịch vụ ?",
 "msgbox_confirm_cancel_create"			: 	"Hủy bỏ thêm mới bệnh ?",
 "tpy_cat_disease_edit_title"			:   "Chỉnh sửa thông tin dịch vụ",
-"tpy_cat_disease_btn_delete"			: 	"Xóa",
-"tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
+"common_btn_delete"			: 	"Xóa",
+"common_btn_edit"				: 	"Chỉnh sửa",
 "aut_test_ent_header_stat_0"			: 	"Tất cả",
 "aut_test_ent_header_stat_1"			:	"Huyết học",
 "aut_test_ent_header_stat_2"			:	"Hóa Sinh",
@@ -83,8 +83,8 @@
 "aut_test_unit_header_stat_10"			:	"...",
 "msgbox_confirm_save"					: 	"Lưu nội dung chỉnh sửa ?",
 "msgbox_confirm_save_cancel"			: 	"Hủy bỏ nội dung chỉnh sửa ?",
-"prj_project_del_user_group_popup_content"			: "Xóa dịch vụ?",
-"prj_user_group_btn_delete_group"				    : "Xóa dịch vụ xét nghiệm",
+"msg_del_entity_popup_content"			: "Xóa dịch vụ?",
+"common_title_confirm"				    : "Xóa dịch vụ xét nghiệm",
 "tpy_cat_Blood_new_file_title"			:   "Thêm tập tin vào đây"	,
 "common_btn_yes"						:	"Lưu"
 }

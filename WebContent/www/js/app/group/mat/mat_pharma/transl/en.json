@@ -1,7 +1,7 @@
 {
 	"prj_tpy_group_btn_delete_group"				    : "Delete Group",
 	"prj_tpy_group_btn_edit_group"				    	: "Edit",
-	"prj_project_del_user_group_popup_content"			: "Delete Medicine",
+	"msg_del_entity_popup_content"			: "Delete Medicine",
     "prj_tpy_group_bar_code_ori"						: "Original Barcode",
 	"prj_tpy_group_bar_code_internal_1"					: "Internal Barcode 1",
 	"prj_tpy_group_bar_code_internal_2"					: "Internal Barcode 2",
@@ -42,7 +42,7 @@
     "prj_tpy_group_name_enter"							: "Enter Medicine/Device Name",
 	"prj_tpy_group_descr_enter"							: "Enter Group Description",
 	"prj_tpy_group_name_enter"							: "Medicine Name",
-	"tpy_cat_disease_new_title"							: "Add Medicine/Device",
+	"common_btn_new_title"							: "Add Medicine/Device",
 	"tpy_cat_disease_edit_title"						: "Edit Medicine/Device Information",
 	"prj_tpy_group_new"									: "Add New",
 	"prj_tpy_group_new_msg"								: "Create a chat group to work more efficiently!",
@@ -88,7 +88,7 @@
 	"aut_test_ent_unit_medicine_stat_8"					: "Ampoule",
 	"aut_test_ent_unit_medicine_stat_10"				: "...",
 	"prj_user_group_btn_edit_group"						: "Edit",
-	"prj_user_group_btn_delete_group"					: "Delete",
+	"common_title_confirm"					: "Delete",
 	"prj_brand_group_room"								: "Brand Name and Dosage",
 	"prj_brand_group_package"							: "Packaging Type"
 }

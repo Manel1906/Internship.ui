@@ -34,17 +34,17 @@
 "btn_add_file"							: 	"Importer",
 
 "tpy_cat_disease_list_title"			:	"Gestion des informations sur les maladies",
-"tpy_cat_disease_new"					: 	"Nouveau",
+"common_btn_new"					: 	"Nouveau",
 "tpy_cat_disease_search"				: 	"Recherche par code CIM, nom de la maladie ...",
-"tpy_cat_disease_new_title"				: 	"Ajouter une nouvelle maladie",
+"common_btn_new_title"				: 	"Ajouter une nouvelle maladie",
 
-"tpy_cat_disease_new_file_title"		: 	"Ajouter des fichiers ici",
+"common_btn_new_file_title"		: 	"Ajouter des fichiers ici",
 "tpy_cat_disease_drop_files"			: 	"Glissez-déposez ou cliquez pour ajouter des fichiers",
 
 "tpy_cat_disease_code_enter"			: 	"Entrez le code de la maladie",
 "tpy_cat_disease_name_enter"			: 	"Entrez le nom de la maladie",
-"tpy_cat_disease_new_btn_save"			: 	"Sauvegarder",
-"tpy_cat_disease_new_btn_cancel"		: 	"Annuler",
+"common_btn_new_btn_save"			: 	"Sauvegarder",
+"common_btn_cancel"		: 	"Annuler",
 
 "tpy_cat_disease_code"					: 	"Code maladie",
 "tpy_cat_disease_name"					: 	"Nom de la maladie",
@@ -62,10 +62,10 @@
 
 "msgbox_confirm_creat"					: 	"Enregistrer les informations sur la maladie ?",
 
-"tpy_cat_disease_btn_delete"			: 	"Supprimer",
-"tpy_cat_disease_btn_edit"				: 	"Modifier",
+"common_btn_delete"			: 	"Supprimer",
+"common_btn_edit"				: 	"Modifier",
 "msgbox_confirm_cancel_create"			: "Annuler le processus de modification ?",  
-"prj_user_group_btn_delete_group"		: "Confirmer",  
+"common_title_confirm"		: "Confirmer",  
 "disease_cant_duplicate"				: "Le code de la maladie ne doit pas être dupliqué",  
 "disease_cant_save"						: "Enregistrer",  
 "common_btn_save"						: "Enregistrer",

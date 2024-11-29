@@ -100,7 +100,7 @@ define([
 			tmplName.TPY_CAT_DISEASE_LIST					= "TpyTestImg_List";
 			tmplName.TPY_CAT_DISEASE_LIST_CONTENT			= "TpyTestImg_List_Content";
 			tmplName.TPY_CAT_DISEASE_ENT_CONTENT			= "TpyTestImg_Ent_Content";
-			tmplName.TPY_CAT_DISEASE_NEW  					= "TpyTestImg_New";
+			tmplName.common_btn_new  					= "TpyTestImg_New";
 			tmplName.TPY_DROPZONE_FILE						= "TpyDropzone_File";
 			tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW		= "TpyTestImg_Ent_Content_Row";
 			tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD	= "TpyTestImg_Ent_Content_Row_add";
@@ -118,7 +118,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST					, TpyTestImg_List); 
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT			, TpyTestImg_List_Content); 	
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT			, TpyTestImg_Ent_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_NEW					, TpyTestImg_New); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.common_btn_new					, TpyTestImg_New); 	
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_DROPZONE_FILE						, TpyDropzone_File);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW		, TpyTestImg_Ent_Content_Row);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD	, TpyTestImg_Ent_Content_Row_add);
@@ -201,7 +201,7 @@ define([
 				}
 				
 				App.MsgboxController.do_lc_show({
-					title	: $.i18n("tpy_cat_disease_new_file_title"),
+					title	: $.i18n("common_btn_new_file_title"),
 					width	: "500px",
 					autoclose	: true,
 					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_DROPZONE_FILE, {}),
@@ -387,7 +387,7 @@ define([
 				}
 
 				$("#div_usergroup_member").html("");
-				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, {}));
+				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, {}));
 
 				App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 				App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
@@ -671,8 +671,8 @@ define([
 			$("#btn_del_group").off("click").on("click", function(){
 				let {id} = $(this).data();
 				App.MsgboxController.do_lc_show({
-					title		: $.i18n("prj_user_group_btn_delete_group"),
-					content 	: $.i18n("prj_project_del_user_group_popup_content"),
+					title		: $.i18n("common_title_confirm"),
+					content 	: $.i18n("msg_del_entity_popup_content"),
 					autoclose	: false,
 					css			: {
 						"max-width":"450px"
@@ -862,7 +862,7 @@ define([
 
 					data.edit 	= true
 					$("#div_usergroup_member").html("");
-					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, data));
+					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, data));
 					App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 					App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
 					App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor

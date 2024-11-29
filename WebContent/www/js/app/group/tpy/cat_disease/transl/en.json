@@ -34,17 +34,17 @@
 "btn_add_file"							: 	"Import",
 
 "tpy_cat_disease_list_title"			:	"Disease information management",
-"tpy_cat_disease_new"					: 	"New",
+"common_btn_new"					: 	"New",
 "tpy_cat_disease_search"				: 	"Search by ICD code, disease name ...",
-"tpy_cat_disease_new_title"				: 	"Add new disease",
+"common_btn_new_title"				: 	"Add new disease",
 
-"tpy_cat_disease_new_file_title"		: 	"Add files here",
+"common_btn_new_file_title"		: 	"Add files here",
 "tpy_cat_disease_drop_files"			: 	"Drag and drop or click to add files",
 
 "tpy_cat_disease_code_enter"			: 	"Enter disease code",
 "tpy_cat_disease_name_enter"			: 	"Enter disease name",
-"tpy_cat_disease_new_btn_save"			: 	"Save",
-"tpy_cat_disease_new_btn_cancel"		: 	"Cancel",
+"common_btn_new_btn_save"			: 	"Save",
+"common_btn_cancel"		: 	"Cancel",
 
 "tpy_cat_disease_code"					: 	"Disease code",
 "tpy_cat_disease_name"					: 	"Disease name",
@@ -62,10 +62,10 @@
 "tpy_cat_disease_edit_title"			: "Edit Disease Information",
 "msgbox_confirm_creat"					: 	"Save disease information ?",
 
-"tpy_cat_disease_btn_delete"			: 	"Delete",
-"tpy_cat_disease_btn_edit"				: 	"Edit",
+"common_btn_delete"			: 	"Delete",
+"common_btn_edit"				: 	"Edit",
 "msgbox_confirm_cancel_create"			: "Cancel the editing process?",  
-"prj_user_group_btn_delete_group"		: "Confirm",  
+"common_title_confirm"		: "Confirm",  
 "disease_cant_duplicate"				: "Disease code must not be duplicated",  
 "disease_cant_save"						: "Save",  
 "common_btn_save"						: "Save",
