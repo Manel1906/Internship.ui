@@ -660,16 +660,16 @@ define([
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"
 				},
-				[App.router.part.PRJ_MNG_TEST]		: {
-					grpName		: "PrjManaTest"										, ctrlName 		: "Main", 
-					ctrlPath    : "group/tpy/cat_test_blood/ctrl/TpyCatBloodMain"	, ctrlParams 	: ["PrjManaTest", null, null , null, ], 
+				[App.router.part.TPY_CAT_TEST_BLOOD]		: {
+					grpName		: "TpyCatTestBlood"									, ctrlName 		: "Main", 
+					ctrlPath    : "group/tpy/cat_test_blood/ctrl/Main"				, ctrlParams 	: ["TpyCatTestBlood", null, null , null, ], 
 					fInit		: "do_lc_init"										, fInitParams	: [],
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"
 				},
-				[App.router.part.PRJ_TEST_IMG]		: {
-					grpName		: "PrjTestImg"										, ctrlName 		: "Main", 
-					ctrlPath    : "group/tpy/cat_test_img/ctrl/TpyTestImgMain"		, ctrlParams 	: ["PrjTestImg", null, null , null, ], 
+				[App.router.part.TPY_CAT_TEST_IMG]		: {
+					grpName		: "TpyCatTestImg"									, ctrlName 		: "Main", 
+					ctrlPath    : "group/tpy/cat_test_img/ctrl/Main"				, ctrlParams 	: ["TpyCatTestImg", null, null , null, ], 
 					fInit		: "do_lc_init"										, fInitParams	: [],
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"

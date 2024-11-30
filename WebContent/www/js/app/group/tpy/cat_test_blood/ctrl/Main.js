@@ -1,18 +1,18 @@
 define([
-	'group/tpy/cat_disease/ctrl/List',
-	'group/tpy/cat_disease/ctrl/Ent',
+	'group/tpy/cat_test_blood/ctrl/List',
+	'group/tpy/cat_test_blood/ctrl/Ent',
 
-	'text!group/tpy/cat_disease/tmpl/Main.html',
+	'text!group/tpy/cat_test_blood/tmpl/Main.html',
 	
-	'text!group/tpy/cat_disease/tmpl/List.html',
-	'text!group/tpy/cat_disease/tmpl/List_Content.html',
+	'text!group/tpy/cat_test_blood/tmpl/List.html',
+	'text!group/tpy/cat_test_blood/tmpl/List_Content.html',
 	
-	'text!group/tpy/cat_disease/tmpl/Ent_Content.html',
-	'text!group/tpy/cat_disease/tmpl/Ent_New.html',
-	'text!group/tpy/cat_disease/tmpl/Ent_Content_Row.html',
-	'text!group/tpy/cat_disease/tmpl/Ent_Content_Row_add.html',
+	'text!group/tpy/cat_test_blood/tmpl/Ent_Content.html',
+	'text!group/tpy/cat_test_blood/tmpl/Ent_New.html',
+	'text!group/tpy/cat_test_blood/tmpl/Ent_Content_Row.html',
+	'text!group/tpy/cat_test_blood/tmpl/Ent_Content_Row_add.html',
 	
-	'text!group/tpy/cat_disease/tmpl/Dropzone_File.html',
+	'text!group/tpy/cat_test_blood/tmpl/Dropzone_File.html',
 
 ], function(
 	CtrlList,
@@ -36,8 +36,8 @@ define([
 		var pr_divFooter 			= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"TpyCatDisease";
-		var pr_grpPath				= 'group/tpy/cat_disease';
+		var pr_grpName				= grpName?grpName:"TpyCatTestBLOOD";
+		var pr_grpPath				= 'group/tpy/cat_test_blood';
 		App.template.names[pr_grpName] = {}; //---init only one time in Main ctrl
 		
 		//------------------------------------------------------------------------------------

@@ -117,9 +117,9 @@ define(['require',
 				PRJ_CFG_GROUP					: "prj_cfg_group",
 				
 				TPY_CAT_DISEASE					: "tpy_cat_disease",
+				TPY_CAT_TEST_BLOOD				: "tpy_cat_test_blood",
+				TPY_CAT_TEST_IMG				: "tpy_cat_test_img",
 				
-				PRJ_MNG_TEST					: "prj_mng_test",
-				PRJ_TEST_IMG					: "prj_test_img",
 				PRJ_MNG_MED						: "prj_cat_medi",
 				PRJ_MNG_DOCTOR					: "per_mng_doctor"
 				
