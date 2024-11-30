@@ -15,8 +15,13 @@ define([], function() {
 			
 
 			var RIGHT_ADM	        	= 100;
+			var RIGHT_A_N	        	= 102;
 			var RIGHT_A_M	        	= 103;
+			var RIGHT_A_D	        	= 104;
+			
+			var RIGHT_NEW	        	= 50000102;
 			var RIGHT_MOD	        	= 50000103;
+			var RIGHT_DEL	        	= 50000104;
 			//-----------------------------------------------------------------------------------
 			const pr_SERVICE_CLASS		= "ServiceTpyCategory";
 			const pr_SV_NEW				= "SVNewDisease";
@@ -130,6 +135,19 @@ define([], function() {
 			
 			//-----------------get group-------------------------------------------------------------------------
 			const do_bind_event_show_entity = function(data){
+				var listUserRight 	= App.data.user.rights;
+				var isRight = listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
+				if (!isRight) {
+					$("#btn_edit").hide();
+					return;
+				}
+
+				isRight = listUserRight.includes(RIGHT_A_D) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_DEL)
+				if (!isRight) {
+					$("#btn_del").hide();
+					return;
+				}
+							
 				if(!data.files)	data.files = [];
 				if(data.avatar) data.files.push(data.avatar);
 				let option		= {
@@ -272,7 +290,7 @@ define([], function() {
 					
 				})
 				
-				$("#btn_del_group").off("click").on("click", function(){
+				$("#btn_del").off("click").on("click", function(){
 					let {id} = $(this).data();
 					App.MsgboxController.do_lc_show({
 						title		: $.i18n("prj_user_g_entitytn_delete_group"),
@@ -552,7 +570,7 @@ define([], function() {
 					if(data){
 						do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 						do_lc_show_entity(data);
-						do_lc_get_list(true);
+						pr_ctr_List.do_lc_show(true);
 					}
 				} else {   
 					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
@@ -573,7 +591,7 @@ define([], function() {
 			const do_lc_del_entity_callback = function(sharedJson){
 				if(can_gl_AjaxSuccess(sharedJson)) {
 					$("#div_ent").html("");
-					do_lc_get_list(true);
+					pr_ctr_List.do_lc_show(true);
 				}else{
 					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 				}
@@ -670,7 +688,7 @@ define([], function() {
 					const data = sharedJson[App['const'].RES_DATA];
 					if(data){
 						do_lc_show_entity(data);
-						do_lc_get_list(true); // hard Reload list group
+						pr_ctr_List.do_lc_show(true); // hard Reload list group
 					}
 				} else {   
 					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );

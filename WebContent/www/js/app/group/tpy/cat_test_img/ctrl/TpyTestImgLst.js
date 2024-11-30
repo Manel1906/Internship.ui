@@ -123,7 +123,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW		, TpyTestImg_Ent_Content_Row);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD	, TpyTestImg_Ent_Content_Row_add);
 			
-			$("#div_usergroup_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST, {}));
+			$("#div_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST, {}));
 		}
 		
 		//----------------------------------------------------------------------------------------------
@@ -359,7 +359,7 @@ define([
 		const do_lc_bind_event_list = function(){
 			do_lc_bind_event__list_header()
 			
-			$(".chat-item").off("click").on("click", function(){
+			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id: idGroup} 	= $this.data();
 				if(idGroup){
@@ -386,8 +386,8 @@ define([
 					return;
 				}
 
-				$("#div_usergroup_member").html("");
-				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, {}));
+				$("#div_entity_member").html("");
+				$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, {}));
 
 				App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 				App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
@@ -560,7 +560,7 @@ define([
 				data.inf = JSON.parse(data.inf);
 			}
 			
-			$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT, data));
+			$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT, data));
 			
 			pr_DISEASE_TEMP.child = data.child;
 			
@@ -625,7 +625,7 @@ define([
 				data.files 	= data.files ? [...data.files].filter(Boolean) : [];
 				
 				let	obj	 				= req_gl_data({
-					dataZoneDom		: $("#div_usergroup_ent"),
+					dataZoneDom		: $("#div_entity"),
 					oldObject 		: data,
 				});
 
@@ -766,7 +766,7 @@ define([
 				let myObject = {};
 				
 //				let	obj	 				= req_gl_data({
-//					dataZoneDom		: $("#div_usergroup_ent"),
+//					dataZoneDom		: $("#div_entity"),
 //					oldObject 		: myObject,
 //				});
 
@@ -861,8 +861,8 @@ define([
 					}
 
 					data.edit 	= true
-					$("#div_usergroup_member").html("");
-					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, data));
+					$("#div_entity_member").html("");
+					$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, data));
 					App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 					App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
 					App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor
@@ -1006,7 +1006,7 @@ define([
 
 		const do_lc_afterDel_group = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
-				$("#div_usergroup_ent, #div_usergroup_member").html("");
+				$("#div_entity, #div_entity_member").html("");
 				do_lc_get_list(true);
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));

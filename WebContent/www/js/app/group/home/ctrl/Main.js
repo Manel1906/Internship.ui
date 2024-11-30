@@ -259,7 +259,7 @@ define([
 				},
 				[App.router.part.PRJ_USER_GROUP]	: {
 					grpName		: "PrjUserGroup"							, ctrlName 		: "Main", 
-					ctrlPath    : "group/user_group/ctrl/PrjUserGroupMain"	, ctrlParams 	: ["PrjUserGroup", null, null, null, ], 
+					ctrlPath    : "group/user_group/ctrl/Main"				, ctrlParams 	: ["PrjUserGroup", null, null, null, ], 
 					fInit		: "do_lc_init"								, fInitParams	: [],
 					fShow		: "do_lc_show"								, fShowParams	: [],
 					rights		: "view:"

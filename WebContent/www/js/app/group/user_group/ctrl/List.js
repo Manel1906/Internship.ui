@@ -1,11 +1,11 @@
-define([], function() {
-	const List = function (grpName, header, content, footer) {
+define([],function() {
+	const EntList = function (grpName, header, content, footer) {
 		var pr_divHeader 			= header;
 		var pr_divContent 			= content;
 		var pr_divFooter 			= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		//------------------controllers------------------------------------------------------
@@ -14,28 +14,47 @@ define([], function() {
 		var pr_ctr_List 			= null;
 		
 		var RIGHT_ADM	        	= 100;
-		var RIGHT_A_N	        	= 102;
-		var RIGHT_NEW	        	= 50000102;
+		var RIGHT_A_R	        	= 101;
+		
+		
+		var RIGHT_GET	        	= 30000011;
+		var RIGHT_NEW	        	= 30000012;
+		var RIGHT_MOD	        	= 30000013;
+		var RIGHT_DEL	        	= 30000014;
 		//-----------------------------------------------------------------------------------
 		
-		const pr_SERVICE_CLASS_DYN	= "ServiceTpyCategory";
-		const pr_SV_LIST_DYN		= "SVLstPage"; 
+		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroup";
+		const pr_SV_GROUP_LIST_DYN			= "SVLstSearch"; 
+		
+		const pr_SERVICE_CLASS_GROUP		= "ServiceNsoGroup";
+		const pr_SV_NEW_GROUP				= "SVNewWork";
+		const pr_SV_MOD_GROUP               = "SVModWork";
+		const pr_SV_DEL_GROUP               = "SVDelWork";
 		
 		var   self                  = this;
-		var   pr_SEARCH_KEY			= "";
+		this.pr_member_role			= null;
+		
+		var pr_SEARCH_KEY			= "";
 		
 		const pr_TYP01_ADMIN		= 2;
 		
-		const pr_TYP_DISEASE 		= 300;
+		const pr_TYP_GROUP_WORK 	= 300;
 		
+		const pr_KEY_ENTER			= 13;
 		const pr_NUMBER_RECORD		= 10;
+		
 		const pr_STAT_ACTIVE    	= 1;
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
-			pr_ctr_Main 			= App.controller.UI.Main;
+			pr_ctr_Main 			= App.controller[pr_grpName].Main;
 			pr_ctr_List 			= App.controller[pr_grpName].List;
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
+			
+			if(!tmplName) {
+				App.template.names[pr_grpName] = {}
+				tmplName = App.template.names[pr_grpName]
+			}
 		}
 
 		//---------show-----------------------------------------------------------------------------
@@ -43,22 +62,37 @@ define([], function() {
 			$("#div_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
 			
 			do_get_list_ByAjax(hardLoad);
-			
 			do_lc_bind_event();
 		}
 		
 		//---------load view-----------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------------------
+		
 		const do_lc_bind_event = function(obj){
-			$("#inp_search").off("input").on("input", function(e){
-				pr_SEARCH_KEY	= $(this).val();
+			const $inputField 	= $("#inp_search");
+		    const $clearIcon 	= $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_SEARCH_KEY	= $inputField.val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
-			});
-			
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_SEARCH_KEY	= $inputField.val();
+				do_gl_execute_debounce(do_get_list_ByAjax);
+		    });
 			$(".btn-resize").off("click").on("click", function () {
-				let $this = $(this);
-				let { divtoogle } = $this.data();
-				let child = $this.find("i");
-				let label = $this.find(".label-resize");
+				let $this 			= $(this);
+				let { divtoogle } 	= $this.data();
+				let child 			= $this.find("i");
+				let label 			= $this.find(".label-resize");
 				child.toggleClass("mdi-window-minimize mdi-window-maximize")
 				$(divtoogle).toggle("hide");
 
@@ -67,18 +101,18 @@ define([], function() {
 			
 			$("#btn_add_doc").off("click").on("click", function(){
 				if(!obj)	obj = [];
-				obj.files = [];
+				obj.files 		= [];
 				let option		= {
 						fileinput	: { parallelUploads	: 10, uploadMultiple	: true},//option here
 						obj			: obj//show empty box
 				}
 				
 				App.MsgboxController.do_lc_show({
-					title	: $.i18n("common_btn_new_file_title"),
-					width	: "500px",
+					title		: $.i18n("prj_project_new_file_title"),
+					width		: "500px",
 					autoclose	: true,
 					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_DROPZONE_FILE, {}),
-					buttons	: {
+					buttons		: {
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
 							funct	: do_lc_dropzone_file,
@@ -132,13 +166,21 @@ define([], function() {
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
+		
 		//----------------------------------------------------------------------------------------------
 		
 		const do_get_list_ByAjax = function(hardLoad=false){	
+			var listUserRight = App.data.user.rights;
+			var isRight = listUserRight.includes(RIGHT_A_R) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_GET)
+			if (!isRight) {
+				do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
+				return;
+			}
+				
 			let divList = $("#div_group_list");
 			let divPan  = $("#div_group_pagination");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01s: pr_TYP_DISEASE, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE, hardLoad, wChild: true});
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP_DYN, pr_SV_GROUP_LIST_DYN, {typ01s: pr_TYP_GROUP_WORK, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE, hardLoad});
 			
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
 			
@@ -165,18 +207,19 @@ define([], function() {
 				const data = { lst: {} };
 				let lst = list.lst || [];
 			
-				
 				if (!lst.length) {
 					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST_CONTENT, {}));
 					do_lc_bind_event__list_header();
 					return;
 				}
 
-				for (const entity of lst) {
+				for (const ent of lst) {
 					try {
-						entity.inf = JSON.parse(entity.inf);
+						ent.val01 = JSON.parse(ent.val01);
+						ent.inf01 = JSON.parse(ent.inf01);
+						ent.inf02 = JSON.parse(ent.inf02);
 					} catch (error) {}
-					data.lst[entity.id] = entity;
+					data.lst[ent.id] = ent;
 				}
 
 				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST_CONTENT, { "data": data.lst }));
@@ -187,54 +230,52 @@ define([], function() {
 		}
 		//----------------------------------------------------------------------------------------------
 		const do_lc_bind_event_list = function(){
+			do_lc_bind_event__list_header()
+			
 			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id} 			= $this.data();
-				
 				if(id){
 					$(".entity-item")	.removeClass("active");
-					$this				.addClass("active").removeClass("has-new-msg-item");
+					$this			.addClass("active").removeClass("has-new-msg-item");
+					$("#div_chat")	.css("display", "block");
 					
 					pr_ctr_Ent.do_lc_show(id);
 				}
 			})
-			
-			if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
-				$("#btn_new_entity"		).removeClass('hide');
-				$("#btn_add_doc"		).removeClass('hide');
+		}
+
+		const do_lc_bind_event__list_header = () => {
+			if(App.data.user.typ01 == pr_TYP01_ADMIN){
+				$("#btn_new_entity"	).removeClass('hide');
+				$("#btn_add_doc"	).removeClass('hide');
 			}
 			
 			$("#btn_new_entity").off("click").on("click", function(){
 				var listUserRight = App.data.user.rights;
-				var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+				var isRight = listUserRight.includes(RIGHT_A_R) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
 				if(!isRight){
 					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
 					return;
 				}
-
-				pr_ctr_Ent.do_lc_show_for_new();
-			});
+				
+				pr_ctr_Ent.do_lc_show_for_new ();
+			})
 			
-			const $inputField 	= $("#inp_search");
-		    const $clearIcon 	= $("#clear_icon");
-		    $inputField.on("input", function() {
-		        if ($inputField.val().trim() !== "") {
-		            $clearIcon.removeClass("hide"); 
-		        } else {
-		            $clearIcon.addClass("hide");
-		        }
-		    });
-		    $clearIcon.on("click", function() {
-		        $inputField.val(""); 
-		        $clearIcon.addClass("hide");
-		        $inputField.focus(); 
-		    });
-
 			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_get_list_ByAjax(true);
 				do_lc_bind_event_list();
 			})
+			$(".btn-resize").off("click").on("click", function () {
+				let $this = $(this);
+				let { divtoogle } = $this.data();
+				let child = $this.find("i");
+				let label = $this.find(".label-resize");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize")
+				$(divtoogle).toggle("hide");
 
+				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
+			});
 			$(".btn-resize-list").off("click").on("click", function () {
 				let $this = $(this);
 				let { divtoogle } = $this.data();
@@ -247,10 +288,28 @@ define([], function() {
 			})
 		}
 		
-		//----------------------------------------------------------------------------------------------
-		
+		var do_lc_del_files = function(prj, fileId, lineToRemove) {
+			let ref = req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_DEL_FILES, { 'id': prj.id, 'code': prj.code01, 'fileId': fileId });
 
+			let fSucces = [];
+			fSucces.push(req_gl_funct(null, do_lc_del_files_callback, [prj, fileId, lineToRemove]));
+
+			let fError = req_gl_funct(App, pr_ctr_Main.do_show_Msg, [$.i18n("common_err_ajax")]);
+
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
+
+		var do_lc_del_files_callback = function(sharedJson, prj, fileId, lineToRemove) {
+			if (can_gl_AjaxSuccess(sharedJson)) {
+				lineToRemove.remove();
+				if (prj.files)
+					prj.files = prj.files.filter(f => f.id != fileId);
+			} else {
+				do_gl_show_Notify_Msg_Error($.i18n('common_err_msg_get'));
+			}
+		}
+		//----------------------------------------------------------------------------------------------
 	}
 
-	return List;
+	return EntList;
 });

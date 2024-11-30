@@ -55,10 +55,6 @@ define([
 
 		var self 					= this;		
 		//------------------------------------------------------------------------------------
-		
-		var RIGHT_ADM	        	= 100;
-		var RIGHT_A_S	        	= 105;
-		var RIGHT_U_S	        	= 50000101;
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			if(!tmplName) {
@@ -77,16 +73,16 @@ define([
 			App.controller[pr_grpName].List					.do_lc_init();
 			App.controller[pr_grpName].Ent					.do_lc_init();
 			
-			tmplName.TMPL_MAIN 								= "Tmpl_Main";
-			tmplName.TMPL_LIST								= "Tmpl_List";
-			tmplName.TMPL_LIST_CONTENT						= "Tmpl_List_Content";
+			tmplName.TMPL_MAIN 								= pr_grpName+"Tmpl_Main";
+			tmplName.TMPL_LIST								= pr_grpName+"Tmpl_List";
+			tmplName.TMPL_LIST_CONTENT						= pr_grpName+"Tmpl_List_Content";
 			
-			tmplName.TMPL_ENT_NEW  							= "Tmpl_Ent_New";
-			tmplName.TMPL_ENT_CONTENT						= "Tmpl_Ent_Content";
-			tmplName.TMPL_ENT_CONTENT_ROW					= "Tmpl_Ent_Content_Row";
-			tmplName.TMPL_ENT_CONTENT_ROW_ADD				= "Tmpl_Ent_Content_Row_add";
+			tmplName.TMPL_ENT_NEW  							= pr_grpName+"Tmpl_Ent_New";
+			tmplName.TMPL_ENT_CONTENT						= pr_grpName+"Tmpl_Ent_Content";
+			tmplName.TMPL_ENT_CONTENT_ROW					= pr_grpName+"Tmpl_Ent_Content_Row";
+			tmplName.TMPL_ENT_CONTENT_ROW_ADD				= pr_grpName+"Tmpl_Ent_Content_Row_add";
 			
-			tmplName.TMPL_DROPZONE_FILE						= "Tmpl_Dropzone_File";		
+			tmplName.TMPL_DROPZONE_FILE						= pr_grpName+"Tmpl_Dropzone_File";		
 						
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_MAIN					, Tmpl_Main); 
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST					, Tmpl_List); 
@@ -112,13 +108,6 @@ define([
 					do_gl_show_Notify_Msg_Error($.i18n("prj_project_not_right_view"));
 					return;
 				}
-				
-				/*var isRight = listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_A_S) ||  listUserRight.includes(RIGHT_U_S)
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("prj_project_not_right_view"));
-					return;
-				}*/
-				
 				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_MAIN, {}));
 
 				App.controller[pr_grpName].List.do_lc_show();

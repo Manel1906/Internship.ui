@@ -58,7 +58,7 @@
 "msgbox_confirm_creat"					: 	"Lưu thông tin bệnh ?",
 "msgbox_confirm_cancel_create"			: 	"Hủy bỏ quá trình chỉnh sửa ?",
 
-"btn_add_file"							: 	"Import",
+"btn_add_file"							: 	"Thêm dữ liệu",
 "common_btn_delete"						: 	"Xóa",
 "common_btn_edit"						: 	"Chỉnh sửa",
 "common_btn_yes"						: 	"Đồng ý",
