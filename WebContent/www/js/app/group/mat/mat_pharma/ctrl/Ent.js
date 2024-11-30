@@ -20,10 +20,10 @@ define([], function() {
 			var RIGHT_A_M	        	= 103;
 			var RIGHT_A_D	        	= 104;
 			
-			var RIGHT_GET	        	= 50000101;
-			var RIGHT_NEW	        	= 50000102;
-			var RIGHT_MOD	        	= 50000103;
-			var RIGHT_DEL	        	= 50000104;
+			var RIGHT_GET	        	= 50000001;
+			var RIGHT_NEW	        	= 50000002;
+			var RIGHT_MOD	        	= 50000003;
+			var RIGHT_DEL	        	= 50000004;
 
 			//-----------------------------------------------------------------------------------
 			const pr_SERVICE_CLASS		= "ServiceTpyCategory";
@@ -128,7 +128,6 @@ define([], function() {
 				}
 				
 				$("#div_ent"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT		, data));
-				$("#tbody_entity"	).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_ROW	, data));
 				
 				$(".info-edit"		).removeClass	('hide');
 				$(".inf-entity"		).addClass		('hide');
@@ -170,29 +169,6 @@ define([], function() {
 					do_lc_get_entity_sub(data);
 				})
 				
-				$('#a_btn_canc').on('click', function() {
-					if(data.child != null || data.child == null ) {
-						if(pr_DISEASE_TEMP != null) {
-							$("#btn_modify").removeClass("hide");
-							$("#a_btn_sav").addClass("hide");
-							$("#a_btn_canc").addClass("hide");
-							$("#removeRowBtn").addClass("hide");
-							$("#addRowBtn").addClass("hide");
-							$("#tbody_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_ROW, {data: pr_DISEASE_TEMP}));
-							$(".info-edit").removeClass("hide");
-							$(".inf-entity").addClass("hide");
-						} else {
-							$("#btn_modify").removeClass("hide");
-							$("#a_btn_sav").addClass("hide");
-							$("#a_btn_canc").addClass("hide");
-							$("#removeRowBtn").addClass("hide");
-							$("#addRowBtn").addClass("hide");
-							$("#tbody_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_ROW, data));
-							$(".info-edit").removeClass("hide");
-							$(".inf-entity").addClass("hide");
-						}
-					}
-				});
 				
 				$("#a_btn_sav").off("click").on("click", function(){
 								
@@ -340,15 +316,6 @@ define([], function() {
 			
 			const do_lc_bind_event_new_row_table = function() {
 			    $("#a_btn_sav, #a_btn_canc")	.removeClass("hide");
-		        var newRow = tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_ADD, {});
-				
-		        $('#tbody_entity').append(newRow);
-		        let addedRow = $('#tbody_entity tr').last();
-	    		addedRow[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-		        $('#removeRowBtn button').on('click', function() {
-					$(this).closest('tr').remove();
-				});
-		       
 			};
 			
 			const do_lc_get_entity_sub = (data) => {
@@ -368,7 +335,6 @@ define([], function() {
 					const data = sharedJson[App['const'].RES_DATA];
 					if(data){
 						pr_DISEASE_TEMP = data
-						$("#tbody_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_ROW, {data: data}));
 						$("#btn_modify").addClass("hide");
 						$("#a_btn_sav").removeClass("hide");
 						$("#a_btn_canc").removeClass("hide");
@@ -402,7 +368,6 @@ define([], function() {
 					let data 	= sharedJson[App['const'].RES_DATA];
 					
 	//				$('.inf-entity').addClass('hide');
-					$("#tbody_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_ROW, {data: data}));
 					$(".inf-entity").addClass('hide');
 					$("#btn_modify").removeClass("hide");
 					$("#a_btn_sav").addClass("hide");

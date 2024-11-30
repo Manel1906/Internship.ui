@@ -9,8 +9,6 @@ define([
 	
 	'text!group/mat/mat_pharma/tmpl/Ent_Content.html',
 	'text!group/mat/mat_pharma/tmpl/Ent_New.html',
-	'text!group/mat/mat_pharma/tmpl/Ent_Content_Row.html',
-	'text!group/mat/mat_pharma/tmpl/Ent_Content_Row_add.html',
 	
 	'text!group/mat/mat_pharma/tmpl/Dropzone_File.html',
 
@@ -23,9 +21,6 @@ define([
 	Tmpl_List_Content,
 	Tmpl_Ent_Content,
 	Tmpl_Ent_New,
-	
-	Tmpl_Ent_Content_Row,
-	Tmpl_Ent_Content_Row_add,
 	
 	Tmpl_Dropzone_File,
 ) {
@@ -79,8 +74,6 @@ define([
 			
 			tmplName.TMPL_ENT_NEW  							= pr_grpName+"Tmpl_Ent_New";
 			tmplName.TMPL_ENT_CONTENT						= pr_grpName+"Tmpl_Ent_Content";
-			tmplName.TMPL_ENT_CONTENT_ROW					= pr_grpName+"Tmpl_Ent_Content_Row";
-			tmplName.TMPL_ENT_CONTENT_ROW_ADD				= pr_grpName+"Tmpl_Ent_Content_Row_add";
 			
 			tmplName.TMPL_DROPZONE_FILE						= pr_grpName+"Tmpl_Dropzone_File";		
 						
@@ -90,8 +83,6 @@ define([
 			
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_NEW				, Tmpl_Ent_New); 	
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT			, Tmpl_Ent_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW		, Tmpl_Ent_Content_Row);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_ADD	, Tmpl_Ent_Content_Row_add);
 						
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE			, Tmpl_Dropzone_File);
 		}     
