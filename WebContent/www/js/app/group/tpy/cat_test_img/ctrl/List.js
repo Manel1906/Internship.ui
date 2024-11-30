@@ -14,8 +14,15 @@ define([], function() {
 		var pr_ctr_List 			= null;
 		
 		var RIGHT_ADM	        	= 100;
+		var RIGHT_A_G	        	= 102;
 		var RIGHT_A_N	        	= 102;
-		var RIGHT_NEW	        	= 50000102;
+		var RIGHT_A_M	        	= 103;
+		var RIGHT_A_D	        	= 104;
+		
+		var RIGHT_GET	        	= 5000001;
+		var RIGHT_NEW	        	= 5000002;
+		var RIGHT_MOD	        	= 5000003;
+		var RIGHT_DEL	        	= 5000004;
 		//-----------------------------------------------------------------------------------
 		
 		const pr_SERVICE_CLASS_DYN	= "ServiceTpyCategory";
@@ -30,14 +37,6 @@ define([], function() {
 		
 		const pr_NUMBER_RECORD		= 10;
 		const pr_STAT_ACTIVE    	= 1;
-		
-		var pr_typ = [
-					pr_STAT_TEST_1,
-					pr_STAT_TEST_2,
-					pr_STAT_TEST_3,
-					pr_STAT_TEST_4,
-					pr_STAT_TEST_10
-				];
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){

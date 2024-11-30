@@ -14,8 +14,15 @@ define([], function() {
 		var pr_ctr_List 			= null;
 		
 		var RIGHT_ADM	        	= 100;
+		var RIGHT_A_G	        	= 102;
 		var RIGHT_A_N	        	= 102;
-		var RIGHT_NEW	        	= 50000102;
+		var RIGHT_A_M	        	= 103;
+		var RIGHT_A_D	        	= 104;
+		
+		var RIGHT_GET	        	= 40002001;
+		var RIGHT_NEW	        	= 40002002;
+		var RIGHT_MOD	        	= 40002003;
+		var RIGHT_DEL	        	= 40002004;
 		//-----------------------------------------------------------------------------------
 		
 		const pr_SERVICE_CLASS_DYN	= "ServiceTpyCategory";

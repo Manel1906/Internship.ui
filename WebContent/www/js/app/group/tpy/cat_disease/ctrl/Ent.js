@@ -15,13 +15,16 @@ define([], function() {
 			
 
 			var RIGHT_ADM	        	= 100;
+			var RIGHT_A_G	        	= 102;
 			var RIGHT_A_N	        	= 102;
 			var RIGHT_A_M	        	= 103;
 			var RIGHT_A_D	        	= 104;
 			
+			var RIGHT_GET	        	= 50000101;
 			var RIGHT_NEW	        	= 50000102;
 			var RIGHT_MOD	        	= 50000103;
 			var RIGHT_DEL	        	= 50000104;
+
 			//-----------------------------------------------------------------------------------
 			const pr_SERVICE_CLASS		= "ServiceTpyCategory";
 			const pr_SV_NEW				= "SVNewDisease";
