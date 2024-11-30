@@ -120,8 +120,8 @@ define(['require',
 				
 				PRJ_MNG_TEST					: "prj_mng_test",
 				PRJ_TEST_IMG					: "prj_test_img",
-				PRJ_MNG_MED						: "prj_cat_medi"
-
+				PRJ_MNG_MED						: "prj_cat_medi",
+				PRJ_MNG_DOCTOR					: "per_mng_doctor"
 				
 			}
 

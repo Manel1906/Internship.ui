@@ -681,6 +681,13 @@ define([
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"
 				},
+				[App.router.part.PRJ_MNG_DOCTOR]	: {
+					grpName		: "PrjMngDoctor"									, ctrlName 		: "Main", 
+					ctrlPath    : "group/per/doctor/ctrl/PerDoctorGroupMain"		, ctrlParams 	: ["PrjMngDoctor", null, null , null, ], 
+					fInit		: "do_lc_init"										, fInitParams	: [],
+					fShow		: "do_lc_show"										, fShowParams	: [],
+					rights		: "view:"
+				},
 		}
 		
 		//--------------------------------------------------------------------------------------------
