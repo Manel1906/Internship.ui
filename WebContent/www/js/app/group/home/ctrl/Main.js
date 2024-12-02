@@ -202,54 +202,22 @@ define([
 		const pr_DATA_CTRL = {
 				//-------USER----------------------------------------------------------------------------------------------
 				[App.router.part.PRJ_USER_CLIENT]		: {
-					grpName		: "PrjClientMain"							, ctrlName 		: "Main", 
-					ctrlPath    : "group/user/client/ctrl/PrjUserMain"		, ctrlParams 	: ["PrjUserClient", null, null , null, ], 
+					grpName		: "UserClient"								, ctrlName 		: "Main", 
+					ctrlPath    : "group/user/client/ctrl/Main"				, ctrlParams 	: ["UserClient", null, null , null, ], 
 					fInit		: "do_lc_init"								, fInitParams	: [],
 					fShow		: "do_lc_show"								, fShowParams	: [],
 					rights		: "view:"
 				},
-				[App.router.part.PRJ_USER_LIST_CLIENT]		: {
-					grpName		: "PrjUserList"								, ctrlName 		: "List", 
-					ctrlPath    : "group/user/client/ctrl/PrjUserList"		, ctrlParams 	: ["PrjUserList", null, "#div_Prj_User_List" , null, ], 
-					fInit		: "do_lc_init"								, fInitParams	: [],
-					fShow		: "do_lc_show"								, fShowParams	: [],
-					rights		: "view:"
-				},
-				[App.router.part.PRJ_USER_ENT_CLIENT]		: {
-					grpName		: "PrjUserClientEnt"						, ctrlName 		: "Ent", 
-					ctrlPath    : "group/user/client/ctrl/PrjUserEnt"		, ctrlParams 	: ["PrjUserClientEnt", null, "#div_Prj_User_Ent" 	, null, ], 
-					fInit		: "do_lc_init"								, fInitParams	: [],
-					fShow		: "do_lc_show"								, fShowParams	: [null, var_lc_MODE_SEL],
-					rights		: "view:"
-				},
-				[App.router.part.PRJ_USER_CREATE_CLIENT]	: {
-					grpName		: "PrjUserClientEnt"						, ctrlName 		: "PrjUserClientEnt", 
-					ctrlPath    : "group/user/client/ctrl/PrjUserEnt"		, ctrlParams 	: ["PrjUserEnt", null, "#div_Prj_User_Ent" 	, null, ], 
-					fInit		: "do_lc_init"								, fInitParams	: [],
-					fShow		: "do_lc_show"								, fShowParams	: [null, var_lc_MODE_NEW],
-					rights		: "view:"
-				},
-				[App.router.part.PRJ_USER]		: {
+				
+				[App.router.part.PRJ_USER_INTERN]		: {
 					grpName		: "PrjUserMain"								, ctrlName 		: "Main", 
-					ctrlPath    : "group/user/intern/ctrl/PrjUserMain"		, ctrlParams 	: ["PrjUserMain", null, null , null, ], 
+					ctrlPath    : "group/user/intern/ctrl/Main"				, ctrlParams 	: ["UserIntern", null, null , null, ], 
 					fInit		: "do_lc_init"								, fInitParams	: [],
 					fShow		: "do_lc_show"								, fShowParams	: [],
 					rights		: "view:"
 				},
-				[App.router.part.PRJ_USER_LIST]		: {
-					grpName		: "PrjUserList"								, ctrlName 		: "List", 
-					ctrlPath    : "group/user/intern/ctrl/PrjUserList"		, ctrlParams 	: ["PrjUserList", null, "#div_Prj_User_List" , null, ], 
-					fInit		: "do_lc_init"								, fInitParams	: [],
-					fShow		: "do_lc_show"								, fShowParams	: [],
-					rights		: "view:"
-				},
-				[App.router.part.PRJ_USER_ENT]		: {
-					grpName		: "PrjUserEnt"								, ctrlName 		: "Ent", 
-					ctrlPath    : "group/user/intern/ctrl/PrjUserEnt"		, ctrlParams 	: ["PrjUserEnt", null, "#div_Prj_User_Ent" 	, null, ], 
-					fInit		: "do_lc_init"								, fInitParams	: [],
-					fShow		: "do_lc_show"								, fShowParams	: [null, var_lc_MODE_SEL],
-					rights		: "view:"
-				},
+				
+				
 				[App.router.part.PRJ_USER_CREATE]	: {
 					grpName		: "PrjUserEnt"								, ctrlName 		: "Ent", 
 					ctrlPath    : "group/user/intern/ctrl/PrjUserEnt"		, ctrlParams 	: ["PrjUserEnt", null, "#div_Prj_User_Ent" 	, null, ], 

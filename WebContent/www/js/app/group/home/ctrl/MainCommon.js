@@ -1475,10 +1475,10 @@ function(
 				"500,,0"				: "view_prj_email_group.html?id=#id&code=#code",
 			},
 			1000						: {
-				",1,"					: "view_prj_user.html?id=#id&code=#code",		//User SUP_ADM
-				",2,"					: "view_prj_user.html?id=#id&code=#code",		//User ADM
-				",3,100"				: "view_prj_user.html?id=#id&code=#code",		//User AGENT
-				",3,100"				: "view_prj_user.html?id=#id&code=#code",		//User AGENT
+				",1,"					: "view_prj_user_intern.html?id=#id&code=#code",		//User SUP_ADM
+				",2,"					: "view_prj_user_intern.html?id=#id&code=#code",		//User ADM
+				",3,100"				: "view_prj_user_intern.html?id=#id&code=#code",		//User AGENT
+				",3,100"				: "view_prj_user_intern.html?id=#id&code=#code",		//User AGENT
 			}
 		}
 
@@ -1518,10 +1518,10 @@ function(
 				"500,,0"				: "VI_MAIN/prj_email_group",
 			},
 			1000						: {
-				",1,"					: "VI_MAIN/prj_user",		//User SUP_ADM
-				",2,"					: "VI_MAIN/prj_user",		//User ADM
-				",3,100"				: "VI_MAIN/prj_user",		//User AGENT
-				",3,100"				: "VI_MAIN/prj_user",		//User AGENT
+				",1,"					: "VI_MAIN/prj_user_intern",		//User SUP_ADM
+				",2,"					: "VI_MAIN/prj_user_intern",		//User ADM
+				",3,100"				: "VI_MAIN/prj_user_intern",		//User AGENT
+				",3,100"				: "VI_MAIN/prj_user_intern",		//User AGENT
 			}
 		}
 

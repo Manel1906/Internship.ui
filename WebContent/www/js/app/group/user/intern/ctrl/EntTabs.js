@@ -1,6 +1,6 @@
 define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
-	var PrjUserEntContent 			= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
+	var EntContent 			= function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
@@ -15,7 +15,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
 		
-		const pr_prjUser		    = App.controller.PrjUser;
+		const pr_prjUser		    = App.controller[pr_grpName];
 		
 		var svClass 				= App['const'].SV_CLASS;
 		var svName					= App['const'].SV_NAME;
@@ -60,19 +60,19 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					do_lc_show_entity(prj, mode);
 //				}
 			}catch(e) {				
-				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserEnt", "do_lc_show", e.toString()) ;
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
 		};
 		
 		var do_lc_show_entity = function(ent, mode){
-			$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT_CONTENT, ent));
+			$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT, ent));
 			
-////			$(pr_divTabDocs)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT_TAB_DOCS, prj));
-//			$(pr_divTabPerInfo)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT_TAB_PERSON_INFO, prj));
-//			$("#sel_autuser_header_legalstat")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LEGAL_STAT));
+////			$(pr_divTabDocs)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DOCS, prj));
+//			$(pr_divTabPerInfo)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO, prj));
+//			$("#sel_autuser_header_legalstat")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LEGAL_STAT));
 //			
 //			let checked_pos = do_check_user_position(prj);
-//			$("#div_user_position")				.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT_TAB_JOBPOSITION, checked_pos));
+//			$("#div_user_position")				.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_JOBPOSITION, checked_pos));
 			
 //			let divAction = $("#a_btn_save, #a_btn_cancel, #div_prj_ent_file_upload, .action-item-doc, .item-file-delete");
 //			if(mode == var_lc_MODE_MOD || mode == var_lc_MODE_NEW){
@@ -316,8 +316,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 	}
 	
-	var PrjUserEntTabJobPosition = function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
+	var EntTabJobPosition = function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
@@ -371,14 +371,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					do_lc_show_entity(prj, mode);
 				}
 			}catch(e) {				
-				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserEnt", "do_lc_show", e.toString()) ;
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
 		}
 		
 		
 		var do_lc_show_entity = function(prj, mode){
 			let checked_pos = do_check_user_position(prj);
-			$(pr_divTabJobPosition).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT_TAB_JOBPOSITION, checked_pos));
+			$(pr_divTabJobPosition).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_JOBPOSITION, checked_pos));
 			
 			let divAction = $("#a_btn_save, #a_btn_cancel, #div_prj_ent_file_upload, .action-item-doc, .item-file-delete");
 			if(mode == pr_ctr_Main.var_lc_MODE_MOD){
@@ -414,8 +414,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 	}	
 	
-	var PrjUserEntTabPersonInfo = function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
+	var EntTabPersonInfo = function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
@@ -426,7 +426,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
 		
-		const pr_prjUser		    = App.controller.PrjUser;
+		const pr_prjUser		    = App.controller[pr_grpName];
 		
 		var svClass 				= App['const'].SV_CLASS;
 		var svName					= App['const'].SV_NAME;
@@ -470,7 +470,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					}
 				});
 				
-				$("#sel_autuser_header_legalstat")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LEGAL_STAT	, App.data["PerLegalStat"]));
+				$("#sel_autuser_header_legalstat")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LEGAL_STAT	, App.data["PerLegalStat"]));
 			}
 		}
 		
@@ -488,7 +488,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			
 			
 			
-			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT_TAB_PERSON_INFO, ent));
+			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO, ent));
 			
 			pr_prjUser.Ent.do_lc_reqRole_User();
 			
@@ -521,8 +521,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 	}
 	
-	var PrjUserEntTabRights     = function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
+	var EntTabRights     = function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
@@ -550,7 +550,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var pr_ctr_EntBtn 			= null;
 		var pr_ctr_EntTabs 			= null;
 
-		const pr_prjUser		    = App.controller.PrjUser;
+		const pr_prjUser		    = App.controller[pr_grpName];
 		//-----------------------------------------------------------------------------------
 		var pr_object				= null;
 		var pr_mode					= null;
@@ -696,7 +696,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				var arrAuth = JSON.parse(JSON.stringify(arr_auth)); //---clone arr_auth
 				arrAuth 	= req_update_data(arrAuth, obj);
 					
-				$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT_TAB_RIGHTS, arrAuth));
+				$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_RIGHTS, arrAuth));
 				
 				do_bind_event(obj, mode);
 				
@@ -824,5 +824,5 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 	};
 	
-	return { PrjUserEntContent, PrjUserEntTabJobPosition, PrjUserEntTabPersonInfo, PrjUserEntTabRights};
+	return { EntContent, EntTabJobPosition, EntTabPersonInfo, EntTabRights};
 	});

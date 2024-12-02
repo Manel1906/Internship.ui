@@ -1,7 +1,7 @@
 define(['jquery'], function($) {
 
-	var PrjUserList 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PrjUserList";
+	var List 	= function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		
 		const tmplName				= App.template.names[pr_grpName];
 		const tmplCtrl				= App.template.controller;
@@ -76,7 +76,7 @@ define(['jquery'], function($) {
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
-			pr_ctr_Ent				= App.controller.PrjUser.Ent;
+			pr_ctr_Ent				= App.controller[pr_grpName].Ent;
 			pr_ctr_dashboard		= App.controller.PrjDashboard.Ent
 		}
 
@@ -85,12 +85,12 @@ define(['jquery'], function($) {
 			try{
 				if (type02) pr_List_Type02 = type02;
 				
-//				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, paramStats));
-				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, {}));
+//				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, paramStats));
+				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
 				
 				do_get_list_ByAjax();
 			}catch(e) {				
-				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserList", "do_lc_show", e.toString()) ;
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "List", "do_lc_show", e.toString()) ;
 			}
 		};
 
@@ -226,7 +226,7 @@ define(['jquery'], function($) {
 					title	: $.i18n("prj_user_list_new_file_title"),
 					width	: "500px",
 					autoclose	: true,
-					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_DROPZONE_FILE, {}),
+					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_DROPZONE_FILE, {}),
 					buttons	: {
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
@@ -352,7 +352,7 @@ define(['jquery'], function($) {
 		}
 		
 		var do_lc_show_list_ByAjax_Dyn = function(sharedJson, div){
-			let template		=  tmplName.PRJ_USER_LIST_CONTENT;
+			let template		=  tmplName.TMPL_LIST_CONTENT;
 			let data			= {};
 			
 			if (sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
@@ -364,5 +364,5 @@ define(['jquery'], function($) {
 		}
 	};
 
-	return PrjUserList;
+	return List;
 });

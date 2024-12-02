@@ -1,12 +1,12 @@
 define([
-	'group/user/intern/ctrl/PrjUserEntTabs'
+	'group/user/intern/ctrl/EntTabs'
 	],
 	function(
-			{PrjUserEntContent, PrjUserEntTabJobPosition, PrjUserEntTabPersonInfo, PrjUserEntTabRights}
+			{EntContent, EntTabJobPosition, EntTabPersonInfo, EntTabRights}
 	){
 	
-	var PrjUserEnt 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PrjUserEnt";
+	var Ent 	= function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
@@ -76,17 +76,17 @@ define([
 			pr_ctr_Main 			= App.controller.UI.Main;
 			pr_ctr_Sidebar 			= App.controller.UI.Sidebar;
 			pr_ctr_Fav 				= App.controller.UI.Fav;
-			pr_ctr_List 			= App.controller.PrjUser.List;
-			pr_ctr_Ent				= App.controller.PrjUser.Ent;
+			pr_ctr_List 			= App.controller[pr_grpName].List;
+			pr_ctr_Ent				= App.controller[pr_grpName].Ent;
 			
-			if (!App.controller.PrjUser)					App.controller.PrjUser						= {};
+			if (!App.controller[pr_grpName])					App.controller[pr_grpName]						= {};
 			
-			if (!App.controller.PrjUser.Ent)				App.controller.PrjUser.Ent 					= this;
+			if (!App.controller[pr_grpName].Ent)				App.controller[pr_grpName].Ent 					= this;
 			
-			if(!App.controller.PrjUser.EntContent)			App.controller.PrjUser.EntContent 			= new PrjUserEntContent			(grpName, null, null, null);
-//			if(!App.controller.PrjUser.EntTabJobPosition)	App.controller.PrjUser.EntTabJobPosition 	= new PrjUserEntTabJobPosition	(grpName, null, null, null);
-			if(!App.controller.PrjUser.EntTabPersonInfo)	App.controller.PrjUser.EntTabPersonInfo		= new PrjUserEntTabPersonInfo	(grpName, null, null, null);
-			if(!App.controller.PrjUser.EntTabRights	)		App.controller.PrjUser.EntTabRights			= new PrjUserEntTabRights		(grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntContent)			App.controller[pr_grpName].EntContent 			= new EntContent			(grpName, null, null, null);
+//			if(!App.controller[pr_grpName].EntTabJobPosition)	App.controller[pr_grpName].EntTabJobPosition 	= new EntTabJobPosition	(grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntTabPersonInfo)	App.controller[pr_grpName].EntTabPersonInfo		= new EntTabPersonInfo	(grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntTabRights	)		App.controller[pr_grpName].EntTabRights			= new EntTabRights		(grpName, null, null, null);
 			
 			
 			do_get_per_societe(societePartnerSupp+","+societePartnerOther);
@@ -110,7 +110,7 @@ define([
 					if (id) do_lc_get_Entity (id, mode);
 				}
 			}catch(e) {				
-				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserEnt", "do_lc_show", e.toString()) ;
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
 		};
 		
@@ -210,7 +210,7 @@ define([
 			do_lc_clean_data_before_show(ent);
 			ent.isFavorite = isFavorite
 
-			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT	, ent));
+			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
 			
 			if(ent.sup)
 				ent.sup.name = ent.sup.name01 + ent.sup.name02 + ent.sup.name03;
@@ -222,11 +222,9 @@ define([
 		
 		const do_lc_clean_data_before_show = function(ent){
 			if(Object.keys(ent).length == 0) return;
+			
 			let per 		= ent.per;
-			if(per?.inf02){
-				ent.inf02  = JSON.parse(per.inf02);
-			}
-
+			
 			if(per?.inf04){
 				ent.inf04  = JSON.parse(per.inf04);
 			}
@@ -272,10 +270,10 @@ define([
 		}
 		
 		const do_lc_show_blocks = function(obj, mode){
-			App.controller.PrjUser.EntContent 		.do_lc_show(obj, mode);
-//			App.controller.PrjUser.EntTabJobPosition.do_lc_show(obj, mode);
-			App.controller.PrjUser.EntTabPersonInfo .do_lc_show(obj, mode);
-			App.controller.PrjUser.EntTabRights 	.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntContent 		.do_lc_show(obj, mode);
+//			App.controller[pr_grpName].EntTabJobPosition.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntTabPersonInfo .do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntTabRights 	.do_lc_show(obj, mode);
 			
 			if(mode == var_lc_MODE_NEW){
 				$("#div_user_funct").removeClass("hide");
@@ -449,32 +447,25 @@ define([
 				data.per.info10 = data.email;
 			}
 				
+			if(data.inf04){
+				data.per.inf04 		= data.inf04;
+				
+				if (data.inf04.t)//telephone
+					data.inf02 		= data.inf04.t;
+					
+				if (data.inf04.b)//birthday
+					data.per.dt03 	= data.inf04.b;
+			}
+			
 			
 			if(data.cats){
 				data.cats 		= pr_prjUser.Ent.do_lc_generate_cats(newEnt.cats);
 			}
 
-			if(data.inf02){
-				var objInfo02 = {	"j": data.inf02.job,
-									"d": data.inf02.dtBirthday};
-	
-				var per = data.per;
-				per.inf02 = JSON.stringify(objInfo02);
-			}
-			
-			if(data.inf04){
-				var objInfo04 = {	"i": data.inf04.idDocNum,
-									"d": data.inf04.idDocDate,
-									"p": data.inf04.idDocPlace};
-	
-				var per = data.per;
-				per.inf04 = JSON.stringify(objInfo04);;
-			}
-			
 			if(data.inf05){
-				var objInfo05 = [{"k": "fb", 	"v": data.inf05.value_facebook 	== undefined?null:data.inf05.value_facebook},
+				var objInfo05 = [{"k": "fb", 	"v": data.inf05.value_facebook 		== undefined?null:data.inf05.value_facebook},
                     			 {"k": "tw", 	"v": data.inf05.value_twitter 		== undefined?null:data.inf05.value_twitter},
-                    			 {"k": "ln",	"v": data.inf05.value_linkedin 	== undefined?null:data.inf05.value_linkedin},
+                    			 {"k": "ln",	"v": data.inf05.value_linkedin 		== undefined?null:data.inf05.value_linkedin},
                     			 {"k": "gg", 	"v": data.inf05.value_google 		== undefined?null:data.inf05.value_google},
                     			 {"k": "ig", 	"v": data.inf05.value_instagram 	== undefined?null:data.inf05.value_instagram}];
 	
@@ -620,5 +611,5 @@ define([
 		}
 	}
 	
-	return PrjUserEnt;
+	return Ent;
 });

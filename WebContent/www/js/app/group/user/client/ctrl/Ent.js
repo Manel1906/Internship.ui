@@ -1,12 +1,12 @@
 define([
-	'group/user/client/ctrl/PrjUserEntTabs'
+	'group/user/client/ctrl/EntTabs'
 	],
 	function(
-			{PrjUserEntContent, PrjUserEntTabJobPosition, PrjUserEntTabPersonInfo, PrjUserEntTabRights}
+			{EntContent, EntTabJobPosition, EntTabPersonInfo, EntTabRights}
 	){
 	
-	var PrjUserEnt 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PrjUserClientEnt";
+	var Ent 	= function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
@@ -76,17 +76,18 @@ define([
 			pr_ctr_Main 			= App.controller.UI.Main;
 			pr_ctr_Sidebar 			= App.controller.UI.Sidebar;
 			pr_ctr_Fav 				= App.controller.UI.Fav;
-			pr_ctr_List 			= App.controller.PrjUserClient.List;
-			pr_ctr_Ent				= App.controller.PrjUserClient.Ent;
 			
-			if (!App.controller.PrjUserClient)					App.controller.PrjUserClient						= {};
+			pr_ctr_List 			= App.controller[pr_grpName].List;
+			pr_ctr_Ent				= App.controller[pr_grpName].Ent;
 			
-			if (!App.controller.PrjUserClient.Ent)			App.controller.PrjUserClient.Ent 			= this;
+			if (!App.controller[pr_grpName])					App.controller[pr_grpName]						= {};
 			
-			if(!App.controller.PrjUserClient.EntContent)			App.controller.PrjUserClient.EntContent 			= new PrjUserEntContent			(grpName, null, null, null);
-//			if(!App.controller.PrjUser.EntTabJobPosition)	App.controller.PrjUser.EntTabJobPosition 					= new PrjUserEntTabJobPosition	(grpName, null, null, null);
-			if(!App.controller.PrjUserClient.EntTabPersonInfo)	App.controller.PrjUserClient.EntTabPersonInfo			= new PrjUserEntTabPersonInfo	(grpName, null, null, null);
-			if(!App.controller.PrjUserClient.EntTabRights	)		App.controller.PrjUserClient.EntTabRights			= new PrjUserEntTabRights		(grpName, null, null, null);
+			if (!App.controller[pr_grpName].Ent)				App.controller[pr_grpName].Ent 					= this;
+			
+			if(!App.controller[pr_grpName].EntContent)			App.controller[pr_grpName].EntContent 			= new EntContent			(grpName, null, null, null);
+//			if(!App.controller[pr_grpName].EntTabJobPosition)	App.controller[pr_grpName].EntTabJobPosition 	= new EntTabJobPosition	(grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntTabPersonInfo)	App.controller[pr_grpName].EntTabPersonInfo		= new EntTabPersonInfo	(grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntTabRights	)		App.controller[pr_grpName].EntTabRights			= new EntTabRights		(grpName, null, null, null);
 			
 			
 			do_get_per_societe(societePartnerSupp+","+societePartnerOther);
@@ -110,7 +111,7 @@ define([
 					if (id) do_lc_get_Entity (id, mode);
 				}
 			}catch(e) {				
-				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserEnt", "do_lc_show", e.toString()) ;
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
 		};
 		
@@ -210,7 +211,7 @@ define([
 			do_lc_clean_data_before_show(ent);
 			ent.isFavorite = isFavorite
 
-			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT	, ent));
+			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
 			
 			if(ent.sup)
 				ent.sup.name = ent.sup.name01 + ent.sup.name02 + ent.sup.name03;
@@ -222,6 +223,7 @@ define([
 		
 		const do_lc_clean_data_before_show = function(ent){
 			if(Object.keys(ent).length == 0) return;
+			
 			let per 		= ent.per;
 			if(per?.inf02){
 				ent.inf02  = JSON.parse(per.inf02);
@@ -272,10 +274,10 @@ define([
 		}
 		
 		const do_lc_show_blocks = function(obj, mode){
-			App.controller.PrjUserClient.EntContent 		.do_lc_show(obj, mode);
-//			App.controller.PrjUser.EntTabJobPosition.do_lc_show(obj, mode);
-			App.controller.PrjUserClient.EntTabPersonInfo 	.do_lc_show(obj, mode);
-			App.controller.PrjUserClient.EntTabRights 		.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntContent 		.do_lc_show(obj, mode);
+//			App.controller[pr_grpName].EntTabJobPosition.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntTabPersonInfo .do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntTabRights 	.do_lc_show(obj, mode);
 			
 			if(mode == var_lc_MODE_NEW){
 				$("#div_user_funct").removeClass("hide");
@@ -320,7 +322,7 @@ define([
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel_account"),
+							lab		: $.i18n("common_btn_cancel"),
 							funct	: self.do_lc_clear_timeout_viewer,
 							param	: [],
 						},
@@ -417,32 +419,25 @@ define([
 				data.per.info10 = data.email;
 			}
 				
+			if(data.inf04){
+				data.per.inf04 		= data.inf04;
+				
+				if (data.inf04.t)//telephone
+					data.inf02 		= data.inf04.t;
+					
+				if (data.inf04.b)//birthday
+					data.per.dt03 	= data.inf04.b;
+			}
+			
 			
 			if(data.cats){
 				data.cats 		= pr_prjUser.Ent.do_lc_generate_cats(newEnt.cats);
 			}
 
-			if(data.inf02){
-				var objInfo02 = {	"j": data.inf02.job,
-									"d": data.inf02.dtBirthday};
-	
-				var per = data.per;
-				per.inf02 = JSON.stringify(objInfo02);
-			}
-			
-			if(data.inf04){
-				var objInfo04 = {	"i": data.inf04.idDocNum,
-									"d": data.inf04.idDocDate,
-									"p": data.inf04.idDocPlace};
-	
-				var per = data.per;
-				per.inf04 = JSON.stringify(objInfo04);;
-			}
-			
 			if(data.inf05){
-				var objInfo05 = [{"k": "fb", 	"v": data.inf05.value_facebook 	== undefined?null:data.inf05.value_facebook},
+				var objInfo05 = [{"k": "fb", 	"v": data.inf05.value_facebook 		== undefined?null:data.inf05.value_facebook},
                     			 {"k": "tw", 	"v": data.inf05.value_twitter 		== undefined?null:data.inf05.value_twitter},
-                    			 {"k": "ln",	"v": data.inf05.value_linkedin 	== undefined?null:data.inf05.value_linkedin},
+                    			 {"k": "ln",	"v": data.inf05.value_linkedin 		== undefined?null:data.inf05.value_linkedin},
                     			 {"k": "gg", 	"v": data.inf05.value_google 		== undefined?null:data.inf05.value_google},
                     			 {"k": "ig", 	"v": data.inf05.value_instagram 	== undefined?null:data.inf05.value_instagram}];
 	
@@ -588,5 +583,5 @@ define([
 		}
 	}
 	
-	return PrjUserEnt;
+	return Ent;
 });
