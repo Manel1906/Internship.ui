@@ -5,7 +5,7 @@ define([], function() {
 			var pr_divFooter 			= footer;
 			
 			//------------------------------------------------------------------------------------
-			var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
+			var pr_grpName				= grpName;
 			var tmplName				= App.template.names[pr_grpName];
 			var tmplCtrl				= App.template.controller;
 			//------------------controllers------------------------------------------------------

@@ -1,43 +1,21 @@
-define([
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent.html',
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent_Content.html',
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent_Action.html',
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent_Pass.html'
-	],
-	function(
-			PrjUser_Profile_Ent,
-			PrjUser_Profile_Ent_Content,
-			PrjUser_Profile_Ent_Action,
-			PrjUser_Profile_Ent_Pass
-	){
+define([], function(){
 	
-	var tmplName				= App.template.names;
-	var tmplCtrl				= App.template.controller;
-	
-	var pr_ctr_Main 			= App.controller.DBoard.DBoardMain;
-	var pr_ctr_List 			= App.controller.UI.List;
-	var pr_ctr_Ent				= App.controller.UI.Ent;
-	
-	const pr_prjUserProfile		= App.controller.PrjUserProfile;
-	
-	const pr_divTabDocs			= "#div_prj_docs";
-	const pr_divTabPerInfo 		= "#div_prj_info_person";
-	
-	tmplName.PRJ_USER_PROFILE_ENT					= "PrjUser_Profile_Ent";
-	tmplName.PRJ_USER_PROFILE_ENT_CONTENT			= "PrjUser_Profile_Ent_Content";
-	tmplName.PRJ_USER_PROFILE_ENT_ACTION			= "PrjUser_Profile_Ent_Action";
-	tmplName.PRJ_USER_PROFILE_ENT_PASS				= "PrjUser_Profile_Ent_Pass";
 	
 	//------------------------------Start User Profile Content-----------------------------------
 	var PrjUserProfileEntContent = function (grpName, header, content, footer) {
 		const self 			= this;
+		
+		//------------------------------------------------------------------------------------
+		var pr_grpName				= grpName;
+		var tmplName				= App.template.names[pr_grpName];
+		var tmplCtrl				= App.template.controller;
 		
 		var pr_divHeader 			= header  ? header : null;
 		var pr_divContent 			= "#div_prj_content";
 		var pr_divFooter 			= footer  ? footer : null;
 		
 		this.do_lc_show_content = function(profile, mode){
-			do_lc_load_view();
+			
 			
 			profile = do_lc_reform_data(profile);
 			
@@ -62,16 +40,12 @@ define([
 			do_lc_bind_event_content_profile(profile);
 		}	
 		
-		var do_lc_load_view = function(){
-			tmplCtrl				.do_lc_put_tmpl(tmplName.PRJ_USER_PROFILE_ENT_CONTENT			, PrjUser_Profile_Ent_Content);
-		}
-		
 		
 		var do_lc_reform_data = function(profile){
 			let per 		= profile.per;
-			if(per?.inf02 && typeof per.inf02 === 'string'){
-				per.inf02  = JSON.parse(per.inf02);
-			}
+//			if(per?.inf02 && typeof per.inf02 === 'string'){
+//				per.inf02  = JSON.parse(per.inf02);
+//			}
 
 			if(per.inf04 && (typeof per.inf04 === 'string')){
 				per.inf04 = JSON.parse(per.inf04);
@@ -95,8 +69,11 @@ define([
 		}
 		
 		var do_lc_bind_event_content_profile = function(profile){
-//			let	obj 	= {files:profile.files ? profile.files : []};
 			if(!profile.files)	profile.files = [];
+			if (profile.avatar) profile.files = []; //--reset files
+			
+			if (profile.files.length==0 && profile.avatar) profile.files.push(profile.avatar);
+			
 			let option	= {
 					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here
 					obj				: profile//file existing here					
@@ -190,10 +167,10 @@ define([
 		}
 
 		//---------------------------------Ajax----------------------------------------------
-		var do_lc_info_mod = function(newProfile, profile) {
+		var do_lc_info_mod 	= function(newProfile, profile) {
 			let ref 		= req_gl_Request_Content_Send_With_Params('ServiceAutUser','SVModSelf', {obj: JSON.stringify(newProfile)});	
 			
-			var fSucces			= [];
+			var fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_info_mod_callback, [profile]));
 
 			var fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	
@@ -234,28 +211,18 @@ define([
 		var pr_divContent 			= "#div_prj_action";
 		var pr_divFooter 			= footer  ? footer : null;
 		
+		//------------------------------------------------------------------------------------
+		var pr_grpName				= grpName;
+		var tmplName				= App.template.names[pr_grpName];
+		var tmplCtrl				= App.template.controller;
+		
 		this.do_lc_show_action = function(prj, mode) {
 			try{
-				do_lc_load_view();
-				do_lc_show_prj(prj, mode);
+				$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT_ACTION, prj));
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserEnt", "do_lc_show", e.toString()) ;
 			}
 		}
-		
-		var do_lc_load_view = function(){			
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_PROFILE_ENT_ACTION		, PrjUser_Profile_Ent_Action);			
-		}
-		
-		var do_lc_show_prj = function(prj, mode){
-			$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT_ACTION, prj));
-			
-			do_lc_bind_event_content_prj(prj);
-		}
-		
-		var do_lc_bind_event_content_prj = function(prj){
-			
-		};		
 	}
 	//------------------------------End User Profile Content-----------------------------------
 	
@@ -267,59 +234,28 @@ define([
 		var pr_divContent 			= "#div_prj_pass";
 		var pr_divFooter 			= footer  ? footer : null;
 		
+		//------------------------------------------------------------------------------------
+		var pr_grpName				= grpName;
+		var tmplName				= App.template.names[pr_grpName];
+		var tmplCtrl				= App.template.controller;
+		
 		this.do_lc_show_pass = function(obj, div, type01, type02){
 			try{
-				do_lc_load_view();
 				do_lc_show_changePWD(obj);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserEnt", "do_lc_show", e.toString()) ;
 			}
 		}
 		
-		var do_lc_load_view = function(){			
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_PROFILE_ENT_PASS		, PrjUser_Profile_Ent_Pass);
-		}
-		
-		var do_lc_reform_data = function(profile){
-			let per 		= profile.per;
-			if(per?.inf02 && typeof per.inf02 === 'string'){
-				per.inf02  = JSON.parse(per.inf02);
-			}
-
-			if(per.inf04 && (typeof per.inf04 === 'string')){
-				per.inf04 = JSON.parse(per.inf04);
-			}
-			
-			if(per.inf05 && (typeof per.inf05 === 'string')){
-				let inf05 = JSON.parse(per.inf05);
-				let obj = {};
-				for(let i=0; i < inf05.length; i++){
-					if(inf05[i].k === "fb") obj.fb = inf05[i].v;
-					if(inf05[i].k === "tw") obj.tw = inf05[i].v;
-					if(inf05[i].k === "ln") obj.ln = inf05[i].v;
-					if(inf05[i].k === "gg") obj.gg = inf05[i].v;
-					if(inf05[i].k === "ig") obj.ig = inf05[i].v;
-				}
-				
-				per.inf05 = obj;
-			}
-			
-			return profile;
-		}
-
 		var do_lc_show_changePWD = function(prj, mode){
-			do_lc_show_changePWD_content(prj, mode);
+			$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT_PASS, {}));
+
+			do_lc_bind_event_content_prj(prj);
 		}
 
 		var do_lc_cancel_change = function (prj){
 			App.data.mode 	= pr_ctr_Main.var_lc_MODE_SEL;				
 			do_lc_show_changePWD(prj, App.data.mode);
-		}
-
-		var do_lc_show_changePWD_content = function(prj, mode){
-			$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT_PASS, {}));
-
-			do_lc_bind_event_content_prj(prj);
 		}
 
 		var do_lc_bind_event_content_prj = function(prj){
