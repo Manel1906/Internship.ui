@@ -194,6 +194,12 @@ define([], function() {
 		}
 		//----------------------------------------------------------------------------------------------
 		const do_lc_bind_event_list = function(){
+			var listUserRight = App.data.user.rights;
+			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+			if (!isRight) {
+				$("#btn_new_entity").hide();
+			}
+							
 			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id} 			= $this.data();

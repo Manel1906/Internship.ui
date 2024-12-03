@@ -141,13 +141,11 @@ define([], function() {
 				var isRight = listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
 				if (!isRight) {
 					$("#btn_edit").hide();
-					return;
 				}
 
 				isRight = listUserRight.includes(RIGHT_A_D) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_DEL)
 				if (!isRight) {
 					$("#btn_del").hide();
-					return;
 				}
 							
 				if(!data.files)	data.files = [];
