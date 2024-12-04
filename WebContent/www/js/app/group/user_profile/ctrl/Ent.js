@@ -1,23 +1,23 @@
 define([
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent.html',
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent_Content.html',
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent_Action.html',
-	'text!group/user_profile/tmpl/PrjUser_Profile_Ent_Pass.html',
+	'text!group/user_profile/tmpl/Ent.html',
+	'text!group/user_profile/tmpl/Ent_Content.html',
+	'text!group/user_profile/tmpl/Ent_Action.html',
+	'text!group/user_profile/tmpl/Ent_Pass.html',
 			
-	"group/user_profile/ctrl/PrjUserProfileEntBlocks"
+	"group/user_profile/ctrl/EntBlocks"
 	
 	
 	],
 	function(	
-			PrjUser_Profile_Ent,
-			PrjUser_Profile_Ent_Content,
-			PrjUser_Profile_Ent_Action,
-			PrjUser_Profile_Ent_Pass,
+			Tmpl_Ent,
+			Tmpl_Ent_Content,
+			Tmpl_Ent_Action,
+			Tmpl_Ent_Pass,
 			
-			{PrjUserProfileEntContent, PrjUserProfileEntAction, PrjUserProfileEntPass}
+			{EntContent, EntAction, EntPass}
 	){
 	
-	var PrjUserProfileEnt 	= function (grpName, header, content, footer) {
+	var Ent 	= function (grpName, header, content, footer) {
 		var pr_divHeader 			= header  ? header : null;
 		var pr_divContent 			= "#div_prj_content";
 		var pr_divFooter 			= footer  ? footer : null;
@@ -39,22 +39,28 @@ define([
 		//------------------controllers------------------------------------------------------
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
-			if (!App.controller.UserProfile)			App.controller.UserProfile				= {};
-			if (!App.controller.UserProfile.Ent)		App.controller.UserProfile.Ent 			= this;
+			if(!tmplName) {
+				App.template.names[pr_grpName] = {}
+				tmplName = App.template.names[pr_grpName];
+			}
+			if (!App.controller[pr_grpName]) App.controller[pr_grpName] = {};
+			
+			if (!App.controller[pr_grpName])			App.controller[pr_grpName]				= {};
+			if (!App.controller[pr_grpName].Ent)		App.controller[pr_grpName].Ent 			= this;
 
-			if(!App.controller.UserProfile.EntContent)	App.controller.UserProfile.EntContent 	= new PrjUserProfileEntContent	(pr_grpName, null, null, null);
-			if(!App.controller.UserProfile.EntAction)	App.controller.UserProfile.EntAction 	= new PrjUserProfileEntAction	(pr_grpName, null, null, null);
-			if(!App.controller.UserProfile.EntPass)		App.controller.UserProfile.EntPass 		= new PrjUserProfileEntPass		(pr_grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntContent)	App.controller[pr_grpName].EntContent 	= new EntContent	(pr_grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntAction)	App.controller[pr_grpName].EntAction 	= new EntAction		(pr_grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntPass)		App.controller[pr_grpName].EntPass 		= new EntPass		(pr_grpName, null, null, null);
 			
-			tmplName.PRJ_USER_PROFILE_ENT					= "PrjUser_Profile_Ent";
-			tmplName.PRJ_USER_PROFILE_ENT_CONTENT			= "PrjUser_Profile_Ent_Content";
-			tmplName.PRJ_USER_PROFILE_ENT_ACTION			= "PrjUser_Profile_Ent_Action";
-			tmplName.PRJ_USER_PROFILE_ENT_PASS				= "PrjUser_Profile_Ent_Pass";
+			tmplName.TMPL_ENT					= pr_grpName+ "Tmpl_Ent";
+			tmplName.TMPL_ENT_CONTENT			= pr_grpName+ "Tmpl_Ent_Content";
+			tmplName.TMPL_ENT_ACTION			= pr_grpName+ "Tmpl_Ent_Action";
+			tmplName.TMPL_ENT_PASS				= pr_grpName+ "Tmpl_Ent_Pass";
 			
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_PROFILE_ENT				, PrjUser_Profile_Ent);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_PROFILE_ENT_CONTENT		, PrjUser_Profile_Ent_Content);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_PROFILE_ENT_ACTION		, PrjUser_Profile_Ent_Action);	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_PROFILE_ENT_PASS			, PrjUser_Profile_Ent_Pass);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT				, Tmpl_Ent);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT		, Tmpl_Ent_Content);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_ACTION		, Tmpl_Ent_Action);	
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_PASS			, Tmpl_Ent_Pass);
 		}
 		//---------show-----------------------------------------------------------------------------
 		
@@ -70,7 +76,7 @@ define([
 		
 		this.do_lc_show_callback = function(div, type01, type02){               
 			try{
-				$("#div_main_content")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT	, {}));
+				$("#div_main_content")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, {}));
 				
 				
 				let user 		= App.data.user;
@@ -112,11 +118,11 @@ define([
 		}
 		
 		var do_lc_show_entity = function(obj){
-			App.controller.UserProfile.EntContent 	.do_lc_show_content	(obj, pr_ctr_Main.var_lc_MODE_SEL);
-			App.controller.UserProfile.EntAction 	.do_lc_show_action	(obj, pr_ctr_Main.var_lc_MODE_SEL);
-			App.controller.UserProfile.EntPass 		.do_lc_show_pass	(obj);
+			App.controller[pr_grpName].EntContent 	.do_lc_show_content	(obj, pr_ctr_Main.var_lc_MODE_SEL);
+			App.controller[pr_grpName].EntAction 	.do_lc_show_action	(obj, pr_ctr_Main.var_lc_MODE_SEL);
+			App.controller[pr_grpName].EntPass 		.do_lc_show_pass	(obj);
 		}
 	};
 	
-	return PrjUserProfileEnt;
+	return Ent;
 });

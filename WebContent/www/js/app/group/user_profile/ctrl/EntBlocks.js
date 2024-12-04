@@ -2,7 +2,7 @@ define([], function(){
 	
 	
 	//------------------------------Start User Profile Content-----------------------------------
-	var PrjUserProfileEntContent = function (grpName, header, content, footer) {
+	var EntContent = function (grpName, header, content, footer) {
 		const self 			= this;
 		
 		//------------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ define([], function(){
 			
 			profile = do_lc_reform_data(profile);
 			
-			$(pr_divContent)		.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT_CONTENT, profile));
+			$(pr_divContent)		.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT, profile));
 			
 			// $("#sel_autuser_header_legalstat").find("option[value = '" + profile.per.cfgVal02 + "']").attr("selected", "selected");
 			// let cfgVal02Str = $("#sel_autuser_header_legalstat").find("option[value = '" + profile.per.cfgVal02 + "']").text();
@@ -204,7 +204,7 @@ define([], function(){
 	//------------------------------End User Profile Content-----------------------------------
 	
 	//------------------------------Start User Profile Content-----------------------------------
-	var PrjUserProfileEntAction = function (grpName, header, content, footer) {
+	var EntAction = function (grpName, header, content, footer) {
 		const self 			= this;
 		
 		var pr_divHeader 			= header  ? header : null;
@@ -218,7 +218,7 @@ define([], function(){
 		
 		this.do_lc_show_action = function(prj, mode) {
 			try{
-				$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT_ACTION, prj));
+				$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_ACTION, prj));
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "PrjUserEnt", "do_lc_show", e.toString()) ;
 			}
@@ -227,7 +227,7 @@ define([], function(){
 	//------------------------------End User Profile Content-----------------------------------
 	
 	//------------------------------Start User Profile Content-----------------------------------
-	var PrjUserProfileEntPass = function (grpName, header, content, footer) {
+	var EntPass = function (grpName, header, content, footer) {
 		const self 			= this;
 		
 		var pr_divHeader 			= header  ? header : null;
@@ -248,7 +248,7 @@ define([], function(){
 		}
 		
 		var do_lc_show_changePWD = function(prj, mode){
-			$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_PROFILE_ENT_PASS, {}));
+			$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_PASS, {}));
 
 			do_lc_bind_event_content_prj(prj);
 		}
@@ -327,5 +327,5 @@ define([], function(){
 	}
 	//------------------------------End User Profile Content-----------------------------------
 
-	return {PrjUserProfileEntContent, PrjUserProfileEntAction, PrjUserProfileEntPass};
+	return {EntContent, EntAction, EntPass};
 });
