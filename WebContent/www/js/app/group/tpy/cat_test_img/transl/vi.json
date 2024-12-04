@@ -31,14 +31,11 @@
 "tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
 "tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
 
-"btn_add_file"							: 	"Import",
 
-"tpy_test_img_list_title"				:	"Quản lý danh mục chẩn đoán hình ảnh",
-"tpy_cat_disease_new"					: 	"Thêm mới",
+"tpy_test_img_list_title"				:	"Danh mục chẩn đoán hình ảnh",
 "tpy_cat_disease_search"				:	"Tìm kiếm danh mục",
-"tpy_cat_disease_new_title"				: 	"Thêm mới dịch vụ",
+"common_btn_new_title"				: 	"Thêm mới dịch vụ",
 
-"tpy_cat_disease_new_file_title"		: 	"Thêm tập tin vào đây",
 "tpy_cat_disease_drop_files"			: 	"Kéo thả hoặc nhấn để thêm tập tin",
 
 "prj_test_img_code"						: 	"Nhập mã dịch vụ",
@@ -46,8 +43,6 @@
 "tpy_cat_disease_room_enter"			: 	"Nhập phòng xét nghiệm",
 "tpy_test_img_room_enter"				: 	"Nhập phòng chẩn đoán",
 "tpy_cat_disease_time_enter"			:   "Nhập thời gian thực hiện",
-"tpy_cat_disease_new_btn_save"			: 	"Lưu",
-"tpy_cat_disease_new_btn_cancel"		: 	"Hủy bỏ",
 
 "tpy_test_img_name"						:   "Tên dịch vụ",
 "tpy_test_img_code"						: 	"Mã dịch vụ",
@@ -68,8 +63,6 @@
 "msgbox_confirm_creat"					: 	"Lưu thông tin dịch vụ ?",
 "msgbox_confirm_cancel_create"			: 	"Hủy bỏ thêm mới bệnh ?",
 "tpy_cat_disease_edit_title"			:   "Chỉnh sửa thông tin dịch vụ",
-"tpy_cat_disease_btn_delete"			: 	"Xóa",
-"tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
 "aut_test_ent_header_stat_0"			:	"Tất cả",
 "aut_test_ent_header_stat_1"			:	"Chiếu X-quang",
 "aut_test_ent_header_stat_2"			:	"CT - Scanner",
@@ -84,6 +77,17 @@
 "aut_test_unit_header_stat_10"			:	"...",
 "msgbox_confirm_save"					: "Lưu nội dung chỉnh sửa ?",
 "msgbox_confirm_save_cancel"			: "Hủy bỏ nội dung chỉnh sửa ?",
-"prj_project_del_user_group_popup_content"			: "Xóa dịch vụ?",
-"prj_user_group_btn_delete_group"				    : "Xóa dịch vụ chẩn đoán hình ảnh"
+"msg_del_entity_popup_content"			: "Xóa dịch vụ?",
+"common_title_confirm"				    : "Xóa dịch vụ chẩn đoán hình ảnh",
+
+
+"btn_add_file"							: 	"Thêm dữ liệu",
+"common_btn_delete"						: 	"Xóa",
+"common_btn_edit"						: 	"Chỉnh sửa",
+"common_btn_yes"						: 	"Đồng ý",
+"common_btn_save"						: 	"Lưu",
+"common_btn_cancel"						: 	"Hủy bỏ",
+"common_btn_new"						: 	"Thêm mới",
+"common_btn_new_btn_save"				: 	"Lưu",
+"common_btn_new_file_title"				: 	"Thêm tập tin vào đây"
 }

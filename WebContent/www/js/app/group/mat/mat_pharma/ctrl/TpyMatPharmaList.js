@@ -94,7 +94,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_USER_GROUP_NEW				, PrjPharmaGroup_New); 	
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_DROPZONE_FILE				, PrjDropzone_File);
 			
-			$("#div_usergroup_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST, {}));
+			$("#div_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST, {}));
 		}
 		
 		//----------------------------------------------------------------------------------------------
@@ -324,11 +324,11 @@ define([
 		const do_lc_bind_event_list = function(){
 			do_lc_bind_event__list_header()
 			
-			$(".chat-item").off("click").on("click", function(){
+			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id: idGroup} 	= $this.data();
 				if(idGroup){
-					$(".chat-item")	.removeClass("active");
+					$(".entity-item")	.removeClass("active");
 					$this			.addClass("active").removeClass("has-new-msg-item");
 					$("#div_chat").css("display", "block");
 					
@@ -340,10 +340,10 @@ define([
 
 		const do_lc_bind_event__list_header = () => {
 			if(App.data.user.typ01 == pr_TYP01_ADMIN){
-				$("#btn_btn_new_group").removeClass('hide');
+				$("#btn_new_entity").removeClass('hide');
 				$("#btn_add_doc").removeClass('hide');
 			}
-			$("#btn_btn_new_group").off("click").on("click", function(){
+			$("#btn_new_entity").off("click").on("click", function(){
 				var listUserRight = App.data.user.rights;
 				var isRight = listUserRight.includes(RIGHT_A_S) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_U_S)
 				if(!isRight){
@@ -351,8 +351,8 @@ define([
 					return;
 				}
 
-				$("#div_usergroup_member").html("");
-				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, {}));
+				$("#div_entity_member").html("");
+				$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, {}));
 
 				App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
 				App.SummerNoteController.do_lc_show("#div_create_service");//text editor
@@ -363,7 +363,7 @@ define([
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
 
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list();
 			})
@@ -383,7 +383,7 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event_for_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -406,7 +406,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -580,7 +580,7 @@ define([
 			if(data.files && data.files[0].url){
 				data.fileUrl = data.files[0].url
 			}
-			$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_ENT_CONTENT, data));
+			$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_ENT_CONTENT, data));
 			
 			do_bind_event_show_group(data);
 		}
@@ -615,7 +615,7 @@ define([
 				data.files 	= data.files ? [...data.files].filter(Boolean) : [];
 				
 				let	obj	 				= req_gl_data({
-					dataZoneDom		: $("#div_usergroup_ent"),
+					dataZoneDom		: $("#div_entity"),
 					oldObject 		: data,
 				});
 
@@ -661,8 +661,8 @@ define([
 			$("#btn_del_group").off("click").on("click", function(){
 				let {id} = $(this).data();
 				App.MsgboxController.do_lc_show({
-					title		: $.i18n("prj_user_group_btn_delete_group"),
-					content 	: $.i18n("prj_project_del_user_group_popup_content"),
+					title		: $.i18n("common_title_confirm"),
+					content 	: $.i18n("msg_del_entity_popup_content"),
 					autoclose	: false,
 					css			: {
 						"max-width":"450px"
@@ -736,8 +736,8 @@ define([
 					}
 					data.edit 	   = true
 
-					$("#div_usergroup_member").html("");
-					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, data));
+					$("#div_entity_member").html("");
+					$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_NEW, data));
 					const [date, time] = data.dt03.split(" ");
 					data.dt03 = { date, time };
 					
@@ -784,7 +784,7 @@ define([
 		}
 		
 		const do_lc_bind_event_mod_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
@@ -808,7 +808,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -916,7 +916,7 @@ define([
 		const do_lc_afterDel_group = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
-				$("#div_usergroup_ent, #div_usergroup_member").html("");
+				$("#div_entity, #div_entity_member").html("");
 				do_lc_get_list(true);
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));

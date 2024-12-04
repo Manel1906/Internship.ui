@@ -632,7 +632,7 @@ define(['jquery'], function($) {
 		}
 
 		const do_lc_bind_event_list = function(){
-			$("#btn_btn_new_group").off("click").on("click", function(){
+			$("#btn_new_entity").off("click").on("click", function(){
 				$("#div_member, #div_member_wait, #div_files, #div_post").html("");
 				$("#div_chat").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_GROUP_NEW, {}));
 
@@ -708,7 +708,7 @@ define(['jquery'], function($) {
 				}
 			})
 
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list(App.data["listGroup"].lst);
 			})
@@ -743,7 +743,7 @@ define(['jquery'], function($) {
 		}
 
 		this.do_lc_event_click = function(){
-			$("#btn_refresh_group").click();
+			$("#btn_refresh_entity").click();
 		}
 
 		const do_lc_get_info_group_chat = () => {
@@ -836,7 +836,7 @@ define(['jquery'], function($) {
 		}
 
 		const do_lc_bind_event_for_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				const data = req_gl_data({
 					dataZoneDom: $("#frm_new_group")
 				});

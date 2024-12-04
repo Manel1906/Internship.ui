@@ -31,20 +31,15 @@
 "tpy_cat_ent_type_02_03"                :   "Nhóm cấp III",
 "tpy_cat_ent_type_02_04"                :   "Nhóm cấp IV",
 
-"btn_add_file"							: 	"Import",
+"tpy_cat_disease_list_title"			:	"Danh mục bệnh",
 
-"tpy_cat_disease_list_title"			:	"Quản lý thông tin bệnh",
-"tpy_cat_disease_new"					: 	"Thêm mới",
 "tpy_cat_disease_search"				:	"Tìm kiếm theo mã ICD, tên bệnh ...",
-"tpy_cat_disease_new_title"				: 	"Thêm mới bệnh",
+"common_btn_new_title"					: 	"Thêm mới bệnh",
 
-"tpy_cat_disease_new_file_title"		: 	"Thêm tập tin vào đây",
 "tpy_cat_disease_drop_files"			: 	"Kéo thả hoặc nhấn để thêm tập tin",
 
 "tpy_cat_disease_code_enter"			: 	"Nhập mã bệnh",
 "tpy_cat_disease_name_enter"			: 	"Nhập tên bệnh",
-"tpy_cat_disease_new_btn_save"			: 	"Lưu",
-"tpy_cat_disease_new_btn_cancel"		: 	"Hủy bỏ",
 
 "tpy_cat_disease_code"					: 	"Mã bệnh",
 "tpy_cat_disease_name"					: 	"Tên bệnh",
@@ -63,15 +58,21 @@
 "msgbox_confirm_creat"					: 	"Lưu thông tin bệnh ?",
 "msgbox_confirm_cancel_create"			: 	"Hủy bỏ quá trình chỉnh sửa ?",
 
-"tpy_cat_disease_btn_delete"			: 	"Xóa",
-"tpy_cat_disease_btn_edit"				: 	"Chỉnh sửa",
-"common_btn_yes"						: 	"Hủy bỏ",
+"btn_add_file"							: 	"Thêm dữ liệu",
+"common_btn_delete"						: 	"Xóa",
+"common_btn_edit"						: 	"Chỉnh sửa",
+"common_btn_yes"						: 	"Đồng ý",
 "common_btn_save"						: 	"Lưu",
-"common_btn_cancel"						: 	"Quay lại",
+"common_btn_cancel"						: 	"Hủy bỏ",
+"common_btn_new"						: 	"Thêm mới",
+"common_btn_new_btn_save"				: 	"Lưu",
+"common_btn_new_file_title"				: 	"Thêm tập tin vào đây",
+
 "msgbox_confirm_save_cancel"			:	"Hủy bỏ quá trình chỉnh sửa ?",
 "msgbox_confirm_save"					: 	"Lưu thông tin chỉnh sửa ?",
-"prj_project_del_user_group_popup_content": "Xóa thông tin bệnh",
-"prj_user_group_btn_delete_group"		:   "Xác nhận",
+"msg_del_entity_popup_content"			: 	"Xóa thông tin bệnh",
+"common_title_confirm"					:   "Xác nhận",
+
 "disease_cant_duplicate"				:   "Mã bệnh không được trùng",
 "disease_cant_save"						:   "Lưu"
 }

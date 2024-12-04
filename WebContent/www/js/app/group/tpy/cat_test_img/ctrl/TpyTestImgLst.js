@@ -100,7 +100,7 @@ define([
 			tmplName.TPY_CAT_DISEASE_LIST					= "TpyTestImg_List";
 			tmplName.TPY_CAT_DISEASE_LIST_CONTENT			= "TpyTestImg_List_Content";
 			tmplName.TPY_CAT_DISEASE_ENT_CONTENT			= "TpyTestImg_Ent_Content";
-			tmplName.TPY_CAT_DISEASE_NEW  					= "TpyTestImg_New";
+			tmplName.common_btn_new  					= "TpyTestImg_New";
 			tmplName.TPY_DROPZONE_FILE						= "TpyDropzone_File";
 			tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW		= "TpyTestImg_Ent_Content_Row";
 			tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD	= "TpyTestImg_Ent_Content_Row_add";
@@ -118,12 +118,12 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST					, TpyTestImg_List); 
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT			, TpyTestImg_List_Content); 	
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT			, TpyTestImg_Ent_Content); 	
-			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_NEW					, TpyTestImg_New); 	
+			tmplCtrl.do_lc_put_tmpl(tmplName.common_btn_new					, TpyTestImg_New); 	
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_DROPZONE_FILE						, TpyDropzone_File);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW		, TpyTestImg_Ent_Content_Row);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW_ADD	, TpyTestImg_Ent_Content_Row_add);
 			
-			$("#div_usergroup_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST, {}));
+			$("#div_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST, {}));
 		}
 		
 		//----------------------------------------------------------------------------------------------
@@ -201,7 +201,7 @@ define([
 				}
 				
 				App.MsgboxController.do_lc_show({
-					title	: $.i18n("tpy_cat_disease_new_file_title"),
+					title	: $.i18n("common_btn_new_file_title"),
 					width	: "500px",
 					autoclose	: true,
 					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_DROPZONE_FILE, {}),
@@ -359,7 +359,7 @@ define([
 		const do_lc_bind_event_list = function(){
 			do_lc_bind_event__list_header()
 			
-			$(".chat-item").off("click").on("click", function(){
+			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id: idGroup} 	= $this.data();
 				if(idGroup){
@@ -375,7 +375,7 @@ define([
 
 		const do_lc_bind_event__list_header = () => {
 		//	if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
-			//	$("#btn_btn_new_group").removeClass('hide');
+			//	$("#btn_new_entity").removeClass('hide');
 			//	$("#btn_add_doc").removeClass('hide');
 		//	}
 			$("#btn_btn_new_test").off("click").on("click", function(){
@@ -386,8 +386,8 @@ define([
 					return;
 				}
 
-				$("#div_usergroup_member").html("");
-				$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, {}));
+				$("#div_entity_member").html("");
+				$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, {}));
 
 				App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 				App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
@@ -397,7 +397,7 @@ define([
 				do_lc_bind_event_for_group(obj = {files: []});
 			})
 
-			$("#btn_refresh_group").off("click").on("click", function(){
+			$("#btn_refresh_entity").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list();
 			})
@@ -417,7 +417,7 @@ define([
 		//----------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_event_for_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -440,7 +440,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -560,14 +560,14 @@ define([
 				data.inf = JSON.parse(data.inf);
 			}
 			
-			$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT, data));
+			$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT, data));
 			
 			pr_DISEASE_TEMP.child = data.child;
 			
 			$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, data));
 			
 			$(".info-edit").removeClass('hide');
-			$(".inf-disease").addClass('hide');
+			$(".inf-entity").addClass('hide');
 			do_bind_event_show_group(data);
 		}
 		
@@ -591,13 +591,13 @@ define([
 			$(".info-edit").on("click", function(){
 				let $parent = $(this).parent();
 				$parent.find(".info-edit")			.addClass("hide");
-				$parent.find(".inf-disease")	.removeClass("hide");
+				$parent.find(".inf-entity")	.removeClass("hide");
 
 				$("#a_btn_sav, #a_btn_canc")	.removeClass("hide");
 
 			})
 			
-//			$(".inf-disease").on("click", function(){
+//			$(".inf-entity").on("click", function(){
 //				let $parent = $(this).parent();
 //				$parent.find(".info-content")			.addClass("hide");
 //				$parent.find(".content-edit")	.removeClass("hide");
@@ -612,7 +612,7 @@ define([
 				$("#a_btn_canc").removeClass("hide");
 				$('#addRowBtn').removeClass('hide');
 				$('#removeRowBtn').removeClass('hide');
-				$(".inf-disease").addClass('hide');
+				$(".inf-entity").addClass('hide');
 				$(".info-edit").addClass('hide');
 				do_lc_get_disease_sub(data);
 			})
@@ -625,7 +625,7 @@ define([
 				data.files 	= data.files ? [...data.files].filter(Boolean) : [];
 				
 				let	obj	 				= req_gl_data({
-					dataZoneDom		: $("#div_usergroup_ent"),
+					dataZoneDom		: $("#div_entity"),
 					oldObject 		: data,
 				});
 
@@ -671,8 +671,8 @@ define([
 			$("#btn_del_group").off("click").on("click", function(){
 				let {id} = $(this).data();
 				App.MsgboxController.do_lc_show({
-					title		: $.i18n("prj_user_group_btn_delete_group"),
-					content 	: $.i18n("prj_project_del_user_group_popup_content"),
+					title		: $.i18n("common_title_confirm"),
+					content 	: $.i18n("msg_del_entity_popup_content"),
 					autoclose	: false,
 					css			: {
 						"max-width":"450px"
@@ -734,7 +734,7 @@ define([
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				let data 	= sharedJson[App['const'].RES_DATA];
 				
-//				$('.inf-disease').addClass('hide');
+//				$('.inf-entity').addClass('hide');
 				if (dataArray != null) {
 					pr_DISEASE_TEMP = dataArray;
 					$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, pr_DISEASE_TEMP));
@@ -744,7 +744,7 @@ define([
 					$("#removeRowBtn").addClass("hide");
 					$("#addRowBtn").addClass("hide");
 					$(".info-edit").removeClass("hide");
-					$(".inf-disease").addClass("hide");$("#btn_modify").removeClass("hide");
+					$(".inf-entity").addClass("hide");$("#btn_modify").removeClass("hide");
 				} else {
 					$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, data));
 					$(".info-edit").addClass('hide');
@@ -766,7 +766,7 @@ define([
 				let myObject = {};
 				
 //				let	obj	 				= req_gl_data({
-//					dataZoneDom		: $("#div_usergroup_ent"),
+//					dataZoneDom		: $("#div_entity"),
 //					oldObject 		: myObject,
 //				});
 
@@ -778,7 +778,7 @@ define([
 				
 				for (let i = 0; i < rows.length; i++) {
 				    const row = rows[i];
-				    const inputs = $(row).find('input.inf-disease, select.inf-disease');
+				    const inputs = $(row).find('input.inf-entity, select.inf-entity');
 				    const dataObject = {};
 				
 				    inputs.each(function() {
@@ -809,7 +809,7 @@ define([
 				$("#addRowBtn").addClass("hide");
 				$("#tbody_disease").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_ENT_CONTENT_ROW, pr_DISEASE_TEMP));
 				$(".info-edit").removeClass("hide");
-				$(".inf-disease").addClass("hide");
+				$(".inf-entity").addClass("hide");
 //				do_lc_get_disease_sub(data);
 			});
 			
@@ -861,8 +861,8 @@ define([
 					}
 
 					data.edit 	= true
-					$("#div_usergroup_member").html("");
-					$("#div_usergroup_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_NEW, data));
+					$("#div_entity_member").html("");
+					$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.common_btn_new, data));
 					App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
 					App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
 					App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor
@@ -901,7 +901,7 @@ define([
 		}
 		
 		const do_lc_bind_event_mod_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
@@ -925,7 +925,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_cancel_entity").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -1006,7 +1006,7 @@ define([
 
 		const do_lc_afterDel_group = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
-				$("#div_usergroup_ent, #div_usergroup_member").html("");
+				$("#div_entity, #div_entity_member").html("");
 				do_lc_get_list(true);
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));

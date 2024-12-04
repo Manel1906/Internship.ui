@@ -1,7 +1,7 @@
 {
 	"prj_tpy_group_btn_delete_group": "Supprimer le groupe",
 	"prj_tpy_group_btn_edit_group": "Modifier",
-	"prj_project_del_user_group_popup_content": "Supprimer le médicament",
+	"msg_del_entity_popup_content": "Supprimer le médicament",
 	"prj_tpy_group_bar_code_ori": "Code-barres d'origine",
 	"prj_tpy_group_bar_code_internal_1": "Code-barres interne 1",
 	"prj_tpy_group_bar_code_internal_2": "Code-barres interne 2",
@@ -42,7 +42,7 @@
 	"prj_tpy_group_name_enter": "Entrez le nom du médicament/dispositif",
 	"prj_tpy_group_descr_enter": "Entrez la description du groupe",
 	"prj_tpy_group_name_enter": "Nom du médicament",
-	"tpy_cat_disease_new_title": "Ajouter un médicament/dispositif",
+	"common_btn_new_title": "Ajouter un médicament/dispositif",
 
 	"prj_tpy_group_new": "Ajouter un nouveau",
 	"prj_tpy_group_new_msg": "Créez un groupe de discussion pour travailler plus efficacement !",
@@ -88,7 +88,7 @@
 	"aut_test_ent_unit_medicine_stat_8": "Ampoule",
 	"aut_test_ent_unit_medicine_stat_10": "...",
 	"prj_user_group_btn_edit_group": "Modifier",
-	"prj_user_group_btn_delete_group": "Supprimer",
+	"common_title_confirm": "Supprimer",
 	"prj_brand_group_room": "Nom de marque et dosage",
 	"prj_brand_group_package": "Type d'emballage"
 }

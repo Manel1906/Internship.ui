@@ -1,0 +1,176 @@
+<div class="card mb-0">
+    <div class="card-body">
+	    <div class="media">
+	    	{{#if val01}}
+              {{#if val01.img}}
+               	<div>
+	    			<img src="{{val01.img}}" alt="" class="avatar-sm mr-4 rounded-circle"  onerror="{{url_image_err}}">
+	    		</div>
+	    		<div>
+<!-- 					<p class="text-muted info-edit info-content" data-name="name">{{name}}</p> -->
+<!-- 					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager"> -->
+					<p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
+				</div>
+              {{else}}
+               <div class="avatar-xs mr-3">
+                   <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                       {{reqFirstLetter name}}
+                   </span>
+               </div>
+               <div>
+<!-- 					<p class="text-muted info-edit info-content" data-name="name">{{name}}</p> -->
+<!-- 					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager"> -->
+					<p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
+				</div>
+               {{/if}}
+             {{else}}
+             <div class="avatar-xs mr-3">
+                  <span class="avatar-title rounded-circle bg-soft-primary text-primary">
+                      {{reqFirstLetter name}}
+                  </span>
+              </div>
+              <div>
+<!-- 					<p class="text-muted info-edit info-content" data-name="name">{{name}}</p> -->
+<!-- 					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager"> -->
+					<p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
+					<p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
+				</div>
+             {{/if}}
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16 info-edit info-content"></h5>
+            </div>
+            <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+            </a>
+            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+            	<i class="mdi mdi-close font-size-20"></i>
+            </a>
+            
+             <div class="dropdown float-right font-size-20">
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate isManager" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
+                </a>
+               <a data-divtoogle="#div_group_content" class="btn-resize-content cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize text-primary"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                	<li><span id="btn_edit" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-pencil-outline text-success mr-1"></i>{{transl 'prj_user_group_btn_edit_group'}}</span></li>
+<!--                     <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span></li> -->
+               		<li><span id="btn_del" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can text-danger mr-1"></i>{{transl 'common_title_confirm'}}</span></li>
+                </ul>
+            </div>
+        </div>
+		
+		<div id="div_group_content">
+	        <div class="media">
+				<div id="frm_dropzone_send" class="fallback mt-3 hide">
+					<form action="/" method="post" class="dropzone inputfile">
+						<div class="fallback">
+							<input data-name="files" type="file" class="objData" data-type="avatar" data-typ01="1" data-typ02="1">
+						</div>
+	
+						<div class="dz-message needsclick">
+							<div class="mb-3">
+								<i class="display-4 text-muted bx bxs-cloud-upload"></i>
+							</div>
+							<h4>{{transl 'prj_project_drop_files'}}</h4>
+						</div>
+					</form>
+				</div>
+			</div>
+			<input type="hidden" data-name="id" 	class="form-control objData" value="{{id}}">
+			<input type="hidden" data-name="typ01" 	class="form-control objData" value="{{typ01}}">
+			<input type="hidden" data-name="stat01" class="form-control objData" value="{{stat01}}">
+			
+			<div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">{{transl 'prj_user_group_introduce'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf01.introduce}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">{{transl 'prj_user_group_service'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf02.service}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">{{transl 'prj_user_group_mission'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf02.mission}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">{{transl 'prj_user_group_information'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf02.information}}}</p></div>
+			</div>
+			
+			<div class="table-responsive col-lg-12 p-0">
+				{{#if files}}
+					<h5 class="font-size-15 mt-4">{{transl 'prj_user_group_files'}}</h5>
+				{{/if}}
+				<table class="table table-nowrap table-centered table-hover mb-0 objData" data-name="files"
+				    data-primary="id">
+				    <tbody>
+				        {{#each files}}
+				        {{#equal typ01 '2'}}
+				        <tr>
+				            <td class="hide objData" data-name="id" data-group="files" data-gindex="{{@index}}">{{id}}</td>
+				            <td class="hide objData" data-name="stat" data-group="files" data-gindex="{{@index}}">{{stat}}</td>
+				            <td class="hide objData" data-name="code" data-group="files" data-gindex="{{@index}}">{{code}}</td>
+				            <td class="hide objData" data-name="entType" data-group="files"
+				                data-gindex="{{@index}}">{{entType}}</td>
+				            <td class="hide objData" data-name="entId" data-group="files" data-gindex="{{@index}}">{{entId}}</td>
+				            <td class="hide objData" data-name="url" data-group="files" data-gindex="{{@index}}">{{url}}</td>
+				            <td class="hide objData" data-name="urlPrev" data-group="files"
+				                data-gindex="{{@index}}">{{urlPrev}}</td>
+				            <td class="hide objData" data-name="fSize" data-group="files" data-gindex="{{@index}}">{{size}}</td>
+				
+				            <td class="hide objData" data-name="typ01" data-group="files" data-gindex="{{@index}}">{{typ01}}</td>
+				            <td class="hide objData" data-name="typ02" data-group="files" data-gindex="{{@index}}">{{typ02}}</td>
+				            <td class="hide objData" data-name="typ03" data-group="files" data-gindex="{{@index}}">{{typ03}}</td>
+				<!--                                     <td class="hide objData" data-name="name" data-group="files" data-gindex="{{@index}}">{{name}}</td> -->
+				         <td class="hide objData" data-name="fname" data-group="files" data-gindex="{{@index}}">{{fname}}</td>
+				         <td style="width: 45px;">
+				                    <div class="avatar-sm">
+				                        <span
+				                            class="avatar-title rounded-circle bg-soft-primary text-primary font-size-24">
+				                            <i class="bx bxs-file-{{getFileExtensionIcon fName}}"></i>
+				                        </span>
+				                    </div>
+				                </td>
+				                <td>
+				                    <h5 class="font-size-14 mb-1">
+				                    	<a href="javascript:void(0)"  data-path="{{reqPathDoc url}}" class="text-dark item-file-download cursor-pointer" title='{{fName}}'>
+				                    		{{reqNameFilePrj (reqNameStringFile fName)}}
+				                    	</a>
+				                    </h5>
+				                    <small>{{reqSizeFile fSize}}</small>
+				                </td>
+				                <td>
+				                    <div class="text-center">
+				                        <a data-path="{{reqPathDoc url}}"
+				                            class="text-dark item-file-download cursor-pointer"><i
+				                                class="bx bx-download h3 m-0"></i></a>
+				                        <a data-id="{{id}}"
+				                            class="text-dark item-file-delete hide cursor-pointer isManager hideDev hideTest hideMem hideGuest"><i
+				                                class="bx bx-minus-circle h3 m-0"></i></a>
+				                    </div>
+				                </td>
+				            </tr>
+				            {{/equal}}
+				            {{/each}}
+				        </tbody>
+				    </table>
+				</div>
+			
+		</div>
+    </div>
+</div>

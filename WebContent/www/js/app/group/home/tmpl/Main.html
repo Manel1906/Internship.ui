@@ -84,8 +84,8 @@
                     <span>{{transl 'prj_project_sidebar_user'}}</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-                    <li data-right="view:100|101|1000001"><a data-route="VI_MAIN/prj_user" data-url="view_prj_user.html" 	 			 class="hnv-route menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_sidebar_hospital'}}</a></li>
-                    <li data-right="view:100|101|1000001"><a data-route="VI_MAIN/prj_user_client" data-url="view_prj_user_client.html" 	 class="hnv-route menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_sidebar_patient'}}</a></li>
+                    <li data-right="view:100|101|1000001"><a data-route="VI_MAIN/prj_user_intern" data-url="view_prj_user_intern.html" 	 	class="hnv-route menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_sidebar_hospital'}}</a></li>
+                    <li data-right="view:100|101|7000001"><a data-route="VI_MAIN/prj_user_client" data-url="view_prj_user_client.html" 	 	class="hnv-route menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_sidebar_patient'}}</a></li>
                 </ul>
             </li> 
              <li class="li-has-menu has-right menu-4" data-open="2" data-right="view:100|101|1000001|1000002" data-external-mem="true">
@@ -157,7 +157,7 @@
                 </ul>
             </li>
             <li class="menu-4" data-external-mem="true" data-right="view:100|101|40000001|40000002">
-                <a data-url="" data-route="" class="hnv-route waves-effect menu-item-prj cursor-pointer">
+                <a data-url="view_per_doctor.html" data-route="VI_MAIN/per_mng_doctor" class="hnv-route waves-effect menu-item-prj cursor-pointer">
                     <i class="mdi mdi-doctor"></i>
                     <span>{{transl 'prj_project_sidebar_manage_doctor'}}</span>
                 </a>
@@ -183,11 +183,11 @@
                     <span>{{transl 'prj_project_mana_dashboard'}}</span>
                 </a>
                 <ul class="sub-menu" aria-expanded="false">
-					<li data-right="view:100|101|50000001"><a data-route="VI_MAIN/prj_cat_medi"    data-url="view_typ_cat_medicine.html" 	 class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_mana_medical'}}</a></li>
-					<li data-right="view:100|101|50000101"><a data-route="VI_MAIN/tpy_cat_disease" data-url="view_tpy_cat_disease.html" 	 	 class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_mana_disease'}}</a></li>
-                    <li data-right="view:100|101|40002001"><a data-route="VI_MAIN/prj_mng_test"    data-url="view_typ_cat_test_blood.html" 	 class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_mana_test'}}</a></li>
-                    <li data-right="view:100|101|5000001"><a data-route="VI_MAIN/prj_test_img"    data-url="view_typ_cat_test_img.html" 	 class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_diagnostic_img'}}</a></li>
-					<li data-right="view:100|101|1000002"><a data-route="VI_MAIN/prj_user_new"    data-url="view_prj_user_new.html"          class="hnv-route has-right menu-item-prj cursor-pointer show-less-1024">{{transl 'prj_project_sidebar_user_create'}}</a></li>
+					<li data-right="view:100|101|50000001"><a data-route="VI_MAIN/prj_cat_medi"    		data-url="view_typ_cat_medicine.html" 	 	class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_mana_medical'}}</a></li>
+					<li data-right="view:100|101|50000101"><a data-route="VI_MAIN/tpy_cat_disease" 		data-url="view_tpy_cat_disease.html" 	 	class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_mana_disease'}}</a></li>
+                    <li data-right="view:100|101|40002001"><a data-route="VI_MAIN/tpy_cat_test_blood"   data-url="view_typ_cat_test_blood.html" 	class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_mana_test'}}</a></li>
+                    <li data-right="view:100|101|5000001" ><a data-route="VI_MAIN/tpy_cat_test_img"    	data-url="view_typ_cat_test_img.html" 	 	class="hnv-route has-right menu-item-prj cursor-pointer hide-less-1024">{{transl 'prj_project_diagnostic_img'}}</a></li>
+					<li data-right="view:100|101|1000002" ><a data-route="VI_MAIN/prj_user_new"    		data-url="view_prj_user_new.html"          	class="hnv-route has-right menu-item-prj cursor-pointer show-less-1024">{{transl 'prj_project_sidebar_user_create'}}</a></li>
                 </ul>
             </li> 
            
@@ -527,7 +527,7 @@
                             <h5 class="font-size-14 mt-0 has-right" data-right="view:100|101|1000001|1000002" data-external-mem="true"><i>{{transl 'prj_project_sidebar_user'}}</i></h5>
                         <ul class="list-unstyled megamenu-list has-right" data-right="view:100|101|1000001|1000002" data-external-mem="true">
                             <li class="has-right" data-right="view:100|101|1000001">
-                                <a data-route="VI_MAIN/prj_user" data-url="view_prj_user.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_user'}}</a>
+                                <a data-route="VI_MAIN/prj_user_intern" data-url="view_prj_user_intern.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_user'}}</a>
                             </li>
                             <li class="has-right" data-right="view:100|102|1000002">
                                 <a data-route="VI_MAIN/prj_user_new" data-url="view_prj_user_new.html" class="hnv-route">&nbsp;&nbsp;{{transl 'prj_project_sidebar_user_create'}}</a>

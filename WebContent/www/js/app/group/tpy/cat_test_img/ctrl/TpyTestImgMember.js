@@ -96,7 +96,7 @@ define([
     };
 
     const do_lc_build_table_member = () => {
-      $("#div_usergroup_member").html(
+      $("#div_entity_member").html(
         tmplCtrl.req_lc_compile_tmpl(
           tmplName.PRJ_USER_GROUP_MEMBER,
           initialValues.members
@@ -298,7 +298,6 @@ define([
         initialValues.members = objData;
         do_lc_build_page();
 
-        pr_ctr_List.do_lc_build_role_user(initialValues.group);
       } else {
         do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
       }

@@ -1,0 +1,74 @@
+<div class="card mb-5">
+    <div class="card-body">
+	    <div class="media">
+             <div>
+<!-- 					<p class="text-muted info-edit info-content" data-name="name">{{name}}</p> -->
+<!-- 					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager"> -->
+				<p class="fw-bold h5 text-uppercase mb-0">{{transl 'tpy_test_img_service'}}</p>
+			</div>
+            <div class="media-body overflow-hidden">
+                <h5 class="text-truncate font-size-16 info-edit info-content"></h5>
+            </div>
+            <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
+            </a>
+            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+            	<i class="mdi mdi-close font-size-20"></i>
+            </a>
+            
+             <div class="dropdown float-right font-size-20">
+                <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate isManager" data-toggle="dropdown" aria-expanded="false">
+                    <i class="mdi mdi-dots-vertical"></i>
+                </a>
+               <a data-divtoogle="#div_group_content" class="btn-resize-content cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+                   <i class="mdi mdi-window-minimize text-primary"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right font-size-18">
+                	<li><span id="btn_edit" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-pencil-outline text-success mr-1"></i>{{transl 'common_btn_edit'}}</span></li>
+<!--                     <li><span id="btn_add_avatar" class="dropdown-item cursor-pointer"><i class="mdi mdi-plus text-primary mr-1"></i>{{transl 'prj_project_add_avatar'}}</span></li> -->
+               		<li><span id="btn_del_group" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can text-danger mr-1"></i>{{transl 'common_btn_delete'}}</span></li>
+                </ul>
+            </div>
+        </div>
+		
+		<div id="div_group_content">
+			
+			<div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">1. {{transl 'tpy_test_img_name'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{name}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">2. {{transl 'tpy_test_img_code'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{code}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">3. {{transl 'tpy_test_img_group'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{reqTypeTest inf.statGrp}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">4. {{transl 'tpy_test_describe'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf.describe}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">5. {{transl 'tpy_test_img_time'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf.time}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">6. {{transl 'tpy_test_required'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf.required}}}</p></div>
+			</div>
+			
+			<div>
+				<h5 class="font-size-15 mt-4">7. {{transl 'tpy_test_img_room'}}</h5>
+				<div class="info-content-description"><p class="text-muted text-justify">{{{inf.room}}}</p></div>
+			</div>
+		</div>
+    </div>
+</div>
