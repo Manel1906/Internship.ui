@@ -3,11 +3,15 @@ define([
 	'text!group/user_appointment/tmpl/Prj_Appointment_New.html',
 	'text!group/user_appointment/tmpl/Prj_Appointment_Show.html',
 	'text!group/user_appointment/tmpl/Prj_Appointment_Show_Notification.html',
+	'text!group/user_appointment/tmpl/Prj_Appointment_Show_Custom.html',
+	'group/nso_chatroom/ctrl/ChatRoomMain',
 	], function(
 			Prj_Appointment_View, 
 			Prj_Appointment_New,
 			Prj_Appointment_Show,
-			Prj_Appointment_Show_Notification
+			Prj_Appointment_Show_Notification,
+			Prj_Appointment_Show_Custom,
+			ChatRoomMain,
 	){
 	var Handlebars				=  require('handlebars');
 	Handlebars.registerHelper("formatDate", function (dateString, formatType) {
@@ -53,7 +57,7 @@ define([
 		var pr_GROUP						= null;
 
 		var pr_lstAvailableTime				=	[];
-
+		var pr_grpName						= "ChatRoomChat";
 		var TIME_RANGE						= 3;
 		var TYP_01_MEETING					= 100;
 		var TYP_02_APPOINTMENT				= 1000;
@@ -88,6 +92,19 @@ define([
 		const pr_stat_active				= 1;
 		const pr_stat_accept				= 3;
 		const pr_stat_deny					= 11;
+		const pr_TYP_CHAT_GROUP_CALENDAR	= 4;
+				const initialeValues = {
+						chatSimple 		: true,
+		//				isLoadMore 		: false,
+						obj		   		: {},
+						currentTyp 		: pr_TYP_CHAT_GROUP_CALENDAR,
+						lstMsgCurrent 	: [],
+						begin			: 0,
+						members			: {},
+						isOwner			: false,
+						isGroupUser		: false,
+						isCallCalendar  : true
+				}
 
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init	= function(){
@@ -97,6 +114,14 @@ define([
 			tmplName.PRJ_APPOINTMENT_NEW				= 	"Prj_Appointment_New";
 			tmplName.PRJ_APPOINTMENT_SHOW				= 	"Prj_Appointment_Show";
 			tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION	= 	"Prj_Appointment_Show_Notification";
+			tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM		= 	"Prj_Appointment_Show_Custom";
+			if (!App.controller.ChatRoom) App.controller.ChatRoom = {};
+			
+			if (!App.controller.ChatRoom.ChatRoomMain){ 
+				App.controller.ChatRoom.ChatRoomMain				= new ChatRoomMain			(pr_grpName, null, null, null);
+				App.controller.ChatRoom.ChatRoomMain				.do_lc_init();
+			} 
+			
 		}
 
 		//---------show-----------------------------------------------------------------------------
@@ -267,6 +292,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_NEW, Prj_Appointment_New);
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, Prj_Appointment_Show);
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, Prj_Appointment_Show_Notification);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM, Prj_Appointment_Show_Custom);
 			
 			if ($(window).width() < 600) {
 				pr_ForDesktop = false;
@@ -329,7 +355,6 @@ define([
 			dp_schedule.viewType 					= "Week";
 //			dp_schedule.viewType 					= "Days";
 
-			console.log(pr_dtBegin);
 			if(pr_dtBegin != null)
 			{
 				dp_schedule.startDate 					= pr_dtBegin;
@@ -345,7 +370,7 @@ define([
 			// dp_schedule.eventMoveHandling 		= "Disabled";
 			// dp_schedule.eventResizeHandling 		= "Disabled";
 			dp_schedule.timeRangeSelectedHandling 	= "Enable";
-			dp_schedule.headerDateFormat 			= "dd";
+			dp_schedule.headerDateFormat 			= "ddd dd";
 			dp_schedule.timeFormat 					= "Clock24Hours";
 //			dp_schedule.cssOnly 					= false;
 			dp_schedule.cssClassPrefix 				= "workadm";
@@ -441,7 +466,7 @@ define([
 				args.data.html = "<p><b>" + args.data.text + "</b></p>" + "<p class='long-txt'><i>" + args.data.obj.inf02.desc + "</i></p>" + "<div id='div_prj_list' class='row ml-1'>" + div + "</div>";
 			};
 
-			dp_schedule.onTimeRangeSelected = function (args) {
+			/*dp_schedule.onTimeRangeSelected = function (args) {
 				dp_schedule.clearSelection();
 				const now = new Date();
 				if (now > new Date(args.start.value) || now > new Date(args.end.value)) return;
@@ -503,7 +528,7 @@ define([
 						down	: "mdi mdi-chevron-down"
 					}
 				});
-			};
+			};*/
 
 			dp_schedule.onEventClick = function(args) {
 
@@ -526,10 +551,12 @@ define([
 					// $("#schedule_toolTip span").html(args.e.data.toolTip);
 //					toi uu tmpl
 					if(!args.e.data.members || !Object.values(args.e.data.members).find(e => e.uId === App.data.user.id)) return
-					if(args.e.data.obj.val02) {
-						if (!/^https?:\/\//i.test(args.e.data.obj.val02)) {
-							args.e.data.obj.val02 = 'http://' + args.e.data.obj.val02;
-						}
+					if (args.e?.data?.members) {
+					//	initialeValues.id = args.e.data.obj.id
+						initialeValues.obj = args.e.data.obj
+	    				Object.values(args.e.data.members).forEach(member => {
+	        			initialeValues.members[member.uId] = member;
+	    				});
 					}
 					App.MsgboxController.do_lc_show({
 						title		: $.i18n("prj_appointment_msg_title"),
@@ -640,7 +667,6 @@ define([
 					}
 					
 					var divButtonEdit = $("#div_button_edit");
-					var divButtonDelete = $("#div_button_delete");
 					var divButtonAccept = $("#div_button_accept");
 					var divButtonDeny = $("#div_button_deny");
 					var divButtonUnaccept = $("#div_button_unaccept").hide();
@@ -730,66 +756,8 @@ define([
 					    							
 					});
 					
-					divButtonDelete.on('click', function() {
-					    do_lc_remove_appointment(args.e);							
-					    App.MsgboxController.do_lc_close();
-					});
 
-					divButtonAccept.on('click', function() {
-					    do_lc_accept_appointment(args.e);	
-					    App.MsgboxController.do_lc_close();						
-					});
-
-					divButtonDeny.on('click', function() {
-					    do_lc_deny_appointment(args.e);	
-					    App.MsgboxController.do_lc_close();						
-					});
 					
-					divButtonUnaccept.on('click', function() {
-					    do_lc_cancel_appointment(args.e);	
-					    App.MsgboxController.do_lc_close();						
-					});
-
-					divButtonUndeny.on('click', function() {
-					    do_lc_cancel_appointment(args.e);	
-					    App.MsgboxController.do_lc_close();						
-					});
-
-					var divButtonBlue = $("#div_button_blue");
-					var divButtonGreen = $("#div_button_green");
-					var divButtonYellow = $("#div_button_yellow");
-					var divButtonRed = $("#div_button_red");
-					var divButtonWhite = $("#div_button_white");
-
-					divButtonBlue.on('click', function() {
-					    color = "#556ee6",
-					    updateColor(args.e, color);
-					    App.MsgboxController.do_lc_close();							
-					});
-
-					divButtonGreen.on('click', function() {
-					    color = "#34c38f",
-					    updateColor(args.e, color);
-					    App.MsgboxController.do_lc_close();							
-					});
-
-					divButtonYellow.on('click', function() {
-					    color = "#f1c232",
-					    updateColor(args.e, color);
-					    App.MsgboxController.do_lc_close();							
-					});
-
-					divButtonRed.on('click', function() {
-					    color = "#cc0000",
-					    updateColor(args.e, color);
-					    App.MsgboxController.do_lc_close();							
-					});
-
-					divButtonWhite.on('click', function() {
-					    color = "",
-					    updateColor(args.e, color);
-					    App.MsgboxController.do_lc_close();							
-					});
 
 					function isValidURL(string) {
 						var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
@@ -923,40 +891,7 @@ define([
 
 					},
 					{
-						text: $.i18n("prj_appointment_event_del"),
-						icon: "fa fa-solid fa-play ic-red",
-						onClick: function (args) {
-							var e = args.source;
-							do_lc_remove_appointment(e);
-						}
-					},
-					{
-						text:  $.i18n("prj_appointment_event_denied"),
-						icon: "fa fa-solid fa-play ic-yellow",
-						onClick: function (args) {
-							var e = args.source;
-							do_lc_deny_appointment(e);
-						}
-					},
 					
-					{
-					    text:  $.i18n("prj_appointment_event_accepted"),
-						icon: "fa fa-solid fa-play ic-green",
-					    onClick: function (args) {
-					        var e = args.source;
-					        do_lc_accept_appointment(e);
-					    }
-					},
-					{
-					    text:  $.i18n("prj_appointment_event_undenied"),
-					    icon: "fa fa-solid fa-play ic-yellow",
-					    onClick: function (args) {
-					        var e = args.source;
-					        do_lc_cancel_appointment(e);
-					    }
-					},
-
-					{
 					    text:  $.i18n("prj_appointment_event_unaccepted"),
 					    icon: "fa fa-solid fa-play ic-yellow",
 					    onClick: function (args) {
@@ -969,55 +904,7 @@ define([
 					},
 
 					],
-					onShow: function(args) {
-						const now = new Date();
-						const isPastEvent = now >= new Date(args.source.data.start) || now >= new Date(args.source.data.end);
-						const isSuperAdmin 	= App.controller.common.Login && App.controller.common.Login.can_lc_User_SuperAdmin();
-						// Reset visibility for all menu items
-						args.menu.items.forEach(item => item.hidden = false);
-						args.menu.items[4].hidden = true;
-						args.menu.items[5].hidden = true;
-						if (isPastEvent) {
-						    args.menu.items[0].hidden = true;
-						    args.menu.items[1].hidden = true;
-						    args.menu.items[2].hidden = true;
-							args.menu.items[3].hidden = true;
-						}
-						if(isSuperAdmin){
-							args.menu.items[2].hidden = true;
-							args.menu.items[3].hidden = true;
-							return;
-						}
-
-						var e = args.source;
-						if(e.data.obj.uId == App.data.user.id){
-							args.menu.items[2].hidden = true;
-							args.menu.items[3].hidden = true;
-							return;
-						}
-
-						if (e.data.members) {
-							args.menu.items[0].hidden = true;
-							args.menu.items[1].hidden = true;
-							
-							for (let mem of Object.values(e.data.members)) {
-							    if (mem.uId === App.data.user.id) {
-							        switch (mem.stat) {
-							            case pr_stat_accept:
-							                args.menu.items[2].hidden = true;
-							                args.menu.items[3].hidden = true;
-							                args.menu.items[5].hidden = false;
-							                break;
-							            case pr_stat_active:
-							                args.menu.items[2].hidden = true;
-							                args.menu.items[3].hidden = true;
-							                args.menu.items[4].hidden = false;
-							                break;
-							        }
-							    }
-							}
-						}
-					}
+					
 			});
 
 			
@@ -1417,7 +1304,6 @@ define([
 		}
 		const do_lc_create_prj_appointment = (prjArr) => {
 			let dataSend	= {obj: prjArr, member: JSON.stringify(Object.values(members))};
-			console.log(dataSend)
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVNewWorkPlan", dataSend);			
 
 			let fSucces		= [];		
@@ -1513,7 +1399,7 @@ define([
 			    prjSearch = prj
 			
 			});
-
+		
 			$("#btn_create_prj").off('click').click(() => {
 				App.MsgboxController.do_lc_show({
 					title		: $.i18n("prj_appointment_msg_title"),
@@ -1554,6 +1440,40 @@ define([
 		}	
 //		sua
 		const do_lc_req_autocomplete = () => {
+		$("#notificationDropdown").on("change", function () {
+		    const selectedValue = $(this).val();
+		
+		    if (selectedValue === "custom") {
+		        App.MsgboxController.do_lc_close();
+		        App.MsgboxController.do_lc_show({
+		            title: $.i18n("prj_appointment_msg_title"),
+		            content: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM),
+		            autoclose: true,
+		            buttons: {
+		                SEND: {
+		                    lab: "<i class='mdi mdi-send'></i>",
+		                    funct: function () {
+		                        do_lc_mod_appointment();
+		                    },
+		                    autoclose: true
+		                }
+		            },
+		            onClose: () => {
+		                members = {};
+		                files = { files: [] };
+		                customers = [];
+		                customersAdd = [];
+		                customersDel = [];
+		            },
+		            css: {
+		                "max-width": "600px",
+		                "min-width": "350px",
+		                "display": "flex",
+		                "margin": "auto"
+		            }
+		        });
+		    }
+		});
 			let el = ".inp-name-member";
 			let customShowList = function(item, selOpt = ""){
 				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.login01}`;
@@ -1677,7 +1597,7 @@ define([
 					$(".inp-email-customer").css("border", "1px solid red");
 					return
 				}
-
+				
 				$("#div_list_email_customer").append(`<div class="mr-1"><button class="btn btn-secondary">${email}</button><a data-email='${email}' class='text-danger btn-remove-customer' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a><div>`);
 				$(".inp-email-customer").val("");
 				customers.push(email);
@@ -1738,7 +1658,6 @@ define([
 		        
 		        if (code == App['const'].SV_CODE_API_YES) {
 		            var lstTime = sharedJson[App['const'].RES_DATA];
-					console.log("aa",lstTime);
 		            // If there are any available times
 		            if (lstTime.length > 0) {
 		                var curTime = (new Date()).getTime();
@@ -1789,12 +1708,6 @@ define([
 		
 		    dp.update();
 		}
-
-
-
-
-
-
 
 		const do_lc_show_list_member = (dp, lstTime) => {
 			lstTime.forEach((e, index) => {
@@ -1863,15 +1776,17 @@ define([
 		                textColor = App.controller.UI.Def.reqSrcTextColor(memberItem.login01);
 		                textAvatar = first + last;
 		            }
-		
+				
 		            return {
 		                name: memberItem.name,
+		                uId: memberItem.id,
 		                avatar: memberItem.avatar ? (memberItem.avatar.urlPrev || memberItem.avatar.url) : null,
 		                textAvatar,
 		                textColor,
 		                classCss,
 		                opacity,
-		                textStyle
+		                textStyle,
+		                memberss : item.members
 		            };
 		        });
 		        return {
@@ -1884,6 +1799,38 @@ define([
 		    $("#dp_nav").html(
 		        tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, data)
 		    );
+		    $(".div_button_call").on("click", function () {
+			    const appointmentId = $(this).data("appointment-id");
+			 
+			    const appointments = data.appointments || [];
+				const matchedData = appointments.find(item => item.id === appointmentId);
+
+			    if (matchedData) {
+		
+			        const members = matchedData.members;
+			
+			        const initialeValues = {
+			            obj: matchedData.obj,
+			            members: {},
+			            isCallCalendar  : true
+			        };
+					members.forEach(member => {
+					    if (member.memberss) { 
+					        Object.keys(member.memberss).forEach(key => {
+					            const uId = member.memberss[key].uId;
+					            initialeValues.members[uId] = Object.assign({}, member.memberss[key]);
+					        });
+					    }
+					});
+
+			        App.controller.ChatRoom.WebRTC.do_lc_show(initialeValues);
+			        $("#schedule").addClass("hide")
+			    } else {
+			        console.warn("No matching ID found in data array");
+			    }
+			});
+
+		    
 		};
 
 

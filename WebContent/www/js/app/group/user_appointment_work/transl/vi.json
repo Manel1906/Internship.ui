@@ -137,6 +137,8 @@
 	"prj_department_eleven" 							: "Khám mắt",
 	"prj_department_twelve" 							: "Khoa xét nghiệm",
 	"prj_department_thirteen" 							: "Khoa chẩn đoán hình ảnh",
-	"prj_department_fourteen" 							: "Khoa dược"
+	"prj_department_fourteen" 							: "Khoa dược",
+	"prj_department_option_department" 					: "Chọn phòng ban",
+	"prj_appointment_option_none"						:"Chọn lịch"
 	
 }
