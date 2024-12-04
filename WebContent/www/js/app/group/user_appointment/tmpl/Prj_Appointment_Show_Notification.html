@@ -1,5 +1,12 @@
-{{#each appointments}}
 <div class="card meeting-card" style="width: 250px; margin-bottom: 1rem;">
+<div class="row align-items-center" style="padding: 20px 20px 0px 20px">
+    <h5 class="col-auto">{{transl 'prj_appointment_next'}}</h5>
+    <a href="javascript:void(0)" class="text-dark font-size-14 font-weight-bold col-auto ml-auto" id="btn_refresh_group">
+        <i class="mdi mdi-refresh font-size-18 mr-2"></i>
+    </a>
+</div>
+
+{{#each appointments}}
   <div class="card-body">
     <div class=" d-flex justify-content-between align-items-center">
     <span class="bg-danger text-white rounded px-2 py-1" id="countdown-{{@index}}">
@@ -12,7 +19,13 @@
     <p class="mb-2"><i class="mdi mdi-map-marker"></i> {{obj.inf02.desc}}</p>
     <p><i class="mdi mdi-calendar-clock"></i> {{formatDate obj.dtBegin "time"}} - {{formatDate obj.dtEnd "time"}}</p>
     <div class="d-flex justify-content-between align-items-center">
-      <button class="btn btn-info text-white">Tham gia</button>
+      <button 
+		  class="btn btn-info text-white div_button_call" 
+		  data-appointment-id="{{id}}" 
+		  data-members=>
+		  Tham gia
+		</button>
+
       <div class="div_list_member d-flex">
         {{#each members}}
           <div class='team-member member-item d-flex align-items-center'>
@@ -28,5 +41,5 @@
       </div>
     </div>
   </div>
+  {{/each}}
 </div>
-{{/each}}

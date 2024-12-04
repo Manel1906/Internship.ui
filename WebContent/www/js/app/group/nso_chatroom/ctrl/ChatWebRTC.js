@@ -17,9 +17,11 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		//------------------variable pagination post------------------------------------------------------
 		const pr_TYP_MSG_PRIVATE 	= 200;
 		const pr_TYP_MSG_PUBLIC 	= 201;
-
-		const pr_TYP_CHAT_USER		= 1;
-		const pr_TYP_CHAT_GROUP		= 2;
+		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroupChat";
+		const pr_SV_GROUP_NEW				= "SVNewRoomCalendar"; 
+		const pr_TYP_CHAT_USER				= 1;
+		const pr_TYP_CHAT_GROUP				= 2;
+		const pr_TYP_CHAT_GROUP_CALENDAR	= 4;
 
 		const pr_ROLE_MASTER		= "master";
 		const pr_ROLE_VIEWER		= "viewer";
@@ -52,10 +54,31 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 						urls		: "turn:openrelay.metered.ca:443?transport=tcp",
 						username	: "openrelayproject",
 						credential	: "openrelayproject"
-					}]
+					}/*, {
+						urls		: "stun:stun.relay.metered.ca:80",
+					},
+					{
+						urls		: "turn:global.relay.metered.ca:80",
+						username	: "a0901b9930e7be19911ae5ce",
+						credential	: "uwGYoTYOUpN6P+wr",
+					},
+					{
+						urls		: "turn:global.relay.metered.ca:80?transport=tcp",
+						username	: "a0901b9930e7be19911ae5ce",
+						credential	: "uwGYoTYOUpN6P+wr",
+					},
+					{
+						urls		: "turn:global.relay.metered.ca:443",
+						username	: "a0901b9930e7be19911ae5ce",
+						credential	: "uwGYoTYOUpN6P+wr",
+					},
+					{
+						urls		: "turns:global.relay.metered.ca:443?transport=tcp",
+						username	: "a0901b9930e7be19911ae5ce",
+						credential	: "uwGYoTYOUpN6P+wr",
+					},*/]
 		};
 		
-
 		const pr_mediaConstraints = {
 				audio			: true,
 				video			: {
@@ -65,13 +88,29 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				},
 				
 		};
-
+		
+		//--------------------------------------------------------------------------
+		async function do_gl_RequestPost(url, header, data) {
+			const response = await fetch(url, {
+				method	: "POST",
+				headers	: header,
+				body	: JSON.stringify(data),
+			});
+			return response.json();
+		}
+		//--------------------------------------------------------------------------
 		let pr_rtc_stream 		= null;
 		let pr_rtc_video 		= null;
-		var pr_rtc_peers		= {};
+		
+		let pr_rtc_stream_share	= null;
+		let pr_rtc_video_share	= null;
+		
+		let pr_rtc_peers		= {};
+		let pr_rtc_peers_share	= {};
+		
 		let pr_rtc_screen 		= 0;
 		let pr_rtc_chat 		= 4;
-		var pr_hasInit			= false;
+		let pr_hasInit			= false;
 		const do_lc_getRandomClientId = () => Math.random().toString(36).substring(2).toUpperCase();
 
 
@@ -93,29 +132,108 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function({ obj, currentTyp, members }, am_master=true){              
+		this.do_lc_show = function({ obj, currentTyp, members,isCallCalendar }, am_master=true){              
 			try{
 				pr_rtc_screen		= 0;
 				pr_hasInit 			= false;
 				pr_rtc_stream 		= null;
 				pr_rtc_video 		= null;
 				pr_rtc_peers		= {};
-				
+				pr_rtc_peers_share	= {};
 				
 				$("#div_chat_all"	).remove();
 				$("#div_video_call"	).show();
 				
-				do_lc_webRTC_initValue(obj, currentTyp, members, am_master);		
-				
-				do_lc_Page_Main_build();
-						
-				do_lc_webRTC_initMedia();
-				
-				pr_hasInit = true;
+				do_lc_init_ServerCfg ({obj, currentTyp, members, isCallCalendar}, am_master);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chat", "ChatWebRTC", "do_lc_show", e.toString()) ;
 			}
 		};
+		
+//		var do_lc_init_ServerCfg = function ({obj, currentTyp, members, isCallCalendar}, am_master){
+//			do_gl_RequestPost(
+//					"https://rtc.live.cloudflare.com/v1/turn/keys/cdf9cd/credentials/generate", 
+//					{
+//				        'Authorization': 'Bearer a',
+//						'Content-Type': 'application/json',
+//				    },
+//					{'ttl': 86400})
+//				    .then((result) => {
+//						var urls 		= result.iceServers.urls;
+//						var uName 		= result.iceServers.username;
+//						var pwd			= result.iceServers.credential;
+//						var iceServers	= [];
+//						for (var url of urls){
+//							iceServers.push({
+//								urls		: url,
+//								username	: uName,
+//								credential	: pwd,
+//							})
+//						}
+//						
+//						pr_rtc_configuration.iceServers = iceServers;
+//						
+//						do_lc_webRTC_initValue(obj, currentTyp, members,isCallCalendar, am_master);		
+//						
+//						do_lc_Page_Main_build();
+//								
+//						do_lc_webRTC_initMedia();
+//						
+//						pr_hasInit = true;
+//				    })
+//				    .catch((error) => {
+//				        console.error("Error:", error);
+//				        
+//				        //---use the sv cfg default
+//				        
+//				        do_lc_webRTC_initValue(obj, currentTyp, members,isCallCalendar, am_master);		
+//						
+//						do_lc_Page_Main_build();
+//								
+//						do_lc_webRTC_initMedia();
+//						
+//						pr_hasInit = true;
+//				    }
+//				);
+//		}
+		
+		const do_lc_init_ServerCfg = ({obj, currentTyp, members, isCallCalendar}, am_master) => {
+			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceAutCloudflare", "SVGetRTC");
+
+			const fSucces 	= [];
+			fSucces.push(req_gl_funct(null, do_lc_init_ServerCfg_callback, [{obj, currentTyp, members, isCallCalendar}, am_master]));
+
+			const fError = req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);
+			App.network.do_lc_ajax_bg(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
+
+		const do_lc_init_ServerCfg_callback = function(sharedJson, {obj, currentTyp, members, isCallCalendar}, am_master) {
+			if (can_gl_AjaxSuccess(sharedJson)) {
+				var result 	= JSON.parse(sharedJson[App['const'].RES_DATA]);
+				var urls 	= result.iceServers.urls;
+				var uName 	= result.iceServers.username;
+				var pwd 	= result.iceServers.credential;
+				var iceServers = [];
+				for (var url of urls) {
+					iceServers.push({
+						urls: url,
+						username: uName,
+						credential: pwd,
+					})
+				}
+
+				pr_rtc_configuration.iceServers = iceServers;
+			} 
+			//---use the sv cfg default if api failed
+
+			do_lc_webRTC_initValue(obj, currentTyp, members, isCallCalendar, am_master);
+
+			do_lc_Page_Main_build();
+
+			do_lc_webRTC_initMedia();
+
+			pr_hasInit = true;
+		}
 		
 		//--------------------------------------------------------------------------------------------
 		this.do_lc_msg_In = function(response, username){
@@ -125,34 +243,47 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				//--------------------------------------------------------------
 				//--------------------------------------------------------------
 			case "VIDEO_CALL_START"	: //---some one has begun chat video, I prepare peer to communicate
-				do_lc_webRTC_addPeer (response.payLoad, false,initialeValues);
+				do_lc_webRTC_addPeer (response.payLoad, false, initialeValues);
 				break;
 				
 			case "VIDEO_CALL_SEND"	: //---Im offer, client is ready to receive my stream
-				do_lc_webRTC_addPeer (response.payLoad, true,initialeValues);
+				do_lc_webRTC_addPeer (response.payLoad, true, initialeValues);
 				break;
 				
 			case "VIDEO_CALL_SIGNAL": //---receive signal from other and launch a peer to receive stream
 				do_lc_webRTC_launchPeer (response.payLoad);
 				break;
 				
+			
+				//-----------------------------------------------------------------
+			case "VIDEO_CALL_START_SHARE":
+				do_lc_webRTC_addPeer_share (response.payLoad, false);
+				break;
+			case "VIDEO_CALL_SEND_SHARE":
+				do_lc_webRTC_addPeer_share (response.payLoad, true);
+				break;
+			case "VIDEO_CALL_SIGNAL_SHARE":
+				do_lc_webRTC_launchPeer_share (response.payLoad);
+				break;
+				
+				
+				//-----------------------------------------------------------------
 			case "VIDEO_CALL_END":
-				do_lc_webRTC_removePeer (response.payLoad);
+				do_lc_webRTC_removePeer(response.payLoad);
 				break;
-			
+
 			case "VIDEO_CALL_END_ALL":
-				do_lc_webRTC_removePeerAll (response.payLoad);
+				do_lc_webRTC_removePeerAll(response.payLoad);
 				break;
-			
 			}
 		}
 		//--------------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------  
-		const do_lc_webRTC_initValue 	= (obj, currentTyp, members, am_master) => {
-			initialeValues.obj			= obj;
-			initialeValues.currentTyp 	= currentTyp;
-			initialeValues.members 		= members;
-			
+		const do_lc_webRTC_initValue 	= (obj, currentTyp, members,isCallCalendar, am_master) => {
+			initialeValues.obj				= obj;
+			initialeValues.currentTyp 		= currentTyp;
+			initialeValues.members 			= members;
+			initialeValues.isCallCalendar 	= isCallCalendar;
 			if (am_master) 
 				initialeValues.role  	= pr_ROLE_MASTER;
 			else
@@ -260,6 +391,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				
 			}).catch(e => console.log(`getusermedia error: ${e}`))
 		}
+		
 		//------------------------------------------------------------------------------
 		/**
 		 * Creates a new peer connection and sets the event listeners
@@ -269,12 +401,12 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		 *                  Set to true if the peer initiates the connection process.
 		 *                  Set to false if the peer receives the connection. 
 		 */
-		const do_lc_webRTC_addPeer = function (resPayload, am_initiator,initialeValues) {
-			var clientId 	= resPayload.uId;
-			var sessId		= resPayload.inf02;
-			const selectedMember = Object.values(initialeValues.members).find(member => member.uId === clientId);
+		const do_lc_webRTC_addPeer = function (resPayload, am_initiator, initialeValues) {
+			var clientId 			= resPayload.uId;
+			var sessId				= resPayload.inf02;
+			const selectedMember 	= Object.values(initialeValues.members).find(member => member.uId === clientId);
+			const user 				= selectedMember.mem
 			console.log(selectedMember)
-			const user = selectedMember.mem
 			
 			pr_rtc_peers [clientId] = new SimplePeer({
 		        initiator	: am_initiator,
@@ -295,7 +427,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			});
 
 			pr_rtc_peers [clientId].on('stream', stream => {//----mở đường truyền, bắt đầu truyền tín hiệu
-				$("#div_video_call").append(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO_VIEWER, {id: clientId,user: user}));
+				$("#div_video_call").append(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO_VIEWER, {id: clientId, user: user}));
 				
 		        let newVid 			= document.getElementById("video-" + clientId); 
 		        newVid.srcObject 	= stream;
@@ -308,6 +440,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		        do_lc_bind_event_main();
 		        do_lc_bind_event_sub ();
 		    });
+		    
 			
 			if (!am_initiator){
 				const msgOut = {
@@ -322,12 +455,15 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			} 
 		}
 		
+		
 		const do_lc_webRTC_launchPeer= function (resPayload){
 			var clientId 	= resPayload.uId;
 			var signalData	= JSON.parse(resPayload.inf01);
 			
 			pr_rtc_peers [clientId].signal(signalData);
 		}
+		
+		
 		
 		/**
 		 * Remove a peer with given clientId. 
@@ -344,20 +480,26 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		    let divE1		= document.getElementById(divID)
 		    
 		    do_lc_video_close (videoEl,divE1);
-		    $('#btn-img-avatar_' + clientId).hide()
-			$('#text-avatar_' + clientId).hide()
+		    $('#btn-img-avatar_' 	+ clientId).hide()
+			$('#text-avatar_' 		+ clientId).hide()
 		    
 		    if (pr_rtc_peers[clientId]) pr_rtc_peers[clientId].destroy();
 		    delete pr_rtc_peers[clientId];
+			
+			if (pr_rtc_peers_share[clientId]) pr_rtc_peers_share[clientId].destroy();
+			delete pr_rtc_peers_share[clientId];
 		}
 		
 		const do_lc_video_close = function (videoEl,divE1) {
 			if (videoEl) {
-				const tracks = videoEl.srcObject.getTracks();
+				
+				if (videoEl.srcObject){
+					const tracks = videoEl.srcObject.getTracks();
 
-				tracks.forEach(function (track) {
-					track.stop();
-				})
+					tracks.forEach(function(track) {
+						track.stop();
+					})
+				}				
 
 				videoEl.srcObject = null;
 				videoEl.parentNode.removeChild(videoEl);
@@ -368,11 +510,13 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		
 		const do_lc_stream_close = function (videoEl) {
 			if (videoEl) {
-				const tracks = videoEl.srcObject.getTracks();
+				if (videoEl.srcObject) {
+					const tracks = videoEl.srcObject.getTracks();
 
-				tracks.forEach(function (track) {
-					track.stop();
-				})
+					tracks.forEach(function(track) {
+						track.stop();
+					})
+				}	
 
 				videoEl.srcObject = null;
 			}
@@ -391,8 +535,22 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			
 			do_lc_video_close (pr_rtc_video);
 			
-			if (returnToMain)
-			App.router.controller.do_lc_run("VI_MAIN/prj_chatroom", "view_prj_chat_room.html");
+			for (var clientId in pr_rtc_peers_share){
+			    if (pr_rtc_peers_share[clientId]) pr_rtc_peers_share[clientId].destroy();
+			    delete pr_rtc_peers_share[clientId];
+			}
+			do_lc_video_close (pr_rtc_video_share);
+			
+			
+	//		$("#div_main_content").removeClass("mt-custom");
+			if (initialeValues.isCallCalendar){
+				initialeValues.obj = null;
+				initialeValues.members = null;
+				App.router.controller.do_lc_run("VI_MAIN/prj_appointment_list", "view_prj_appointment_list.html");
+			}
+			else{
+				App.router.controller.do_lc_run("VI_MAIN/prj_chatroom", "view_prj_chat_room.html");
+			}
 		}
 		
 		
@@ -409,78 +567,9 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		}
 	
 		//---------------------------------------------------------------------------------------------------------
-		var pr_ctr_CapSreen = null;
-		const do_lc_webRTC_setScreen = function (shareScreen) {
-			//---reset pr_rtc_screen to 0, if user shared really screen , pr_rtc_screen will be change
-			pr_rtc_screen 			= 0;
-			$('#btn-img-avatar'		).show();
-			$('#text-avatar'		).show();	
-					
-			if (shareScreen){
-				
-				if (!pr_ctr_CapSreen) try{
-					pr_ctr_CapSreen = new CaptureController();
-				}catch(e) {
-					do_gl_show_Notify_Msg_Error ($.i18n("common_err_sysCtrl"))
-					return;
-				}
-				
-				navigator.mediaDevices.getDisplayMedia({pr_ctr_CapSreen}).then(stream => {
-					$('#btn-img-avatar'		).hide();
-					$('#text-avatar'		).hide();
-					
-					//---close old stream first		
-					do_lc_stream_close (pr_rtc_video);
-						
-					const [track] 			= stream.getVideoTracks();
-					const displaySurface 	= track.getSettings().displaySurface;
-					if (displaySurface == "browser") {
-					  // Focus the captured tab.
-					  pr_ctr_CapSreen.setFocusBehavior("focus-captured-surface");
-					} else if (displaySurface == "window") {
-					  // Do not move focus to the captured window.
-					  // Keep the capturing page focused.
-					  pr_ctr_CapSreen.setFocusBehavior("focus-capturing-application");
-					}
-					
-					do_lc_webRTC_setStreamForPeers (stream);
-					
-					
-					// somebody clicked on "Stop sharing"
-					track.onended = function () {
-						do_lc_webRTC_setScreen(0);
-					};
-					  
-					  
-					pr_rtc_screen = 1;
-				});
-			}else{
-				navigator.mediaDevices.getUserMedia(pr_mediaConstraints).then(stream => {
-					$('#btn-img-avatar'		).hide();
-					$('#text-avatar'		).hide();
-										
-					//---close old stream first		
-					do_lc_stream_close (pr_rtc_video);
-									
-					var hideVid = $('#btn-vid-showHide>i'	).hasClass("mdi-video-off");
-					for (let index in stream.getVideoTracks()) {
-						stream.getVideoTracks()[index].enabled = !hideVid;
-					}
-										
-					var hideSound = $('#btn-vid-mute>i'		).hasClass("mdi-microphone-off");
-					for (let index in stream.getAudioTracks()) {
-						stream.getAudioTracks()[index].enabled = !hideSound;
-				    }
-				    
-					do_lc_webRTC_setStreamForPeers (stream);
-				})
-			}
-		}
-		
 		const do_lc_webRTC_setStreamForPeers = function (stream){
 			for (let clientId in pr_rtc_peers) {
 	    		var peer = pr_rtc_peers[clientId];
-	            
 	    		for (let index in peer.streams[0].getTracks()) {
 	                for (let index2 in stream.getTracks()) {
 	                    if (peer.streams[0].getTracks()[index].kind === stream.getTracks()[index2].kind) {
@@ -491,6 +580,8 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 	                    }
 	                }
 	            }
+	             $('#btn-img-avatar_' + "43").hide()
+			     $('#text-avatar_' 	  + "43").hide()
 	        }
 			
 			pr_rtc_stream 			= stream;
@@ -499,15 +590,23 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		
 		//-----------------------------------------------------------------------------------------------------
 		const do_lc_Page_Main_build = function(){
-			let nbViewer = 1;
+			App.MsgboxController.do_lc_close();
+			let nbViewer = 2;
 			if(initialeValues.currentTyp === pr_TYP_CHAT_GROUP){
 				nbViewer = Object.keys(initialeValues.members).length - 1;
 			}
 			console.log(App.data.user.id)
-			 const obj = initialeValues.members;
-			 user = obj[App.data.user.id].mem;
-			$("#div_video_call").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO, 
-			{role : initialeValues.role, nbViewer, user: user}));
+			const obj = initialeValues.members;
+			user = obj[App.data.user.id].mem;
+			if(initialeValues.isCallCalendar){
+				$("#div_video_call_calendar").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO, 
+				{role : initialeValues.role, nbViewer, user: user}));
+				$(".page-content").children(":not(#div_video_call)").addClass("hide");
+				$("#div_video_call_calendar").css("margin-top", "6rem");
+			}else{
+				$("#div_video_call").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO, 
+				{role : initialeValues.role, nbViewer, user: user}));
+			}
 //			$(".row-multi-viewer").addClass("chat-multi-viewer-zoom-out");
 			
 			do_lc_bind_event_main();
@@ -515,16 +614,21 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		}
 		
 		const do_lc_bind_event_main = () => {
+			const $btn = $('#btn-chat-message');
 			$('#btn-call-stop'		).off("click").click(do_lc_webRTC_stop	);
 			
 			$('#btn-vid-switch'		).off("click").click(do_lc_toggleMedia	);
+			
 			$('#btn-chat-message').off("click").click(() => {
-	        if ($("#div_chat_main_chat").is(":visible")) {
-	            $("#div_chat_main_chat").hide(); // Hide if visible
-	        } else {
-	            do_lc_chatMessage(); // Show if hidden
-	        }
+	          if ($("#div_chat_main_chat").is(":visible")) {
+	            $("#div_chat_main_chat").hide(); 
+	            $btn.css('background-color', 'rgb(60, 64, 67)');
+	          } else {
+				$btn.css('background-color', 'rgb(244, 106, 106)');
+	            do_lc_chatMessage();
+	          }
     		});
+    		
 			$('#btn-vid-mute'		).off("click").click(do_lc_toggleMute	);
 			$('#btn-vid-showHide'	).off("click").click(do_lc_toggleVid	);
 			
@@ -539,14 +643,16 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			$('.btn_chat_in_video'	).off("click").click(do_lc_zoom_div_chat	);
 		}
 		
-		const do_lc_toggleShare = function() { 
-		    if (!pr_rtc_screen) {
-				do_lc_webRTC_setScreen(1);
-		    } else {
-				do_lc_webRTC_setScreen(0);
-		    }
-		    
+		const do_lc_toggleShare = function() {
+			if (!pr_rtc_screen) {
+				do_lc_webRTC_initScreenShare();
+			} else {
+				pr_rtc_screen = 0;
+				$("#div_video_share").hide();
+				do_lc_stream_close(pr_rtc_video_share);
+			}
 		};
+				
 		
 		const do_lc_toggleMedia = function() {
 		    if (pr_mediaConstraints.video.facingMode.ideal === 'user') {
@@ -584,36 +690,44 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 
 		}
 		const do_lc_chatMessage = function() {
-			pr_ctr_Chat.do_lc_show(initialeValues,pr_rtc_chat)
-			
+		//	pr_ctr_Group.do_lc_show()
+		//	pr_ctr_Main.do_lc_show()
+			if(initialeValues.isCallCalendar){
+	//			do_lc_new_group(initialeValues);
+				pr_ctr_Chat.do_lc_show(initialeValues,pr_rtc_chat)
+			}else{
+				pr_ctr_Chat.do_lc_show(initialeValues,pr_rtc_chat)
+			}
 		}
 		const do_lc_toggleVid = function() {
-		    for (let index in pr_rtc_stream.getVideoTracks()) {
-		        pr_rtc_stream.getVideoTracks()[index].enabled = !pr_rtc_stream.getVideoTracks()[index].enabled
-		    }
-		    
-		   	const $icon 	= $('#btn-vid-showHide>i');
-   			const idUser 	= App.data.user.id
-			
-		    if ($icon.hasClass("mdi-video-off")) {
-		        $icon.removeClass("mdi-video-off").addClass("mdi-video");
-		        
-				$('#btn-vid-showHide'			).css('background-color', 'rgb(60, 64, 67)'); 
-		        $('#btn-img-avatar'				).hide()
-		        $('#text-avatar'				).hide()
-		        $('#btn-img-avatar_' + idUser	).hide()
-				$('#text-avatar_' + idUser		).hide()
-		    } else {
-				$icon.removeClass("mdi-video"	).addClass("mdi-video-off");
-				
-				$('#btn-vid-showHide'			).css('background-color', 'rgb(244,106,106)');
-		        $('#btn-img-avatar'				).hide()
-		        $('#btn-img-avatar'				).show(); 
-				$('#text-avatar'				).show();
-				$('#btn-img-avatar_' + idUser	).show()
-				$('#text-avatar_' + idUser		).show()
-		    }
-		}
+		    const idUser = App.data.user.id;
+		    const videoTracks = pr_rtc_stream.getVideoTracks(); // Get the video tracks from the stream
+		    const videoTrack = videoTracks[0]; // Work with the first video track if it exists
+	    	// Check if the video track exists
+	    	if (videoTrack) {
+	        videoTrack.enabled = !videoTrack.enabled;
+	
+	        // Update the UI based on the current state of the video track
+	        const isVideoEnabled = videoTrack.enabled; // Check if video is now enabled
+	        const $icon = $('#btn-vid-showHide>i');
+	        if (isVideoEnabled) {
+	            $icon.removeClass("mdi-video-off").addClass("mdi-video");
+	            $('#btn-vid-showHide').css('background-color', 'rgb(60, 64, 67)'); 
+	          	$('#btn-img-avatar_' + idUser).hide();
+	          	$('#text-avatar_'	 + idUser).hide();
+	            $('#btn-img-avatar'		     ).hide();
+				$('#text-avatar'		     ).hide();
+	        } else {
+	            $icon.removeClass("mdi-video").addClass("mdi-video-off");
+	            $('#btn-vid-showHide').css('background-color', 'rgb(244, 106, 106)');
+	          	$('#btn-img-avatar_' + idUser).show();
+	          	$('#text-avatar_' +    idUser).show();
+	            $('#btn-img-avatar'		     ).show();
+				$('#text-avatar'		     ).show();
+	        }
+	    	}
+		};
+
 		
 		
 		/**
@@ -703,6 +817,123 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			});
 			
 			var_TIME_OUT_VIEWER = setTimeout(App.MsgboxController.do_lc_close, pr_TIME_OUT_VIEWER);
+		}
+		//-------------------------------------------------------------------------------------------
+		var pr_ctr_CapSreen = null;
+		const do_lc_webRTC_initScreenShare = function() {
+			$("#div_video_share").hide();
+			pr_rtc_screen = 0;
+
+			if (!pr_ctr_CapSreen) try {
+				pr_ctr_CapSreen = new CaptureController();
+			} catch (e) {
+				do_gl_show_Notify_Msg_Error($.i18n("common_err_sysCtrl"))
+				return;
+			}
+
+			$("#div_video_share").show();
+
+			navigator.mediaDevices.getDisplayMedia({ pr_ctr_CapSreen }).then(stream => {
+				const [track] = stream.getVideoTracks();
+				const displaySurface = track.getSettings().displaySurface;
+				if (displaySurface == "browser") {
+					// Focus the captured tab.
+					pr_ctr_CapSreen.setFocusBehavior("focus-captured-surface");
+				} else if (displaySurface == "window") {
+					// Do not move focus to the captured window.
+					// Keep the capturing page focused.
+					pr_ctr_CapSreen.setFocusBehavior("focus-capturing-application");
+				}
+
+
+				pr_rtc_video_share = $("#video-ScreenShare")[0];
+
+				pr_rtc_video_share.srcObject = stream;
+				pr_rtc_stream_share = stream;
+
+				do_lc_webRTC_setStreamForPeers_share (stream);
+				//----------------------------------------------------------------------------------
+				//--send signal: I have initialized my stream....
+				const msgOut = {
+					name: "VIDEO_CALL_START_SHARE",
+					val: {}
+				}
+				App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
+
+				pr_rtc_screen = 1;
+			});
+
+
+		}
+		const do_lc_webRTC_addPeer_share = function(resPayload, am_initiator) {
+			var clientId = resPayload.uId;
+			var sessId = resPayload.inf02;
+
+			pr_rtc_peers_share[clientId] = new SimplePeer({
+				initiator	: am_initiator,
+				stream		: pr_rtc_stream_share,
+				config		: pr_rtc_configuration
+			})
+
+			pr_rtc_peers_share[clientId].on('signal', data => { //---if offer, this signal will be launch 
+				const msgOut = {
+					name: "VIDEO_CALL_SIGNAL_SHARE",
+					val: {
+						uId		: clientId,
+						inf01	: data,
+						inf02	: sessId,
+					}
+				}
+				App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
+			});
+
+			pr_rtc_peers_share[clientId].on('stream', stream => {//----mở đường truyền, bắt đầu truyền tín hiệu
+				$("#div_video_share").show();
+
+				let newVid 			= document.getElementById("video-ScreenShare");
+				newVid.srcObject 	= stream;
+				newVid.playsinline 	= false;
+				newVid.autoplay 	= true;
+			});
+
+
+			if (!am_initiator) {
+				const msgOut = {
+					name: "VIDEO_CALL_SEND_SHARE",
+					val: {
+						uId		: clientId,
+						inf02	: sessId,
+					}
+				}
+				App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
+			}
+		}
+
+		const do_lc_webRTC_launchPeer_share = function(resPayload) {
+			var clientId 	= resPayload.uId;
+			var signalData 	= JSON.parse(resPayload.inf01);
+
+			pr_rtc_peers_share[clientId].signal(signalData);
+		}
+		
+		
+		const do_lc_webRTC_setStreamForPeers_share = function (stream){
+			for (let clientId in pr_rtc_peers_share) {
+	    		var peer = pr_rtc_peers_share[clientId];
+	    		for (let index in peer.streams[0].getTracks()) {
+	                for (let index2 in stream.getTracks()) {
+	                    if (peer.streams[0].getTracks()[index].kind === stream.getTracks()[index2].kind) {
+	                        peer.replaceTrack(	peer	.streams[0].getTracks()[index], 
+	                        					stream	.getTracks()[index2], 
+	                        					peer	.streams[0]);
+	                        break;
+	                    }
+	                }
+	            }
+	        }
+			
+			pr_rtc_stream_share 			= stream;
+		    pr_rtc_video_share.srcObject 	= stream;
 		}
 	};
 

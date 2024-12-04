@@ -2,13 +2,14 @@ define([
 	'text!group/user_appointment_work/tmpl/Prj_Appointment_View_Work.html',
 	'text!group/user_appointment_work/tmpl/Prj_Appointment_New_Work.html',
 	'text!group/user_appointment_work/tmpl/Prj_Appointment_Show_Work.html',
-	
+	'text!group/user_appointment_work/tmpl/Prj_Appointment_Show_Department.html',
 	'group/nso_chatroom/ctrl/ChatRoomMain',
 
 	], function(
 			Prj_Appointment_View_Work, 
 			Prj_Appointment_New_Work,
 			Prj_Appointment_Show_Work,
+			Prj_Appointment_Show_Department
 		
 	){
 
@@ -20,10 +21,12 @@ define([
 		const pr_SERVICE_CLASS_DYN	= "ServicePrjProjectDyn"; //to change by your need
 		const pr_SV_LIST_DYN		= "SVLstPage"; 
 		const pr_SV_SAVE_MOVE		= "SVTaskMove";
-
+		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroup";
+		const pr_SV_GROUP_LIST_DYN			= "SVLstSearch"; 
 		const pr_SERVICE_AUT_CLASS	= "ServiceAutUser";
 
 		const pr_SV_USER_SEARCH		= "SVLstForCalend";
+		const pr_SV_DOCTOR_SEARCH		= "SVLstByGrp";
 		const pr_SV_GET_MEMBER		= "SVGetMember";
 
 		const self					= this;
@@ -45,7 +48,7 @@ define([
 
 		const STAT_ACTIVE    				= 1;
 		const STAT_DESACTIVE    			= 2;
-
+		let membersArr 						= [];
 		var members 						= {};
 //		var membersDel 						= [];
 		let files							= {files: []};
@@ -78,9 +81,10 @@ define([
 		this.do_lc_init	= function(){
 			pr_ctr_Main 					= App.controller.UI.Main;
 
-			tmplName.PRJ_APPOINTMENT_VIEW	= 	"Prj_Appointment_View_Work";
-			tmplName.PRJ_APPOINTMENT_NEW	= 	"Prj_Appointment_New_Work";
-			tmplName.PRJ_APPOINTMENT_SHOW	= 	"Prj_Appointment_Show_Work";
+			tmplName.PRJ_APPOINTMENT_VIEW				= 	"Prj_Appointment_View_Work";
+			tmplName.PRJ_APPOINTMENT_NEW				= 	"Prj_Appointment_New_Work";
+			tmplName.PRJ_APPOINTMENT_SHOW				= 	"Prj_Appointment_Show_Work";
+			tmplName.PRJ_APPOINTMENT_SHOW_DEPARTMENT	= 	"Prj_Appointment_Show_Department";
 
 		}
 
@@ -109,7 +113,9 @@ define([
 				do_register_locale_custom();
 				do_build_schedulue(pr_lstAvailableTime , pr_dtBegin);
 				do_lc_req_autocomplete_all();
+				
 				do_lc_bind_eventPage();
+				do_get_list_ByAjax();
 				$(document).prop('title',$.i18n('prj_project_sidebar_schedule'));
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.project", "PrjAppointmentList", "do_lc_show", e.toString()) ;
@@ -249,6 +255,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, Prj_Appointment_View_Work);
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_NEW, Prj_Appointment_New_Work);
 			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, Prj_Appointment_Show_Work);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_DEPARTMENT, Prj_Appointment_Show_Department);
 
 			
 			if ($(window).width() < 600) {
@@ -259,6 +266,34 @@ define([
 			}
 			
 			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, {forDesktop: pr_ForDesktop}));
+		}
+		
+		
+		
+		
+		const do_get_list_ByAjax = function(){	
+			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstSearch");
+			ref.typ01s 	= 300;
+			ref.stats = 1;
+			ref.hardLoad = false;
+			var fSucces	= [];
+			fSucces.push(req_gl_funct(		null, do_lc_show_list_ByAjax_Dyn, [true]));
+			var fError 		= req_gl_funct(	null, do_lc_show_list_ByAjax_Dyn, [false]);
+			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+
+		}
+		const do_lc_show_list_ByAjax_Dyn = function(sharedJson, divList){
+			const isSuccess = can_gl_AjaxSuccess(sharedJson);
+			if(isSuccess) {
+				const list = sharedJson[App['const'].RES_DATA] || {};
+				let lst = list.lst || [];
+				const data = { lst: lst };
+				console.log(lst)
+				$("#department").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_DEPARTMENT, data));
+				do_lc_req_autocomplete_all();
+			} else {
+				do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
+			}
 		}
 
 		//-------------------------------------------------------------------------------------------------
@@ -332,7 +367,7 @@ define([
 			// dp_schedule.eventMoveHandling 		= "Disabled";
 			// dp_schedule.eventResizeHandling 		= "Disabled";
 			dp_schedule.timeRangeSelectedHandling 	= "Enable";
-			dp_schedule.headerDateFormat 			= "dd";
+			dp_schedule.headerDateFormat 			= "ddd dd";
 			dp_schedule.timeFormat 					= "Clock24Hours";
 //			dp_schedule.cssOnly 					= false;
 			dp_schedule.cssClassPrefix 				= "workadm";
@@ -1323,7 +1358,7 @@ define([
 		    
 		    let frequency = $(".objData[data-name='repeat']").val() || 1;
 		    let prjArr = [];
-		
+			
 		    function getNextWeekdayDate(startDate, weekday, weekOffset) {
 		        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 		        const startDay = startDate.getDay();
@@ -1349,11 +1384,19 @@ define([
 		        if (appointment.val02 && !/^https?:\/\//i.test(appointment.val02)) {
 		            appointment.val02 = 'http://' + appointment.val02;
 		        }
-			    members[App.data.user.id] = {
+			    membersArr[App.data.user.id] = {
 						uId: App.data.user.id,
 						typ: 0
 				}
-				Object.values(members).map(e => e.stat = pr_stat_pending)
+				$('#div_list_member').find('[data-id]').each(function() {
+				  const dataId = $(this).attr('data-id');
+				  
+				  membersArr[dataId] = {
+				    uId: dataId,
+				    typ: 40  
+				  };
+				});
+
 		    }
 			function formatDateToLocalString(date) {
 			    const year = date.getFullYear();
@@ -1391,7 +1434,7 @@ define([
 		            }
 		        });
 		    }
-		    
+		    console.log(membersArr)
 		     do_lc_create_prj_appointment(prjArr);
 		    
 		};
@@ -1405,7 +1448,7 @@ define([
 			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
 		}
 		const do_lc_create_prj_appointment = (prjArr) => {
-			let dataSend	= {obj: prjArr, member: JSON.stringify(Object.values(members))};
+			let dataSend	= {obj: prjArr, member: JSON.stringify(Object.values(membersArr))};
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVNewWorkPlan", dataSend);			
 
 			let fSucces		= [];		
@@ -1421,12 +1464,12 @@ define([
 				// reload
 				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_new_ajax"));
 				do_lc_search_prj_appointment(prjSearch,dp_schedule)
-				
+					console.log("3",members)
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 			}
-			members = {};
-//			membersDel = [];w
+			console.log("2",members)
+//			membersDel = [];
 		}
 
 /*		const do_lc_convert_date = (objDate) => {
@@ -1487,6 +1530,7 @@ define([
 		                name: memberName,
 		                imgSrc: imgSrc
 		            });
+		            
 		        });
 		      
 			    const name = $("#list_member").val();
@@ -1548,7 +1592,7 @@ define([
 		const do_lc_req_autocomplete_search = () => {
 			let el = ".inp-name-member";
 			let customShowList = function(item, selOpt = ""){
-				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.login01}`;
+				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.inf03}`;
 				if(!item.avatar){
 					let textColor   = null;
 					let textAvatar  = null
@@ -1560,7 +1604,7 @@ define([
 						textColor = var_gl_colors[index];
 						textAvatar= first + last;
 					}
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs avatar-autocomplete text-white text-uppercase text-center mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}</div>`;
+					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs avatar-autocomplete text-white text-uppercase text-center mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}</div>`;
 					return selOpt;
 				}
 			}
@@ -1590,7 +1634,7 @@ define([
 
 				let selOpt 			= `<div class='member-item'>`;
 				if(item.avatar) 
-					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.login01}`;
+					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.inf03}`;
 				else 			
 					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}`;
 
@@ -1602,7 +1646,7 @@ define([
 				$(el).blur().val("");
 			}
 			
-			let typ01Arr = [App.data.user.typ01, 2, 3, 4, 5];
+			let typ01Arr = [App.data.user.typ01, 2, 20, 30, 40];
 			let typ01Str = typ01Arr.join(',');
 			let options = {
 			    dataService: [pr_SERVICE_AUT_CLASS, pr_SV_USER_SEARCH], 
@@ -1616,7 +1660,7 @@ define([
 		const do_lc_req_autocomplete_all = () => {
 			let el = ".inp-name-member_all";
 			let customShowList = function(item, selOpt = ""){
-				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.login01}`;
+				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.inf03}`;
 				if(!item.avatar){
 					let textColor   = null;
 					let textAvatar  = null
@@ -1628,7 +1672,7 @@ define([
 						textColor = var_gl_colors[index];
 						textAvatar= first + last;
 					}
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs avatar-autocomplete text-white text-uppercase text-center mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}</div>`;
+					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs avatar-autocomplete text-white text-uppercase text-center mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}</div>`;
 					return selOpt;
 				}
 			}
@@ -1656,12 +1700,12 @@ define([
 				}
 
 				members[item.id] 	= user;
-
+				console.log("aa",members);
 				let selOpt 			= `<div class='member-item'>`;
 				if(item.avatar) 
-					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.login01}`;
+					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.inf03}`;
 				else 			
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}`;
+					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}`;
 
 				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 				selOpt 				+= `</div>`;
@@ -1671,23 +1715,35 @@ define([
 				do_lc_bind_event_autocomplete();
 				$(el).blur().val("");
 			}
+		    $("#department").on("change", function () {
+			    var selectedValue = $(this).val(); 
+			
+			    let typ01Arr = [App.data.user.typ01, 2, 20, 30];
+			    let typ01Str = typ01Arr.join(',');
+			
+			    let options = {
+			        dataService: [pr_SERVICE_AUT_CLASS, pr_SV_DOCTOR_SEARCH],
+			        dataRes: ["login01", "name01"],
+			        svParams: {
+			            wAvatar: true,
+			            nbLine: 5,
+			            typ01s: typ01Str,
+			            stats: 1,
+			            grpId: selectedValue 
+			        },
+			        fSelect: reqSelectMember,
+			        customShowList: customShowList
+			    };
+			
+			    do_gl_req_autocompleteNew(el, options);
+			});
 
-			let typ01Arr 	= [App.data.user.typ01, 2, 3, 4, 5];
-			let typ01Str 	= typ01Arr.join(',');
-			let options 	= {
-			    dataService 	: [pr_SERVICE_AUT_CLASS, pr_SV_USER_SEARCH], 
-			    dataRes 		: ["login01", "name01"], 
-			    svParams		: {wAvatar:true, nbLine:5, typ01s: typ01Str, stats:1},
-			    fSelect			: reqSelectMember, 
-			    customShowList	: customShowList
-			}
-			do_gl_req_autocompleteNew(el, options);	
-		}		
+		};
 //		sua
 		const do_lc_req_autocomplete = () => {
 			let el = ".inp-name-member";
 			let customShowList = function(item, selOpt = ""){
-				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.login01}`;
+				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.inf03}`;
 				if(!item.avatar){
 					let textColor   = null;
 					let textAvatar  = null
@@ -1699,7 +1755,7 @@ define([
 						textColor = var_gl_colors[index];
 						textAvatar= first + last;
 					}
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs avatar-autocomplete text-white text-uppercase text-center mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}</div>`;
+					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs avatar-autocomplete text-white text-uppercase text-center mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}</div>`;
 					return selOpt;
 				}
 			}
@@ -1730,9 +1786,9 @@ define([
 
 				let selOpt 			= `<div class='member-item'>`;
 				if(item.avatar) 
-					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.login01}`;
+					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.inf03}`;
 				else 			
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}`;
+					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}`;
 
 				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 				selOpt 				+= `</div>`;
@@ -1742,7 +1798,7 @@ define([
 				$(el).blur().val("");
 			}
 
-			let typ01Arr 	= [App.data.user.typ01, 2, 3, 4, 5];
+			let typ01Arr = [App.data.user.typ01, 2, 20, 30, 40];
 			let typ01Str 	= typ01Arr.join(',');
 			let options 	= {
 			    dataService 	: [pr_SERVICE_AUT_CLASS, pr_SV_USER_SEARCH], 
