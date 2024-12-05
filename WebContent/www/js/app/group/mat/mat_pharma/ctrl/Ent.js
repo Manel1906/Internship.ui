@@ -26,9 +26,13 @@ define([], function() {
 			var RIGHT_DEL	        	= 50000004;
 
 			//-----------------------------------------------------------------------------------
-			const pr_SERVICE_CLASS		= "ServiceTpyCategory";
-			const pr_SV_NEW				= "SVNewDisease";
-			const pr_SV_NEW_SUB			= "SVNewDiseaseSub";
+			
+			const pr_SERVICE_CLASS		= "ServiceMatMaterial";
+			const pr_SV_NEW				= "SVNew";
+			const pr_SV_MOD             = "SVMod";
+			const pr_SV_GET             = "SVGet";
+			const pr_SV_DEL_GROUP       = "SVDel";
+
 			
 			var   self                  = this;
 			
@@ -78,7 +82,11 @@ define([], function() {
 				if (obj.files) {
 					data.data.files = obj.files;
 				}
-				do_lc_new_entity(data.data);
+				let dataMed = data.data;
+				dataMed.dt03 = do_lc_convert_date(dataMed.dt03).replace("T", " ");
+			    const date03 = req_gl_DateObj_From_DateStr(dataMed.dt03);
+			    dataMed.dt03 = formatDateToLocalString(date03);
+				do_lc_new_entity(dataMed);
 			}
 			
 			this.do_lc_mod = function(obj) {
@@ -98,9 +106,24 @@ define([], function() {
 			this.do_lc_cancel = function() {
 				pr_ctr_Main.do_lc_show();
 			}
+			const do_lc_convert_date = (objDate) => {
+				if (objDate.time.length < 5) objDate.time = "0" + objDate.time;
+				return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
+			}
+			function formatDateToLocalString(date) {
+			    const year = date.getFullYear();
+			    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Tháng phải cộng 1
+			    const day = ('0' + date.getDate()).slice(-2);
+			    const hours = ('0' + date.getHours()).slice(-2);
+			    const minutes = ('0' + date.getMinutes()).slice(-2);
+			    const seconds = ('0' + date.getSeconds()).slice(-2);
+			    
+			    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+			}
+
 			//-----------------get group-------------------------------------------------------------------------
 			const do_lc_get_info_entity = (id) => {
-				const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyCategory", "SVGet", {id: id, wChild: true});	
+				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET, {id: id, wChild: true});	
 
 				let fSucces		= [];
 				fSucces.push(req_gl_funct(null, do_lc_get_info_entity_callback, []));
@@ -126,7 +149,14 @@ define([], function() {
 				if(data.inf && typeof data.inf == "string"){
 					data.inf = JSON.parse(data.inf);
 				}
+				if(data.files && data.files[0].url){
+					data.fileUrl = data.files[0].url
+				}
+				if(data.inf03 && typeof data.inf03 == "string"){
+					data.inf03 = JSON.parse(data.inf03);
+				}
 				
+
 				$("#div_ent"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT		, data));
 				
 				$(".info-edit"		).removeClass	('hide');
@@ -236,7 +266,12 @@ define([], function() {
 					
 					newGroup.val01 = { img: newGroup.files.length > 0 ? decodeURIComponent(newGroup.files[0].path01) : null}; 
 					
-					do_lc_update_chat_entity(newGroup);
+					let dataMed = data.data;
+					dataMed.dt03 = do_lc_convert_date(dataMed.dt03).replace("T", " ");
+				    const date03 = req_gl_DateObj_From_DateStr(dataMed.dt03);
+				    dataMed.dt03 = formatDateToLocalString(date03);
+					do_lc_update_chat_entity(dataMed);
+
 				})
 				
 				$(".info-edit").on("click", function(){
@@ -270,7 +305,7 @@ define([], function() {
 				$("#btn_del").off("click").on("click", function(){
 					let {id} = $(this).data();
 					App.MsgboxController.do_lc_show({
-						title		: $.i18n("prj_user_g_entitytn_delete_group"),
+						title		: $.i18n("common_title_confirm"),
 						content 	: $.i18n("msg_del_entity_popup_content"),
 						autoclose	: false,
 						css			: {
@@ -278,7 +313,7 @@ define([], function() {
 						},
 						buttons		: {
 							NO: {
-								lab		:  $.i18n("common_btn_yes"),
+								lab		:  $.i18n("common_btn_can"),
 							},
 							OK: {
 								lab			: $.i18n("common_btn_delete"),
@@ -318,7 +353,7 @@ define([], function() {
 			
 			const do_lc_get_entity_sub = (data) => {
 						
-				const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyCategory", "SVGetDiseaseSub", {id: data.id});	
+				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET, {id: data.id});	
 
 				let fSucces		= [];
 				fSucces.push(req_gl_funct(null, do_lc_get_entity_sub_callback, []));
@@ -384,7 +419,7 @@ define([], function() {
 			//-----------------edit group-------------------------------------------------------------------------
 			const do_lc_edit_entity = (group) => {
 							
-				const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyCategory", "SVGet", {id: group.id});	
+				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET, {id: group.id});	
 		
 				let fSucces		= [];
 				fSucces.push(req_gl_funct(null, do_lc_edit_entity_callback, [group.id]));
@@ -401,6 +436,9 @@ define([], function() {
 						if(data.inf && typeof data.inf == "string"){
 							data.inf = JSON.parse(data.inf);
 						}
+						if(data.inf03 && typeof data.inf03 == "string"){
+							data.inf03 = JSON.parse(data.inf03);
+						}
 						
 						var listUserRight = App.data.user.rights;
 						var isRight = listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
@@ -411,15 +449,26 @@ define([], function() {
 						data.edit 	   = true
 
 						$("#div_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_NEW, data));
+						const [date, time] = data.dt03.split(" ");
+						data.dt03 = { date, time };
 
-						App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
-						App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
-						App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor
-						App.SummerNoteController.do_lc_show("#div_create_transmission");//text editor
-						App.SummerNoteController.do_lc_show("#div_create_subjects");//text editor 
-						App.SummerNoteController.do_lc_show("#div_create_prevent");//text editor
-						App.SummerNoteController.do_lc_show("#div_create_diagnose");//text editor
-						App.SummerNoteController.do_lc_show("#div_create_treatment");//text editor
+						const [year, month, day] = data.dt03.date.split("-");
+						const formattedDate = `${day}/${month}/${year}`;
+						$("#dtpicker_exp").datepicker( "setDate", formattedDate);
+						$("#tmpicker_exp"	)	.timepicker({
+							showMeridian: false,
+							defaultTime : data.dt03.time,
+							icons		: {
+								up		: "mdi mdi-chevron-up",
+								down	: "mdi mdi-chevron-down"
+							}
+						});
+
+						
+						App.SummerNoteController.do_lc_show("#div_show_desc");//text editor 
+						App.SummerNoteController.do_lc_show("#div_show_effect");//text editor
+						App.SummerNoteController.do_lc_show("#div_show_assign");//text editor
+						App.SummerNoteController.do_lc_show("#div_show_infor");//text editor
 						
 						do_lc_showMod_FileUploader(data);
 						do_lc_bind_event_mod_entity(data, id);
@@ -487,7 +536,7 @@ define([], function() {
 							},
 							OK: {
 								lab		: $.i18n("common_btn_yes"),
-								funct	: do_lc_get_info_entity,
+								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
 							}
@@ -510,18 +559,29 @@ define([], function() {
 							},
 							OK: {
 								lab		: $.i18n("common_btn_yes"),
-								funct	: do_lc_get_info_entity,
+								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
 							}
 						}
 					});
 				})
+				let option	= {
+					obj : obj,
+					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here for avatar
+				}			
+				do_gl_init_fileDropzone($("#frm_dropzone_send"), option);
+								
+				let option2	= {
+						obj : obj,
+						fileinput		: {param : {typ01: 2, typ02: 10} },//option here for files
+				}			
+				do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
 			}
 			
 			//-----------------update group-------------------------------------------------------------------------
 			const do_lc_update_entity = function(ent) {
-				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, "SVMod", {obj: JSON.stringify(ent)});	
+				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent)});	
 
 				let fSucces		= [];
 				fSucces.push(req_gl_funct(null, do_lc_update_entity_callback, []));
@@ -634,6 +694,17 @@ define([], function() {
 						}
 					});
 				})
+				let option	= {
+					obj : obj,
+					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here for avatar
+				}			
+				do_gl_init_fileDropzone($("#frm_dropzone_send"), option);
+								
+				let option2	= {
+						obj : obj,
+						fileinput		: {param : {typ01: 2, typ02: 10} },//option here for files
+				}			
+				do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
 			}
 			
 			

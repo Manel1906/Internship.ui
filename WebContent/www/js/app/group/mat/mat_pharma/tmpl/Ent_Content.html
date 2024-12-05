@@ -29,7 +29,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right font-size-18">
                     <li><span id="btn_edit" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-pencil-outline text-success mr-1"></i>{{transl 'prj_user_group_btn_edit_group'}}</span></li>
-                    <li><span id="btn_del_group" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can text-danger mr-1"></i>{{transl 'common_btn_del'}}</span></li>
+                    <li><span id="btn_del" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can text-danger mr-1"></i>{{transl 'common_btn_del'}}</span></li>
                 </ul>
             </div>
         </div>
@@ -142,19 +142,19 @@
             </div>
             <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_desc'}}</h5>
-                <div class="info-content-description"><p class="text-muted text-justify">{{{inf03.desc}}}</p></div>
+                <div id="div_show_desc" class="info-content-description"><p class="text-muted text-justify">{{{inf03.desc}}}</p></div>
             </div>
             <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_effect'}}</h5>
-                <div class="info-content-description"><p class="text-muted text-justify">{{{inf03.effect}}}</p></div>
+                <div id="div_show_effect" class="info-content-description"><p class="text-muted text-justify">{{{inf03.effect}}}</p></div>
             </div>
             <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_assign'}}</h5>
-                <div class="info-content-description"><p class="text-muted text-justify">{{{inf03.assign}}}</p></div>
+                <div id="div_show_assign" class="info-content-description"><p class="text-muted text-justify">{{{inf03.assign}}}</p></div>
             </div>
             <div>
                 <h5 class="font-size-15 mt-4">{{transl 'prj_tpy_group_another_inf'}}</h5>
-                <div class="info-content-description"><p class="text-muted text-justify">{{{inf03.infor}}}</p></div>
+                <div id="div_show_infor" class="info-content-description"><p class="text-muted text-justify">{{{inf03.infor}}}</p></div>
             </div>
         </div>
     </div>

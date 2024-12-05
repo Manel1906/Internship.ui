@@ -25,15 +25,15 @@ define([], function() {
 		var RIGHT_DEL	        	= 50000004;
 		//-----------------------------------------------------------------------------------
 		
-		const pr_SERVICE_CLASS_DYN	= "ServiceTpyCategory";
-		const pr_SV_LIST_DYN		= "SVLstPage"; 
+		const pr_SERVICE_CLASS_DYN	= "ServiceMatMaterial";
+		const pr_SV_LIST_DYN		= "SVLstSearch"; 
 		
 		var   self                  = this;
 		var   pr_SEARCH_KEY			= "";
 		
 		const pr_TYP01_ADMIN		= 2;
 		
-		const pr_TYP_DISEASE 		= 300;
+		const pr_TYP_DISEASE 		= 1;
 		
 		const pr_NUMBER_RECORD		= 10;
 		const pr_STAT_ACTIVE    	= 1;
@@ -194,12 +194,6 @@ define([], function() {
 		}
 		//----------------------------------------------------------------------------------------------
 		const do_lc_bind_event_list = function(){
-			var listUserRight = App.data.user.rights;
-			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
-			if (!isRight) {
-				$("#btn_new_entity").hide();
-			}
-			
 			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id} 			= $this.data();
