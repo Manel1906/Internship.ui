@@ -521,7 +521,7 @@ define([], function() {
 							},
 							OK: {
 								lab		: $.i18n("common_btn_yes"),
-								funct	: do_lc_get_info_entity,
+								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
 							}
@@ -544,7 +544,7 @@ define([], function() {
 							},
 							OK: {
 								lab		: $.i18n("common_btn_yes"),
-								funct	: do_lc_get_info_entity,
+								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
 							}

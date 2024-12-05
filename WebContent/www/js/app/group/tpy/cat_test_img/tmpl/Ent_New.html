@@ -1,10 +1,13 @@
 <div class="card">
     <div class="card-body">
-        {{#if edit}}
-       	<div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'tpy_cat_disease_edit_title'}}</h4></div>
-       	{{else}}
-        <div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'common_btn_new_title'}}</h4></div>
-        {{/if}}
+     	<div class="row">
+	        {{#if edit}}
+	       	<div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'tpy_cat_disease_edit_title'}}</h4></div>
+	       	{{else}}
+	        <div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'common_btn_new_title'}}</h4></div>
+	        {{/if}}
+         </div>
+        <div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
         <div class="needs-validation" id="frm_new_group">
         	<input type="hidden" data-name="typ01" class="form-control objData" value="3000">
         	<input type="hidden" data-name="stat" class="form-control objData" value="1">
@@ -12,19 +15,19 @@
            <div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
            	
            	<div class="row">
-           		<div class="col-12 form-group mb-2 mt-2">	
+           		<div class="col-12 mt-2">	
 		            <div class="form-group">
 		            	 <label for="inp_group_name_1">{{transl 'tpy_test_img_name'}}</label>
 		                <input type="text" data-name="name" class="form-control objData" id="inp_group_name" value="{{name}}" placeholder="{{transl 'prj_test_img_name'}}" data-validation="required">
 					</div>	
 		        </div>
 		        
-			    <div class="col-6 mb-2 mt-2">	
+			    <div class="col-4 mb-2 mt-2">	
 			        <label for="inp_group_name_1">{{transl 'tpy_test_img_code'}}</label>
 			        <input type="text" data-name="code" class="form-control objData" id="inp_group_name_1" value="{{code}}" placeholder="{{transl 'prj_test_img_code'}}" data-validation="required">
 			    </div>
 			
-			    <div class="col-6 mb-2 mt-2">	
+			    <div class="col-4 mb-2 mt-2">	
 			        <label for="inp_group_select">{{transl 'tpy_test_img_group'}}</label>
 			        <select id="inp_group_select" class="form-control objData content-edit isManager" data-group="inf" data-name="statGrp">
 			            <option {{#equal typ03 1}}selected{{/equal}} value="1">{{transl 'aut_test_ent_header_stat_1'}}</option>
@@ -35,12 +38,12 @@
 			        </select>
 			    </div>
 			
-			    <div class="col-6 mb-2 mt-2">	
+			    <div class="col-4 mb-2 mt-2">	
 			        <label for="inp_group_name_4">{{transl 'tpy_test_img_room'}}</label>
 			        <input type="text" data-group="inf" data-name="room" class="form-control objData" id="inp_group_name_4" value="{{inf.room}}" placeholder="{{transl 'tpy_test_img_room_enter'}}" data-validation="required">
 			    </div>
 			
-				<div class="col-6 mb-2 mt-2">	
+				<div class="hide col-6 mb-2 mt-2">	
 			        <label for="inp_group_name_4">{{transl 'tpy_test_img_time'}}</label>
 			        <input type="text" data-group="inf" data-name="time" class="form-control objData" id="inp_group_name_4" value="{{inf.time}}" placeholder="{{transl 'tpy_cat_disease_time_enter'}}" data-validation="required">
 			    </div>
