@@ -2,11 +2,11 @@ define([
 	'group/per/doctor/ctrl/EntTabs'
 	],
 	function(
-			{EntContent, EntTabJobPosition, EntTabPersonInfo, EntTabRights}
+			{EntContent, EntTabJobPosition, EntTabInfo}
 	){
 	
-	var Ent 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PerDoctor";
+	var Ent 						= function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
@@ -30,8 +30,7 @@ define([
 		var self 					= this;
 
 		//------------------------------------------------------------------------------------
-		var pr_OBJ_TYPE				= 1000;
-		const pr_SERVICE_CLASS		= "ServiceAutUser"; //to change by your need
+		const pr_SERVICE_CLASS		= "ServicePerPerson"; //to change by your need
 		const pr_SV_GET				= "SVGet"; 
 		const pr_SV_NEW				= "SVNew"; 
 		const pr_SV_MOD				= "SVMod"; 
@@ -47,13 +46,16 @@ define([
 		const societePartnerSupp	= 1010003;
 		const societePartnerOther	= 1010006;
 		//-----------------------------------------------------------------------------------
-		const RIGHT_U_D				= 1000004;
-		const RIGHT_U_M				= 1000003;
-		const RIGHT_U_N				= 1000002;
-		const RIGHT_U_G				= 1000001;
+		var RIGHT_ADM	        	= 100;
+		var RIGHT_A_G	        	= 102;
+		var RIGHT_A_N	        	= 102;
+		var RIGHT_A_M	        	= 103;
+		var RIGHT_A_D	        	= 104;
 		
-		const RIGHT_ADM				= 100;
-		const RIGHT_A_M				= 103;
+		var RIGHT_GET	        	= 40000001;
+		var RIGHT_NEW	        	= 40000002;
+		var RIGHT_MOD	        	= 40000003;
+		var RIGHT_DEL	        	= 40000004;
 		
 		var pr_type_adm      		= 2;
 		var pr_type_emp      		= 3;
@@ -62,8 +64,8 @@ define([
 		var pr_type_adm_all    		= 10;
 		//------------------controllers------------------------------------------------------
 		var pr_ctr_Main 			= null;
+		var pr_ctr_Ent 				= null;
 		var pr_ctr_List 			= null;
-		var pr_ctr_Ent				= null;
 		var pr_ctr_Sidebar 			= null;
 		var pr_ctr_Fav 				= null;
 		
@@ -74,24 +76,15 @@ define([
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
-			pr_ctr_Sidebar 			= App.controller.UI.Sidebar;
-			pr_ctr_Fav 				= App.controller.UI.Fav;
-			pr_ctr_List 			= App.controller.PrjUserClient.List;
-			pr_ctr_Ent				= App.controller.PrjUserClient.Ent;
 			
-			if (!App.controller.PrjUserClient)						App.controller.PrjUserClient						= {};
-			
-			if (!App.controller.PrjUserClient.Ent)					App.controller.PrjUserClient.Ent 					= this;
-			
-			if(!App.controller.PrjUserClient.EntContent)			App.controller.PrjUserClient.EntContent 			= new EntContent			(grpName, null, null, null);
-//			if(!App.controller.PrjUser.EntTabJobPosition)			App.controller.PrjUser.EntTabJobPosition 			= new EntTabJobPosition	(grpName, null, null, null);
-			if(!App.controller.PrjUserClient.EntTabPersonInfo)		App.controller.PrjUserClient.EntTabPersonInfo		= new EntTabPersonInfo	(grpName, null, null, null);
-			if(!App.controller.PrjUserClient.EntTabRights	)		App.controller.PrjUserClient.EntTabRights			= new EntTabRights		(grpName, null, null, null);
+			pr_ctr_List 			= App.controller[pr_grpName].List;
+			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 			
 			
-			do_get_per_societe(societePartnerSupp+","+societePartnerOther);
-			do_get_per_legalStat();
-//			do_get_pos_position();
+			if(!App.controller[pr_grpName].EntContent)				App.controller[pr_grpName].EntContent 			= new EntContent	(grpName, null, null, null);
+//			if(!App.controller.PrjUser.EntTabJobPosition)			App.controller.PrjUser.EntTabJobPosition 		= new EntTabJobPosition	(grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntTabInfo)				App.controller[pr_grpName].EntTabInfo			= new EntTabInfo	(grpName, null, null, null);
+			
 		}
 		
 		//---------show-----------------------------------------------------------------------------
@@ -109,6 +102,8 @@ define([
 					if(!id) id = params.id;
 					if (id) do_lc_get_Entity (id, mode);
 				}
+				
+				self.do_lc_reqRole_User();
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
@@ -118,13 +113,13 @@ define([
 			var listUserRight = App.data.user.rights;
 			if(listUserRight.includes(RIGHT_U_M) || listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_U_N)) return;
 			if(!listUserRight.includes(RIGHT_U_M || !listUserRight.includes(RIGHT_U_N))){
-				$(".isManager").remove();
-				$(".info-content").off("click").removeClass("info-content");
-				$(".info-edit-content").off("click").removeClass("info-content");
-				$(".info-edit").off("click").removeClass("info-edit");
+				$(".isManager"			).remove();
+				$(".info-content"		).off("click").removeClass("info-content");
+				$(".info-edit-content"	).off("click").removeClass("info-content");
+				$(".info-edit"			).off("click").removeClass("info-edit");
 				$("#btn_modify, #btn_add_avatar").addClass("hidden");
-				$("#btn_aut_user_change_pass").attr("disabled", "disabled");
-				$(".btn_check_role_all").addClass("disabled")
+				$("#btn_entity_change_pass").attr("disabled", "disabled");
+				$(".btn_check_role_all"	).addClass("disabled")
 			}
 			
 			let typ = App.data.user.typ;
@@ -174,19 +169,18 @@ define([
 		}
 		
 		
-		
 		const do_lc_get_Entity = function(id, mode){
 			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_GET);	
 			ref["id"]		= id;
 			
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_get_Entity_response, [mode]));
+			fSucces.push(req_gl_funct(null, do_lc_get_Entity_callback, [mode]));
 			
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 		
-		const do_lc_get_Entity_response = function(sharedJson, mode){
+		const do_lc_get_Entity_callback = function(sharedJson, mode){
 			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
 				let data 		= sharedJson[App['const'].RES_DATA];
 				do_lc_show_entity(data, mode);
@@ -200,20 +194,9 @@ define([
 		}
 		
 		const do_lc_show_entity = function(ent, mode){
-			let isFavorite 	= null;
-			if(App.data.user && App.data.user['lstFav'] && App.data.user['lstFav'][pr_ID_TABLE_PRJ]) {
-				const lstFav 	=  App.data.user['lstFav']
-	
-				if(lstFav[pr_ID_TABLE_PRJ].ids.includes(ent.id)) isFavorite = true;
-			}
-
 			do_lc_clean_data_before_show(ent);
-			ent.isFavorite = isFavorite
 
-			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_ENT	, ent));
-			
-			if(ent.sup)
-				ent.sup.name = ent.sup.name01 + ent.sup.name02 + ent.sup.name03;
+			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
 			
 			if(pr_SHOW_COMMON) 	$(pr_DIV_CONTENT).find(".page-content").addClass('p-0');
 			
@@ -222,13 +205,9 @@ define([
 		
 		const do_lc_clean_data_before_show = function(ent){
 			if(Object.keys(ent).length == 0) return;
-			let per 		= ent.per;
-			if(per?.inf02){
-				ent.inf02  = JSON.parse(per.inf02);
-			}
 
-			if(per?.inf04){
-				ent.inf04  = JSON.parse(per.inf04);
+			if(ent?.inf04){
+				ent.inf04  = JSON.parse(ent.inf04);
 			}
 
 			const do_req_inf05 = (data) => {
@@ -255,7 +234,7 @@ define([
 				}, {});
 			}
 
-			ent.inf05 = per? do_req_inf05(per.inf05) : null;
+			ent.inf05 = ent.inf05? do_req_inf05(ent.inf05) : null;
 
 			if(ent.files && !ent.avatar) {
 				ent.files.forEach(e => {
@@ -272,22 +251,21 @@ define([
 		}
 		
 		const do_lc_show_blocks = function(obj, mode){
-			App.controller.PrjUserClient.EntContent 		.do_lc_show(obj, mode);
-//			App.controller.PrjUser.EntTabJobPosition.do_lc_show(obj, mode);
-			App.controller.PrjUserClient.EntTabPersonInfo 	.do_lc_show(obj, mode);
-			App.controller.PrjUserClient.EntTabRights 		.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntContent 		.do_lc_show(obj, mode);
+//			App.controller.PrjUser.EntTabJobPosition	.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntTabInfo 		.do_lc_show(obj, mode);
 			
 			if(mode == var_lc_MODE_NEW){
-				$("#div_user_funct").removeClass("hide");
-				$("#div_user_more_info").addClass("hide");
+				$("#div_user_funct"		).removeClass("hide");
+				$("#div_user_more_info"	).addClass("hide");
 			}else{
-				$("#div_user_funct").addClass("hide");
-				$("#div_user_more_info").removeClass("hide");
+				$("#div_user_funct"		).addClass("hide");
+				$("#div_user_more_info"	).removeClass("hide");
 			}
 		}
 		
 		const do_lc_binding_events = function (obj, mode){
-			$("#btn_aut_user_save_all").off("click").on("click",function(){
+			$("#btn_entity_save_all").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -311,7 +289,7 @@ define([
 //				self.do_lc_Save_Entity("#div_user_ent", obj, var_lc_MODE_NEW); 
 			})
 			
-			$("#btn_aut_user_cancel").off("click").on("click",function(){
+			$("#btn_entity_cancel").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -333,153 +311,11 @@ define([
 					}
 				});
 			})
-			
-			$("#btn_mod_favorite").off("click").on("click", function() {
-				const isFav = $(this).hasClass("isFavorite");
-
-				do_lc_mod_favorite(isFav, obj, mode);
-			})
 		}
 		
 		//---------------------------------Ajax----------------------------------------------
-		const do_get_per_legalStat = function() {
-			//ajax to get all fix values here
-			var ref 		= req_gl_Request_Content_Send('ServiceCfgGroup', 'SVCfgGroupGet');
-			ref["id"]		= 102;
-			ref["withValue"]= "true";
-			var fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_get_per_legalStat_response, []));	
-			
-			var fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-			
-			App.network.do_lc_ajax_bg (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;	
-		}
-		
-		const do_get_per_legalStat_response = function(sharedJson) {
-			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {	
-				var data = sharedJson[App['const'].RES_DATA];
-				App.data["PerLegalStat"] = [];
-				$.each(data.vals, function(i, e) {
-					if(e.val02 == 1) {
-						App.data["PerLegalStat"].push(e);
-					}
-				});
-			}
-		}
-		
-		const do_get_per_societe = function(typeSoc) {
-			//ajax to get all fix values here
-			var ref 		= req_gl_Request_Content_Send('ServicePerPerson', 'SVPersonLst');
-			ref["typ02"]	= typeSoc;
-			
-			var fSucces		= [];
-			if(typeSoc == societeListCompany)
-				fSucces.push(req_gl_funct(App, App.funct.put, ['LstSociete']));			
-			else if(typeSoc == societeListChild)
-				fSucces.push(req_gl_funct(App, App.funct.put, ['LstSocieteChild']));
-			else
-				fSucces.push(req_gl_funct(App, App.funct.put, ['LstPartner']));
-			
-			var fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-			
-			App.network.do_lc_ajax_bg (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;	
-		}
-		
-//		var do_get_pos_position = function() {
-//			//ajax to get all fix values here
-//			var ref 		= req_gl_Request_Content_Send('ServiceJobPosition', 'SVJobPositionLst');
-//			
-//			var fSucces		= [];
-//			fSucces.push(req_gl_funct(App, App.funct.put, ['JobPositions']));	
-//			
-//			var fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-//			
-//			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;	
-//		}
-
 		const do_lc_data_check = function(inp, obj) {
 			var data = inp.data;
-			
-			if (data.pass01){
-				data.pass01 	= rq_gl_Crypto(data.pass01); 
-			}
-			
-			if (data.per) {
-				data.per.name01	= req_gl_Capitalize(data.per.name01);
-				data.per.name02	= req_gl_Capitalize(data.per.name02);
-				data.per.name03	= req_gl_Capitalize(data.per.name03);
-				
-				//--info03 of user
-				data.name		= data.per.name01 
-								+ (data.per.name02?" " + data.per.name02:"") 
-								+ (data.per.name03?" " + data.per.name03:"");
-				
-				data.per.info10 = data.email;
-			}
-				
-			
-			if(data.cats){
-				data.cats 		= pr_prjUser.Ent.do_lc_generate_cats(newEnt.cats);
-			}
-
-			if(data.inf02){
-				var objInfo02 = {	"j": data.inf02.job,
-									"d": data.inf02.dtBirthday};
-	
-				var per = data.per;
-				per.inf02 = JSON.stringify(objInfo02);
-			}
-			
-			if(data.inf04){
-				var objInfo04 = {	"i": data.inf04.idDocNum,
-									"d": data.inf04.idDocDate,
-									"p": data.inf04.idDocPlace};
-	
-				var per = data.per;
-				per.inf04 = JSON.stringify(objInfo04);;
-			}
-			
-			if(data.inf05){
-				var objInfo05 = [{"k": "fb", 	"v": data.inf05.value_facebook 	== undefined?null:data.inf05.value_facebook},
-                    			 {"k": "tw", 	"v": data.inf05.value_twitter 		== undefined?null:data.inf05.value_twitter},
-                    			 {"k": "ln",	"v": data.inf05.value_linkedin 	== undefined?null:data.inf05.value_linkedin},
-                    			 {"k": "gg", 	"v": data.inf05.value_google 		== undefined?null:data.inf05.value_google},
-                    			 {"k": "ig", 	"v": data.inf05.value_instagram 	== undefined?null:data.inf05.value_instagram}];
-	
-				var per = data.per;
-				per.inf05 = JSON.stringify(objInfo05);;
-			}
-			
-			//----reformater uRights
-			if (data.rights){
-				const rights = []
-				Object.keys(data.rights).map(key => {
-					if(data.rights[key]) rights.push(key)
-				})
-				data.rights = rights.toString()
-			}
-
-			// if (data.rights){
-			// 	const rights = []
-			// 	Object.keys(data.rights).map(key1 => {
-			// 		Object.keys(data.rights[key1]).map(key2 => {
-			// 			if(data.rights[key1][key2]) {
-			// 				let rIndex = rights.findIndex(e => +e.role === +key1);
-
-			// 				if(rIndex < 0) {
-			// 					rights.push({ role: key1, rights: '' })
-			// 					rIndex = rights.length - 1
-			// 				} else rights[rIndex].rights += `,${key2}`
-			// 			}
-			// 		})
-			// 	})
-
-			// 	data.rights = rights
-			// }
-			
-			data.pos			= null;		
-			
-			inp.data 			= $.extend(false, obj, data);
 		}
 		
 		this.do_lc_generate_cats = function(data){
@@ -527,15 +363,14 @@ define([
 			ref["forPublic"]	= 0;
 			
 			var fSucces			= [];
-			fSucces.push(req_gl_funct(null	, do_lc_afterSave_EntContent	, [mode]));
+			fSucces.push(req_gl_funct(null	, do_lc_data_send_callback	, [mode]));
 			
 			var fError 			= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	
 			
 			data.do_lc_send_data(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, fSucces, fError, "obj");
 		}
 		
-		
-		var do_lc_afterSave_EntContent = function(sharedJson, mode){
+		var do_lc_data_send_callback = function(sharedJson, mode){
 			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
 				let data 		= sharedJson[App['const'].RES_DATA];
 				App.data.mode 	= var_lc_MODE_SEL;				
@@ -546,41 +381,6 @@ define([
 				if(mode == var_lc_MODE_NEW) do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get_error'));
 				else do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
 			}
-		}
-		
-		//user favorite
-		const do_lc_mod_favorite = (isFav, prj, mode) => {
-			if(!isFav) {
-				do_lc_send_mod_inList(isFav, pr_ID_TABLE_PRJ, prj)
-
-				return
-			}
-			App.MsgboxController.do_lc_show({
-				title 		: $.i18n("prj_project_favorite_title_delete"),
-				content 	: $.i18n("prj_project_favorite_title_delete_content"),
-				autoclose	: false,
-				buttons 	: {
-					UPDATE : {
-						lab 		: $.i18n("common_btn_send"),
-						funct 		: do_lc_send_mod_inList,
-						param 		: [isFav, pr_ID_TABLE_PRJ, prj, mode],
-						classBtn	: "btn-primary",
-						autoclose	: true
-					},
-					CALCEL : {
-						lab 		: $.i18n("common_btn_cancel"),
-					}
-				}
-			});
-		}
-
-		const do_lc_send_mod_inList = (isFav, parTyp, prj, mode) => {
-			if(isFav) pr_ctr_Fav.do_lc_remove_myFavorites(prj, parTyp)
-			else pr_ctr_Fav.do_lc_push_myFavorites(prj, parTyp)
-
-			do_lc_show_entity(prj, mode);
-
-			pr_ctr_Sidebar.do_lc_show_favorite()
 		}
 		
 		const do_lc_hide_div = () => {

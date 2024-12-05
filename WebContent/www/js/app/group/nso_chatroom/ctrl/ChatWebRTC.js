@@ -869,12 +869,37 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			var clientId = resPayload.uId;
 			var sessId = resPayload.inf02;
 
-			pr_rtc_peers_share[clientId] = new SimplePeer({
-				initiator	: am_initiator,
-				stream		: pr_rtc_stream_share,
-				config		: pr_rtc_configuration
-			})
+			if (am_initiator) {
+				pr_rtc_peers_share[clientId] = new SimplePeer({
+					initiator	: am_initiator,
+					stream		: pr_rtc_stream_share,
+					config		: pr_rtc_configuration
+				});
+			}else{
+				pr_rtc_peers_share[clientId] = new SimplePeer({
+					initiator	: am_initiator,
+					config		: pr_rtc_configuration
+				});
+				
+				pr_rtc_peers_share[clientId].on('stream', stream => {//----mở đường truyền, bắt đầu truyền tín hiệu
+					$("#div_video_share").show();
 
+					let newVid 			= document.getElementById("video-ScreenShare");
+					newVid.srcObject 	= stream;
+					newVid.playsinline 	= false;
+					newVid.autoplay 	= true;
+				});
+				
+				const msgOut = {
+					name: "VIDEO_CALL_SEND_SHARE", //--I'm ready to show your stream
+					val: {
+						uId		: clientId,
+						inf02	: sessId,
+					}
+				}
+				App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
+			}
+	
 			pr_rtc_peers_share[clientId].on('signal', data => { //---if offer, this signal will be launch 
 				const msgOut = {
 					name: "VIDEO_CALL_SIGNAL_SHARE",
@@ -886,27 +911,6 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				}
 				App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
 			});
-
-			pr_rtc_peers_share[clientId].on('stream', stream => {//----mở đường truyền, bắt đầu truyền tín hiệu
-				$("#div_video_share").show();
-
-				let newVid 			= document.getElementById("video-ScreenShare");
-				newVid.srcObject 	= stream;
-				newVid.playsinline 	= false;
-				newVid.autoplay 	= true;
-			});
-
-
-			if (!am_initiator) {
-				const msgOut = {
-					name: "VIDEO_CALL_SEND_SHARE",
-					val: {
-						uId		: clientId,
-						inf02	: sessId,
-					}
-				}
-				App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
-			}
 		}
 
 		const do_lc_webRTC_launchPeer_share = function(resPayload) {

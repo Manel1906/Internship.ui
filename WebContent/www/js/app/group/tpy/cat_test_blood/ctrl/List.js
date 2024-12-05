@@ -48,14 +48,20 @@ define([], function() {
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show	= function(hardLoad=false){
 			$("#div_list").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
+			do_lc_bind_event();
 			
 			do_get_list_ByAjax(hardLoad);
-			
-			do_lc_bind_event();
 		}
 		
 		//---------load view-----------------------------------------------------------------------------
 		const do_lc_bind_event = function(obj){
+			var listUserRight = App.data.user.rights;
+			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+			if (!isRight) {
+				$("#btn_new_entity"	).hide();
+				$("#btn_add_doc"	).hide();
+			}
+						
 			$("#inp_search").off("input").on("input", function(e){
 				pr_SEARCH_KEY	= $(this).val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
@@ -71,7 +77,16 @@ define([], function() {
 
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			});
-			
+			$("#btn_new_entity").off("click").on("click", function(){
+				var listUserRight = App.data.user.rights;
+				var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+				if(!isRight){
+					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
+					return;
+				}
+
+				pr_ctr_Ent.do_lc_show_for_new();
+			});
 			$("#btn_add_doc").off("click").on("click", function(){
 				if(!obj)	obj = [];
 				obj.files = [];
@@ -175,7 +190,6 @@ define([], function() {
 				
 				if (!lst.length) {
 					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST_CONTENT, {}));
-					do_lc_bind_event__list_header();
 					return;
 				}
 
@@ -194,12 +208,6 @@ define([], function() {
 		}
 		//----------------------------------------------------------------------------------------------
 		const do_lc_bind_event_list = function(){
-			var listUserRight = App.data.user.rights;
-			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
-			if (!isRight) {
-				$("#btn_new_entity").hide();
-			}
-						
 			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id} 			= $this.data();
@@ -211,22 +219,6 @@ define([], function() {
 					pr_ctr_Ent.do_lc_show(id);
 				}
 			})
-			
-			if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
-				$("#btn_new_entity"		).removeClass('hide');
-				$("#btn_add_doc"		).removeClass('hide');
-			}
-			
-			$("#btn_new_entity").off("click").on("click", function(){
-				var listUserRight = App.data.user.rights;
-				var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
-					return;
-				}
-
-				pr_ctr_Ent.do_lc_show_for_new();
-			});
 			
 			const $inputField 	= $("#inp_search");
 		    const $clearIcon 	= $("#clear_icon");

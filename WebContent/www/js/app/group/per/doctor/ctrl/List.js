@@ -1,17 +1,18 @@
 define(['jquery'], function($) {
 
-	var List 	= function (grpName, header, content, footer) {
-		var pr_grpName				= grpName?grpName:"PerDoctor";
-		
-		const tmplName				= App.template.names[pr_grpName];
-		const tmplCtrl				= App.template.controller;
+	var List 						= function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
+		var tmplName				= App.template.names[pr_grpName];
+		var tmplCtrl				= App.template.controller;
 
 		var self 					= this;
 		//------------------------------------------------------------------------------------
-		const pr_SERVICE_CLASS		= "ServiceAutUser"; //to change by your need
-		const pr_SV_LIST_SEARCH		= "SVLstSearch"; 
+		const pr_SERVICE_CLASS		= "ServicePerPerson"; //to change by your need
+		const pr_SV_LIST_SEARCH		= "SVLstPage"; 
 		//------------------controllers------------------------------------------------------
 		var pr_ctr_Main 			= null;
+		var pr_ctr_Ent 				= null;
+		var pr_ctr_List 			= null;
 		//-----------------------------------------------------------------------------------
 		const pr_NUMBER_RECORD		= 9;
 		
@@ -21,25 +22,11 @@ define(['jquery'], function($) {
 		
 		var pr_searchKey			= "";
 		
-		const TYP_01_MORAL			= 1000001;
-		const TYP_01_NATURAL		= 1000002;
+		const TYP_01_MORAL			= 200;
+		const TYP_01_NATURAL		= 100;
 		
-		const TYP_02_AGENT			= 1010001;
-		const TYP_02_CLIENT			= 1010002;
-		const TYP_02_SUPPLIER		= 1010003;
-		const TYP_02_PRODUCER		= 1010004;	
-		const TYP_02_DOCTOR			= 1010005;
-		const TYP_02_TPARTY			= 1010006;
-		const TYP_02_PROSPECT		= 1010007;
-		const TYP_02_CLIENT_PUBLIC	= 1010008;
+		const TYP_02_DOCTOR			= 1100;
 
-		const TYP_02_COMPANY		= 1010010;
-		const TYP_02_BRANCH			= 1010011;
-		const TYP_02_DEPARTMENT		= 1010012;
-		
-		var pr_List_Type01			= TYP_01_MORAL;
-		var pr_List_Type02			= TYP_02_CLIENT;
-		
 		const pr_STAT_ACTIVE        = 1;
 		const pr_STAT_INACTIVE      = 2;
 		const pr_STAT_ACTIVE_HIDDEN = 3;
@@ -49,23 +36,17 @@ define(['jquery'], function($) {
 		const var_lc_MODE_NEW       = 1;
 		const var_lc_MODE_MOD       = 2;
 		
-		const RIGHT_U_G				= 1000001;
-		const RIGHT_U_N             = 1000002;
-		const RIGHT_ADM	        	= 100;
-		const RIGHT_A_G				= 101;
-		const RIGHT_A_N	        	= 102;
+		var RIGHT_ADM	        	= 100;
+		var RIGHT_A_G	        	= 102;
+		var RIGHT_A_N	        	= 102;
+		var RIGHT_A_M	        	= 103;
+		var RIGHT_A_D	        	= 104;
 		
-//		const TYP_USER_02 			= 2;
-//		const TYP_USER_20 			= 20;
-//		const TYP_USER_30 			= 30;
-		const TYP_USER_40 			= 40;
-//		
-//		const paramStats 			= {
-////			[TYP_USER_02] : {typ: TYP_USER_02				, isShow : true},
-////			[TYP_USER_20] : {typ: TYP_USER_20				, isShow : true},
-////			[TYP_USER_30] : {typ: TYP_USER_30				, isShow : true},
-//			[TYP_USER_40] : {typ: TYP_USER_40				, isShow : true},
-//		}
+		var RIGHT_GET	        	= 40000001;
+		var RIGHT_NEW	        	= 40000002;
+		var RIGHT_MOD	        	= 40000003;
+		var RIGHT_DEL	        	= 40000004;
+		
 		var pr_typ = [
 			pr_STAT_ACTIVE,
 			pr_STAT_INACTIVE,
@@ -75,18 +56,17 @@ define(['jquery'], function($) {
 		
 		var pr_DIV_CONTENT          = "#div_user_ent";
 		//--------------------APIs--------------------------------------//
-		this.do_lc_init		= function(){
+		this.do_lc_init				= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
-			pr_ctr_Ent				= App.controller.PerDoctor.Ent;
+			pr_ctr_List 			= App.controller[pr_grpName].List;
+			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(div, type01, type02){               
+		this.do_lc_show = function(div){               
 			try{
-				if (type02) pr_List_Type02 = type02;
-				
-//				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, paramStats));
-				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_LIST, {}));
+				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
+				do_binding_event();
 				
 				do_get_list_ByAjax();
 			}catch(e) {				
@@ -94,51 +74,17 @@ define(['jquery'], function($) {
 			}
 		};
 
-		var do_binding_event = function(div, type01, type02, data){
-			$('.user-typ-select').off('click').on('click',function(){
+		var do_binding_event = function(){
+			var listUserRight = App.data.user.rights;
+			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+			if (!isRight) {
+				$("#btn_new_entity"	).hide();
+				$("#btn_add_doc"	).hide();
+			}
+						
+			$('.typ-select').off('click').on('click',function(){
 				const dataCode = $(this).data('code');
 				do_lc_get_checked(dataCode)
-				do_get_list_ByAjax()
-			})
-			
-			$(".user-item-name").off("click").on("click", function(){
-				let listUserRight = App.data.user.rights;
-				if(!listUserRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				
-				var isRight = listUserRight.includes(RIGHT_U_G) || listUserRight.includes(RIGHT_ADM)|| listUserRight.includes(RIGHT_A_G);
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				
-				let {id, login} =  $(this).data();
-				
-//				$("#inp-search").prop('readonly', true);
-				
-				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL, pr_DIV_CONTENT);
-				
-				$(".task-item").css("background-color", "#fff")
-				$(".task-item[data-id='" + id + "']").css("background-color", "#f0ffff")
-				
-				$("#inp-search").val(login);
-			})
-			
-			$("#btn_btn_new_user").off("click").on("click", function(){
-				let listUserRight = App.data.user.rights;
-				if(!listUserRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				
-				var isRight = listUserRight.includes(RIGHT_U_N) || listUserRight.includes(RIGHT_ADM)|| listUserRight.includes(RIGHT_A_N);
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW, pr_DIV_CONTENT);
 			})
 			
 			$("#btn_refresh_entity").off("click").on("click", function(){
@@ -174,38 +120,10 @@ define(['jquery'], function($) {
 				do_get_list_ByAjax();
 			})
 			
-			$(".item-file-download").off("click").on("click", function(){
-				let {path} = $(this).data();
-				path && window.open(path, "_blank");
+			$("#btn_new_entity").off("click").on("click", function(){
+				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW, pr_DIV_CONTENT);
 			})
-			
-			$(".item-file-delete").off("click").on("click", function(){
-				let fileId			= $(this).data("id");	
-				var lineToRemove 	= $(this).parents("tr");
-				
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_delete"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						OK: {
-							lab		: $.i18n("common_btn_yes"),
-							funct	: do_lc_del_files_prj,
-							param	: [prj, fileId, lineToRemove],
-							classBtn: "btn-success"
-						},
-						NO: {
-							lab		: $.i18n("common_btn_cancel"),
-							funct	: self.do_lc_clear_timeout_viewer,
-							param	: [],
-							classBtn: "btn-danger"
-						}
-					}
-				});
-			})
-			
+						
 			$("#btn_add_doc").off("click").on("click", function(){
 				if(!data)	data = [];
 				data.files = [];
@@ -218,7 +136,7 @@ define(['jquery'], function($) {
 					title	: $.i18n("prj_user_list_new_file_title"),
 					width	: "500px",
 					autoclose	: true,
-					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_DROPZONE_FILE, {}),
+					content		: tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_DROPZONE_FILE, {}),
 					buttons	: {
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
@@ -251,21 +169,21 @@ define(['jquery'], function($) {
 			
 			newobj.files 	= obj.files;
 
-			do_lc_save_files_prj(newobj);
+			do_lc_save_files(newobj);
 		}	
 		
-		var do_lc_save_files_prj = function(newobj){
+		var do_lc_save_files = function(newobj){
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVImport", {obj: {files: newobj.files}});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_afterSave_files_prj, [newobj]));
+			fSucces.push(req_gl_funct(null, do_lc_save_files_callback, [newobj]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
-		var do_lc_afterSave_files_prj = function(sharedJson, prj){
+		var do_lc_save_files_callback = function(sharedJson, prj){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				do_lc_get_list();
 				do_gl_show_Notify_Msg_Success($.i18n('prj_user_group_msg_success') );
@@ -274,60 +192,29 @@ define(['jquery'], function($) {
 			}
 		}
 		
-		var do_lc_del_files_prj = function(prj, fileId, lineToRemove){
-			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_DEL_FILES, {'id': prj.id, 'code': prj.code01, 'fileId':fileId});	
-
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_afterDel_files_prj, [prj, fileId, lineToRemove]));
-
-			let fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Msg, [$.i18n("common_err_ajax")]);	
-
-			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
-		}
-
-		var do_lc_afterDel_files_prj = function(sharedJson, prj, fileId, lineToRemove){
-			if(can_gl_AjaxSuccess(sharedJson)) {
-				lineToRemove.remove();
-				if (prj.files) 
-					prj.files = prj.files.filter(f => f.id != fileId);
-			} else {   
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
-			}
-		}
-		
-		const reqStr_from_to = (m, n) => {
-			var list = [m];
-			
-			for (var i = m + 1; i <= n; i++) {
-			  list.push(i);
-			}
-			
-			return list.toString();
-		  }
-		  
 
 		  const do_lc_get_checked = (dataCode) => {
-  			  pr_typ = []
-  		      if (dataCode == -1) {
+			  pr_typ = []
+		      if (dataCode == -1) {
 				  pr_typ = [1,2,3,10];
-  		      } else {
+		      } else {
 				pr_typ.push(dataCode);
-  		      }
-  		  }
+		      }
+		  }
 		  
 		var do_get_list_ByAjax = function(hardLoad = false){
 			let divList = $("#div_prj_list");
 			let divPan  = $("#div_prj_pagination");
 			
 			let ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_SEARCH, 
-				{
-					searchKey: pr_searchKey, 
-					buildInfo: true, hardLoad, 
-					stats: pr_typ,
-					typs: TYP_USER_40
+				{	
+					typ01		: TYP_01_NATURAL,
+					typ02		: TYP_02_DOCTOR,
+					searchKey	: pr_searchKey, 
+					forced		: hardLoad
 				});
-			
-			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
+				
+			const callbackFunct 	= data => do_get_list_ByAjax_callback(data, divList);
 			
 			let opt = {
 					divMain			: divList,
@@ -343,16 +230,29 @@ define(['jquery'], function($) {
 			do_gl_init_pagination_opt(opt);
 		}
 		
-		var do_lc_show_list_ByAjax_Dyn = function(sharedJson, div){
-			let template		=  tmplName.PRJ_USER_LIST_CONTENT;
+		var do_get_list_ByAjax_callback = function(sharedJson, div){
+			let template		=  tmplName.TMPL_LIST_CONTENT;
 			let data			= {};
 			
 			if (sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
-				data		= sharedJson[App['const'].RES_DATA]
+				data			= sharedJson[App['const'].RES_DATA]
 			}
 			
-			$("#div_prj_list")	.html(tmplCtrl.req_lc_compile_tmpl(template		, data));
-			do_binding_event(div);
+			$(div)	.html(tmplCtrl.req_lc_compile_tmpl(template		, data));
+			do_binding_event_list();
+		}
+		
+		var do_binding_event_list = function (){
+			$(".entity-item").off("click").on("click", function(){
+				let {id, login} =  $(this).data();
+				
+				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL, pr_DIV_CONTENT);
+				
+				$(".task-item").css("background-color", "#fff")
+				$(".task-item[data-id='" + id + "']").css("background-color", "#f0ffff")
+				
+				$("#inp-search").val(login);
+			})
 		}
 	};
 

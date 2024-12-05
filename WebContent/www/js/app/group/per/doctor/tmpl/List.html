@@ -7,10 +7,13 @@
 			         	<a href="javascript:void(0)" class="text-dark font-size-14 mt-3 font-weight-bold" id="btn_refresh_entity">
 							<i class="mdi mdi-refresh font-size-18 mr-2"></i>
 						</a>
-			            <button id="btn_btn_new_user" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'common_btn_add'}}</button>
-			        	 <a data-divtoogle="#div_prj_left" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
-			                 <i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
-			              </a>
+			            <button id="btn_new_entity" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'common_btn_add'}}</button>
+			        	<button id="btn_add_doc" 	type="button" class="btn waves-effect btn-rounded waves-effect waves-light btn-sm" style="background-color: #007bff; color: white;">
+							{{transl 'btn_add_file'}}
+						</button>
+			        	<a data-divtoogle="#div_prj_left" class="btn-resize cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+			            	<i class="mdi mdi-window-minimize font-size-16 text-primary"></i>
+			            </a>
 			         </div>
 			     </div>
 			</div>
@@ -29,11 +32,11 @@
 				             <i class="mdi mdi-filter-outline"></i>
 				         </a>
 				         <ul class="dropdown-menu dropdown-menu-right">
-							<li><div class="dropdown-item cursor-pointer font-size-18 user-typ-select" data-code="-1"	>{{transl 'aut_user_typ_0'}}</div></li>
-							<li><div class="dropdown-item cursor-pointer font-size-18 user-typ-select" data-code="2"	>{{transl 'aut_user_ent_header_stat_2'}}</div></li>
-							<li><div class="dropdown-item cursor-pointer font-size-18 user-typ-select" data-code="1"	>{{transl 'aut_user_ent_header_stat_1'}}</div></li>
-							<li><div class="dropdown-item cursor-pointer font-size-18 user-typ-select" data-code="0"	>{{transl 'aut_user_ent_header_stat_0'}}</div></li>
-							<li><div class="dropdown-item cursor-pointer font-size-18 user-typ-select" data-code="10"	>{{transl 'aut_user_ent_header_stat_10'}}</div></li>
+							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="-1"	>{{transl 'aut_user_typ_0'}}</div></li>
+							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="2"	>{{transl 'aut_user_ent_header_stat_2'}}</div></li>
+							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="1"	>{{transl 'aut_user_ent_header_stat_1'}}</div></li>
+							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="0"	>{{transl 'aut_user_ent_header_stat_0'}}</div></li>
+							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="10"	>{{transl 'aut_user_ent_header_stat_10'}}</div></li>
 				         </ul>
 				     </div>
 				</div>
