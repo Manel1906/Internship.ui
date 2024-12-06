@@ -124,7 +124,8 @@ define(['require',
 				TPY_CAT_TEST_IMG				: "tpy_cat_test_img",
 				
 				PRJ_MNG_MED						: "prj_cat_medi",
-				PRJ_MNG_DOCTOR					: "per_mng_doctor"
+				PRJ_MNG_DOCTOR					: "per_mng_doctor",
+				PRJ_MNG_PATIENT					: "per_mng_patient"
 				
 			}
 

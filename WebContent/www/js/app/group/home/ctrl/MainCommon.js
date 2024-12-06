@@ -1385,7 +1385,7 @@ function(
 		const PRJ_FILE_STAT 			= {0: "prj_file_stat_00"	, 1: "prj_file_stat_01"	, 2: "prj_file_stat_02"};
 
 		const USER_TYPE 				= {2: "aut_user_ent_header_type_adm"	, 3: "aut_user_ent_header_type_agent"	, 5: "aut_user_ent_header_type_visistor"	, 6: "aut_user_ent_header_type_mentor", 8: "aut_user_ent_header_type_shipper"};
-		const USER_STAT 				= {0: "aut_user_ent_header_stat_0"	    , 1: "aut_user_ent_header_stat_1"	    , 2: "aut_user_ent_header_stat_2"	        , 10: "aut_user_ent_header_stat_10"};
+		const USER_STAT 				= {0: "aut_user_ent_header_stat_0"	    , 1: "aut_user_ent_header_stat_1"	    , 2: "aut_user_ent_header_stat_2"	        , 3: "aut_user_ent_header_stat_3"	, 	10: "aut_user_ent_header_stat_10"};
 		const USER_LEGAL_STAT 			= {1020001: "per_person_mr"				, 1020002: "per_person_mrs"};
 		
 		

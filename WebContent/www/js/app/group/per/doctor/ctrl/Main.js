@@ -8,6 +8,7 @@ define([
 	'text!group/per/doctor/tmpl/List_Content.html', 
 	
 	'text!group/per/doctor/tmpl/Ent.html',
+	'text!group/per/doctor/tmpl/Ent_Modify.html',
 	'text!group/per/doctor/tmpl/Ent_Content.html'	,
 	'text!group/per/doctor/tmpl/Ent_Tab_JobPosition.html'	,
 	'text!group/per/doctor/tmpl/Ent_Tab_Person_Info.html',	
@@ -26,6 +27,7 @@ define([
 			Tmpl_List_Content,
 			
 			Tmpl_Ent,
+			Tmpl_Ent_Modify,
 			Tmpl_Ent_Content	,	
 			Tmpl_Ent_Tab_JobPosition	,	
 			Tmpl_Ent_Tab_Person_Info,
@@ -74,6 +76,7 @@ define([
 			
 			tmplName.TMPL_ENT						= pr_grpName + "Tmpl_Ent";
 			tmplName.TMPL_ENT_CONTENT				= pr_grpName + "Tmpl_Ent_Content";
+			tmplName.TMPL_ENT_MODIFY				= pr_grpName + "Tmpl_Ent_Modify";
 			tmplName.TMPL_ENT_TAB_JOBPOSITION		= pr_grpName + "Tmpl_Ent_Tab_JobPosition";
 			tmplName.TMPL_ENT_TAB_RIGHTS			= pr_grpName + "Tmpl_Ent_Tab_Rights";
 			tmplName.TMPL_ENT_TAB_PERSON_INFO		= pr_grpName + "Tmpl_Ent_Tab_Person_Info";
@@ -89,6 +92,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT					, Tmpl_Ent);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT			, Tmpl_Ent_Content);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_JOBPOSITION	, Tmpl_Ent_Tab_JobPosition);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_MODIFY			, Tmpl_Ent_Modify);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_RIGHTS		, Tmpl_Ent_Tab_Rights); 		
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO	, Tmpl_Ent_Tab_Person_Info);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LEGAL_STAT			, Tmpl_Sel_List_Legal_Status); 

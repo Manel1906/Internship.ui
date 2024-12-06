@@ -18,7 +18,7 @@
 	"prj_user_group_information"						: "Thông tin khác",
 	"prj_tpy_group_address_enter"						: "Nhập địa chỉ",
 	
-	"prj_project_member"								: "Chuyên khoa",
+	"prj_project_speciality"							: "Chuyên khoa",
 	"prj_project_add_member"							: "Thêm",
 	"prj_project_member_header_name"					: "Tên",
 	"prj_project_member_header_role"					: "Vai trò",
@@ -61,7 +61,7 @@
 	"prj_project_add_avatar" 							: "Ảnh đại diện",
 	"prj_project_drop_files"							: "Kéo thả hoặc nhấn để thêm tập tin",
 	"prj_project_new_file_title"						: "Thêm tập tin vào đây",
-	"prj_project_enter_name"							: "Nhập tên thành viên...",
+	"prj_project_enter_name"							: "Nhập tên chuyên khoa",
 	
 	"prj_specialty_list_title"							: "Danh sách bác sĩ",
 	"btn_add_file"										: "Thêm tập tin",
@@ -87,15 +87,17 @@
 	"per_person_doctor_full_surname"					: "Họ",
 	"per_person_doctor_middle_name"						: "Tên đệm",
 	"per_person_doctor_name"							: "Tên",
-	"per_person_doctor_code"							: "Mã bác sĩ",
+	"per_person_doctor_code"							: "Mã quản lý",
 	"per_person_doctor_phone"							: "Số điện thoại",
+	"per_person_doctor_address"							: "Địa chỉ",
 	"per_person_doctor_speciality_main"					: "Chuyên khoa chính",
 	"per_person_doctor_role"							: "Vai trò",
+	"per_person_doctor_bidth_date"						: "Ngày sinh",
 	"per_person_doctor_introduce"						: "Giới thiệu",
 	"per_person_doctor_treatment"						: "Khám và điều trọ",
 	"per_person_doctor_mail"							: "Email",
 	"per_person_doctor_phone"							: "SĐT",
-	"per_person_doctor_cccd"							: "CCCD",
+	"per_person_doctor_cccd"							: "Số CCCD",
 	"per_person_doctor_collab"							: "Quá trình công tác",
 	"per_person_doctor_research"						: "Các công trình nghiên cứu và giải thưởng",
 	"per_person_doctor_inf_another"						: "Thông tin khác",
@@ -111,5 +113,9 @@
     "aut_user_ent_header_stat_3"						:	"Kích hoạt và ẩn",
     "aut_user_ent_header_stat_0"						:	"Không hoạt động",
     "aut_user_ent_header_stat_10"						:	"Vô hiệu hóa",
-	"aut_user_typ_0"									:	"Tất cả"
+	"aut_user_typ_0"									:	"Tất cả",
+	"per_person_men"									:	"Nam",
+    "per_person_women"									:	"Nữ",
+    "per_person_other"									:	"Khác"
+	
 }

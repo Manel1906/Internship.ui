@@ -30,7 +30,7 @@ define([
 		var self 					= this;
 
 		//------------------------------------------------------------------------------------
-		const pr_SERVICE_CLASS		= "ServicePerPerson"; //to change by your need
+		const pr_SERVICE_CLASS		= "ServicePerDoctor"; //to change by your need
 		const pr_SV_GET				= "SVGet"; 
 		const pr_SV_NEW				= "SVNew"; 
 		const pr_SV_MOD				= "SVMod"; 
@@ -103,7 +103,7 @@ define([
 					if (id) do_lc_get_Entity (id, mode);
 				}
 				
-				self.do_lc_reqRole_User();
+		//		self.do_lc_reqRole_User();
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
@@ -111,7 +111,7 @@ define([
 		
 		this.do_lc_reqRole_User = function(mode){
 			var listUserRight = App.data.user.rights;
-			if(listUserRight.includes(RIGHT_U_M) || listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_U_N)) return;
+			if(listUserRight.includes(RIGHT_GET) || listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_A_N)) return;
 			if(!listUserRight.includes(RIGHT_U_M || !listUserRight.includes(RIGHT_U_N))){
 				$(".isManager"			).remove();
 				$(".info-content"		).off("click").removeClass("info-content");
@@ -243,6 +243,16 @@ define([
 					}
 				})
 			}
+			if(ent.inf04 && typeof ent.inf04 == "string"){
+				ent.inf04 = JSON.parse(ent.inf04);
+			}
+			
+			if(ent.inf06 && typeof ent.inf06 == "string"){
+				ent.inf06 = JSON.parse(ent.inf06);
+			}
+			if(ent.inf02 && typeof ent.inf02 == "string"){
+				ent.inf02 = JSON.parse(ent.inf02);
+			}
 		}
 		
 		const do_lc_build_page = function(obj, mode){
@@ -253,7 +263,7 @@ define([
 		const do_lc_show_blocks = function(obj, mode){
 			App.controller[pr_grpName].EntContent 		.do_lc_show(obj, mode);
 //			App.controller.PrjUser.EntTabJobPosition	.do_lc_show(obj, mode);
-			App.controller[pr_grpName].EntTabInfo 		.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntTabInfo 		.do_lc_show(obj, mode,obj.id);
 			
 			if(mode == var_lc_MODE_NEW){
 				$("#div_user_funct"		).removeClass("hide");
@@ -311,13 +321,188 @@ define([
 					}
 				});
 			})
+			$("#btn_edit").off("click").on("click", function(){
+				var idPer = [];
+				idPer = $(this).data();
+				do_lc_edit_person(idPer);
+				
+			})
+		}
+		const do_lc_edit_person = (idPer) => {
+						
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET, {id: idPer.id});	
+	
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_reponse_edit_person, [idPer.id]));
+	
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+	
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
+		
+		const do_lc_reponse_edit_person = function(sharedJson, id){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				const data = sharedJson[App['const'].RES_DATA];
+				if(data){
+					
+					if(data.inf04 && typeof data.inf04 == "string"){
+						data.inf04 = JSON.parse(data.inf04);
+					}
+					
+					if(data.inf06 && typeof data.inf06 == "string"){
+						data.inf06 = JSON.parse(data.inf06);
+					}
+					if(data.inf02 && typeof data.inf02 == "string"){
+						data.inf02 = JSON.parse(data.inf02);
+					}
+
+					$(pr_DIV_CONTENT).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_MODIFY, data));
+
+					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
+					App.SummerNoteController.do_lc_show("#div_create_service");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_information");//text editor
+					
+					do_lc_group_showMod_FileUploader(data);
+					do_lc_bind_event_mod_group(data, id);
+					
+					console.log(data)
+				}
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		const do_lc_group_showMod_FileUploader = function (data) {
+			if (!data.files) {
+				data.files = [];
+			}	
+			
+			let option	= {
+					obj : data,
+					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here for avatar
+			}			
+			do_gl_init_fileDropzone($("#frm_dropzone_send"), option);
+							
+			let option2	= {
+					obj : data,
+					fileinput		: {param : {typ01: 2, typ02: 10} },//option here for files
+			}			
+			do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
+		}
+		const do_lc_bind_event_mod_group = function(obj){
+			$("#btn_create_group").off("click").on("click", function(){
+				
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_save"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_mod,
+							param	: [obj],
+							classBtn: "btn-primary"
+						}
+					}
+				});
+			})
+			
+			$("#btn_canel_group").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_save_cancel"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_cancel,
+							param	: [],
+							classBtn: "btn-danger"
+						}
+					}
+				});
+			})
+			$("#btn_canel_person_delete").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_save_cancel"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: self.do_lc_clear_timeout_viewer,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_cancel,
+							param	: [],
+							classBtn: "btn-danger"
+						}
+					}
+				});
+			})
+		}
+		this.do_lc_mod = function(obj){
+			const data = req_gl_data({
+				dataZoneDom: $("#frm_new_group")
+			});
+
+			if(data.hasError)	return false;
+
+			if (obj.files){
+				data.data.files = obj.files;
+			}
+			data.data.id = obj.id;
+			do_lc_update_per(data.data);
+		}
+		
+		const do_lc_update_per = function(ent) {
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent)});	
+
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_update_person_success, []));
+
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
+		const do_lc_update_person_success = function(sharedJson){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				const data = sharedJson[App['const'].RES_DATA];
+				if(data){
+					do_lc_show_entity(data);
+					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
+					pr_ctr_List.do_lc_get_list(true);
+				}
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
 		}
 		
 		//---------------------------------Ajax----------------------------------------------
 		const do_lc_data_check = function(inp, obj) {
 			var data = inp.data;
 		}
-		
+		this.do_lc_cancel = function(){
+			pr_ctr_Main.do_lc_show();
+		}
 		this.do_lc_generate_cats = function(data){
 			var dataGenerated=[];
 			for(var o in data){
