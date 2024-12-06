@@ -1803,7 +1803,7 @@ define([
 			    const appointmentId = $(this).data("appointment-id");
 			 
 			    const appointments = data.appointments || [];
-				const matchedData = appointments.find(item => item.id === appointmentId);
+				const matchedData = appointments.find(item => item.obj.id === appointmentId);
 
 			    if (matchedData) {
 		
@@ -1812,7 +1812,13 @@ define([
 			        const initialeValues = {
 			            obj: matchedData.obj,
 			            members: {},
-			            isCallCalendar  : true
+			            chatSimple 		: true,
+			            isCallCalendar  : true,
+			            currentTyp 		: pr_TYP_CHAT_GROUP_CALENDAR,
+			            lstMsgCurrent 	: [],
+			            begin			: 0,
+						isOwner			: false,
+						isGroupUser		: false,
 			        };
 					members.forEach(member => {
 					    if (member.memberss) { 
@@ -1823,7 +1829,7 @@ define([
 					    }
 					});
 
-			        App.controller.ChatRoom.WebRTC.do_lc_show(initialeValues);
+			        App.controller.ChatRoom.ChatRoomMain.do_lc_show(10,appointmentId);
 			        $("#schedule").addClass("hide")
 			    } else {
 			        console.warn("No matching ID found in data array");

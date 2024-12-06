@@ -5,8 +5,7 @@ define(['jquery'], function($) {
 		var pr_divFooter              = footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"ChatRoomChat";
-		var pr_grpPath				= 'group/nso_chatroom';
+		var pr_grpName				= grpName
 		const tmplName				= App.template.names[pr_grpName];
 		const tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
@@ -243,7 +242,7 @@ define(['jquery'], function($) {
 		}
 		
 		const do_lc_bind_event_for_group = function(){
-			$("#btn_create_entity").off("click").on("click", function(){
+			$("#btn_create_group").off("click").on("click", function(){
 				const data = req_gl_data({
 					dataZoneDom: $("#frm_new_group")
 				});

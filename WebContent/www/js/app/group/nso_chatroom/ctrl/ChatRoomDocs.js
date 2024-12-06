@@ -6,8 +6,7 @@ define(['jquery'], function($) {
 		var pr_divFooter              = footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"ChatRoomChat";
-		var pr_grpPath				= 'group/nso_chatroom';
+		var pr_grpName				= grpName
 		const tmplName				= App.template.names[pr_grpName];
 		const tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------

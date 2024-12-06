@@ -13,17 +13,10 @@ define([
 	
 	'group/nso_chatroom/ctrl/ChatWebRTC',
 	
-	// 'group/nso_chatroom/ctrl/ChatWebChime',
-	// 'group/nso_chatroom/ctrl/ChatWebChime_RTC',
-
-	
 	
 	'text!group/nso_chatroom/tmpl/ChatRoom_Main.html',
 	'text!group/nso_chatroom/tmpl/ChatRoom_Tabs.html',
-	//'text!group/nso_chatroom/tmpl/ChatRoom_NewPost.html',
-	//'text!group/nso_chatroom/tmpl/ChatRoom_PostDetail.html',
-	//'text!group/nso_chatroom/tmpl/ChatRoom_ModPost.html',
-	//'text!group/nso_chatroom/tmpl/ChatRoom_ListPost.html',
+	
 	], function(
 			Login,
 			ChatRoomGroup,
@@ -38,23 +31,14 @@ define([
 			
 			ChatWebRTC,
 			
-			// ChatWebChime,
-			// ChatWebChime_RTC,
-			
-			
-			
 			ChatRoom_Main_Tmpl,
 			ChatRoom_Tab_Tmpl
-			//ChatRoom_NewPost,
-			//ChatRoom_PostDetail,
-			//ChatRoom_ModPost,
-			//ChatRoom_ListPost
 			) {
 
 	var ChatRoomMain     			= function (grpName, header, content, footer) {
-		var pr_divHeader              = header;
-		var pr_divContent             = content;
-		var pr_divFooter              = footer;
+		var pr_divHeader            = header;
+		var pr_divContent           = content;
+		var pr_divFooter            = footer;
 		
 		//------------------------------------------------------------------------------------
 		var pr_grpName				= grpName?grpName:"ChatRoomChat";
@@ -62,23 +46,13 @@ define([
 		const tmplName				= App.template.names[pr_grpName] = {};
 		const tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
-		var self                  = this;
-		var var_lc_TYPE_SHOW      = null;
-		var var_lc_GROUP_ID       = null;
-
-//		var	pr_custom_paths		= {
-//			"css"	: [
-//				"www/css/prj/custom_chat.css",
-//				"www/js/lib/imageviewer/viewer.css"
-//			],
-//			"js"	: [
-//				"https://sdk.amazonaws.com/js/aws-sdk-2.585.0.min.js",
-//				"https://unpkg.com/@ungap/url-search-params",
-//				"https://webrtc.github.io/adapter/adapter-latest.js"
-//			]
-//		};
+		var self                  	= this;
 		
-		this.pr_LST_USER_ONLINE		= [];
+		const pr_TYP_CHAT_VIDEO		= 10;
+		const pr_TYP_CHAT_USER		= 1;
+		const pr_TYP_CHAT_GROUP		= 2;
+		const pr_TYP_CHAT_RELATE	= 3;
+				
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			tmplName.CHATROOM_MAIN										= pr_grpName+ "ChatRoom_Main";
@@ -126,13 +100,10 @@ define([
 			tmplName.CHATROOM_POSTDETAIL								= pr_grpName+ "ChatRoom_PostDetail";
 			tmplName.CHATROOM_MODPOST									= pr_grpName+ "ChatRoom_ModPost";
 			tmplName.CHATROOM_LISTPOST									= pr_grpName+ "ChatRoom_ListPost";									
+			
 			tmplCtrl.do_lc_put_tmplRaw(ChatRoom_Main_Tmpl				, pr_grpName);
 			tmplCtrl.do_lc_put_tmplRaw(ChatRoom_Tab_Tmpl				, pr_grpName);
 			
-		//	tmplCtrl.do_lc_put_tmpl(tmplName.CHATROOM_NEWPOST	    	, ChatRoom_NewPost);
-		//	tmplCtrl.do_lc_put_tmpl(tmplName.CHATROOM_POSTDETAIL		, ChatRoom_PostDetail);
-		//	tmplCtrl.do_lc_put_tmpl(tmplName.CHATROOM_MODPOST			, ChatRoom_ModPost);
-		//	tmplCtrl.do_lc_put_tmpl(tmplName.CHATROOM_LISTPOST			, ChatRoom_ListPost);
 			
 			if (!App.controller.Login){
 				App.controller.Login						= new Login();
@@ -179,41 +150,43 @@ define([
 		}
 
 		var pr_showed		= false;
-		this.do_lc_show = function(){
+		this.do_lc_show = function(typShow, grpId){
 			if (!pr_showed){
-				do_gl_lang_append (pr_grpPath + '/transl', self.do_lc_show_callback);
+				do_gl_lang_append (pr_grpPath + '/transl', self.do_lc_show_callback, [typShow, grpId]);
 				pr_showed = true;
 			}else {
-				self.do_lc_show_callback();
+				self.do_lc_show_callback(typShow, grpId);
 			}
 		};  
 		
-		this.do_lc_show_callback		= function(){
+		this.do_lc_show_callback		= function(typShow, grpId){
 			try { 
 //				App.router.controller.do_lc_append_custom_tags(pr_custom_paths)
 				//----hide menu minichat
 				$("#men_prj_minichat")			. remove();				
 				
 				App.data["HttpSecuHeader"]		= req_gl_LS_SecurityHeaderBearer(App.keys.KEY_STORAGE_CREDENTIAL);
-				const params = req_gl_Url_Params();
-				const {typ, id, typchat} = params;
-				var_lc_GROUP_ID  = params && id ? parseInt(id) : null;
-				var_lc_TYPE_SHOW = params && typ ? parseInt(typ) : null;
-				var_lc_TYPE_CHAT = params && typchat ? parseInt(typchat) : null;
+				const {typ, id}  				= (typShow&&grpId)? {typ:typShow, id:grpId}: req_gl_Url_Params();
+				
+				var var_lc_GROUP_ID  			= id 		? parseInt(id) 		: null;
+				var var_lc_TYPE_SHOW 			= typ 		? parseInt(typ) 	: null;
 				
 				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_MAIN, {user: App.data.user}));
 				$("#div_member, #div_member_wait, #div_post, #div_chat, #div_files, #div_info, #avatar_chat_user, #avatar_chat_group").hide();
 				
 				if (var_lc_GROUP_ID != null || var_lc_TYPE_SHOW != null) {
-					App.controller.ChatRoom.Group.do_lc_show(var_lc_TYPE_SHOW, var_lc_GROUP_ID,var_lc_TYPE_CHAT);
-				} else {
+					App.controller.ChatRoom.Group.do_lc_show(var_lc_TYPE_SHOW, var_lc_GROUP_ID);
+				}else {
 					let typ = localStorage.getItem("nsoGrpChatTyp") ? parseInt(localStorage.getItem("nsoGrpChatTyp")) : null;
-					let id = localStorage.getItem("nsoGrpChatId") 	? parseInt(localStorage.getItem("nsoGrpChatId"))  : null;
+					let id 	= localStorage.getItem("nsoGrpChatId") 	? parseInt(localStorage.getItem("nsoGrpChatId"))  : null;
 					App.controller.ChatRoom.Group.do_lc_show(typ, id);
 				}
-//				do_lc_get_access_key();
-				do_lc_bind_btn_mobile();				
-				do_lc_build_list_message_wait_read();
+				
+				if (var_lc_TYPE_SHOW!= pr_TYP_CHAT_VIDEO){
+					do_lc_bind_btn_mobile();				
+					do_lc_build_list_message_wait_read();
+				}
+
 				$(document).prop('title',$.i18n('prj_project_sidebar_chat'));
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "ChatRoomMain", "do_lc_show", e.toString()) ;
@@ -264,15 +237,16 @@ define([
 				console.log(e);
 			}
 		}
+		
 		this.do_lc_avatar_moblie = function(data){
 			if(data.typ01===200){
-				$("#avatar_chat_user")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_AVATAR_USER_CHAT, {data:data}));
-				$("#avatar_chat_user").show();
-				$("#avatar_chat_group").hide();
+				$("#avatar_chat_user"	).html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_AVATAR_USER_CHAT, {data:data}));
+				$("#avatar_chat_user"	).show();
+				$("#avatar_chat_group"	).hide();
 			}else{
-				$("#avatar_chat_group")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_AVATAR_GROUP_CHAT, {data:data}));
-				$("#avatar_chat_user").hide();
-				$("#avatar_chat_group").show();
+				$("#avatar_chat_group"	).html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_AVATAR_GROUP_CHAT, {data:data}));
+				$("#avatar_chat_user"	).hide();
+				$("#avatar_chat_group"	).show();
 			}
 		}
 		

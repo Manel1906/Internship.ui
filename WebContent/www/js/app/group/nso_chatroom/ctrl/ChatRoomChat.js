@@ -15,8 +15,7 @@ define([
 		var pr_divFooter              = footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"ChatRoomChat";
-		var pr_grpPath				= 'group/nso_chatroom';
+		var pr_grpName				= grpName
 		const tmplName				= App.template.names[pr_grpName];
 		const tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
@@ -47,13 +46,12 @@ define([
 		const pr_TYP_MSG_PRIVATE 		= 200;
 		const pr_TYP_MSG_PUBLIC 		= 201;
 
+		const pr_TYP_CHAT_VIDEO			= 10;
 		const pr_TYP_CHAT_USER			= 1;
 		const pr_TYP_CHAT_GROUP			= 2;
-		const pr_TYP_CHAT_CONTACT		= 3;
+		const pr_TYP_CHAT_RELATE		= 3;
 		const pr_RTC_CHAT_CONTACT		= 4;
 		
-		const TYP_KINESIS_DEACTIVE		= 0;
-		const TYP_KINESIS_ACTIVE		= 1;
 
 		const pr_KEY_ENTER 				= 13;
 		const pr_KEY_ENTER_CTRL			= 10;
@@ -126,7 +124,7 @@ define([
 		var pr_Collect_Mem        = "members";
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
-			pr_ctr_Main 			= App.controller.ChatRoom.Main;
+			pr_ctr_Main 			= App.controller.ChatRoom.Main || App.controller.ChatRoom.ChatRoomMain;
 			pr_ctr_Group 			= App.controller.ChatRoom.Group;
 			pr_ctr_Doc 		     	= App.controller.ChatRoom.Docs;
 			pr_ctr_Post 		    = App.controller.ChatRoom.Post;
@@ -150,12 +148,10 @@ define([
 
 				pr_obj 		= obj;
 				pr_typChat 	= typChat
-				if(typChat != pr_RTC_CHAT_CONTACT){
-					do_lc_init_new_chat	(obj, typChat);
-				}else{
-				initialeValues.currentTyp 		= typChat;
-				}
+				
+				do_lc_init_new_chat	(obj, typChat);
 				do_lc_build_page	(obj, typChat);
+				
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chat", "ChatRoomChat", "do_lc_show", e.toString()) ;
 			}
@@ -181,15 +177,18 @@ define([
 			initialeValues.isGroupUser 		= obj.typ01 === pr_TYP_MSG_PRIVATE;
 			pr_initialeValues_to_search		= initialeValues;
 			pr_index_msg_search_min			= 0;
-
-			do_lc_show_grp_btn_mobile(typChat, initialeValues.obj);
+			
+			if (typChat != pr_TYP_CHAT_VIDEO){
+				do_lc_show_grp_btn_mobile(typChat, initialeValues.obj);
+			}else{
+				$(".grp_btn_mobile").empty();
+			}
 		}
-
 
 		const do_lc_show_grp_btn_mobile = function(typeChat, group){
 			$(".grp_btn_right").show();
 			
-			 if(typeChat === pr_TYP_CHAT_GROUP || group.typ01 ===201){
+			if(typeChat === pr_TYP_CHAT_GROUP || group.typ01 ===201){
 				$("#btn_chat_member").show();
 				$("#btn_chat_member_waiting").show();
 				$("#btn_chat_post").show();
@@ -221,8 +220,8 @@ define([
 				
 				let userChatSubset = {
 				    typ01	: group.typ01,
-				    avatar	: filteredAva.img,
-				    login01	: filteredAva.login
+				    avatar	: filteredAva?.img,
+				    login01	: filteredAva?.login
 				};
 				pr_ctr_Main.do_lc_avatar_moblie(userChatSubset);
 			}
@@ -336,14 +335,14 @@ define([
 		//------------------------------------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------------------------------------------
 
-		const do_lc_show_form_chat = function(){
+		this.do_lc_show_form_chat = function(){
 			$("#div_chat")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_MAIN	, {}));
 
 			if(initialeValues.currentTyp == pr_TYP_CHAT_USER)	initialeValues.obj.name = initialeValues.obj.login01;
-			const isOnline = App.controller.DBoard.DBoardMain.pr_LST_USER_ONLINE.includes(initialeValues.obj.name);
 			$("#div_chat_main_chat").show();
 			if(initialeValues.currentTyp != pr_RTC_CHAT_CONTACT){
-			do_lc_show_chat_header({isOnline});
+				const isOnline = App.controller.DBoard.DBoardMain.pr_LST_USER_ONLINE.includes(initialeValues.obj.name);
+				do_lc_show_chat_header({isOnline});
 			}
 			do_lc_show_chat_footer();
 		}
@@ -427,40 +426,8 @@ define([
 			}
 			
 			
-			/*
-			//Check call kinesis
-			initialeValues.isCallKinesis = false;
-			if(initialeValues.obj.val02 && initialeValues.obj.typ01 == pr_TYP_MSG_PUBLIC){
-				let val02 =JSON.parse(initialeValues.obj.val02);
-				if( val02.typ == TYP_KINESIS_ACTIVE) initialeValues.isCallKinesis = true;
-			}
-			
-			// check master kinesis
-			initialeValues.isMasterKinesis = false;
-			if(initialeValues.obj.val02 && initialeValues.obj.typ01 == pr_TYP_MSG_PUBLIC){
-				let val02 =JSON.parse(initialeValues.obj.val02);
-				if( val02.login == App.data.user.login) initialeValues.isMasterKinesis = true;
-			}else{
-				if(initialeValues.isManager) initialeValues.isMasterKinesis = true;
-			}
-			
-			if(App.data.lstGroupKinesis && App.data.lstGroupKinesis[initialeValues.obj.id] && initialeValues.obj.typ01 == pr_TYP_MSG_PUBLIC){
-				initialeValues.isCallKinesis = true;
-				
-				if(App.data.lstGroupKinesis[initialeValues.obj.id]){
-					initialeValues.isMasterKinesis = false;
-					
-					if(App.data.lstGroupKinesis[initialeValues.obj.id].call && App.data.lstGroupKinesis[initialeValues.obj.id].call == 2) { //call = 2 end call
-						initialeValues.isCallKinesis = false;
-						if(initialeValues.isManager) initialeValues.isMasterKinesis = true;
-					}
-				}
-			}*/
-			
 			$("#div_chat_header").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_HEADER	, 
 					{
-//					isMasterKinesis : initialeValues.isMasterKinesis ,
-//					isCallKinesis 	: initialeValues.isCallKinesis, 
 					canDelete 		: initialeValues.canDelete, 
 					isManager 		: initialeValues.isManager, 
 					isOnline		: isOnline,
@@ -472,12 +439,6 @@ define([
 			do_lc_bind_event_chat_header("#div_chat_header");
 		}
 
-		const initValueCall = {
-				meetingResponse : null,
-				attendeeResponse: null,
-				callCreated		: false,
-		}
-		
 		const do_lc_bind_event_chat_header = (pr_divContent) => {
 			if (!pr_obj.files) pr_obj.files = [];
 			let option	= {
@@ -494,7 +455,6 @@ define([
 			});
 
 			$("#btn_view_info").off("click").on("click", function(){
-//				do_lc_get_total_msg(initialeValues);
 				do_lc_show_popup_info_group(initialeValues);
 			});
 
@@ -507,35 +467,6 @@ define([
 				App.controller.ChatRoom.WebRTC.do_lc_show		(initialeValues);
 			});
 			
-			// $("#btn_call_video").off("click").on("click", () => {
-			// 	var gApi =false;
-			// 	try{
-			// 		gApi = gapi.auth2.getAuthInstance().isSignedIn.get();
-			// 	}catch(e){}
-				
-			// 	if (!gApi)
-			// 		window.open ("https://meet.google.com/new", "_blank");
-			// 	else{
-			// 		var options = {
-			// 				summary 	: "Call from " + App.data.user.login + (App.data.user.email?"(" + App.data.user.email + ")":""),
-			// 				location 	: '',
-			// 				description : '',
-			// 		};
-			// 		do_gl_GoogleAPI_newMeeting(options, function(event){
-			// 			//do_gl_show_Notify_Msg_Info('Event created: ' + event.htmlLink);
-			// 			//do_gl_show_Notify_Msg_Info('Event created: ' + event.hangoutLink);
-			// 			var img = `<img src="www/js/lib/hnv-emoji/img/blank.gif" class="img" style="display:inline-block;width:25px;height:25px;background:url('www/js/lib/hnv-emoji/img/emoji_spritesheet_2.png') -200px -75px no-repeat;background-size:825px 175px;" alt=":date:">`
-			// 			var img = '<i class="bx bx-slideshow"></i>' 
-			// 				$('#inp_msg').html(img + '&nbsp;&nbsp;' + event.hangoutLink);
-			// 			do_lc_send_msg_chat({files:[]});	
-			// 			$('#inp_msg').html('');
-						
-						
-			// 		}) ;
-			// 	}
-					
-			// });
-
 			$("#btn_delete_group").off("click").on("click", () => {
 				do_lc_del_group();
 			})
@@ -725,21 +656,11 @@ define([
 			}
 		}
 
-		/*	const do_lc_get_list_show_after_search (){
-			let lstMsgClosest = {};
-			lstMsgClosest.lstMessage 	= lstMsgCurrent.slice(begin, end).reverse();
-			lstMsgClosest.hasMsg 		= true;
-			lstMsgClosest.user 			= initialeValues.obj;
-			lstMsgClosest.lstMessage[i].body = `<div class='text-highlight' > ${lstMsgCurrent[i].body} </div>`
-		}*/
-
 		
 		//-------------------------------------------------------------------------------
 		//----SEARCH---------------------------------------------------------------------
 		//-------------------------------------------------------------------------------
 		const do_search_chat = function (){
-			//do_lc_get_total_msg(initialeValues);
-			
 			const msg 		= $("#inp_search_chat").val() || "";
 
 			var userData	= {user: initialeValues.obj, lstMessage: [...initialeValues.lstMsgCurrent], hasMsg: true};
@@ -864,49 +785,6 @@ define([
 			}
 		}
 		
-		//-------------------------------------------------------------------------------
-		const do_lc_get_total_msg = function(initialeValues){
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET_TOTAL, {id : initialeValues.obj.id});	
-
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_after_get_msg_total, [initialeValues]));
-
-			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-			App.network.do_lc_ajax_bg(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
-		}
-
-		const do_lc_after_get_msg_total = function(sharedJson, initialeValues){
-			if(can_gl_AjaxSuccess(sharedJson)) {
-				initialeValues.obj.countMsg = sharedJson.res_data;
-				// do_lc_get_total_file(initialeValues);
-				do_lc_show_popup_info_group(initialeValues)
-			}else{
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
-			}
-		}
-
-		//-------------------------------------------------------------------------------
-		//------FILE---------------------------------------------------------------------
-		//-------------------------------------------------------------------------------
-		const do_lc_get_total_file = function(initialeValues){
-			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceTpyDocument", "SVCountFileChat", {id : initialeValues.obj.id});	
-
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_after_get_file_total, [initialeValues]));
-
-			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-			App.network.do_lc_ajax_bg(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
-		}
-
-		const do_lc_after_get_file_total = function(sharedJson, initialeValues){
-			if(can_gl_AjaxSuccess(sharedJson)) {
-				initialeValues.obj.countFile = sharedJson.res_data;
-				do_lc_show_popup_info_group(initialeValues)
-			}else{
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
-			}
-		}
-
 		//-------------------------------------------------------------------------------
 		//----------GROUP INFO------------------------------------------------------------
 		//-------------------------------------------------------------------------------
@@ -1061,44 +939,44 @@ define([
 
 		const do_lc_bind_event_send_request = function(){
 			$("#btn_join_group").off("click").on("click", function(){
-				do_lc_send_join_group();
+				do_lc_join_group_private();
 			})
 
 			$("#btn_cancel_join").off("click").on("click", function(){
 				do_lc_cancel_join_group();
 			})
 
-			$("#btn_refresh_join").off("click").on("click", () => do_lc_get_relation_user_group());
+			$("#btn_refresh_join").off("click").on("click", () => do_lc_get_myRoleInGrp());
 		}
 
-		const do_lc_send_join_group_public = function(){
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_JOIN_PUBLIC, {groupId: initialeValues.obj.id});	
+		const do_lc_join_group_public = function(){
+			const ref 			= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_JOIN_PUBLIC, {groupId: initialeValues.obj.id});	
 
 			const fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_send_join_group_public_response, []));
+			fSucces.push(req_gl_funct(null, do_lc_join_group_public_callback, []));
 
 			const fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 			App.network.do_lc_ajax_bg (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 		
-		const do_lc_send_join_group_public_response = function(sharedJson){
+		const do_lc_join_group_public_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
-				do_lc_get_relation_user_group();
+				do_lc_get_myRoleInGrp();
 			} else {   
 			}
 		}
 
-		const do_lc_send_join_group = function(){
+		const do_lc_join_group_private = function(){
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_JOIN, {groupId: initialeValues.obj.id});	
 
 			const fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_getSend_response, []));
+			fSucces.push(req_gl_funct(null, do_lc_join_group_private_callback, []));
 
 			const fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 			App.network.do_lc_ajax_bg (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
-		const do_lc_getSend_response = function(sharedJson){
+		const do_lc_join_group_private_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				$("#div_chat")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_GROUP_INFO	, {obj : initialeValues.obj, hasJoin: true}));
 			} else {   
@@ -1111,13 +989,13 @@ define([
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_CANCEL_JOIN, {groupId: initialeValues.obj.id});	
 
 			const fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_getSendCancel_response, []));
+			fSucces.push(req_gl_funct(null, do_lc_cancel_join_group_callback, []));
 
 			const fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 			App.network.do_lc_ajax_bg (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
-		const do_lc_getSendCancel_response = function(sharedJson){
+		const do_lc_cancel_join_group_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				$("#div_chat")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_GROUP_INFO	, {obj : initialeValues.obj}));
 				do_lc_bind_event_send_request();
@@ -1182,11 +1060,11 @@ define([
 
 				if((!msg || !msg.length)&&!lstFile)	return false;
 				
-				do_lc_send_msg (msg, lstFile?lstFile.files:null);
+				do_lc_send_msg (msg, lstFile?lstFile.files:null,audio);
 			} else {
 
 				const msg 		= htmlImg + cont;
-				do_lc_send_msg (msg, lstFile?lstFile.files:null);
+				do_lc_send_msg (msg, lstFile?lstFile.files:null,audio);
 			}
 
 		}
@@ -1215,9 +1093,10 @@ define([
 					do_lc_stopRecording(true);
 					return;
 				};
-
+				
 				const lstFile 	= fileData;
-				do_lc_send_msg_chat(lstFile);	
+				do_lc_send_msg_chat(lstFile);
+
 
 				$('#inp_msg').html('');
 				$('.chats-text-cont div').remove();	
@@ -1235,17 +1114,6 @@ define([
 				if (e.keyCode == pr_KEY_ENTER && e.shiftKey){
 					return;
 				}
-//				if (e.keyCode == pr_KEY_ENTER_CTRL && e.ctrlKey ){
-//				var cont = $('#inp_msg').html() + "<br>";
-//				$('#inp_msg').html(cont); 
-//				$('#inp_msg').height("100px");
-
-//				var range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
-//				range.moveToElementText(document.getElementById("inp_msg"));//Select the entire contents of the element with the range
-//				range.collapse(false);//collapse the range to the end point. false means collapse to end rather than the start
-//				range.select();
-//				return;
-//				}
 
 				if (e.keyCode == pr_KEY_ENTER){
 //					$("#btn_send_msg").click();
@@ -1255,8 +1123,6 @@ define([
 					do_lc_send_msg_chat(lstFile);
 
 					$('#inp_msg').html('');
-//					$('#inp_msg').height("35px");
-
 					$('.chats-text-cont div').remove();	
 				} 
 			})
@@ -1349,19 +1215,6 @@ define([
 			})
 
 			$("#switch_cam").off("click").click(() => {
-//				if (camMode == "user") {
-//					webcam.set('constraints',{
-//						facingMode: "environment"
-//					});
-//					camMode = "environment";
-//				} else {
-//					webcam.set('constraints',{
-//						facingMode: "user"
-//					});
-//					camMode = "user";
-//				}
-//				webcam.attach( '#my_camera' );
-				
 				webcam.reset();
 				if (camMode == "user") {
 					webcam.set('constraints',{
@@ -1542,11 +1395,11 @@ define([
 		const do_lc_build_page = function(obj, typChat){
 //			if(initialeValues.currentTyp == pr_TYP_CHAT_USER){
 //			do_lc_show_form_chat();
-//			do_lc_get_content_chat();
+//			self.do_lc_get_content_chat();
 //			} else if(initialeValues.currentTyp == pr_TYP_CHAT_GROUP){
 //			}
 
-			do_lc_get_relation_user_group();
+			do_lc_get_myRoleInGrp(obj, typChat);
 		}
 
 		//--------------------------------------------------------------------------------------
@@ -1637,11 +1490,11 @@ define([
 			}
 		}
 		//--------------------------------------------------------------------------------------
-		const do_lc_get_content_chat = function(initialeValues, doScroll){
+		this.do_lc_get_content_chat = function(initialeValues, doScroll){
 			const {obj} 	= initialeValues;
 
 			//---show from IndexedDB first
-			pr_ctr_IndexedDB.do_lc_req_collection(pr_Collect_Msg, obj.key, function(res){
+			pr_ctr_IndexedDB.do_lc_req_collection(pr_Collect_Msg, obj.key || obj.id, function(res){
 				
 				if (res && res.data){
 					do_lc_showAndCheck_chatroom   (initialeValues, res.data, false, doScroll, false);
@@ -1695,7 +1548,7 @@ define([
 			const {obj} 	= initialeValues;
 			if (forAppend && data.length==0) return;
 			
-			if (data.length==0){
+			if (data.length==0 && initialeValues.lstMsgCurrent.length === 0){
 				$("#div_chat_msg")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_CONTENT	, {}));
 				$("#btn_load_more")	.hide();
 				return;
@@ -1917,20 +1770,6 @@ define([
 					window.open(path, "_blank");
 				}
 			})
-
-//			$(".div-chat-img-parent").off("click").on("click", function() {	
-//				let path01 = $(this).find('img').attr('src');
-//				let isImage = do_lc_check_image(path01);
-//				if(isImage){
-//					App.MsgboxController.do_lc_show({
-//						content 	: `<img src="${path01}" class="img_group_chat_popup"/>`,
-//						autoclose	: true,
-//						buttons		: "none",
-//					});	
-//				}else{
-//					window.open(path, "_blank");
-//				}
-//			})
 		}
 		
 		const do_lc_pushTo_zoneChat = function(msg){
@@ -1969,6 +1808,7 @@ define([
 			}
 			//-----------------------------------------------
 			try{
+				console.log ("----Init socket");
 				App.controller.ChatRoom.Socket.do_lc_init();
 			}catch(e){
 				console.log(e);
@@ -1979,15 +1819,15 @@ define([
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_DEL, {id, dt});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_del_msg_callback, []));
+			fSucces.push(req_gl_funct(null, do_lc_del_msg_callback, [group.id, id]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 			App.network.do_lc_ajax_bg(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 
-		const do_lc_del_msg_callback = function(sharedJson){
+		const do_lc_del_msg_callback = function(sharedJson, grpId, msgId){
 			if(can_gl_AjaxSuccess(sharedJson)) {
-				//const a = 3;
+				self.do_lc_del_msg_socket(grpId, msgId);
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 			}
@@ -2002,6 +1842,7 @@ define([
 			
 			//-----------------------------------------------
 			try{
+				console.log ("----Init socket");
 				App.controller.ChatRoom.Socket.do_lc_init();
 			}catch(e){
 				console.log(e);
@@ -2016,10 +1857,11 @@ define([
 			App.network.do_lc_ajax_bg(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		
-		const do_lc_send_msg = function(msg, files){
+		const do_lc_send_msg = function(msg, files,audio){
 			var inf05 = [];
-			for (var i in files){
-				var fi = files[i];
+			var sourceArr = files && files.length > 0 ? files : audio;
+			for (var i in sourceArr){
+				var fi = sourceArr[i];
 				var fObj = {"id" : fi.id};//fname and furl will be updated in sv side
 				inf05.push(fObj);
 			}		
@@ -2056,28 +1898,23 @@ define([
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_NEW, cond);	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_send_msg_callback, [files]));
+			fSucces.push(req_gl_funct(null, do_lc_send_msg_callback, []));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 			App.network.do_lc_ajax_bg(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 			
 			
 			try{
+				console.log ("----Init socket");
 				App.controller.ChatRoom.Socket.do_lc_init();
 			}catch(e){
 				console.log(e);
 			}
 		}
 
-		const do_lc_send_msg_callback = function(sharedJson, files){
+		const do_lc_send_msg_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {	
-				
-				/*
-				const data 			= sharedJson[App['const'].RES_DATA];
-				const {obj} 		= initialeValues;
-				let oldMessagesCont = await pr_ctr_IndexedDB.do_lc_req_messages(obj.id, obj.ref, "grp") || {}
-				oldMessagesCont.data.push(data)
-				pr_ctr_IndexedDB.do_lc_update_messages(obj.id, obj.ref, "grp", oldMessagesCont.data)*/
+				self.do_lc_get_content_chat(initialeValues, true);
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 			}
@@ -2105,9 +1942,6 @@ define([
 		}
 		
 		
-		
-		
-
 		function do_lc_getExtension_from_name(filename) {
 			var parts = filename.split('.');
 			return parts[parts.length - 1];
@@ -2130,44 +1964,57 @@ define([
 			return false;
 		}
 
-		
-
-		const do_lc_get_relation_user_group = function(){
-			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_ROLE, {groupId: initialeValues.obj.id});	
+		const do_lc_get_myRoleInGrp = function(obj, typChat){
+			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_ROLE, {groupId: initialeValues.obj?.id});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_getRole_response, []));
+			fSucces.push(req_gl_funct(null, do_lc_get_myRoleInGrp_callback, [obj, typChat]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 			App.network.do_lc_ajax_bg (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
-		const do_lc_getRole_response = function(sharedJson){
+		const do_lc_get_myRoleInGrp_callback = function(sharedJson, obj, typChat){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data 		= sharedJson[App['const'].RES_DATA];
 				if(data){
+					if (typChat == pr_TYP_CHAT_VIDEO){
+						pr_ctr_Member	.do_lc_show(initialeValues, false, function(){ //---callback after load member
+							App.controller.ChatRoom.WebRTC.do_lc_show		(initialeValues);
+						});
+						
+						return;
+					}
+										
+					let isManager = false;
+					isManager = (data.typ == 1 || data.typ == 0);
+					
 					if(data.stat === 1){
-						do_lc_show_form_chat();	
+					//	do_lc_show_form_chat();	
 						
 						pr_ctr_Member	.do_lc_show(initialeValues);
 						pr_ctr_Doc		.do_lc_show(initialeValues.obj);
-						pr_ctr_Post		.do_lc_show(initialeValues.obj);
+						pr_ctr_Post		.do_lc_show(initialeValues.obj,isManager);
 						
-						do_lc_get_content_chat(initialeValues);
+					//	self.do_lc_get_content_chat(initialeValues);
 						
-//						self.do_lc_show_messages_fromIndexedDB();
+					//	self.do_lc_show_messages_fromIndexedDB();
 						
 					} else {
-						do_lc_show_info_group(true);
-						$("#div_member, #div_member_wait, #div_member_wait, #div_files, #div_post").html('');
+						self.do_lc_show_form_chat();	
+						self.do_lc_get_content_chat(initialeValues);
+					//	do_lc_show_info_group(true);
+					//	$("#div_member, #div_member_wait, #div_member_wait, #div_files, #div_post").html('');
 					}
+					
 				} else {
 					do_lc_show_info_group();
 					$("#div_member, #div_member_wait, #div_member_wait, #div_files, #div_post").html('');
 				}
+				
 			} else {  
 				if (initialeValues.obj.typ02 == CHAT_GROUP_PUBLIC) {
-					do_lc_send_join_group_public();
+					do_lc_join_group_public();
 				} else {
 					do_lc_show_info_group();
 				}
@@ -2433,11 +2280,12 @@ define([
 			if (can_gl_AjaxSuccess(sharedJson)) {
 				let data = sharedJson[App['const'].RES_DATA];
 				if(data && data.length){
-					for(let item of data){
-						var audio = `<audio class="audio_recorder" controls src='${item.path01}'></audio>`;
-					}
+			//		for(let item of data){
+			//			let modifiedUrl = item.name.replace(/D:\\tmp\\/g, '').replace(/\\/g, '/');
+			//			var audio = `<audio class="audio_recorder" controls src='${modifiedUrl}'></audio>`;
+			//		}
 				}
-				do_lc_send_msg_chat({ files: [] }, audio);
+				do_lc_send_msg_chat({ files: [] }, data);
 			} else {
 				do_gl_show_Notify_Msg_Error ($.i18n("common_err_ajax"));	
 			}
@@ -2482,7 +2330,8 @@ define([
 			const {obj} 	= initialeValues;
 			pr_ctr_IndexedDB.do_lc_delete_collection(pr_Collect_Msg, obj.key);
 			initialeValues.lstMsgCurrent=[];
-			do_lc_get_content_chat(initialeValues);
+			
+			self.do_lc_get_content_chat(initialeValues);
 		}
 	};
 

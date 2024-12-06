@@ -8,10 +8,9 @@ define(['jquery',
 		var pr_divFooter = footer;
 
 		//------------------------------------------------------------------------------------
-		var pr_grpName = grpName ? grpName : "ChatRoomChat";
-		var pr_grpPath = 'group/nso_chatroom';
-		const tmplName = App.template.names[pr_grpName];
-		const tmplCtrl = App.template.controller;
+		var pr_grpName				= grpName;
+		const tmplName 				= App.template.names[pr_grpName];
+		const tmplCtrl 				= App.template.controller;
 		//------------------------------------------------------------------------------------
 		//------------------variable pagination post------------------------------------------------------
 		const pr_NUMBER_RECORD 		= 8;
@@ -44,6 +43,7 @@ define(['jquery',
 		const var_lc_STAT_VALIDE    = 2;
 		var   var_lc_GROUP_ID       = null;		
 		const var_lc_GROUP_TYP 		= 5000;
+		var pr_KEY_MANAGER 		= false;
 		var   self                  = this;
 		let files					= {files: []};
 		//--------------------APIs--------------------------------------//
@@ -61,6 +61,7 @@ define(['jquery',
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show = function(obj, showDetail) {      //typChat user or group         
 			try {
+				pr_KEY_MANAGER = showDetail
 				do_lc_load_view(obj, showDetail);
 			} catch (e) {
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chat", "ChatRoomPost", "do_lc_show", e.toString()) ;
@@ -102,6 +103,10 @@ define(['jquery',
 			//----------------------------------------------------------------------------		
 			$("#btn_new_post").off('click').click(() => {
 				App.MsgboxController.do_lc_close();
+				if(!pr_KEY_MANAGER){
+					do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"));
+					return;
+				}
 				App.MsgboxController.do_lc_show({
 					title: $.i18n("prj_project_new_post"),
 					content: tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_NEWPOST, {v01:pr_ENT_TPY_GROUP, v02:obj.id}),
@@ -130,13 +135,17 @@ define(['jquery',
 
 			//-----------------------------------------------------------------------------
 			$('#btn_lst_post').off("click").click(() => {
+				if(!pr_KEY_MANAGER){
+					do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view_post_all"));
+					return;
+				}
 				do_lc_get_all_posts(obj)
 			});
 		}
 		
 		const do_lc_get_all_posts = (obj) => {
 			let multiStat = [pr_STAT_VALIDATED].join(",");
-			let ref = req_gl_Request_Content_Send_With_Params("ServiceNsoPost", "SVLstPage",
+			let ref = req_gl_Request_Content_Send_With_Params("ServiceNsoPost", "SVLstPageArtical",
 				{ entId: obj.id, entTyp: pr_ENT_TPY_GROUP, searchkey: pr_SEARCH_KEY, multiStat, multiLang, type: pr_TYP_POST, withAva: true,  forced:true  });
 
 			let fSucces = [];
@@ -151,7 +160,7 @@ define(['jquery',
 				let data = sharedJson[App['const'].RES_DATA];
 				do_lc_show_all_post	(data);
 			} else {
-				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"));
+				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view_post"));
 			}
 		}
 		const do_lc_show_all_post = obj => {
@@ -179,7 +188,7 @@ define(['jquery',
 					
 		}
 		const do_lc_create_prj_post = (data, obj)=> {
-			let ref = req_gl_Request_Content_Send("ServiceNsoPost", "SVNew");
+			let ref = req_gl_Request_Content_Send("ServiceNsoPost", "SVNewArtical");
 			let fSucces = [];
 			fSucces.push(req_gl_funct(null, do_lc_after_new_posts, []));
 
@@ -228,7 +237,7 @@ define(['jquery',
 
 		const do_lc_get_posts = (obj) => {
 			let multiStat = [pr_STAT_VALIDATED].join(",");
-			let ref = req_gl_Request_Content_Send_With_Params("ServiceNsoPost", "SVLstPage",
+			let ref = req_gl_Request_Content_Send_With_Params("ServiceNsoPost", "SVLstPageArtical",
 				{ entId: obj.id, entTyp: pr_ENT_TPY_GROUP, searchkey: pr_SEARCH_KEY, multiStat, multiLang, type: pr_TYP_POST, withAva: true, forced:true });
 
 			let fSucces = [];
@@ -265,11 +274,11 @@ define(['jquery',
 //-----------------------------------------------------------------------------------------------------------------------------------
 		
 		const do_lc_bind_btn_slide_post = (args) => {
-   	 $(".offer-item").off("click").on("click", function() {
-        let { id } = $(this).data();
-        do_lc_get_post(id);
-    	});
-	};
+		   	 $(".offer-item").off("click").on("click", function() {
+		        let { id } = $(this).data();
+		        do_lc_get_post(id);
+		    	});
+		};
 		const do_lc_get_post = (id) => {
 			const idObj=id;
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoPost", "SVGetPost", {id, forced:true});	
@@ -295,6 +304,11 @@ define(['jquery',
 					autoclose	: true,
 					buttons		: "none",
 				});
+			if(!pr_KEY_MANAGER){
+				$("#btn_modify").addClass("hide")
+				$("#btn_star").addClass("hide")
+				$("#btn_del").addClass("hide")
+			}
 			
 			do_lc_bind_event(obj,idObj);
 		}
@@ -368,7 +382,7 @@ define(['jquery',
 								lab			: $.i18n("common_btn_ok"),
 								funct		: function () {do_lc_delete_post(idObj);},
 								autoclose	: true,
-								classBtn	: "btn-primary"
+								classBtn	: "btn-danger"
 							},
 							NO: {
 								lab		:  $.i18n("common_btn_cancel"),
@@ -415,7 +429,7 @@ define(['jquery',
 					
 		}
 		const do_lc_modify_nso_post = (data, obj) => {
-				let ref = req_gl_Request_Content_Send_With_Params("ServiceNsoPost", "SVModPost");
+				let ref = req_gl_Request_Content_Send_With_Params("ServiceNsoPost", "SVModArtical");
 
 				let fSucces = [];
 				fSucces.push(req_gl_funct(null, do_lc_after_mod_posts, []));
@@ -434,14 +448,14 @@ define(['jquery',
 				do_lc_get_posts	(data)
 			}
 			else {
-				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"));
+				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_modify_post"));
 			}
 			
 		}
 		
 	//---------------------------------------------------------------------------------------------------------------
 		const do_lc_delete_post 	= function (id){
-			var ref 		= req_gl_Request_Content_Send("ServiceNsoPost", "SVDel");	
+			var ref 		= req_gl_Request_Content_Send("ServiceNsoPost", "SVDelArtical");	
 			ref.id			= id;
 			
 			var lock 		= {};			

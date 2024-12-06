@@ -1,5 +1,6 @@
 define(['jquery'], function($) {
-	const PrjSocketController = function () {
+	
+	const EntitySocket = function () {
 		var self						= this;
 		var pushSocket 					= null;
 		var urlConn						= null;
@@ -7,11 +8,6 @@ define(['jquery'], function($) {
 		var pr_socket_status			= 0;
 		var pr_socket_time				= 0;
 
-		var pr_receive                  = false;
-		var pr_inVideoCall 				= false;
-		var pr_isMaster                 = false;
-		var pr_keepConn					= null;
-		
 		const TIME_SLEEP_60S            = 60000;
 		const TIME_SLEEP_10S            = 10000;
 		const TIME_SLEEP_05S            =  5000;
@@ -130,6 +126,7 @@ define(['jquery'], function($) {
 			return can_lc_Connexion();
 		}
 		
+		var pr_keepConn = null;
 		//----------------------------------------------------------------
 		const do_lc_initSocket = function(){
 			try{
@@ -257,6 +254,11 @@ define(['jquery'], function($) {
 			case "VIDEO_CALL_SIGNAL"	: //---receive signal from offer and create a peer to receive stream
 			case "VIDEO_CALL_SEND"		: //---The offer is ready 
 			case "VIDEO_CALL_END"		: //---I'm out
+			
+			case "VIDEO_CALL_START_SHARE"	://--someone share his screen
+			case "VIDEO_CALL_SEND_SHARE"	://--viewer is ready to receive the stream
+			case "VIDEO_CALL_SIGNAL_SHARE"	:
+							
 				App.controller.ChatRoom.WebRTC.do_lc_msg_In(response);
 				break;	
 				//---------------------------------------------------------
@@ -286,11 +288,19 @@ define(['jquery'], function($) {
 				if (msgContent.inf05){
 					msgContent.inf05 = JSON.parse(msgContent.inf05);
 				}
+				for (let key in msgContent.inf05) {
+		            let file = msgContent.inf05[key];
+		            if (file[0].fUrl && file[0].fUrl.endsWith('.wav')) {
+		                file[0].fUrlAudio = file[0].fUrl;
+		                delete file[0].fUrl;
+		                msgContent.inf04 = null
+		            }
+	        	}
 			}catch(e){
 				msgContent.inf05 = null;
 			}
 
-			if(VIEW_PART ===  App.router.part.PRJ_CHATROOM){
+			if(VIEW_PART ===  App.router.part.PRJ_CHATROOM || VIEW_PART ===  App.router.part.PRJ_APPOINTMENT_LIST){
 				App.controller.ChatRoom.Chat.do_lc_push_msg_socket(msgContent);
 			} else {
 				$("#span_new_msg"		).removeClass("hide");
@@ -336,5 +346,5 @@ define(['jquery'], function($) {
 		
 	};
 
-	return PrjSocketController;
+	return EntitySocket;
 });

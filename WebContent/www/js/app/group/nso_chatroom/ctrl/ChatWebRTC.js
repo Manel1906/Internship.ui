@@ -2,39 +2,30 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 
 	const ChatWebRTC 	= function (grpName, header, content, footer) {
 		
-		var pr_divHeader              = header;
-		var pr_divContent             = content;
-		var pr_divFooter              = footer;
+		var pr_divHeader              	= header;
+		var pr_divContent             	= content;
+		var pr_divFooter              	= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName                = grpName?grpName:((new Date()).getTime()+"");
-		var tmplName                  = App.template.names[pr_grpName];
-		var tmplCtrl                  = App.template.controller;
+		var pr_grpName					= grpName;
+		var tmplName                  	= App.template.names[pr_grpName];
+		var tmplCtrl                  	= App.template.controller;
 		//------------------------------------------------------------------------------------
 
-		const pr_SERVICE_CLASS		= "ServiceMsgMessage"; //to change by your need
-		const pr_SV_LIST			= "SVMsgChatLst";
+		const pr_SERVICE_CLASS			= "ServiceMsgMessage"; //to change by your need
+		const pr_SV_LIST				= "SVMsgChatLst";
 		//------------------variable pagination post------------------------------------------------------
-		const pr_TYP_MSG_PRIVATE 	= 200;
-		const pr_TYP_MSG_PUBLIC 	= 201;
-		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroupChat";
-		const pr_SV_GROUP_NEW				= "SVNewRoomCalendar"; 
-		const pr_TYP_CHAT_USER				= 1;
-		const pr_TYP_CHAT_GROUP				= 2;
-		const pr_TYP_CHAT_GROUP_CALENDAR	= 4;
-
-		const pr_ROLE_MASTER		= "master";
-		const pr_ROLE_VIEWER		= "viewer";
-		const pr_TIME_OUT_MASTER	= 1 * 60 * 1000; // 1 minutes
-		const pr_TIME_OUT_VIEWER	= 30 * 1000; // 1 minutes
-		var var_TIME_OUT_MASTER		= null;
-		var var_TIME_OUT_VIEWER		= null;
+		const pr_TYP_CHAT_USER			= 1;
+		const pr_TYP_CHAT_GROUP			= 2;
+		
+		const pr_ROLE_MASTER			= "master";
+		const pr_ROLE_VIEWER			= "viewer";
+		
+		const pr_TIME_OUT_MASTER		= 1 * 60 * 1000; // 1 minutes
+		const pr_TIME_OUT_VIEWER		= 30 * 1000; // 1 minutes
+		var var_TIME_OUT_MASTER			= null;
+		var var_TIME_OUT_VIEWER			= null;
 		//------------------controllers------------------------------------------------------
-		var pr_ctr_Main 			= null;
-		var pr_ctr_User 			= null;
-		var pr_ctr_Member			= null;
-		var pr_ctr_Chat 			= null;
-		var pr_ctr_Group 			= null;
 		
 		
 		const pr_rtc_configuration  	= {
@@ -54,29 +45,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 						urls		: "turn:openrelay.metered.ca:443?transport=tcp",
 						username	: "openrelayproject",
 						credential	: "openrelayproject"
-					}/*, {
-						urls		: "stun:stun.relay.metered.ca:80",
-					},
-					{
-						urls		: "turn:global.relay.metered.ca:80",
-						username	: "a0901b9930e7be19911ae5ce",
-						credential	: "uwGYoTYOUpN6P+wr",
-					},
-					{
-						urls		: "turn:global.relay.metered.ca:80?transport=tcp",
-						username	: "a0901b9930e7be19911ae5ce",
-						credential	: "uwGYoTYOUpN6P+wr",
-					},
-					{
-						urls		: "turn:global.relay.metered.ca:443",
-						username	: "a0901b9930e7be19911ae5ce",
-						credential	: "uwGYoTYOUpN6P+wr",
-					},
-					{
-						urls		: "turns:global.relay.metered.ca:443?transport=tcp",
-						username	: "a0901b9930e7be19911ae5ce",
-						credential	: "uwGYoTYOUpN6P+wr",
-					},*/]
+					}]
 		};
 		
 		const pr_mediaConstraints = {
@@ -89,28 +58,30 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				
 		};
 		
+		
 		//--------------------------------------------------------------------------
-		async function do_gl_RequestPost(url, header, data) {
-			const response = await fetch(url, {
-				method	: "POST",
-				headers	: header,
-				body	: JSON.stringify(data),
-			});
-			return response.json();
-		}
-		//--------------------------------------------------------------------------
-		let pr_rtc_stream 		= null;
-		let pr_rtc_video 		= null;
+		let pr_rtc_routeWhenClose	= {
+			route	: "VI_MAIN/prj_chatroom", 
+			url		: "view_prj_chat_room.html"
+		};
+		let pr_rtc_appointment_routeWhenClose	= {
+			route	: "VI_MAIN/prj_appointment_list", 
+			url		: "view_prj_appointment_list.html"
+		};
 		
-		let pr_rtc_stream_share	= null;
-		let pr_rtc_video_share	= null;
+		let pr_rtc_stream 			= null;
+		let pr_rtc_video 			= null;
 		
-		let pr_rtc_peers		= {};
-		let pr_rtc_peers_share	= {};
+		let pr_rtc_stream_share		= null;
+		let pr_rtc_video_share		= null;
+		let pr_rtc_stream_cliId		= null;
 		
-		let pr_rtc_screen 		= 0;
-		let pr_rtc_chat 		= 4;
-		let pr_hasInit			= false;
+		let pr_rtc_peers			= {};
+		let pr_rtc_peers_share		= {};
+		
+		let pr_rtc_screen 			= 0;
+		let pr_rtc_chat 			= 4;
+		let pr_hasInit				= false;
 		const do_lc_getRandomClientId = () => Math.random().toString(36).substring(2).toUpperCase();
 
 
@@ -132,7 +103,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function({ obj, currentTyp, members,isCallCalendar }, am_master=true){              
+		this.do_lc_show = function({ obj, currentTyp, members }, am_master=true){              
 			try{
 				pr_rtc_screen		= 0;
 				pr_hasInit 			= false;
@@ -141,15 +112,25 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				pr_rtc_peers		= {};
 				pr_rtc_peers_share	= {};
 				
+				if (localStorage["rtcRouteWhenClose"]) pr_rtc_appointment_routeWhenClose = localStorage["rtcRouteWhenClose"];
+				
 				$("#div_chat_all"	).remove();
 				$("#div_video_call"	).show();
 				
-				do_lc_init_ServerCfg ({obj, currentTyp, members, isCallCalendar}, am_master);
+				do_lc_init_ServerCfg ({obj, currentTyp, members}, am_master);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chat", "ChatWebRTC", "do_lc_show", e.toString()) ;
 			}
 		};
-		
+		//--------------------------------------------------------------------------
+//		async function do_gl_RequestPost(url, header, data) {
+//			const response = await fetch(url, {
+//				method	: "POST",
+//				headers	: header,
+//				body	: JSON.stringify(data),
+//			});
+//			return response.json();
+//		}
 //		var do_lc_init_ServerCfg = function ({obj, currentTyp, members, isCallCalendar}, am_master){
 //			do_gl_RequestPost(
 //					"https://rtc.live.cloudflare.com/v1/turn/keys/cdf9cd/credentials/generate", 
@@ -197,17 +178,17 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 //				);
 //		}
 		
-		const do_lc_init_ServerCfg = ({obj, currentTyp, members, isCallCalendar}, am_master) => {
+		const do_lc_init_ServerCfg = ({obj, currentTyp, members}, am_master) => {
 			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceAutCloudflare", "SVGetRTC");
 
 			const fSucces 	= [];
-			fSucces.push(req_gl_funct(null, do_lc_init_ServerCfg_callback, [{obj, currentTyp, members, isCallCalendar}, am_master]));
+			fSucces.push(req_gl_funct(null, do_lc_init_ServerCfg_callback, [{obj, currentTyp, members}, am_master]));
 
 			const fError = req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);
 			App.network.do_lc_ajax_bg(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 
-		const do_lc_init_ServerCfg_callback = function(sharedJson, {obj, currentTyp, members, isCallCalendar}, am_master) {
+		const do_lc_init_ServerCfg_callback = function(sharedJson, {obj, currentTyp, members}, am_master) {
 			if (can_gl_AjaxSuccess(sharedJson)) {
 				var result 	= JSON.parse(sharedJson[App['const'].RES_DATA]);
 				var urls 	= result.iceServers.urls;
@@ -226,7 +207,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			} 
 			//---use the sv cfg default if api failed
 
-			do_lc_webRTC_initValue(obj, currentTyp, members, isCallCalendar, am_master);
+			do_lc_webRTC_initValue(obj, currentTyp, members, am_master);
 
 			do_lc_Page_Main_build();
 
@@ -244,10 +225,19 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				//--------------------------------------------------------------
 			case "VIDEO_CALL_START"	: //---some one has begun chat video, I prepare peer to communicate
 				do_lc_webRTC_addPeer (response.payLoad, false, initialeValues);
+				
+				if (pr_rtc_screen){ //--if am sharing my screen, then send again notification
+					const msgOut = {
+						name: "VIDEO_CALL_START_SHARE",
+						val	: {}
+					}
+					App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
+				}
 				break;
 				
 			case "VIDEO_CALL_SEND"	: //---Im offer, client is ready to receive my stream
 				do_lc_webRTC_addPeer (response.payLoad, true, initialeValues);
+				
 				break;
 				
 			case "VIDEO_CALL_SIGNAL": //---receive signal from other and launch a peer to receive stream
@@ -256,13 +246,13 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				
 			
 				//-----------------------------------------------------------------
-			case "VIDEO_CALL_START_SHARE":
+			case "VIDEO_CALL_START_SHARE": //--someone shares his screen
 				do_lc_webRTC_addPeer_share (response.payLoad, false);
 				break;
-			case "VIDEO_CALL_SEND_SHARE":
+			case "VIDEO_CALL_SEND_SHARE": //--I begin shares my screen
 				do_lc_webRTC_addPeer_share (response.payLoad, true);
-				break;
-			case "VIDEO_CALL_SIGNAL_SHARE":
+				break;	
+			case "VIDEO_CALL_SIGNAL_SHARE"://--I share my screen and someone want to see it
 				do_lc_webRTC_launchPeer_share (response.payLoad);
 				break;
 				
@@ -279,11 +269,10 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		}
 		//--------------------------------------------------------------------------------------------
 		//------------------------------------------------------------------------------  
-		const do_lc_webRTC_initValue 	= (obj, currentTyp, members,isCallCalendar, am_master) => {
+		const do_lc_webRTC_initValue 	= (obj, currentTyp, members,am_master) => {
 			initialeValues.obj				= obj;
 			initialeValues.currentTyp 		= currentTyp;
 			initialeValues.members 			= members;
-			initialeValues.isCallCalendar 	= isCallCalendar;
 			if (am_master) 
 				initialeValues.role  	= pr_ROLE_MASTER;
 			else
@@ -405,7 +394,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			var clientId 			= resPayload.uId;
 			var sessId				= resPayload.inf02;
 			const selectedMember 	= Object.values(initialeValues.members).find(member => member.uId === clientId);
-			const user 				= selectedMember.mem
+			const user 				= selectedMember?selectedMember.mem: {};
 			console.log(selectedMember)
 			
 			pr_rtc_peers [clientId] = new SimplePeer({
@@ -488,6 +477,8 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			
 			if (pr_rtc_peers_share[clientId]) pr_rtc_peers_share[clientId].destroy();
 			delete pr_rtc_peers_share[clientId];
+			
+			if (pr_rtc_stream_cliId&& pr_rtc_stream_cliId==clientId) $("#div_video_share").hide();
 		}
 		
 		const do_lc_video_close = function (videoEl,divE1) {
@@ -502,10 +493,10 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				}				
 
 				videoEl.srcObject = null;
-				videoEl.parentNode.removeChild(videoEl);
+				if (videoEl.parentNode) videoEl.parentNode.removeChild(videoEl);
 			}
 			
-			if (divE1) divE1.parentNode.removeChild(divE1);
+			if (divE1 && divE1.parentNode) divE1.parentNode.removeChild(divE1);
 		}
 		
 		const do_lc_stream_close = function (videoEl) {
@@ -541,20 +532,14 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			}
 			do_lc_video_close (pr_rtc_video_share);
 			
-			
-	//		$("#div_main_content").removeClass("mt-custom");
-			if (initialeValues.isCallCalendar){
-				initialeValues.obj = null;
-				initialeValues.members = null;
-				App.router.controller.do_lc_run("VI_MAIN/prj_appointment_list", "view_prj_appointment_list.html");
-			}
-			else{
-				App.router.controller.do_lc_run("VI_MAIN/prj_chatroom", "view_prj_chat_room.html");
-			}
+			delete localStorage["rtcRouteWhenClose"];//---remove when close video
+			App.router.controller.do_lc_run(pr_rtc_appointment_routeWhenClose.route, pr_rtc_appointment_routeWhenClose.url);
 		}
 		
 		
 		const do_lc_webRTC_stop = (returnToMain = true) => {
+			if (!pr_hasInit) return;
+			
 			const msgOut = {
 					name	: "VIDEO_CALL_END",
 					val		:  {}
@@ -591,24 +576,16 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		//-----------------------------------------------------------------------------------------------------
 		const do_lc_Page_Main_build = function(){
 			App.MsgboxController.do_lc_close();
-			let nbViewer = 2;
-			if(initialeValues.currentTyp === pr_TYP_CHAT_GROUP){
-				nbViewer = Object.keys(initialeValues.members).length - 1;
-			}
-			console.log(App.data.user.id)
-			const obj = initialeValues.members;
-			user = obj[App.data.user.id].mem;
-			if(initialeValues.isCallCalendar){
-				$("#div_video_call_calendar").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO, 
-				{role : initialeValues.role, nbViewer, user: user}));
-				$(".page-content").children(":not(#div_video_call)").addClass("hide");
-				$("#div_video_call_calendar").css("margin-top", "6rem");
-			}else{
-				$("#div_video_call").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO, 
-				{role : initialeValues.role, nbViewer, user: user}));
-			}
-//			$(".row-multi-viewer").addClass("chat-multi-viewer-zoom-out");
 			
+			let nbViewer = Math.max(1, Object.keys(initialeValues.members).length - 1);
+			console.log(App.data.user.id)
+			
+			const obj = initialeValues.members;
+			user = obj[App.data.user.id]?obj[App.data.user.id].mem:{};
+			
+			$("#div_video_call").show();
+			$("#div_video_call").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_CHAT_VIDEO, {role : initialeValues.role, nbViewer, user: user}));
+
 			do_lc_bind_event_main();
 			do_lc_bind_event_sub ();
 		}
@@ -647,9 +624,12 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			if (!pr_rtc_screen) {
 				do_lc_webRTC_initScreenShare();
 			} else {
-				pr_rtc_screen = 0;
 				$("#div_video_share").hide();
+				
+				do_lc_webRTC_reset_ShareStream ();
 				do_lc_stream_close(pr_rtc_video_share);
+				
+				pr_rtc_screen = 0;
 			}
 		};
 				
@@ -692,12 +672,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		const do_lc_chatMessage = function() {
 		//	pr_ctr_Group.do_lc_show()
 		//	pr_ctr_Main.do_lc_show()
-			if(initialeValues.isCallCalendar){
-	//			do_lc_new_group(initialeValues);
-				pr_ctr_Chat.do_lc_show(initialeValues,pr_rtc_chat)
-			}else{
-				pr_ctr_Chat.do_lc_show(initialeValues,pr_rtc_chat)
-			}
+			pr_ctr_Chat.do_lc_show(initialeValues,pr_rtc_chat)
 		}
 		const do_lc_toggleVid = function() {
 		    const idUser = App.data.user.id;
@@ -734,8 +709,14 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		 * Opens an element in Picture-in-Picture mode
 		 * @param {HTMLVideoElement} el video element to put in pip mode
 		 */
-		var do_lc_openPictureInPicture = function (el) {
-		    el.requestPictureInPicture();
+		var do_lc_openPictureInPicture = function(el) {
+			el.requestPictureInPicture().then((pictureInPictureWindow) => {
+				el.style.display = 'none';	
+				pictureInPictureWindow.addEventListener("resize", function() {}, false);
+			});
+			el.addEventListener('leavepictureinpicture', function() {
+				   el.style.display = 'block';
+			}, false);
 		}
 		//--------------------------------------------------------------------------------------------
 		//--------------------------------------------------------------------------------------------
@@ -784,11 +765,20 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		        target.show();
 				
 				divPar.find(".video_small").removeClass("video_small").addClass("video_center");
+				
+				if (divPar.hasClass("master")){
+					$("#div_video_call").find(".slave").eq(0).addClass("video_smallscreen");
+				}else{
+					$(".master").eq(0).addClass("video_smallscreen");
+				}
+				
 		    } else {
 		        divPar.removeClass("video_fullscreen");
 				$("#control-bar").removeClass("displ-top");
 		        $(".bx-zoom-in").show();
 				divPar.find(".video_center").removeClass("video_center").addClass("video_small");
+				
+				$(".video_smallscreen").removeClass ("video_smallscreen");
 		    }
 		    
 		    target.toggleClass("bx-zoom-in");
@@ -848,10 +838,10 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 
 				pr_rtc_video_share = $("#video-ScreenShare")[0];
 
-				pr_rtc_video_share.srcObject = stream;
-				pr_rtc_stream_share = stream;
+				pr_rtc_video_share.srcObject 	= stream;
+				pr_rtc_stream_share 			= stream;
 
-				do_lc_webRTC_setStreamForPeers_share (stream);
+				do_lc_webRTC_reset_ShareStream ();
 				//----------------------------------------------------------------------------------
 				//--send signal: I have initialized my stream....
 				const msgOut = {
@@ -865,9 +855,10 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 
 
 		}
+
 		const do_lc_webRTC_addPeer_share = function(resPayload, am_initiator) {
-			var clientId = resPayload.uId;
-			var sessId = resPayload.inf02;
+			var clientId 	= resPayload.uId;
+			var sessId 		= resPayload.inf02;
 
 			if (am_initiator) {
 				pr_rtc_peers_share[clientId] = new SimplePeer({
@@ -876,6 +867,8 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 					config		: pr_rtc_configuration
 				});
 			}else{
+				do_lc_webRTC_reset_ShareStream ();
+				
 				pr_rtc_peers_share[clientId] = new SimplePeer({
 					initiator	: am_initiator,
 					config		: pr_rtc_configuration
@@ -888,6 +881,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 					newVid.srcObject 	= stream;
 					newVid.playsinline 	= false;
 					newVid.autoplay 	= true;
+					pr_rtc_stream_cliId = clientId;
 				});
 				
 				const msgOut = {
@@ -912,7 +906,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				App.controller.ChatRoom.Socket.can_lc_msg_Out(msgOut);
 			});
 		}
-
+		
 		const do_lc_webRTC_launchPeer_share = function(resPayload) {
 			var clientId 	= resPayload.uId;
 			var signalData 	= JSON.parse(resPayload.inf01);
@@ -921,23 +915,19 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		}
 		
 		
-		const do_lc_webRTC_setStreamForPeers_share = function (stream){
+		const do_lc_webRTC_reset_ShareStream = function (){
+			if (!pr_rtc_peers_share) pr_rtc_peers_share = [];
+			
 			for (let clientId in pr_rtc_peers_share) {
 	    		var peer = pr_rtc_peers_share[clientId];
-	    		for (let index in peer.streams[0].getTracks()) {
-	                for (let index2 in stream.getTracks()) {
-	                    if (peer.streams[0].getTracks()[index].kind === stream.getTracks()[index2].kind) {
-	                        peer.replaceTrack(	peer	.streams[0].getTracks()[index], 
-	                        					stream	.getTracks()[index2], 
-	                        					peer	.streams[0]);
-	                        break;
-	                    }
-	                }
-	            }
+				if (peer){
+					try{
+						peer.destroy();
+					}catch(e){
+					}
+				}
 	        }
-			
-			pr_rtc_stream_share 			= stream;
-		    pr_rtc_video_share.srcObject 	= stream;
+			pr_rtc_peers_share 				= [];
 		}
 	};
 

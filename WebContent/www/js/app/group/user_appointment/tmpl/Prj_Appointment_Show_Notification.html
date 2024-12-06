@@ -14,14 +14,14 @@
     </span>
     <p class="mb-2"><i class="mdi mdi-clock"></i> {{formatDate obj.dtBegin "date"}}</p>
   </div>
-    <h5 class="card-title">Appppp</h5>
+    <h5 class="card-title">{{obj.name}}</h5>
     
     <p class="mb-2"><i class="mdi mdi-map-marker"></i> {{obj.inf02.desc}}</p>
     <p><i class="mdi mdi-calendar-clock"></i> {{formatDate obj.dtBegin "time"}} - {{formatDate obj.dtEnd "time"}}</p>
     <div class="d-flex justify-content-between align-items-center">
       <button 
 		  class="btn btn-info text-white div_button_call" 
-		  data-appointment-id="{{id}}" 
+		  data-appointment-id="{{obj.id}}" 
 		  data-members=>
 		  Tham gia
 		</button>

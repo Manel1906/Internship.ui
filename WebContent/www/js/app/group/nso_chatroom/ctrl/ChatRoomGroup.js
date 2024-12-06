@@ -1,17 +1,17 @@
 define(['jquery'], function($) {
 	const ChatRoomGroup = function (grpName, header, content, footer) {
-		var pr_divHeader              = header;
-		var pr_divContent             = content;
-		var pr_divFooter              = footer;
+		var pr_divHeader              	= header;
+		var pr_divContent             	= content;
+		var pr_divFooter              	= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName                = grpName?grpName:((new Date()).getTime()+"");
-		var tmplName                  = App.template.names[pr_grpName];
-		var tmplCtrl                  = App.template.controller;
+		var pr_grpName					= grpName
+		var tmplName                  	= App.template.names[pr_grpName];
+		var tmplCtrl                  	= App.template.controller;
 		//------------------------------------------------------------------------------------
 		//------------------controllers------------------------------------------------------
-		var pr_ctr_Main 			= null;
-		var pr_ctr_Chat		 		= null;
+		var pr_ctr_Main 				= null;
+		var pr_ctr_Chat		 			= null;
 		//-----------------------------------------------------------------------------------
 		const pr_SERVICE_CLASS_DYN			= "ServiceAutUserChat";
 		const pr_SV_LIST_DYN				= "SVLstForChat"; 
@@ -20,7 +20,6 @@ define(['jquery'], function($) {
 		const pr_SV_GROUP_LIST_DYN			= "SVLstPagination"; 
 		const pr_SV_GROUP_LIST_BY_USER		= "SVLstByUser"; 
 
-		const pr_SERVICE_CLASS_GROUP		= "ServiceNsoGroup";
 		const pr_SV_GROUP_NEW				= "SVNewRoom"; 
 		const pr_SV_GROUP_GET				= "SVGet"; 
 		const pr_SV_GROUP_MOD				= "SVMod"
@@ -28,18 +27,19 @@ define(['jquery'], function($) {
 
 		var   self                  = this;
 
+		const pr_TYP_CHAT_VIDEO		= 10;
 		const pr_TYP_CHAT_USER		= 1;
 		const pr_TYP_CHAT_GROUP		= 2;
 		const pr_TYP_CHAT_RELATE	= 3;
 
 		const pr_TYP_CHAT 			= {
-				[pr_TYP_CHAT_USER] 	: {typ: pr_TYP_CHAT_USER	, svClass: pr_SERVICE_CLASS_DYN			, svName: pr_SV_LIST_DYN		, divList: "#div_user_list"		, divPan: "#div_user_pagination"},
-				[pr_TYP_CHAT_GROUP] : {typ: pr_TYP_CHAT_GROUP	, svClass: pr_SERVICE_CLASS_GROUP_DYN	, svName: pr_SV_GROUP_LIST_DYN	, divList: "#div_group_list"	, divPan: "#div_group_pagination"},
+				[pr_TYP_CHAT_USER] 	: {typ: pr_TYP_CHAT_USER	, svClass: pr_SERVICE_CLASS_DYN			, svName: pr_SV_LIST_DYN			, divList: "#div_user_list"			, divPan: "#div_user_pagination"},
+				[pr_TYP_CHAT_GROUP] : {typ: pr_TYP_CHAT_GROUP	, svClass: pr_SERVICE_CLASS_GROUP_DYN	, svName: pr_SV_GROUP_LIST_DYN		, divList: "#div_group_list"		, divPan: "#div_group_pagination"},
 				[pr_TYP_CHAT_RELATE]: {typ: pr_TYP_CHAT_RELATE	, svClass: pr_SERVICE_CLASS_GROUP_DYN	, svName: pr_SV_GROUP_LIST_BY_USER	, divList: "#div_group_relate_list"	, divPan: "#div_group_relate_pagination"},
 		}
 
 		var pr_TYP_TEMPL 			= {}
-		var pr_CURRENT_TYPE			= pr_TYP_CHAT_RELATE;
+		
 		var pr_SEARCH_KEY			= "";
 
 		const pr_TYP_MSG_PRIVATE 	= 200;
@@ -52,7 +52,7 @@ define(['jquery'], function($) {
 		const pr_STAT_GRP_ACTIVE    = 2;
 
 		var pr_CURRENT_GROUP_ID     = null;
-//		var pr_CURRENT_USER_ID      = null;
+		var pr_CURRENT_TYPE			= pr_TYP_CHAT_RELATE;
 
 		const initialValues 		= {
 				lstUnReadMsg : [],
@@ -60,9 +60,6 @@ define(['jquery'], function($) {
 				lstValidatMsg : [],
 				lstRefuseMsg : [],
 		}
-		const TYPE_02_FILE_ALL_FORMAT		= 20;
-		var pr_obj			= {files: []};
-
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			pr_ctr_Main 			= App.controller.ChatRoom.Main;
@@ -78,62 +75,39 @@ define(['jquery'], function($) {
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show	= function(typShow, groupId, typchat, obj = {files: []}, mode){
+		this.do_lc_show	= function(typShow, groupId){
 			pr_SEARCH_KEY			= "";
 			pr_CURRENT_TYPE  	 	= typShow?	typShow : pr_TYP_CHAT_USER;
 			pr_CURRENT_GROUP_ID  	= groupId?  groupId : null; //--groupId will be the id of user to chat if pr_TYP_CHAT_USER
-			pr_CURRENT_TYPE_CHAT  	= typchat?  typchat : pr_TYP_MSG_PUBLIC;
-
-//			pr_CURRENT_USER_ID   = pr_CURRENT_TYPE == pr_TYP_CHAT_USER && groupId?  groupId : null;
-
-			do_lc_load_view	();
-			do_lc_get_list	();
-			do_lc_bind_event();
+			
+			if (pr_CURRENT_TYPE != pr_TYP_CHAT_VIDEO){ //---if not chat call video direct
+				do_lc_load_view	();
+				do_lc_get_list	();
+				do_lc_bind_event();
+			}
 
 			if(pr_CURRENT_GROUP_ID) {
-
-				$("#div_member, #div_member_wait, #div_post, #div_chat, #div_files, #div_info").show();
-
 				if (pr_CURRENT_TYPE == pr_TYP_CHAT_USER){
 					$("#div_member, #div_member_wait, #div_post, #div_info").hide();
 					$(".page-title-right").removeClass("d-none");
-					if (groupId){
-						do_lc_get_info_group_chat();
-					}else{
-						self.do_lc_get_group_user(pr_CURRENT_GROUP_ID);
-					}
-					self.do_lc_get_group_user(pr_CURRENT_GROUP_ID);
+					
+					self.do_lc_get_group_single(pr_CURRENT_GROUP_ID);
 					if(initialValues.lstUnReadMsg.length > 0) self.do_lc_rebuild_list_new_msg(pr_CURRENT_GROUP_ID, pr_CURRENT_TYPE)
+				
 				} else if(pr_CURRENT_TYPE == pr_TYP_CHAT_GROUP){
-					do_lc_get_info_group_chat();
-				}
-				else{
-					do_lc_get_info_group_chat();
+					$("#div_member, #div_member_wait, #div_post, #div_chat, #div_files, #div_info").show();
+					do_lc_get_group_multi();
+				
+				}else{
+					
+					$("#div_member, #div_member_wait, #div_post, #div_chat, #div_files, #div_info, .grp_btn_mobile").hide();
+					do_lc_get_group_multi();
 				}
 			}
 
-//			if(pr_CURRENT_GROUP_ID) setTimeout(do_lc_get_info_group_chat, 1000);
+//			if(pr_CURRENT_GROUP_ID) setTimeout(do_lc_get_group_multi, 1000);
 //			if(pr_CURRENT_USER_ID)  setTimeout(do_lc_get_group_chat, 1000);
 		}
-
-
-
-//		const do_lc_get_group_chat = () => {
-
-//		pr_CURRENT_TYPE == pr_TYP_CHAT_USER ? $("#div_member, #div_member_wait, #div_post").hide() : $("#div_member, #div_member_wait, #div_post").show();
-
-//		$("#div_chat").css("display", "block");
-//		$("#div_files").css("display", "block");
-//		$("#div_info").css("display", "none");
-//		$(".page-title-right").removeClass("d-none");
-
-//		do_lc_save_local_storage_grp(pr_CURRENT_USER_ID, pr_CURRENT_TYPE);
-//		self.do_lc_get_group_user(pr_CURRENT_USER_ID);
-
-//		//check exist new msg for user
-//		if(initialValues.lstUnReadMsg.length > 0) self.do_lc_rebuild_list_new_msg(pr_CURRENT_USER_ID, pr_CURRENT_TYPE)
-
-//		}
 
 
 		this.do_lc_show_messge_wait_read = function(data){
@@ -365,7 +339,7 @@ define(['jquery'], function($) {
 			}
 			const {attrID: entID, attrName: entName} = objData[msg.typMsg];
 
-			return {id: msg.id, hasNewMsg: true, lastMsg: msg.body, isOnline: true, typMsg: msg.typMsg, uIDSend : msg.uIDSend, uNameSend : msg.uNameSend, objIDGrp : msg.entId};
+			return {id: msg.id, hasNewMsg: true, lastMsg: msg.body, isOnline: true, typMsg: msg.typMsg, uIDSend : msg.uId, uNameSend : msg.inf01, objIDGrp : msg.entId};
 		}
 
 		const do_lc_load_view = function(){
@@ -657,7 +631,7 @@ define(['jquery'], function($) {
 		}
 
 		const do_lc_bind_event_list = function(){
-			$("#btn_new_entity").off("click").on("click", function(){
+			$("#btn_btn_new_group").off("click").on("click", function(){
 				$("#div_member, #div_member_wait, #div_files, #div_post").html("");
 				$("#div_chat").html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_TAB_GROUP_NEW, {}));
 
@@ -688,7 +662,7 @@ define(['jquery'], function($) {
 
 					if(pr_CURRENT_TYPE == pr_TYP_CHAT_USER){
 						$(".breadcrumb-item-chat").html(App.data["listUser"][idChat].login01);
-						self.do_lc_get_group_user(idChat);
+						self.do_lc_get_group_single(idChat);
 					} else{
 						$(".breadcrumb-item-chat").html(App.data["listGroup"][idChat].name);						
 						pr_ctr_Chat.do_lc_show(App.data["listGroup"][idChat], pr_CURRENT_TYPE);
@@ -733,7 +707,7 @@ define(['jquery'], function($) {
 				}
 			})
 
-			$("#btn_refresh_entity").off("click").on("click", function(){
+			$("#btn_refresh_group").off("click").on("click", function(){
 				do_lc_get_list(true);
 				do_lc_bind_event_list(App.data["listGroup"].lst);
 			})
@@ -768,38 +742,38 @@ define(['jquery'], function($) {
 		}
 
 		this.do_lc_event_click = function(){
-			$("#btn_refresh_entity").click();
+			$("#btn_refresh_group").click();
 		}
 
-		const do_lc_get_info_group_chat = () => {
-
+		const do_lc_get_group_multi = () => {
 			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", pr_SV_GROUP_GET, {id: pr_CURRENT_GROUP_ID});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_reponse_get_group, []));
+			fSucces.push(req_gl_funct(null, do_lc_get_group_multi_callback, []));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 
-		const do_lc_reponse_get_group = function(sharedJson){
+		const do_lc_get_group_multi_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 
-        	if (data.typ01 == pr_TYP_MSG_PRIVATE) {
-				var dataObject = JSON.parse(data.val01);
-	            let uIds = Object.keys(dataObject);
-	
-	            let uIdSend = uIds.find(id => id != App.data.user.id);
-	
-	            if (!uIdSend) uIdSend = App.data.user.id;
-	
-	            if (data.val01[uIdSend].img) data.avatar = data.val01[uIdSend].img;
-	
-	            data.login01 = dataObject[uIdSend].login ? dataObject[uIdSend].login : "HNV-TECH.COM";
-			}
-			if(data){
+	        	if (data.typ01 == pr_TYP_MSG_PRIVATE) {
+					var dataObject = JSON.parse(data.val01);
+		            let uIds = Object.keys(dataObject);
+		
+		            let uIdSend = uIds.find(id => id != App.data.user.id);
+		
+		            if (!uIdSend) uIdSend = App.data.user.id;
+		
+		            if (data.val01[uIdSend].img) data.avatar = data.val01[uIdSend].img;
+		
+		            data.login01 = dataObject[uIdSend].login ? dataObject[uIdSend].login : "HNV-TECH.COM";
+				}
+				
+				if(data){
 					do_lc_show_roomchat(data);
 				}
 			} else {   
@@ -811,14 +785,14 @@ define(['jquery'], function($) {
 			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", pr_SV_GROUP_MOD, {obj: JSON.stringify(obj)});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_reponse_mod_group, []));
+			fSucces.push(req_gl_funct(null, do_lc_mod_info_group_chat_callback, []));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 
-		const do_lc_reponse_mod_group = function(sharedJson){
+		const do_lc_mod_info_group_chat_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
@@ -829,16 +803,18 @@ define(['jquery'], function($) {
 			}
 		}
 
-		const do_lc_show_roomchat = function(obj){
-			obj.typ01 == pr_TYP_MSG_PRIVATE ? $("#div_member, #div_member_wait, #div_post").hide() : $("#div_member, #div_member_wait, #div_post").show();
-
-			$("#div_chat"	).css("display", "block");
-			$("#div_files"	).css("display", "block");
-			$("#div_info"	).css("display", "none");
-
-			$(".page-title-right").removeClass("d-none");
-
-			$(".breadcrumb-item-chat").html(obj.name);
+		const do_lc_show_roomchat = function(obj){			
+			if (pr_CURRENT_TYPE != pr_TYP_CHAT_VIDEO){ //---if not chat call video direct
+				obj.typ01 == pr_TYP_MSG_PRIVATE ? $("#div_member, #div_member_wait, #div_post").hide() : $("#div_member, #div_member_wait, #div_post").show();
+	
+				$("#div_chat"	).css("display", "block");
+				$("#div_files"	).css("display", "block");
+				$("#div_info"	).css("display", "none");
+	
+				$(".page-title-right"		).removeClass("d-none");
+				$(".breadcrumb-item-chat"	).html(obj.name);
+			}
+			
 			pr_ctr_Chat.do_lc_show(obj, pr_CURRENT_TYPE);
 		}
 
@@ -861,7 +837,7 @@ define(['jquery'], function($) {
 		}
 
 		const do_lc_bind_event_for_group = function(obj){
-			$("#btn_create_entity").off("click").on("click", function(){
+			$("#btn_create_group").off("click").on("click", function(){
 				const data = req_gl_data({
 					dataZoneDom: $("#frm_new_group")
 				});
@@ -893,14 +869,14 @@ define(['jquery'], function($) {
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP_DYN, pr_SV_GROUP_NEW, {obj: JSON.stringify(group)});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_afterAdd_member, [group]));
+			fSucces.push(req_gl_funct(null, do_lc_new_group_callback, [group]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 
-		const do_lc_afterAdd_member = function(sharedJson, group){
+		const do_lc_new_group_callback = function(sharedJson, group){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
@@ -912,21 +888,21 @@ define(['jquery'], function($) {
 			}
 		}
 
-		this.do_lc_get_group_user = function(idUser){
+		this.do_lc_get_group_single = function(idUser){
 			let curUserId 		= App.data.user.id;
 			let avatarCurUser 	= App.data.user.per.files? App.data.user.per.files[0] : null;
 		
 			const ref 			= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP_DYN, pr_SV_GROUP_GET_GROUP_USER, {"uId01":curUserId, "uId02": idUser});	
 
 			let fSucces			= [];
-			fSucces.push(req_gl_funct(null, do_lc_after_group_user, [idUser]));
+			fSucces.push(req_gl_funct(null, do_lc_get_group_single_callback, [idUser]));
 
 			let fError 			= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 
-		const do_lc_after_group_user = function(sharedJson, iduser){
+		const do_lc_get_group_single_callback = function(sharedJson, iduser){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				data.iduser = iduser;
@@ -938,7 +914,7 @@ define(['jquery'], function($) {
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
-
+		//----------------------------------------------------------------------------------------------------------------------------------------------
 		this.do_lc_push_notif_validate_socket = function(msg){
 			if(msg.memId == App.data.user.id){
 				const ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", pr_SV_GROUP_GET, {id: msg.grpId});	
@@ -1006,7 +982,7 @@ define(['jquery'], function($) {
 		}
 
 		var do_lc_save_local_storage_grp = function (grpId, typ) {
-			localStorage.setItem("nsoGrpChatId", grpId);
+			localStorage.setItem("nsoGrpChatId"	, grpId);
 			localStorage.setItem("nsoGrpChatTyp", typ);
 		}
 	}

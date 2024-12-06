@@ -6,8 +6,7 @@ define(['jquery'], function($) {
 		var pr_divFooter              = footer;
 
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"ChatRoomChat";
-		var pr_grpPath				= 'group/nso_chatroom';
+		var pr_grpName				= grpName
 		const tmplName				= App.template.names[pr_grpName];
 		const tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
@@ -60,14 +59,13 @@ define(['jquery'], function($) {
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(values){
+		this.do_lc_show = function(values, showChatRoom=true, callback){
 			initialValues = values;
 			const {obj : group, isGroupUser} = values;
 
 			try{
-				do_lc_init_values(group, isGroupUser);
-				do_get_list_member(values, true);
-				do_lc_setTime_refresh_member_lst();
+				do_lc_init_values				(group, isGroupUser);
+				do_get_list_member				(values, showChatRoom, callback);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.project", "ChatRoomMember", "do_lc_show", e.toString()) ;
 			}
@@ -81,7 +79,6 @@ define(['jquery'], function($) {
 
 		const do_lc_build_page = () => {
 			do_lc_build_table_member();
-
 			const isMe = initialValues.members[App.data.user.id];
 
 			if (isMe && [pr_member_lev_manager, pr_member_lev_owner].includes(isMe.typ)) {
@@ -99,8 +96,6 @@ define(['jquery'], function($) {
 
 			do_gl_init_pagination_noAjax("#tabMember", pr_PAGESIZE, 1, callbackFunct, undefined, Object.values(initialValues.members), Object.keys(initialValues.members).length);
 			if(Object.keys(initialValues.members).length <= pr_PAGESIZE) $(".wygo-pagination").hide();
-			
-			
 			$(".btn-resize-mem").off("click").on("click", function(){
 				let $this 		= $(this);
 				let child		= $this.find("i");
@@ -153,7 +148,7 @@ define(['jquery'], function($) {
 					$("#div_info").css("display", "none");
 					$(".page-title-right").removeClass("d-none");
 					
-					pr_ctr_Group.do_lc_get_group_user(idChat);
+					pr_ctr_Group.do_lc_get_group_single(idChat);
 
 //					//check exist new msg for user
 					pr_ctr_Group.do_lc_rebuild_list_new_msg(idChat, pr_TYP_CHAT_USER)
@@ -302,7 +297,7 @@ define(['jquery'], function($) {
 			})	
 		}
 
-		const do_get_list_member = function(values, buildChatRoom){
+		const do_get_list_member = function(values, buildChatRoom, callback){
 			App.data["lstGrpMember"] = null;
 
 			//---get from IndexedDB first
@@ -313,30 +308,32 @@ define(['jquery'], function($) {
 				if (res && res.data) App.data["lstGrpMember"] = res.data;
 			});
 
-			do_get_list_member_fromBE (values, buildChatRoom);
+			do_get_list_member_fromBE (values, buildChatRoom, callback);
+			
+			//-----refresh each 15mn----------
+			if (buildChatRoom) do_lc_setTime_refresh_member_lst();
 		}
-
-		const do_get_list_member_fromBE = function(values, buildChatRoom){
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_LIST, {groupId: initialValues.group.id});	
-
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_getMember_response, [values, buildChatRoom]));
-
-			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-			App.network.do_lc_ajax_bg_keepState (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
-		}
-
+		
 		var pr_setTime_refresh_member_lst;
 		var pr_TIME_REFRESH = 15 * 60 * 1000;
-		var do_lc_setTime_refresh_member_lst = function(){
-			if (pr_setTime_refresh_member_lst) clearInterval (pr_setTime_refresh_member_lst)
+		var do_lc_setTime_refresh_member_lst = function() {
+			if (pr_setTime_refresh_member_lst) clearInterval(pr_setTime_refresh_member_lst)
 			pr_setTime_refresh_member_lst = setInterval(() => {
 				do_get_list_member_fromBE();
 			}, pr_TIME_REFRESH);
 		}
 
+		const do_get_list_member_fromBE = function(values, buildChatRoom=true, callback){
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_LIST, {groupId: initialValues.group.id});	
 
-		const do_lc_getMember_response = function(sharedJson, values, buildChatRoom){
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_get_list_member_fromBE_callback, [values, buildChatRoom, callback]));
+
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+			App.network.do_lc_ajax_bg_keepState (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
+		}
+
+		const do_get_list_member_fromBE_callback = function(sharedJson, values, buildChatRoom=true, callback){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				var data 		= sharedJson[App['const'].RES_DATA]; 
 
@@ -356,12 +353,20 @@ define(['jquery'], function($) {
 				App.data["lstGrpMember"] 		= {...objData};
 				App.data["lstGrpMember"].length = Object.keys(objData).length;
 				initialValues.members 			= objData;
-
 				self.do_lc_build_member_online();
-
+				
 				//----put to indexedDB
 				const {group} 	= initialValues;
 				pr_ctr_IndexedDB.do_lc_update_collection (pr_Collect_Mem, group.key, {data: App.data["lstGrpMember"]});
+				
+				//----show chat content				
+				if (buildChatRoom){
+					pr_ctr_Chat.do_lc_show_form_chat	();
+					pr_ctr_Chat.do_lc_get_content_chat	(initialValues);
+				}
+				
+				if (callback) callback();
+				
 			} else {
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
