@@ -294,7 +294,7 @@ define([], function() {
 				$("#btn_del").off("click").on("click", function(){
 					let {id} = $(this).data();
 					App.MsgboxController.do_lc_show({
-						title		: $.i18n("prj_user_g_entitytn_delete_group"),
+						title		: $.i18n("common_title_confirm"),
 						content 	: $.i18n("msg_del_entity_popup_content"),
 						autoclose	: false,
 						css			: {
@@ -302,7 +302,7 @@ define([], function() {
 						},
 						buttons		: {
 							NO: {
-								lab		:  $.i18n("common_btn_yes"),
+								lab		:  $.i18n("common_btn_cancel"),
 							},
 							OK: {
 								lab			: $.i18n("common_btn_delete"),
@@ -522,7 +522,7 @@ define([], function() {
 							},
 							OK: {
 								lab		: $.i18n("common_btn_yes"),
-								funct	: do_lc_get_info_entity,
+								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
 							}

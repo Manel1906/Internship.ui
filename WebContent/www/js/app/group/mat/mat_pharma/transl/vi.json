@@ -16,7 +16,7 @@
 	"prj_tpy_group_effect"								: "Tác dụng và tác dụng phụ",
 	"prj_tpy_group_assign"								: "Chỉ định",
 	"prj_tpy_group_another_inf"							: "Các thông tin khác",
-	"prj_tpy_chat_search"								: "Tìm kiếm thuốc"	,
+	"prj_tpy_med_search"								: "Tìm kiếm thuốc"	,
 	
 	"prj_project_member"								: "Thành viên",
 	"prj_project_add_member"							: "Thêm",
@@ -44,7 +44,7 @@
 	"prj_tpy_group_name_enter"							: "Tên thuốc",
 	"prj_tpy_group_inf_medicine"						: "Thông tin thuốc",
 	"prj_tpy_group_brand_name_medicine_enter"			: "Nhập biệt dược và hàm lượng",
-	"common_btn_new_title"							: "Thêm thuốc/thiết bị",
+	"common_btn_new_title"								: "Thêm thuốc/thiết bị",
 	"tpy_cat_disease_edit_title"						: "Chỉnh sửa thông tin thuốc/thiết bị",
 	"prj_tpy_group_new"									: "Thêm mới",
 	"prj_tpy_group_new_msg"								: "Tạo nhóm trò chuyện, giúp bạn làm việc hiệu quả hơn!",
@@ -92,10 +92,11 @@
 	"prj_user_group_btn_edit_group"						: "Chỉnh sửa",
 	"prj_brand_group_room"								: "Biệt dược và hàm lượng",
 	"prj_brand_group_package"							: "Hình thức đóng gói",
-	"msg_del_entity_popup_content"			: "Xóa thông tin thuốc",
-	"common_title_confirm"					: "Xác nhận",
+	"msg_del_entity_popup_content"						: "Xóa thông tin thuốc",
+	"common_title_confirm"								: "Xác nhận",
 	"common_btn_del"									: "Xóa",
 	"common_btn_can"									: 	"Hủy bỏ",
 	"common_btn_cancel"									: 	"Quay lại",
-	"common_btn_save_med"								: "Lưu"
+	"common_btn_save_med"								: "Lưu",
+	"common_btn_new_file_title"							: 	"Thêm tập tin vào đây"
 }
