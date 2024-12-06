@@ -1,151 +1,58 @@
 <div class="card">
-    <div class="card-body">
-    	 <div class="media">
-        	<div class="media-body overflow-hidden">
-<!--                 <h5 class="text-truncate font-size-16">{{name}}</h5> -->
-            </div>
-<!--             <a id="a_btn_edit" class="mr-3 text-primary action-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"> -->
-<!--             	<i class="mdi mdi-content-save-edit font-size-18 action-item"></i> -->
-<!--             </a> -->
-            <a id="a_btn_save_info" class="mr-3 text-primary hide action-item cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
-            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
-            </a>
-            <a id="a_btn_cancel_info" class="text-danger hide cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
-            	<i class="mdi mdi-close font-size-20"></i>
-            </a>
+   <div class="card-body">
+	   	<div class="media">
+	   		<div class="col-sm-5">
+	   			<h4 class="card-title mb-4 media-body">{{transl 'prj_project_speciality'}}</h4>
+	   		</div>
+	   		<div class="col-sm-7">
+	             <div class="text-right font-size-20">
+	                <i id="btn_add_specialty" class="mdi mdi-pencil-outline text-success cursor-pointer isManager mr-1" style="font-size: 20px;"></i>
+	             	<a id="a_btn_save_speciality" class="mr-2 text-primary hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
+		            	<i class="mdi mdi-content-save action-item"></i>
+		            </a>
+		            <a id="a_btn_cancel_speciality" class="mr-2 text-danger hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
+		            	<i class="mdi mdi-close"></i>
+		            </a>
+		            <a data-divtoggle="#tabMember" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize"></i>
+		            </a>
+	             </div>
+	         </div>
+		</div>
+        <div id="tabMember" class="table-responsive">
+    <table class="table table-centered table-nowrap">
+        <tbody>
+            {{#each this}}
+                <tr>
+                    <td class="d-flex align-items-center">
+                        <a data-memid="{{id}}" class='hide text-danger btn-remove-speci' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'>
+                            <i class='mdi mdi-close font-size-18'></i>
+                        </a>
+                    </td>
+                    <td>
+                        <h4 class="card-title media-body p-2 bg-light border rounded d-flex justify-content-center align-items-center">{{name}}</h4>
+                    </td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+        <div class="hide action-item-member isManager">
+        	<div class="mb-3 row">
+        		
+	             <div class="col-md-12">
+	                 <div class="mt-2 mt-md-0">
+                       	<div class="col-md-12 d-flex align-items-center">
+                           <input style="max-width: 200px;" type="text" id="inp_name_member" class="form-control inp-name-member_all" placeholder="{{transl 'prj_project_enter_name'}}" />
+                           <div id="selected_members_all"></div>
+	                 </div>
+	             </div>
+	             
+<!--	             <div class="col-md-7">
+			    	<input type="text" class="inner form-control ui-autocomplete-input" id="inp_name_member" placeholder="{{transl 'prj_project_enter_name'}}">
+	        	</div> -->
+        	</div>
         </div>
-		<input type="hidden" class="form-control objData" data-group="per" data-name="id" value="{{per.id}}">
-		<div class="row">
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_01'}} *</h5>
-				<p class="text-muted info-edit info-content">{{per.name01}}</p>
-				<input id="inp_autuser_header_name_01" class="form-control objData content-edit hide isManager" type="text" data-group="per" 
-					data-name="name01"  data-validation="required" value="{{per.name01}}"/>
-			</div>
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_dtBirthday'}} </h5>
-				<p class="text-muted info-edit info-content">{{reqFormatShortDate inf02.d}}</p>
-				<div class="input-daterange input-group content-edit">
-                	<input id="inp_autuser_tab01_birthday" data-provide="datepicker" autocomplete="off" class="form-control objData content-edit hide isManager" type="text" data-group="inf02" 
-                	data-name="dtBirthday" data-format="date" data-validation="date" {{#if inf02.d}}value="{{reqFormatShortDate inf02.d}}"{{/if}}>
-                </div>
-			</div>
-		</div>
-		
-		<div class="row mt-4">
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_02'}}</h5>
-				<p class="text-muted info-edit info-content">{{per.name02}}</p>
-				<input id="inp_autuser_header_name_02" class="form-control objData content-edit hide isManager" type="text" data-group="per" data-name="name02" value="{{per.name02}}"/>
-			</div>
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_i'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf04.i}}</p>
-				<input id="inp_autuser_tab01_info_04i" class="form-control objData content-edit hide isManager" type="text" data-group="inf04" 
-					data-name="idDocNum"  data-validation="numeric" value="{{inf04.i}}"/>
-			</div>
-		</div>
-		
-		<div class="row mt-4">
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_03'}} *</h5>
-				<p class="text-muted info-edit info-content">{{per.name03}}</p>
-				<input id="inp_autuser_header_name_03" class="form-control objData content-edit hide isManager" type="text" data-group="per"
-					data-name="name03"  data-validation="required" value="{{per.name03}}"/>
-			</div>
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info09'}}</h5>
-				<p class="text-muted info-edit info-content">{{per.inf09}}</p>
-				<input id="inp_autuser_tab01_info_09" class="form-control objData content-edit hide isManager" type="text" data-validation=""
-					data-group="per" data-name="inf09" data-format="numeric" value="{{per.inf09}}"/>
-			</div>
-		</div>
-		
-		<div class="row mt-4">
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info10'}}</h5>
-				<p class="text-muted info-edit info-content">
-					{{#equal per.inf10 0}}{{transl "per_person_men" }}{{/equal}}
-					{{#equal per.inf10 1}}{{transl "per_person_women" }}{{/equal}}
-					{{#equal per.inf10 2}}{{transl "per_person_other" }}{{/equal}}
-				</p>
-<!-- 				<input id="inp_autuser_tab01_info_02" class="form-control objData content-edit hide isManager" type="text" data-validation="" -->
-<!-- 					data-group="inf02" data-name="job" value="{{inf02.j}}"/> -->
-				<select id="sel_autuser_header_legalstat" class="form-control objData content-edit hide isManager" data-validation="" data-group="per" data-name="inf10">
-					<option {{#equal per.inf10 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
-					<option {{#equal per.inf10 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
-					<option {{#equal per.inf10 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
-				</select>
-			</div>
-		</div>
-		
-		<div class="row hide">
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info07'}}</h5>
-				<p class="text-muted info-edit info-content">{{per.inf07}}</p>
-				<input id="inp_autuser_header_info_07" class="form-control objData content-edit hide isManager" type="text" data-group="per"
-					data-name="inf07"  data-validation="" value="{{per.inf07}}"/>
-			</div>
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info05_f'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf05.fb}}</p>
-				<input id="inp_autuser_tab01_info_05f" class="form-control objData content-edit hide isManager" type="text" data-group="inf05"
-					 data-name="value_facebook" value="{{inf05.fb}}"/>
-			</div>
-		</div>
-		
-		<div class="row hide">
-<!-- 			<div class="col-6"> -->
-<!-- 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info09'}}</h5> -->
-<!-- 				<p class="text-muted info-edit info-content">{{per.inf09}}</p> -->
-<!-- 				<input id="inp_autuser_tab01_info_09" class="form-control objData content-edit hide isManager" type="text" data-validation="" -->
-<!-- 					data-group="per" data-name="inf09" data-format="numeric" value="{{per.inf09}}"/> -->
-<!-- 			</div> -->
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info05_i'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf05.ig}}</p>
-				<input id="inp_autuser_tab01_info_05i" class="form-control objData content-edit hide isManager" type="text" data-group="inf05"
-					 data-name="value_instagram" value="{{inf05.ig}}"/>
-			</div>
-		</div>
-		
-		<div class="row hide">
-<!-- 			<div class="col-6"> -->
-<!-- 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_dtBirthday'}} </h5> -->
-<!-- 				<p class="text-muted info-edit info-content">{{reqFormatShortDate inf02.d}}</p> -->
-<!-- 				<div class="input-daterange input-group content-edit"> -->
-<!--                 	<input id="inp_autuser_tab01_birthday" data-provide="datepicker" class="form-control objData content-edit hide isManager" type="text" data-group="inf02"  -->
-<!--                 	data-name="dtBirthday" data-format="date" data-validation="date" {{#if inf02.d}}value="{{reqFormatShortDate inf02.d}}"{{/if}}> -->
-<!--                 </div> -->
-<!-- 			</div> -->
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info05_l'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf05.ln}}</p>
-				<input id="inp_autuser_tab01_info_05l" class="form-control objData content-edit hide isManager" type="text" data-group="inf05"
-					 data-name="value_linkedin" value="{{inf05.ln}}"/>
-			</div>
-		</div>
-		
-		<div class="row hide">
-			<div class="col-6">
-			</div>
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info05_g'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf05.gg}}</p>
-				<input id="inp_autuser_tab01_info_05g" class="form-control objData content-edit hide isManager" type="text" data-group="inf05"
-					 data-name="value_google" value="{{inf05.gg}}"/>
-			</div>
-		</div>
-		
-		<div class="row hide">
-			<div class="col-6">
-			</div>
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info05_t'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf05.tw}}</p>
-				<input id="inp_autuser_tab01_info_05t" class="form-control objData content-edit hide isManager" type="text" data-group="inf05"
-					 data-name="value_twitter" value="{{inf05.tw}}"/>
-			</div>
-		</div>
     </div>
 </div>
