@@ -416,17 +416,23 @@ define([
 								+ (data.per.name02?" " + data.per.name02:"") 
 								+ (data.per.name03?" " + data.per.name03:"");
 				
-				data.per.info10 = data.email;
+				data.per.info01 = data.email;
 			}
 				
 			if(data.inf04){
 				data.per.inf04 		= data.inf04;
 				
-				if (data.inf04.t)//telephone
-					data.inf02 		= data.inf04.t;
-					
+				if (data.inf04.t){//telephone
+					data.per.inf02 	= data.inf04.t;
+					data.inf02		= data.inf04.t;
+				}
+				
 				if (data.inf04.b)//birthday
 					data.per.dt03 	= data.inf04.b;
+					
+				if (data.inf04.i){//cccd/passport
+					data.per.code02	= data.inf04.i;
+				}
 			}
 			
 			

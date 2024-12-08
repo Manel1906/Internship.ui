@@ -10,12 +10,9 @@ define([
 	'text!group/per/doctor/tmpl/Ent.html',
 	'text!group/per/doctor/tmpl/Ent_Modify.html',
 	'text!group/per/doctor/tmpl/Ent_Content.html'	,
-	'text!group/per/doctor/tmpl/Ent_Tab_JobPosition.html'	,
 	'text!group/per/doctor/tmpl/Ent_Tab_Person_Info.html',	
-    'text!group/per/doctor/tmpl/Sel_List_Legal_Status.html'	,
-	'text!group/per/doctor/tmpl/Ent_Tab_Rights.html',
 	
-	'text!group/per/doctor/tmpl/PrjDropzone_File.html'
+	'text!group/per/doctor/tmpl/Dropzone_File.html'
 
 	], function(
 			List,
@@ -29,15 +26,12 @@ define([
 			Tmpl_Ent,
 			Tmpl_Ent_Modify,
 			Tmpl_Ent_Content	,	
-			Tmpl_Ent_Tab_JobPosition	,	
 			Tmpl_Ent_Tab_Person_Info,
-			Tmpl_Sel_List_Legal_Status,
-			Tmpl_Ent_Tab_Rights,
 			
 			Tmpl_PrjDropzone_File
 	) {
 
-	var PrjUserMain     			= function (grpName, header, content, footer) {
+	var Main     			= function (grpName, header, content, footer) {
 		
 		var pr_divHeader 			= header;
 		var pr_divContent 			= content;
@@ -77,11 +71,9 @@ define([
 			tmplName.TMPL_ENT						= pr_grpName + "Tmpl_Ent";
 			tmplName.TMPL_ENT_CONTENT				= pr_grpName + "Tmpl_Ent_Content";
 			tmplName.TMPL_ENT_MODIFY				= pr_grpName + "Tmpl_Ent_Modify";
-			tmplName.TMPL_ENT_TAB_JOBPOSITION		= pr_grpName + "Tmpl_Ent_Tab_JobPosition";
-			tmplName.TMPL_ENT_TAB_RIGHTS			= pr_grpName + "Tmpl_Ent_Tab_Rights";
 			tmplName.TMPL_ENT_TAB_PERSON_INFO		= pr_grpName + "Tmpl_Ent_Tab_Person_Info";
-			tmplName.TMPL_LEGAL_STAT				= pr_grpName + "Tmpl_Sel_List_Legal_Status";
-			tmplName.TMPL_DROPZONE_FILE				= pr_grpName + "PrjDropzone_File"
+			
+			tmplName.TMPL_DROPZONE_FILE				= pr_grpName + "Tmpl_Dropzone_File"
 			
 			
 			
@@ -91,11 +83,9 @@ define([
 			
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT					, Tmpl_Ent);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT			, Tmpl_Ent_Content);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_JOBPOSITION	, Tmpl_Ent_Tab_JobPosition);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_MODIFY			, Tmpl_Ent_Modify);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_RIGHTS		, Tmpl_Ent_Tab_Rights); 		
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO	, Tmpl_Ent_Tab_Person_Info);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LEGAL_STAT			, Tmpl_Sel_List_Legal_Status); 
+			
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE			, Tmpl_PrjDropzone_File);
 			
 			//---------------------------------------------------------------------------------------------
@@ -143,5 +133,5 @@ define([
 		
 	};
 
-	return PrjUserMain;
+	return Main;
 });

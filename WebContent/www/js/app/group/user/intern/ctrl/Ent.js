@@ -450,8 +450,10 @@ define([
 			if(data.inf04){
 				data.per.inf04 		= data.inf04;
 				
-				if (data.inf04.t)//telephone
-					data.inf02 		= data.inf04.t;
+				if (data.inf04.t){//telephone
+					data.per.inf02 	= data.inf04.t;
+					data.inf02		= data.inf04.t;
+				}
 					
 				if (data.inf04.b)//birthday
 					data.per.dt03 	= data.inf04.b;

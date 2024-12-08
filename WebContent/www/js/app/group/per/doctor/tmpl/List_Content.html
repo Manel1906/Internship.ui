@@ -1,25 +1,25 @@
 <ul id="ul-list" class="list-unstyled chat-list" data-simplebar style="max-height: calc(100vh - 350px)';">
 {{#if data}}
 {{#each data}}
-    <li class="person-item task-item mb-1" data-id="{{id}}" data-stat="{{stat}}">
+    <li class="entity-item task-item mb-1" data-id="{{id}}" data-stat="{{stat}}">
         <a href="#">
             <div class="media align-items-center">
                {{#if avatar}}
 	               {{#if avatar.url}}
 	               <div class="align-self-center mr-1" >
-	                   <img src="{{avatar.url}}" style="width: 120px; height: 60px;object-fit: cover;border-radius: 5px" class="avatar-xs " alt="" onerror="{{url_image_err}}">
+	                   <img src="{{avatar.url}}" style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;"  alt="" onerror="{{url_image_err}}">
 	               </div>
 	               {{else}}
 	                <div class="align-self-center mr-1" >
-	                   <img src="{{url_image_err}}" style="width: 120px; height: 60px;object-fit: cover;border-radius: 5px" class="avatar-xs " alt="" onerror="{{url_image_err}}">
+	                   <img src="{{url_image_err}}"  style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;" alt="" onerror="{{url_image_err}}">
 	               </div>
 	                {{/if}}
                {{else}}
                <div class="align-self-center mr-1" >
-	                   <img src="{{url_image_err}}" style="width: 120px; height: 60px;object-fit: cover;border-radius: 5px" class="avatar-xs " alt="" onerror="{{url_image_err}}">
-	               </div>
-                {{/if}}
-                <div class="media-body">
+	           		<img src="{{url_image_err}}" style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;" alt="" onerror="{{url_image_err}}">
+	           </div>
+               {{/if}}
+               <div class="media-body">
                     <h6 class=" mb-0">{{name01}} {{name02}} {{name03}}</h6>
                     <p class="font-size-12 mb-0">{{transl 'per_person_doctor_speciality'}}: {{inf03}}</p>
                     {{#ifCond stat02 '==' 1}} 
@@ -34,7 +34,7 @@
 					{{#ifCond stat02 '==' 10}}
 					    <span class="badge font-size-12 badge-danger badge-pill float-right">{{reqStatUser stat02}}</span>
 					{{/ifCond}}
-                </div>
+               </div>
             </div>
         </a>
     </li>

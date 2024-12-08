@@ -2,7 +2,7 @@ define([
 	'group/per/doctor/ctrl/EntTabs'
 	],
 	function(
-			{EntContent, EntTabJobPosition, EntTabInfo}
+			{EntContent, EntTabInfo}
 	){
 	
 	var Ent 						= function (grpName, header, content, footer) {
@@ -40,11 +40,10 @@ define([
 		const var_lc_MODE_NEW       = 1;
 		const var_lc_MODE_MOD       = 2;
 		//------------------const object------------------------------------------------------
-		const typeUserClient		= 1010002;
-		const societeListCompany	= 1010010;
-		const societeListChild		= 1010011;
-		const societePartnerSupp	= 1010003;
-		const societePartnerOther	= 1010006;
+		const TYP_01_MORAL			= 200;
+		const TYP_01_NATURAL		= 100;
+		
+		const TYP_02_DOCTOR			= 1100;
 		//-----------------------------------------------------------------------------------
 		var RIGHT_ADM	        	= 100;
 		var RIGHT_A_G	        	= 102;
@@ -59,30 +58,23 @@ define([
 		
 		var pr_type_adm      		= 2;
 		var pr_type_emp      		= 3;
-		var pr_type_client   		= 4;
-		var pr_type_client_public 	= 5;
 		var pr_type_adm_all    		= 10;
 		//------------------controllers------------------------------------------------------
 		var pr_ctr_Main 			= null;
 		var pr_ctr_Ent 				= null;
 		var pr_ctr_List 			= null;
-		var pr_ctr_Sidebar 			= null;
-		var pr_ctr_Fav 				= null;
 		
 		var pr_DIV_CONTENT          = "#div_main_content";
 		var pr_SHOW_COMMON          = false;
-		var pr_ID_TABLE_PRJ			= 1000;
 		
 		//--------------------APIs--------------------------------------//
-		this.do_lc_init		= function(){
+		this.do_lc_init				= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
-			
+
 			pr_ctr_List 			= App.controller[pr_grpName].List;
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 			
-			
 			if(!App.controller[pr_grpName].EntContent)				App.controller[pr_grpName].EntContent 			= new EntContent	(grpName, null, null, null);
-//			if(!App.controller.PrjUser.EntTabJobPosition)			App.controller.PrjUser.EntTabJobPosition 		= new EntTabJobPosition	(grpName, null, null, null);
 			if(!App.controller[pr_grpName].EntTabInfo)				App.controller[pr_grpName].EntTabInfo			= new EntTabInfo	(grpName, null, null, null);
 			
 		}
@@ -97,6 +89,7 @@ define([
 				
 				if(mode == var_lc_MODE_NEW){
 					do_lc_show_entity({}, mode);
+					
 				}else if(mode == var_lc_MODE_MOD || mode == var_lc_MODE_SEL){
 					var params = req_gl_Url_Params(App.data.url?App.data.url:decodeURIComponent(window.location.search.substring(1)));
 					if(!id) id = params.id;
@@ -151,7 +144,8 @@ define([
 				
 				$(div).find(".dropdown ").addClass("hide");
 				
-			}	else{
+			}else{
+				
 				$(div).find(".info-content").removeClass("hide");
 				$(div).find(".content-edit").addClass("hide");				
 				
@@ -390,7 +384,7 @@ define([
 			do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
 		}
 		const do_lc_bind_event_mod_group = function(obj){
-			$("#btn_create_group").off("click").on("click", function(){
+			$("#btn_create_entity").off("click").on("click", function(){
 				
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
@@ -414,7 +408,7 @@ define([
 				});
 			})
 			
-			$("#btn_canel_group").off("click").on("click",function(){
+			$("#btn_new_cancel").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -436,7 +430,8 @@ define([
 					}
 				});
 			})
-			$("#btn_canel_person_delete").off("click").on("click",function(){
+			
+			$("#btn_cancel_delete").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -459,6 +454,7 @@ define([
 				});
 			})
 		}
+		
 		this.do_lc_mod = function(obj){
 			const data = req_gl_data({
 				dataZoneDom: $("#frm_new_group")
@@ -470,26 +466,27 @@ define([
 				data.data.files = obj.files;
 			}
 			data.data.id = obj.id;
-			do_lc_update_per(data.data);
+			do_lc_update_entity(data.data);
 		}
 		
-		const do_lc_update_per = function(ent) {
+		const do_lc_update_entity = function(ent) {
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent)});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_update_person_success, []));
+			fSucces.push(req_gl_funct(null, do_lc_update_entity_callback, []));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
-		const do_lc_update_person_success = function(sharedJson){
+		const do_lc_update_entity_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
 					do_lc_show_entity(data);
 					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
-					pr_ctr_List.do_lc_get_list(true);
+					
+					pr_ctr_List.do_lc_show(true);
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
@@ -527,8 +524,6 @@ define([
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_entity_save'));
 				return false;
 			}
-			
-			
 			
 			//---clone ent data----------------------------------
 			var 	obj 		= JSON.parse(JSON.stringify(ent));
