@@ -207,8 +207,8 @@ define(['jquery'], function($) {
 		
 		
 		var do_get_list_ByAjax = function(hardLoad = false){
-			let divList = $("#div_prj_list");
-			let divPan  = $("#div_prj_pagination");
+			let divList = $("#div_list_detail");
+			let divPan  = $("#div_list_pagination");
 			
 			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, 
 			{	typ01		: TYP_01_NATURAL, 
@@ -242,7 +242,7 @@ define(['jquery'], function($) {
 				data		= sharedJson[App['const'].RES_DATA]
 			}
 			
-			$("#div_prj_list")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
+			$("#div_list_detail")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
 			
 			do_binding_event_list();
 		}

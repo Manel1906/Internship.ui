@@ -8,18 +8,16 @@ define([
 	'text!group/per/patient/tmpl/List_Content.html', 
 	
 	'text!group/per/patient/tmpl/Ent.html',
+	'text!group/per/patient/tmpl/Ent_Modify.html',
+	'text!group/per/patient/tmpl/Ent_Content.html'	,
 	'text!group/per/patient/tmpl/Ent_Content_Row.html',
 	'text!group/per/patient/tmpl/Ent_Content_Row_Add.html',
 	'text!group/per/patient/tmpl/Ent_Content_Row_Lst.html',
 	'text!group/per/patient/tmpl/Ent_Content_Row_Add_Lst.html',
-	'text!group/per/patient/tmpl/Ent_Modify.html',
-	'text!group/per/patient/tmpl/Ent_Content.html'	,
-	'text!group/per/patient/tmpl/Ent_Tab_JobPosition.html'	,
+		
 	'text!group/per/patient/tmpl/Ent_Tab_Person_Info.html',	
-    'text!group/per/patient/tmpl/Sel_List_Legal_Status.html'	,
-	'text!group/per/patient/tmpl/Ent_Tab_Rights.html',
 	
-	'text!group/per/patient/tmpl/PrjDropzone_File.html'
+	'text!group/per/patient/tmpl/Dropzone_File.html'
 
 	], function(
 			List,
@@ -31,26 +29,25 @@ define([
 			Tmpl_List_Content,
 			
 			Tmpl_Ent,
+			Tmpl_Ent_Modify,
+			Tmpl_Ent_Content	,	
 			Tmpl_Ent_Content_Row,
 			Tmpl_Ent_Content_Row_Add,
 			Tmpl_Ent_Content_Row_Lst,
 			Tmpl_Ent_Content_Row_Add_Lst,
-			Tmpl_Ent_Modify,
-			Tmpl_Ent_Content	,	
-			Tmpl_Ent_Tab_JobPosition	,	
 			Tmpl_Ent_Tab_Person_Info,
-			Tmpl_Sel_List_Legal_Status,
-			Tmpl_Ent_Tab_Rights
+			
+			Tmpl_PrjDropzone_File
 	) {
 
-	var PrjUserMain     			= function (grpName, header, content, footer) {
+	var Main     			= function (grpName, header, content, footer) {
 		
 		var pr_divHeader 			= header;
 		var pr_divContent 			= content;
 		var pr_divFooter 			= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"PerPatient";
+		var pr_grpName				= grpName?grpName:"PerDoctor";
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
@@ -81,34 +78,34 @@ define([
 			tmplName.TMPL_LIST_CONTENT				= pr_grpName + "Tmpl_List_Content";
 			
 			tmplName.TMPL_ENT						= pr_grpName + "Tmpl_Ent";
+			tmplName.TMPL_ENT_CONTENT				= pr_grpName + "Tmpl_Ent_Content";
 			tmplName.TMPL_ENT_CONTENT_ROW			= pr_grpName + "Tmpl_Ent_Content_Row";
 			tmplName.TMPL_ENT_CONTENT_ROW_ADD		= pr_grpName + "Tmpl_Ent_Content_Row_Add";
 			tmplName.TMPL_ENT_CONTENT_ROW_LST		= pr_grpName + "Tmpl_Ent_Content_Row_Lst";
 			tmplName.TMPL_ENT_CONTENT_ROW_ADD_LST	= pr_grpName + "Tmpl_Ent_Content_Row_Add_Lst";
-			tmplName.TMPL_ENT_CONTENT				= pr_grpName + "Tmpl_Ent_Content";
+						
 			tmplName.TMPL_ENT_MODIFY				= pr_grpName + "Tmpl_Ent_Modify";
-			tmplName.TMPL_ENT_TAB_JOBPOSITION		= pr_grpName + "Tmpl_Ent_Tab_JobPosition";
-			tmplName.TMPL_ENT_TAB_RIGHTS			= pr_grpName + "Tmpl_Ent_Tab_Rights";
 			tmplName.TMPL_ENT_TAB_PERSON_INFO		= pr_grpName + "Tmpl_Ent_Tab_Person_Info";
-			tmplName.TMPL_LEGAL_STAT				= pr_grpName + "Tmpl_Sel_List_Legal_Status";
+			
+			tmplName.TMPL_DROPZONE_FILE				= pr_grpName + "Tmpl_Dropzone_File"
 			
 			
 			
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_MAIN					, Tmpl_Main); 
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST					, Tmpl_List); 
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST_CONTENT			, Tmpl_List_Content);
-			
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_MAIN						, Tmpl_Main); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST						, Tmpl_List); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST_CONTENT				, Tmpl_List_Content);
+				
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT						, Tmpl_Ent);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT				, Tmpl_Ent_Content);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW			, Tmpl_Ent_Content_Row);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_ADD		, Tmpl_Ent_Content_Row_Add);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_LST		, Tmpl_Ent_Content_Row_Lst);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_ADD_LST	, Tmpl_Ent_Content_Row_Add_Lst);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT			, Tmpl_Ent_Content);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_JOBPOSITION	, Tmpl_Ent_Tab_JobPosition);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_MODIFY			, Tmpl_Ent_Modify);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_RIGHTS		, Tmpl_Ent_Tab_Rights); 		
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO	, Tmpl_Ent_Tab_Person_Info);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LEGAL_STAT			, Tmpl_Sel_List_Legal_Status); 
+						
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_MODIFY				, Tmpl_Ent_Modify);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO		, Tmpl_Ent_Tab_Person_Info);
+			
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE				, Tmpl_PrjDropzone_File);
 			
 			//---------------------------------------------------------------------------------------------
 			//---------------------------------------------------------------------------------------------
@@ -155,5 +152,5 @@ define([
 		
 	};
 
-	return PrjUserMain;
+	return Main;
 });

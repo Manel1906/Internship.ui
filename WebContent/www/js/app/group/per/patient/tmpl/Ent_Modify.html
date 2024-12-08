@@ -10,7 +10,7 @@
                 </a>
             </div>
             <div class="dropdown font-size-20">
-                <div class="col-lg-1 col-md-2 col-sm-3 text-center mr-3"><i id="btn_canel_person_delete" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+                <div class="col-lg-1 col-md-2 col-sm-3 text-center mr-3"><i id="btn_cancel_delete" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
                 <a data-divtoogle="#div_group_content" class="btn-resize-content cursor-pointer" data-toggle="tooltip" data-placement="top" title="Resize">
                     <i class="mdi mdi-window-minimize text-primary"></i>
                 </a>
@@ -20,98 +20,111 @@
             <input type="hidden" data-name="typ01" class="form-control objData" value="100">
             <input type="hidden" data-name="stat" class="form-control objData" value="1">
             
-            <div class="row mb-2">
-                <div class="col-3 d-flex justify-content-center align-items-center">
+            <div class="row mb-4">
+                <div class="col-4 d-flex justify-content-center align-items-center">
             <!--     <img src="{{avatar.url}}" style="object-fit: cover" alt="" class="img-fluid rounded-circle" onerror="{{url_image_err}}">  --> 
-					    <img 
+					<img 
 					        src="{{avatar.url}}" 
 					        style="width: 120px; height: 110px; object-fit: cover; border-radius: 50%;" 
 					        class="avatar-xs" 
 					        alt="Avatar" 
 					        onerror="{{url_image_err}}">
                 </div>
-                <div class="col-9">
+                <div class="col-8">
                  	<div class="row">
-	                     <div class="form-group col-4">
-                            <label for="inp_group_phone">{{transl 'per_person_doctor_full_surname'}}</label>
+	                    <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_patient_full_surname'}}</label>
                             <input type="text"  data-name="name01" class="form-control objData" id="inp_group_phone" value="{{name01}}" maxlength="250" data-validation="required">
                         </div>
-                         <div class="form-group col-4">
-                            <label for="inp_group_phone">{{transl 'per_person_doctor_middle_name'}}</label>
+                        <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_patient_middle_name'}}</label>
                             <input type="text"  data-name="name02" class="form-control objData" id="inp_group_phone" value="{{name02}}" maxlength="250" >
                         </div>
-                         <div class="form-group col-4">
-                            <label for="inp_group_phone">{{transl 'per_person_doctor_name'}}</label>
+                        <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_patient_name'}}</label>
                             <input type="text"  data-name="name03" class="form-control objData" id="inp_group_phone" value="{{name03}}" maxlength="250" data-validation="required">
                         </div>
                  	</div>
-                 	<div class="row">
-                 	</div>
             	</div>
-                    <div class="row col-12  ml-1">
-                        <div class="form-group col-4">
-                            <label for="inp_group_email">{{transl 'per_person_doctor_mail'}}</label>
-                            <input type="email" data-name="inf01" class="form-control objData" id="inp_group_email" value="{{inf01}}" maxlength="250" data-validation="required">
-                        </div>
-                         <div class="form-group col-4">
-                            <label for="inp_group_email">{{transl 'per_person_doctor_phone'}}</label>
-                            <input type="number" data-group="inf04" data-name="t" class="form-control objData" id="inp_group_email" value="{{inf04.t}}" maxlength="50" data-validation="required">
-                        </div>
-                        <div class="form-group col-4">
-                            <label for="inp_group_email">{{transl 'per_person_doctor_cccd'}}</label>
-                            <input type="number" data-group="inf04" data-name="i" class="form-control objData" id="inp_group_email" value="{{inf04.i}}" maxlength="250" data-validation="required">
-                        </div>
-                    </div>
-                     <div class="row col-12  ml-1">
-                         <div class="col-4">
-                            <label for="inp_group_email">{{transl 'prj_user_group_gender'}}</label>
-                            <select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="" data-name="inf10">
-								<option {{#equal inf10 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
-								<option {{#equal inf10 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
-								<option {{#equal inf10 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
-							</select>
-                        </div>
-                     	<div class="col-4">
-				<!-- 		<p class="text-muted info-edit info-content">{{reqFormatShortDate inf02.d}}</p> -->	
-							 <label for="inp_group_locate">{{transl 'per_person_doctor_bidth_date'}}</label>
-							<div class="input-daterange form-group  content-edit">
-			                	<input id="inp_autuser_tab01_birthday" data-provide="datepicker" autocomplete="off" class="form-control objData content-edit isManager" type="text" data-group="inf04"
-			                	data-name="b" data-format="date" data-validation="date" {{#if inf04.b}}value="{{reqFormatShortDate inf04.b}}"{{/if}}>
-			                </div>
-						</div>	
-                        <div class="col-4">
-                            <label for="inp_group_locate">{{transl 'prj_user_group_nation'}}</label>
-                            <input type="text" data-group="inf04" data-name="c" class="form-control objData" id="inp_group_locate" value="{{inf04.c}}"  maxlength="250">
-                        </div>
-                    </div>
+            </div>
+            
+            <hr class="badge-info" style="height: 1px;">
+            
+            <div class="row ml-1 mt-2">
+            	<div class="form-group col-4">
+                   	<label for="inp_group_phone">{{transl 'per_person_patient_code'}}</label>
+                    <input type="text"  data-name="code01" class="form-control objData" id="inp_group_phone" value="{{code01}}" maxlength="50" >
+            	</div>
+            	
+            	<div class="form-group col-4">
+	                <label for="inp_group_name">{{transl 'per_person_patient_lev'}}</label> 
+	                
+	                <select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="required" data-name="typ05">
+						{{#select typ05}}
+						<option selected 	value="1">{{transl "per_person_patient_normal"}}	</option>
+						<option  			value="2">{{transl "per_person_patient_gold"}}		</option>
+						<option 			value="3">{{transl "per_person_patient_diamond"}}	</option>
+						<option 			value="4">{{transl "per_person_patient_vip"}}		</option>
+						{{/select}}
+					</select>
+				</div>	
+			</div>
+				
+			<div class="row ml-1">
+				<div class="form-group col-4">
+					<label>{{transl 'per_person_patient_phone'}}</label>
+					<input type="number" data-name="inf02" class="form-control objData" id="inp_group_email" value="{{inf02}}" maxlength="50" data-validation="required">
+				</div>
+				<div class="form-group col-4">
+					<label>{{transl 'per_person_patient_mail'}}</label>
+					<input type="email" data-name="inf01" class="form-control objData" id="inp_group_email" value="{{inf01}}" maxlength="250" data-validation="required">
+				</div>
+				<div class="form-group col-4">
+					<label>{{transl 'per_person_patient_cccd'}}</label>
+					<input type="number" data-name="code02" class="form-control objData" id="inp_group_email" value="{{code02}}" maxlength="250" data-validation="required">
+				</div>
+			</div>
+                
+			<div class="row ml-1">
+				<div class="col-4">
+					<label>{{transl 'per_person_patient_bidth_date'}}</label>
+					<div class="input-daterange form-group  content-edit">
+						<input id="inp_autuser_tab01_birthday" data-provide="datepicker" autocomplete="off" class="form-control objData content-edit isManager" type="text"
+			            	data-name="dt03" data-format="date" data-validation="date" {{#if dt03}}value="{{reqFormatShortDate dt03}}"{{/if}}>
+					</div>
+				</div>	
+                <div class="col-4">
+					<label>{{transl 'prj_user_group_gender'}}</label>
+					<select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="" data-name="inf10">
+							<option {{#equal inf10 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
+							<option {{#equal inf10 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
+							<option {{#equal inf10 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
+					</select>
+				</div>
+				<div class="col-4">
+					<label>{{transl 'prj_user_group_nation'}}</label>
+					<input type="text" data-group="inf04" data-name="c" class="form-control objData" id="inp_group_locate" value="{{inf04.n}}"  maxlength="250">
+				</div>
+			</div>
+			
+            <div class="row ml-1">
+            	<div class="form-group col-4">
+	                <label>{{transl 'prj_user_group_nationality'}}</label>
+	                <input type="text"  data-group="inf04" data-name="n" class="form-control objData" id="inp_group_locate" value="{{inf08}}"  maxlength="250">
                 </div>
-                 <div class="row ml-1">
-                    <div class="form-group col-4">
-                        <label for="inp_group_locate">{{transl 'prj_user_group_nationality'}}</label>
-                        <input type="text"  data-group="inf04" data-name="n" class="form-control objData" id="inp_group_locate" value="{{inf04.n}}"  maxlength="250">
-                    </div>
-					<div class="form-group col-4">
-		                <label for="inp_group_name">{{transl 'per_person_patient_inf_job'}}</label> 
-		                <input type="text" data-group="inf04" data-name="j" class="form-control objData" id="inp_group_name" value="{{inf04.j}}" placeholder="{{transl 'prj_tpy_group_address_enter'}}">
-					</div>	
-		            <div class="form-group col-4">
-		                <label for="inp_group_name">{{transl 'prj_project_member_level_worker'}}</label> 
-		                <select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="" data-group="inf04" data-name="m">
-							<option {{#equal inf04.m 1}}selected{{/equal}} value="1">{{transl "per_person_patient_normal"}}</option>
-							<option {{#equal inf04.m 2}}selected{{/equal}} value="2">{{transl "per_person_patient_gold"}}</option>
-							<option {{#equal inf04.m 3}}selected{{/equal}} value="3">{{transl "per_person_patient_diamond"}}</option>
-							<option {{#equal inf04.m 4}}selected{{/equal}} value="4">{{transl "per_person_patient_vip"}}</option>
-						</select>
-					</div>	
-		        </div>
-		        <div class="row">
-                    <div class="col-12 ml-auto">
-			            <div class="form-group">
-			                <label for="inp_group_name">{{transl 'per_person_doctor_address'}}</label> 
-			                <input type="text" data-group="inf04" data-name="a" class="form-control objData" id="inp_group_name" value="{{inf04.a}}" placeholder="{{transl 'prj_tpy_group_address_enter'}}">
-						</div>	
-			        </div>
-				 </div>
+	            <div class="form-group col-4">
+	                <label for="inp_group_name">{{transl 'per_person_patient_address'}}</label> 
+	                <input type="text" data-group="inf04" data-name="a" class="form-control objData" id="inp_group_name" value="{{inf04.a}}" placeholder="{{transl 'prj_tpy_group_address_enter'}}">
+				</div>	
+				
+				<div class="form-group col-4">
+                   	<label>{{transl 'per_person_patient_speciality_main'}}</label>
+                   	<input type="text"  data-name="inf03" class="form-control objData" id="inp_group_locate" value="{{inf03}}"  maxlength="250" data-validation="required">
+				</div>
+	        </div>
+
+            <hr class="badge-info" style="height: 1px;">
+            
             
 			<div class="row mt-4">
             	<div class="col-lg-6 col-md-4 col-sm-12 col-xm-12 form-group mb-4">
@@ -153,8 +166,8 @@
 				</div>
 	        </div> 
             <div class="d-flex justify-content-end mt-4">
-                <button id="btn_canel_group" class="btn btn-secondary mr-2" type="button">{{transl 'prj_user_group_new_btn_cancel'}}</button>
-                <button id="btn_create_group" class="btn btn-primary" type="button">{{transl 'prj_user_group_new_btn_save'}}</button>
+                <button id="btn_new_cancel" class="btn btn-secondary mr-2" type="button">{{transl 'prj_user_group_new_btn_cancel'}}</button>
+                <button id="btn_create_entity" class="btn btn-primary" type="button">{{transl 'prj_user_group_new_btn_save'}}</button>
             </div>
         </div>
     </div>

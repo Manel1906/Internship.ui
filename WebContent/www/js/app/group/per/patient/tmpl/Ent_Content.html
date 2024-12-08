@@ -1,183 +1,111 @@
-<div class="card mb-2">
+<div class="card mb-0">
     <div class="card-body">
         <div class="card">
-        	<div class="d-flex">
-		            <div>
-						<p class="fw-bold h5 text-uppercase mt-2">{{transl 'per_person_patient_inf_indu'}}</p>
+        	<div class="d-flex justify-content-end ml-auto">
+               <span id="btn_edit" class="dropdown-item cursor-pointer ml-auto" data-id="{{id}}">
+				    <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+				</span>
+            </div>
+          
+           	<div class="row align-items-center mb-2">
+	           <div class="col-4">
+		            {{#if avatar.url}}
+				    <img 
+				        src="{{avatar.url}}" 
+				        style="width: 140px; height: 130px; object-fit: cover; border-radius: 50%;" 
+				        class="avatar-xs" 
+				        alt="Avatar" 
+				        onerror="{{url_image_err}}">
+				     {{else}}
+				     <img 
+				        src="{{url_image_err}}" 
+				        style="width: 140px; height: 130px; object-fit: cover; border-radius: 50%;" 
+				        class="avatar-xs" 
+				        alt="Avatar" 
+				        onerror="{{url_image_err}}">
+				     {{/if}}
+				</div>
+					
+                <div class="col-8">
+                	<div class="d-flex align-items-center">
+					    <h5 class="text-muted info-content mb-2">
+					        {{transl 'per_person_patient_full_name'}}&nbsp;:&nbsp;
+					    </h5>
+                    	<h5 class="text-muted mb-2">{{name01}} {{name02}} {{name03}}</h5>
 					</div>
-	
-	            <div class="dropdown ml-auto font-size-20">
-	                <a href="javascript:void(0)" id="btn_edit" class=""data-id="{{id}}">
-	                    <i class="mdi mdi-pencil-outline text-success"></i>
-	                </a>
-	            </div>
-             </div>
+                    <div class="d-flex align-items-center">
+                      	<h6 class="text-muted mb-2">{{transl 'per_person_patient_code'}}&nbsp;:&nbsp; </h6>
+                      	<p class="text-muted mb-2"> {{code01}}</p>
+					</div>
+					
+					<div class="d-flex align-items-center">
+                        <h6 class="text-muted mb-2">{{transl 'per_person_patient_lev'}}</h6>
+                          <p class="text-muted info-content mb-2 flex-grow-1">
+					        {{#equal typ05 1}}{{transl "per_person_patient_normal" }}{{/equal}}
+					        {{#equal typ05 2}}{{transl "per_person_patient_gold" }}{{/equal}}
+					        {{#equal typ05 3}}{{transl "per_person_patient_diamond" }}{{/equal}}
+				            {{#equal typ05 4}}{{transl "per_person_patient_vip" }}{{/equal}}
+					    </p>
+                    </div> 
+					
+            	</div>
+            </div>
             
-             <div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
-            {{#if avatar.url}}
-                <div class="row align-items-center">
-                    <div class="col-2">
-					    <img 
-					        src="{{avatar.url}}" 
-					        style="width: 140px; height: 130px; object-fit: cover; border-radius: 50%;" 
-					        class="avatar-xs" 
-					        alt="Avatar" 
-					        onerror="{{url_image_err}}">
-					</div>
-                    <div class="col-10">
-                        <div class="d-flex align-items-center">
-                        	<h6 class="text-muted mb-2">{{transl 'per_person_doctor_full_name'}}*: </h6>
-	                        <p class="text-muted mb-2"> {{name01}} {{name02}} {{name03}}</p>
-						</div>
-                        <div class="d-flex align-items-center">
-                        	<h6 class="text-muted mb-2">{{transl 'per_person_doctor_code'}}: </h6>
-                        	<p class="text-muted mb-2"> BN{{inf04.i}}</p>
-						</div>
-                    </div>
-                  </div>
+            <div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
                   
-                    <div class="row align-items-center mb-2 ml-2 mt-2">
-						<div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'per_person_doctor_mail'}}</h6>
-	                        <p class="text-muted mb-2">{{inf01}}</p>
-	                    </div> 
-	                  	<div class="col-4">
-	                   		<h6 class="text-muted mb-2 mt-2">{{transl 'per_person_doctor_phone'}}</h6>
-	                   		<p class="text-muted mb-2 mt-2">{{inf04.t}}</p>
-	                   	</div>	
-	                   	<div class="col-4">	
-						     <h6 class="text-muted mb-2">{{transl 'per_person_doctor_cccd'}}</h6>
-						     <p class="text-muted mb-2 mt-2">{{inf04.i}}</p>
-						</div>	
-                   </div>     
+               
                    
-                   <div class="row align-items-center mb-2 ml-2 mt-1">
-	                  	<div class="col-4">
-	                   		<h6 class="text-muted mb-2">{{transl 'prj_user_group_gender'}}</h6>
-						    <p class="text-muted info-content mb-2 flex-grow-1">
-						        {{#equal inf10 0}}{{transl "per_person_men" }}{{/equal}}
-						        {{#equal inf10 1}}{{transl "per_person_women" }}{{/equal}}
-						        {{#equal inf10 2}}{{transl "per_person_other" }}{{/equal}}
-						    </p>
-	                   	</div>	
-						<div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'per_person_doctor_bidth_date'}}</h6>
-	                        <p class="text-muted mb-2">{{reqFormatShortDate inf04.b}}</p>
-	                    </div> 
-	                    <div class="col-4">	
-						     <h6 class="text-muted mb-2">{{transl 'per_person_patient_inf_job'}}</h6>
-						     <p class="text-muted mb-2 mt-2">{{inf04.j}}</p>
-						</div>	
-                   </div>  
+	        <div class="row align-items-center mb-2">
+	           	<div class="col-4">
+	            	<h6 class="text-muted mb-2 mt-2">{{transl 'per_person_patient_phone'}}</h6>
+	            	<p class="text-muted mb-2 mt-2">{{inf02}}</p>
+	         		</div>
+	         		<div class="col-4">
+	           		<h6 class="text-muted mb-2">{{transl 'per_person_patient_mail'}}</h6>
+	               	<p class="text-muted mb-2">{{inf01}}</p>
+	               </div> 	
+	           	<div class="col-4">	
+					<h6 class="text-muted mb-2">{{transl 'per_person_patient_cccd'}}</h6>
+					<p class="text-muted mb-2 mt-2">{{code02}}</p>
+				</div>	
+	       	</div>  
                    
-                   <div class="row align-items-center mb-2 ml-2 mt-1">
-	                   	<div class="col-4">	
-						     <h6 class="text-muted mb-2">{{transl 'prj_user_group_nation'}}</h6>
-						     <p class="text-muted mb-2 mt-2">{{inf04.c}}</p>
-						</div>	
-						<div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'prj_user_group_nationality'}}</h6>
-	                        <p class="text-muted mb-2">{{inf04.n}}</p>
-	                    </div> 
-	                    <div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'prj_project_member_level_worker'}}</h6>
-	                          <p class="text-muted info-content mb-2 flex-grow-1">
-						        {{#equal inf04.m 1}}{{transl "per_person_patient_normal" }}{{/equal}}
-						        {{#equal inf04.m 2}}{{transl "per_person_patient_gold" }}{{/equal}}
-						        {{#equal inf04.m 3}}{{transl "per_person_patient_diamond" }}{{/equal}}
-					            {{#equal inf04.m 4}}{{transl "per_person_patient_vip" }}{{/equal}}
-						    </p>
-	                    </div> 
-                   </div>  
-			        <div class="row ml-2 mt-1">
-	                    <div class="col-12 ml-auto">
-				            <h6 class="text-muted">{{transl 'per_person_doctor_address'}}</h6>
-				            <p class="text-muted">{{inf04.a}}</p>
-				        </div>
-				    </div>
-            {{else}}
-                <div class="row align-items-center mb-1">
-                    <div class="col-2">
-					    <img 
-					        src="{{url_image_err}}" 
-					        style="width: 140px; height: 130px; object-fit: cover; border-radius: 50%;" 
-					        class="avatar-xs" 
-					        alt="Avatar" 
-					        onerror="{{url_image_err}}">
-					</div>
-                   <div class="col-10">
-                        <div class="d-flex align-items-center">
-                        	<h6 class="text-muted mb-2">{{transl 'per_person_doctor_full_name'}}*: </h6>
-	                        <p class="text-muted mb-2"> {{name01}} {{name02}} {{name03}}</p>
-						</div>
-                        <div class="d-flex align-items-center">
-                        	<h6 class="text-muted mb-2">{{transl 'per_person_doctor_code'}}: </h6>
-                        	<p class="text-muted mb-2"> BN{{inf04.i}}</p>
-						</div>
-                    </div>
-                  </div>
-                  
-                    <div class="row align-items-center mb-2 ml-2 mt-2">
-						<div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'per_person_doctor_mail'}}</h6>
-	                        <p class="text-muted mb-2">{{inf01}}</p>
-	                    </div> 
-	                  	<div class="col-4">
-	                   		<h6 class="text-muted mb-2 mt-2">{{transl 'per_person_doctor_phone'}}</h6>
-	                   		<p class="text-muted mb-2 mt-2">{{inf04.t}}</p>
-	                   	</div>	
-	                   	<div class="col-4">	
-						     <h6 class="text-muted mb-2">{{transl 'per_person_doctor_cccd'}}</h6>
-						     <p class="text-muted mb-2 mt-2">{{inf04.i}}</p>
-						</div>	
-                   </div>     
-                   
-                   <div class="row align-items-center mb-2 ml-2 mt-1">
-	                  	<div class="col-4">
-	                   		<h6 class="text-muted mb-2">{{transl 'prj_user_group_gender'}}</h6>
-						    <p class="text-muted info-content mb-2 flex-grow-1">
-						        {{#equal inf10 0}}{{transl "per_person_men" }}{{/equal}}
-						        {{#equal inf10 1}}{{transl "per_person_women" }}{{/equal}}
-						        {{#equal inf10 2}}{{transl "per_person_other" }}{{/equal}}
-						    </p>
-	                   	</div>	
-						<div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'per_person_doctor_bidth_date'}}</h6>
-	                        <p class="text-muted mb-2">{{reqFormatShortDate inf04.b}}</p>
-	                    </div> 
-	                    <div class="col-4">	
-						     <h6 class="text-muted mb-2">{{transl 'per_person_patient_inf_job'}}</h6>
-						     <p class="text-muted mb-2 mt-2">{{inf04.j}}</p>
-						</div>	
-                   </div>  
-                   
-                   <div class="row align-items-center mb-2 ml-2 mt-1">
-	                   	<div class="col-4">	
-						     <h6 class="text-muted mb-2">{{transl 'prj_user_group_nation'}}</h6>
-						     <p class="text-muted mb-2 mt-2">{{inf04.c}}</p>
-						</div>	
-						<div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'prj_user_group_nationality'}}</h6>
-	                        <p class="text-muted mb-2">{{inf04.n}}</p>
-	                    </div> 
-	                    <div class="col-4">
-	                        <h6 class="text-muted mb-2">{{transl 'prj_project_member_level_worker'}}</h6>
-	                          <p class="text-muted info-content mb-2 flex-grow-1">
-						        {{#equal inf04.m 1}}{{transl "per_person_patient_normal" }}{{/equal}}
-						        {{#equal inf04.m 2}}{{transl "per_person_patient_gold" }}{{/equal}}
-						        {{#equal inf04.m 3}}{{transl "per_person_patient_diamond" }}{{/equal}}
-					            {{#equal inf04.m 4}}{{transl "per_person_patient_vip" }}{{/equal}}
-						    </p>
-	                    </div> 
-                   </div>  
-			        <div class="row ml-2 mt-1">
-	                    <div class="col-12 ml-auto">
-				            <h6 class="text-muted">{{transl 'per_person_doctor_address'}}</h6>
-				            <p class="text-muted">{{inf04.a}}</p>
-				        </div>
-				    </div>
-            {{/if}}
-        </div>
+			<div class="row align-items-center mb-2">
+               	<div class="col-4">
+                	<h6 class="text-muted mb-2">{{transl 'per_person_patient_bidth_date'}}</h6>
+                	<p class="text-muted mb-2">{{reqFormatShortDate dt03}}</p>
+            	</div> 
+           		<div class="col-4">
+                	<h6 class="text-muted mb-2">{{transl 'prj_user_group_gender'}}</h6>
+					<p class="text-muted info-content mb-2 flex-grow-1">
+						{{#equal inf10 0}}{{transl "per_person_men" }}{{/equal}}
+						{{#equal inf10 1}}{{transl "per_person_women" }}{{/equal}}
+						{{#equal inf10 2}}{{transl "per_person_other" }}{{/equal}}
+					</p>
+                </div>	
+                <div class="col-4">	
+					<h6 class="text-muted mb-2">{{transl 'prj_user_group_nation'}}</h6>
+					<p class="text-muted mb-2 mt-2">{{inf04.c}}</p>
+				</div>	
+			</div>  
+			<div class="row">
+				<div class="col-4">
+                	<h6 class="text-muted mb-2">{{transl 'prj_user_group_nationality'}}</h6>
+                    <p class="text-muted mb-2">{{inf04.n}}</p>
+                </div> 
+                <div class="col-4 ml-auto">
+		        	<h6 class="text-muted">{{transl 'per_person_patient_address'}}</h6>
+		        	<p class="text-muted">{{inf04.a}}</p>
+		        </div>
+		        <div class="col-4 ml-auto">
+		        	<h6 class="text-muted">{{transl 'per_person_patient_speciality_main'}}</h6>
+		        	<p class="text-muted">{{inf03}}</p>
+		        </div>
+		    </div>
+		</div>
+        
+		<div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
+        
     </div>
 </div>
 
@@ -217,7 +145,7 @@
 	<!-- 	              		<th style="width:15%">{{transl 'prj_project_budget_type_cost'}}</th> -->
 		              		<th>{{transl 'per_person_patient_number_order'}}</th>
 		              		<th>{{transl 'per_person_patient_code'}}</th>
-		              		<th>{{transl 'per_person_doctor_full_name'}}</th>
+		              		<th>{{transl 'per_person_patient_full_name'}}</th>
 		              		<th>{{transl 'per_person_patient_relate'}}</th>
 		              		<th>{{transl 'per_person_patient_identify'}}</th>
 		              		<th>{{transl 'per_person_patient_inf_contact'}}</th>

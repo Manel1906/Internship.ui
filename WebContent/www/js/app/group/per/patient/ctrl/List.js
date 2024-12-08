@@ -7,8 +7,6 @@ define(['jquery'], function($) {
 
 		var self 					= this;
 		//------------------------------------------------------------------------------------
-		const pr_SERVICE_CLASS		= "ServicePerPatient"; //to change by your need
-		const pr_SV_LIST_SEARCH		= "SVLstPatient"; 
 		//------------------controllers------------------------------------------------------
 		var pr_ctr_Main 			= null;
 		var pr_ctr_Ent 				= null;
@@ -16,35 +14,13 @@ define(['jquery'], function($) {
 		//-----------------------------------------------------------------------------------
 		const pr_NUMBER_RECORD		= 9;
 		
-		const pr_TYP_GRID			= 1;
-		const pr_TYP_LIST			= 2;
-		var pr_TYP_SHOW				= 1;
-		
 		var pr_searchKey			= "";
 		
-		const TYP_01_MORAL			= 1000001;
-		const TYP_01_NATURAL		= 1000002;
+		const TYP_01_MORAL			= 200;
+		const TYP_01_NATURAL		= 100;
 		
-		const TYP_02_AGENT			= 1010001;
-		const TYP_02_CLIENT			= 1010002;
-		const TYP_02_SUPPLIER		= 1010003;
-		const TYP_02_PRODUCER		= 1010004;	
-		const TYP_02_DOCTOR			= 1010005;
-		const TYP_02_TPARTY			= 1010006;
-		const TYP_02_PROSPECT		= 1010007;
-		const TYP_02_CLIENT_PUBLIC	= 1010008;
+		const TYP_02_CLIENT			= 2000;
 
-		const TYP_02_COMPANY		= 1010010;
-		const TYP_02_BRANCH			= 1010011;
-		const TYP_02_DEPARTMENT		= 1010012;
-		
-		var pr_List_Type01			= TYP_01_MORAL;
-		var pr_List_Type02			= TYP_02_CLIENT;
-		
-		const pr_STAT_ACTIVE        = 1;
-		const pr_STAT_INACTIVE      = 2;
-		const pr_STAT_ACTIVE_HIDDEN = 3;
-		const pr_STAT_DISABLE 		= 10;
 		
 		const var_lc_MODE_SEL       = 0;
 		const var_lc_MODE_NEW       = 1;
@@ -56,17 +32,20 @@ define(['jquery'], function($) {
 		var RIGHT_A_M	        	= 103;
 		var RIGHT_A_D	        	= 104;
 		
-		const TYP_USER_40 			= 40;
+		var RIGHT_GET	        	= 40000101;
+		var RIGHT_NEW	        	= 40000102;
+		var RIGHT_MOD	        	= 40000103;
+		var RIGHT_DEL	        	= 40000104;
 		
-		var RIGHT_GET	        	= 40000001;
-		var RIGHT_NEW	        	= 40000002;
-		var RIGHT_MOD	        	= 40000003;
-		var RIGHT_DEL	        	= 40000004;
+		const pr_SERVICE_CLASS		= "ServicePerClient";
+		const pr_SV_LIST_PAGE		= "SVLstPage";
+		const pr_SV_IMPORT			= "SVImport";
 		
-		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceAutUser";
-		const pr_SV_GROUP_LIST_DYN			= "SVLstSearch";
-		const pr_STAT_GRP_ACTIVE    		= 1;
-		const pr_TYP_GROUP_WORK 			= 100;
+		const pr_STAT_ACTIVE    	= 1;
+		const pr_STAT_INACTIVE      = 2;
+		const pr_STAT_ACTIVE_HIDDEN = 3;
+		const pr_STAT_DISABLE 		= 10;
+		
 		var pr_typ = [
 			pr_STAT_ACTIVE,
 			pr_STAT_INACTIVE,
@@ -88,15 +67,15 @@ define(['jquery'], function($) {
 				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
 				do_binding_event();
 				
-				do_get_list_ByAjax();
+				do_get_list_ByAjax(true);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "List", "do_lc_show", e.toString()) ;
 			}
 		};
 
 		var do_binding_event = function(){
-			var listUserRight = App.data.user.rights;
-			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+			var listUserRight 	= App.data.user.rights;
+			var isRight 		= listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
 			if (!isRight) {
 				$("#btn_new_entity"	).hide();
 				$("#btn_add_doc"	).hide();
@@ -106,46 +85,6 @@ define(['jquery'], function($) {
 				const dataCode = $(this).data('code');
 				do_lc_get_checked(dataCode);
 				do_get_list_ByAjax();
-			})
-			
-			$(".person-item").off("click").on("click", function(){
-				let listUserRight = App.data.user.rights;
-				if(!listUserRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				
-				var isRight =  listUserRight.includes(RIGHT_ADM)|| listUserRight.includes(RIGHT_A_G);
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				
-				let {id, login} =  $(this).data();
-				
-//				$("#inp-search").prop('readonly', true);
-				
-				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL, pr_DIV_CONTENT);
-				
-				$(".task-item").css("background-color", "#fff")
-				$(".task-item[data-id='" + id + "']").css("background-color", "#f0ffff")
-				
-				$("#inp-search").val(login);
-			})
-			
-			$("#btn_btn_new_user").off("click").on("click", function(){
-				let listUserRight = App.data.user.rights;
-				if(!listUserRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				
-				var isRight = listUserRight.includes(RIGHT_ADM)|| listUserRight.includes(RIGHT_A_N);
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW, pr_DIV_CONTENT);
 			})
 			
 			$("#btn_refresh_group").off("click").on("click", function(){
@@ -179,39 +118,24 @@ define(['jquery'], function($) {
 				pr_searchKey 		= searchNormal? $(".inp-search").val() : $(".inp-search-responsive").val();
 				
 				do_get_list_ByAjax();
-			})
+			});
 			
-			$(".item-file-download").off("click").on("click", function(){
-				let {path} = $(this).data();
-				path && window.open(path, "_blank");
-			})
-			
-			$(".item-file-delete").off("click").on("click", function(){
-				let fileId			= $(this).data("id");	
-				var lineToRemove 	= $(this).parents("tr");
+			$("#btn_new_entity").off("click").on("click", function(){
+				let listUserRight = App.data.user.rights;
+				if(!listUserRight){
+					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
+					return;
+				}
 				
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_delete"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						OK: {
-							lab		: $.i18n("common_btn_yes"),
-							funct	: do_lc_del_files_prj,
-							param	: [prj, fileId, lineToRemove],
-							classBtn: "btn-success"
-						},
-						NO: {
-							lab		: $.i18n("common_btn_cancel"),
-							funct	: self.do_lc_clear_timeout_viewer,
-							param	: [],
-							classBtn: "btn-danger"
-						}
-					}
-				});
+				var isRight = listUserRight.includes(RIGHT_ADM)|| listUserRight.includes(RIGHT_A_N);
+				if(!isRight){
+					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
+					return;
+				}
+				
+				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW, pr_DIV_CONTENT);
 			})
+						
 			
 			$("#btn_add_doc").off("click").on("click", function(){
 				if(!data)	data = [];
@@ -262,7 +186,7 @@ define(['jquery'], function($) {
 		}	
 		
 		var do_lc_save_files = function(newobj){
-			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVImport", {obj: {files: newobj.files}});	
+			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_IMPORT, {obj: {files: newobj.files}});	
 
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_save_files_callback, [newobj]));
@@ -281,58 +205,19 @@ define(['jquery'], function($) {
 			}
 		}
 		
-		var do_lc_del_files_prj = function(prj, fileId, lineToRemove){
-			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_DEL_FILES, {'id': prj.id, 'code': prj.code01, 'fileId':fileId});	
-
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_afterDel_files_prj, [prj, fileId, lineToRemove]));
-
-			let fError 		= req_gl_funct(App, pr_ctr_Main.do_show_Msg, [$.i18n("common_err_ajax")]);	
-
-			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
-		}
-
-		var do_lc_afterDel_files_prj = function(sharedJson, prj, fileId, lineToRemove){
-			if(can_gl_AjaxSuccess(sharedJson)) {
-				lineToRemove.remove();
-				if (prj.files) 
-					prj.files = prj.files.filter(f => f.id != fileId);
-			} else {   
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
-			}
-		}
 		
-		const reqStr_from_to = (m, n) => {
-			var list = [m];
-			
-			for (var i = m + 1; i <= n; i++) {
-			  list.push(i);
-			}
-			
-			return list.toString();
-		  }
-		  
-
-		  const do_lc_get_checked = (dataCode) => {
-  			  pr_typ = []
-  		      if (dataCode == -1) {
-				  pr_typ = [1,2,3,10];
-  		      } else {
-				pr_typ.push(dataCode);
-  		      }
-  		  }
-		  
 		var do_get_list_ByAjax = function(hardLoad = false){
-			let divList = $("#div_prj_list");
-			let divPan  = $("#div_prj_pagination");
+			let divList = $("#div_list_detail");
+			let divPan  = $("#div_list_pagination");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_GROUP_DYN, pr_SV_GROUP_LIST_DYN, 
-			{
-				typ01s: pr_TYP_GROUP_WORK, 
-				searchKey: pr_searchKey, 
-				stats: pr_typ,
-				typs:TYP_USER_40
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, 
+			{	typ01		: TYP_01_NATURAL, 
+				typ02		: TYP_02_CLIENT, 
+				searchKey	: pr_searchKey, 
+				stats		: pr_STAT_ACTIVE, 
+				forced		: hardLoad
 			});
+			
 			const callbackFunct 	= data => do_get_list_ByAjax_callback(data, divList);
 			
 			let opt = {
@@ -357,8 +242,28 @@ define(['jquery'], function($) {
 				data		= sharedJson[App['const'].RES_DATA]
 			}
 			
-			$("#div_prj_list")	.html(tmplCtrl.req_lc_compile_tmpl(template		, data));
-			do_binding_event(div);
+			$("#div_list_detail")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
+			
+			do_binding_event_list();
+		}
+		
+		var do_binding_event_list = function () {
+			$(".entity-item").off("click").on("click", function(){
+				let listUserRight = App.data.user.rights;
+				if(!listUserRight){
+					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
+					return;
+				}
+				
+				let {id, login} =  $(this).data();
+				
+//				$("#inp-search").prop('readonly', true);
+				
+				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL, pr_DIV_CONTENT);
+				
+				$(".entity-item").css("background-color", "#fff")
+				$(".entity-item[data-id='" + id + "']").css("background-color", "#f0ffff")
+			})
 		}
 	};
 

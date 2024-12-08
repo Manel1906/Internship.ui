@@ -1,33 +1,45 @@
-	{{#each lst}}
-       <div class="person-item task-item card task-box mb-1" data-id="{{perId}}" data-stat="{{stat}} data-login="{{login01}}">
-               <div class="card-body px-2 py-3">
-                   <div class="media" data-id="{{perId}}" data-login="{{login01}}">
-                  		<div class="align-self-center mr-3">
-		                    {{#if avatar}}
-                            <img src="{{reqSrcImg avatar}}" class="avatar-sm rounded-circle">
-                            {{else}}
-                            <span class="avatar-sm text-white rounded-circle text-uppercase text-center p-3" style="background-color: {{reqSrcTextColor login01}}"><span class="text-middle" style="top: 35%">{{reqSrcTextAvatar login01}}</span></span>
-                            {{/if}}
-	                    </div>
-                       <div class="media-body overflow-hidden cursor-pointer">
-	                       	<div>
-	                       		<h5 data-id="{{id}}" class="font-size-15 h-inline">{{login01}}</h5>
-<!-- 	                           	<span class="badge {{reqTypBadgeUser typ01}} badge-pill">{{reqTypeClient typ01}}</span> -->
-	                       	</div>
-	                       	<div>
-	                       		<p class="text-muted mb-0 mt-1">{{perObj.name01}} {{perObj.name02}} {{perObj.name03}}</p>
-	                       	</div>
-                       </div>
-                   </div>
-                  	<div class="d-flex mt-3">
-                      	<div class="text-muted mb-0 mt-1">{{transl 'prj_user_list_join'}} {{dateFormatLocalShort dt01}}</div>
-<!--                       	<div class="ml-auto"> -->
-<!--                        		<a href="javascript: void(0);" class="d-inline-block btn-view-dashboard" data-id="{{id}}" > -->
-<!--                                  <i class= "bx bx-home-circle mr-1"></i>{{transl 'prj_user_list_btn_dashboard'}} -->
-<!--                            </a> -->
-<!--                       	</div> -->
-                     </div>
+<ul id="ul-list" class="list-unstyled chat-list" data-simplebar style="max-height: calc(100vh - 350px)';">
+{{#if data}}
+{{#each data}}
+    <li class="entity-item task-item mb-1" data-id="{{id}}" data-stat="{{stat}}">
+        <a href="#">
+            <div class="media align-items-center">
+               {{#if avatar}}
+	               {{#if avatar.url}}
+	               <div class="align-self-center mr-1" >
+	                   <img src="{{avatar.url}}" style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;"  alt="" onerror="{{url_image_err}}">
+	               </div>
+	               {{else}}
+	                <div class="align-self-center mr-1" >
+	                   <img src="{{url_image_err}}"  style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;" alt="" onerror="{{url_image_err}}">
+	               </div>
+	                {{/if}}
+               {{else}}
+               <div class="align-self-center mr-1" >
+	           		<img src="{{url_image_err}}" style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;" alt="" onerror="{{url_image_err}}">
+	           </div>
+               {{/if}}
+               <div class="media-body">
+                    <h6 class=" mb-0">{{name01}} {{name02}} {{name03}}</h6>
+                    <p class="font-size-12 mb-0">{{transl 'per_person_client_vib'}}</p>
+                    {{#ifCond stat02 '==' 1}} 
+					    <span class="badge font-size-12 badge-success badge-pill float-right">{{reqStatUser stat02}}</span>
+					    {{/ifCond}}
+					{{#ifCond stat02 '==' 2}}
+					    <span class="badge font-size-12 badge-secondary badge-pill float-right">{{reqStatUser stat02}}</span>
+					    {{/ifCond}}
+					{{#ifCond stat02 '==' 3}}
+						<span class="badge font-size-12 badge-secondary badge-pill float-right">{{reqStatUser stat02}}</span>
+						{{/ifCond}}
+					{{#ifCond stat02 '==' 10}}
+					    <span class="badge font-size-12 badge-danger badge-pill float-right">{{reqStatUser stat02}}</span>
+					{{/ifCond}}
                </div>
-           </div>
-       {{/each}}
-                    
+            </div>
+        </a>
+    </li>
+{{/each}}
+{{else}}
+<li >{{transl 'common_null_data'}}</li>
+{{/if}}
+</ul>
