@@ -1,0 +1,159 @@
+define([
+	'group/per/patient/ctrl/List',
+	'group/per/patient/ctrl/Ent',
+	
+	'text!group/per/patient/tmpl/Main.html',
+	
+	'text!group/per/patient/tmpl/List.html', 
+	'text!group/per/patient/tmpl/List_Content.html', 
+	
+	'text!group/per/patient/tmpl/Ent.html',
+	'text!group/per/patient/tmpl/Ent_Content_Row.html',
+	'text!group/per/patient/tmpl/Ent_Content_Row_Add.html',
+	'text!group/per/patient/tmpl/Ent_Content_Row_Lst.html',
+	'text!group/per/patient/tmpl/Ent_Content_Row_Add_Lst.html',
+	'text!group/per/patient/tmpl/Ent_Modify.html',
+	'text!group/per/patient/tmpl/Ent_Content.html'	,
+	'text!group/per/patient/tmpl/Ent_Tab_JobPosition.html'	,
+	'text!group/per/patient/tmpl/Ent_Tab_Person_Info.html',	
+    'text!group/per/patient/tmpl/Sel_List_Legal_Status.html'	,
+	'text!group/per/patient/tmpl/Ent_Tab_Rights.html',
+	
+	'text!group/per/patient/tmpl/PrjDropzone_File.html'
+
+	], function(
+			List,
+			Ent,
+			
+			Tmpl_Main,
+			
+			Tmpl_List, 
+			Tmpl_List_Content,
+			
+			Tmpl_Ent,
+			Tmpl_Ent_Content_Row,
+			Tmpl_Ent_Content_Row_Add,
+			Tmpl_Ent_Content_Row_Lst,
+			Tmpl_Ent_Content_Row_Add_Lst,
+			Tmpl_Ent_Modify,
+			Tmpl_Ent_Content	,	
+			Tmpl_Ent_Tab_JobPosition	,	
+			Tmpl_Ent_Tab_Person_Info,
+			Tmpl_Sel_List_Legal_Status,
+			Tmpl_Ent_Tab_Rights
+	) {
+
+	var PrjUserMain     			= function (grpName, header, content, footer) {
+		
+		var pr_divHeader 			= header;
+		var pr_divContent 			= content;
+		var pr_divFooter 			= footer;
+		
+		//------------------------------------------------------------------------------------
+		var pr_grpName				= grpName?grpName:"PerPatient";
+		var tmplName				= App.template.names[pr_grpName];
+		var tmplCtrl				= App.template.controller;
+		
+		var pr_grpPath 				= 'group/per/patient';
+		
+		var self 					= this;
+		var Handlebars				= require('handlebars');
+		const TYP_USER = {
+//				2: "aut_user_ent_header_type_adm"	,	20: "aut_user_ent_header_type_doctor"	,	30: "aut_user_ent_header_type_agent"
+				40: "aut_user_ent_header_type_patient"
+		}
+		Handlebars.registerHelper('reqTypeClient', function(typ) {
+			if(!typ)				return $.i18n(TYP_USER[3]);
+			if(!TYP_USER[typ])		return $.i18n(TYP_USER[3]);
+	
+			return $.i18n(TYP_USER[typ]);
+		});
+		
+		//--------------------APIs--------------------------------------//
+		this.do_lc_init		= function(){
+			if(!tmplName) {
+				App.template.names[pr_grpName] = {}
+				tmplName = App.template.names[pr_grpName]
+			}
+			
+			tmplName.TMPL_MAIN 						= pr_grpName + "Tmpl_Main";
+			tmplName.TMPL_LIST						= pr_grpName + "Tmpl_List";
+			tmplName.TMPL_LIST_CONTENT				= pr_grpName + "Tmpl_List_Content";
+			
+			tmplName.TMPL_ENT						= pr_grpName + "Tmpl_Ent";
+			tmplName.TMPL_ENT_CONTENT_ROW			= pr_grpName + "Tmpl_Ent_Content_Row";
+			tmplName.TMPL_ENT_CONTENT_ROW_ADD		= pr_grpName + "Tmpl_Ent_Content_Row_Add";
+			tmplName.TMPL_ENT_CONTENT_ROW_LST		= pr_grpName + "Tmpl_Ent_Content_Row_Lst";
+			tmplName.TMPL_ENT_CONTENT_ROW_ADD_LST	= pr_grpName + "Tmpl_Ent_Content_Row_Add_Lst";
+			tmplName.TMPL_ENT_CONTENT				= pr_grpName + "Tmpl_Ent_Content";
+			tmplName.TMPL_ENT_MODIFY				= pr_grpName + "Tmpl_Ent_Modify";
+			tmplName.TMPL_ENT_TAB_JOBPOSITION		= pr_grpName + "Tmpl_Ent_Tab_JobPosition";
+			tmplName.TMPL_ENT_TAB_RIGHTS			= pr_grpName + "Tmpl_Ent_Tab_Rights";
+			tmplName.TMPL_ENT_TAB_PERSON_INFO		= pr_grpName + "Tmpl_Ent_Tab_Person_Info";
+			tmplName.TMPL_LEGAL_STAT				= pr_grpName + "Tmpl_Sel_List_Legal_Status";
+			
+			
+			
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_MAIN					, Tmpl_Main); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST					, Tmpl_List); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST_CONTENT			, Tmpl_List_Content);
+			
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT						, Tmpl_Ent);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW			, Tmpl_Ent_Content_Row);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_ADD		, Tmpl_Ent_Content_Row_Add);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_LST		, Tmpl_Ent_Content_Row_Lst);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT_ROW_ADD_LST	, Tmpl_Ent_Content_Row_Add_Lst);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT			, Tmpl_Ent_Content);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_JOBPOSITION	, Tmpl_Ent_Tab_JobPosition);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_MODIFY			, Tmpl_Ent_Modify);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_RIGHTS		, Tmpl_Ent_Tab_Rights); 		
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO	, Tmpl_Ent_Tab_Person_Info);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LEGAL_STAT			, Tmpl_Sel_List_Legal_Status); 
+			
+			//---------------------------------------------------------------------------------------------
+			//---------------------------------------------------------------------------------------------
+			if (!App.controller[pr_grpName]) App.controller[pr_grpName] = {};
+			
+			if (!App.controller[pr_grpName].List)  
+				App.controller[pr_grpName].List				= new List		(grpName, null, null, null);
+			
+			if (!App.controller[pr_grpName].Ent)  
+				App.controller[pr_grpName].Ent				= new Ent		(grpName, null, null, null);
+			
+			
+			
+			App.controller[pr_grpName].List					.do_lc_init();
+			App.controller[pr_grpName].Ent					.do_lc_init();
+			
+		}     
+		
+		//--------show-------------------------------------------------------------------
+		
+		var pr_showed		= false;
+		this.do_lc_show = function(){
+			if (!pr_showed){
+				do_gl_lang_append (pr_grpPath + '/transl', self.do_lc_show_callback, []);
+				pr_showed = true;
+			}else {
+				self.do_lc_show_callback();
+			}
+		};
+		
+		this.do_lc_show_callback = function(){    
+			try { 
+				App.router.controller.do_lc_append_custom_tags()
+				
+				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_MAIN, {}));
+
+				App.controller[pr_grpName].List.do_lc_show("#div_user_list");
+				$(document).prop('title',$.i18n('prj_project_sidebar_user'));
+
+			}catch(e) {				
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "PrjClientMain", "do_lc_show", e.toString()) ;
+			}
+		}
+		
+	};
+
+	return PrjUserMain;
+});

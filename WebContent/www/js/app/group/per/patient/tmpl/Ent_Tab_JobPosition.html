@@ -1,0 +1,67 @@
+<div class="row">
+	
+	<div class="card">
+         <div class="card-body">
+         	<h3>{{transl "aut_user_tab_02_tabtitle"}}</h3>
+             <div class="row">
+                     	{{#each this}}
+						<div class="btn-group mr-1 mt-2">
+                             <a type="button" class="btn btn-info custom-control custom-checkbox pl-5" style="color: white">
+                             		<input class="objData custom-control-input" type="checkbox" data-name="{{id}}" {{#if check}} checked {{/if}} data-group="pos" id="customCheck{{@index}}"/>
+						            <label class="custom-control-label" for="customCheck{{@index}}">{{name}}</label>
+						     </a>
+                             <button type="button" class="btn btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                 <i class="mdi mdi-chevron-down"></i>
+                             </button>
+                             <div class="dropdown-menu">
+                                 {{#each roles}}
+						        <a class="dropdown-item" href="#">{{name}}</a>
+						        {{/each}}
+                             </div>
+                         </div>
+						{{/each}}
+						
+             </div>
+         </div>
+     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 	{{#each this}} -->
+<!-- 	<div class="col-lg-4 col-md-4 col-sm-4"> -->
+<!-- 		<div class="box {{#if check}}box-primary{{else}}box-default{{/if}} box-solid collapsed-box"> -->
+<!-- 			<div id="div_AutRole_List_Header" class="box-header with-border btn-minimize"> -->
+<!-- 				<input class="objData" type="checkbox" data-name="{{id}}" {{#if check}} checked {{/if}} data-group="pos" /> -->
+<!-- 				<h3 class="box-title">{{name}}</h3> -->
+<!-- 				<div class="box-tools pull-right"> -->
+<!-- 					<button type="button" class="btn btn-box-tool" data-widget="collapse"> -->
+<!-- 						<i class="fa fa-chevron-down"></i> -->
+<!-- 						fa-chevron-up -->
+<!-- 					</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 			<div id="div_AutRole_List_Content" class="box-body"> -->
+<!-- 				{{#each roles}} -->
+<!-- 					<div> -->
+<!-- 						<span class="" style="font-weight:bold">{{name}}</span> -->
+<!-- 					</div> -->
+<!-- 				{{/each}} -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<!-- 	{{#ifModulo @index 3 2}} -->
+<!-- 	</div> -->
+<!-- 	<div class="row"> -->
+<!-- 	{{/ifModulo}} -->
+<!-- 	{{/each}} -->
+	
+</div>
