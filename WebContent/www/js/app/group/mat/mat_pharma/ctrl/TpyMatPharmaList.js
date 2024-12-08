@@ -294,7 +294,6 @@ define([
 				
 				if (!lst.length) {
 					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_USER_GROUP_LIST_CONTENT, {}));
-					do_lc_bind_event__list_header();
 					return;
 				}
 

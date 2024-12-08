@@ -68,8 +68,47 @@ define([],function() {
 		//---------load view-----------------------------------------------------------------------------
 		//----------------------------------------------------------------------------------------------
 		//----------------------------------------------------------------------------------------------
-		
 		const do_lc_bind_event = function(obj){
+			if(App.data.user.typ01 == pr_TYP01_ADMIN){
+				$("#btn_new_entity"	).removeClass('hide');
+				$("#btn_add_doc"	).removeClass('hide');
+			}
+			
+			$("#btn_new_entity").off("click").on("click", function(){
+				var listUserRight = App.data.user.rights;
+				var isRight = listUserRight.includes(RIGHT_A_R) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+				if(!isRight){
+					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
+					return;
+				}
+				
+				pr_ctr_Ent.do_lc_show_for_new ();
+			})
+			
+			$("#btn_refresh_entity").off("click").on("click", function(){
+				do_get_list_ByAjax(true);
+				do_lc_bind_event_list();
+			})
+			$(".btn-resize").off("click").on("click", function () {
+				let $this = $(this);
+				let { divtoogle } = $this.data();
+				let child = $this.find("i");
+				let label = $this.find(".label-resize");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize")
+				$(divtoogle).toggle("hide");
+
+				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
+			});
+			$(".btn-resize-list").off("click").on("click", function () {
+				let $this = $(this);
+				let { divtoogle } = $this.data();
+				let child = $this.find("i");
+				let label = $this.find(".label-resize");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize")
+				$(divtoogle).toggle("hide");
+
+				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
+			})
 			const $inputField 	= $("#inp_search");
 		    const $clearIcon 	= $("#clear_icon");
 		    $inputField.on("input", function() {
@@ -209,7 +248,6 @@ define([],function() {
 			
 				if (!lst.length) {
 					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST_CONTENT, {}));
-					do_lc_bind_event__list_header();
 					return;
 				}
 
@@ -230,8 +268,6 @@ define([],function() {
 		}
 		//----------------------------------------------------------------------------------------------
 		const do_lc_bind_event_list = function(){
-			do_lc_bind_event__list_header()
-			
 			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id} 			= $this.data();
@@ -245,49 +281,6 @@ define([],function() {
 			})
 		}
 
-		const do_lc_bind_event__list_header = () => {
-			if(App.data.user.typ01 == pr_TYP01_ADMIN){
-				$("#btn_new_entity"	).removeClass('hide');
-				$("#btn_add_doc"	).removeClass('hide');
-			}
-			
-			$("#btn_new_entity").off("click").on("click", function(){
-				var listUserRight = App.data.user.rights;
-				var isRight = listUserRight.includes(RIGHT_A_R) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
-					return;
-				}
-				
-				pr_ctr_Ent.do_lc_show_for_new ();
-			})
-			
-			$("#btn_refresh_entity").off("click").on("click", function(){
-				do_get_list_ByAjax(true);
-				do_lc_bind_event_list();
-			})
-			$(".btn-resize").off("click").on("click", function () {
-				let $this = $(this);
-				let { divtoogle } = $this.data();
-				let child = $this.find("i");
-				let label = $this.find(".label-resize");
-				child.toggleClass("mdi-window-minimize mdi-window-maximize")
-				$(divtoogle).toggle("hide");
-
-				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
-			});
-			$(".btn-resize-list").off("click").on("click", function () {
-				let $this = $(this);
-				let { divtoogle } = $this.data();
-				let child = $this.find("i");
-				let label = $this.find(".label-resize");
-				child.toggleClass("mdi-window-minimize mdi-window-maximize")
-				$(divtoogle).toggle("hide");
-
-				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
-			})
-		}
-		
 		var do_lc_del_files = function(prj, fileId, lineToRemove) {
 			let ref = req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_DEL_FILES, { 'id': prj.id, 'code': prj.code01, 'fileId': fileId });
 

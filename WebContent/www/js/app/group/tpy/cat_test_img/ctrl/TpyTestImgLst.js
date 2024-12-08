@@ -327,7 +327,6 @@ define([
 				
 				if (!lst.length) {
 					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TPY_CAT_DISEASE_LIST_CONTENT, {}));
-					do_lc_bind_event__list_header();
 					return;
 				}
 

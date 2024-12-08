@@ -93,8 +93,8 @@ define(['jquery'], function($) {
 		};
 
 		var do_binding_event = function(){
-			var listUserRight = App.data.user.rights;
-			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+			var listUserRight 	= App.data.user.rights;
+			var isRight 		= listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
 			if (!isRight) {
 				$("#btn_new_entity"	).hide();
 				$("#btn_add_doc"	).hide();
@@ -131,7 +131,7 @@ define(['jquery'], function($) {
 				$("#inp-search").val(login);
 			})
 			
-			$("#btn_btn_new_user").off("click").on("click", function(){
+			$("#btn_new_entity").off("click").on("click", function(){
 				let listUserRight = App.data.user.rights;
 				if(!listUserRight){
 					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
