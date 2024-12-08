@@ -100,7 +100,11 @@ define([], function() {
 					data.data.files = obj.files;
 				}
 				data.data.id = obj.id;
-				do_lc_update_entity(data.data);
+				let dataMed = data.data;
+				dataMed.dt03 = do_lc_convert_date(dataMed.dt03).replace("T", " ");
+			    const date03 = req_gl_DateObj_From_DateStr(dataMed.dt03);
+			    dataMed.dt03 = formatDateToLocalString(date03);
+				do_lc_update_entity(dataMed);
 			}
 	
 			this.do_lc_cancel = function() {
@@ -146,9 +150,6 @@ define([], function() {
 						
 			//----------------------------------------------------------------------------------------------
 			const do_lc_show_entity = (data) => {
-				if(data.inf && typeof data.inf == "string"){
-					data.inf = JSON.parse(data.inf);
-				}
 				if(data.files && data.files[0].url){
 					data.fileUrl = data.files[0].url
 				}
@@ -172,10 +173,13 @@ define([], function() {
 				if (!isRight) {
 					$("#btn_edit").hide();
 				}
-
 				isRight = listUserRight.includes(RIGHT_A_D) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_DEL)
 				if (!isRight) {
 					$("#btn_del").hide();
+				}
+				isRight = listUserRight.includes(RIGHT_A_D) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_DEL) || listUserRight.includes(RIGHT_MOD)
+				if (!isRight) {
+					$(".dropdown-toggle").hide();
 				}
 							
 				if(!data.files)	data.files = [];
@@ -433,13 +437,9 @@ define([], function() {
 				if(can_gl_AjaxSuccess(sharedJson)) {
 					const data = sharedJson[App['const'].RES_DATA];
 					if(data){
-						if(data.inf && typeof data.inf == "string"){
-							data.inf = JSON.parse(data.inf);
-						}
 						if(data.inf03 && typeof data.inf03 == "string"){
 							data.inf03 = JSON.parse(data.inf03);
 						}
-						
 						var listUserRight = App.data.user.rights;
 						var isRight = listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
 						if(!isRight){
@@ -449,22 +449,25 @@ define([], function() {
 						data.edit 	   = true
 
 						$("#div_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_NEW, data));
-						const [date, time] = data.dt03.split(" ");
-						data.dt03 = { date, time };
-
-						const [year, month, day] = data.dt03.date.split("-");
-						const formattedDate = `${day}/${month}/${year}`;
-						$("#dtpicker_exp").datepicker( "setDate", formattedDate);
-						$("#tmpicker_exp"	)	.timepicker({
-							showMeridian: false,
-							defaultTime : data.dt03.time,
-							icons		: {
-								up		: "mdi mdi-chevron-up",
-								down	: "mdi mdi-chevron-down"
-							}
-						});
-
-						
+						if (data.dt03 && typeof data.dt03 === "string") {
+						    const [date, time] = data.dt03.split(" ");
+						    data.dt03 = { date, time };
+						}
+						const { date, time } = data.dt03 || {};
+						if (date) {
+						    const [year, month, day] = date.split("-");
+						    $("#dtpicker_exp").datepicker("setDate", `${day}/${month}/${year}`);
+						}
+						if (time) {
+						    $("#tmpicker_exp").timepicker({
+						        showMeridian: false,
+						        defaultTime: time,
+						        icons: {
+						            up: "mdi mdi-chevron-up",
+						            down: "mdi mdi-chevron-down"
+						        }
+						    });
+						}
 						App.SummerNoteController.do_lc_show("#div_show_desc");//text editor 
 						App.SummerNoteController.do_lc_show("#div_show_effect");//text editor
 						App.SummerNoteController.do_lc_show("#div_show_assign");//text editor
@@ -507,12 +510,12 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_cancel"),
+								lab		: $.i18n("common_btn_can"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_save"),
+								lab		: $.i18n("common_btn_save_med"),
 								funct	: self.do_lc_mod,
 								param	: [obj],
 								classBtn: "btn-primary"
@@ -635,12 +638,12 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_can"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("disease_cant_save"),
+								lab		: $.i18n("common_btn_save_med"),
 								funct	: self.do_lc_save,
 								param	: [obj],
 								classBtn: "btn-primary"

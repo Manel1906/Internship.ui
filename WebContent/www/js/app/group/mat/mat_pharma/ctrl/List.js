@@ -197,6 +197,7 @@ define([], function() {
 			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
 			if (!isRight) {
 				$("#btn_new_entity").hide();
+				$("#btn_add_doc").hide();
 			}
 			
 			$(".entity-item").off("click").on("click", function(){
