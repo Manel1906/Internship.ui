@@ -1,6 +1,4 @@
 define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
-	
-	
 				
 	var EntContent 					= function (grpName, header, content, footer) {
 		var pr_grpName				= grpName;
@@ -12,12 +10,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var pr_divHeader 			= header  ? header : null;		
 		var pr_divFooter 			= footer  ? footer : null;
 		
-		
-		const pr_divTabDocs			= "#div_prj_docs";
-		const pr_divContent 		= "#div_user_content";
-		const pr_divTabPerInfo 		= "#div_user_info_person";
-		const pr_divTabJobPosition	= "#div_user_position";
-		const pr_divTabRights		= "#div_user_rights";
+		const pr_divContent 		= "#div_entity_content";
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
 		
@@ -100,7 +93,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				const {path} = $(this).data();
 				let isImage = do_lc_check_image(path);
 				if(isImage){
-					const viewer = new Viewer(document.getElementById('div_user_content'), {
+					const viewer = new Viewer(document.getElementById('div_entity_content'), {
 						filterImgClass: ['msg-body-forme', 'msg-body-other'],
 						hide: function () {
 							viewer.destroy();
@@ -211,7 +204,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		var pr_divHeader 			= header  ? header : null;		
 		var pr_divFooter 			= footer  ? footer : null;
-		const pr_divContent 		= "#div_user_info_person";
+		
+		const pr_divContent 		= "#div_ent_tab_group";
 		
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
@@ -249,10 +243,10 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		//---------------------------------Ajax----------------------------------------------
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(ent, mode,id){               
+		this.do_lc_show = function(ent, mode){               
 			try{
 				do_lc_init_values(ent);
-				do_lc_req_specialty(ent,mode,id);
+				do_lc_req_specialty(ent,mode);
 			//	do_get_per_legalStat();
 			//	do_lc_show_entity(ent, mode,id);
 			}catch(e) {				
@@ -264,9 +258,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		      group: {},
 	    };
 	    const do_lc_init_values = (group) => {
-	      initialValues.group = group;
-	      initialValues.speci = {};
-	      pr_MEM_TEMP = {};
+  			initialValues.group = group;
+  			initialValues.speci = {};
+  			pr_MEM_TEMP = {};
 	    };
 	    
 //		var do_lc_show_entity = function(ent, mode, id) {
@@ -280,31 +274,27 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 //		   pr_ctr_Ent.do_lc_ShowDiv_ByMode(pr_divContent, mode);
 //		};
 
-		 const do_lc_build_page = () => {
-	      do_lc_build_table_person();
-	    };
-		 const do_lc_build_table_person = () => {
-	      $(pr_divContent).html(
-	        tmplCtrl.req_lc_compile_tmpl(
-	          tmplName.TMPL_ENT_TAB_PERSON_INFO,
-	          initialValues.speci
-	        )
-	      );
-	      do_lc_bind_event_person(initialValues.speci, null ,initialValues.group.id);
+		const do_lc_build_page = () => {
+			do_lc_build_table_person();
+		};
+		
+ 		const do_lc_build_table_person = () => {
+			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO, initialValues.speci));
+			do_lc_bind_event_person(initialValues.speci, null ,initialValues.group.id);
 	    };
 	    
-	    const do_lc_req_specialty = function(ent,mode,id) {
+	    const do_lc_req_specialty = function(ent, mode) {
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_USER, pr_SV_GRP_WORK, {uId: ent.id});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_req_entity_callback, [ent,mode,id]));
+			fSucces.push(req_gl_funct(null, do_lc_req_entity_callback, [ent,mode]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		
-		const do_lc_req_entity_callback = function(sharedJson, ent,mode,id){
+		const do_lc_req_entity_callback = function(sharedJson, ent, mode){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
@@ -324,18 +314,19 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	    
 		var do_lc_bind_event_person = function(ent, mode,id){
 			$("#btn_add_specialty").off("click").on("click", function () {
-			  $(".action-item-member").removeClass("hide");
-			  $(".btn-remove-speci").removeClass("hide");
-			  $(this).addClass("hide");
+				$(".action-item-member").removeClass("hide");
+				$(".btn-remove-speci").removeClass("hide");
+				$(this).addClass("hide");
 			});
 			
 			$("#a_btn_save_speciality").off("click").on("click", function () {
-			  if (Object.keys(pr_MEM_TEMP).length === Object.keys(ent).length) {
-			    do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
-			    return;
-			  }
-			  do_lc_save_speciality(ent, id);
+				if (Object.keys(pr_MEM_TEMP).length === Object.keys(ent).length) {
+					do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
+					return;
+				}
+				do_lc_save_speciality(ent, id);
 			});
+			
 			$(".btn-remove-speci").off("click").on("click", function(){
 				let {memid} = $(this).data();
 				let mem 	= pr_MEM_TEMP[memid];
@@ -345,116 +336,93 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					$(".action-mem").removeClass("hide");
 				}
 			})
+			
 			$("#a_btn_cancel_speciality").off("click").on("click", function () {
-			  do_lc_build_table_person();
+				do_lc_build_table_person();
 			});
 			
 			$(".member-edit").off("click").on("click", function () {
-			  let $this = $(this);
-			  let { memid } = $this.data();
-			  let mem = pr_MEM_TEMP[memid];
-			  if (mem) {
-			    let parentTR = $this.closest("tr");
-			    parentTR.find(".content-member").addClass("hide");
-			    parentTR.find(".edit-member").removeClass("hide");
-			    let divLev = parentTR.find(".level-edit");
-			    do_lc_bindEvent_tabMemberEdit(memid, divLev);
-			    $(".action-mem").removeClass("hide");
-			  }
+				let $this = $(this);
+				let { memid } = $this.data();
+				let mem = pr_MEM_TEMP[memid];
+				if (mem) {
+				    let parentTR = $this.closest("tr");
+				    parentTR.find(".content-member").addClass("hide");
+				    parentTR.find(".edit-member").removeClass("hide");
+				    let divLev = parentTR.find(".level-edit");
+				    do_lc_bindEvent_tabMemberEdit(memid, divLev);
+				    $(".action-mem").removeClass("hide");
+				}
 			});
 			
 			$(".member-delete").off("click").on("click", function () {
-			  let { memid } = $(this).data();
-			  let mem = pr_MEM_TEMP[memid];
-			  if (mem) {
-			    delete pr_MEM_TEMP[memid];
-			    $(this).closest("tr").remove();
-			    $(".action-mem").removeClass("hide");
-			  }
+				let { memid } = $(this).data();
+				let mem = pr_MEM_TEMP[memid];
+				if (mem) {
+				    delete pr_MEM_TEMP[memid];
+				    $(this).closest("tr").remove();
+				    $(".action-mem").removeClass("hide");
+				}
 			});
 			
 			$(".btn-resize").off("click").on("click", function () {
-			  let $this = $(this);
-			  let child = $this.find("i");
-			  let { divtoggle } = $this.data();
-			  $(divtoggle).toggle("hide");
-			  child.toggleClass("mdi-window-minimize mdi-window-maximize");
+				let $this = $(this);
+				let child = $this.find("i");
+				let { divtoggle } = $this.data();
+				$(divtoggle).toggle("hide");
+				child.toggleClass("mdi-window-minimize mdi-window-maximize");
 			});
 			
 			let el = "#inp_name_member";
 			let reqSelectMember = function (event, item) {
-			  if (pr_MEM_TEMP[item.id]) return false;
+				if (pr_MEM_TEMP[item.id]) return false;
 			
-			  let mem = {
-			    mem: item,
-			    uId: item.id,
-			//    group: idGroup,
-			//    stat: pr_STAT_VALIDATED,
-			  };
+				let mem = {
+				    mem: item,
+				    uId: item.id,
+				//    group: idGroup,
+				//    stat: pr_STAT_VALIDATED,
+				};
 			
-			  let textColor = null;
-			  let textAvatar = null;
+				let textColor = null;
+				let textAvatar = null;
 			
-			  pr_MEM_TEMP[item.id] = mem;
-			  let selOpt = `<tr>`;
-			  selOpt += `<td><a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a></td>`;
-			  selOpt += `<td><h5 class='font-size-14 m-0'><a href='' class='text-dark'>${item.name}</a></h5></td>`;
-			  selOpt += `</tr>`;
-			
-			  $("#tabMember table tbody").append(selOpt);
-			  do_lc_bind_event_autocomplete(pr_MEM_TEMP);
-			  $(el).blur().val("");
+				pr_MEM_TEMP[item.id] = mem;
+				let selOpt = `<tr>`;
+				selOpt += `<td><a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a></td>`;
+				selOpt += `<td><h5 class='font-size-14 m-0'><a href='' class='text-dark'>${item.name}</a></h5></td>`;
+				selOpt += `</tr>`;
+
+				$("#tabMember table tbody").append(selOpt);
+				do_lc_bind_event_autocomplete(pr_MEM_TEMP);
+				$(el).blur().val("");
 			};
+			
 			let typ01Arr = [App.data.user.typ01, 2, 3, 4, 5];
 			let typ01Str = typ01Arr.join(',');
 			
 			let options = {
-			  dataService: [pr_SERVICE_GROUP, pr_SV_LST],
-			  svParams: { wAvatar: true, nbline: 20, stats: 1 },
+				dataService: [pr_SERVICE_GROUP, pr_SV_LST],
+				svParams: { wAvatar: true, nbline: 20, stats: 1 },
 			  // hintService: [pr_SERVICE_USER_CLASS, pr_SV_USER_BY_RELATION],
 			  // hintSvParams: { wAvatar: true, typ01s: typ01Str, stats: 1, entId01: idGroup },
-			  fSelect: reqSelectMember,
-			  customShowList: do_lc_customLst_user_autocomplete,
+				fSelect: reqSelectMember,
+				customShowList: do_lc_customLst_user_autocomplete,
 			};
 			do_gl_req_autocompleteNew(el, options);
 			
 		    
 			var do_lc_bind_event_autocomplete = function (pr_MEM_TEMP) {
-			  $(".btn-remove-member").off("click").on("click", function () {
-			    let $this = $(this);
-			    let parentTR = $this.closest("tr");
-			    let { id } = $this.data();
+				$(".btn-remove-member").off("click").on("click", function () {
+					let $this = $(this);
+				    let parentTR = $this.closest("tr");
+					let { id } = $this.data();
 			
-			    if (pr_MEM_TEMP[id]) delete pr_MEM_TEMP[id];
-			    parentTR.remove();
+					if (pr_MEM_TEMP[id]) delete pr_MEM_TEMP[id];
+					parentTR.remove();
 			  });
 			};
-			const do_lc_save_speciality = function (ent, idPer) {
-		      const ref = req_gl_Request_Content_Send_With_Params(
-		        pr_SERVICE_PER,
-		        pr_SV_MOD_GRP,
-		        {
-		          userId: idPer,
-		          grps: JSON.stringify(Object.values(pr_MEM_TEMP)),
-		        }
-		      );
-		
-		      let fSucces = [];
-		      fSucces.push(req_gl_funct(null, do_lc_afterSave_speciality, [ent, idPer]));
-		
-		      let fError = req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"),]);
-		
-		      App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV,App.data["HttpSecuHeader"],ref,100000,fSucces,fError);
-		    };
-		    const do_lc_afterSave_speciality = function (sharedJson, ent, idGroup) {
-		      if (can_gl_AjaxSuccess(sharedJson)) {
-		        initialValues.speci = Object.values(pr_MEM_TEMP).map(item => item.mem);
-		        do_lc_build_page();
-		        do_gl_show_Notify_Msg_Success($.i18n("common_success_update"));
-		      } else {
-		        do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
-		      }
-		    };
+			
 			
 			if(mode == var_lc_MODE_MOD || mode == var_lc_MODE_SEL){
 				$(".info-edit").on("click", function(){
@@ -476,12 +444,56 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				})
 			}
 		}
+		
+		const do_lc_save_speciality = function (ent, idPer) {
+			var ref = req_gl_Request_Content_Send_With_Params(pr_SERVICE_PER, pr_SV_MOD_GRP,
+	        	{
+	          		userId: idPer,
+	          		grps: JSON.stringify(Object.values(pr_MEM_TEMP)),
+	        	}
+	      	);
+	
+			let fSucces = [];
+			fSucces.push(req_gl_funct(null, do_lc_afterSave_speciality, [ent, idPer]));
+	
+			let fError = req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"),]);
+	
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV,App.data["HttpSecuHeader"],ref,100000,fSucces,fError);
+	    };
+		
+	    const do_lc_afterSave_speciality = function (sharedJson, ent, idGroup) {
+			if (can_gl_AjaxSuccess(sharedJson)) {
+				initialValues.speci = Object.values(pr_MEM_TEMP).map(item => item.mem);
+				do_lc_build_page();
+				do_gl_show_Notify_Msg_Success($.i18n("common_success_update"));
+			} else {
+				do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
+			}
+	    };
+					
 		const do_lc_customLst_user_autocomplete = function (item, selOpt = "") {
-		        selOpt += `<div class="media align-items-center"> ${item.name}</div>`;
-		      return selOpt;
-		    };
+			selOpt += `<div class="media align-items-center"> ${item.name}</div>`;
+		    return selOpt;
+		};
 	}
 	
+	var EntTabDoc = function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
+		var tmplName				= App.template.names[pr_grpName];
+		var tmplCtrl				= App.template.controller;
+		
+		var pr_ctr_List 			= App.controller[pr_grpName].List;
+		var pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
+			
+		const pr_divTabDocs			= "#div_prj_docs";
+		
+		this.do_lc_show = function(ent, mode){               
+			try{
+			}catch(e) {				
+				console.log(e);
+			}
+		}	
+	}
 	
-	return { EntContent, EntTabInfo};
+	return { EntContent, EntTabInfo, EntTabDoc};
 	});

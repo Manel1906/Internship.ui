@@ -10,12 +10,9 @@ define([
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
-		var pr_divHeader 			= header  ? header : null;
-		var pr_divContent 			= "#div_user_content";
-		var pr_divFooter 			= footer  ? footer : null;
-
-		const pr_divTabDocs			= "#div_prj_docs";
-		const pr_divTabPerInfo 		= "#div_user_info_person";
+		var pr_divHeader 			= header  	? header : null;
+		var pr_divContent 			= content  	? content : null;
+		var pr_divFooter 			= footer  	? footer : null;
 
 		//------------------------------------------------------------------------------------
 		var svClass 				= App['const'].SV_CLASS;
@@ -65,7 +62,6 @@ define([
 		var pr_ctr_List 			= null;
 		
 		var pr_DIV_CONTENT          = "#div_main_content";
-		var pr_SHOW_COMMON          = false;
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init				= function(){
@@ -83,7 +79,6 @@ define([
 			try{
 				if(div){
 					pr_DIV_CONTENT = div;
-					pr_SHOW_COMMON = true;
 				}
 				
 				if(mode == var_lc_MODE_NEW){
@@ -190,8 +185,6 @@ define([
 			do_lc_clean_data_before_show(ent);
 
 			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
-			
-			if(pr_SHOW_COMMON) 	$(pr_DIV_CONTENT).find(".page-content").addClass('p-0');
 			
 			do_lc_build_page(ent, mode);
 		}
