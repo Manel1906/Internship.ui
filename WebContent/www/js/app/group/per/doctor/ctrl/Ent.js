@@ -14,9 +14,6 @@ define([
 		var pr_divContent 			= content  	? content : null;
 		var pr_divFooter 			= footer  	? footer : null;
 
-		const pr_divTabDocs			= "#div_prj_docs";
-		const pr_divTabPerInfo 		= "#div_user_info_person";
-
 		//------------------------------------------------------------------------------------
 		var svClass 				= App['const'].SV_CLASS;
 		var svName					= App['const'].SV_NAME;

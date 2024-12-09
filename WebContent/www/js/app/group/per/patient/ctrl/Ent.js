@@ -71,7 +71,8 @@ define([
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 			
 			if(!App.controller[pr_grpName].EntContent)				App.controller[pr_grpName].EntContent 			= new EntContent	(grpName, null, null, null);
-			
+			//if(!App.controller[pr_grpName].EntTabInfo)				App.controller[pr_grpName].EntTabInfo			= new EntTabInfo	(grpName, null, null, null);
+			//if(!App.controller[pr_grpName].EntTabDoc)				App.controller[pr_grpName].EntTabDoc			= new EntTabDoc		(grpName, null, null, null);
 		}
 		
 		//---------show-----------------------------------------------------------------------------
@@ -171,25 +172,25 @@ define([
 		const do_lc_get_Entity_callback = function(sharedJson, mode){
 			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
 				let data 		= sharedJson[App['const'].RES_DATA];
-				do_lc_show_entity(data, mode);
+				
+				do_lc_clean_data	(data);
+				do_lc_show_entity	(data, mode);
 			} else {
 				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"), () => pr_ctr_Main.do_lc_switch_mobile_or_pc(`view_prj_dashboard.html`));
 //				window.open("view_prj_user_list.html", "_self");
 //				pr_ctr_Main.do_lc_switch_mobile_or_pc(`view_prj_user_list.html`, "VI_MAIN/"+ App.router.part.PRJ_USER_LIST);
 			}
-			
-			
 		}
 		
 		const do_lc_show_entity = function(ent, mode){
-			do_lc_clean_data_before_show(ent);
+			if (!mode) mode = var_lc_MODE_SEL;
 
 			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
 			
 			do_lc_build_page(ent, mode);
 		}
 		
-		const do_lc_clean_data_before_show = function(ent){
+		const do_lc_clean_data = function(ent){
 			if(Object.keys(ent).length == 0) return;
 
 			if(ent?.inf04){
@@ -239,6 +240,8 @@ define([
 			
 			if (ent.inf08 && typeof ent.inf04 == "string") {
 			    ent.inf08 = JSON.parse(ent.inf08);
+				
+				if (Array.isArray(ent.inf08)) { ent.inf08 = ent.inf08.map((item, index) => ({ ...item, index: index + 1 })); }
 			}
 						
 			if(ent.inf02 && typeof ent.inf02 == "string"){
@@ -252,10 +255,8 @@ define([
 		}
 		
 		const do_lc_show_blocks = function(obj, mode, typ){
-			if (Array.isArray(obj.inf08)) { obj.inf08 = obj.inf08.map((item, index) => ({ ...item, index: index + 1 })); }
-			
 			App.controller[pr_grpName].EntContent 		.do_lc_show(obj, mode, typ);
-						
+			
 			if(mode == var_lc_MODE_NEW){
 				$("#div_user_funct"		).removeClass("hide");
 				$("#div_user_more_info"	).addClass("hide");
@@ -279,7 +280,7 @@ define([
 					buttons	: {
 						NO: {
 							lab		: $.i18n("common_btn_cancel"),
-							funct	: self.do_lc_clear_timeout_viewer,
+							funct	: null,
 							param	: [],
 						},
 						OK: {
@@ -303,7 +304,7 @@ define([
 					buttons	: {
 						NO: {
 							lab		: $.i18n("common_btn_cancel_account"),
-							funct	: self.do_lc_clear_timeout_viewer,
+							funct	: null,
 							param	: [],
 						},
 						OK: {
@@ -383,6 +384,7 @@ define([
 			}			
 			do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
 		}
+		
 		const do_lc_bind_event_mod_group = function(obj){
 			$("#btn_create_entity").off("click").on("click", function(){
 				
@@ -395,7 +397,7 @@ define([
 					buttons	: {
 						NO: {
 							lab		: $.i18n("common_btn_cancel"),
-							funct	: self.do_lc_clear_timeout_viewer,
+							funct	: null,
 							param	: [],
 						},
 						OK: {
@@ -418,13 +420,13 @@ define([
 					buttons	: {
 						NO: {
 							lab		: $.i18n("common_btn_cancel"),
-							funct	: self.do_lc_clear_timeout_viewer,
+							funct	: null,
 							param	: [],
 						},
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
 							funct	: self.do_lc_cancel,
-							param	: [],
+							param	: [obj],
 							classBtn: "btn-danger"
 						}
 					}
@@ -441,13 +443,13 @@ define([
 					buttons	: {
 						NO: {
 							lab		: $.i18n("common_btn_cancel"),
-							funct	: self.do_lc_clear_timeout_viewer,
+							funct	: null,
 							param	: [],
 						},
 						OK: {
 							lab		: $.i18n("common_btn_yes"),
 							funct	: self.do_lc_cancel,
-							param	: [],
+							param	: [obj],
 							classBtn: "btn-danger"
 						}
 					}
@@ -483,7 +485,7 @@ define([
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
-					do_lc_show_entity(data);
+					do_lc_show_entity(data, var_lc_MODE_SEL);
 					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 					
 					pr_ctr_List.do_lc_show(true);
@@ -494,12 +496,10 @@ define([
 		}
 		
 		//---------------------------------Ajax----------------------------------------------
-		const do_lc_data_check = function(inp, obj) {
-			var data = inp.data;
+		this.do_lc_cancel = function(obj){
+			do_lc_show_entity(obj, var_lc_MODE_SEL);
 		}
-		this.do_lc_cancel = function(){
-			pr_ctr_Main.do_lc_show();
-		}
+		
 		this.do_lc_generate_cats = function(data){
 			var dataGenerated=[];
 			for(var o in data){
@@ -534,7 +534,6 @@ define([
 			delete 	obj.man;
 			delete 	obj.sup;
 			
-			do_lc_data_check(data, obj);
 			do_lc_data_send	(data, mode);
 		}
 		
@@ -553,9 +552,7 @@ define([
 		var do_lc_data_send_callback = function(sharedJson, mode){
 			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
 				let data 		= sharedJson[App['const'].RES_DATA];
-				App.data.mode 	= var_lc_MODE_SEL;				
-
-				do_lc_show_entity(data, App.data.mode);
+				do_lc_show_entity(data, var_lc_MODE_SEL);
 				do_gl_show_Notify_Msg_Success ($.i18n('common_success_update'));
 			} else {   
 				if(mode == var_lc_MODE_NEW) do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get_error'));
