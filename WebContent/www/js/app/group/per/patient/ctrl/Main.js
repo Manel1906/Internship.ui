@@ -16,6 +16,7 @@ define([
 	'text!group/per/patient/tmpl/Ent_Tab_Info_Contact_Add.html',
 	'text!group/per/patient/tmpl/Ent_Tab_Info_Insurance.html',
 	'text!group/per/patient/tmpl/Ent_Tab_Info_Insurance_Add.html',
+	'text!group/per/patient/tmpl/Ent_Tab_Info_File.html',
 		
 	'text!group/per/patient/tmpl/Dropzone_File.html'
 
@@ -37,6 +38,7 @@ define([
 			Tmpl_Ent_Tab_Info_Contact_Add,
 			Tmpl_Ent_Tab_Info_Insurance,
 			Tmpl_Ent_Tab_Info_Insurance_Add,
+			Tmpl_Ent_Tab_Info_File,
 			
 			Tmpl_PrjDropzone_File
 	) {
@@ -85,8 +87,9 @@ define([
 			tmplName.TMPL_ENT_TAB_INFO_CONTACT_ADD		= pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add";
 			tmplName.TMPL_ENT_TAB_INFO_INSURANCE		= pr_grpName + "Tmpl_Ent_Tab_Info_Insurance";
 			tmplName.TMPL_ENT_TAB_INFO_INSURANCE_ADD	= pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add_Lst";
+			tmplName.TMPL_ENT_TAB_INFO_FILE				= pr_grpName + "Tmpl_Ent_Tab_Info_File";
 						
-			tmplName.TMPL_ENT_TAB_INFO_MOD					= pr_grpName + "Tmpl_Ent_Tab_Info_Modify";
+			tmplName.TMPL_ENT_TAB_INFO_MOD				= pr_grpName + "Tmpl_Ent_Tab_Info_Modify";
 			
 			tmplName.TMPL_DROPZONE_FILE					= pr_grpName + "Tmpl_Dropzone_File"
 			
@@ -106,6 +109,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO_INSURANCE	, Tmpl_Ent_Tab_Info_Insurance);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO_INSURANCE_ADD, Tmpl_Ent_Tab_Info_Insurance_Add);
 						
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO_FILE			, Tmpl_Ent_Tab_Info_File);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO_MOD			, Tmpl_Ent_Tab_Info_Modify);
 			
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE				, Tmpl_PrjDropzone_File);

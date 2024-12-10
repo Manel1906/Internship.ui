@@ -21,7 +21,17 @@
                {{/if}}
                <div class="media-body">
                     <h6 class=" mb-0">{{name01}} {{name02}} {{name03}}</h6>
-                    <p class="font-size-12 mb-0">{{transl 'per_person_client_vib'}}</p>
+                    
+                    <p class="text-muted info-content mb-2 flex-grow-1">
+                    		<b>{{transl 'per_person_patient_lev'}} &nbsp;:&nbsp; </b>                   
+					        {{#equal typ05 1}}{{transl "per_person_patient_normal" }}{{/equal}}
+					        {{#equal typ05 2}}{{transl "per_person_patient_gold" }}{{/equal}}
+					        {{#equal typ05 3}}{{transl "per_person_patient_diamond" }}{{/equal}}
+				            {{#equal typ05 4}}{{transl "per_person_patient_vip" }}{{/equal}}
+					</p>
+                    
+                    
+                    
                     {{#ifCond stat02 '==' 1}} 
 					    <span class="badge font-size-12 badge-success badge-pill float-right">{{reqStatUser stat02}}</span>
 					    {{/ifCond}}

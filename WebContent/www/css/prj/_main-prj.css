@@ -1358,3 +1358,17 @@ a.off-chat {
 	justify-content: flex-start;
     margin-left: 10px;
 }
+
+.ent-tab {
+	border-radius: 30px 5px 5px 5px; 
+	background-color: #dadada; 
+	cursor: pointer;
+	color : black;
+}
+
+.ent-tab-selected {
+	background-color: #0064af!important; 
+	.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    	color : white!important;
+	}
+}

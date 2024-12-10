@@ -131,6 +131,12 @@
     "per_person_patient_date_publish"					: 	"Ngày phát hành",
     "per_person_patient_date_expired"					: 	"Ngày hết hạn",
     "per_person_patient_register"						: 	"Nơi đăng ký",
+    
+    "per_person_patient_lev_0"							: 	"Bình thường",
+    "per_person_patient_lev_1"							: 	"Vàng",
+    "per_person_patient_lev_2"							: 	"Kim cương",
+    "per_person_patient_lev_3"							: 	"VIP",
+    
     "per_person_patient_normal"							: 	"Bình thường",
     "per_person_patient_gold"							: 	"Vàng",
     "per_person_patient_diamond"						: 	"Kim cương",

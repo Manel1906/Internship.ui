@@ -46,32 +46,32 @@
         		{{#if inf09}}
 				{{#each inf09}}
 					<tr>
-						<input type="hidden" data-name="id" class="form-control objData inf-entity" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
+						<input type="hidden" data-name="id" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="index" class="form-control inf-entity" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
-							<span class="edit-text info-edit">{{index}}</span>
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
+							<span class="edit-text info-show">{{index}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="typ" class="form-control objData inf-entity" autocomplete="off" id="inp_group_name" value="{{typ}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
-							<span class="edit-text info-edit">{{typ}}</span>
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="typ" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{typ}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
+							<span class="edit-text info-show">{{typ}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="nbCard" class="form-control objData inf-entity" autocomplete="off" id="inp_group_name" value="{{nbCard}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
-							<span class="edit-text info-edit">{{nbCard}}</span>
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="nbCard" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{nbCard}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
+							<span class="edit-text info-show">{{nbCard}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="dPublish" class="form-control objData inf-entity" autocomplete="off" id="inp_group_name" value="{{dPublish}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
-							<span class="edit-text info-edit">{{dPublish}}</span>
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="dPublish" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{dPublish}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
+							<span class="edit-text info-show">{{dPublish}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="dEnd" class="form-control objData inf-entity" autocomplete="off" id="inp_group_locate" value="{{dEnd}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" data-validation="required">
-							<span class="edit-text info-edit">{{dEnd}}</span>
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="dEnd" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_locate" value="{{dEnd}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" data-validation="required">
+							<span class="edit-text info-show">{{dEnd}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="wRegister" class="form-control objData inf-entity" autocomplete="off" id="inp_group_locate" value="{{wRegister}}" placeholder="{{transl 'tpy_cat_disease_describe'}}" data-validation="required">
-							<span class="edit-text info-edit">{{wRegister}}</span>
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="wRegister" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_locate" value="{{wRegister}}" placeholder="{{transl 'tpy_cat_disease_describe'}}" data-validation="required">
+							<span class="edit-text info-show">{{wRegister}}</span>
 						</td>
-						<td  class="text-center btnRemoveRow">
+						<td  class="text-center inf-entity btnRemoveRow hide">
 							<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
 						</td>
 					</tr>

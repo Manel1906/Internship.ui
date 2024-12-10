@@ -59,12 +59,12 @@ define([],function(){
 		
 		var pr_DIV_CONTENT          = "#div_entity";
 		
-		var pr_tab_typ_info    				= 0;
-		var pr_tab_typ_disease_hist    		= 1;
-		var pr_tab_typ_medical_hist    		= 2;
-		var pr_tab_typ_medical_order    	= 3;
-		var pr_tab_typ_blood_test    		= 4;
-		var pr_tab_typ_img_test    			= 5;
+		var pr_tab_typ_info    				= 1;
+		var pr_tab_typ_disease_hist    		= 2;
+		var pr_tab_typ_medical_hist    		= 3;
+		var pr_tab_typ_medical_order    	= 4;
+		var pr_tab_typ_blood_test    		= 5;
+		var pr_tab_typ_img_test    			= 6;
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init				= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
@@ -91,76 +91,10 @@ define([],function(){
 					if (id) do_lc_get_Entity (id, mode);
 				}
 				
-		//		self.do_lc_reqRole_User();
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
 		};
-
-		
-		
-				
-		/*
-		this.do_lc_reqRole_User = function(mode){
-			var listUserRight = App.data.user.rights;
-			if(listUserRight.includes(RIGHT_GET) || listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_A_N)) return;
-			if(!listUserRight.includes(RIGHT_U_M || !listUserRight.includes(RIGHT_U_N))){
-				$(".isManager"			).remove();
-				$(".info-content"		).off("click").removeClass("info-content");
-				$(".info-edit-content"	).off("click").removeClass("info-content");
-				$(".info-edit"			).off("click").removeClass("info-edit");
-				$("#btn_modify, #btn_add_avatar").addClass("hidden");
-				$("#btn_entity_change_pass").attr("disabled", "disabled");
-				$(".btn_check_role_all"	).addClass("disabled")
-			}
-			
-			let typ = App.data.user.typ;
-			if(typ == pr_type_adm_all || typ == pr_type_adm){
-				//to do
-			}else{
-				$(".isManager").remove();
-				$(".info-content").off("click").removeClass("info-content");
-			}
-		}
-		
-		this.do_lc_ShowDiv_ByMode = function (div, mode){
-			if (mode == var_lc_MODE_NEW){
-				
-				$(div).find(".info-content").addClass("hide");
-				$(div).find(".content-edit").removeClass("hide");
-				
-				
-				$(div).find("#div_img_avatar").addClass("hide");
-				$(div).find("#div_prj_ent_file_upload").removeClass("hide");
-				
-				$(div).find("#div_ent_password_btn").addClass("hide");
-				$(div).find("#div_ent_header_password").show();
-				
-				
-				$("#inp_autuser_header_pass").removeClass("noData").addClass("objData");
-				$("#inp_autuser_header_pass_match").removeClass("noData").addClass("objData");
-				
-				
-				$(div).find(".dropdown ").addClass("hide");
-				
-			}else{
-				
-				$(div).find(".info-content").removeClass("hide");
-				$(div).find(".content-edit").addClass("hide");				
-				
-				$(div).find("#div_img_avatar").removeClass("hide");
-				$(div).find("#div_prj_ent_file_upload").addClass("hide");
-				
-				$(div).find("#div_ent_password_btn").removeClass("hide");
-				$(div).find("#div_ent_header_password").hide();
-				
-				$("#inp_autuser_header_pass").removeClass("objData").addClass("noData");
-				$("#inp_autuser_header_pass_match").removeClass("objData").addClass("noData");
-				
-				$(div).find(".dropdown ").removeClass("hide");
-			}		  
-		}*/
-		
 		
 		const do_lc_get_Entity = function(id, mode){
 			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_GET);	
@@ -181,8 +115,6 @@ define([],function(){
 				do_lc_show_entity	(data, mode);
 			} else {
 				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"), () => pr_ctr_Main.do_lc_switch_mobile_or_pc(`view_prj_dashboard.html`));
-//				window.open("view_prj_user_list.html", "_self");
-//				pr_ctr_Main.do_lc_switch_mobile_or_pc(`view_prj_user_list.html`, "VI_MAIN/"+ App.router.part.PRJ_USER_LIST);
 			}
 		}
 		
@@ -254,31 +186,30 @@ define([],function(){
 
 		var do_lc_binding_events = function (ent, mode){
 			$(".ent-tab").off("click").on("click", function(e){
-				var typ = this.data("type");
+				$(".ent-tab").removeClass ("ent-tab-selected");
+				$(this).addClass ("ent-tab-selected");
+				
+				var typ = $(this).data("type");
 				if(typ === pr_tab_typ_info){
-					App.controller[pr_grpName].EntTabInfo	.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabInfo			.do_lc_show(ent, mode);
+					
+				}else if(typ === pr_tab_typ_disease_hist){
+					App.controller[pr_grpName].EntTabDiseaseHist	.do_lc_show(ent, mode);
+				
+				}else if(typ === pr_tab_typ_medical_hist){
+					App.controller[pr_grpName].EntTabMedicalHist	.do_lc_show(ent, mode);
+				
+				}else if(typ === pr_tab_typ_medical_order){
+					App.controller[pr_grpName].EntTabMedicalOrder	.do_lc_show(ent, mode);
+				
+				}else if(typ === pr_tab_typ_blood_test){
+					App.controller[pr_grpName].EntTabBloodTest		.do_lc_show(ent, mode);
+				
+				}else if(typ === pr_tab_typ_img_test){
+					App.controller[pr_grpName].EntTabImgTest		.do_lc_show(ent, mode);
 				}
 			});
 		}
-		/*
-		var do_lc_show_entity = function(ent, mode, typ){
-							
-							if(typ === pr_tab_typ_info){
-								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
-							}else if(typ === pr_tab_typ_disease_hist){
-								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_INSURANCE_ADD, ent));
-							}else if(typ = pr_tab_typ_disease_hist){
-								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
-							}else if(typ = pr_tab_typ_medical_hist){
-								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
-							}else if(typ = pr_tab_typ_medical_order){
-								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
-							}else if(typ = pr_tab_typ_blood_test){
-								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
-							}else if(typ = pr_tab_typ_img_test){
-								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
-							}
-						}*/
 	}
 	
 	return Ent;

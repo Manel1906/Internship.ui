@@ -58,6 +58,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		var do_lc_show_entity 			= function(ent, mode){
 			do_lc_show_info 			(ent);
+			do_lc_show_file 			(ent);
 			do_lc_show_contact 			(ent);
 			do_lc_show_insurance 		(ent);
 						
@@ -68,11 +69,17 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var do_lc_show_info 			= function(ent){
 			$(pr_divContent				).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO				, ent));
 			$("#btn_edit").off("click").on("click", function(){
-				var idPer = [];
-				idPer = $(this).data();
-				do_lc_edit_person(idPer);
+				do_lc_edit_entity(ent);
 			});
 		}
+		var do_lc_show_file 			= function (ent){
+			$("#div_inf_file"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_FILE			, ent));
+			$(".item-file-download").off("click").on("click", function(){
+				let {path}				= $(this).data();
+				path && window.open(path, "_blank");
+			})
+		}
+				
 		var do_lc_show_contact 			= function (ent){
 			$("#div_inf_contact"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_CONTACT		, ent));
 			$("#btn_mod_contact"		).off("click").on("click", function(){
@@ -89,7 +96,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		const do_lc_get_entity_contact = (data) => {
 			$("#btn_mod_contact"					).addClass("hide");
-			$("#div_inf_contact .info-edit"			).addClass('hide');
+			$("#div_inf_contact .info-show"			).addClass('hide');
 			
 			$("#a_btn_sav_contact"					).removeClass("hide");
 			$("#a_btn_canc_contact"					).removeClass("hide");
@@ -114,8 +121,12 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				let	obj	 			= req_gl_data({
 					dataZoneDom		: $("#table_contact"),
 				});
-			
+				
+				if(obj.hasError)	return;
+				
 				data.inf08 			= obj.data.inf08;
+				if (data.inf08)
+					data.inf08		= data.inf08.filter(element => element !== null && element !== undefined);
 				do_lc_save_entity_subInfo(data, do_lc_show_contact);
 			});
 		}
@@ -123,14 +134,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		const do_lc_get_entity_insurance = (data) => {
 			$("#btn_mod_insurance"						).addClass("hide");
-			$(".info-edit"								).addClass('hide');
+			$("#div_inf_insurance .info-show"			).addClass('hide');
 			
 			$("#a_btn_sav_insurance"					).removeClass("hide");
 			$("#a_btn_canc_insurance"					).removeClass("hide");
 			
 			$('#btnAddInsurance'						).removeClass('hide');
-			$('div_inf_insurance .btnRemoveRow'			).removeClass('hide');
-			$('div_inf_insurance .inf-entity'			).removeClass('hide');
+			$('#div_inf_insurance .btnRemoveRow'		).removeClass('hide');
+			$('#div_inf_insurance .inf-entity'			).removeClass('hide');
 			
 			$('#btnAddInsurance').on('click', function() {
 				do_lc_bind_event_new_insurance(data);
@@ -149,7 +160,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					dataZoneDom		: $("#table_insurance"),
 				});
 			
+				if(obj.hasError)	return;
+				
 				data.inf09 			= obj.data.inf09;
+				if (data.inf09)
+					data.inf09		= data.inf09.filter(element => element !== null && element !== undefined);
 				do_lc_save_entity_subInfo(data, do_lc_show_insurance);
 			});
 		}
@@ -176,8 +191,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 					
 				
-		const do_lc_bind_event_new_contact = function(data) {
-			
+		const do_lc_bind_event_new_contact = function(data) {			
 		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_contact').find('input[data-name="index"]').map(function () {
 		        return parseInt($(this).val()) || 0;
 		    }).get()) +1;
@@ -207,7 +221,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		    });
 		};
 			
-		const do_lc_edit_person = (data) => {
+		const do_lc_edit_entity = (data) => {
 			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_MOD, data));
 
 			do_lc_group_showMod_FileUploader(data);
