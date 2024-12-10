@@ -151,7 +151,7 @@ define([
 				
 				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_MAIN, {}));
 
-				App.controller[pr_grpName].List.do_lc_show("#div_list_entity");
+				App.controller[pr_grpName].List.do_lc_show();
 				
 				$(document).prop('title',$.i18n('prj_project_sidebar_user'));
 

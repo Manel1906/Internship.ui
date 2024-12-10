@@ -194,7 +194,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	}
 	
 	
-	var EntTabInfo = function (grpName, header, content, footer) {
+	var EntTabGroup = function (grpName, header, content, footer) {
 		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
@@ -482,18 +482,16 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
-		var pr_ctr_List 			= App.controller[pr_grpName].List;
-		var pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
-			
-		const pr_divTabDocs			= "#div_prj_docs";
+		const pr_divContent			= "#div_ent_tab_doc";
 		
-		this.do_lc_show = function(ent, mode){               
-			try{
-			}catch(e) {				
-				console.log(e);
-			}
+		this.do_lc_show = function(ent){               
+			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_FILE, ent));
+			$(".item-file-download").off("click").on("click", function(){
+				let {path}				= $(this).data();
+				path && window.open(path, "_blank");
+			})
 		}	
 	}
 	
-	return { EntContent, EntTabInfo, EntTabDoc};
+	return { EntContent, EntTabGroup, EntTabDoc};
 	});

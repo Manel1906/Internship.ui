@@ -2,7 +2,7 @@ define([
 	'group/per/doctor/ctrl/EntTabs'
 	],
 	function(
-			{EntContent, EntTabInfo, EntTabDoc}
+			{EntContent, EntTabGroup, EntTabDoc}
 	){
 	
 	var Ent 						= function (grpName, header, content, footer) {
@@ -11,7 +11,7 @@ define([
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
 		var pr_divHeader 			= header  	? header : null;
-		var pr_divContent 			= content  	? content : null;
+		var pr_divContent 			= content  	? content : "#div_ent_main";
 		var pr_divFooter 			= footer  	? footer : null;
 
 		//------------------------------------------------------------------------------------
@@ -61,7 +61,6 @@ define([
 		var pr_ctr_Ent 				= null;
 		var pr_ctr_List 			= null;
 		
-		var pr_DIV_CONTENT          = "#div_main_content";
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init				= function(){
@@ -71,17 +70,13 @@ define([
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 			
 			if(!App.controller[pr_grpName].EntContent)				App.controller[pr_grpName].EntContent 			= new EntContent	(grpName, null, null, null);
-			if(!App.controller[pr_grpName].EntTabInfo)				App.controller[pr_grpName].EntTabInfo			= new EntTabInfo	(grpName, null, null, null);
+			if(!App.controller[pr_grpName].EntTabGroup)				App.controller[pr_grpName].EntTabGroup			= new EntTabGroup	(grpName, null, null, null);
 			if(!App.controller[pr_grpName].EntTabDoc)				App.controller[pr_grpName].EntTabDoc			= new EntTabDoc		(grpName, null, null, null);
 		}
 		
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(id, mode, div){               
+		this.do_lc_show = function(id, mode){               
 			try{
-				if(div){
-					pr_DIV_CONTENT = div;
-				}
-				
 				if(mode == var_lc_MODE_NEW){
 					do_lc_show_entity({}, mode);
 					
@@ -185,7 +180,7 @@ define([
 		const do_lc_show_entity = function(ent, mode){
 			if (!mode) mode = var_lc_MODE_SEL;
 
-			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
+			$(pr_divContent)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
 			
 			do_lc_build_page(ent, mode);
 		}
@@ -249,7 +244,7 @@ define([
 		
 		const do_lc_show_blocks = function(obj, mode){
 			App.controller[pr_grpName].EntContent 		.do_lc_show(obj, mode);
-			App.controller[pr_grpName].EntTabInfo 		.do_lc_show(obj, mode);
+			App.controller[pr_grpName].EntTabGroup 		.do_lc_show(obj, mode);
 			App.controller[pr_grpName].EntTabDoc 		.do_lc_show(obj, mode);
 			
 			if(mode == var_lc_MODE_NEW){
@@ -343,7 +338,7 @@ define([
 						data.inf02 = JSON.parse(data.inf02);
 					}
 
-					$(pr_DIV_CONTENT).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_MODIFY, data));
+					$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_MODIFY, data));
 
 					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
 					App.SummerNoteController.do_lc_show("#div_create_service");//text editor

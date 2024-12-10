@@ -5,6 +5,10 @@ define(['jquery'], function($) {
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 
+		var pr_divHeader 			= header  	? header : null;
+		var pr_divContent 			= content  	? content : "#div_list_entity";
+		var pr_divFooter 			= footer  	? footer : null;
+				
 		var self 					= this;
 		//------------------------------------------------------------------------------------
 		//------------------controllers------------------------------------------------------
@@ -61,11 +65,9 @@ define(['jquery'], function($) {
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(div){               
+		this.do_lc_show = function(){               
 			try{
-				if (!div) div= "#div_list_entity";
-				
-				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
+				$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
 				do_binding_event();
 				
 				do_get_list_ByAjax(true);

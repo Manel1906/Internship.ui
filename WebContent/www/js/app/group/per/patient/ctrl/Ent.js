@@ -6,7 +6,7 @@ define([],function(){
 		var tmplCtrl				= App.template.controller;
 		//------------------------------------------------------------------------------------
 		var pr_divHeader 			= header  	? header : null;
-		var pr_divContent 			= content  	? content : null;
+		var pr_divContent 			= content  	? content : "#div_ent_main";
 		var pr_divFooter 			= footer  	? footer : null;
 
 		//------------------------------------------------------------------------------------
