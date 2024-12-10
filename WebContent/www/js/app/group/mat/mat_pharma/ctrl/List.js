@@ -38,6 +38,19 @@ define([], function() {
 		const pr_NUMBER_RECORD		= 10;
 		const pr_STAT_ACTIVE    	= 1;
 		
+		const pr_STAT_100        = 100;
+		const pr_STAT_200     	= 200;
+		const pr_STAT_300 		= 300;
+		const pr_STAT_500 		= 500;
+		const pr_STAT_900 		= 900;
+		
+		var pr_typ = [
+			pr_STAT_100,
+			pr_STAT_200,
+			pr_STAT_300,
+			pr_STAT_500,
+			pr_STAT_900
+		];
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
@@ -56,10 +69,24 @@ define([], function() {
 		
 		//---------load view-----------------------------------------------------------------------------
 		const do_lc_bind_event = function(obj){
-			$("#inp_search").off("input").on("input", function(e){
-				pr_SEARCH_KEY	= $(this).val();
+			const $inputField 	= $("#inp_search");
+		    const $clearIcon 	= $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_SEARCH_KEY	= $inputField.val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
-			});
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_SEARCH_KEY	= $inputField.val();
+				do_gl_execute_debounce(do_get_list_ByAjax);
+		    });
 			
 			$(".btn-resize").off("click").on("click", function () {
 				let $this = $(this);
@@ -145,7 +172,15 @@ define([], function() {
 			let divList = $("#div_group_list");
 			let divPan  = $("#div_group_pagination");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01s: pr_TYP_DISEASE, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE, hardLoad, wChild: true});
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, 
+			{
+				typ01s: pr_TYP_DISEASE, 
+				searchKey: pr_SEARCH_KEY, 
+				stats : pr_STAT_ACTIVE, 
+				typs  : pr_typ,	
+				hardLoad, 
+				wChild: true
+			});
 			
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
 			
@@ -199,7 +234,11 @@ define([], function() {
 				$("#btn_new_entity").hide();
 				$("#btn_add_doc").hide();
 			}
-			
+			$('.user-typ-select').off('click').on('click',function(){
+				const dataCode = $(this).data('code');
+				do_lc_get_checked(dataCode)
+				do_get_list_ByAjax()
+			})
 			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id} 			= $this.data();
@@ -259,6 +298,14 @@ define([], function() {
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
 		}
+		const do_lc_get_checked = (dataCode) => {
+  			  pr_typ = []
+  		      if (dataCode == 0) {
+				  pr_typ = [100,200,300,500,900];
+  		      } else {
+				pr_typ.push(dataCode);
+  		      }
+  		}
 		
 		//----------------------------------------------------------------------------------------------
 		

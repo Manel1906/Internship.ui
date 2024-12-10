@@ -148,7 +148,10 @@ define([], function() {
 				if (!isRight) {
 					$("#btn_del").hide();
 				}
-							
+				isRight = listUserRight.includes(RIGHT_A_D) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_DEL) || listUserRight.includes(RIGHT_MOD)
+				if (!isRight) {
+					$(".dropdown-toggle").hide();
+				}			
 				if(!data.files)	data.files = [];
 				if(data.avatar) data.files.push(data.avatar);
 				let option		= {
@@ -516,12 +519,12 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_cancel"),
+								lab		: $.i18n("common_btn_back"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_cancel"),
 								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
@@ -539,13 +542,13 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_cancel"),
+								lab		: $.i18n("common_btn_back"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_yes"),
-								funct	: do_lc_get_info_entity,
+								lab		: $.i18n("common_btn_cancel"),
+								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
 							}
@@ -569,8 +572,8 @@ define([], function() {
 				if(can_gl_AjaxSuccess(sharedJson)) {
 					const data = sharedJson[App['const'].RES_DATA];
 					if(data){
-						do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 						do_lc_show_entity(data);
+						do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 						pr_ctr_List.do_lc_show(true);
 					}
 				} else {   
@@ -633,12 +636,12 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_cancel"),
+								lab		: $.i18n("common_btn_back"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_cancel"),
 								funct	: self.do_lc_cancel,
 								param	: [],
 								classBtn: "btn-danger"

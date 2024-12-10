@@ -26,8 +26,10 @@ define([], function() {
 			var RIGHT_DEL	        	= 40002004;
 			//-----------------------------------------------------------------------------------
 			const pr_SERVICE_CLASS		= "ServiceTpyCategory";
-			const pr_SV_NEW				= "SVNewDisease";
-			const pr_SV_NEW_SUB			= "SVNewDiseaseSub";
+			const pr_SV_NEW				= "SVNewTestBlood";
+			const pr_SV_MOD             = "SVMod";
+			const pr_SV_DEL             = "SVDel";
+
 			
 			var   self                  = this;
 			
@@ -145,9 +147,12 @@ define([], function() {
 
 				isRight = listUserRight.includes(RIGHT_A_D) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_DEL)
 				if (!isRight) {
-					$("#btn_del").hide();
+					$("#btn_del_entity").hide();
 				}
-							
+				isRight = listUserRight.includes(RIGHT_A_D) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_DEL) || listUserRight.includes(RIGHT_MOD)
+				if (!isRight) {
+					$(".dropdown-toggle").hide();
+				}				
 				if(!data.files)	data.files = [];
 				if(data.avatar) data.files.push(data.avatar);
 				let option		= {
@@ -290,18 +295,18 @@ define([], function() {
 					
 				})
 				
-				$("#btn_del").off("click").on("click", function(){
+				$("#btn_del_entity").off("click").on("click", function(){
 					let {id} = $(this).data();
 					App.MsgboxController.do_lc_show({
-						title		: $.i18n("prj_user_g_entitytn_delete_group"),
-						content 	: $.i18n("msg_del_entity_popup_content"),
+						title		: $.i18n("tpy_test_img_confirm"),
+						content 	: $.i18n("del_entity_popup_content"),
 						autoclose	: false,
 						css			: {
 							"max-width":"450px"
 						},
 						buttons		: {
 							NO: {
-								lab		:  $.i18n("common_btn_yes"),
+								lab		:  $.i18n("common_btn_back"),
 							},
 							OK: {
 								lab			: $.i18n("common_btn_delete"),
@@ -434,6 +439,8 @@ define([], function() {
 					if(data){
 						if(data.inf && typeof data.inf == "string"){
 							data.inf = JSON.parse(data.inf);
+							data.inf.statGrp = parseInt(data.inf.statGrp, 10);
+							data.inf.statUnit = parseInt(data.inf.statUnit, 10);
 						}
 						
 						var listUserRight = App.data.user.rights;
@@ -497,7 +504,7 @@ define([], function() {
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_save"),
+								lab		: $.i18n("common_btn_new_btn_save"),
 								funct	: self.do_lc_mod,
 								param	: [obj],
 								classBtn: "btn-primary"
@@ -521,7 +528,7 @@ define([], function() {
 							},
 							OK: {
 								lab		: $.i18n("common_btn_yes"),
-								funct	: do_lc_get_info_entity,
+								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
 							}
@@ -538,12 +545,12 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_cancel"),
+								lab		: $.i18n("common_btn_back"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_cancel"),
 								funct	: self.do_lc_cancel,
 								param	: [obj],
 								classBtn: "btn-danger"
@@ -555,7 +562,7 @@ define([], function() {
 			
 			//-----------------update group-------------------------------------------------------------------------
 			const do_lc_update_entity = function(ent) {
-				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, "SVMod", {obj: JSON.stringify(ent)});	
+				const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent)});	
 
 				let fSucces		= [];
 				fSucces.push(req_gl_funct(null, do_lc_update_entity_callback, []));
@@ -609,12 +616,12 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_cancel"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("disease_cant_save"),
+								lab		: $.i18n("common_btn_new_btn_save"),
 								funct	: self.do_lc_save,
 								param	: [obj],
 								classBtn: "btn-primary"
