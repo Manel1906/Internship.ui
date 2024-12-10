@@ -402,7 +402,7 @@ define([
 				});
 			})
 			
-			$("#btn_new_cancel").off("click").on("click",function(){
+			$("#btn_cancel_new_01,#btn_cancel_new_02").off("click").on("click",function(){
 				//---MsgBox
 				App.MsgboxController.do_lc_show({
 					title	: $.i18n("msgbox_confirm_title"),
@@ -425,28 +425,6 @@ define([
 				});
 			})
 			
-			$("#btn_cancel_delete").off("click").on("click",function(){
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_save_cancel"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						NO: {
-							lab		: $.i18n("common_btn_cancel"),
-							funct	: null,
-							param	: [],
-						},
-						OK: {
-							lab		: $.i18n("common_btn_yes"),
-							funct	: self.do_lc_cancel,
-							param	: [obj],
-							classBtn: "btn-danger"
-						}
-					}
-				});
-			})
 		}
 		
 		this.do_lc_mod = function(obj){

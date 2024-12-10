@@ -53,7 +53,6 @@ define(['jquery'], function($) {
 			pr_STAT_DISABLE
 		];
 		
-		var pr_DIV_CONTENT          = "#div_user_ent";
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init				= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
@@ -64,6 +63,8 @@ define(['jquery'], function($) {
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show = function(div){               
 			try{
+				if (!div) div= "#div_list_entity";
+				
 				$(div).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
 				do_binding_event();
 				
@@ -133,7 +134,7 @@ define(['jquery'], function($) {
 					return;
 				}
 				
-				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW, pr_DIV_CONTENT);
+				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW);
 			})
 						
 			
@@ -259,7 +260,7 @@ define(['jquery'], function($) {
 				
 //				$("#inp-search").prop('readonly', true);
 				
-				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL, pr_DIV_CONTENT);
+				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL);
 				
 				$(".entity-item").css("background-color", "#fff")
 				$(".entity-item[data-id='" + id + "']").css("background-color", "#f0ffff")

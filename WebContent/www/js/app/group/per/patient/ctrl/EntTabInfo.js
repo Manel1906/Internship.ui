@@ -1,0 +1,366 @@
+define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
+	
+	var EntTabInfo 					= function (grpName, header, content, footer) {
+		var pr_grpName				= grpName;
+		var tmplName				= App.template.names[pr_grpName];
+		var tmplCtrl				= App.template.controller;
+		
+		var pr_ctr_List 			= App.controller[pr_grpName].List;
+		var pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
+		
+		var pr_divHeader 			= header  ? header : null;		
+		var pr_divFooter 			= footer  ? footer : null;
+		var pr_divContent 			= "#div_entity_view";
+		//------------------------------------------------------------------------------------
+		var pr_ctr_Main 			= App.controller.UI.Main;
+		
+		
+		var svClass 				= App['const'].SV_CLASS;
+		var svName					= App['const'].SV_NAME;
+		var sessId					= App['const'].SESS_ID;
+		var userId          		= App['const'].USER_ID;
+
+		var fVar					= App['const'].FUNCT_SCOPE;
+		var fName					= App['const'].FUNCT_NAME;
+		var fParam					= App['const'].FUNCT_PARAM;		
+
+		var self 					= this;
+		
+		const pr_SERVICE_CLASS		= "ServicePerClient"; //to change by your need
+		const pr_SV_GET				= "SVGet"; 
+		const pr_SV_NEW				= "SVNew"; 
+		const pr_SV_MOD				= "SVMod"; 
+		const pr_SV_DEL				= "SVDel"; 
+		//------------------------------------------------------------------------------------
+		const var_lc_MODE_SEL       = 0;
+		const var_lc_MODE_NEW       = 1;
+		const var_lc_MODE_MOD       = 2;
+		
+		const pr_STAT_ACTIVE		= 1;
+		
+		//------------------const object------------------------------------------------------
+		//-----------------------------------------------------------------------------------
+		this.do_lc_init				= function(){
+			pr_ctr_Main 			= App.controller.UI.Main;
+
+			pr_ctr_List 			= App.controller[pr_grpName].List;
+			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
+		}
+		
+		//---------show-----------------------------------------------------------------------------
+		this.do_lc_show = function(ent, mode){               
+			try{
+				do_lc_show_entity(ent, mode);
+			}catch(e) {				
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
+			}
+		};
+		
+		var do_lc_show_entity 			= function(ent, mode){
+			do_lc_show_info 			(ent);
+			do_lc_show_contact 			(ent);
+			do_lc_show_insurance 		(ent);
+						
+//			pr_ctr_Ent.do_lc_reqRole_User();
+//			pr_ctr_Ent.do_lc_ShowDiv_ByMode(pr_divContent, mode);
+		}
+		
+		var do_lc_show_info 			= function(ent){
+			$(pr_divContent				).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO				, ent));
+			$("#btn_edit").off("click").on("click", function(){
+				var idPer = [];
+				idPer = $(this).data();
+				do_lc_edit_person(idPer);
+			});
+		}
+		var do_lc_show_contact 			= function (ent){
+			$("#div_inf_contact"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_CONTACT		, ent));
+			$("#btn_mod_contact"		).off("click").on("click", function(){
+				do_lc_get_entity_contact(ent);
+			})
+		}
+		var do_lc_show_insurance 		= function (ent){
+			$("#div_inf_insurance"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_INSURANCE	, ent));
+			$("#btn_mod_insurance"		).off("click").on("click", function(){
+				do_lc_get_entity_insurance(ent);
+			})
+						
+		}
+		
+		const do_lc_get_entity_contact = (data) => {
+			$("#btn_mod_contact"					).addClass("hide");
+			$("#div_inf_contact .info-edit"			).addClass('hide');
+			
+			$("#a_btn_sav_contact"					).removeClass("hide");
+			$("#a_btn_canc_contact"					).removeClass("hide");
+			
+			$('#btnAddContact'						).removeClass('hide');
+			$('#div_inf_contact .btnRemoveRow'		).removeClass('hide');
+			$('#div_inf_contact .inf-entity'		).removeClass('hide');
+			
+			$('#btnAddContact').on('click', function() {
+				do_lc_bind_event_new_contact(data);
+		    });
+			
+			$('.btnRemoveRow>button').on('click', function() {
+				$(this).closest('tr').remove();
+			});
+			
+			$('#a_btn_canc_contact'	).on('click', function() {
+				do_lc_show_contact 	(data);
+			});
+			
+			$("#a_btn_sav_contact").off("click").on("click", function(){
+				let	obj	 			= req_gl_data({
+					dataZoneDom		: $("#table_contact"),
+				});
+			
+				data.inf08 			= obj.data.inf08;
+				do_lc_save_entity_subInfo(data, do_lc_show_contact);
+			});
+		}
+		
+		
+		const do_lc_get_entity_insurance = (data) => {
+			$("#btn_mod_insurance"						).addClass("hide");
+			$(".info-edit"								).addClass('hide');
+			
+			$("#a_btn_sav_insurance"					).removeClass("hide");
+			$("#a_btn_canc_insurance"					).removeClass("hide");
+			
+			$('#btnAddInsurance'						).removeClass('hide');
+			$('div_inf_insurance .btnRemoveRow'			).removeClass('hide');
+			$('div_inf_insurance .inf-entity'			).removeClass('hide');
+			
+			$('#btnAddInsurance').on('click', function() {
+				do_lc_bind_event_new_insurance(data);
+		    });
+			
+			$('.btnRemoveRow>button').on('click', function() {
+				$(this).closest('tr').remove();
+			});
+			
+			$('#a_btn_canc_insurance'	).on('click', function() {
+				do_lc_show_insurance 	(data);
+			});
+			
+			$("#a_btn_sav_insurance").off("click").on("click", function(){
+				let	obj	 			= req_gl_data({
+					dataZoneDom		: $("#table_insurance"),
+				});
+			
+				data.inf09 			= obj.data.inf09;
+				do_lc_save_entity_subInfo(data, do_lc_show_insurance);
+			});
+		}
+				
+				
+		const do_lc_save_entity_subInfo = function(myObject, callback){
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject});
+			let fSucces				= [];
+			fSucces.push(req_gl_funct(null, do_lc_save_entity_subInfo_callback, [myObject, callback]));
+
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+
+			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
+		}
+		
+		const do_lc_save_entity_subInfo_callback = function(sharedJson, entity, callback){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				let ent 	= sharedJson[App['const'].RES_DATA];
+				
+				if (callback) callback (entity);
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
+			}
+		}
+					
+				
+		const do_lc_bind_event_new_contact = function(data) {
+			
+		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_contact').find('input[data-name="index"]').map(function () {
+		        return parseInt($(this).val()) || 0;
+		    }).get()) +1;
+		    
+			const newRow 	= tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_CONTACT_ADD, { index: maxIndex });
+		    const addedRow 	= $('#tbody_entity_contact').append(newRow).find('tr').last();
+		
+		    addedRow.find('input[data-name="index"]').val(maxIndex).end()[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		    
+			$(".btnRemoveRow>button").off("click").on("click", function () {
+		        $(this).closest('tr').remove();
+		    });
+		};
+		
+		const do_lc_bind_event_new_insurance = function(data) {
+		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_insurance').find('input[data-name="index"]').map(function () {
+		        return parseInt($(this).val()) || 0;
+		    }).get()) +1;
+		
+		    const newRow 	= tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_INSURANCE_ADD, { index: maxIndex });
+		    const addedRow 	= $('#tbody_entity_insurance').append(newRow).find('tr').last();
+		
+		    addedRow.find('input[data-name="index"]').val(maxIndex).end()[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+			
+			$(".btnRemoveRow>button").off("click").on("click", function () {
+		        $(this).closest('tr').remove();
+		    });
+		};
+			
+		const do_lc_edit_person = (idPer) => {
+						
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET, {id: idPer.id});	
+	
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_reponse_edit_person, [idPer.id]));
+	
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+	
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
+		
+		const do_lc_reponse_edit_person = function(sharedJson, id){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				const data = sharedJson[App['const'].RES_DATA];
+				if(data){
+					
+					if(data.inf04 && typeof data.inf04 == "string"){
+						data.inf04 = JSON.parse(data.inf04);
+					}
+					
+					if(data.inf06 && typeof data.inf06 == "string"){
+						data.inf06 = JSON.parse(data.inf06);
+					}
+					if(data.inf02 && typeof data.inf02 == "string"){
+						data.inf02 = JSON.parse(data.inf02);
+					}
+
+					$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_MODIFY, data));
+
+					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
+					App.SummerNoteController.do_lc_show("#div_create_service");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
+					App.SummerNoteController.do_lc_show("#div_create_information");//text editor
+					
+					do_lc_group_showMod_FileUploader(data);
+					do_lc_bind_event_mod_entity		(data);
+					
+					console.log(data)
+				}
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		const do_lc_group_showMod_FileUploader = function (data) {
+			if (!data.files) {
+				data.files = [];
+			}	
+			
+			let option	= {
+					obj : data,
+					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here for avatar
+			}			
+			do_gl_init_fileDropzone($("#frm_dropzone_send"), option);
+							
+			let option2	= {
+					obj : data,
+					fileinput		: {param : {typ01: 2, typ02: 10} },//option here for files
+			}			
+			do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
+		}
+		
+		const do_lc_bind_event_mod_entity = function(obj){
+			$("#btn_create_entity").off("click").on("click", function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_save"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: null,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_mod,
+							param	: [obj],
+							classBtn: "btn-primary"
+						}
+					}
+				});
+			})
+			
+			$("#btn_cancel_new_01,#btn_cancel_new_02").off("click").on("click",function(){
+				//---MsgBox
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("msgbox_confirm_save_cancel"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("common_btn_cancel"),
+							funct	: null,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("common_btn_yes"),
+							funct	: self.do_lc_cancel,
+							param	: [obj],
+							classBtn: "btn-danger"
+						}
+					}
+				});
+			});
+		}
+		
+		this.do_lc_mod = function(obj){
+			const data = req_gl_data({
+				dataZoneDom: $("#frm_new_group")
+			});
+
+			if(data.hasError)	return false;
+
+			if (obj.files){
+				data.data.files = obj.files;
+			}
+			data.data.id = obj.id;
+			do_lc_update_entity(data.data);
+		}
+		
+		const do_lc_update_entity = function(ent) {
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent)});	
+
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_update_entity_callback, []));
+
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+
+			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		}
+		
+		const do_lc_update_entity_callback = function(sharedJson){
+			if(can_gl_AjaxSuccess(sharedJson)) {
+				const data = sharedJson[App['const'].RES_DATA];
+				if(data){
+					do_lc_show_entity(data, var_lc_MODE_SEL);
+					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
+					
+					pr_ctr_List.do_lc_show(true);
+				}
+			} else {   
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		
+		//---------------------------------Ajax----------------------------------------------
+		this.do_lc_cancel = function(obj){
+			do_lc_show_entity(obj, var_lc_MODE_SEL);
+		}
+	}
+		
+	return EntTabInfo;
+});

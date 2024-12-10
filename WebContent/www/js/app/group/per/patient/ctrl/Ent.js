@@ -1,9 +1,4 @@
-define([
-	'group/per/patient/ctrl/EntTabs'
-	],
-	function(
-			{EntContent, EntTabInfo}
-	){
+define([],function(){
 	
 	var Ent 						= function (grpName, header, content, footer) {
 		var pr_grpName				= grpName;
@@ -61,8 +56,15 @@ define([
 		var pr_ctr_Ent 				= null;
 		var pr_ctr_List 			= null;
 		
-		var pr_DIV_CONTENT          = "#div_main_content";
 		
+		var pr_DIV_CONTENT          = "#div_entity";
+		
+		var pr_tab_typ_info    				= 0;
+		var pr_tab_typ_disease_hist    		= 1;
+		var pr_tab_typ_medical_hist    		= 2;
+		var pr_tab_typ_medical_order    	= 3;
+		var pr_tab_typ_blood_test    		= 4;
+		var pr_tab_typ_img_test    			= 5;
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init				= function(){
 			pr_ctr_Main 			= App.controller.UI.Main;
@@ -70,22 +72,20 @@ define([
 			pr_ctr_List 			= App.controller[pr_grpName].List;
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 			
-			if(!App.controller[pr_grpName].EntContent)				App.controller[pr_grpName].EntContent 			= new EntContent	(grpName, null, null, null);
-			//if(!App.controller[pr_grpName].EntTabInfo)				App.controller[pr_grpName].EntTabInfo			= new EntTabInfo	(grpName, null, null, null);
-			//if(!App.controller[pr_grpName].EntTabDoc)				App.controller[pr_grpName].EntTabDoc			= new EntTabDoc		(grpName, null, null, null);
+			pr_ctr_EntTabInf		= App.controller[pr_grpName].EntTabInf;
+			
 		}
 		
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(id, mode, div){               
+		this.do_lc_show = function(id, mode){               
 			try{
-				if(div){
-					pr_DIV_CONTENT = div;
-				}
+				$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, {}));
 				
 				if(mode == var_lc_MODE_NEW){
 					do_lc_show_entity({}, mode);
 					
 				}else if(mode == var_lc_MODE_MOD || mode == var_lc_MODE_SEL){
+					
 					var params = req_gl_Url_Params(App.data.url?App.data.url:decodeURIComponent(window.location.search.substring(1)));
 					if(!id) id = params.id;
 					if (id) do_lc_get_Entity (id, mode);
@@ -96,7 +96,11 @@ define([
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
 		};
+
 		
+		
+				
+		/*
 		this.do_lc_reqRole_User = function(mode){
 			var listUserRight = App.data.user.rights;
 			if(listUserRight.includes(RIGHT_GET) || listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_A_N)) return;
@@ -155,7 +159,7 @@ define([
 				
 				$(div).find(".dropdown ").removeClass("hide");
 			}		  
-		}
+		}*/
 		
 		
 		const do_lc_get_Entity = function(id, mode){
@@ -185,17 +189,12 @@ define([
 		const do_lc_show_entity = function(ent, mode){
 			if (!mode) mode = var_lc_MODE_SEL;
 
-			$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, ent));
-			
 			do_lc_build_page(ent, mode);
 		}
 		
 		const do_lc_clean_data = function(ent){
 			if(Object.keys(ent).length == 0) return;
 
-			if(ent?.inf04){
-				ent.inf04  = JSON.parse(ent.inf04);
-			}
 
 			const do_req_inf05 = (data) => {
 				if(!data) return;
@@ -220,7 +219,6 @@ define([
 					return curr;
 				}, {});
 			}
-
 			ent.inf05 = ent.inf05? do_req_inf05(ent.inf05) : null;
 
 			if(ent.files && !ent.avatar) {
@@ -230,6 +228,7 @@ define([
 					}
 				})
 			}
+			
 			if(ent.inf04 && typeof ent.inf04 == "string"){
 				ent.inf04 = JSON.parse(ent.inf04);
 			}
@@ -238,331 +237,48 @@ define([
 				ent.inf06 = JSON.parse(ent.inf06);
 			}
 			
-			if (ent.inf08 && typeof ent.inf04 == "string") {
+			if (ent.inf08 && typeof ent.inf08 == "string") {
 			    ent.inf08 = JSON.parse(ent.inf08);
-				
-				if (Array.isArray(ent.inf08)) { ent.inf08 = ent.inf08.map((item, index) => ({ ...item, index: index + 1 })); }
 			}
-						
-			if(ent.inf02 && typeof ent.inf02 == "string"){
-				ent.inf02 = JSON.parse(ent.inf02);
+			
+			if (ent.inf09 && typeof ent.inf09 == "string") {
+				ent.inf09 = JSON.parse(ent.inf09);
 			}
 		}
-		
-		const do_lc_build_page = function(obj, mode,typ){
-			do_lc_show_blocks(obj, mode,typ);
+
+		const do_lc_build_page = function(obj, mode){
+			App.controller[pr_grpName].EntTabInfo.do_lc_show(obj, mode);
+			
 			do_lc_binding_events(obj, mode);
 		}
-		
-		const do_lc_show_blocks = function(obj, mode, typ){
-			App.controller[pr_grpName].EntContent 		.do_lc_show(obj, mode, typ);
-			
-			if(mode == var_lc_MODE_NEW){
-				$("#div_user_funct"		).removeClass("hide");
-				$("#div_user_more_info"	).addClass("hide");
-			}else{
-				$("#div_user_funct"		).addClass("hide");
-				$("#div_user_more_info"	).removeClass("hide");
-				
-				$(".info-edit"			).removeClass	('hide');
-				$(".inf-entity"			).addClass		('hide');
-			}
-		}
-		
-		const do_lc_binding_events = function (obj, mode){
-			$("#btn_entity_save_all").off("click").on("click",function(){
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_save"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						NO: {
-							lab		: $.i18n("common_btn_cancel"),
-							funct	: null,
-							param	: [],
-						},
-						OK: {
-							lab		: $.i18n("common_btn_yes"),
-							funct	: self.do_lc_Save_Entity,
-							param	: ["#div_user_ent", obj, var_lc_MODE_NEW],
-							classBtn: "btn-primary"
-						}
-					}
-				});
-//				self.do_lc_Save_Entity("#div_user_ent", obj, var_lc_MODE_NEW); 
-			})
-			
-			$("#btn_entity_cancel").off("click").on("click",function(){
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_delete_account"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						NO: {
-							lab		: $.i18n("common_btn_cancel_account"),
-							funct	: null,
-							param	: [],
-						},
-						OK: {
-							lab		: $.i18n("common_btn_can"),
-							funct	: do_lc_hide_div,
-							param	: [],
-							classBtn: "btn-danger"
-						}
-					}
-				});
-			})
-			$("#btn_edit").off("click").on("click", function(){
-				var idPer = [];
-				idPer = $(this).data();
-				do_lc_edit_person(idPer);
-				
-			})
-		}
-		const do_lc_edit_person = (idPer) => {
-						
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET, {id: idPer.id});	
-	
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_reponse_edit_person, [idPer.id]));
-	
-			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-	
-			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
-		}
-		
-		const do_lc_reponse_edit_person = function(sharedJson, id){
-			if(can_gl_AjaxSuccess(sharedJson)) {
-				const data = sharedJson[App['const'].RES_DATA];
-				if(data){
-					
-					if(data.inf04 && typeof data.inf04 == "string"){
-						data.inf04 = JSON.parse(data.inf04);
-					}
-					
-					if(data.inf06 && typeof data.inf06 == "string"){
-						data.inf06 = JSON.parse(data.inf06);
-					}
-					if(data.inf02 && typeof data.inf02 == "string"){
-						data.inf02 = JSON.parse(data.inf02);
-					}
 
-					$(pr_DIV_CONTENT).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_MODIFY, data));
-
-					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
-					App.SummerNoteController.do_lc_show("#div_create_service");//text editor
-					App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
-					App.SummerNoteController.do_lc_show("#div_create_information");//text editor
-					
-					do_lc_group_showMod_FileUploader(data);
-					do_lc_bind_event_mod_group(data, id);
-					
-					console.log(data)
+		var do_lc_binding_events = function (ent, mode){
+			$(".ent-tab").off("click").on("click", function(e){
+				var typ = this.data("type");
+				if(typ === pr_tab_typ_info){
+					App.controller[pr_grpName].EntTabInfo	.do_lc_show(ent, mode);
 				}
-			} else {   
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
-			}
+			});
 		}
-		const do_lc_group_showMod_FileUploader = function (data) {
-			if (!data.files) {
-				data.files = [];
-			}	
-			
-			let option	= {
-					obj : data,
-					fileinput		: {maxFiles : 1, param : {typ01: 1, typ02: 1} },//option here for avatar
-			}			
-			do_gl_init_fileDropzone($("#frm_dropzone_send"), option);
+		/*
+		var do_lc_show_entity = function(ent, mode, typ){
 							
-			let option2	= {
-					obj : data,
-					fileinput		: {param : {typ01: 2, typ02: 10} },//option here for files
-			}			
-			do_gl_init_fileDropzone($("#frm_dropzone_send_file"), option2);
-		}
-		
-		const do_lc_bind_event_mod_group = function(obj){
-			$("#btn_create_entity").off("click").on("click", function(){
-				
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_save"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						NO: {
-							lab		: $.i18n("common_btn_cancel"),
-							funct	: null,
-							param	: [],
-						},
-						OK: {
-							lab		: $.i18n("common_btn_yes"),
-							funct	: self.do_lc_mod,
-							param	: [obj],
-							classBtn: "btn-primary"
-						}
-					}
-				});
-			})
-			
-			$("#btn_new_cancel").off("click").on("click",function(){
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_save_cancel"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						NO: {
-							lab		: $.i18n("common_btn_cancel"),
-							funct	: null,
-							param	: [],
-						},
-						OK: {
-							lab		: $.i18n("common_btn_yes"),
-							funct	: self.do_lc_cancel,
-							param	: [obj],
-							classBtn: "btn-danger"
-						}
-					}
-				});
-			})
-			
-			$("#btn_cancel_delete").off("click").on("click",function(){
-				//---MsgBox
-				App.MsgboxController.do_lc_show({
-					title	: $.i18n("msgbox_confirm_title"),
-					content : $.i18n("msgbox_confirm_save_cancel"),
-					width	: "400px",
-					autoclose	: false,
-					buttons	: {
-						NO: {
-							lab		: $.i18n("common_btn_cancel"),
-							funct	: null,
-							param	: [],
-						},
-						OK: {
-							lab		: $.i18n("common_btn_yes"),
-							funct	: self.do_lc_cancel,
-							param	: [obj],
-							classBtn: "btn-danger"
-						}
-					}
-				});
-			})
-		}
-		
-		this.do_lc_mod = function(obj){
-			const data = req_gl_data({
-				dataZoneDom: $("#frm_new_group")
-			});
-
-			if(data.hasError)	return false;
-
-			if (obj.files){
-				data.data.files = obj.files;
-			}
-			data.data.id = obj.id;
-			do_lc_update_entity(data.data);
-		}
-		
-		const do_lc_update_entity = function(ent) {
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent)});	
-
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_update_entity_callback, []));
-
-			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-
-			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
-		}
-		const do_lc_update_entity_callback = function(sharedJson){
-			if(can_gl_AjaxSuccess(sharedJson)) {
-				const data = sharedJson[App['const'].RES_DATA];
-				if(data){
-					do_lc_show_entity(data, var_lc_MODE_SEL);
-					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
-					
-					pr_ctr_List.do_lc_show(true);
-				}
-			} else {   
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
-			}
-		}
-		
-		//---------------------------------Ajax----------------------------------------------
-		this.do_lc_cancel = function(obj){
-			do_lc_show_entity(obj, var_lc_MODE_SEL);
-		}
-		
-		this.do_lc_generate_cats = function(data){
-			var dataGenerated=[];
-			for(var o in data){
-				if(data[o]==1){
-					dataGenerated.push({"catId" : o})
-				}
-			}
-			return dataGenerated;
-		}
-		
-		
-		this.do_lc_Save_Entity = function (pr_divContent, ent, mode){
-			if (!pr_divContent) pr_divContent	= "#div_main_content";
-			if (!mode)			mode			= pr_SV_MOD;
-			
-			if (!ent.files) ent.files = [];		
-			let	data	= req_gl_data({
-				dataZoneDom		: $(pr_divContent),
-			});
-			
-			if(data.hasError){
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_entity_save'));
-				return false;
-			}
-			
-			//---clone ent data----------------------------------
-			var 	obj 		= JSON.parse(JSON.stringify(ent));
-			delete 	obj.pass01;
-			delete 	obj.avatar;
-			delete 	obj.dt01;
-			delete 	obj.histories;
-			delete 	obj.man;
-			delete 	obj.sup;
-			
-			do_lc_data_send	(data, mode);
-		}
-		
-		var do_lc_data_send= function(data, mode){
-			var ref 			= req_gl_Request_Content_Send(pr_SERVICE_CLASS, mode==var_lc_MODE_NEW? pr_SV_NEW : pr_SV_MOD);
-			ref["forPublic"]	= 0;
-			
-			var fSucces			= [];
-			fSucces.push(req_gl_funct(null	, do_lc_data_send_callback	, [mode]));
-			
-			var fError 			= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	
-			
-			data.do_lc_send_data(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, fSucces, fError, "obj");
-		}
-		
-		var do_lc_data_send_callback = function(sharedJson, mode){
-			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
-				let data 		= sharedJson[App['const'].RES_DATA];
-				do_lc_show_entity(data, var_lc_MODE_SEL);
-				do_gl_show_Notify_Msg_Success ($.i18n('common_success_update'));
-			} else {   
-				if(mode == var_lc_MODE_NEW) do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get_error'));
-				else do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
-			}
-		}
-		
-		const do_lc_hide_div = () => {
-			pr_ctr_Main.do_lc_show();
-		}
+							if(typ === pr_tab_typ_info){
+								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
+							}else if(typ === pr_tab_typ_disease_hist){
+								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_INSURANCE_ADD, ent));
+							}else if(typ = pr_tab_typ_disease_hist){
+								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
+							}else if(typ = pr_tab_typ_medical_hist){
+								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
+							}else if(typ = pr_tab_typ_medical_order){
+								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
+							}else if(typ = pr_tab_typ_blood_test){
+								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
+							}else if(typ = pr_tab_typ_img_test){
+								$(pr_divContent)					.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO, ent));
+							}
+						}*/
 	}
 	
 	return Ent;
