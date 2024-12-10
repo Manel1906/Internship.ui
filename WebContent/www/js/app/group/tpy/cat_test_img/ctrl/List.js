@@ -23,20 +23,36 @@ define([], function() {
 		var RIGHT_NEW	        	= 5000002;
 		var RIGHT_MOD	        	= 5000003;
 		var RIGHT_DEL	        	= 5000004;
+		
+		const pr_STAT_TEST_1        = 1;
+		const pr_STAT_TEST_2     	= 2;
+		const pr_STAT_TEST_3 		= 3;
+		const pr_STAT_TEST_4 		= 4;
+		const pr_STAT_TEST_10 		= 10;
+
 		//-----------------------------------------------------------------------------------
 		
 		const pr_SERVICE_CLASS_DYN	= "ServiceTpyCategory";
-		const pr_SV_LIST_DYN		= "SVLstPage"; 
+		const pr_SV_LIST_DYN		= "SVLstPageTestImg"; 
 		
 		var   self                  = this;
 		var   pr_SEARCH_KEY			= "";
 		
 		const pr_TYP01_ADMIN		= 2;
 		
-		const pr_TYP_TEST_IMG 	= 3000;
+		const pr_TYP_TEST_IMG 		= 3000;
 		
 		const pr_NUMBER_RECORD		= 10;
 		const pr_STAT_ACTIVE    	= 1;
+		
+		var pr_typ = [
+			pr_STAT_TEST_1,
+			pr_STAT_TEST_2,
+			pr_STAT_TEST_3,
+			pr_STAT_TEST_4,
+			pr_STAT_TEST_10
+		];
+
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
@@ -61,11 +77,30 @@ define([], function() {
 				$("#btn_new_entity"	).hide();
 				$("#btn_add_doc"	).hide();
 			}
-						
-			$("#inp_search").off("input").on("input", function(e){
-				pr_SEARCH_KEY	= $(this).val();
+			$('.user-typ-select').off('click').on('click',function(){
+				const dataCode = $(this).data('code');
+				do_lc_get_checked(dataCode)
+				do_get_list_ByAjax()
+			})
+			
+			const $inputField 	= $("#inp_search");
+		    const $clearIcon 	= $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_SEARCH_KEY	= $inputField.val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
-			});
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_SEARCH_KEY	= $inputField.val();
+				do_gl_execute_debounce(do_get_list_ByAjax);
+		    });
 			
 			$(".btn-resize").off("click").on("click", function () {
 				let $this = $(this);
@@ -117,7 +152,15 @@ define([], function() {
 				do_gl_init_fileDropzone($("#div_dropzone_send"), option);
 			})
 		}
-		
+		const do_lc_get_checked = (dataCode) => {
+  			  pr_typ = []
+  		      if (dataCode == 0) {
+				  pr_typ = [1,2,3,4,10];
+  		      } else {
+				pr_typ.push(dataCode);
+  		      }
+  		}
+
 		var do_lc_dropzone_file = function(obj){
 			obj.files 		= obj.files ? [...obj.files].filter(Boolean) : [];
 			if(!obj.files)	obj.files = [];
@@ -160,8 +203,8 @@ define([], function() {
 			let divList = $("#div_group_list");
 			let divPan  = $("#div_group_pagination");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01s: pr_TYP_TEST_IMG, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE, hardLoad, wChild: true});
-			
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01s: pr_TYP_TEST_IMG, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE,typs : pr_typ, hardLoad, wChild: true});
+
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
 			
 			const opt 				= {
