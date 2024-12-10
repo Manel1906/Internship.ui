@@ -10,7 +10,7 @@ define([
 	'text!group/per/doctor/tmpl/Ent.html',
 	'text!group/per/doctor/tmpl/Ent_Modify.html',
 	'text!group/per/doctor/tmpl/Ent_Content.html'	,
-	'text!group/per/doctor/tmpl/Ent_Tab_Person_Info.html',	
+	'text!group/per/doctor/tmpl/Ent_Tab_Group.html',	
 	
 	'text!group/per/doctor/tmpl/Dropzone_File.html'
 
@@ -25,8 +25,8 @@ define([
 			
 			Tmpl_Ent,
 			Tmpl_Ent_Modify,
-			Tmpl_Ent_Content	,	
-			Tmpl_Ent_Tab_Person_Info,
+			Tmpl_Ent_Content,	
+			Tmpl_Ent_Tab_Group,
 			
 			Tmpl_PrjDropzone_File
 	) {
@@ -71,7 +71,7 @@ define([
 			tmplName.TMPL_ENT						= pr_grpName + "Tmpl_Ent";
 			tmplName.TMPL_ENT_CONTENT				= pr_grpName + "Tmpl_Ent_Content";
 			tmplName.TMPL_ENT_MODIFY				= pr_grpName + "Tmpl_Ent_Modify";
-			tmplName.TMPL_ENT_TAB_PERSON_INFO		= pr_grpName + "Tmpl_Ent_Tab_Person_Info";
+			tmplName.TMPL_ENT_TAB_GROUP				= pr_grpName + "Tmpl_Ent_Tab_Group";
 			
 			tmplName.TMPL_DROPZONE_FILE				= pr_grpName + "Tmpl_Dropzone_File"
 			
@@ -84,7 +84,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT					, Tmpl_Ent);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_CONTENT			, Tmpl_Ent_Content);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_MODIFY			, Tmpl_Ent_Modify);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO	, Tmpl_Ent_Tab_Person_Info);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_GROUP			, Tmpl_Ent_Tab_Group);
 			
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE			, Tmpl_PrjDropzone_File);
 			

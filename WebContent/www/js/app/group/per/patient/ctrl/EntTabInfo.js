@@ -207,50 +207,13 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		    });
 		};
 			
-		const do_lc_edit_person = (idPer) => {
-						
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET, {id: idPer.id});	
-	
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_reponse_edit_person, [idPer.id]));
-	
-			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-	
-			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
+		const do_lc_edit_person = (data) => {
+			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_MOD, data));
+
+			do_lc_group_showMod_FileUploader(data);
+			do_lc_bind_event_mod_entity(data);
 		}
 		
-		const do_lc_reponse_edit_person = function(sharedJson, id){
-			if(can_gl_AjaxSuccess(sharedJson)) {
-				const data = sharedJson[App['const'].RES_DATA];
-				if(data){
-					
-					if(data.inf04 && typeof data.inf04 == "string"){
-						data.inf04 = JSON.parse(data.inf04);
-					}
-					
-					if(data.inf06 && typeof data.inf06 == "string"){
-						data.inf06 = JSON.parse(data.inf06);
-					}
-					if(data.inf02 && typeof data.inf02 == "string"){
-						data.inf02 = JSON.parse(data.inf02);
-					}
-
-					$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_MODIFY, data));
-
-					App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
-					App.SummerNoteController.do_lc_show("#div_create_service");//text editor
-					App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
-					App.SummerNoteController.do_lc_show("#div_create_information");//text editor
-					
-					do_lc_group_showMod_FileUploader(data);
-					do_lc_bind_event_mod_entity		(data);
-					
-					console.log(data)
-				}
-			} else {   
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
-			}
-		}
 		const do_lc_group_showMod_FileUploader = function (data) {
 			if (!data.files) {
 				data.files = [];

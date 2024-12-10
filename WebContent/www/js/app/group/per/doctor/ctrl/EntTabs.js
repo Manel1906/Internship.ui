@@ -265,7 +265,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	    
 //		var do_lc_show_entity = function(ent, mode, id) {
 		
-//		    $(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO, initialValues.speci));
+//		    $(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_GROUP, initialValues.speci));
 //		
 //		    pr_ctr_Ent.do_lc_reqRole_User();
 		
@@ -279,7 +279,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		};
 		
  		const do_lc_build_table_person = () => {
-			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_PERSON_INFO, initialValues.speci));
+			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_GROUP, initialValues.speci));
 			do_lc_bind_event_person(initialValues.speci, null ,initialValues.group.id);
 	    };
 	    
