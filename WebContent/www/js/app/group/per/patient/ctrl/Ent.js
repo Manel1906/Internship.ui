@@ -56,9 +56,6 @@ define([],function(){
 		var pr_ctr_Ent 				= null;
 		var pr_ctr_List 			= null;
 		
-		
-		var pr_DIV_CONTENT          = "#div_entity";
-		
 		var pr_tab_typ_info    				= 1;
 		var pr_tab_typ_disease_hist    		= 2;
 		var pr_tab_typ_medical_hist    		= 3;
@@ -79,7 +76,7 @@ define([],function(){
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show = function(id, mode){               
 			try{
-				$(pr_DIV_CONTENT)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, {}));
+				$(pr_divContent)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT	, {}));
 				
 				if(mode == var_lc_MODE_NEW){
 					do_lc_show_entity({}, mode);

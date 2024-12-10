@@ -9,7 +9,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 		
 		var pr_divHeader 			= header  	? header : null;
-		var pr_divContent 			= content  	? content : "#div_ent_main";
+		var pr_divContent 			= content  	? content : "#div_entity_view";
 		var pr_divFooter 			= footer  	? footer : null;
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
