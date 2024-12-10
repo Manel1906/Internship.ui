@@ -62,11 +62,25 @@ define([], function() {
 				$("#btn_add_doc"	).hide();
 			}
 						
-			$("#inp_search").off("input").on("input", function(e){
-				pr_SEARCH_KEY	= $(this).val();
+			const $inputField 	= $("#inp_search");
+		    const $clearIcon 	= $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_SEARCH_KEY	= $inputField.val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
-			});
-			
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_SEARCH_KEY	= $inputField.val();
+				do_gl_execute_debounce(do_get_list_ByAjax);
+		    });
+		    
 			$(".btn-resize").off("click").on("click", function () {
 				let $this = $(this);
 				let { divtoogle } = $this.data();

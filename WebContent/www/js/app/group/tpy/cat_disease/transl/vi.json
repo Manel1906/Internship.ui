@@ -57,6 +57,7 @@
 
 "msgbox_confirm_creat"					: 	"Lưu thông tin bệnh ?",
 "msgbox_confirm_cancel_create"			: 	"Hủy bỏ quá trình chỉnh sửa ?",
+"msgbox_confirm_cancel_create"			: 	"Hủy bỏ quá trình thêm mới ?",
 
 "btn_add_file"							: 	"Thêm dữ liệu",
 "common_btn_delete"						: 	"Xóa",
@@ -67,7 +68,7 @@
 "common_btn_new"						: 	"Thêm mới",
 "common_btn_new_btn_save"				: 	"Lưu",
 "common_btn_new_file_title"				: 	"Thêm tập tin vào đây",
-
+"common_btn_back"						: 	"Quay lại",
 "msgbox_confirm_save_cancel"			:	"Hủy bỏ quá trình chỉnh sửa ?",
 "msgbox_confirm_save"					: 	"Lưu thông tin chỉnh sửa ?",
 "msg_del_entity_popup_content"			: 	"Xóa thông tin bệnh",

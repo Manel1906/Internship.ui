@@ -34,7 +34,7 @@
 
 "tpy_test_img_list_title"				:	"Danh mục chẩn đoán hình ảnh",
 "tpy_cat_disease_search"				:	"Tìm kiếm danh mục",
-"common_btn_new_title"				: 	"Thêm mới dịch vụ",
+"common_btn_new_title"					: 	"Thêm mới dịch vụ",
 
 "tpy_cat_disease_drop_files"			: 	"Kéo thả hoặc nhấn để thêm tập tin",
 
@@ -57,6 +57,7 @@
 "tpy_test_img_service"					: 	"Dịch vụ chẩn đoán hình ảnh",
 "tpy_test_procedure"					: 	"Quy trình xét nghiệm",
 "tpy_test_required"						: 	"Điều kiện thực hiện",
+"tpy_test_img_confirm"					: 	"Xác nhận",
 
 "tpy_cat_disease_list"					: 	"Danh sách bệnh liên quan",
 
@@ -77,7 +78,7 @@
 "aut_test_unit_header_stat_10"			:	"...",
 "msgbox_confirm_save"					: "Lưu nội dung chỉnh sửa ?",
 "msgbox_confirm_save_cancel"			: "Hủy bỏ nội dung chỉnh sửa ?",
-"msg_del_entity_popup_content"			: "Xóa dịch vụ?",
+"msg_del_entity_popup_content"			: "Xóa dịch vụ ?",
 "common_title_confirm"				    : "Xóa dịch vụ chẩn đoán hình ảnh",
 
 
@@ -88,6 +89,7 @@
 "common_btn_save"						: 	"Lưu",
 "common_btn_cancel"						: 	"Hủy bỏ",
 "common_btn_new"						: 	"Thêm mới",
+"common_btn_back"						: 	"Quay lại",
 "common_btn_new_btn_save"				: 	"Lưu",
 "common_btn_new_file_title"				: 	"Thêm tập tin vào đây"
 }

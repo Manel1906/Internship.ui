@@ -59,14 +59,10 @@ define([], function() {
 			this.do_lc_show_for_new	= function(){
 				$("#div_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_NEW, {}));
 
-				App.SummerNoteController.do_lc_show("#div_create_describe");//text editor 
-				App.SummerNoteController.do_lc_show("#div_create_reason");//text editor
-				App.SummerNoteController.do_lc_show("#div_create_symptom");//text editor
-				App.SummerNoteController.do_lc_show("#div_create_transmission");//text editor
-				App.SummerNoteController.do_lc_show("#div_create_subjects");//text editor 
-				App.SummerNoteController.do_lc_show("#div_create_prevent");//text editor
-				App.SummerNoteController.do_lc_show("#div_create_diagnose");//text editor
-				App.SummerNoteController.do_lc_show("#div_create_treatment");//text editor
+				App.SummerNoteController.do_lc_show("#div_show_desc");//text editor 
+				App.SummerNoteController.do_lc_show("#div_show_effect");//text editor
+				App.SummerNoteController.do_lc_show("#div_show_assign");//text editor
+				App.SummerNoteController.do_lc_show("#div_show_infor");//text editor
 				
 				
 				do_lc_bind_event_new_entity(obj = {files: []});

@@ -58,9 +58,9 @@
 	"prj_project_drop_files"							: "Kéo thả hoặc nhấn để thêm tập tin",
 	"prj_project_new_file_title"						: "Thêm tập tin vào đây",
 	"prj_project_enter_name"							: "Nhập tên thành viên...",
-	
+	"aut_test_ent_header_stat_0"						: "Tất cả",
 	"prj_specialty_list_title"							: "Quản lý thông tin thuốc",
-	"btn_add_file"										: "Import",
+	"btn_add_file"										: "Thêm dữ liệu",
 	"prj_tpy_group_room"								: "Phòng",
 	
 	"msgbox_confirm_creat"								: "Lưu thông tin thuốc ?",

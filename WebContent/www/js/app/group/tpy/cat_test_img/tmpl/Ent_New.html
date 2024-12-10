@@ -6,8 +6,8 @@
 	       	{{else}}
 	        <div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'common_btn_new_title'}}</h4></div>
 	        {{/if}}
+	        <div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
          </div>
-        <div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
         <div class="needs-validation" id="frm_new_group">
         	<input type="hidden" data-name="typ01" class="form-control objData" value="3000">
         	<input type="hidden" data-name="stat" class="form-control objData" value="1">
@@ -30,22 +30,17 @@
 			    <div class="col-4 mb-2 mt-2">	
 			        <label for="inp_group_select">{{transl 'tpy_test_img_group'}}</label>
 			        <select id="inp_group_select" class="form-control objData content-edit isManager" data-group="inf" data-name="statGrp">
-			            <option {{#equal typ03 1}}selected{{/equal}} value="1">{{transl 'aut_test_ent_header_stat_1'}}</option>
-			            <option {{#equal typ03 2}}selected{{/equal}} value="2">{{transl 'aut_test_ent_header_stat_2'}}</option>
-			            <option {{#equal typ03 3}}selected{{/equal}} value="3">{{transl 'aut_test_ent_header_stat_3'}}</option>
-			            <option {{#equal typ03 4}}selected{{/equal}} value="4">{{transl 'aut_test_ent_header_stat_4'}}</option>
-			            <option {{#equal typ03 10}}selected{{/equal}} value="10">{{transl 'aut_test_ent_header_stat_10'}}</option>
+			            <option {{#equal inf.statGrp 1}}selected{{/equal}} value="1">{{transl 'aut_test_ent_header_stat_1'}}</option>
+			            <option {{#equal inf.statGrp 2}}selected{{/equal}} value="2">{{transl 'aut_test_ent_header_stat_2'}}</option>
+			            <option {{#equal inf.statGrp 3}}selected{{/equal}} value="3">{{transl 'aut_test_ent_header_stat_3'}}</option>
+			            <option {{#equal inf.statGrp 4}}selected{{/equal}} value="4">{{transl 'aut_test_ent_header_stat_4'}}</option>
+			            <option {{#equal inf.statGrp 10}}selected{{/equal}} value="10">{{transl 'aut_test_ent_header_stat_10'}}</option>
 			        </select>
 			    </div>
 			
 			    <div class="col-4 mb-2 mt-2">	
 			        <label for="inp_group_name_4">{{transl 'tpy_test_img_room'}}</label>
 			        <input type="text" data-group="inf" data-name="room" class="form-control objData" id="inp_group_name_4" value="{{inf.room}}" placeholder="{{transl 'tpy_test_img_room_enter'}}" data-validation="required">
-			    </div>
-			
-				<div class="hide col-6 mb-2 mt-2">	
-			        <label for="inp_group_name_4">{{transl 'tpy_test_img_time'}}</label>
-			        <input type="text" data-group="inf" data-name="time" class="form-control objData" id="inp_group_name_4" value="{{inf.time}}" placeholder="{{transl 'tpy_cat_disease_time_enter'}}" data-validation="required">
 			    </div>
 			</div>
 
