@@ -444,7 +444,7 @@ define([
 								+ (data.per.name02?" " + data.per.name02:"") 
 								+ (data.per.name03?" " + data.per.name03:"");
 				
-				data.per.info10 = data.email;
+				data.per.inf01 	= data.email;
 			}
 				
 			if(data.inf04){
@@ -461,7 +461,7 @@ define([
 			
 			
 			if(data.cats){
-				data.cats 		= pr_prjUser.Ent.do_lc_generate_cats(newEnt.cats);
+				data.cats 			= pr_prjUser.Ent.do_lc_generate_cats(newEnt.cats);
 			}
 
 			if(data.inf05){
