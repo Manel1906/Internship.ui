@@ -93,7 +93,7 @@
 			<div class="row ml-1">
 				<div class="form-group col-4">
 					<label>{{transl 'per_person_doctor_phone'}}</label>
-					<input type="number" data-name="inf02" class="form-control objData" id="inp_group_email" value="{{inf02}}" maxlength="50" data-validation="required">
+					<input type="number" data-group="inf04" data-name="t" class="form-control objData" id="inp_group_email" value="{{inf04.t}}" maxlength="50" data-validation="required">
 				</div>
 				<div class="form-group col-4">
 					<label>{{transl 'per_person_doctor_mail'}}</label>
@@ -101,7 +101,7 @@
 				</div>
 				<div class="form-group col-4">
 					<label>{{transl 'per_person_doctor_cccd'}}</label>
-					<input type="number" data-name="code02" class="form-control objData" id="inp_group_email" value="{{code02}}" maxlength="250" data-validation="required">
+					<input type="number" data-group="inf04" data-name="i" class="form-control objData" id="inp_group_email" value="{{inf04.i}}" maxlength="250" data-validation="required">
 				</div>
 			</div>
                 
@@ -110,7 +110,7 @@
 					<label>{{transl 'per_person_doctor_bidth_date'}}</label>
 					<div class="input-daterange form-group  content-edit">
 						<input id="inp_autuser_tab01_birthday" data-provide="datepicker" autocomplete="off" class="form-control objData content-edit isManager" type="text"
-			            	data-name="dt03" data-format="date" data-validation="date" {{#if dt03}}value="{{reqFormatShortDate dt03}}"{{/if}}>
+			            data-group="inf04"	data-name="b" data-format="date" data-validation="date" {{#if inf04.b}}value="{{reqFormatShortDate inf04.b}}"{{/if}}>
 					</div>
 				</div>	
                 <div class="col-4">
@@ -123,14 +123,14 @@
 				</div>
 				<div class="col-4">
 					<label>{{transl 'prj_user_group_nation'}}</label>
-					<input type="text" data-group="inf04" data-name="c" class="form-control objData" id="inp_group_locate" value="{{inf04.n}}"  maxlength="250">
+					<input type="text" data-group="inf04" data-name="c" class="form-control objData" id="inp_group_locate" value="{{inf04.c}}"  maxlength="250">
 				</div>
 			</div>
 			
             <div class="row ml-1">
             	<div class="form-group col-4">
 	                <label>{{transl 'prj_user_group_nationality'}}</label>
-	                <input type="text"  data-group="inf04" data-name="n" class="form-control objData" id="inp_group_locate" value="{{inf08}}"  maxlength="250">
+	                <input type="text"  data-group="inf04" data-name="n" class="form-control objData" id="inp_group_locate" value="{{inf04.n}}"  maxlength="250">
                 </div>
 	            <div class="form-group col-8">
 	                <label for="inp_group_name">{{transl 'per_person_doctor_address'}}</label> 

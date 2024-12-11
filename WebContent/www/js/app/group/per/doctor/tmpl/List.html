@@ -24,8 +24,9 @@
 				<div class="row">
 					<div class="search-box chat-search-box py-1 pb-1 border-bottom col-10">
 					    <div class="position-relative">
-					        <input id="inp-search" name="inp-search" type="text" class="form-control" placeholder="Tìm kiếm" value=""  autocomplete="off">
-					        <i class="bx bx-search-alt search-icon"></i>
+					        <input type="text" class="form-control pe-5" placeholder="{{transl 'per_person_doctor_search'}}" id="inp_search">
+					        <i class="bx bx-search-alt search-icon position-absolute start-0 top-50 translate-middle-y ms-2"></i>
+					        <i  id="clear_icon" style="left: 90%;cursor: pointer;" class="hide mdi mdi-close text-danger search-icon position-absolute end-0 left-50 top-0 translate-middle-y me-2" ></i>
 					    </div>
 					</div>
 					<div id="dropdown-rights" class="dropdown float-right col-2">
@@ -34,12 +35,12 @@
 				             <i class="mdi mdi-filter-outline"></i>
 				         </a>
 				         <ul class="dropdown-menu dropdown-menu-right">
-							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="-1"	>{{transl 'aut_user_typ_0'}}</div></li>
+							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="-1">{{transl 'aut_user_typ_0'}}</div></li>
 							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="2"	>{{transl 'aut_user_ent_header_stat_2'}}</div></li>
 							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="3"	>{{transl 'aut_user_ent_header_stat_3'}}</div></li>
 							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="1"	>{{transl 'aut_user_ent_header_stat_1'}}</div></li>
 							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="0"	>{{transl 'aut_user_ent_header_stat_0'}}</div></li>
-							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="10"	>{{transl 'aut_user_ent_header_stat_10'}}</div></li>
+							<li><div class="dropdown-item cursor-pointer font-size-18 typ-select" data-code="10">{{transl 'aut_user_ent_header_stat_10'}}</div></li>
 				         </ul>
 				     </div>
 				</div>

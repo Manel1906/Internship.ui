@@ -13,30 +13,32 @@
 		            <a id="a_btn_cancel_speciality" class="mr-2 text-danger hide action-mem action-item-member" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
 		            	<i class="mdi mdi-close"></i>
 		            </a>
-		            <a data-divtoggle="#tabMember" class="btn-resize" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
-		            	 <i class="mdi mdi-window-minimize"></i>
+		            <a data-divtoggle="#tabMember" class="btn-resize_grp" data-toggle="tooltip" data-placement="top" title="" data-original-title="Resize">
+		            	 <i class="mdi mdi-window-minimize  cursor-pointer"></i>
 		            </a>
 	             </div>
 	         </div>
 		</div>
         <div id="tabMember" class="table-responsive">
-    <table class="table table-centered table-nowrap">
-        <tbody>
-            {{#each this}}
-                <tr>
-                    <td class="d-flex align-items-center">
-                        <a data-memid="{{id}}" class='hide text-danger btn-remove-speci' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'>
-                            <i class='mdi mdi-close font-size-18'></i>
-                        </a>
-                    </td>
-                    <td>
-                        <h4 class="card-title media-body p-2 bg-light border rounded d-flex justify-content-center align-items-center">{{name}}</h4>
-                    </td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
-</div>
+		    <table class="table table-centered table-nowrap">
+		        <tbody>
+		            {{#each this}}
+		               <tr>
+					    <td class="hide d-flex align-items-center btn-remove-speci cursor-pointer" data-memid="{{id}}" style="width: 10%;">
+					        <a class='text-danger' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'>
+					            <i class='mdi mdi-close font-size-18'></i>
+					        </a>
+					    </td>
+					    <td style="width: 90%;" class="cursor-pointer">
+					        <h4 class="card-title media-body p-2 bg-light border rounded d-flex justify-content-center align-items-center">
+					            {{name}}
+					        </h4>
+					    </td>
+					 </tr>
+		            {{/each}}
+		        </tbody>
+		    </table>
+		</div>
 
         <div class="hide action-item-member isManager">
         	<div class="mb-3 row">
