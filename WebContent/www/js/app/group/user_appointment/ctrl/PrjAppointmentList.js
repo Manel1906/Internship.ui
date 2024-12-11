@@ -932,21 +932,18 @@ define([
 			    addEventHandlers() {
 			        app.elements.previous.on("click", (e) => {
 			            e.preventDefault();
-			            const newDate = dp_schedule.startDate.addDays(-7);
-			            app.changeDate(newDate);
-			
+						const newDate 	= app.changeDate(dp_schedule.startDate.addDays(-7));
 			            const startDate = newDate.addDays(-6);
-			            const endDate = newDate.addDays(1);
+			            const endDate 	= newDate.addDays(1);
+						
 			            do_get_availableTimeList(dp_schedule, startDate.toString(), endDate.toString());
 			        });
 			
 			        app.elements.next.on("click", (e) => {
 			            e.preventDefault();
-			            const newDate = dp_schedule.startDate.addDays(7);
-			            app.changeDate(newDate);
-			
+						const newDate 	= app.changeDate(dp_schedule.startDate.addDays(7));
 			            const startDate = newDate.addDays(-6);
-			            const endDate = newDate.addDays(1);
+			            const endDate 	= newDate.addDays(1);
 			
 			            do_get_availableTimeList(dp_schedule, startDate.toString(), endDate.toString());
 			        });
@@ -954,24 +951,21 @@ define([
 			        app.elements.nav_calendar.on("click", (e) => {
 			            e.preventDefault();
 			            picker.show();
-			
-			           	if (prjSearch && prjSearch.parId) {
-			                do_lc_search_prj_appointment(prjSearch, dp_schedule);
-			            }
 			        });
 			    },
 			
 			    // Update dp_schedule with a new date and reset events
 			    changeDate(date) {
-			        const startDate = date.firstDayOfWeek();
-			        const days = 7;
-			        const events = [];  // Reset or reload events if necessary
+					const startDate = date.firstDayOfWeek().addDays(1);
+			        const days 		= 7;
+			        const events 	= [];  // Reset or reload events if necessary
 			
 			        dp_schedule.update({
 			            startDate,
 			            days,
 			            events
 			        });
+					return startDate;
 			    },
 			
 			    init() {
@@ -1332,33 +1326,27 @@ define([
 			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
 		}*/
 		function do_lc_search_prj_appointment(prj,dp_schedule,dtBegin,dtEnd) {
-			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointmentSearch");
+			var ref 			= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointmentSearch");
 			if (prj != null) {
-			    if (prj.parId != null) {
-			        ref.parId = prj.parId;
-			    }
-			    if (prj.typ02 != null) {
-			        ref.type02 = prj.typ02;
-			    }
-			    if (prj.memberId != null) {
-			        ref.memberId = prj.memberId;
-			    }
+		        ref.parId 		= prj.parId;
+		        ref.type02 		= prj.typ02;
+		        ref.memberId 	= prj.memberId;
 			}
 			ref.dtBegin	= dtBegin;
 			ref.dtEnd	= dtEnd;
 
 
-			var fSucces	= [];
+			var fSucces			= [];
 			fSucces.push(req_gl_funct(		null, do_show_list_available_time, [true, dp_schedule]));
 
-			var fError 		= req_gl_funct(	null, do_show_list_available_time, [false]);
+			var fError 			= req_gl_funct(	null, do_show_list_available_time, [false]);
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		const do_lc_bind_eventPage = () => {
 				var currentDate = new Date();
 				var formattedDate = currentDate.toLocaleDateString('vi-VN');
-				$("#day-now").text(formattedDate);
-				$("#btn_search").off('click').click(() => {
+				$("#day-now"	).text(formattedDate);
+				$("#btn_search"	).off('click').click(() => {
 				 let data = req_gl_data({
 			        dataZoneDom: $("#div_search_prj_appointment")
 			    });

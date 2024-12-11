@@ -227,7 +227,7 @@ const req_gl_DateStr_From_DateStr = function (dStr, strFormatSrc, strFormatDest)
 }
 
 //------------------------------------------------
-const req_gl_Date_LocalFormat = function  (){
+const req_gl_DateFormat_LocalFormat = function  (){
 	var local = localStorage.language;
 	if (!local) local = "en";
 	var format = DateFormat.masks.enShortDate;

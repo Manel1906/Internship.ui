@@ -14,22 +14,19 @@ define([
 	){
 
 	var PrjAppointmentListWork = function (grpName, header, content, footer) {
-		const tmplName				= App.template.names;
-		const tmplCtrl				= App.template.controller;
+		const tmplName						= App.template.names;
+		const tmplCtrl						= App.template.controller;
+		var pr_grpName						= grpName?grpName:"CalendarWork";
 		//------------------------------------------------------------------------------------
-		const pr_SERVICE_CLASS		= "ServicePrjProject"; //to change by your need
-		const pr_SERVICE_CLASS_DYN	= "ServicePrjProjectDyn"; //to change by your need
-		const pr_SV_LIST_DYN		= "SVLstPage"; 
-		const pr_SV_SAVE_MOVE		= "SVTaskMove";
 		const pr_SERVICE_CLASS_GROUP_DYN	= "ServiceNsoGroup";
 		const pr_SV_GROUP_LIST_DYN			= "SVLstSearch"; 
-		const pr_SERVICE_AUT_CLASS	= "ServiceAutUser";
+		const pr_SERVICE_AUT_CLASS			= "ServiceAutUser";
 
-		const pr_SV_USER_SEARCH		= "SVLstForCalend";
-		const pr_SV_DOCTOR_SEARCH		= "SVLstByGrp";
-		const pr_SV_GET_MEMBER		= "SVGetMember";
+		const pr_SV_USER_SEARCH				= "SVLstForCalend";
+		const pr_SV_DOCTOR_SEARCH			= "SVLstByGrp";
+		const pr_SV_GET_MEMBER				= "SVGetMember";
 
-		const self					= this;
+		const self							= this;
 		//-----------------------------------------------------------------------------------
 		var pr_ctr_Main 					= null;
 		var pr_ForDesktop					= true;
@@ -39,7 +36,7 @@ define([
 		var pr_GROUP						= null;
 
 		var pr_lstAvailableTime				=	[];
-		var pr_grpName						= "ChatRoomChat";
+		
 		var TIME_RANGE						= 3;
 		var TYP_01_WORK_PLAN				= 900;
 		var TYP_02_APPOINTMENT				= 1000;
@@ -57,7 +54,7 @@ define([
 		var customersDel                    = [];
 		var prj_work						= null;
 		var dp_schedule						= null;
-		var locale							= "vi-vi";
+		var locale							= "vi-vn";
 		var prData                          = null
 		let pr_lastAppointment 				= []
 		let pr_Color 						= null;
@@ -68,23 +65,25 @@ define([
 		
 		const previousPositions 			= {};
 
-		const pr_member_lev_manager 		= 0;
 
 		const pr_stat_pending				= 0;
 		const pr_stat_active				= 1;
 		const pr_stat_accept				= 3;
-		const pr_stat_deny					= 11;
-		const pr_TYP_CHAT_GROUP_CALENDAR	= 4;
 		let prjSearch						= null;
 
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init	= function(){
-			pr_ctr_Main 					= App.controller.UI.Main;
+			pr_ctr_Main 								= App.controller.UI.Main;
 
 			tmplName.PRJ_APPOINTMENT_VIEW				= 	"Prj_Appointment_View_Work";
 			tmplName.PRJ_APPOINTMENT_NEW				= 	"Prj_Appointment_New_Work";
 			tmplName.PRJ_APPOINTMENT_SHOW				= 	"Prj_Appointment_Show_Work";
 			tmplName.PRJ_APPOINTMENT_SHOW_DEPARTMENT	= 	"Prj_Appointment_Show_Department";
+
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_VIEW			, Prj_Appointment_View_Work);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_NEW			, Prj_Appointment_New_Work);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW			, Prj_Appointment_Show_Work);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_DEPARTMENT, Prj_Appointment_Show_Department);
 
 		}
 
@@ -103,7 +102,7 @@ define([
 		this.do_lc_show_callback = function(){    
 			try{
 				let params 				= req_gl_Url_Params();
-				let {id, dt} 		= params;
+				let {id, dt} 			= params;
 				
 				 pr_ID 					= id ;
 				 pr_dtBegin 			= dt ;
@@ -111,6 +110,7 @@ define([
 											
 				do_lc_load_view();
 				do_register_locale_custom();
+				
 				do_build_schedulue(pr_lstAvailableTime , pr_dtBegin);
 				do_lc_req_autocomplete_all();
 				
@@ -122,6 +122,18 @@ define([
 			}
 		};
 
+		const do_lc_load_view = () => {	
+			if ($(window).width() < 600) {
+				pr_ForDesktop = false;
+			}
+			if ($(window).width() < $(window).height()) {
+				pr_ForVertial = true;
+			}
+			
+			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, {forDesktop: pr_ForDesktop}));
+		}
+				
+				
 		const do_lc_init_element = function (e) {
 			if (e) {
 				if (e.files) files.files = e.files;
@@ -251,25 +263,6 @@ define([
 			})
 		}
 
-		const do_lc_load_view = () => {	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, Prj_Appointment_View_Work);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_NEW, Prj_Appointment_New_Work);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, Prj_Appointment_Show_Work);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_DEPARTMENT, Prj_Appointment_Show_Department);
-
-			
-			if ($(window).width() < 600) {
-				pr_ForDesktop = false;
-			}
-			if ($(window).width() < $(window).height()) {
-				pr_ForVertial = true;
-			}
-			
-			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, {forDesktop: pr_ForDesktop}));
-		}
-		
-		
-		
 		
 		const do_get_list_ByAjax = function(){	
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstSearch");
@@ -299,66 +292,62 @@ define([
 		//-------------------------------------------------------------------------------------------------
 		var do_register_locale_custom = function () {
 			DayPilot.Locale.register(
-					new DayPilot.Locale('vi-vi', 
-							{
-						dayNames: ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'],
-						dayNamesShort: ['CN','T2','T3','T4','T5','T6','T7'],
-						monthNames: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
-						monthNamesShort: ['Thg 1','Thg 2','Thg 3','Thg 4','Thg 5','Thg 6','Thg 7','Thg 8','Thg 9','Thg 10','Thg 11','Thg 12'],
-						timePattern: 'h:mm tt',
-						datePattern: 'M/d/yyyy',
-						dateTimePattern: 'M/d/yyyy h:mm tt',
-						timeFormat: 'Clock12Hours',
-						weekStarts: 1
-							}
-					));
-			let tmp = localStorage.getItem("language");
-			if (tmp == "en") locale = "en-us";
-			else locale = tmp + "-" + tmp;
+					new DayPilot.Locale('vi-vn', {
+							dayNames		: ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'],
+							dayNamesShort	: ['CN','Th2','Th3','Th4','Th5','Th6','Th7'],
+							monthNames		: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+							monthNamesShort	: ['Thg 1','Thg 2','Thg 3','Thg 4','Thg 5','Thg 6','Thg 7','Thg 8','Thg 9','Thg 10','Thg 11','Thg 12'],
+							timePattern		: 'HH:mm',
+							datePattern		: 'dd/MM/yyyy',
+							dateTimePattern	: 'dd/MM/yyyy HH:mm',
+							timeFormat		: 'Clock24Hours',
+							weekStarts		: 1
+					}));
+					
+			let tmp = localStorage.getItem("locale");
+			if (!tmp) 
+				locale = "vi-vn";
+			else 
+				locale = tmp ;
 			
 		}
 
-		var pr_backColor_01 = "#fff";
-		var pr_backColor_02 = "beige"; 
 		function do_build_schedulue(pr_lstAvailableTime , dtBegin) {
 			// var date = new Date(pr_savedObject_Step_1.dt).getTime() - 2*60*60*24*1000;
 			// var startDate = getDateISOShort(new Date(date));
 			if(dtBegin != undefined) {
-				var startDate =	dtBegin
-				var dtEnd = new Date(startDate);
+				var startDate 	= dtBegin
+				var dtEnd 		= new Date(startDate);
 		        dtEnd.setDate(dtEnd.getDate() + 7);
-				dtEnd = getDateISOShort(dtEnd);
+				dtEnd 			= getDateISOShort(dtEnd);
 				
 			}else{
-				var startDate = new Date();
+				var startDate 	= new Date();
 				startDate.setDate(startDate.getDate() - 1); // get 2 days before
-				startDate = getDateISOShort(startDate);
+				startDate 		= getDateISOShort(startDate);
 			}
 		
-			 
-		
-
 			dp_schedule 		= new DayPilot.Calendar	("dp_schedule");
 			
 			
 	//		do_get_availableTimeList(dp_schedule,startDate, dtEnd);
 
-
-			dp_schedule.showNonBusiness             =false;
-			dp_schedule.showNonBusinessForceHours = true;
+			dp_schedule.locale 						= locale;
+			dp_schedule.showNonBusiness             = false;
+			dp_schedule.showNonBusinessForceHours 	= true;
 			dp_schedule.businessBeginsHour          = 7;
 			dp_schedule.businessEndsHour            = 18;
 			dp_schedule.viewType 					= "Week";
 //			dp_schedule.viewType 					= "Days";
 
 			console.log(pr_dtBegin);
-			if(pr_dtBegin != null)
-			{
-				dp_schedule.startDate 					= pr_dtBegin;
+			
+			if(pr_dtBegin != null){
+				dp_schedule.startDate 				= pr_dtBegin;
+			}else{
+				dp_schedule.startDate 				= startDate;
 			}
-			else{
-				dp_schedule.startDate 					= startDate;
-			}
+			
 			dp_schedule.days 						= TIME_RANGE*2+1;
 			dp_schedule.eventClickHandling 			= "Select";
 			dp_schedule.allowMultiSelect 			= false;
@@ -380,7 +369,7 @@ define([
 			if (pr_ForDesktop){
 			    dp_schedule.heightSpec 				= "BusinessHours";
 			} else {
-			    dp_schedule.height = "400";
+			    dp_schedule.height 					= "400";
 			}
 
 			dp_schedule.onBeforeCellRender = function(args) {
@@ -740,7 +729,6 @@ define([
 						});
 					    do_lc_init_element(e);
 					    do_lc_build_view_member(args.e.data.members, "#div_list_member"); // build lst member
-					    do_lc_build_view_customer(args.e.data.obj.val01, "#div_list_email_customer");
 					    do_lc_binding_event_add_customer(true);
 					    do_lc_bind_event_autocomplete(); // bind event delete for each member element
 						$(".mod-repeat-hide").hide();	
@@ -812,12 +800,6 @@ define([
 					    updateColor(args.e, color);
 					    App.MsgboxController.do_lc_close();							
 					});
-
-					function isValidURL(string) {
-						var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
-						return (res !== null)
-					};
-
 				}
 				else {
 					// do something
@@ -933,7 +915,6 @@ define([
 							do_lc_init_element(e);
 
 							do_lc_build_view_member(args.source.data.members, "#div_list_member"); // build lst member
-							do_lc_build_view_customer(args.source.data.obj.val01, "#div_list_email_customer");
 							do_lc_binding_event_add_customer(true);
 							do_lc_bind_event_autocomplete(); // bind event delete for each member element
 							$(".mod-repeat-hide").hide();
@@ -993,8 +974,8 @@ define([
 
 					],
 					onShow: function(args) {
-						const now = new Date();
-						const isPastEvent = now >= new Date(args.source.data.start) || now >= new Date(args.source.data.end);
+						const now 			= new Date();
+						const isPastEvent 	= now >= new Date(args.source.data.start) || now >= new Date(args.source.data.end);
 						const isSuperAdmin 	= App.controller.common.Login && App.controller.common.Login.can_lc_User_SuperAdmin();
 						// Reset visibility for all menu items
 						args.menu.items.forEach(item => item.hidden = false);
@@ -1050,63 +1031,76 @@ define([
 				
 			dp_schedule.init();
 			
-			const picker = new DayPilot.DatePicker({
+			const dpPicker = new DayPilot.DatePicker({
 			    target: 'nav_calendar_show',
 			    pattern: 'yyyy-MM-dd',
 			    onTimeRangeSelected: (args) => {
 			        dp_schedule.update({ startDate: args.start });
+										
+					const newDate 	= app.changeDate(dp_schedule.startDate);
+										
+					var dt 			= req_gl_DateObj_From_DateStr (newDate.value.replace("T", " "));
+					var dtStr		= req_gl_DateStr_From_DateObj (dt, "dd/MM/yyyy");
+					$("#day-now"	).text(dtStr);
+		
+		            if (prjSearch && prjSearch.parId) {
+		                do_lc_search_prj_appointment(prjSearch, dp_schedule, dtStr);
+		            }
 			    }
 			});
 			
 			const app = {
 			    elements: {
-			        previous: $("#previous"),
-			        next: $("#next"),
-			        nav_calendar: $("#nav_calendar")
+			        previous		: $("#previous"),
+			        next			: $("#next"),
+			        nav_calendar	: $("#nav_calendar")
 			    },
 			
 			    addEventHandlers() {
 			        app.elements.previous.on("click", (e) => {
 			            e.preventDefault();
-			            const newDate = dp_schedule.startDate.addDays(-7);
-			            app.changeDate(newDate);
+			            const newDate 	= app.changeDate(dp_schedule.startDate.addDays(-7));
+						
+						var dt 			= req_gl_DateObj_From_DateStr (newDate.value.replace("T", " "));
+						var dtStr		= req_gl_DateStr_From_DateObj (dt, "dd/MM/yyyy");
+						$("#day-now"	).text(dtStr);
 			
 			           if (prjSearch && prjSearch.parId) {
-			                do_lc_search_prj_appointment(prjSearch, dp_schedule);
+			                do_lc_search_prj_appointment(prjSearch, dp_schedule, dtStr);
 			            }
 			        });
 			
 			        app.elements.next.on("click", (e) => {
 			            e.preventDefault();
-			            const newDate = dp_schedule.startDate.addDays(7);
-			            app.changeDate(newDate);
+			            const newDate 	= app.changeDate(dp_schedule.startDate.addDays(7));
+						
+						var dt 			= req_gl_DateObj_From_DateStr (newDate.value.replace("T", " "));
+						var dtStr		= req_gl_DateStr_From_DateObj (dt, "dd/MM/yyyy");
+						$("#day-now"	).text(dtStr);
 			
 			            if (prjSearch && prjSearch.parId) {
-			                do_lc_search_prj_appointment(prjSearch, dp_schedule);
+			                do_lc_search_prj_appointment(prjSearch, dp_schedule, dtStr);
 			            }
 			        });
 			
 			        app.elements.nav_calendar.on("click", (e) => {
 			            e.preventDefault();
-			            picker.show();
-			
-			           	if (prjSearch && prjSearch.parId) {
-			                do_lc_search_prj_appointment(prjSearch, dp_schedule);
-			            }
+			            dpPicker.show();
 			        });
 			    },
 			
 			    // Update dp_schedule with a new date and reset events
 			    changeDate(date) {
-			        const startDate = date.firstDayOfWeek();
-			        const days = 7;
-			        const events = [];  // Reset or reload events if necessary
+			        const startDate = date.firstDayOfWeek().addDays(1);
+			        const days 		= 7;
+			        const events 	= [];  // Reset or reload events if necessary
 			
 			        dp_schedule.update({
 			            startDate,
 			            days,
 			            events
 			        });
+					return startDate;
 			    },
 			
 			    init() {
@@ -1116,7 +1110,7 @@ define([
 			
 			// Initialize the app
 			app.init();
-			}
+		}
 
 		var do_lc_mod_appointment = function (e) {
 			let	data	 		= req_gl_data({
@@ -1472,26 +1466,15 @@ define([
 //			membersDel = [];
 		}
 
-/*		const do_lc_convert_date = (objDate) => {
-			if (objDate.time.length < 5) objDate.time = "0" + objDate.time;
-			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
-		}*/
-		function do_lc_search_prj_appointment(prj,dp_schedule,dtBegin,dtEnd) {
-			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointmentSearch");
+		function do_lc_search_prj_appointment(prj, dp_schedule, dtBegin, dtEnd) {
+			var ref 			= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointmentSearch");
 			if (prj != null) {
-			    if (prj.parId != null) {
-			        ref.parId = prj.parId;
-			    }
-			    if (prj.typ02 != null) {
-			        ref.type02 = prj.typ02;
-			    }
-			    if (prj.memberId != null) {
-			        ref.memberId = prj.memberId;
-			    }
+				ref.parId 		= prj.parId;
+				ref.type02 		= prj.typ02;
+				ref.memberId 	= prj.memberId;
 			}
-			ref.dtBegin	= dtBegin;
-			ref.dtEnd	= dtEnd;
-
+			ref.dtBegin			= dtBegin;
+			ref.dtEnd			= dtEnd;
 
 			var fSucces	= [];
 			fSucces.push(req_gl_funct(		null, do_show_list_available_time, [true, dp_schedule]));
@@ -1499,59 +1482,65 @@ define([
 			var fError 		= req_gl_funct(	null, do_show_list_available_time, [false]);
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
+		
 		const do_lc_bind_eventPage = () => {
-				var currentDate = new Date();
-				var formattedDate = currentDate.toLocaleDateString('vi-VN');
-				$("#day-now").text(formattedDate);
-				$("#btn_search").off('click').click(() => {
+			var currentDate 	= new Date();
+			var formattedDate 	= currentDate.toLocaleDateString('vi-VN');
+			
+			$("#day-now"	).text(formattedDate);
+			
+			$("#btn_search"	).off('click').click(() => {
 				 let data = req_gl_data({
-			        dataZoneDom: $("#div_search_prj_appointment")
+			        dataZoneDom: $("#div_search_appointment")
 			    });
-			    let prj = data.data;
-			    var memberElement = document.querySelector('#selected_members_all .member-item .btn-remove-member');
+			    let prj 			= data.data;
+			    var memberElement 	= document.querySelector('#selected_members_all .member-item .btn-remove-member');
 			    if (memberElement) {
-			        var memberId = memberElement.getAttribute('data-id');
-			        prj.memberId = memberId;
+			        var memberId 	= memberElement.getAttribute('data-id');
+			        prj.memberId 	= memberId;
 			    }
-			    do_lc_search_prj_appointment(prj,dp_schedule);
-			    $("#btn_create_prj").removeClass("hide");
+			    do_lc_search_prj_appointment(prj, dp_schedule);
+			    
+				$("#btn_create_entity").removeClass("hide");
+				
 				const membersData = [];
-				 $("#selected_members_all .member-item").each(function() {
-		            const $memberItem = $(this);
-		            const memberId = $memberItem.find(".btn-remove-member").data("id");
-		            let memberName = $memberItem.text().trim();
+				$("#selected_members_all .member-item").each(function() {
+		            const $memberItem 	= $(this);
+		            const memberId 		= $memberItem.find(".btn-remove-member").data("id");
+		            let memberName 		= $memberItem.text().trim();
+					const imgSrc 		= $memberItem.find("img").attr("src");
+					
 		            $memberItem.find(".text-middle").each(function() {
-				        memberName = memberName.replace($(this).text().trim(), '').trim();
+				        memberName 		= memberName.replace($(this).text().trim(), '').trim();
 				    });
-		            const imgSrc = $memberItem.find("img").attr("src");
 		
 		            membersData.push({
-		                id: memberId,
-		                name: memberName,
-		                imgSrc: imgSrc
+		                id		: memberId,
+		                name	: memberName,
+		                imgSrc	: imgSrc
 		            });
 		            
 		        });
 		      
-			    const name = $("#list_member").val();
-			    const workSchedule = $("#work-schedule").val();
+			    const name 					= $("#list_member").val();
+			    const workSchedule 			= $("#work-schedule").val();
 			
-			    const selectedDepartment = $("#department option:selected");
-			    const departmentValue = selectedDepartment.val();
-			    const departmentText = selectedDepartment.text();
+			    const selectedDepartment 	= $("#department option:selected");
+			    const departmentValue 		= selectedDepartment.val();
+			    const departmentText 		= selectedDepartment.text();
 			
 			    prj_work = {
-			        name: name,
-			        workSchedule: workSchedule,
-			        departmentValue: departmentValue,
-			        departmentText: departmentText,
-			        members: membersData
+			        name					: name,
+			        workSchedule			: workSchedule,
+			        departmentValue			: departmentValue,
+			        departmentText			: departmentText,
+			        members					: membersData
 			    };
 			    prjSearch = prj
 			
 			});
 
-			$("#btn_create_prj").off('click').click(() => {
+			$("#btn_create_entity").off('click').click(() => {
 				App.MsgboxController.do_lc_show({
 					title		: $.i18n("prj_appointment_msg_title"),
 					content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, {}),
@@ -1588,74 +1577,6 @@ define([
 				"display": "flex",
 				"flex-direction": "row",
 			})
-		}
-		const do_lc_req_autocomplete_search = () => {
-			let el = ".inp-name-member";
-			let customShowList = function(item, selOpt = ""){
-				if(item.avatar)	return selOpt += `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs avatar-autocomplete'/> ${item.inf03}`;
-				if(!item.avatar){
-					let textColor   = null;
-					let textAvatar  = null
-					if(!item.avatar){
-						let first = item.login01.charAt(0);
-						let last  = item.login01.charAt(item.login01.length - 1);
-						let index = var_gl_alphabet.indexOf(first.toLowerCase());
-
-						textColor = var_gl_colors[index];
-						textAvatar= first + last;
-					}
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs avatar-autocomplete text-white text-uppercase text-center mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}</div>`;
-					return selOpt;
-				}
-			}
-			let reqSelectMember = (event, item) => {
-				if(members[item.id])			return false;
-				let lev 			= $("#sel_member_level").val();
-				let typ 			= $("#sel_member_type").val();
-				let user 			= {
-						"uId": item.id, 
-						"typ": +lev, 
-						"stat": pr_stat_pending
-						// "typ": +typ
-				};
-
-				let textColor   = null;
-				let textAvatar  = null
-				if(!item.avatar){
-					let first = item.login01.charAt(0);
-					let last  = item.login01.charAt(item.login01.length - 1);
-					let index = var_gl_alphabet.indexOf(first.toLowerCase());
-
-					textColor = var_gl_colors[index];
-					textAvatar= first + last;
-				}
-
-				members[item.id] 	= user;
-
-				let selOpt 			= `<div class='member-item'>`;
-				if(item.avatar) 
-					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.inf03}`;
-				else 			
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.login01}`;
-
-				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
-				selOpt 				+= `</div>`;
-
-				$("#selected_members").append(selOpt);
-				do_lc_bind_event_autocomplete();
-				$(el).blur().val("");
-			}
-			
-			let typ01Arr = [App.data.user.typ01, 2, 20, 30, 40];
-			let typ01Str = typ01Arr.join(',');
-			let options = {
-			    dataService: [pr_SERVICE_AUT_CLASS, pr_SV_USER_SEARCH], 
-			    dataRes: ["login01", "name01"], 
-			    svParams: {wAvatar: true, nbLine: 5, typ01s: typ01Str, stats: 1},
-			    fSelect: reqSelectMember, 
-			    customShowList: customShowList
-			};
-			do_gl_req_autocompleteNew(el, options);
 		}
 		const do_lc_req_autocomplete_all = () => {
 			let el = ".inp-name-member_all";
@@ -1937,9 +1858,6 @@ define([
 		}
 		//--------------------------------------------------------------------------------------------
 		
-		function formatTime(hour, minute, second) {
-		    return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
-		}
 		function do_show_list_available_time(sharedJson, ajaxStat, dp) {
 		    // Reset the available time list to avoid showing old data
 		    pr_lstAvailableTime = [];
@@ -2000,11 +1918,6 @@ define([
 		
 		    dp.update();
 		}
-
-
-
-
-
 
 
 		const do_lc_show_list_member = (dp, lstTime) => {
@@ -2175,20 +2088,6 @@ define([
 			}
 			$(view).append(div);
 		}		
-		var do_lc_build_view_customer = (customersStr, view) => {
-			var div = "";
-			if(customersStr) {
-				let data = JSON.parse(customersStr);
-				for (var key in data) {
-					let email  			= data[key];
-					let selOpt 			= `<div class='mr-1'><button class="btn btn-secondary">${email}</button><a data-email='${email}' class='text-danger btn-remove-customer' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a></div>`;
-					div += selOpt;
-
-					customers.push(email);
-				};
-			}
-			$(view).append(div);
-		}
 
 
 	};

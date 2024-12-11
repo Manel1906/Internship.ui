@@ -1,103 +1,87 @@
-<div id="div_video_call_calendar"></div>
-<div id="div_video_call"></div>
-<div class="col-12" style="margin-top: 6%">
-    <div  id="div_search_prj_appointment" class="d-flex flex-wrap gap-3 justify-content-between align-items-center">
-    <!-- Department Selection -->
-    <div class="d-flex align-items-center">
-        <span class="px-3 text-nowrap">{{transl 'prj_departments_level'}}</span>
-        <select style="max-width: 200px;" data-name="parId" id="department" class="form-control objData">
-        </select>
-    </div>
-
-    <!-- Member Information -->
-    <div class="row align-items-center">
-        <div data-repeater-list="inner-group">
-            <div data-repeater-item class="inner">
-                <div class="row align-items-center">
-                    <!-- Member Type -->
-                    <div class="col-auto">
-                        <select class="form-control hide" id="sel_member_type_all">
-                            <option value="0">{{transl 'prj_project_member_level'}}</option>
-                            <option value="0">{{transl 'prj_project_lev_bas'}}</option>
-                            <option value="1" selected>{{transl 'prj_project_lev_haute'}}</option>
-                        </select>
-                    </div>
-                    <!-- Member Level -->
-                    <div class="col-auto">
-                        <select class="form-control hide" id="sel_member_level_all">
-                            <option value="0" class="d-none">{{transl 'prj_project_member_level_manager'}}</option>
-                            <option data-external-mem="true" value="10" class="d-none">{{transl 'prj_project_member_level_reporter'}}</option>
-                            <option value="20" class="d-none">{{transl 'prj_project_member_level_developer'}}</option>
-                            <option value="30" class="d-none">{{transl 'prj_project_member_level_tester'}}</option>
-                            <option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
-                            <option value="50" class="d-none">{{transl 'prj_project_member_level_watcher'}}</option>
-                        </select>
-                    </div>
-                    <!-- Member Name Input -->
-                    <div class="col-auto d-flex align-items-center gap-2">
-                        <label for="list_member_all" class="form-label text-nowrap mb-0 px-3">{{transl 'prj_doctor_level'}}</label>
-                        <input type="text" id="list_member_all" class="form-control inp-name-member_all" placeholder="{{transl 'prj_project_enter_name'}}" style="max-width: 200px;" />
-                        <div id="selected_members_all"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Work Schedule -->
-    <div class="d-flex align-items-center gap-3">
-        <span class="text-nowrap px-3">{{transl 'prj_schedule_work'}}</span>
-        <select style="max-width: 200px;" data-name="typ02" id="typ02" class="form-control objData">
-            <option value="0">{{transl 'prj_appointment_option_none'}}</option>
-            <option value="100">{{transl 'prj_appointment_option_zero'}}</option>
-            <option value="200">{{transl 'prj_appointment_option_one'}}</option>
-            <option value="300">{{transl 'prj_appointment_option_two'}}</option>
-            <option value="400">{{transl 'prj_appointment_option_three'}}</option>
-            <option value="500">{{transl 'prj_appointment_option_four'}}</option>
-            <option value="600">{{transl 'prj_appointment_option_five'}}</option>
-        </select>
-    </div>
-
-    <!-- Search Button -->
-    <div class="d-flex align-items-center gap-3">
-        <button id="btn_search" type="button" class="btn btn-primary">{{transl 'prj_schedule_work_search'}}</button>
-    </div>
-</div>
-
-
-    <div style="margin-top: 18px" class="d-flex flex-wrap gap-3 justify-content-between align-items-center">
- 	  <div style="margin-left: 10px" class="col-10">
- 	  	<div class="col-12 col-sm-6 col-md-3 d-flex align-items-center gap-3">
-            <div id="dp_nav_btn" class="d-flex align-items-center gap-2">
-                <b class="h1"><span id="day-now"></span></b>
-                <button id="previous" class="btn btn-light rounded-circle border mx-1">
-                    <i class='bx bx-chevron-left' style="font-size: 15px; color: #808080;"></i>
-                </button>
-                <button id="next" class="btn btn-light rounded-circle border mx-1">
-                    <i class='bx bx-chevron-right' style="font-size: 15px; color: #808080;"></i>
-                </button>
-                <input type="text" id="nav_calendar_show" class="position-absolute" style="opacity: 0; pointer-events: none; top: 20px">
-                <div class="btn btn-light rounded-circle border mx-1" id="nav_calendar">
-                    <img src="www/img/icon/appointment.png" alt="Calendar" style="height: 20px; filter: grayscale(100%);">
-                </div>
-            </div>
-        </div>
- 	  </div>
-  	 <div  class="d-flex align-items-center gap-3">
-  	 	<button style="width:79.05px; height:36.05px;color:white" class="btn btn-secondary ml-1 hide" type="button" id="btn_create_prj">{{transl "prj_appointment_btn_new"}}</button>
-  	 </div>
- </div>
-
-	<div>
+<div class="page-content">
+	<div class="d-flex justify-content-between">
+	</div>
+	<div class="container-fluid">
+		<div class="d-lg-flex row" id="div_main_view">
 		
+			<div id="div_video_call_calendar"></div>
+			<div id="div_video_call"></div>
 
-		<br />
-		<div class="row">
-			<div class="col-md-12">
+			<div class="col-12 row mb-4" id="div_search_appointment">
+				<div class= "col-3">
+					<div style="margin-left: 10px" class="col-10">
+				 	  	<div class="col-12 col-sm-6 col-md-3 d-flex align-items-center gap-3">
+				            <div id="dp_nav_btn" class="d-flex align-items-center gap-2">
+				            	<button id="previous" class="btn btn-light rounded-circle border mx-1">
+				                    <i class='bx bx-chevron-left' style="font-size: 15px; color: #808080;"></i>
+				                </button>
+				                
+				                <b class="h1"><span id="day-now"></span></b>
+				                
+				                <button id="next" class="btn btn-light rounded-circle border mx-1">
+				                    <i class='bx bx-chevron-right' style="font-size: 15px; color: #808080;"></i>
+				                </button>
+				                <input type="text" id="nav_calendar_show" class="position-absolute" style="opacity: 0; pointer-events: none; top: 20px">
+				                <div class="btn btn-light rounded-circle border mx-1" id="nav_calendar">
+				                    <img src="www/img/icon/appointment.png" alt="Calendar" style="height: 20px; filter: grayscale(100%);">
+				                </div>
+				            </div>
+				        </div>
+					</div>
+				</div>
+				
+				<div class= "col-9 row">
+					<div class= "col-sm-6 col-md-3 col-lg-3">
+					    <!-- Department Selection -->
+					    <div class="row p-2">
+<!-- 					        <span class="px-3 text-nowrap">{{transl 'prj_departments_level'}}</span> -->
+					        <select data-name="parId" id="department" class="form-control objData"></select>
+					    </div>
+					</div>
+					<div class= "col-sm-6 col-md-3 col-lg-3">
+						<!-- Member Information -->
+					    <div class="row p-2">
+		                    <!-- Member Name Input -->
+		                    <div class="col-auto d-flex align-items-center gap-2">
+<!-- 					        <label for="list_member_all" class="form-label text-nowrap mb-0 px-3">{{transl 'prj_doctor_level'}}</label> -->
+		                        <input type="text" id="list_member_all" class="form-control inp-name-member_all" placeholder="{{transl 'prj_project_enter_name'}}"/>
+		                        <div id="selected_members_all"></div>
+		                    </div>
+					    </div>
+					</div>
+					<div class= "col-sm-6 col-md-3 col-lg-3">
+						<div class="row p-2">
+							<!-- Work Schedule -->
+<!-- 					        <span class="text-nowrap px-3">{{transl 'prj_schedule_work'}}</span> -->
+					        <select data-name="typ02" id="typ02" class="form-control objData">
+					            <option value="0">{{transl 'prj_appointment_option_none'}}</option>
+					            <option value="100">{{transl 'prj_appointment_option_zero'}}</option>
+					            <option value="200">{{transl 'prj_appointment_option_one'}}</option>
+					            <option value="300">{{transl 'prj_appointment_option_two'}}</option>
+					            <option value="400">{{transl 'prj_appointment_option_three'}}</option>
+					            <option value="500">{{transl 'prj_appointment_option_four'}}</option>
+					            <option value="600">{{transl 'prj_appointment_option_five'}}</option>
+					        </select>
+					    </div>
+					</div>
+					
+					<div class= "col-sm-6 col-md-3 col-lg-3">
+						<div class="row p-2">
+							<button id="btn_search" 		type="button" 	class="btn btn-primary">{{transl 'prj_schedule_work_search'}}</button>
+							<button id="btn_create_entity" 	type="button"	class="btn btn-secondary ml-1 hide"  >{{transl "prj_appointment_btn_new"}}</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br />
+
+			<div class="col-12 row">
 				{{#if forDesktop}}
 				<div class="main" style="display: flex;">
 					<div style="flex-grow: 1; margin-left: 5px;">
 						<div id="dp_schedule"></div>
+						
 						<div class="container mt-4">
 						    <div class="row">
 						        <div class="col-6 d-flex flex-column gap-2">
@@ -130,27 +114,22 @@
 						        </div>
 						    </div>
 						</div>
-
 					</div>
 				</div>
-
+		
 				{{else}}
-				<!-- 				<div class="col-12"> -->
-				<!-- 				</div> -->
-				<!-- 				<div class="col-12"> -->
 				<div id="dp_schedule_work"></div>
-				<!-- 				</div> -->
 				{{/if}} <br />
-				<div class="wygo-order-box-description" style="display: none"
-					id="schedule_toolTip">
+				
+				<div class="wygo-order-box-description" style="display: none" id="schedule_toolTip">
 					<b><i><span style="color: blue"> </span></i></b>
 				</div>
+				
 				{{#ifCond listSize '==' 0 }}
-				<div class="errMsg" style="display: contents;">{{transl
-					"order_placeorder_nolist"}}</div>
+				<div class="errMsg" style="display: contents;">{{transl "order_placeorder_nolist"}}</div>
 				{{/ifCond}}
 			</div>
+
 		</div>
 	</div>
-
 </div>
