@@ -33,15 +33,15 @@
                 <div class="col-8">
                  	<div class="row">
 	                    <div class="form-group col-4">
-                            <label for="inp_group_phone">{{transl 'per_person_doctor_full_surname'}}</label>
+                            <label >{{transl 'per_person_doctor_full_surname'}}</label>
                             <input type="text"  data-name="name01" class="form-control objData" id="inp_group_phone" value="{{name01}}" maxlength="250" data-validation="required">
                         </div>
                         <div class="form-group col-4">
-                            <label for="inp_group_phone">{{transl 'per_person_doctor_middle_name'}}</label>
+                            <label >{{transl 'per_person_doctor_middle_name'}}</label>
                             <input type="text"  data-name="name02" class="form-control objData" id="inp_group_phone" value="{{name02}}" maxlength="250" >
                         </div>
                         <div class="form-group col-4">
-                            <label for="inp_group_phone">{{transl 'per_person_doctor_name'}}</label>
+                            <label >{{transl 'per_person_doctor_name'}}</label>
                             <input type="text"  data-name="name03" class="form-control objData" id="inp_group_phone" value="{{name03}}" maxlength="250" data-validation="required">
                         </div>
                  	</div>
@@ -52,8 +52,13 @@
             
             <div class="row ml-1 mt-2">
             	<div class="form-group col-4">
-                   	<label for="inp_group_phone">{{transl 'per_person_doctor_code'}}</label>
+                   	<label >{{transl 'per_person_doctor_code'}}</label>
                     <input type="text"  data-name="code01" class="form-control objData" id="inp_group_phone" value="{{code01}}" maxlength="50" >
+            	</div>
+            	
+            	<div class="form-group col-4">
+                   	<label >{{transl 'per_person_social_code'}}</label>
+                    <input type="text"  data-name="code05" class="form-control objData" id="inp_group_phone" value="{{code05}}" maxlength="50" >
             	</div>
 			</div>
 				
@@ -63,7 +68,7 @@
                    	<input type="text"  data-name="inf03" class="form-control objData" id="inp_group_locate" value="{{inf03}}"  maxlength="250" data-validation="required">
 				</div>
 				<div class="form-group col-4">
-                   	<label for="inp_group_phone">{{transl 'per_person_doctor_role'}}</label>
+                   	<label >{{transl 'per_person_doctor_role'}}</label>
                    	<select id="inp_group_select" class="form-control objData content-edit isManager" data-name="code03">
 			            <option {{#equal code03 0}}selected{{/equal}} value="0">{{transl 'prj_project_member_level_dean'}}</option>
 			            <option {{#equal code03 1}}selected{{/equal}} value="1">{{transl 'prj_project_member_level_deputy'}}</option>
