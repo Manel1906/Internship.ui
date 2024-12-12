@@ -1,17 +1,30 @@
 /*
-const req_gl_DateObj_From_DateStr(dStr, strFormat)
-const req_gl_DateStr_From_DateObj(dObj, strFormat)
-const req_gl_DateStr_From_DateStr
-const req_gl_Date_LocalFormat
-const req_gl_DateStr_LocalFormatFull (strDate)
-const req_gl_DateStr_LocalFormatShort (strDate)
-const req_gl_DayDiff
+const req_gl_DateObj_From_DateStr		(dStr, strFormat)
+const req_gl_DateStr_From_DateObj		(dObj, strFormat)
+const req_gl_DateStr_From_DateStr		(dStr, strFormatSrc, strFormatDest)
 
-const req_gl_Date_CompareObj = function (date01, date02)
+const req_gl_DateStr_LocalFormatFull 	(strDate) //---str or date object
+const req_gl_DateStr_LocalFormatShort 	(strDate) //---str or date object
 
-const req_gl_DateAdd (dt, interval, unit)
+const req_gl_DayDiff (dateFrom, dateTo = new Date())
+const req_gl_DateAdd (date, interval, units) //--interval: y/d/m/h/n/s
 
-DateFormat.masks
+
+const req_gl_Date_ISOShortStr 		(strShortDate, strLang) //---return obj date from string with format by local
+const req_gl_Date_ISOLongStr  		(strLongDate , strLang)	//---return format yyyy-MM-dd HH:mm:ss
+const req_gl_Date_From_ISOLongStr 	(strDate)
+const req_gl_Date_From_ISOShortStr 	(strDate)
+
+const req_gl_Date_CompareStr 		(strDate01, strDate02, strDateFormat)
+const req_gl_Date_CompareObj 		(date01, date02)
+
+const req_gl_Date_NbDayInMonth 		( year, month)
+
+const req_gl_get_CurrentDateStr 	(strFormatDest) {
+const req_gl_Week_From_DateObj 		(date)
+const req_gl_Year_From_DateObj 		(date) 
+const req_gl_MonthStr_From_DateObj 	(date)
+
 
  */
 
@@ -34,26 +47,30 @@ var DateFormat = function () {
 	return function (date, mask, utc) {
 		var dF = DateFormat;
 
-		// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
-		if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
-			mask = date;
-			date = undefined;
-		}
-
-		// Passing date through Date applies Date.parse, if necessary
-		// by default, date has format iso
-		if(isNaN(date)){
-			try{
-				date = date.replace(/-/g, "/");
-				date = new Date(date);
-			}catch(e){
-				date = new Date();
+		if (date && date instanceof Date) {
+			
+		}else{
+			// You can't provide utc if you skip other args (use the "UTC:" mask prefix)
+			if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
+				mask = date;
+				date = undefined;
 			}
-			//	date = date? date.replace(/-/g, "/")) : null;  
-            
-        }else{       	
-            date = date ? new Date(date) : new Date();
-        }		
+	
+			// Passing date through Date applies Date.parse, if necessary
+			// by default, date has format iso
+			if(isNaN(date)){
+				try{
+					date = mask.replace(/-/g, "/");				
+					date = new Date(date);
+				}catch(e){
+					date = new Date();
+				}
+				//	date = date? date.replace(/-/g, "/")) : null;  
+	            
+	        }else{  
+	            date = date ? new Date(date) : new Date();
+	        }		
+		}
 		
 		if (isNaN(date)) throw SyntaxError("invalid date");
 
@@ -211,7 +228,6 @@ const req_gl_DateStr_From_DateObj = function (dObj, strFormat){
 }
 
 
-
 //****Str to Str******/
 const req_gl_DateStr_From_DateStr = function (dStr, strFormatSrc, strFormatDest){
 	if (!dStr) return null;
@@ -353,6 +369,7 @@ const req_gl_Date_NbDayInMonth = function ( year, month){
 	return new Date(year, month+1, 0).getDate();
 }
 
+//----private-----------------------------------------------------------
 //----private-----------------------------------------------------------
 //----private-----------------------------------------------------------
 function strToDate (str, format){	
@@ -510,23 +527,24 @@ function enLongDateToDBDate	(date){// dd/MM/yyyy HH:mm:ss => yyyy-MM-dd HH:mm:ss
 		return null;
 	}	
 }
-
-function getWeek (date) {
+//----------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------
+const req_gl_Week_From_DateObj = function (date) {
 	var myDate = new Date(date);
 	var onejan = new Date(myDate.getFullYear(), 0, 1);
 	return Math.ceil((((myDate - onejan) / 86400000) + onejan.getDay() + 1) / 7);    
 }
-function getYear (date) {
+const  req_gl_Year_From_DateObj = function (date) {
 	var myDate = new Date(date);
 	return myDate.getFullYear();
 }
-function getStringMonth(date){
+const  req_gl_MonthStr_From_DateObj = function (date){
 	var myDate = new Date(date);
 	var month = myDate.getMonth();
-	return getMonthStr(month);
+	return req_gl_MonthStr(month);
 }
 
-function getMonthStr(month){
+function req_gl_MonthStr(month){
 	switch (month) {
 	case 0:
 	case "00":
@@ -589,7 +607,7 @@ const req_gl_DateAdd = function (date, interval, units) {
 	case 'm' :  ret.setMonth(ret.getMonth() + units); checkRollover();  break;
 	case 'd' :  ret.setDate(ret.getDate() + units);  break;
 	case 'h' :  ret.setTime(ret.getTime() + units*3600000);  break;
-	case 'm' :  ret.setTime(ret.getTime() + units*60000);  break;
+	case 'n' :  ret.setTime(ret.getTime() + units*60000);  break;
 	case 's' :  ret.setTime(ret.getTime() + units*1000);  break;
 	default  :  ret = undefined;  break;
 	}
