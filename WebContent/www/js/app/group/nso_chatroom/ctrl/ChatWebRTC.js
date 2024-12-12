@@ -49,13 +49,22 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		};
 		
 		const pr_mediaConstraints = {
-				audio			: true,
-				video			: {
-					width		: {max: 1280},
-					height		: {max: 720},
-					facingMode 	: {ideal: "user"}
+				audio				: {
+					autoGainControl	: false,
+					channelCount	: 2,
+					echoCancellation: false,
+					latency			: 0,
+					noiseSuppression: false,
+					sampleRate		: 48000,
+					sampleSize		: 16,
+					volume			: 1.0
 				},
-				
+				video				: {
+					width			: { min: 360, ideal: 720, max: 1920},
+					height			: { min: 360, ideal: 720, max: 1080},
+					facingMode 		: {ideal: "user"},
+					frameRate		: {ideal: 10, max: 15 }
+				},
 		};
 		
 		
