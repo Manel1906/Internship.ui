@@ -585,10 +585,10 @@ const req_gl_DateAdd = function (date, interval, units) {
 	var ret = new Date(date); //don't change original date
 	var checkRollover = function() { if(ret.getDate() != date.getDate()) ret.setDate(0);};
 	switch(String(interval).toLowerCase()) {
-	case 'Y' :  ret.setFullYear(ret.getFullYear() + units); checkRollover();  break;
-	case 'M' :  ret.setMonth(ret.getMonth() + units); checkRollover();  break;
-	case 'D' :  ret.setDate(ret.getDate() + units);  break;
-	case 'H' :  ret.setTime(ret.getTime() + units*3600000);  break;
+	case 'y' :  ret.setFullYear(ret.getFullYear() + units); checkRollover();  break;
+	case 'm' :  ret.setMonth(ret.getMonth() + units); checkRollover();  break;
+	case 'd' :  ret.setDate(ret.getDate() + units);  break;
+	case 'h' :  ret.setTime(ret.getTime() + units*3600000);  break;
 	case 'm' :  ret.setTime(ret.getTime() + units*60000);  break;
 	case 's' :  ret.setTime(ret.getTime() + units*1000);  break;
 	default  :  ret = undefined;  break;

@@ -1,45 +1,58 @@
 <div class="card meeting-card" style="width: 250px; margin-bottom: 1rem;">
-<div class="row align-items-center" style="padding: 20px 20px 0px 20px">
-    <h5 class="col-auto">{{transl 'prj_appointment_next'}}</h5>
-    <a href="javascript:void(0)" class="text-dark font-size-14 font-weight-bold col-auto ml-auto" id="btn_refresh_group">
-        <i class="mdi mdi-refresh font-size-18 mr-2"></i>
-    </a>
-</div>
+	<div class="row align-items-center" style="padding: 20px 20px 0px 20px">
+	    <h5 class="col-auto">{{transl 'prj_appointment_next'}}</h5>
+<!-- 	    <a href="javascript:void(0)" class="text-dark font-size-14 font-weight-bold col-auto ml-auto" id="btn_refresh_group"> -->
+<!-- 	        <i class="mdi mdi-refresh font-size-18 mr-2"></i> -->
+<!-- 	    </a> -->
+	</div>
 
-{{#each appointments}}
-  <div class="card-body">
-    <div class=" d-flex justify-content-between align-items-center">
-    <span class="bg-danger text-white rounded px-2 py-1" id="countdown-{{@index}}">
-      <i class="mdi mdi-bell"></i> <span class="time-remaining" data-appointment-time="{{obj.dtBegin}}"></span>
-    </span>
-    <p class="mb-2"><i class="mdi mdi-clock"></i> {{formatDate obj.dtBegin "date"}}</p>
-  </div>
-    <h5 class="card-title">{{obj.name}}</h5>
-    
-    <p class="mb-2"><i class="mdi mdi-map-marker"></i> {{obj.inf02.desc}}</p>
-    <p><i class="mdi mdi-calendar-clock"></i> {{formatDate obj.dtBegin "time"}} - {{formatDate obj.dtEnd "time"}}</p>
-    <div class="d-flex justify-content-between align-items-center">
-      <button 
-		  class="btn btn-info text-white div_button_call" 
-		  data-appointment-id="{{obj.id}}" 
-		  data-members=>
-		  Tham gia
-		</button>
-
-      <div class="div_list_member d-flex">
-        {{#each members}}
-          <div class='team-member member-item d-flex align-items-center'>
-            {{#if avatar}}
-              <img src='{{avatar}}' class='rounded-circle avatar-xs {{opacity}} mr-1'/>
-            {{else}}
-              <div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center {{opacity}}" style="background-color: {{textColor}}">
-                <div class="text-middle">{{textAvatar}}</div>
-              </div>
-            {{/if}}
-          </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-  {{/each}}
+	<div class="card-body">
+		{{#each appointments}}
+		<div class="row mb-2">
+<!-- 			<div class="col-6"> -->
+<!-- 				<span class="bg-danger text-white rounded px-2 py-1" id="countdown-{{@index}}"> -->
+<!-- 					<i class="mdi mdi-bell"></i> <span class="time-remaining" data-appointment-time="{{obj.dtBegin}}"></span> -->
+<!-- 				</span> -->
+<!-- 				<p class="mb-2"><i class="mdi mdi-clock"></i> {{formatDate obj.dtBegin "date"}}</p> -->
+<!-- 			</div> -->
+			<div class="col-12">
+				<p><i class="mdi mdi-calendar-clock"></i> {{formatDate obj.dtBegin "time"}} - {{formatDate obj.dtEnd "time"}}</p>
+			</div>
+			
+			{{#if obj.name}}
+			<div class="col-12">
+				<h5 class="card-title">{{obj.name}}</h5>
+			</div>
+			{{/if}}
+			
+			<div class="col-12">
+				<p class="mb-2"><i class="mdi mdi-map-marker"></i> {{obj.inf01}}</p>
+			</div>
+			
+			<div class="col-12">
+				<button  class="btn btn-info text-white div_button_call" data-appointment-id="{{obj.id}}">
+					{{transl 'common_btn_join'}}
+				</button>
+			</div>
+		</div>
+		
+		<div class="d-flex justify-content-between align-items-center">
+			<div class="div_list_member d-flex">
+				{{#each members}}
+				<div class='team-member member-item d-flex align-items-center'>
+					{{#if avatar}}
+					<img src='{{avatar}}' class='rounded-circle avatar-xs {{opacity}} mr-1'/>
+					{{else}}
+					<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center {{opacity}}" style="background-color: {{textColor}}">
+						<div class="text-middle">{{textAvatar}}</div>
+					</div>
+					{{/if}}
+				</div>
+				{{/each}}
+			</div>
+		</div>
+		<hr/>
+		{{/each}}
+	
+	</div>
 </div>

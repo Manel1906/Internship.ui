@@ -323,7 +323,7 @@ define(['jquery'], function($) {
 			}, pr_TIME_REFRESH);
 		}
 
-		const do_get_list_member_fromBE = function(values, buildChatRoom=true, callback){
+		const do_get_list_member_fromBE = function(values, buildChatRoom=false, callback){
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MEMBER_LIST, {groupId: initialValues.group.id});	
 
 			let fSucces		= [];
@@ -333,7 +333,7 @@ define(['jquery'], function($) {
 			App.network.do_lc_ajax_bg_keepState (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
-		const do_get_list_member_fromBE_callback = function(sharedJson, values, buildChatRoom=true, callback){
+		const do_get_list_member_fromBE_callback = function(sharedJson, values, buildChatRoom=false, callback){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				var data 		= sharedJson[App['const'].RES_DATA]; 
 

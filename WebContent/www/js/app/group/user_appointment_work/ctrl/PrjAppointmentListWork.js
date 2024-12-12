@@ -2,8 +2,7 @@ define([
 	'text!group/user_appointment_work/tmpl/Prj_Appointment_View_Work.html',
 	'text!group/user_appointment_work/tmpl/Prj_Appointment_New_Work.html',
 	'text!group/user_appointment_work/tmpl/Prj_Appointment_Show_Work.html',
-	'text!group/user_appointment_work/tmpl/Prj_Appointment_Show_Department.html',
-	'group/nso_chatroom/ctrl/ChatRoomMain',
+	'text!group/user_appointment_work/tmpl/Prj_Appointment_Show_Department.html'
 
 	], function(
 			Prj_Appointment_View_Work, 
@@ -45,7 +44,6 @@ define([
 
 		const STAT_ACTIVE    				= 1;
 		const STAT_DESACTIVE    			= 2;
-		let membersArr 						= [];
 		var members 						= {};
 //		var membersDel 						= [];
 		let files							= {files: []};
@@ -309,7 +307,6 @@ define([
 				locale = "vi-vn";
 			else 
 				locale = tmp ;
-			
 		}
 
 		function do_build_schedulue(pr_lstAvailableTime , dtBegin) {
@@ -483,7 +480,7 @@ define([
 					    "margin"	: "auto"
 					}
 				});
-				do_lc_binding_event_add_customer(false);
+				do_lc_build_view_member_mode_modify(false);
 				do_lc_req_autocomplete();
 
 				let option		= {
@@ -535,13 +532,14 @@ define([
 
 					// $("#schedule_toolTip").show();
 					// $("#schedule_toolTip span").html(args.e.data.toolTip);
-//					toi uu tmpl
-					if(!args.e.data.members || !Object.values(args.e.data.members).find(e => e.uId === App.data.user.id)) return
-					if(args.e.data.obj.val02) {
-						if (!/^https?:\/\//i.test(args.e.data.obj.val02)) {
-							args.e.data.obj.val02 = 'http://' + args.e.data.obj.val02;
-						}
-					}
+					
+//					if(!args.e.data.members || !Object.values(args.e.data.members).find(e => e.uId === App.data.user.id)) return
+//					if(args.e.data.obj.val02) {
+//						if (!/^https?:\/\//i.test(args.e.data.obj.val02)) {
+//							args.e.data.obj.val02 = 'http://' + args.e.data.obj.val02;
+//						}
+//					}
+
 					App.MsgboxController.do_lc_show({
 						title		: $.i18n("prj_appointment_msg_title"),
 						content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, args.e.data.obj),
@@ -559,124 +557,82 @@ define([
 						    "margin"	: "auto"
 						}
 					});
-
+					// build lst member
+					do_lc_build_view_member(args.e.data.members, "#div_list_member"); 
+					
+					//---------------------------------------------------------------------------------------------------------------------------
 					// Handle div file
-					var divFile = "";
-					if (args.e.data.obj.files) {
-						args.e.data.obj.files.forEach((e) => {
-							tmpl 	=  "<a href='" + e.path01  + "' target='_blank' class='mr-3 text-decoration-underline' download = " + e.name + " >" + e.name + "</a>";
-							divFile += tmpl;
-						});
-					}
-					if (divFile) {
-						$("#div_list_files").append(divFile)
-					} else {
-						$("#div_list_files_par").remove();
-					}
-					// Handle div list member
-					var div = "";
-					if(args.e.data.members) {
-						for (var key in args.e.data.members) {
-
-							let classCss = "";
-							let opacity = "";
-							let textStyle = "";
-							let mem = args.e.data.members[key];
-							if(mem.stat && mem.stat === 2 ) {
-								classCss = "text-decoration-line-through ";
-								opacity  = "opacity-03"
-							}
-							
-							if(mem.stat && mem.stat === pr_stat_accept ) {
-							  textStyle = "color: #32CD32;";
-							}
-							
-							if (mem.stat && mem.stat === 1) {
-							    classCss 	= "text-decoration-line-through text-danger";
-								textStyle 	= "text-decoration-thickness: 1.5px;";
-							}
-
-							let item 			= mem.mem;
-							let selOpt 			= `<div class='team-member member-item d-flex'>`;
-
-							let textColor   = null;
-							let textAvatar  = null
-							if(!item.avatar){
-								let first = item.login01.charAt(0);
-								let last  = item.login01.charAt(item.login01.length - 1);
-								textColor = App.controller.UI.Def.reqSrcTextColor(item.login01);
-								textAvatar= first + last;
-							}
-
-							if(!item.avatar)	selOpt 			+= `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}" style="${textStyle}"> ${item.name}</span>`;
-							else                selOpt 		    += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/><span class="tooltiptext ${classCss}" style="${textStyle}">${item.name}</span>`;
-							
-							selOpt 				+= `</div>`;
-							div 				+= selOpt;
-						};
-					}
-					if (div) {
-						$("#div_list_member").append(div)
-					} else {
-						$("#div_list_member_par").remove();
-					}
-
-					// Handle div list customer
-					var divCustomer = "";
-					if(args.e.data.obj.val01) {
-						let data = JSON.parse(args.e.data.obj.val01);
-						for (let i=0; i < data.length; i++) {
-							let email  			= data[i];
-							let selOpt 			= `<div class='mr-1'  style='margin-bottom: 5px;'><button class="btn btn-secondary">${email}</button></div>`;
-							divCustomer += selOpt;
-						};
-					}
-					if (divCustomer) {
-						$("#div_list_email_customer").append(divCustomer)
-					} else {
-						$("#div_list_email_customer_par").remove();
-					}
+//					var divFile = "";
+//					if (args.e.data.obj.files) {
+//						args.e.data.obj.files.forEach((e) => {
+//							tmpl 	=  "<a href='" + e.path01  + "' target='_blank' class='mr-3 text-decoration-underline' download = " + e.name + " >" + e.name + "</a>";
+//							divFile += tmpl;
+//						});
+//					}
+//					if (divFile) {
+//						$("#div_list_files").append(divFile)
+//					} else {
+//						$("#div_list_files_par").remove();
+//					}
+//					
+//
+//					// Handle div list customer
+//					var divCustomer = "";
+//					if(args.e.data.obj.val01) {
+//						let data = JSON.parse(args.e.data.obj.val01);
+//						for (let i=0; i < data.length; i++) {
+//							let email  			= data[i];
+//							let selOpt 			= `<div class='mr-1'  style='margin-bottom: 5px;'><button class="btn btn-secondary">${email}</button></div>`;
+//							divCustomer += selOpt;
+//						};
+//					}
+//					if (divCustomer) {
+//						$("#div_list_email_customer").append(divCustomer)
+//					} else {
+//						$("#div_list_email_customer_par").remove();
+//					}
+//					
+//					// Handle div link_direct
+//					var divLink = "";
+//					if(args.e.data.obj.val02) {
+//					    let link = args.e.data.obj.val02;
+//					    let selOpt 			= `<div class='mr-1'><a href="${link}">${link}</a></div>`;
+//						divLink = selOpt;
+//					}
+//					if (divLink) {
+//					    $("#div_link_direct").append(divLink)
+//					} else {
+//					    $("#div_link_direct_par").remove();
+//					}
+					//---------------------------------------------------------------------------------------------------------------------------
 					
-					// Handle div link_direct
-					var divLink = "";
-					if(args.e.data.obj.val02) {
-					    let link = args.e.data.obj.val02;
-					    let selOpt 			= `<div class='mr-1'><a href="${link}">${link}</a></div>`;
-						divLink = selOpt;
-					}
-					if (divLink) {
-					    $("#div_link_direct").append(divLink)
-					} else {
-					    $("#div_link_direct_par").remove();
-					}
-					
-					var divButtonEdit = $("#div_button_edit");
-					var divButtonDelete = $("#div_button_delete");
-					var divButtonAccept = $("#div_button_accept");
-					var divButtonDeny = $("#div_button_deny");
-					var divButtonUnaccept = $("#div_button_unaccept").hide();
-					var divButtonUndeny = $("#div_button_undeny").hide();
-					const now = new Date();
-					const isPastEvent = now >= new Date(args.e.data.start) || now >= new Date(args.e.data.end);
+					var divButtonEdit 		= $("#div_button_edit"		);
+					var divButtonDelete 	= $("#div_button_delete"	);
+					var divButtonAccept 	= $("#div_button_accept"	);
+					var divButtonDeny 		= $("#div_button_deny"		);
+					var divButtonUnaccept 	= $("#div_button_unaccept"	).hide();
+					var divButtonUndeny 	= $("#div_button_undeny"	).hide();
+					const now 				= new Date();
+					const isPastEvent 		= now >= new Date(args.e.data.start) || now >= new Date(args.e.data.end);
 					if (isPastEvent) {
-					    divButtonAccept.hide();
-					    divButtonDeny.hide();
-					    divButtonEdit.hide();
-					    divButtonDelete.hide();
+					    divButtonAccept	.hide();
+					    divButtonDeny	.hide();
+					    divButtonEdit	.hide();
+					    divButtonDelete	.hide();
 					}
-					const isSuperAdmin = App.controller.common.Login && App.controller.common.Login.can_lc_User_SuperAdmin();
+					const isSuperAdmin 	= App.controller.common.Login && App.controller.common.Login.can_lc_User_SuperAdmin();
 					if (isSuperAdmin) {
-						divButtonAccept.hide();
-						divButtonDeny.hide();
+						divButtonAccept	.hide();
+						divButtonDeny	.hide();
 					}
 
 					var e = args.e;
 					if (e.data.obj.uId == App.data.user.id) {
-						divButtonAccept.hide();
-						divButtonDeny.hide();
+						divButtonAccept	.hide();
+						divButtonDeny	.hide();
 					}else{
-						divButtonEdit.hide();
-						divButtonDelete.hide();
+						divButtonEdit	.hide();
+						divButtonDelete	.hide();
 						
 						if (e.data.members) {
 						    for (let mem of Object.values(e.data.members)) {
@@ -728,8 +684,7 @@ define([
 							}
 						});
 					    do_lc_init_element(e);
-					    do_lc_build_view_member(args.e.data.members, "#div_list_member"); // build lst member
-					    do_lc_binding_event_add_customer(true);
+					    do_lc_build_view_member_mode_modify(true, args.e.data.members);
 					    do_lc_bind_event_autocomplete(); // bind event delete for each member element
 						$(".mod-repeat-hide").hide();	
 					    do_lc_req_autocomplete();
@@ -914,8 +869,8 @@ define([
 							
 							do_lc_init_element(e);
 
-							do_lc_build_view_member(args.source.data.members, "#div_list_member"); // build lst member
-							do_lc_binding_event_add_customer(true);
+//							do_lc_build_view_member(args.source.data.members, "#div_list_member"); // build lst member
+							do_lc_build_view_member_mode_modify(true, args.e.data.members);
 							do_lc_bind_event_autocomplete(); // bind event delete for each member element
 							$(".mod-repeat-hide").hide();
 							do_lc_req_autocomplete();
@@ -1044,7 +999,7 @@ define([
 					$("#day-now"	).text(dtStr);
 		
 		            if (prjSearch && prjSearch.parId) {
-		                do_lc_search_prj_appointment(prjSearch, dp_schedule, dtStr);
+		                do_lc_search_appointment(prjSearch, dp_schedule, req_gl_DateStr_From_DateObj(dt));
 		            }
 			    }
 			});
@@ -1066,7 +1021,7 @@ define([
 						$("#day-now"	).text(dtStr);
 			
 			           if (prjSearch && prjSearch.parId) {
-			                do_lc_search_prj_appointment(prjSearch, dp_schedule, dtStr);
+			                do_lc_search_appointment(prjSearch, dp_schedule, req_gl_DateStr_From_DateObj(dt));
 			            }
 			        });
 			
@@ -1079,7 +1034,7 @@ define([
 						$("#day-now"	).text(dtStr);
 			
 			            if (prjSearch && prjSearch.parId) {
-			                do_lc_search_prj_appointment(prjSearch, dp_schedule, dtStr);
+			                do_lc_search_appointment(prjSearch, dp_schedule, req_gl_DateStr_From_DateObj(dt));
 			            }
 			        });
 			
@@ -1116,10 +1071,10 @@ define([
 			let	data	 		= req_gl_data({
 				dataZoneDom		: $("#div_create_prj_appointment")
 			});
-			let prj 	= data.data;
-			prj.inf02.cl = pr_Color;
-			prj.dtBegin = do_lc_convert_date(prj.dtBegin).replace("T"," ");
-			prj.dtEnd 	= do_lc_convert_date(prj.dtEnd).replace("T"," ");
+			let prj 		= data.data;
+			prj.inf02.cl 	= pr_Color;
+			prj.dtBegin 	= do_lc_convert_date(prj.dtBegin).replace("T"," ");
+			prj.dtEnd 		= do_lc_convert_date(prj.dtEnd	).replace("T"," ");
 
 			const dtBeginn	= req_gl_DateObj_From_DateStr(prj.dtBegin);
 			const dtEndd	= req_gl_DateObj_From_DateStr(prj.dtEnd);
@@ -1162,7 +1117,7 @@ define([
 
 				if (dp_schedule) {
 					//do_get_availableTimeList(dp_schedule);	
-					do_lc_search_prj_appointment(prj,dp_schedule)
+					do_lc_search_appointment(prj,dp_schedule)
 				}
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
@@ -1227,7 +1182,7 @@ define([
 				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_del_ajax"));
 				// reload
 				if (dp_schedule) {
-					do_lc_search_prj_appointment(prj,dp_schedule)
+					do_lc_search_appointment(prj,dp_schedule)
 				}
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
@@ -1324,39 +1279,41 @@ define([
 		    let data = req_gl_data({
 		        dataZoneDom: $("#div_create_prj_appointment")
 		    });
-		    let prj = data.data;
-		    prj.inf02.cl = pr_Color;
-		    prj.stat01 = STAT_ACTIVE; // Active
-		    prj.dtBegin = do_lc_convert_date(prj.dtBegin).replace("T", " ");
-		    prj.dtEnd = do_lc_convert_date(prj.dtEnd).replace("T", " ");
-		    const dtBeginn = req_gl_DateObj_From_DateStr(prj.dtBegin);
-		    const dtEndd = req_gl_DateObj_From_DateStr(prj.dtEnd);
-		    const currentDate = new Date();
+		    let prj 			= data.data;
+//		    prj.inf02.cl 		= pr_Color;
+		    prj.stat01 			= STAT_ACTIVE; // Active
+		    prj.dtBegin 		= do_lc_convert_date(prj.dtBegin).replace("T", " ");
+		    prj.dtEnd 			= do_lc_convert_date(prj.dtEnd).replace("T", " ");
+		    const dtBeginn 		= req_gl_DateObj_From_DateStr(prj.dtBegin);
+		    const dtEndd 		= req_gl_DateObj_From_DateStr(prj.dtEnd);
+		    const currentDate 	= new Date();
 		    
+			//----check some required conditions
 		    if (req_gl_Date_CompareObj(dtEndd, dtBeginn) <= 0) {
 		        do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_msg_err"));
 		        return;
 		    } else if (req_gl_Date_CompareObj(dtBeginn, currentDate) <= 0) {
 		        do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_today_msg_err"));
 		        return;
-		    }
-		    else if(prj.parId == '')
-		    {
+		    }else if(prj.parId == ''){
 		    	do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_parId_err"));
 		        return;
 		    }
-		    let selectedDays = [];
-		    $("#weekdayDropdown input[type='checkbox']:checked").each(function () {
-		        selectedDays.push($(this).val());
-		    });
-		    
-		    let frequency = $(".objData[data-name='repeat']").val() || 1;
-		    let prjArr = [];
 			
+			//------------------------------------------------------------*
+			let prjArr 			= [];
+			let membersArr 		= [];
+		    let selectedDays 	= [];
+			let frequency 		= $(".objData[data-name='repeat']").val() || 1;
+					
+		    $("#weekdayDropdown input[type='checkbox']:checked").each(function () {
+		    	selectedDays.push($(this).val());
+		    });
+
 		    function getNextWeekdayDate(startDate, weekday, weekOffset) {
-		        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-		        const startDay = startDate.getDay();
-		        const targetDay = daysOfWeek.indexOf(weekday);
+		        const daysOfWeek 	= ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		        const startDay 		= startDate.getDay();
+		        const targetDay 	= daysOfWeek.indexOf(weekday);
 		        
 		        // Tính số ngày chênh lệch từ startDay đến targetDay
 		        let diff = targetDay - startDay;
@@ -1371,40 +1328,35 @@ define([
 		    }
 		
 		    function addAdditionalData(appointment) {
-		        appointment.files = files.files;
-		        appointment.typ01 = 900;
-		        appointment.nb = 0;
-		        appointment.val01 = JSON.stringify(customers);
+		        appointment.files 	= files.files;
+		        appointment.typ01 	= 900;
+		        appointment.nb 		= 0;
+		        appointment.val01 	= JSON.stringify(customers);
 		        if (appointment.val02 && !/^https?:\/\//i.test(appointment.val02)) {
 		            appointment.val02 = 'http://' + appointment.val02;
 		        }
-			    membersArr[App.data.user.id] = {
-						uId: App.data.user.id,
-						typ: 0
-				}
 				$('#div_list_member').find('[data-id]').each(function() {
-				  const dataId = $(this).attr('data-id');
-				  
-				  membersArr[dataId] = {
-				    uId: dataId,
-				    typ: 40  
-				  };
+					const dataId 		= $(this).attr('data-id');
+					const typMemDoctor 	= 10;
+					membersArr.push({uId: dataId, typ: typMemDoctor});
 				});
-
+				
 		    }
 			function formatDateToLocalString(date) {
-			    const year = date.getFullYear();
+			    const year 	= date.getFullYear();
 			    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Tháng phải cộng 1
-			    const day = ('0' + date.getDate()).slice(-2);
+			    const day 	= ('0' + date.getDate()).slice(-2);
 			    const hours = ('0' + date.getHours()).slice(-2);
-			    const minutes = ('0' + date.getMinutes()).slice(-2);
-			    const seconds = ('0' + date.getSeconds()).slice(-2);
+			    const mn 	= ('0' + date.getMinutes()).slice(-2);
+			    const sec 	= ('0' + date.getSeconds()).slice(-2);
 			    
-			    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+			    return `${year}-${month}-${day} ${hours}:${mn}:${sec}`;
 			}
-		    let initialAppointment = Object.assign({}, prj);
-		    initialAppointment.dtBegin = formatDateToLocalString(dtBeginn);
-			initialAppointment.dtEnd = formatDateToLocalString(dtEndd);
+			
+		    let initialAppointment 		= Object.assign({}, prj);
+		    initialAppointment.dtBegin 	= formatDateToLocalString(dtBeginn);
+			initialAppointment.dtEnd 	= formatDateToLocalString(dtEndd);
+			
 		    addAdditionalData(initialAppointment);
 		    prjArr.push(initialAppointment);
 		
@@ -1428,45 +1380,36 @@ define([
 		            }
 		        });
 		    }
-		    console.log(membersArr)
-		     do_lc_create_prj_appointment(prjArr);
-		    
+		    do_lc_new_appointment(prjArr, membersArr);
 		};
-
-
-
 
 
 		const do_lc_convert_date = (objDate) => {
 			if (objDate.time.length < 5) objDate.time = "0" + objDate.time;
 			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
 		}
-		const do_lc_create_prj_appointment = (prjArr) => {
+		
+		const do_lc_new_appointment = (prjArr, membersArr) => {
 			let dataSend	= {obj: prjArr, member: JSON.stringify(Object.values(membersArr))};
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVNewWorkPlan", dataSend);			
 
 			let fSucces		= [];		
-			fSucces.push(req_gl_funct(null, do_lc_create_prj_appointment_success, [prjArr]));	
+			fSucces.push(req_gl_funct(null, do_lc_new_appointment_callback, [prjArr]));	
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax"), 0]);	
 
 			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
 		}
 
-		const do_lc_create_prj_appointment_success = (sharedJson, prjArr) => {
+		const do_lc_new_appointment_callback = (sharedJson, prjArr) => {
 			if(can_gl_AjaxSuccess(sharedJson)) {	
-				// reload
-				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_new_ajax"));
-				do_lc_search_prj_appointment(prjSearch,dp_schedule)
-					console.log("3",members)
+				do_lc_search_appointment(prjSearch,dp_schedule)
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 			}
-			console.log("2",members)
-//			membersDel = [];
 		}
 
-		function do_lc_search_prj_appointment(prj, dp_schedule, dtBegin, dtEnd) {
+		function do_lc_search_appointment(prj, dp_schedule, dtBegin, dtEnd) {
 			var ref 			= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointmentSearch");
 			if (prj != null) {
 				ref.parId 		= prj.parId;
@@ -1493,13 +1436,24 @@ define([
 				 let data = req_gl_data({
 			        dataZoneDom: $("#div_search_appointment")
 			    });
+				
+				if(data.hasError){
+					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
+					return false;
+				}
+				
 			    let prj 			= data.data;
+				if (!prj.parId){
+					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
+					return false;
+				}
+				
 			    var memberElement 	= document.querySelector('#selected_members_all .member-item .btn-remove-member');
 			    if (memberElement) {
 			        var memberId 	= memberElement.getAttribute('data-id');
 			        prj.memberId 	= memberId;
 			    }
-			    do_lc_search_prj_appointment(prj, dp_schedule);
+			    do_lc_search_appointment(prj, dp_schedule);
 			    
 				$("#btn_create_entity").removeClass("hide");
 				
@@ -1567,7 +1521,7 @@ define([
 					    "margin"	: "auto"
 					}
 				});
-				do_lc_binding_event_add_customer(false);
+				do_lc_build_view_member_mode_modify(false);
 				do_lc_init_element();
 				do_lc_req_autocomplete();
 			});
@@ -1746,59 +1700,112 @@ define([
 			})
 		}
 
-		const do_lc_binding_event_add_customer = function(mod){
-			$('.typ02').on('change', function() {
-		        var selectedColor = $(this).find(':selected').data('color');
-		        $('#colorValue').val(selectedColor);
-		        pr_Color = selectedColor;
-		    });
-		    $('.typ02').trigger('change');
-			 $("#toggleDropDown").off('click').click(() => {
-		       $("#weekdayDropdown").toggle();
-		    });
+		var do_lc_build_view_member = (members, view) => {
+			// Handle div list member
+			var div = "";
+			if(members) {
+				for (var key in members) {
+
+					let classCss = "";
+					let opacity = "";
+					let textStyle = "";
+					let mem = members[key];
+					if(mem.stat && mem.stat === 2 ) {
+						classCss = "text-decoration-line-through ";
+						opacity  = "opacity-03"
+					}
+					
+					if(mem.stat && mem.stat === pr_stat_accept ) {
+					  textStyle = "color: #32CD32;";
+					}
+					
+					if (mem.stat && mem.stat === 1) {
+					    classCss 	= "text-decoration-line-through text-danger";
+						textStyle 	= "text-decoration-thickness: 1.5px;";
+					}
+
+					let item 			= mem.mem;
+					let selOpt 			= `<div class='team-member member-item d-flex'>`;
+
+					let textColor   = null;
+					let textAvatar  = null
+					if(!item.avatar){
+						let first = item.login01.charAt(0);
+						let last  = item.login01.charAt(item.login01.length - 1);
+						textColor = App.controller.UI.Def.reqSrcTextColor(item.login01);
+						textAvatar= first + last;
+					}
+
+					if(!item.avatar)	selOpt 			+= `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}" style="${textStyle}"> ${item.name}</span>`;
+					else                selOpt 		    += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/><span class="tooltiptext ${classCss}" style="${textStyle}">${item.name}</span>`;
+					
+					selOpt 				+= `</div>`;
+					div 				+= selOpt;
+				};
+			}
+			if (div) {
+				$(view).append(div)
+			} else {
+				$(view).parent().remove();
+			}
+		}	
+		
+		const do_lc_build_view_member_mode_modify = function(mod, members){
+//			$('.typ02').on('change', function() {
+//		        var selectedColor = $(this).find(':selected').data('color');
+//		        $('#colorValue').val(selectedColor);
+//		        pr_Color = selectedColor;
+//		    });
+//		    $('.typ02').trigger('change');
+			
 			$("#toggleDropDown").off('click').click((event) => {
 			    event.stopPropagation();
 			    $("#weekdayDropdown").toggle();
 			});
-			if(prj_work && prj_work.departmentValue)
-			{
-				$("#department_input_id").attr("value",prj_work.departmentValue);
-		   		$("#department_input").attr("placeholder", prj_work.departmentText);
+			
+			if(prj_work && prj_work.departmentValue){
+				$("#department_input_id").attr("value"		, prj_work.departmentValue);
+		   		$("#department_input"	).attr("placeholder", prj_work.departmentText);
 			}
-			if ( prj_work && prj_work.members && prj_work.members.length > 0) {
-	        prj_work.members.forEach(member => {
-	            let selOpt = `<div class='member-item'>`;
-	            
-	            if (member.imgSrc) {
-	                selOpt += `<div><img src='${member.imgSrc}' class='rounded-circle avatar-xs'/> ${member.name}`;
-	            } else {
-	                let textColor = null;
-	                let first 	= member.name.charAt(0);
-					let last  	= member.name.charAt(member.name.length - 1);
-					let index 	= var_gl_alphabet.indexOf(first.toLowerCase());
-
-					textColor 	= var_gl_colors[index];
-	                let textAvatar = first + last;
-	                
-	                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${member.name}`;
-	            }
+			
+			if (!members)
+				members = prj_work? prj_work.members : null;
+			
+			if (members) {
+		        members.forEach(member => {
+		            let selOpt = `<div class='member-item'>`;
+		            
+		            if (member.imgSrc) {
+		                selOpt += `<div><img src='${member.imgSrc}' class='rounded-circle avatar-xs'/> ${member.name}`;
+		            } else {
+		                let textColor = null;
+		                let first 	= member.name.charAt(0);
+						let last  	= member.name.charAt(member.name.length - 1);
+						let index 	= var_gl_alphabet.indexOf(first.toLowerCase());
 	
-	            selOpt += `<a data-id='${member.id}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>`;
-	            selOpt += `</div></div>`;
-	
-	            $("#div_list_member").append(selOpt);
-	        });
+						textColor 	= var_gl_colors[index];
+		                let textAvatar = first + last;
+		                
+		                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${member.name}`;
+		            }
+		
+		            selOpt += `<a data-id='${member.id}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>`;
+		            selOpt += `</div></div>`;
+		
+		            $("#div_list_member").append(selOpt);
+		        });
 	    	}
 
-			$(document).click((event) => {
-			    if (!$(event.target).closest("#toggleDropDown, #weekdayDropdown").length) {
-			        $("#weekdayDropdown").hide();
-			    }
-			});
+//			$(document).click((event) => {
+//			    if (!$(event.target).closest("#toggleDropDown, #weekdayDropdown").length) {
+//			        $("#weekdayDropdown").hide();
+//			    }
+//			});
 
 		    $(".objData").click(function() {
-	        $(this).toggleClass("active");
-	    });
+	       		$(this).toggleClass("active");
+	    	});
+			
 			$("#btn_add_customer").off("click").on("click", function(){
 				let email = $(".inp-email-customer").val();
 				let validate = validateEmail(email);
@@ -1823,15 +1830,15 @@ define([
 					return re.test(String(email).toLowerCase());
 				}
 
-				do_lc_binding_event_add_customer(mod);
-			})
+				do_lc_build_view_member_mode_modify(mod, members);
+			});
 
 
 			$(".btn-remove-customer").off("click").on("click", function(){
-				let $this 	= $(this);
+				let $this 		= $(this);
 				let {email} 	= $this.data();
-				let parent 	= $this.parent();
-				let index = customers.indexOf(email);
+				let parent 		= $this.parent();
+				let index 		= customers.indexOf(email);
 				customers.splice(index, 1);
 				customersDel.push(email);
 
@@ -1909,7 +1916,7 @@ define([
 		            } else {
 		                do_lc_show_list_member(dp, lstCurObj);
 		                do_lc_req_appointment_noti(lstCurObj);
-		                do_gl_show_Notify_Msg_Error($.i18n("common_no_data_found"));
+		                do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get_no_data"));
 		            }
 		        }
 		    } else {
@@ -2041,53 +2048,7 @@ define([
 			return res;
 		}
 
-		var do_lc_build_view_member = (data, view) => {
-			var div = "";
-			if(data) {
-				for (var key in data) {
-					// build view lst member
-					let classCss = "";
-					let opacity  = "";
-					if(data[key].stat == 2 ){
-						classCss = "text-decoration-line-through ";
-						opacity  = "opacity-03"
-					}
-
-					let item 			= data[key].mem;
-					//let selOpt 			= `<div class='member-item'>`;
-					let selOpt = `<div class='member-item'><div class="media align-items-center">`;
-
-					if(item.avatar){
-						selOpt 			+= `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity}'/> <span class="${classCss}">&nbsp;${item.name01} ${item.name03}</span>`;
-					}	 
-
-					if(!item.avatar){
-						let textColor   = null;
-						let textAvatar  = null
-						if(!item.avatar){
-							let first 	= item.login01.charAt(0);
-							let last  	= item.login01.charAt(item.login01.length - 1);
-							let index 	= var_gl_alphabet.indexOf(first.toLowerCase());
-
-							textColor 	= var_gl_colors[index];
-							textAvatar	= first + last;
-						}
-						selOpt 			+= `<div class="rounded-circle avatar-xs text-white text-uppercase text-center ${opacity} mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> <span class="${classCss}">${item.name01} ${item.name03}</span>`;
-					}
-
-					//selOpt 				+= `</div>`;
-					selOpt += item.id !== App.data.user.id ? `<a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>` : `<span class='btn-remove-member-placeholder' style='display: inline-block; width: 18px; height: 28.167px;'></span>`;
-
-		            selOpt += `</div></div>`;
-
-					div += selOpt;
-
-					// build data lst members
-					members[item.id]  	= {id: key, uId: item.id, stat: data[key].stat, lev: data[key].lev, typ: data[key].typ};
-				};
-			}
-			$(view).append(div);
-		}		
+			
 
 
 	};

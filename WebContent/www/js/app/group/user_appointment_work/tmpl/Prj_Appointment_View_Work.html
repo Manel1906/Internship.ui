@@ -35,7 +35,7 @@
 					    <!-- Department Selection -->
 					    <div class="row p-2">
 <!-- 					        <span class="px-3 text-nowrap">{{transl 'prj_departments_level'}}</span> -->
-					        <select data-name="parId" id="department" class="form-control objData"></select>
+					        <select data-validation="numeric required" data-name="parId" id="department" class="form-control objData"></select>
 					    </div>
 					</div>
 					<div class= "col-sm-6 col-md-3 col-lg-3">
@@ -54,7 +54,7 @@
 							<!-- Work Schedule -->
 <!-- 					        <span class="text-nowrap px-3">{{transl 'prj_schedule_work'}}</span> -->
 					        <select data-name="typ02" id="typ02" class="form-control objData">
-					            <option value="0">{{transl 'prj_appointment_option_none'}}</option>
+					            <option value="">{{transl 'prj_appointment_option_none'}}</option>
 					            <option value="100">{{transl 'prj_appointment_option_zero'}}</option>
 					            <option value="200">{{transl 'prj_appointment_option_one'}}</option>
 					            <option value="300">{{transl 'prj_appointment_option_two'}}</option>

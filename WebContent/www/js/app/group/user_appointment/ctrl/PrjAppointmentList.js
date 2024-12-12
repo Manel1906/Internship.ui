@@ -93,18 +93,18 @@ define([
 		const pr_stat_accept				= 3;
 		const pr_stat_deny					= 11;
 		const pr_TYP_CHAT_GROUP_CALENDAR	= 4;
-				const initialeValues = {
-						chatSimple 		: true,
-		//				isLoadMore 		: false,
-						obj		   		: {},
-						currentTyp 		: pr_TYP_CHAT_GROUP_CALENDAR,
-						lstMsgCurrent 	: [],
-						begin			: 0,
-						members			: {},
-						isOwner			: false,
-						isGroupUser		: false,
-						isCallCalendar  : true
-				}
+		const initialeValues = {
+				chatSimple 		: true,
+//				isLoadMore 		: false,
+				obj		   		: {},
+				currentTyp 		: pr_TYP_CHAT_GROUP_CALENDAR,
+				lstMsgCurrent 	: [],
+				begin			: 0,
+				members			: {},
+				isOwner			: false,
+				isGroupUser		: false,
+				isCallCalendar  : true
+		}
 
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init	= function(){
@@ -115,6 +115,13 @@ define([
 			tmplName.PRJ_APPOINTMENT_SHOW				= 	"Prj_Appointment_Show";
 			tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION	= 	"Prj_Appointment_Show_Notification";
 			tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM		= 	"Prj_Appointment_Show_Custom";
+			
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_VIEW				, Prj_Appointment_View);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_NEW				, Prj_Appointment_New);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW				, Prj_Appointment_Show);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION	, Prj_Appointment_Show_Notification);
+			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM		, Prj_Appointment_Show_Custom);
+						
 			if (!App.controller.ChatRoom) App.controller.ChatRoom = {};
 			
 			if (!App.controller.ChatRoom.ChatRoomMain){ 
@@ -127,7 +134,7 @@ define([
 		//---------show-----------------------------------------------------------------------------
 		var pr_grpPath 		= 'group/user_appointment';
 		var pr_showed		= false;
-		this.do_lc_show = function(){
+		this.do_lc_show 	= function(){
 			if (!pr_showed){
 				do_gl_lang_append (pr_grpPath + '/transl', self.do_lc_show_callback, []);
 				pr_showed = true;
@@ -139,25 +146,38 @@ define([
 		this.do_lc_show_callback = function(){    
 			try{
 				let params 				= req_gl_Url_Params();
-				let {id, dt} 		= params;
+				let {id, dt} 			= params;
 				
 				 pr_ID 					= id ;
 				 pr_dtBegin 			= dt ;
 	
 											
-				do_lc_load_view();
-				do_register_locale_custom();
-				do_build_schedulue(pr_lstAvailableTime , pr_dtBegin);
+				do_lc_load_view				();
+				do_register_locale_custom	();
+				do_build_schedulue			(pr_lstAvailableTime , pr_dtBegin);
 				
-				do_get_availableTimeList(dp_schedule);
-				do_lc_bind_eventPage();
-				updateCountdowns();
+				do_get_availableTimeList	(dp_schedule);
+				do_lc_bind_eventPage		();
+				
+				setInterval(updateCountdowns, 1000);
+				
 				$(document).prop('title',$.i18n('prj_project_sidebar_schedule'));
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.project", "PrjAppointmentList", "do_lc_show", e.toString()) ;
 			}
 		};
-
+		
+		const do_lc_load_view = () => {	
+			if ($(window).width() < 600) {
+				pr_ForDesktop = false;
+			}
+			if ($(window).width() < $(window).height()) {
+				pr_ForVertial = true;
+			}
+			
+			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, {forDesktop: pr_ForDesktop}));
+		}
+		
 		const do_lc_init_element = function (e) {
 			if (e) {
 				if (e.files) files.files = e.files;
@@ -287,81 +307,59 @@ define([
 			})
 		}
 
-		const do_lc_load_view = () => {	
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, Prj_Appointment_View);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_NEW, Prj_Appointment_New);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, Prj_Appointment_Show);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, Prj_Appointment_Show_Notification);
-			tmplCtrl.do_lc_put_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM, Prj_Appointment_Show_Custom);
-			
-			if ($(window).width() < 600) {
-				pr_ForDesktop = false;
-			}
-			if ($(window).width() < $(window).height()) {
-				pr_ForVertial = true;
-			}
-			
-			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_VIEW, {forDesktop: pr_ForDesktop}));
-		}
+		
 
 		//-------------------------------------------------------------------------------------------------
 		var do_register_locale_custom = function () {
 			DayPilot.Locale.register(
-					new DayPilot.Locale('vi-vi', 
-							{
-						dayNames: ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'],
-						dayNamesShort: ['CN','T2','T3','T4','T5','T6','T7'],
-						monthNames: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
-						monthNamesShort: ['Thg 1','Thg 2','Thg 3','Thg 4','Thg 5','Thg 6','Thg 7','Thg 8','Thg 9','Thg 10','Thg 11','Thg 12'],
-						timePattern: 'h:mm tt',
-						datePattern: 'M/d/yyyy',
-						dateTimePattern: 'M/d/yyyy h:mm tt',
-						timeFormat: 'Clock12Hours',
-						weekStarts: 1
-							}
-					));
-			let tmp = localStorage.getItem("language");
-			if (tmp == "en") locale = "en-us";
-			else locale = tmp + "-" + tmp;
-			
+					new DayPilot.Locale('vi-vn', {
+							dayNames		: ['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'],
+							dayNamesShort	: ['CN','Th2','Th3','Th4','Th5','Th6','Th7'],
+							monthNames		: ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6','Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12'],
+							monthNamesShort	: ['Thg 1','Thg 2','Thg 3','Thg 4','Thg 5','Thg 6','Thg 7','Thg 8','Thg 9','Thg 10','Thg 11','Thg 12'],
+							timePattern		: 'HH:mm',
+							datePattern		: 'dd/MM/yyyy',
+							dateTimePattern	: 'dd/MM/yyyy HH:mm',
+							timeFormat		: 'Clock24Hours',
+							weekStarts		: 1
+					}));
+					
+			let tmp = localStorage.getItem("locale");
+			if (!tmp) 
+				locale = "vi-vn";
+			else 
+				locale = tmp ;
 		}
 
-		var pr_backColor_01 = "#fff";
-		var pr_backColor_02 = "beige"; 
 		function do_build_schedulue(pr_lstAvailableTime , dtBegin) {
-			// var date = new Date(pr_savedObject_Step_1.dt).getTime() - 2*60*60*24*1000;
-			// var startDate = getDateISOShort(new Date(date));
 			if(dtBegin != undefined) {
-				var startDate =	dtBegin
-				var dtEnd = new Date(startDate);
+				var startDate 	= dtBegin
+				var dtEnd 		= new Date(startDate);
 		        dtEnd.setDate(dtEnd.getDate() + 7);
-				dtEnd = getDateISOShort(dtEnd);
+				dtEnd 			= getDateISOShort(dtEnd);
 				
 			}else{
-				var startDate = new Date();
+				var startDate 	= new Date();
 				startDate.setDate(startDate.getDate() - 1); // get 2 days before
-				startDate = getDateISOShort(startDate);
+				startDate 		= getDateISOShort(startDate);
 			}
+		
 			dp_schedule 		= new DayPilot.Calendar	("dp_schedule");
 			
-			
-	//		do_get_availableTimeList(dp_schedule,startDate, dtEnd);
-
-
-			dp_schedule.showNonBusiness             =false;
-			dp_schedule.showNonBusinessForceHours = true;
+			dp_schedule.locale 						= locale;
+			dp_schedule.showNonBusiness             = false;
+			dp_schedule.showNonBusinessForceHours 	= true;
 			dp_schedule.businessBeginsHour          = 7;
 			dp_schedule.businessEndsHour            = 18;
 			dp_schedule.viewType 					= "Week";
 //			dp_schedule.viewType 					= "Days";
 
-			if(pr_dtBegin != null)
-			{
-				dp_schedule.startDate 					= pr_dtBegin;
+			if(pr_dtBegin != null){
+				dp_schedule.startDate 				= pr_dtBegin;
+			}else{
+				dp_schedule.startDate 				= startDate;
 			}
-			else{
-				dp_schedule.startDate 					= startDate;
-			}
+			
 			dp_schedule.days 						= TIME_RANGE*2+1;
 			dp_schedule.eventClickHandling 			= "Select";
 			dp_schedule.allowMultiSelect 			= false;
@@ -378,8 +376,6 @@ define([
 //			// add list of schedules
 			dp_schedule.events.list 				= pr_lstAvailableTime;
 
-			
-
 			if (pr_ForDesktop){
 			    dp_schedule.heightSpec 				= "BusinessHours";
 			} else {
@@ -393,11 +389,11 @@ define([
 			    if (currentTime >= cellStart && currentTime < cellEnd) {
 			        args.cell.properties.cssClass = "workadm_now";
 			    }
-			
 			};
+			
 			setInterval(function() {
-			  const currentTime = new Date().toLocaleTimeString();
-			  document.documentElement.style.setProperty('--current-time', `"${currentTime}"`);
+				const currentTime = new Date().toLocaleTimeString();
+				document.documentElement.style.setProperty('--current-time', `"${currentTime}"`);
 			}, 1000);
 
 			dp_schedule.onBeforeEventRender = function(args) {
@@ -406,17 +402,15 @@ define([
 						args.data.obj.inf02 = JSON.parse(args.data.obj.inf02);
 					}
 
-					let userColor = null;
-
-					userColor = args.data.obj.inf02;
+					let userColor = args.data.obj.inf02;
 
 					if (userColor) {
-					    args.data.borderColor = userColor.cl;
-					    args.data.backColor = userColor.cl;
-					    args.data.fontColor = "#ffffff";
+					    args.data.borderColor 	= userColor.cl;
+					    args.data.backColor 	= userColor.cl;
+					    args.data.fontColor 	= "#ffffff";
 					} else {
-					    args.data.borderColor = args.data.color;
-					    args.data.fontColor = "#000000";
+					    args.data.borderColor 	= args.data.color;
+					    args.data.fontColor 	= "#000000";
 					}
 				}
 				args.data.areas = [
@@ -533,23 +527,6 @@ define([
 			dp_schedule.onEventClick = function(args) {
 
 				if(args.e.data.tags.type !== "overdue") {
-					// var id 		= args.e.id();
-					// var list 	= dp_schedule.events.list;
-					// for(var i = 0 ; i < list.length ; i++){
-					// 	list[i].backColor = {};
-					// 	if(list[i].id === id) {
-					// 		list[i].backColor = pr_backColor_02;
-					// 	}else {
-					// 		list[i].backColor = pr_backColor_01;
-					// 	}
-					// }
-					// dp_schedule.events.list = list;
-					// dp_schedule.update();
-					// do_handleSCheduleClick(args.e.data);
-
-					// $("#schedule_toolTip").show();
-					// $("#schedule_toolTip span").html(args.e.data.toolTip);
-//					toi uu tmpl
 					if(!args.e.data.members || !Object.values(args.e.data.members).find(e => e.uId === App.data.user.id)) return
 					if (args.e?.data?.members) {
 					//	initialeValues.id = args.e.data.obj.id
@@ -558,6 +535,7 @@ define([
 	        			initialeValues.members[member.uId] = member;
 	    				});
 					}
+					
 					App.MsgboxController.do_lc_show({
 						title		: $.i18n("prj_appointment_msg_title"),
 						content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, args.e.data.obj),
@@ -575,123 +553,79 @@ define([
 						    "margin"	: "auto"
 						}
 					});
+					do_lc_build_view_member(args.e.data.members, "#div_list_member");
 					
 					// Handle div file
-					var divFile = "";
-					if (args.e.data.obj.files) {
-						args.e.data.obj.files.forEach((e) => {
-							tmpl 	=  "<a href='" + e.path01  + "' target='_blank' class='mr-3 text-decoration-underline' download = " + e.name + " >" + e.name + "</a>";
-							divFile += tmpl;
-						});
-					}
-					if (divFile) {
-						$("#div_list_files").append(divFile)
-					} else {
-						$("#div_list_files_par").remove();
-					}
-					// Handle div list member
-					var div = "";
-					if(args.e.data.members) {
-						for (var key in args.e.data.members) {
-
-							let classCss = "";
-							let opacity = "";
-							let textStyle = "";
-							let mem = args.e.data.members[key];
-							if(mem.stat && mem.stat === 2 ) {
-								classCss = "text-decoration-line-through ";
-								opacity  = "opacity-03"
-							}
-							
-							if(mem.stat && mem.stat === pr_stat_accept ) {
-							  textStyle = "color: #32CD32;";
-							}
-							
-							if (mem.stat && mem.stat === 1) {
-							    classCss 	= "text-decoration-line-through text-danger";
-								textStyle 	= "text-decoration-thickness: 1.5px;";
-							}
-
-							let item 			= mem.mem;
-							let selOpt 			= `<div class='team-member member-item d-flex'>`;
-
-							let textColor   = null;
-							let textAvatar  = null
-							if(!item.avatar){
-								let first = item.login01.charAt(0);
-								let last  = item.login01.charAt(item.login01.length - 1);
-								textColor = App.controller.UI.Def.reqSrcTextColor(item.login01);
-								textAvatar= first + last;
-							}
-
-							if(!item.avatar)	selOpt 			+= `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}" style="${textStyle}"> ${item.name}</span>`;
-							else                selOpt 		    += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/><span class="tooltiptext ${classCss}" style="${textStyle}">${item.name}</span>`;
-							
-							selOpt 				+= `</div>`;
-							div 				+= selOpt;
-						};
-					}
-					if (div) {
-						$("#div_list_member").append(div)
-					} else {
-						$("#div_list_member_par").remove();
-					}
+//					var divFile = "";
+//					if (args.e.data.obj.files) {
+//						args.e.data.obj.files.forEach((e) => {
+//							tmpl 	=  "<a href='" + e.path01  + "' target='_blank' class='mr-3 text-decoration-underline' download = " + e.name + " >" + e.name + "</a>";
+//							divFile += tmpl;
+//						});
+//					}
+//					if (divFile) {
+//						$("#div_list_files").append(divFile)
+//					} else {
+//						$("#div_list_files_par").remove();
+//					}
 
 					// Handle div list customer
-					var divCustomer = "";
-					if(args.e.data.obj.val01) {
-						let data = JSON.parse(args.e.data.obj.val01);
-						for (let i=0; i < data.length; i++) {
-							let email  			= data[i];
-							let selOpt 			= `<div class='mr-1'  style='margin-bottom: 5px;'><button class="btn btn-secondary">${email}</button></div>`;
-							divCustomer += selOpt;
-						};
-					}
-					if (divCustomer) {
-						$("#div_list_email_customer").append(divCustomer)
-					} else {
-						$("#div_list_email_customer_par").remove();
-					}
+//					var divCustomer = "";
+//					if(args.e.data.obj.val01) {
+//						let data = JSON.parse(args.e.data.obj.val01);
+//						for (let i=0; i < data.length; i++) {
+//							let email  			= data[i];
+//							let selOpt 			= `<div class='mr-1'  style='margin-bottom: 5px;'><button class="btn btn-secondary">${email}</button></div>`;
+//							divCustomer += selOpt;
+//						};
+//					}
+//					if (divCustomer) {
+//						$("#div_list_email_customer").append(divCustomer)
+//					} else {
+//						$("#div_list_email_customer_par").remove();
+//					}
 					
 					// Handle div link_direct
-					var divLink = "";
-					if(args.e.data.obj.val02) {
-					    let link = args.e.data.obj.val02;
-					    let selOpt 			= `<div class='mr-1'><a href="${link}">${link}</a></div>`;
-						divLink = selOpt;
-					}
-					if (divLink) {
-					    $("#div_link_direct").append(divLink)
-					} else {
-					    $("#div_link_direct_par").remove();
-					}
+//					var divLink = "";
+//					if(args.e.data.obj.val02) {
+//					    let link 			= args.e.data.obj.val02;
+//					    let selOpt 			= `<div class='mr-1'><a href="${link}">${link}</a></div>`;
+//						divLink 			= selOpt;
+//					}
+//					if (divLink) {
+//					    $("#div_link_direct"	).append(divLink)
+//					} else {
+//					    $("#div_link_direct_par").remove();
+//					}
 					
-					var divButtonEdit = $("#div_button_edit");
-					var divButtonAccept = $("#div_button_accept");
-					var divButtonDeny = $("#div_button_deny");
-					var divButtonUnaccept = $("#div_button_unaccept").hide();
-					var divButtonUndeny = $("#div_button_undeny").hide();
+					var divButtonEdit 		= $("#div_button_edit"		);
+					var divButtonDelete 	= $("#div_button_delete"	);
+					var divButtonAccept 	= $("#div_button_accept"	);
+					var divButtonDeny 		= $("#div_button_deny"		);
+					var divButtonUnaccept 	= $("#div_button_unaccept"	).hide();
+					var divButtonUndeny 	= $("#div_button_undeny"	).hide();
+					
 					const now = new Date();
 					const isPastEvent = now >= new Date(args.e.data.start) || now >= new Date(args.e.data.end);
 					if (isPastEvent) {
-					    divButtonAccept.hide();
-					    divButtonDeny.hide();
-					    divButtonEdit.hide();
-					    divButtonDelete.hide();
+					    divButtonAccept		.hide();
+					    divButtonDeny		.hide();
+					    divButtonEdit		.hide();
+					    divButtonDelete		.hide();
 					}
 					const isSuperAdmin = App.controller.common.Login && App.controller.common.Login.can_lc_User_SuperAdmin();
 					if (isSuperAdmin) {
-						divButtonAccept.hide();
-						divButtonDeny.hide();
+						divButtonAccept		.hide();
+						divButtonDeny		.hide();
 					}
 
 					var e = args.e;
-					if (e.data.obj.uId == App.data.user.id) {
-						divButtonAccept.hide();
-						divButtonDeny.hide();
+					if (e.data.obj.uId 		== App.data.user.id) {
+						divButtonAccept		.hide();
+						divButtonDeny		.hide();
 					}else{
-						divButtonEdit.hide();
-						divButtonDelete.hide();
+						divButtonEdit		.hide();
+						divButtonDelete		.hide();
 						
 						if (e.data.members) {
 						    for (let mem of Object.values(e.data.members)) {
@@ -743,9 +677,9 @@ define([
 							}
 						});
 					    do_lc_init_element(e);
-					    do_lc_build_view_member(args.e.data.members, "#div_list_member"); // build lst member
-					    do_lc_build_view_customer(args.e.data.obj.val01, "#div_list_email_customer");
-					    do_lc_binding_event_add_customer(true);
+//					    do_lc_build_view_member(args.e.data.members, "#div_list_member"); // build lst member
+//					    do_lc_build_view_customer(args.e.data.obj.val01, "#div_list_email_customer");
+					    do_lc_build_view_member_mode_modify(true, args.e.data.members);
 					    do_lc_bind_event_autocomplete(); // bind event delete for each member element
 						$(".mod-repeat-hide").hide();	
 					    do_lc_req_autocomplete();
@@ -755,17 +689,13 @@ define([
 					    })*/
 					    							
 					});
-					
-
-					
 
 					function isValidURL(string) {
 						var res = string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g);
 						return (res !== null)
 					};
 
-				}
-				else {
+				}else {
 					// do something
 				}
 
@@ -773,34 +703,34 @@ define([
 			
 			dp_schedule.onEventMove = function(args) {
 			  // Store position
-			  previousPositions[args.e.id()] = {
-			      start: args.e.start(),
-			      end: args.e.end()
-			  };
+				previousPositions[args.e.id()] = {
+					start: args.e.start(),
+					end: args.e.end()
+				};
 			};
 
 			dp_schedule.onEventResize = function(args) {
-			  // Store position
-			  previousPositions[args.e.id()] = {
-			      start: args.e.start(),
-			      end: args.e.end()
-			  };
+			  	// Store position
+				previousPositions[args.e.id()] = {
+					start: args.e.start(),
+					end: args.e.end()
+				};
 			};
 
-			dp_schedule.onEventMoved = async function(args) {
+			dp_schedule.onEventMoved 	= async function(args) {
 				//check owner
-				const currentUserId = App.data.user.id;
-				const isOwner = args.e.data.members && Object.values(args.e.data.members).some(member => member.uId === currentUserId && member.isOwner);
+				const currentUserId 	= App.data.user.id;
+				const isOwner 			= args.e.data.members && Object.values(args.e.data.members).some(member => member.uId === currentUserId && member.isOwner);
 
-				const previousPosition = previousPositions[args.e.id()];
-				const now = new Date();
-				const isPastEvent = now >= new Date(previousPosition.start) || now >= new Date(previousPosition.end) || now >= new Date(args.newStart.value.replace("T", " ")) || now >= new Date(args.newEnd.value.replace("T", " "));
+				const previousPosition 	= previousPositions[args.e.id()];
+				const now 				= new Date();
+				const isPastEvent 		= now >= new Date(previousPosition.start) || now >= new Date(previousPosition.end) || now >= new Date(args.newStart.value.replace("T", " ")) || now >= new Date(args.newEnd.value.replace("T", " "));
 
 				if (!isOwner || isPastEvent) {
 				    args.preventDefault();
 				    if (previousPosition) {
 				      args.e.data.start = previousPosition.start;
-				      args.e.data.end = previousPosition.end;
+				      args.e.data.end 	= previousPosition.end;
 				    }
 				    dp_schedule.update();
 				    return;
@@ -815,19 +745,19 @@ define([
 				do_lc_mod_prj_appointment(obj)
 			}
 
-			dp_schedule.onEventResized = function (args) {
+			dp_schedule.onEventResized 	= function (args) {
 				//check owner
-				const currentUserId = App.data.user.id;
-				const isOwner = args.e.data.members && Object.values(args.e.data.members).some(member => member.uId === currentUserId && member.isOwner);
-				const previousPosition = previousPositions[args.e.id()];
-				const now = new Date();
-				const isPastEvent = now >= new Date(args.e.data.start) || now >= new Date(args.e.data.end) || now >= new Date(args.newStart.value.replace("T", " ")) || now >= new Date(args.newEnd.value.replace("T", " "));
+				const currentUserId 	= App.data.user.id;
+				const isOwner 			= args.e.data.members && Object.values(args.e.data.members).some(member => member.uId === currentUserId && member.isOwner);
+				const previousPosition 	= previousPositions[args.e.id()];
+				const now 				= new Date();
+				const isPastEvent 		= now >= new Date(args.e.data.start) || now >= new Date(args.e.data.end) || now >= new Date(args.newStart.value.replace("T", " ")) || now >= new Date(args.newEnd.value.replace("T", " "));
 
 				if (!isOwner || isPastEvent) {
 				    args.preventDefault();
 				    if (previousPosition) {
 				      args.e.data.start = previousPosition.start;
-				      args.e.data.end = previousPosition.end;
+				      args.e.data.end 	= previousPosition.end;
 				    }
 				    dp_schedule.update();
 				    return;
@@ -877,9 +807,10 @@ define([
 							
 							do_lc_init_element(e);
 
-							do_lc_build_view_member(args.source.data.members, "#div_list_member"); // build lst member
-							do_lc_build_view_customer(args.source.data.obj.val01, "#div_list_email_customer");
-							do_lc_binding_event_add_customer(true);
+//							do_lc_build_view_member(args.source.data.members, "#div_list_member"); // build lst member
+//							do_lc_build_view_customer(args.source.data.obj.val01, "#div_list_email_customer");
+							
+							do_lc_build_view_member_mode_modify(true, args.e.data.members);
 							do_lc_bind_event_autocomplete(); // bind event delete for each member element
 							$(".mod-repeat-hide").hide();
 							do_lc_req_autocomplete();
@@ -932,18 +863,16 @@ define([
 			    addEventHandlers() {
 			        app.elements.previous.on("click", (e) => {
 			            e.preventDefault();
-						const newDate 	= app.changeDate(dp_schedule.startDate.addDays(-7));
-			            const startDate = newDate.addDays(-6);
-			            const endDate 	= newDate.addDays(1);
+						const startDate = app.changeDate(dp_schedule.startDate.addDays(-7));
+			            const endDate 	= startDate.addDays(6);
 						
 			            do_get_availableTimeList(dp_schedule, startDate.toString(), endDate.toString());
 			        });
 			
 			        app.elements.next.on("click", (e) => {
 			            e.preventDefault();
-						const newDate 	= app.changeDate(dp_schedule.startDate.addDays(7));
-			            const startDate = newDate.addDays(-6);
-			            const endDate 	= newDate.addDays(1);
+						const startDate = app.changeDate(dp_schedule.startDate.addDays(7));
+			            const endDate 	= startDate.addDays(6);
 			
 			            do_get_availableTimeList(dp_schedule, startDate.toString(), endDate.toString());
 			        });
@@ -1337,94 +1266,23 @@ define([
 
 
 			var fSucces			= [];
-			fSucces.push(req_gl_funct(		null, do_show_list_available_time, [true, dp_schedule]));
+			fSucces.push(req_gl_funct(		null, do_get_availableTimeList_callback, [true, dp_schedule]));
 
-			var fError 			= req_gl_funct(	null, do_show_list_available_time, [false]);
+			var fError 			= req_gl_funct(	null, do_get_availableTimeList_callback, [false]);
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		const do_lc_bind_eventPage = () => {
-				var currentDate = new Date();
-				var formattedDate = currentDate.toLocaleDateString('vi-VN');
-				$("#day-now"	).text(formattedDate);
-				$("#btn_search"	).off('click').click(() => {
-				 let data = req_gl_data({
-			        dataZoneDom: $("#div_search_prj_appointment")
-			    });
-			    let prj = data.data;
-			    var memberElement = document.querySelector('#selected_members_all .member-item .btn-remove-member');
-			    if (memberElement) {
-			        var memberId = memberElement.getAttribute('data-id');
-			        prj.memberId = memberId;
-			    }
-			    do_lc_search_prj_appointment(prj,dp_schedule);
-			    $("#btn_create_prj").removeClass("hide");
-				const membersData = [];
-				 $("#selected_members_all .member-item").each(function() {
-		            const $memberItem = $(this);
-		            const memberId = $memberItem.find(".btn-remove-member").data("id");
-		            let memberName = $memberItem.text().trim();
-		            $memberItem.find(".text-middle").each(function() {
-				        memberName = memberName.replace($(this).text().trim(), '').trim();
-				    });
-		            const imgSrc = $memberItem.find("img").attr("src");
-		
-		            membersData.push({
-		                id: memberId,
-		                name: memberName,
-		                imgSrc: imgSrc
-		            });
-		        });
-		      
-			    const name = $("#list_member").val();
-			    const workSchedule = $("#work-schedule").val();
-		
+			var currentDate = new Date();
+			var formattedDate = currentDate.toLocaleDateString('vi-VN');
+			$("#day-now"	).text(formattedDate);
+			$("#btn_search"	).off('click').click(() => {
 			
-			    prj_work = {
-			        name: name,
-			        workSchedule: workSchedule,
-			        members: membersData
-			    };
-			    prjSearch = prj
-			
-			});
-		
-			$("#btn_create_prj").off('click').click(() => {
-				App.MsgboxController.do_lc_show({
-					title		: $.i18n("prj_appointment_msg_title"),
-					content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, {}),
-					autoclose	: true,
-					buttons 	: {
-						SEND 	: {
-							lab 		: "<i class='mdi mdi-send'></i>",
-							funct		: do_lc_create_appointment,
-							autoclose	: true
-						},
-					},
-					onClose		: () => {
-						members 	= {};
-//						membersDel  = [];
-						files		= {files: []};
-						customers   = [];
-						customersAdd= [];
-						customersDel= [];
-					},
-					css: {
-					    "max-width"	: "600px",
-					    "min-width"	: "350px",
-					    "display"	: "flex",
-					    "margin"	: "auto"
-					}
-				});
-				do_lc_binding_event_add_customer(false);
-				do_lc_init_element();
-				do_lc_req_autocomplete();
 			});
 
-			$("#dtpicker_Begin")
 			$(".member-item").css({
 				"display": "flex",
 				"flex-direction": "row",
-			})
+			});
 		}	
 //		sua
 		const do_lc_req_autocomplete = () => {
@@ -1623,20 +1481,18 @@ define([
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointment");
 		//	ref.typ01s 	= TYP_01_MEETING;
 			ref.typ01s 	= 900;
-			ref.dtBegin	= dtBegin;
-			ref.dtEnd	= dtEnd;
+			ref.dtBegin	= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
+			ref.dtEnd	= dtEnd	 ?dtEnd	 .replace("T"," "): req_gl_DateStr_From_DateObj(req_gl_DateAdd (new Date(), 'D', 7))	;
 			
 			var fSucces	= [];
-			fSucces.push(req_gl_funct(		null, do_show_list_available_time, [true, dp]));
-			var fError 		= req_gl_funct(	null, do_show_list_available_time, [false]);
+			fSucces.push(req_gl_funct(		null, do_get_availableTimeList_callback, [true, dp, ref.dtBegin, ref.dtEnd]));
+			
+			var fError 		= req_gl_funct(	null, do_get_availableTimeList_callback, [false]);
+			
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		//--------------------------------------------------------------------------------------------
-		
-		function formatTime(hour, minute, second) {
-		    return `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}:${String(second).padStart(2, '0')}`;
-		}
-		function do_show_list_available_time(sharedJson, ajaxStat, dp) {
+		function do_get_availableTimeList_callback(sharedJson, ajaxStat, dp, dtBegin, dtEnd) {
 		    // Reset the available time list to avoid showing old data
 		    pr_lstAvailableTime = [];
 		
@@ -1648,13 +1504,11 @@ define([
 		            var lstTime = sharedJson[App['const'].RES_DATA];
 		            // If there are any available times
 		            if (lstTime.length > 0) {
-		                var curTime = (new Date()).getTime();
-		
 		                for (let i = 0; i < lstTime.length; i++) {
 		                    if (lstTime[i]) {
-		                        var curObj = {};
-		                        curObj.start = lstTime[i].dtBegin;
-		                        curObj.end = lstTime[i].dtEnd;
+		                        var curObj 		= {};
+		                        curObj.start 	= lstTime[i].dtBegin;
+		                        curObj.end 		= lstTime[i].dtEnd;
 		
 		                        if (!curObj.start || !curObj.end) continue;
 		
@@ -1668,9 +1522,9 @@ define([
 		                            curObj.text = lstTime[i].inf01;
 		                        }
 		                        
-		                        curObj.id = DayPilot.guid();
+		                        curObj.id 	= DayPilot.guid();
 		                        curObj.tags = {};
-		                        curObj.obj = lstTime[i];
+		                        curObj.obj 	= lstTime[i];
 		
 		                        // Convert time objects to Date
 		                        curObj.obj.inf02.dt01 = new Date(curObj.obj.inf02.dt01);
@@ -1680,14 +1534,19 @@ define([
 		                    }
 		                }
 		
-		               do_lc_show_list_member(dp, lstCurObj);
-		               do_lc_req_appointment_noti(lstCurObj);
-		             
+						do_lc_show_list_member(dp, lstCurObj);
+					   
+						//----show only the lst of Today
+						var now 	= new Date().getTime();
+						var dtB		= req_gl_DateObj_From_DateStr(dtBegin).getTime();
+						var dtE		= req_gl_DateObj_From_DateStr(dtEnd	 ).getTime();
+						if (dtB<=now && now<=dtE)
+							do_lc_req_appointment_noti(lstCurObj);
 		              
 		            } else {
 		                do_lc_show_list_member(dp, lstCurObj);
-		                do_lc_req_appointment_noti(lstCurObj);
-		                do_gl_show_Notify_Msg_Error($.i18n("common_no_data_found"));
+//		                do_lc_req_appointment_noti(lstCurObj);
+		                do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get_no_data"));
 		            }
 		        }
 		    } else {
@@ -1734,14 +1593,13 @@ define([
 		}
 
 		const do_lc_req_appointment_noti = (lstTime) => {
-		    const today = new Date();
-		    today.setHours(0, 0, 0, 0);
-		    const endOfDay = new Date(today);
+		    const today 	= new Date();
+		    const endOfDay 	= new Date(today);
 		    endOfDay.setHours(23, 59, 59, 999);
 		
 		    const appointmentsToday = lstTime.filter(item => {
-		        const dtBegin = new Date(item.end.value);
-		        const dtEnd = new Date(item.start.value);
+		        const dtBegin 		= new Date(item.end.value);
+		        const dtEnd 		= new Date(item.start.value);
 		        return dtBegin >= today && dtEnd <= endOfDay;
 		    }).map(item => {
 		        const members = Object.values(item.members || {}).map(mem => {
@@ -1829,37 +1687,27 @@ define([
 
 
 		const updateCountdowns = () => {
-		  const now = new Date();
-		  $('.time-remaining').each(function () {
-		    const element = this;
-		
-		    const appointmentTime = new Date($(element).data('appointment-time'));
-		
-		    const timeDiff = appointmentTime - now;
-		
-		    const minutesLeft = Math.ceil(timeDiff / 60000);
-		
-		    const countdownElement = $(element).closest('.bg-danger')[0];
-		
-		    if (minutesLeft <= 30 && minutesLeft > 0) {
-		      $(countdownElement).css('display', 'flex');
-		      $(element).text(`${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}`);
-		    } else {
-		      $(countdownElement).css('opacity', '0');
-		    }
-		
-		    if (minutesLeft <= 0) {
-		      $(countdownElement).css('opacity', '0');
-		    }
-		  });
+			const now = new Date();
+			$('.time-remaining').each(function () {
+				const element 			= this;
+			    const appointmentTime 	= new Date($(element).data('appointment-time'));
+			    const timeDiff 			= appointmentTime - now;
+			    const minutesLeft 		= Math.ceil(timeDiff / 60000);
+			    const countdownElement 	= $(element).closest('.bg-danger')[0];
+			
+			    if (minutesLeft <= 30 && minutesLeft > 0) {
+					$(countdownElement).css('display', 'flex');
+					$(element).text(`${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}`);
+			    } else {
+					$(countdownElement).css('opacity', '0');
+			    }
+			
+			    if (minutesLeft <= 0) {
+					$(countdownElement).css('opacity', '0');
+			    }
+			});
 		};
 		
-		setInterval(updateCountdowns, 1000);
-		
-		updateCountdowns();
-
-
-
 		var do_lc_handle_date = (strDate) => {
 			let tmp = getDateEN(strDate);
 			let res = {};
@@ -1868,67 +1716,169 @@ define([
 			return res;
 		}
 
-		var do_lc_build_view_member = (data, view) => {
+		var do_lc_build_view_member = (members, view) => {
+			// Handle div list member
 			var div = "";
-			if(data) {
-				for (var key in data) {
-					// build view lst member
+			if(members) {
+				for (var key in members) {
+
 					let classCss = "";
-					let opacity  = "";
-					if(data[key].stat == 2 ){
+					let opacity = "";
+					let textStyle = "";
+					let mem = members[key];
+					if(mem.stat && mem.stat === 2 ) {
 						classCss = "text-decoration-line-through ";
 						opacity  = "opacity-03"
 					}
-
-					let item 			= data[key].mem;
-					//let selOpt 			= `<div class='member-item'>`;
-					let selOpt = `<div class='member-item'><div class="media align-items-center">`;
-
-					if(item.avatar){
-						selOpt 			+= `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity}'/> <span class="${classCss}">&nbsp;${item.name01} ${item.name03}</span>`;
-					}	 
-
-					if(!item.avatar){
-						let textColor   = null;
-						let textAvatar  = null
-						if(!item.avatar){
-							let first 	= item.login01.charAt(0);
-							let last  	= item.login01.charAt(item.login01.length - 1);
-							let index 	= var_gl_alphabet.indexOf(first.toLowerCase());
-
-							textColor 	= var_gl_colors[index];
-							textAvatar	= first + last;
-						}
-						selOpt 			+= `<div class="rounded-circle avatar-xs text-white text-uppercase text-center ${opacity} mr-1" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> <span class="${classCss}">${item.name01} ${item.name03}</span>`;
+					
+					if(mem.stat && mem.stat === pr_stat_accept ) {
+					  textStyle = "color: #32CD32;";
+					}
+					
+					if (mem.stat && mem.stat === 1) {
+					    classCss 	= "text-decoration-line-through text-danger";
+						textStyle 	= "text-decoration-thickness: 1.5px;";
 					}
 
-					//selOpt 				+= `</div>`;
-					selOpt += item.id !== App.data.user.id ? `<a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>` : `<span class='btn-remove-member-placeholder' style='display: inline-block; width: 18px; height: 28.167px;'></span>`;
+					let item 			= mem.mem;
+					let selOpt 			= `<div class='team-member member-item d-flex'>`;
 
+					let textColor   = null;
+					let textAvatar  = null
+					if(!item.avatar){
+						let first = item.login01.charAt(0);
+						let last  = item.login01.charAt(item.login01.length - 1);
+						textColor = App.controller.UI.Def.reqSrcTextColor(item.login01);
+						textAvatar= first + last;
+					}
+
+					if(!item.avatar)	selOpt 			+= `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}" style="${textStyle}"> ${item.name}</span>`;
+					else                selOpt 		    += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/><span class="tooltiptext ${classCss}" style="${textStyle}">${item.name}</span>`;
+					
+					selOpt 				+= `</div>`;
+					div 				+= selOpt;
+				};
+			}
+			if (div) {
+				$(view).append(div)
+			} else {
+				$(view).parent().remove();
+			}
+		}	
+		
+		const do_lc_build_view_member_mode_modify = function(mod, members){
+//			$('.typ02').on('change', function() {
+//		        var selectedColor = $(this).find(':selected').data('color');
+//		        $('#colorValue').val(selectedColor);
+//		        pr_Color = selectedColor;
+//		    });
+//		    $('.typ02').trigger('change');
+			
+			$("#toggleDropDown").off('click').click((event) => {
+			    event.stopPropagation();
+			    $("#weekdayDropdown").toggle();
+			});
+			
+			if(prj_work && prj_work.departmentValue){
+				$("#department_input_id").attr("value"		, prj_work.departmentValue);
+		   		$("#department_input"	).attr("placeholder", prj_work.departmentText);
+			}
+			
+			if (!members)
+				members = prj_work? prj_work.members : null;
+			
+			if (members) {
+		        members.forEach(member => {
+		            let selOpt = `<div class='member-item'>`;
+		            
+		            if (member.imgSrc) {
+		                selOpt += `<div><img src='${member.imgSrc}' class='rounded-circle avatar-xs'/> ${member.name}`;
+		            } else {
+		                let textColor = null;
+		                let first 	= member.name.charAt(0);
+						let last  	= member.name.charAt(member.name.length - 1);
+						let index 	= var_gl_alphabet.indexOf(first.toLowerCase());
+	
+						textColor 	= var_gl_colors[index];
+		                let textAvatar = first + last;
+		                
+		                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${member.name}`;
+		            }
+		
+		            selOpt += `<a data-id='${member.id}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>`;
 		            selOpt += `</div></div>`;
+		
+		            $("#div_list_member").append(selOpt);
+		        });
+	    	}
 
-					div += selOpt;
+//			$(document).click((event) => {
+//			    if (!$(event.target).closest("#toggleDropDown, #weekdayDropdown").length) {
+//			        $("#weekdayDropdown").hide();
+//			    }
+//			});
 
-					// build data lst members
-					members[item.id]  	= {id: key, uId: item.id, stat: data[key].stat, lev: data[key].lev, typ: data[key].typ};
-				};
-			}
-			$(view).append(div);
+		    $(".objData").click(function() {
+	       		$(this).toggleClass("active");
+	    	});
+			
+			$("#btn_add_customer").off("click").on("click", function(){
+				let email = $(".inp-email-customer").val();
+				let validate = validateEmail(email);
+				if(!validate){
+					$(".inp-email-customer").css("border", "1px solid red");
+					return;
+				}
+				if(customers.indexOf(email) > -1){
+					$(".inp-email-customer").css("border", "1px solid red");
+					return
+				}
+
+				$("#div_list_email_customer").append(`<div class="mr-1"><button class="btn btn-secondary">${email}</button><a data-email='${email}' class='text-danger btn-remove-customer' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a><div>`);
+				$(".inp-email-customer").val("");
+				customers.push(email);
+				if(mod) customersAdd.push(email);
+
+				$(".inp-email-customer").css("border", "unset");
+
+				function validateEmail(email) {
+					const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+					return re.test(String(email).toLowerCase());
+				}
+
+				do_lc_build_view_member_mode_modify(mod, members);
+			});
+
+
+			$(".btn-remove-customer").off("click").on("click", function(){
+				let $this 		= $(this);
+				let {email} 	= $this.data();
+				let parent 		= $this.parent();
+				let index 		= customers.indexOf(email);
+				customers.splice(index, 1);
+				customersDel.push(email);
+
+				let idx = customersAdd.indexOf(email);
+				if(idx > -1) customersAdd.splice(idx, 1);
+
+				parent.remove();
+			})
+
 		}		
-		var do_lc_build_view_customer = (customersStr, view) => {
-			var div = "";
-			if(customersStr) {
-				let data = JSON.parse(customersStr);
-				for (var key in data) {
-					let email  			= data[key];
-					let selOpt 			= `<div class='mr-1'><button class="btn btn-secondary">${email}</button><a data-email='${email}' class='text-danger btn-remove-customer' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a></div>`;
-					div += selOpt;
-
-					customers.push(email);
-				};
-			}
-			$(view).append(div);
-		}
+//		var do_lc_build_view_customer = (customersStr, view) => {
+//			var div = "";
+//			if(customersStr) {
+//				let data = JSON.parse(customersStr);
+//				for (var key in data) {
+//					let email  			= data[key];
+//					let selOpt 			= `<div class='mr-1'><button class="btn btn-secondary">${email}</button><a data-email='${email}' class='text-danger btn-remove-customer' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a></div>`;
+//					div += selOpt;
+//
+//					customers.push(email);
+//				};
+//			}
+//			$(view).append(div);
+//		}
 
 
 	};
