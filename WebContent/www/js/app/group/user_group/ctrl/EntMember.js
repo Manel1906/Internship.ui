@@ -31,24 +31,18 @@ define([], function() {
 		const pr_SERVICE_PER_CLASS 	= "ServiceAutUser";
 		const pr_SV_USER_SEARCH 	= "SVLst";
 
-		const pr_SERVICE_CLASS_NSO_GROUP 	= "ServiceNsoGroup"; //to change by your need
-		const pr_SV_MEMBER_NOT_VALIDATED 	= "SVNsoGroupDelEnt";
-		const pr_SV_MEMBER_VALIDATED 		= "SVNsoGroupValidated";
-		const pr_SV_MEMBER_TRANSFORM_MAN 	= "SVNsoGroupTransform";
-		const pr_SV_MEMBER_SAVE 			= "SVWorkSaveMember";
-
+		const pr_SERVICE_USER_CLASS = "ServiceAutUser";
+		const pr_SV_USER_BY_RELATION = "SVLstByRelation";
+		
 		var self 				= this;
+		
 		var pr_PAGESIZE 		= 10;
 		const pr_STAT_WAITING 	= 1;
 		const pr_STAT_VALIDATED = 2;
 		
 		//-----------------------------------------------------------------------------------
 		var pr_MEM_TEMP = {};
-
-		const pr_member_lev_manager = 0;
-
-		const pr_SERVICE_USER_CLASS = "ServiceAutUser";
-		const pr_SV_USER_BY_RELATION = "SVLstByRelation";
+		
 
 		const PRJ_MEMBER_LEVEL = {
 			1	: "prj_project_member_level_dean", 
@@ -211,7 +205,7 @@ define([], function() {
 							
 				$(el).blur().val("");
 			};
-			let typ01Arr = [App.data.user.typ01, 2, 3, 4, 5];
+			let typ01Arr = [App.data.user.typ01, 2, 3, 4, 5, 10, 20, 30];
 			let typ01Str = typ01Arr.join(',');
 
 			let options = {

@@ -131,7 +131,8 @@
 "common_btn_unlock"				:			"Đang đóng, mở khóa",
 
 "common_btn_join"				:  			"Tham gia",
-	
+
+"common_err_data"				: 			"Vui lòng kiểm tra lại những lỗi dữ liệu!",
 "common_err_msg_sel"			:			"Vui lòng lưu hoặc hủy thao tác hiện tại trước khi thực hiện thao tác này!",
 "common_err_msg_get"			:			"Có lỗi xảy ra, không thể truy xuất dữ liệu!",
 "common_err_msg_get_error"		:			"Tên user hay email có thể đã tồn tại trong hệ thống, vui lòng kiểm tra lại dữ liệu đã nhập!",
