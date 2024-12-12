@@ -69,6 +69,31 @@ define([], function() {
 		
 		//---------load view-----------------------------------------------------------------------------
 		const do_lc_bind_event = function(obj){
+			if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
+				$("#btn_new_entity"		).removeClass('hide');
+				$("#btn_add_doc"		).removeClass('hide');
+			}
+			
+			$("#btn_new_entity").off("click").on("click", function(){
+				var listUserRight = App.data.user.rights;
+				var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+				if(!isRight){
+					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
+					return;
+				}
+
+				pr_ctr_Ent.do_lc_show_for_new();
+			});
+			
+			$("#dropdown-filter").off("click").on("click", function(){
+			});
+			
+			$('.user-typ-select').off('click').on('click',function(){
+				const dataCode = $(this).data('code');
+				do_lc_get_checked(dataCode)
+				do_get_list_ByAjax()
+			})
+						
 			const $inputField 	= $("#inp_search");
 		    const $clearIcon 	= $("#clear_icon");
 		    $inputField.on("input", function() {
@@ -167,6 +192,14 @@ define([], function() {
 			}
 		}
 		//----------------------------------------------------------------------------------------------
+		const do_lc_get_checked = (dataCode) => {
+			pr_typ = []
+			if (dataCode == 0) {
+				pr_typ = [100,200,300,500,900];
+			}else {
+				pr_typ.push(dataCode);
+			}
+		}
 		
 		const do_get_list_ByAjax = function(hardLoad=false){	
 			let divList = $("#div_group_list");
@@ -174,10 +207,10 @@ define([], function() {
 			
 			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, 
 			{
-				typ01s: pr_TYP_DISEASE, 
-				searchKey: pr_SEARCH_KEY, 
-				stats : pr_STAT_ACTIVE, 
-				typs  : pr_typ,	
+				typ01s		: pr_TYP_DISEASE, 
+				searchKey	: pr_SEARCH_KEY, 
+				stats 		: pr_STAT_ACTIVE, 
+				typs  		: pr_typ,	
 				hardLoad, 
 				wChild: true
 			});
@@ -203,21 +236,11 @@ define([], function() {
 		const do_lc_show_list_ByAjax_Dyn = function(sharedJson, divList){
 			const isSuccess = can_gl_AjaxSuccess(sharedJson);
 			if(isSuccess) {
-				const list = sharedJson[App['const'].RES_DATA] || {};
-				const data = { lst: {} };
-				let lst = list.lst || [];
-			
+				const data = sharedJson[App['const'].RES_DATA] || {};
 				
-				if (!lst.length) {
+				if (!data) {
 					$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST_CONTENT, {}));
 					return;
-				}
-
-				for (const entity of lst) {
-					try {
-						entity.inf = JSON.parse(entity.inf);
-					} catch (error) {}
-					data.lst[entity.id] = entity;
 				}
 
 				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST_CONTENT, { "data": data.lst }));
@@ -228,17 +251,6 @@ define([], function() {
 		}
 		//----------------------------------------------------------------------------------------------
 		const do_lc_bind_event_list = function(){
-			var listUserRight = App.data.user.rights;
-			var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
-			if (!isRight) {
-				$("#btn_new_entity").hide();
-				$("#btn_add_doc").hide();
-			}
-			$('.user-typ-select').off('click').on('click',function(){
-				const dataCode = $(this).data('code');
-				do_lc_get_checked(dataCode)
-				do_get_list_ByAjax()
-			})
 			$(".entity-item").off("click").on("click", function(){
 				const $this 		= $(this);
 				const {id} 			= $this.data();
@@ -251,21 +263,7 @@ define([], function() {
 				}
 			})
 			
-			if(App.data.user.typ01 == pr_TYP01_ADMIN || App.data.user.rights.includes(RIGHT_NEW)){
-				$("#btn_new_entity"		).removeClass('hide');
-				$("#btn_add_doc"		).removeClass('hide');
-			}
 			
-			$("#btn_new_entity").off("click").on("click", function(){
-				var listUserRight = App.data.user.rights;
-				var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
-				if(!isRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
-					return;
-				}
-
-				pr_ctr_Ent.do_lc_show_for_new();
-			});
 			
 			const $inputField 	= $("#inp_search");
 		    const $clearIcon 	= $("#clear_icon");
@@ -298,15 +296,6 @@ define([], function() {
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
 		}
-		const do_lc_get_checked = (dataCode) => {
-  			  pr_typ = []
-  		      if (dataCode == 0) {
-				  pr_typ = [100,200,300,500,900];
-  		      } else {
-				pr_typ.push(dataCode);
-  		      }
-  		}
-		
 		//----------------------------------------------------------------------------------------------
 		
 

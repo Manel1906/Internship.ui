@@ -64,7 +64,7 @@
     "aut_user_ent_header_stat_10"						:	"Vô hiệu hóa",
     "aut_user_typ_0"									:	"Tất cả",
 	"prj_specialty_list_title"							: "Danh sách chuyên khoa",
-	"btn_add_file"										: "Thêm tệp dữ liệu",
+	"btn_add_file"										: "Thêm tệp",
 	"prj_user_group_room"								: "Phòng",
 	"prj_user_group_position"							: "Vị trí",
 	"msgbox_confirm_creat"								: "Lưu nội dung chuyên khoa ?",

@@ -60,7 +60,7 @@ var DateFormat = function () {
 			// by default, date has format iso
 			if(isNaN(date)){
 				try{
-					date = mask.replace(/-/g, "/");				
+					date = date.replace(/-/g, "/");				
 					date = new Date(date);
 				}catch(e){
 					date = new Date();

@@ -1,37 +1,36 @@
 <ul id="ul-list" class="list-unstyled chat-list" data-simplebar style="max-height: calc(100vh - 350px)';">
 {{#if data}}
-{{#each data}}
+	{{#each data}}
     <li class="entity-item" data-id="{{id}}">
-        <a href="#">
-            <div class="media align-items-center">
-              {{#if files}} 
-			    {{#each files}}  
-			        {{#if url}} 
-			            <div class="align-self-center mr-3" style="width: 110px; height: 65px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd;">
-			                <img src="{{url}}" style="width: 100%; height: 100%; object-fit: cover;" alt="" onerror="{{url_image_err}}">
-			            </div>
-			        {{else}}
-			            <div class="avatar mr-3" style="width: 100px; height: 60px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f0f8ff;">
-			                <img src="{{url_image_err}}" style="width: 100%; height: 100%; object-fit: cover;" alt="">
-			            </div>
-			        {{/if}}
-			    {{/each}} 
-			{{else}}
-			    <div class="avatar mr-3" style="width: 100px; height: 60px; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: #f0f8ff;">
-			        <img src="{{url_image_err}}" style="width: 100%; height: 100%; object-fit: cover;" alt="" onerror="{{url_image_err}}">
-			    </div>
-			{{/if}}
-                <div class="media-body">
-                    <h6 class=" mb-0">{{name01}}</h5>
-                    <p class="font-size-12 mb-0">{{transl 'prj_tpy_group_brand_name_medicine'}}: {{name02}}</p>
-                    <p class="font-size-12 mb-0">{{transl 'prj_tpy_group_package'}}: {{reqGrpPkg inf02}}</p>
-                    <span class="badge font-size-12 badge-info badge-pill float-right">{{{reqGrpMedi typ03}}}</span>
-                </div>
-            </div>
-        </a>
+    	<div class="row mt-4 mb-4">
+    		<div class="col-4">
+    			{{#if avatar}}
+				{{#if avatar.url}}
+				<div class="align-self-center mr-1" >
+					<img src="{{avatar.url}}" style="max-width: 80px; max-height: 50px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd;"  alt="" onerror="{{url_image_err}}">
+				</div>
+				{{else}}
+				<div class="align-self-center mr-1" >
+					<img src="{{url_image_err}}"  style="max-width: 80px; max-height: 50px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd;" alt="" onerror="{{url_image_err}}">
+				</div>
+				{{/if}}
+				{{else}}
+				<div class="align-self-center mr-1" >
+					<img src="{{url_image_err}}" style="max-width: 80px; max-height: 50px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd;" alt="" onerror="{{url_image_err}}">
+				</div>
+				{{/if}}
+    		</div>
+    		<div class="col-8">
+    			<h6 class=" mb-0">{{name01}}</h5>
+<!--             <p class="font-size-12 mb-0">{{transl 'prj_tpy_group_brand_name_medicine'}}: {{name02}}</p> -->
+	            <p class="font-size-12 mb-1">{{transl 'prj_tpy_group_package'}}: {{inf02}}</p>
+	            <span class="badge font-size-12 badge-info badge-pill float-right">{{{reqGrpMedi typ03}}}</span>
+    		</div>
+    	</div>
     </li>
-{{/each}}
+	{{/each}}
+	
 {{else}}
-<li >{{transl 'common_null_data'}}</li>
+	<li >{{transl 'common_null_data'}}</li>
 {{/if}}
 </ul>

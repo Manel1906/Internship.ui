@@ -17,8 +17,10 @@ define([
 	CtrlEnt,
 
 	Tmpl_Main,
+	
 	Tmpl_List,
 	Tmpl_List_Content,
+	
 	Tmpl_Ent_Content,
 	Tmpl_Ent_New,
 	

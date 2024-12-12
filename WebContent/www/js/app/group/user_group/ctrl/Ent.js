@@ -426,7 +426,7 @@ define([],function() {
 					}
 
 					var listUserRight = App.data.user.rights;
-					var isRight = listUserRight.includes(RIGHT_A_R) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
+					var isRight = listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
 					if(!isRight){
 						do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
 						return;
