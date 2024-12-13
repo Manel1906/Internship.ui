@@ -89,7 +89,7 @@ define([],function() {
 				do_get_list_ByAjax(true);
 				do_lc_bind_event_list();
 			})
-			$(".btn-resize").off("click").on("click", function () {
+			$(".btn-resize_lst").off("click").on("click", function () {
 				let $this = $(this);
 				let { divtoogle } = $this.data();
 				let child = $this.find("i");

@@ -65,8 +65,6 @@ define([],function() {
 
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show	= function(id){
-			$("#div_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT, {}));
-			
 			do_lc_get_info_entity(id);
 		}
 		
@@ -135,7 +133,7 @@ define([],function() {
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_save"),
 							funct	: self.do_lc_save,
 							param	: [obj],
 							classBtn: "btn-primary"
@@ -362,10 +360,10 @@ define([],function() {
 					},
 					buttons		: {
 						NO: {
-							lab		:  $.i18n("common_btn_cancel"),
+							lab		:  $.i18n("prj_user_group_new_btn_back"),
 						},
 						OK: {
-							lab			: $.i18n("common_btn_ok"),
+							lab			: $.i18n("user_group_new_btn_del"),
 							funct		: do_lc_del_entity,
 							param		: [id],
 							classBtn	: "btn-danger"
@@ -426,7 +424,7 @@ define([],function() {
 					}
 
 					var listUserRight = App.data.user.rights;
-					var isRight = listUserRight.includes(RIGHT_A_R) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
+					var isRight = listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
 					if(!isRight){
 						do_gl_show_Notify_Msg_Error($.i18n("job_off_msg_cant_create"));
 						return;
@@ -480,12 +478,12 @@ define([],function() {
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("prj_user_group_new_btn_cancel"),
 							funct	: self.do_lc_clear_timeout_viewer,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_save"),
 							funct	: self.do_lc_mod,
 							param	: [obj],
 							classBtn: "btn-primary"
@@ -503,12 +501,12 @@ define([],function() {
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("prj_user_group_new_btn_back"),
 							funct	: self.do_lc_clear_timeout_viewer,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_cancel"),
 							funct	: self.do_lc_cancel,
 							param	: [],
 							classBtn: "btn-danger"
