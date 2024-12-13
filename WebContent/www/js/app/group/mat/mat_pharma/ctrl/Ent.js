@@ -45,8 +45,6 @@ define([], function() {
 
 			//---------show-----------------------------------------------------------------------------
 			this.do_lc_show	= function(id){
-				$("#div_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT, {}));
-				
 				do_lc_get_info_entity(id);
 			}
 			
@@ -276,7 +274,7 @@ define([], function() {
 							OK: {
 								lab		: $.i18n("common_btn_yes"),
 								funct	: self.do_lc_cancel,
-								param	: [],
+								param	: [obj, mode],
 								classBtn: "btn-danger"
 							}
 						}
