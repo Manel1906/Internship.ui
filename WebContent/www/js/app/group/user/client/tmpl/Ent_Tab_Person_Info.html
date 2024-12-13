@@ -56,18 +56,18 @@
 		<div class="row">
 			<div class="col-4">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_b'}} </h5>
-				<p class="text-muted info-edit info-content">{{reqFormatShortDate inf04.b}}</p>
+				<p class="text-muted info-edit info-content">{{reqFormatShortDate per.dt03}}</p>
 				<div class="input-daterange input-group content-edit">
                 	<input id="aut_user_ent_tab01_info04_b" data-provide="datepicker" class="form-control objData content-edit hide isManager" type="text" 
-                	data-group="inf04" data-name="b" data-format="date" data-validation="date" {{#if inf04.b}}value="{{reqFormatShortDate inf04.b}}"{{/if}}>
+                	data-group="inf04" data-name="b" data-format="date" data-validation="date" {{#if per.dt03}}value="{{reqFormatShortDate per.dt03}}"{{/if}}>
                 </div>
 			</div>
 			
 			<div class="col-4">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_t'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf04.t}}</p>
+				<p class="text-muted info-edit info-content">{{per.inf02}}</p>
 				<input id="aut_user_ent_tab01_info04_t" class="form-control objData content-edit hide isManager" type="text" data-validation=""
-				data-group="inf04" data-name="t" data-format="numeric" {{#if inf04.t}}value="{{reqFormatShortDate inf04.t}}"{{/if}}/>
+				data-group="inf04" data-name="t" data-format="numeric" {{#if per.inf02}}value="{{per.inf02}}"{{/if}}/>
 			</div>
 			
 			<div class="col-4">
@@ -81,9 +81,9 @@
 		<div class="row">			
 			<div class="col-4">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_i'}}</h5>
-				<p class="text-muted info-edit info-content">{{inf04.i}}</p>
+				<p class="text-muted info-edit info-content">{{per.code02}}</p>
 				<input id="aut_user_ent_tab01_info04_i" class="form-control objData content-edit hide isManager" type="text" 
-					data-group="inf04" data-name="i" data-validation="numeric" value="{{inf04.i}}"/>
+					data-group="inf04" data-name="i" data-validation="numeric" value="{{per.code02}}"/>
 			</div>	
 			<div class="col-4">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_d'}}</h5>
