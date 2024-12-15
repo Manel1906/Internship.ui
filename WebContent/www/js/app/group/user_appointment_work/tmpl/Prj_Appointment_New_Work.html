@@ -22,8 +22,16 @@
 					    <option {{#equal ent.typ02 500}}selected{{/equal}} value="500" data-color="#ffb6c1">{{transl 'prj_appointment_option_four'}}</option>
 					    <option {{#equal ent.typ02 600}}selected{{/equal}} value="600" data-color="#ffff99">{{transl 'prj_appointment_option_five'}}</option>
 					</select>
+					<input type="hidden" id="colorValue" data-group="inf02" data-name="cl" />
 				</div>
 			</div>
+			
+			<div class="form-group row mb-2">
+                <div class="col-lg-12">
+                    <label for="price" class="col-form-label h5">{{transl 'prj_appointment_price'}}</label>
+                    <input type="number" class="form-control objData" data-group="inf02" data-name="pr" id="price" value="{{ent.inf02.pr}}">
+                </div>
+            </div>
 
 			<!-- Location -->
             <div class="form-group row mb-2">

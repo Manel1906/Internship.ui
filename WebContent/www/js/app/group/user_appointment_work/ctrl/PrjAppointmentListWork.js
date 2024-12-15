@@ -870,7 +870,7 @@ define([
 							do_lc_init_element(e);
 
 //							do_lc_build_view_member(args.source.data.members, "#div_list_member"); // build lst member
-							do_lc_build_view_member_mode_modify(true, args.e.data.members);
+							do_lc_build_view_member_mode_modify(true, args.source.data.members);
 							do_lc_bind_event_autocomplete(); // bind event delete for each member element
 							$(".mod-repeat-hide").hide();
 							do_lc_req_autocomplete();
@@ -1280,7 +1280,9 @@ define([
 		        dataZoneDom: $("#div_create_prj_appointment")
 		    });
 		    let prj 			= data.data;
-//		    prj.inf02.cl 		= pr_Color;
+		    if(!prj.inf02)
+		    	prj.inf02		= {};
+		    prj.inf02.cl 		= pr_Color;
 		    prj.stat01 			= STAT_ACTIVE; // Active
 		    prj.dtBegin 		= do_lc_convert_date(prj.dtBegin).replace("T", " ");
 		    prj.dtEnd 			= do_lc_convert_date(prj.dtEnd).replace("T", " ");
@@ -1751,12 +1753,21 @@ define([
 		}	
 		
 		const do_lc_build_view_member_mode_modify = function(mod, members){
-//			$('.typ02').on('change', function() {
-//		        var selectedColor = $(this).find(':selected').data('color');
-//		        $('#colorValue').val(selectedColor);
-//		        pr_Color = selectedColor;
-//		    });
-//		    $('.typ02').trigger('change');
+			$('.typ02').on('change', function() {
+		        var selectedColor = $(this).find(':selected').data('color');
+		        const selectedValue = $(this).val(); 
+		        $('#colorValue').val(selectedColor);
+		        pr_Color = selectedColor;
+		        if (selectedValue == "100") {
+		            $('#price').closest('.form-group').fadeIn();
+		        } else {
+		            $('#price').closest('.form-group').fadeOut();
+		            $('#price').val("");
+		        }
+		    });
+		    
+		    $('.typ02').trigger('change');
+		
 			
 			$("#toggleDropDown").off('click').click((event) => {
 			    event.stopPropagation();
@@ -1772,24 +1783,24 @@ define([
 				members = prj_work? prj_work.members : null;
 			
 			if (members) {
-		        members.forEach(member => {
+		       Object.values(members).forEach(member => {
 		            let selOpt = `<div class='member-item'>`;
-		            
+		            const memberName = member.name || (member.mem ? member.mem.name : "");
 		            if (member.imgSrc) {
 		                selOpt += `<div><img src='${member.imgSrc}' class='rounded-circle avatar-xs'/> ${member.name}`;
 		            } else {
 		                let textColor = null;
-		                let first 	= member.name.charAt(0);
-						let last  	= member.name.charAt(member.name.length - 1);
+		                let first 	= memberName.charAt(0);
+						let last  	= memberName.charAt(memberName.length - 1);
 						let index 	= var_gl_alphabet.indexOf(first.toLowerCase());
 	
 						textColor 	= var_gl_colors[index];
 		                let textAvatar = first + last;
 		                
-		                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${member.name}`;
+		                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${memberName}`;
 		            }
 		
-		            selOpt += `<a data-id='${member.id}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>`;
+		            selOpt += `<a data-id='${member.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class="mdi mdi-close font-size-18"></i></a>`;
 		            selOpt += `</div></div>`;
 		
 		            $("#div_list_member").append(selOpt);

@@ -77,7 +77,7 @@ define([
 		var dp_nav 							= null;
 		var dp_schedule						= null;
 		var locale							= "vi-vi";
-
+		let pr_Edit							= null
 		let pr_lastAppointment 				= []
 		let pr_cDaily 						= 0
 		let pr_cWeeklyRemaining 			= 0
@@ -157,10 +157,11 @@ define([
 				do_build_schedulue			(pr_lstAvailableTime , pr_dtBegin);
 				
 				do_get_availableTimeList	(dp_schedule);
+				do_lc_req_appointment_noti	();
 				do_lc_bind_eventPage		();
 				
 				setInterval(updateCountdowns, 1000);
-				
+				updateCountdowns();
 				$(document).prop('title',$.i18n('prj_project_sidebar_schedule'));
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.project", "PrjAppointmentList", "do_lc_show", e.toString()) ;
@@ -650,6 +651,7 @@ define([
 					divButtonEdit.on('click', function() {
 						App.MsgboxController.do_lc_close();
 						var e 	= args.e.data.obj;
+						pr_Edit = e;
 						App.MsgboxController.do_lc_show({
 						    title		: $.i18n("prj_appointment_msg_title"),
 						    content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, { ent: e }),
@@ -778,6 +780,7 @@ define([
 						icon: "fa fa-solid fa-play ic-blue",
 						onClick: function (args) {
 							var e 	= args.source.data.obj;
+							pr_Edit = e;
 							App.MsgboxController.do_lc_show({
 								title		: $.i18n("prj_appointment_msg_title"),
 								content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, { ent: e }),
@@ -810,7 +813,7 @@ define([
 //							do_lc_build_view_member(args.source.data.members, "#div_list_member"); // build lst member
 //							do_lc_build_view_customer(args.source.data.obj.val01, "#div_list_email_customer");
 							
-							do_lc_build_view_member_mode_modify(true, args.e.data.members);
+							do_lc_build_view_member_mode_modify(true, args.source.data.members);
 							do_lc_bind_event_autocomplete(); // bind event delete for each member element
 							$(".mod-repeat-hide").hide();
 							do_lc_req_autocomplete();
@@ -935,6 +938,17 @@ define([
 			if (Array.isArray(e.inf02.color)) {
 			    prj.inf02.color = e.inf02.color;
 			}
+			do_lc_mod_prj_appointment(prj);
+		}
+		var do_lc_mod_custom_appointment = function (e) {
+			let	data	 		= req_gl_data({
+				dataZoneDom		: $("#div_mod_custom_prj_appointment")
+			});
+			let prj 	= data.data;
+			prj.typ01 	= 900;
+			prj.inf02.cl = pr_Color;
+			// prj.typ02 	= TYP_02_APPOINTMENT;
+			prj.nb 		= 0;
 			do_lc_mod_prj_appointment(prj);
 		}
 		var do_lc_mod_prj_appointment = function (prj) {
@@ -1275,9 +1289,6 @@ define([
 			var currentDate = new Date();
 			var formattedDate = currentDate.toLocaleDateString('vi-VN');
 			$("#day-now"	).text(formattedDate);
-			$("#btn_search"	).off('click').click(() => {
-			
-			});
 
 			$(".member-item").css({
 				"display": "flex",
@@ -1288,18 +1299,18 @@ define([
 		const do_lc_req_autocomplete = () => {
 		$("#notificationDropdown").on("change", function () {
 		    const selectedValue = $(this).val();
-		
+			var e 	= pr_Edit
 		    if (selectedValue === "custom") {
 		        App.MsgboxController.do_lc_close();
 		        App.MsgboxController.do_lc_show({
 		            title: $.i18n("prj_appointment_msg_title"),
-		            content: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM),
+		            content: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_CUSTOM, { ent: e }),
 		            autoclose: true,
 		            buttons: {
 		                SEND: {
 		                    lab: "<i class='mdi mdi-send'></i>",
 		                    funct: function () {
-		                        do_lc_mod_appointment();
+		                        do_lc_mod_custom_appointment(e);
 		                    },
 		                    autoclose: true
 		                }
@@ -1495,8 +1506,7 @@ define([
 		function do_get_availableTimeList_callback(sharedJson, ajaxStat, dp, dtBegin, dtEnd) {
 		    // Reset the available time list to avoid showing old data
 		    pr_lstAvailableTime = [];
-		
-		    const lstCurObj = [];
+		    const lstCurObj 					=   [];
 		    if (ajaxStat) {
 		        var code = sharedJson[App['const'].SV_CODE];
 		        
@@ -1535,13 +1545,6 @@ define([
 		                }
 		
 						do_lc_show_list_member(dp, lstCurObj);
-					   
-						//----show only the lst of Today
-						var now 	= new Date().getTime();
-						var dtB		= req_gl_DateObj_From_DateStr(dtBegin).getTime();
-						var dtE		= req_gl_DateObj_From_DateStr(dtEnd	 ).getTime();
-						if (dtB<=now && now<=dtE)
-							do_lc_req_appointment_noti(lstCurObj);
 		              
 		            } else {
 		                do_lc_show_list_member(dp, lstCurObj);
@@ -1592,98 +1595,60 @@ define([
 			}
 		}
 
-		const do_lc_req_appointment_noti = (lstTime) => {
-		    const today 	= new Date();
-		    const endOfDay 	= new Date(today);
-		    endOfDay.setHours(23, 59, 59, 999);
-		
-		    const appointmentsToday = lstTime.filter(item => {
-		        const dtBegin 		= new Date(item.end.value);
-		        const dtEnd 		= new Date(item.start.value);
-		        return dtBegin >= today && dtEnd <= endOfDay;
-		    }).map(item => {
-		        const members = Object.values(item.members || {}).map(mem => {
-		            let classCss = "", opacity = "", textStyle = "";
-		            if (mem.stat === 2) {
-		                classCss = "text-decoration-line-through";
-		                opacity = "opacity-03";
-		            } else if (mem.stat === pr_stat_accept) {
-		                textStyle = "color: #32CD32;";
-		            } else if (mem.stat === 1) {
-		                classCss = "text-decoration-line-through text-danger";
-		                textStyle = "text-decoration-thickness: 1.5px;";
-		            }
-		
-		            const memberItem = mem.mem;
-		            let textColor = "", textAvatar = "";
-		            if (!memberItem.avatar) {
-		                const first = memberItem.login01.charAt(0);
-		                const last = memberItem.login01.charAt(memberItem.login01.length - 1);
-		                textColor = App.controller.UI.Def.reqSrcTextColor(memberItem.login01);
-		                textAvatar = first + last;
-		            }
-				
-		            return {
-		                name: memberItem.name,
-		                uId: memberItem.id,
-		                avatar: memberItem.avatar ? (memberItem.avatar.urlPrev || memberItem.avatar.url) : null,
-		                textAvatar,
-		                textColor,
-		                classCss,
-		                opacity,
-		                textStyle,
-		                memberss : item.members
-		            };
-		        });
-		        return {
-		            ...item,
-		            members
-		        };
-		    });
-		
-		    const data = { appointments: appointmentsToday };
-		    $("#dp_nav").html(
-		        tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, data)
-		    );
-		    $(".div_button_call").on("click", function () {
-			    const appointmentId = $(this).data("appointment-id");
-			 
-			    const appointments = data.appointments || [];
-				const matchedData = appointments.find(item => item.obj.id === appointmentId);
-
-			    if (matchedData) {
-		
-			        const members = matchedData.members;
+		const do_lc_req_appointment_noti = (dtBegin,dtEnd) => {
+		    let divList				= $("#dp_nav");
+			let divPan 				= $("#div_group_pagination");
+			const ref 				= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVLstNotiSearch", {typ01s: 900, searchKey: "", stats : 1, hardLoad:false});
+			ref.dtBegin				= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
+			ref.dtEnd				= dtEnd	 ?dtEnd	 .replace("T"," "): req_gl_DateStr_From_DateObj(req_gl_DateAdd (new Date(), 'D', 7))	;
+			const callbackFunct 	= data => do_lc_show_list_noti_ByAjax_Dyn(data, divList);
 			
-			        const initialeValues = {
-			            obj: matchedData.obj,
-			            members: {},
-			            chatSimple 		: true,
-			            isCallCalendar  : true,
-			            currentTyp 		: pr_TYP_CHAT_GROUP_CALENDAR,
-			            lstMsgCurrent 	: [],
-			            begin			: 0,
-						isOwner			: false,
-						isGroupUser		: false,
-			        };
-					members.forEach(member => {
-					    if (member.memberss) { 
-					        Object.keys(member.memberss).forEach(key => {
-					            const uId = member.memberss[key].uId;
-					            initialeValues.members[uId] = Object.assign({}, member.memberss[key]);
-					        });
-					    }
-					});
-
-			        App.controller.ChatRoom.ChatRoomMain.do_lc_show(10,appointmentId);
-			        $("#schedule").addClass("hide")
-			    } else {
-			        console.warn("No matching ID found in data array");
-			    }
-			});
-
-		    
+			const opt 				= {
+					divMain			: divList,
+					divPagination	: divPan,
+					url_api 		: App.path.BASE_URL_API_PRIV, 
+					url_header 		: App.data["HttpSecuHeader"],
+					url_api_param 	: ref,
+					pageSize 		: 5,
+					pageRange		: 1,
+					callback		: callbackFunct
+			};
+			do_gl_init_pagination_opt(opt);
 		};
+		const do_lc_show_list_noti_ByAjax_Dyn = function(sharedJson, divList){
+			const isSuccess = can_gl_AjaxSuccess(sharedJson);
+			if(isSuccess) {
+				const list = sharedJson[App['const'].RES_DATA]?.lst || [];
+				const currentTime = new Date().getTime();
+
+		        const sortedList = list.sort((a, b) => {
+		            const timeA = new Date(a.dtBegin).getTime();
+		            const timeB = new Date(b.dtBegin).getTime();
+		            const isPastA = timeA < currentTime;
+           			 const isPastB = timeB < currentTime;
+		
+		            if (isPastA === isPastB) {
+		                return timeA - timeB;
+		            }
+		
+		            return isPastA ? 1 : -1;
+		        });
+		        console.log(sortedList)
+				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, { "appointments": sortedList}));
+				$(".div_button_call").on("click", function () {
+				    const appointmentId = $(this).data("appointment-id");
+	
+				    if (appointmentId) {
+				        App.controller.ChatRoom.ChatRoomMain.do_lc_show(10,appointmentId);
+				        $("#schedule").addClass("hide")
+				    } else {
+				        console.warn("No matching ID found in data array");
+				    }
+				});
+			} else {
+				do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
+			}
+		}
 
 
 		const updateCountdowns = () => {
@@ -1697,7 +1662,7 @@ define([
 			
 			    if (minutesLeft <= 30 && minutesLeft > 0) {
 					$(countdownElement).css('display', 'flex');
-					$(element).text(`${minutesLeft} minute${minutesLeft > 1 ? 's' : ''}`);
+					$(element).text(`${minutesLeft} ${minutesLeft > 1 ? 'M' : ''}`);
 			    } else {
 					$(countdownElement).css('opacity', '0');
 			    }
@@ -1767,24 +1732,19 @@ define([
 		}	
 		
 		const do_lc_build_view_member_mode_modify = function(mod, members){
-//			$('.typ02').on('change', function() {
-//		        var selectedColor = $(this).find(':selected').data('color');
-//		        $('#colorValue').val(selectedColor);
-//		        pr_Color = selectedColor;
-//		    });
-//		    $('.typ02').trigger('change');
+			$('.typ02').on('change', function() {		        
+			var selectedColor = $(this).find(':selected').data('color');
+		        $('#colorValue').val(selectedColor);
+		        pr_Color = selectedColor;
+		    });
+		    $('.typ02').trigger('change');
 			
 			$("#toggleDropDown").off('click').click((event) => {
 			    event.stopPropagation();
 			    $("#weekdayDropdown").toggle();
 			});
-			
-			if(prj_work && prj_work.departmentValue){
-				$("#department_input_id").attr("value"		, prj_work.departmentValue);
-		   		$("#department_input"	).attr("placeholder", prj_work.departmentText);
-			}
-			
-			if (!members)
+		
+/*			if (!members)
 				members = prj_work? prj_work.members : null;
 			
 			if (members) {
@@ -1810,7 +1770,7 @@ define([
 		
 		            $("#div_list_member").append(selOpt);
 		        });
-	    	}
+	    	}*/
 
 //			$(document).click((event) => {
 //			    if (!$(event.target).closest("#toggleDropDown, #weekdayDropdown").length) {

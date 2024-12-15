@@ -136,6 +136,7 @@
 	"prj_department_eleven" 							: "Eye Examination",
 	"prj_department_twelve" 							: "Laboratory Department",
 	"prj_department_thirteen" 							: "Diagnostic Imaging Department",
-	"prj_department_fourteen" 							: "Pharmacy Department"
+	"prj_department_fourteen" 							: "Pharmacy Department",
+	"prj_appointment_price"								:"Price"
     
 }

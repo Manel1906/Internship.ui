@@ -96,7 +96,8 @@
     "noti_45min"										: "45 minutes ago",
     "noti_1hour"										: "1 hour ago",
 	"noti_1day"											: "1 day ago",
-		"prj_departments_level" 							: "Department",
+	"noti_1day_custom"									:" Custom",
+	"prj_departments_level" 							: "Department",
 	"prj_doctor_level" 									: "Doctor",
 	"prj_schedule_work" 								: "Work Schedule",
 	"prj_schedule_work_search" 							: "Search",
@@ -128,5 +129,9 @@
 	"prj_department_twelve" 							: "Laboratory Department",
 	"prj_department_thirteen" 							: "Diagnostic Imaging Department",
 	"prj_department_fourteen" 							: "Pharmacy Department",
-	"prj_appointment_next"								: "Upcoming appointment schedule"
+	"prj_appointment_next"								: "Upcoming appointment schedule",
+	"prj_appointment_price"								:"Price",
+	"prj_appointment_noti"								:"Notification",
+	"prj_appointment_email"								:"Email",
+	"prj_appointment_minutes"							:"Minute"
 }

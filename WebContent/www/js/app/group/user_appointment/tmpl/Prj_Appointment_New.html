@@ -18,7 +18,11 @@
                         <div class="col-lg-12">
                             <label for="typ02" for="scheduleType" class="col-form-label h5">{{transl 'prj_schedule_work_type'}}</label>
                             <select data-name="typ02" id="typ02" class="form-control objData typ02" disabled>
+							    <option {{#equal ent.typ02 100}}selected{{/equal}} value="100" data-color="#d3d3d3">{{transl 'prj_appointment_option_zero'}}</option>
+							    <option {{#equal ent.typ02 200}}selected{{/equal}} value="200" data-color="#87cefa">{{transl 'prj_appointment_option_one'}}</option>
+							    <option {{#equal ent.typ02 300}}selected{{/equal}} value="300" data-color="#ffa500">{{transl 'prj_appointment_option_two'}}</option>
 							    <option {{#equal ent.typ02 400}}selected{{/equal}} value="400" data-color="#34c38f">{{transl 'prj_appointment_option_three'}}</option>
+							    <option {{#equal ent.typ02 500}}selected{{/equal}} value="500" data-color="#ffb6c1">{{transl 'prj_appointment_option_four'}}</option>
 							    <option {{#equal ent.typ02 600}}selected{{/equal}} value="600" data-color="#ffff99">{{transl 'prj_appointment_option_five'}}</option>
 							</select>
 							<input type="hidden" id="colorValue" data-group="inf02" data-name="cl" />
@@ -29,13 +33,13 @@
 					  
 					  <label for="workTypeOnline" style="flex: 1; text-align: center;">
 					    <input type="radio" class="form-check-input objData" id="workTypeOnline" 
-					           name="workType" data-group="inf02" data-name="workType" value="1" checked="checked" disabled>
+					           name="workType" data-group="inf02" data-name="workType" value="1" {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}}>
 					    <span class="form-check-label">{{transl 'prj_appointment_option_online'}}</span>
 					  </label>
 					  
 					  <label for="workTypeOffline" style="flex: 1; text-align: center;">
 					    <input type="radio" class="form-check-input objData" id="workTypeOffline" 
-					           name="workType" data-group="inf02" data-name="workType" value="0">
+					           name="workType" data-group="inf02" data-name="workType" value="0" {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}}>
 					    <span class="form-check-label">{{transl 'prj_appointment_option_offline'}}</span>
 					  </label>
 					</div> 
@@ -56,8 +60,8 @@
                     <div class="form-group row mb-2">
                         <div class="col-lg-12">
                             <label for="department" class="col-form-label h5">{{transl 'prj_departments_level'}}</label>
-                            <input id="department_input_id" type="hidden" value="100" data-name="parId" class="form-control objData" disabled>
-                            <input id="department_input" value="{{transl 'prj_appointment_option_three'}}"  type="text" class="form-control" disabled>
+                            <input id="department_input_id" type="hidden" value="{{ent.parId}}" data-name="parId" class="form-control objData" disabled>
+                            <input id="department_input" value="{{ent.parId}}"  type="text" class="form-control" disabled>
                         </div>
                     </div>
 
@@ -200,14 +204,14 @@
                                                             placeholder="{{transl 'prj_project_enter_name'}}" disabled />
                                                     </div>
                                                     <div class="col-lg-6">
-	                                                    <select id="notificationDropdown" data-group="inf02" data-name="noti" class="form-control objData" style="padding: 10px; border-radius: 5px;">
-															 	<option value="0min" style="padding: 10px;">{{transl 'noti_add_notif'}}</option>
-																<option value="5min" style="padding: 10px;">{{transl 'noti_5min'}}</option>
-																<option value="15min" style="padding: 10px;">{{transl 'noti_15min'}}</option>
-																<option value="30min" style="padding: 10px;">{{transl 'noti_30min'}}</option>
-																<option value="45min" style="padding: 10px;">{{transl 'noti_45min'}}</option>
-																<option value="1hour" style="padding: 10px;">{{transl 'noti_1hour'}}</option>
-																<option value="1day" style="padding: 10px;">{{transl 'noti_1day'}}</option>
+	                                                    <select id="notificationDropdown" data-name="inf03" class="form-control objData" style="padding: 10px; border-radius: 5px;">
+															 	<option value="0" style="padding: 10px;">{{transl 'noti_add_notif'}}</option>
+																<option value="5" style="padding: 10px;">{{transl 'noti_5min'}}</option>
+																<option value="15" style="padding: 10px;">{{transl 'noti_15min'}}</option>
+																<option value="30" style="padding: 10px;">{{transl 'noti_30min'}}</option>
+																<option value="45" style="padding: 10px;">{{transl 'noti_45min'}}</option>
+																<option value="60" style="padding: 10px;">{{transl 'noti_1hour'}}</option>
+																<option value="1440" style="padding: 10px;">{{transl 'noti_1day'}}</option>
 																<option value="custom" style="padding: 10px;">{{transl 'noti_1day_custom'}}</option>
 														</select>
                                                     </div>

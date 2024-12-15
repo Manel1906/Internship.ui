@@ -1,20 +1,57 @@
-
-<div class="modal-body">
-	<div class="form-row align-items-center">
-		<div class="col-auto">
-			<select class="form-control">
-				<option>noti</option>
-				<option>Email</option>
-			</select>
-		</div>
-		<div class="col-auto">
-			<input type="number" class="form-control" value="10" />
-		</div>
-		<div class="col-auto">
-			<select class="form-control">
-				<option>minutes</option>
-				<option>hour</option>
-			</select>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card mb-0">
+        	<div class="card-body" id="div_mod_custom_prj_appointment">
+				<input type="hidden" class="objData" data-name="id" data-validation="number" value="{{ent.id}}">
+				<div class="form-group row mb-2 hide">
+			        <div class="col-lg-12">
+			            <label for="typ02" for="scheduleType" class="col-form-label h5">{{transl 'prj_schedule_work_type'}}</label>
+			                 <select data-name="typ02" id="typ02" class="form-control objData typ02" disabled>
+								<option {{#equal ent.typ02 100}}selected{{/equal}} value="100" data-color="#d3d3d3">{{transl 'prj_appointment_option_zero'}}</option>
+								<option {{#equal ent.typ02 200}}selected{{/equal}} value="200" data-color="#87cefa">{{transl 'prj_appointment_option_one'}}</option>
+								<option {{#equal ent.typ02 300}}selected{{/equal}} value="300" data-color="#ffa500">{{transl 'prj_appointment_option_two'}}</option>
+							    <option {{#equal ent.typ02 400}}selected{{/equal}} value="400" data-color="#34c38f">{{transl 'prj_appointment_option_three'}}</option>
+							    <option {{#equal ent.typ02 500}}selected{{/equal}} value="500" data-color="#ffb6c1">{{transl 'prj_appointment_option_four'}}</option>
+							    <option {{#equal ent.typ02 600}}selected{{/equal}} value="600" data-color="#ffff99">{{transl 'prj_appointment_option_five'}}</option>
+					 		</select>
+					 		<input type="hidden" id="colorValue" data-group="inf02" data-name="cl" />
+			         </div>
+			   </div>
+			   <div class="form-group row mb-2 hide">
+			         <div class="col-lg-12">
+			         	<label for="projectdesc" class="col-form-label h5">{{transl 'prj_appointment_cmt'}}</label>
+			           	<div class="">
+			            <textarea class="form-control objData" data-group="inf02" data-name="desc" id="projectdesc"
+			                                            rows="3" placeholder="{{transl 'prj_project_enter_project_des'}}" disabled>{{ent.inf02.desc}}</textarea>
+			             </div>	
+			         </div>
+			     </div>
+			     <div class="form-group row mb-2 hide">
+					<div class="col-lg-12">
+						<div class="d-flex align-items-center">
+							<label for="projectname" style="width:200px" class="col-form-label h5">{{transl 'prj_appointment_price'}}</label>
+								{{inf02.pr}}
+						 </div>
+										            
+					</div>
+				</div>
+				<div class="form-row align-items-center">
+					<div class="col-md-4 col-12 mb-2">
+						<select class="form-control objData" data-group="inf02" data-name="typ">
+							<option value="1">{{transl 'prj_appointment_noti'}}</option>
+							<option value="2">{{transl 'prj_appointment_email'}}</option>
+						</select>
+					</div>
+					<div class="col-md-4 col-6 mb-2">
+						<input type="number" data-name="inf03" class="form-control objData" value="10" />
+					</div>
+					<div class="col-md-4 col-6 mb-2">
+						<select class="form-control">
+							<option>{{transl 'prj_appointment_minutes'}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

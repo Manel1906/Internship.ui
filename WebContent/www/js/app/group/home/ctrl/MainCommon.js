@@ -821,19 +821,6 @@ function(
 				console.log(e);
 			}
 		};
-		
-		const parseNotificationTime = function(noti) {
-		    const timeMap = {
-		    	"0min":0,
-		        "5min": 5 * 60 * 1000, 
-		        "15min": 15 * 60 * 1000,
-		        "30min": 30 * 60 * 1000, 
-		        "45min": 45 * 60 * 1000, 
-		        "1hour": 60 * 60 * 1000, 
-		        "1day": 24 * 60 * 60 * 1000, 
-		    };
-		    return timeMap[noti] || 0;
-		};
 
 		const do_lc_list = function(){
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_NOTI_LST, {number: pr_NUMBER_NOTIFY, begin: pr_BEGIN_NOTIFY});	
@@ -849,34 +836,13 @@ function(
 		const do_lc_list_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data 			= sharedJson[App['const'].RES_DATA];
-				console.log(data)
-				//---remove notif same prj, same action typ
-				const dataFilter = data.reduce(function(curr, item) {
-	            const content = item.inf01 ? JSON.parse(item.inf01) : {};
-	            item.inf01 = content;
-	
-	            // Kiểm tra nếu thời gian thông báo khớp
-	            const reminderData = item.inf01;
-	            if (reminderData && reminderData.main) {
-	                const reminderTime = reminderData.main.dtBegin;
-	                const noti = JSON.parse(reminderData.main.inf02).noti;
-	
-	                const reminderDate = new Date(reminderTime);
-	                const notiOffset = parseNotificationTime(noti);
-	
-	                const notifyTime = new Date(reminderDate.getTime() - notiOffset);
-	                const currentTime = new Date();
-	
-	                if (currentTime >= notifyTime && currentTime < reminderDate) {
-	                    curr.push(item); 
-	                }
-	            }
-	            return curr;
-	        }, []);
-	        	if (dataFilter.length > 0) {
-				    self.do_lc_get_CountNew(); 
-				}
-
+				const dataFilter 	= data.reduce(function(curr, item){
+					const content 	= item.inf01? JSON.parse(item.inf01) : {};
+					item.inf01		= content;
+					curr.push(item);
+					return curr;
+				}, []);
+			
 				dataFilter &&	$("#div_notify_content")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.VI_NOTIFICATION, dataFilter));
 
 				//set toggle btn new, prev dynamique

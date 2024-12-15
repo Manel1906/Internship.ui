@@ -96,6 +96,7 @@
   	"noti_45min"										: "45 phút ",
   	"noti_1hour"										: "1 giờ ",
   	"noti_1day"											: "1 ngày",
+  	"noti_1day_custom"									:" Tùy chỉnh",
   	"prj_appointment_option_form"						: "Hình thức",
   	"prj_appointment_option_online"						: "Trực tuyến",
   	"prj_appointment_option_offline"					: "Ngoại tuyến",
@@ -128,5 +129,10 @@
 	"prj_department_twelve" 							: "Khoa xét nghiệm",
 	"prj_department_thirteen" 							: "Khoa chẩn đoán hình ảnh",
 	"prj_department_fourteen" 							: "Khoa dược",
-	"prj_appointment_next"								: "Lịch hẹn của hôm nay"
+	"prj_appointment_next"								: "Lịch hẹn của hôm nay",
+	"prj_appointment_price"								:"Giá tiền",
+	"prj_appointment_noti"								:"Thông báo",
+	"prj_appointment_email"								:"Email",
+	"prj_appointment_minutes"							:"Phút"
+	
 }

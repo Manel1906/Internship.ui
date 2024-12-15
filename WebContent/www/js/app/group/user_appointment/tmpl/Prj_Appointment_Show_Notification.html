@@ -9,28 +9,33 @@
 	<div class="card-body">
 		{{#each appointments}}
 		<div class="row mb-2">
-<!-- 			<div class="col-6"> -->
-<!-- 				<span class="bg-danger text-white rounded px-2 py-1" id="countdown-{{@index}}"> -->
-<!-- 					<i class="mdi mdi-bell"></i> <span class="time-remaining" data-appointment-time="{{obj.dtBegin}}"></span> -->
-<!-- 				</span> -->
-<!-- 				<p class="mb-2"><i class="mdi mdi-clock"></i> {{formatDate obj.dtBegin "date"}}</p> -->
-<!-- 			</div> -->
+			<div class="col-12">  
+				<div class="row col-12">
+	 				<p class="mb-2"><i class="mdi mdi-clock"></i> {{formatDate dtBegin "date"}}</p>	
+	 				<div class="col-1"></div>
+	 				<div class="col-5">
+		 				<span class="bg-danger text-white rounded" id="countdown-{{@index}}"> 
+		 					<i class="mdi mdi-bell ml-1"></i> <span class="time-remaining" data-appointment-time="{{dtBegin}}"></span> 
+		 				</span>
+		 			</div>
+	 			</div>
+			</div>
 			<div class="col-12">
-				<p><i class="mdi mdi-calendar-clock"></i> {{formatDate obj.dtBegin "time"}} - {{formatDate obj.dtEnd "time"}}</p>
+				<p><i class="mdi mdi-calendar-clock"></i> {{formatDate dtBegin "time"}} - {{formatDate dtEnd "time"}}</p>
 			</div>
 			
-			{{#if obj.name}}
+			{{#if name}}
 			<div class="col-12">
-				<h5 class="card-title">{{obj.name}}</h5>
+				<h5 class="card-title">{{name}}</h5>
 			</div>
 			{{/if}}
 			
 			<div class="col-12">
-				<p class="mb-2"><i class="mdi mdi-map-marker"></i> {{obj.inf01}}</p>
+				<p class="mb-2"><i class="mdi mdi-map-marker"></i> {{inf01}}</p>
 			</div>
 			
 			<div class="col-12">
-				<button  class="btn btn-info text-white div_button_call" data-appointment-id="{{obj.id}}">
+				<button  class="btn btn-info text-white div_button_call" data-appointment-id="{{id}}">
 					{{transl 'common_btn_join'}}
 				</button>
 			</div>
