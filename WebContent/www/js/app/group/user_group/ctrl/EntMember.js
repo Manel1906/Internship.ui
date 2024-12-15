@@ -34,6 +34,9 @@ define([], function() {
 		const pr_SERVICE_USER_CLASS = "ServiceAutUser";
 		const pr_SV_USER_BY_RELATION = "SVLstByRelation";
 		
+		const pr_SERVICE_CLASS_NSO_GROUP	= "ServiceNsoGroup";
+		const pr_SV_MEMBER_SAVE				= "SVWorkSaveMember";
+		
 		var self 				= this;
 		
 		var pr_PAGESIZE 		= 10;
