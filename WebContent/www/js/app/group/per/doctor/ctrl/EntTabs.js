@@ -43,6 +43,17 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const societePartnerSupp	= 1010003;
 		const societePartnerOther	= 1010006;
 		
+		var RIGHT_ADM	        	= 100;
+		var RIGHT_A_G	        	= 102;
+		var RIGHT_A_N	        	= 102;
+		var RIGHT_A_M	        	= 103;
+		var RIGHT_A_D	        	= 104;
+		
+		var RIGHT_GET	        	= 40000001;
+		var RIGHT_NEW	        	= 40000002;
+		var RIGHT_MOD	        	= 40000003;
+		var RIGHT_DEL	        	= 40000004;
+		
 		const pr_SERVICE_GROUP 		= "ServiceNsoGroup";
     	const pr_SV_LST 			= "SVLst";
     	
@@ -80,6 +91,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		var do_lc_bind_event_content_ent = function(ent, mode){
 			//let	obj 	= {files:[].concat(ent.files ? ent.files : [])};
+			var listUserRight 	= App.data.user.rights;
+			var isRight 		= listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
+			if (!isRight) {
+				$("#btn_edit"	).hide();
+			}
 			if (!ent.files) ent.files = [];
 			let option	= {
 					parallelUploads	: 10,
@@ -228,6 +244,17 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const var_lc_MODE_NEW       = 1;
 		const var_lc_MODE_MOD       = 2;
 		
+		var RIGHT_ADM	        	= 100;
+		var RIGHT_A_G	        	= 102;
+		var RIGHT_A_N	        	= 102;
+		var RIGHT_A_M	        	= 103;
+		var RIGHT_A_D	        	= 104;
+		
+		var RIGHT_GET	        	= 40000001;
+		var RIGHT_NEW	        	= 40000002;
+		var RIGHT_MOD	        	= 40000003;
+		var RIGHT_DEL	        	= 40000004;
+		
 		const pr_SERVICE_GROUP 		= "ServiceNsoGroup";
     	const pr_SV_LST 			= "SVLst";
 		
@@ -318,7 +345,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				$(".btn-remove-speci").removeClass("hide");
 				$(this).addClass("hide");
 			});
-			
+			var listUserRight 	= App.data.user.rights;
+			var isRight 		= listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_MOD)
+			if (!isRight) {
+				$("#btn_add_specialty").hide();
+			}
 			$("#a_btn_save_speciality").off("click").on("click", function () {
 				if (Object.keys(pr_MEM_TEMP).length === Object.keys(ent).length) {
 					do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
@@ -365,7 +396,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				}
 			});
 			
-			$(".btn-resize").off("click").on("click", function () {
+			$(".btn-resize_grp").off("click").on("click", function () {
 				let $this = $(this);
 				let child = $this.find("i");
 				let { divtoggle } = $this.data();
@@ -485,6 +516,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const pr_divContent			= "#div_ent_tab_doc";
 		
 		this.do_lc_show = function(ent){               
+			ent.files = ent.files?.filter(e => e.typ01 === 2 && e.typ02 === 10) || [];
 			$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_FILE, ent));
 			$(".item-file-download").off("click").on("click", function(){
 				let {path}				= $(this).data();

@@ -361,10 +361,10 @@ define([],function() {
 					},
 					buttons		: {
 						NO: {
-							lab		:  $.i18n("common_btn_cancel"),
+							lab		:  $.i18n("prj_user_group_new_btn_back"),
 						},
 						OK: {
-							lab			: $.i18n("common_btn_ok"),
+							lab			: $.i18n("user_group_new_btn_del"),
 							funct		: do_lc_del_entity,
 							param		: [id],
 							classBtn	: "btn-danger"
@@ -393,6 +393,7 @@ define([],function() {
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
 		}
+		
 		
 		//------------------------------------------------------------------------------------------------
 	}

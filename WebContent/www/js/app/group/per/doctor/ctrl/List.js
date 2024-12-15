@@ -46,12 +46,14 @@ define(['jquery'], function($) {
 		const pr_SV_LIST_PAGE		= "SVLstPage";
 		const pr_SV_IMPORT			= "SVImport";
 		
+		const pr_STAT_NONEACTIVE    = 0;
 		const pr_STAT_ACTIVE    	= 1;
 		const pr_STAT_INACTIVE      = 2;
 		const pr_STAT_ACTIVE_HIDDEN = 3;
 		const pr_STAT_DISABLE 		= 10;
 		
 		var pr_typ = [
+			pr_STAT_NONEACTIVE,
 			pr_STAT_ACTIVE,
 			pr_STAT_INACTIVE,
 			pr_STAT_ACTIVE_HIDDEN,
@@ -88,7 +90,7 @@ define(['jquery'], function($) {
 			$('.typ-select').off('click').on('click',function(){
 				const dataCode = $(this).data('code');
 				do_lc_get_checked(dataCode);
-				do_get_list_ByAjax();
+				do_get_list_ByAjax(true);
 			})
 			
 			$("#btn_refresh_group").off("click").on("click", function(){
@@ -107,13 +109,24 @@ define(['jquery'], function($) {
 			})
 			
 			
-			$("#inp-search").off("keyup").on("keyup", function(e){
-				e.preventDefault();
-		//		if(VIEW_PART !==  App.router.part.PRJ_USER)	return false;//add foreach view prj search
-				
-				pr_searchKey	= $(this).val();
+			const $inputField 	= $("#inp_search");
+		    const $clearIcon 	= $("#clear_icon");
+		    $inputField.on("input", function() {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_searchKey	= $inputField.val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
-			})
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_searchKey	= $inputField.val();
+				do_gl_execute_debounce(do_get_list_ByAjax);
+		    });
 			
 			$("#btn_search_responsive").off("click").on("click", function(e){
 				e.preventDefault();
@@ -142,7 +155,7 @@ define(['jquery'], function($) {
 						
 			
 			$("#btn_add_doc").off("click").on("click", function(){
-				if(!data)	data = [];
+				data = [];
 				data.files = [];
 				let option		= {
 						fileinput	: { parallelUploads	: 10, uploadMultiple	: true},//option here
@@ -188,7 +201,14 @@ define(['jquery'], function($) {
 
 			do_lc_save_files(newobj);
 		}	
-		
+		const do_lc_get_checked = (dataCode) => {
+  			  pr_typ = []
+  		      if (dataCode == -1) {
+				  pr_typ = [0,1,2,3,10];
+  		      } else {
+				pr_typ.push(dataCode);
+  		      }
+  		  }
 		var do_lc_save_files = function(newobj){
 			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_IMPORT, {obj: {files: newobj.files}});	
 
@@ -218,7 +238,7 @@ define(['jquery'], function($) {
 			{	typ01		: TYP_01_NATURAL, 
 				typ02		: TYP_02_DOCTOR, 
 				searchKey	: pr_searchKey, 
-				stats		: pr_STAT_ACTIVE, 
+				stats		: pr_typ, 
 				forced		: hardLoad
 			});
 			

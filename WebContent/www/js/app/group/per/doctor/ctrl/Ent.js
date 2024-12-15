@@ -188,10 +188,6 @@ define([
 		const do_lc_clean_data = function(ent){
 			if(Object.keys(ent).length == 0) return;
 
-			if(ent?.inf04){
-				ent.inf04  = JSON.parse(ent.inf04);
-			}
-
 			const do_req_inf05 = (data) => {
 				if(!data) return;
 				let inf05
@@ -231,9 +227,6 @@ define([
 			
 			if(ent.inf06 && typeof ent.inf06 == "string"){
 				ent.inf06 = JSON.parse(ent.inf06);
-			}
-			if(ent.inf02 && typeof ent.inf02 == "string"){
-				ent.inf02 = JSON.parse(ent.inf02);
 			}
 		}
 		
@@ -334,9 +327,6 @@ define([
 					if(data.inf06 && typeof data.inf06 == "string"){
 						data.inf06 = JSON.parse(data.inf06);
 					}
-					if(data.inf02 && typeof data.inf02 == "string"){
-						data.inf02 = JSON.parse(data.inf02);
-					}
 
 					$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_MODIFY, data));
 
@@ -383,12 +373,12 @@ define([
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("prj_user_group_new_btn_cancel"),
 							funct	: null,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_save"),
 							funct	: self.do_lc_mod,
 							param	: [obj],
 							classBtn: "btn-primary"
@@ -406,12 +396,12 @@ define([
 					autoclose	: false,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("prj_user_group_new_btn_back"),
 							funct	: null,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_cancel"),
 							funct	: self.do_lc_cancel,
 							param	: [obj],
 							classBtn: "btn-danger"
@@ -450,6 +440,7 @@ define([
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
+					do_lc_clean_data(data)
 					do_lc_show_entity(data, var_lc_MODE_SEL);
 					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 					
