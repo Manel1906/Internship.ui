@@ -1372,3 +1372,7 @@ a.off-chat {
     	color : white!important;
 	}
 }
+
+.required {
+	color: red;
+}

@@ -17,7 +17,7 @@
             <div class="row">
            		<div class="col-4 form-group mb-2 mt-2">	
 		            <div class="form-group">
-		                <label for="inp_group_name">{{transl 'tpy_cat_disease_code'}}</label>
+		                <label for="inp_group_name">{{transl 'tpy_cat_disease_code'}}<span class="required">&nbsp;*</span></label>
 		                {{#if edit}}
 			        	<input type="text" data-name="code" class="form-control objData" id="inp_group_name" value="{{code}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly maxlength="50">
 			        	{{else}}
@@ -27,14 +27,14 @@
 		        </div>
             	<div class="col-4 form-group mb-2 mt-2">	
 		            <div class="form-group">
-		                <label for="inp_group_locate">{{transl 'tpy_cat_disease_name'}}</label>
+		                <label for="inp_group_locate">{{transl 'tpy_cat_disease_name'}}<span class="required">&nbsp;*</span></label>
 		                <input type="text" data-name="name" class="form-control objData" id="inp_group_locate" value="{{name}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" data-validation="required" maxlength="150">
 					</div>
 		        </div>
 		        <div class="col-4 form-group mb-2 mt-2">	
 		            <div class="form-group">
 		                <label for="inp_group_locate">{{transl 'tpy_cat_disease_name'}} (ENG)</label>
-		                <input type="text" data-group="inf" data-name="nameEng" class="form-control objData" id="inp_group_locate" value="{{inf.nameEng}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" data-validation="required" maxlength="150">
+		                <input type="text" data-group="inf" data-name="nameEng" class="form-control objData" id="inp_group_locate" value="{{inf.nameEng}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" maxlength="150">
 					</div>
 		        </div>
 	        </div>

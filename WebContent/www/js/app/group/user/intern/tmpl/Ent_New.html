@@ -34,12 +34,12 @@
 					</div>		
 					<div class="row">
 						<div class="col-md-6 col-xs-12">
-							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_login'}}</h5>
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_login'}}<span class="required">&nbsp;*</span></h5>
 							<input id="inp_autuser_header_login" class="form-control objData" type="text" 
 								data-name="login" data-validation="required"/>
 						</div>
 						<div class="col-md-6 col-xs-12">
-							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_email'}}</h5>
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_email'}}<span class="required">&nbsp;*</span></h5>
 							<input id="inp_autuser_header_email" class="form-control objData" type="text" 
 								data-name="email" data-validation="required email"/>
 						</div>
@@ -68,7 +68,7 @@
 					
 					<div class="row">						
 						<div class="col-md-6 col-xs-12">
-							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_supervisor'}}</h5>
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_supervisor'}}<span class="required">&nbsp;*</span></h5>
 							<input type="hidden" class="objData" data-name="supId" id ="supId">
 							<input type="text" class="form-control" id="supName" data-validation="required" placeholder="{{transl 'aut_user_ent_header_supervisor_help'}}">
 						</div>
@@ -78,12 +78,12 @@
 					
 					<div class="row" id="div_ent_header_password">
 						<div class="col-md-6 col-xs-12">
-							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_pass'}}</h5>
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_pass'}}<span class="required">&nbsp;*</span></h5>
 							<input id="inp_autuser_header_pass" class="form-control objData" autocomplete="off"
 										type="password" data-name="pass" data-validation="required" value="" />
 						</div>
 						<div class="col-md-6 col-xs-12">
-							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_pass_match'}}</h5>
+							<h5 class="font-size-15 mt-4 info-edit">{{transl 'aut_user_ent_header_pass_match'}}<span class="required">&nbsp;*</span></h5>
 							<input id="inp_autuser_header_pass_match" class="form-control objData" autocomplete="off"
 								type="password" data-name="pass_match" data-compare="eq #inp_autuser_header_pass" data-msg="compare:aut_user_pass_match_err" data-validation="required" value="" />
 						</div>

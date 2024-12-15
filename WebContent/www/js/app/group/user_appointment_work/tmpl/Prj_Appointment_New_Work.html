@@ -36,7 +36,7 @@
 			<!-- Location -->
             <div class="form-group row mb-2">
                 <div class="col-lg-12">
-                    <label for="location" class="col-form-label h5">{{transl 'prj_appointment_area'}} *</label>
+                    <label for="location" class="col-form-label h5">{{transl 'prj_appointment_area'}}<span class="required">&nbsp;*</span></label>
                     <input type="hidden" class="objData" data-name="lev" value="{{lev}}">
                     <input id="cmt03" data-name="inf01" type="text" class="form-control objData" data-validation="required" value="{{ent.inf01}}">
                 </div>
@@ -62,7 +62,7 @@
             <!-- Date and Time -->
 			<div class="form-group row mb-2">
 				<div class="col-lg-12">
-					<label class="col-form-label h5">{{transl 'prj_project_project_date'}} *</label>
+					<label class="col-form-label h5">{{transl 'prj_project_project_date'}}<span class="required">&nbsp;*</span></label>
 					<div class="input-daterange input-group">
 						<input data-format="date" type="text" data-validation="date required"
                               class="form-control objData" id="dtpicker_Begin"

@@ -18,7 +18,7 @@
 		
 		<div class="row">
 			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_legalstat'}} *</h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_legalstat'}}<span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">
 					{{#equal per.v02 1020001}}{{transl "per_person_mr" }}{{/equal}}
 					{{#equal per.v02 1020002}}{{transl "per_person_mrs" }}{{/equal}}
@@ -32,7 +32,7 @@
 
 		<div class="row">
 			<div class="col-4">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_01'}} *</h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_01'}}<span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{per.name01}}</p>
 				<input id="inp_autuser_header_name_01" class="form-control objData content-edit hide isManager" type="text" data-group="per" 
 					data-name="name01"  data-validation="required" value="{{per.name01}}"/>
@@ -45,7 +45,7 @@
 			</div>
 			
 			<div class="col-4">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_03'}} *</h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_03'}}<span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{per.name03}}</p>
 				<input id="inp_autuser_header_name_03" class="form-control objData content-edit hide isManager" type="text" data-group="per"
 					data-name="name03"  data-validation="required" value="{{per.name03}}"/>
