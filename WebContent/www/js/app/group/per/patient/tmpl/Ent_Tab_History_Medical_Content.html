@@ -1,0 +1,113 @@
+<div class="card">
+	<div class="card-body">
+        <div class="row">
+            <div class="col-lg-11 col-md-10 col-sm-9"><h4>Nội dung khám bệnh</h4></div>
+        	<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+        </div>
+        <div class="needs-validation" id="frm_entity">
+        	<input type="hidden" data-name="typ01" class="form-control objData" value="1">
+        	<input type="hidden" data-name="typ02" class="form-control objData" value="1">
+        	<input type="hidden" data-name="stat" class="form-control objData" value="1">
+           
+           	<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;"></div>
+			<div class="row">
+	           <div class="form-group col-3">
+					<label for="inp_group_locate" style="font-size: 1rem !important;">
+					        {{transl 'per_person_patient_hist_date_check'}}
+					</label>
+				</div>
+
+				<div class="form-group col-3 px-2">
+				    <label for="inp_group_locate">
+					        12/10/2022
+					</label>
+				</div>
+			
+				<div class="form-group col-3">
+				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_room_check'}}</label>
+				</div>
+				
+				<div class="form-group col-3">
+				    <label for="inp_group_email"">{{transl 'per_person_patient_hist_room_check'}}</label>
+				</div>
+				
+				<div class="form-group col-3">
+				    <label for="inp_group_locate" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_name_doctor_treat'}} *</label>
+				</div>
+
+				<div class="form-group col-3 px-2">
+				    <label for="inp_group_locate">{{transl 'per_person_patient_hist_name_doctor_treat'}} *</label>
+			    </div>
+			
+				<div class="form-group col-3">
+				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_code_doctor'}}</label>
+				</div>
+				
+				<div class="form-group col-3 px-2">
+				    <label for="inp_group_email">{{transl 'per_person_patient_hist_code_doctor'}}</label>
+			    </div>
+			    <!-- ----------------- FORM -------------------------- -->
+	            <div class="form-group col-2 px-2">
+			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_form'}}</label>
+			    </div>
+			      <div class="form-group col-3 px-2">
+			        <label for="radio_live" class="mb-0">{{transl 'per_person_patient_hist_live'}}</label>
+			    </div>
+		    	
+	    		<div class="col-lg-12" id="div_show_sympton">
+					<label for="sympton" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_sympton'}}</label>
+	           	</div>
+	           	<div class="col-lg-12 mb-3" id="div_show_sympton">
+					<label for="sympton" class="col-form-label">Bệnh nhân cần tái khám sau một thời gian dài điều trị tại bệnh việnBệnh nhân cần tái khám sau một thời gian dài điều trị tại bệnh
+					 việnBệnh nhân cần tái khám sau một thời gian dài điều trị tại bệnh việnBệnh 
+					 nhân cần tái khám sau một thời gian dài điều trị tại bệnh viện</label>
+	           	</div>
+	           	 <!-- ----------------- ICD -------------------------- -->
+			    <div class="form-group col-2 px-2">
+			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_icd_main'}}</label>
+			    </div>
+			    
+			    <div class="form-group col-10 px-2">
+			        <label for="inp_group_email">I10 - Tăng huyết áp </label>
+			    </div>
+		        
+	<!-- 	   <div class="form-group col-4 px-2">
+			        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="typ03">
+			            <option {{#equal typ03 100}}selected{{/equal}} value="100">{{transl 'per_person_patient_hist_precription'}}</option>
+			            <option {{#equal typ03 200}}selected{{/equal}} value="200">{{transl 'per_person_patient_hist_specify_service'}}</option>
+			            <option {{#equal typ03 500}}selected{{/equal}} value="500">{{transl 'per_person_patient_hist_out_patient'}}</option>
+			            <option {{#equal typ03 300}}selected{{/equal}} value="300">{{transl 'per_person_patient_hist_hospitalized'}}</option>
+			            <option {{#equal typ03 700}}selected{{/equal}} value="700">{{transl 'per_person_patient_hist_consult_no_medicine'}}</option>
+			        </select>
+			    </div>  -->  
+			    <div class="form-group col-12 px-2">
+			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_icd_extra'}}</label>
+			    </div>      
+		    	<!-- ----------------- END ICD -------------------------- -->
+		    	<div class="col-12 mb-1" id="div_show_dignose">
+					<label for="dignose" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_dignose'}}</label>
+	           	</div>
+	           	
+	           	<div class="form-group col-12 px-2 mt-1">
+			        <label for="inp_group_email"">Tăng huyết áp mạn tính với biến chứng đau đầu</label>
+			    </div>
+			    
+			    <div class="col-3 mb-3" id="div_show_dignose">
+					<label for="dignose" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_resolve'}}</label>
+	           	</div>
+	           	
+	           	<div class="form-group col-9 px-2 mt-2">
+			        <label for="inp_group_email">Cấp đơn thuốc</label>
+			    </div>
+			    
+			    <div class="col-lg-12 id="div_show_note">
+					<label for="note" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_note'}}</label>
+	           	</div>
+	           	
+	           	 <div class="col-12 mb-3" id="div_show_dignose">
+					<label for="dignose" class="col-form-label">Bệnh nhân cần tái khám sau một thời gian dài điều trị tại bệnh viện</label>
+	           	</div>
+           	</div>
+        </div>
+    </div>
+</div>

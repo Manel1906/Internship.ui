@@ -45,12 +45,14 @@ define(['jquery'], function($) {
 		const pr_SV_LIST_PAGE		= "SVLstPage";
 		const pr_SV_IMPORT			= "SVImport";
 		
+		const pr_STAT_NONEACTIVE    = 0;
 		const pr_STAT_ACTIVE    	= 1;
 		const pr_STAT_INACTIVE      = 2;
 		const pr_STAT_ACTIVE_HIDDEN = 3;
 		const pr_STAT_DISABLE 		= 10;
 		
 		var pr_typ = [
+			pr_STAT_NONEACTIVE,
 			pr_STAT_ACTIVE,
 			pr_STAT_INACTIVE,
 			pr_STAT_ACTIVE_HIDDEN,
@@ -87,7 +89,7 @@ define(['jquery'], function($) {
 			$('.typ-select').off('click').on('click',function(){
 				const dataCode = $(this).data('code');
 				do_lc_get_checked(dataCode);
-				do_get_list_ByAjax();
+				do_get_list_ByAjax(true);
 			})
 			
 			$("#btn_refresh_group").off("click").on("click", function(){
@@ -217,7 +219,7 @@ define(['jquery'], function($) {
 			{	typ01		: TYP_01_NATURAL, 
 				typ02		: TYP_02_CLIENT, 
 				searchKey	: pr_searchKey, 
-				stats		: pr_STAT_ACTIVE, 
+				stats		: pr_typ, 
 				forced		: hardLoad
 			});
 			
@@ -268,6 +270,14 @@ define(['jquery'], function($) {
 				$(".entity-item[data-id='" + id + "']").css("background-color", "#f0ffff")
 			})
 		}
+		const do_lc_get_checked = (dataCode) => {
+  			  pr_typ = []
+  		      if (dataCode == -1) {
+				  pr_typ = [0,1,2,3,10];
+  		      } else {
+				pr_typ.push(dataCode);
+  		      }
+  		  }
 	};
 
 	return List;

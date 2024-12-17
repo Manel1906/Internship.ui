@@ -52,23 +52,25 @@
 							<span class="edit-text info-show">{{index}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="typ" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{typ}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="typ" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{typ}}" placeholder="{{transl 'per_person_patient_typ_insurance'}}" data-validation="required">
 							<span class="edit-text info-show">{{typ}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="nbCard" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{nbCard}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="nbCard" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{nbCard}}" placeholder="{{transl 'per_person_patient_number_card_insurance'}}" data-validation="required">
 							<span class="edit-text info-show">{{nbCard}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="dPublish" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{dPublish}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required">
-							<span class="edit-text info-show">{{dPublish}}</span>
+							<input data-group="inf09" data-gindex="{{@index}}" data-name="dPublish" data-provide="datepicker" autocomplete="off" class="form-control objData inf-entity hide" type="text"
+			            	placeholder="{{transl 'per_person_patient_date_publish'}}" data-format="date" data-validation="required date " {{#if dPublish}}value="{{reqFormatShortDate dPublish}}"{{/if}}>
+							<span class="edit-text info-show">{{reqFormatShortDate dPublish}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="dEnd" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_locate" value="{{dEnd}}" placeholder="{{transl 'tpy_cat_disease_name_enter'}}" data-validation="required">
-							<span class="edit-text info-show">{{dEnd}}</span>
+							<input data-group="inf09" data-gindex="{{@index}}" data-name="dEnd" data-provide="datepicker" autocomplete="off" class="form-control objData inf-entity hide" type="text"
+			            	placeholder="{{transl 'per_person_patient_date_expired'}}" data-format="date" data-validation="required date" {{#if dEnd}}value="{{reqFormatShortDate dEnd}}"{{/if}} required>
+							<span class="edit-text info-show">{{reqFormatShortDate dEnd}}</span>
 						</td>
 						<td class="text-center">
-							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="wRegister" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_locate" value="{{wRegister}}" placeholder="{{transl 'tpy_cat_disease_describe'}}" data-validation="required">
+							<input type="text" data-group="inf09" data-gindex="{{@index}}" data-name="wRegister" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_locate" value="{{wRegister}}" placeholder="{{transl 'per_person_patient_register'}}" data-validation="required">
 							<span class="edit-text info-show">{{wRegister}}</span>
 						</td>
 						<td  class="text-center inf-entity btnRemoveRow hide">

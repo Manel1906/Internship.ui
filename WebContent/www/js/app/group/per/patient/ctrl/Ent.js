@@ -191,19 +191,19 @@ define([],function(){
 					App.controller[pr_grpName].EntTabInfo			.do_lc_show(ent, mode);
 					
 				}else if(typ === pr_tab_typ_disease_hist){
-					App.controller[pr_grpName].EntTabDiseaseHist	.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabHistDisease	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_medical_hist){
-					App.controller[pr_grpName].EntTabMedicalHist	.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabHistMedical	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_medical_order){
-					App.controller[pr_grpName].EntTabMedicalOrder	.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabOrderMedical	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_blood_test){
-					App.controller[pr_grpName].EntTabBloodTest		.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabOrderBloodTest		.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_img_test){
-					App.controller[pr_grpName].EntTabImgTest		.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabOrderImgTest		.do_lc_show(ent, mode);
 				}
 			});
 		}

@@ -1,0 +1,230 @@
+<div class="card">
+	<div class="card-body">
+        <div class="row">
+            <div class="col-lg-11 col-md-10 col-sm-9"><h4>Nội dung khám bệnh</h4></div>
+        	<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+        </div>
+        <div class="needs-validation" id="frm_entity">
+        	<input type="hidden" data-name="typ01" class="form-control objData" value="200">
+        	<input type="hidden" data-name="stat" class="form-control objData" value="1">
+           
+           	<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;"></div>
+			<div class="row">
+	           <div class="form-group col-3">
+					<label for="inp_group_locate" style="font-size: 1rem !important;">
+				        {{transl 'per_person_patient_hist_date_check'}}
+			    	</label>
+			   </div>
+
+				<div class="form-group col-3 px-2">
+				    <div class="input-group">
+				        <input data-format="date" type="text" class="form-control objData" id="dtpicker_exp" 
+				               value="{{reqFormatShortDate dt01}}" data-name="dt01" 
+				               data-provide="datepicker" data-format="date" data-validation="date" />
+				        <span class="input-group-text"><i class="mdi mdi-calendar-range-outline"></i></span>
+				    </div>
+				</div>
+			
+				<div class="form-group col-3">
+				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_room_check'}}</label>
+				</div>
+				
+				<div class="form-group col-3">
+				    <div class="input-group">
+				        <input type="text" data-name="code04" class="form-control objData"  value="{{code04}}" data-validation="">
+				    </div>
+				</div>
+				
+				<div class="form-group col-3">
+				    <label for="inp_group_locate" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_name_doctor_treat'}} *</label>
+				</div>
+
+				<div class="form-group col-3 px-2">
+			        <input type="text" data-name="inf09" class="form-control objData"  value="{{inf09}}" data-validation="">
+			    </div>
+			
+				<div class="form-group col-3">
+				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_code_doctor'}}</label>
+				</div>
+				
+				<div class="form-group col-3 px-2">
+			        <input type="text" data-name="code02" class="form-control objData"  value="{{code02}}" data-validation="">
+			    </div>
+			    <!-- ----------------- FORM -------------------------- -->
+	            <div class="form-group col-2 px-2">
+			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_form'}}</label>
+			    </div>
+			    <div class="form-group col-1 px-2">
+			        <input type="radio" id="radio_remote" data-name="typ02" value="0"  class="objData me-2" data-validation="">
+			    </div>
+			      <div class="form-group col-2 px-2">
+			        <label for="radio_remote" class="mb-0" >{{transl 'per_person_patient_hist_remote'}}</label>
+			    </div>
+			    <div class="form-group col-1 px-2">
+			        <input type="radio" id="radio_remote" data-name="typ02" value="1"  class="objData me-2" data-validation="">
+			    </div>
+			      <div class="form-group col-3 px-2">
+			        <label for="radio_live" class="mb-0">{{transl 'per_person_patient_hist_live'}}</label>
+			    </div>
+			    
+				<!-- -----------------Birth Mark -------------------------- -->
+				
+           		<div class="col-12 form-group mt-1">	
+		             <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_birth_mark'}}</label>
+		        </div>
+		        
+		       <div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_circuit_mini'}}</label>
+			        <input type="text" data-group="inf01" data-name="circuit" class="form-control objData"  value="{{inf01.circuit}}" data-validation="">
+		    	</div>
+				
+				<div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_temp'}}</label>
+			        <input type="text" data-group="inf01" data-name="temp" class="form-control objData"  value="{{inf01.temp}}" data-validation="">
+		    	</div>
+		        
+		        <div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_breath'}}</label>
+			        <input type="text" data-group="inf01" data-name="breath" class="form-control objData"  value="{{inf01.breath}}" data-validation="">
+		    	</div>
+			    
+			  	<div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_sp02'}}</label>
+			        <input type="text" data-group="inf01" data-name="sp02" class="form-control objData"  value="{{inf01.sp02}}" data-validation="">
+		    	</div>
+		    	
+		    	<div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_bmi'}}</label>
+			        <input type="text" data-group="inf01" data-name="bmi" class="form-control objData"  value="{{inf01.bmi}}" data-validation="">
+		    	</div>
+				
+				<div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_bsa'}}</label>
+			        <input type="text" data-group="inf01" data-name="bsa" class="form-control objData"  value="{{inf01.bsa}}" data-validation="">
+		    	</div>
+		        
+		        <div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_weight'}}</label>
+			        <input type="text" data-group="inf01" data-name="weight" class="form-control objData"  value="{{inf01.weight}}" data-validation="">
+		    	</div>
+			    
+			  	<div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_height'}}</label>
+			        <input type="text" data-group="inf01" data-name="height" class="form-control objData"  value="{{inf01.height}}" data-validation="">
+		    	</div>
+		    	
+		    	<div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_blood_pressure_max'}}</label>
+			        <input type="text" data-group="inf01" data-name="pressureMax" class="form-control objData"  value="{{inf01.pressureMax}}" data-validation="">
+		    	</div>
+			    
+			  	<div class="form-group col-3 px-2">
+			        <label>{{transl 'per_person_patient_hist_blood_pressure_min'}}</label>
+			        <input type="text" data-group="inf01" data-name="pressureMin" class="form-control objData"  value="{{inf01.pressureMin}}" data-validation="">
+		    	</div>
+		    	
+		    	<!-- ------------------------------------------- -->
+		    	
+	    		<div class="col-lg-12 mb-3" id="div_show_sympton">
+					<label for="sympton" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_sympton'}}</label>
+					<div class="">
+					    <textarea class="form-control objData" data-group="inf02" data-name="sympton" id="div_show_sympton" rows="5" data-validation="">{{inf02.sympton}}</textarea>
+					</div>
+	           	</div>
+	           	 <!-- ----------------- ICD -------------------------- -->
+			    <div class="form-group col-2 px-2">
+			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_icd_main'}}</label>
+			    </div>
+		        
+	        	<div class="form-group col-4 px-2">
+			        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="typ03">
+			            <option {{#equal typ03 100}}selected{{/equal}} value="100">{{transl 'per_person_patient_hist_precription'}}</option>
+			            <option {{#equal typ03 200}}selected{{/equal}} value="200">{{transl 'per_person_patient_hist_specify_service'}}</option>
+			            <option {{#equal typ03 500}}selected{{/equal}} value="500">{{transl 'per_person_patient_hist_out_patient'}}</option>
+			            <option {{#equal typ03 300}}selected{{/equal}} value="300">{{transl 'per_person_patient_hist_hospitalized'}}</option>
+			            <option {{#equal typ03 700}}selected{{/equal}} value="700">{{transl 'per_person_patient_hist_consult_no_medicine'}}</option>
+			        </select>
+			    </div>
+		    	
+		    	<div class="form-group col-6 px-2">
+			        <input type="text" data-name="inf03" class="form-control objData"  value="{{inf03}}" data-validation="">
+		    	</div>
+		    	
+		    	<div class="form-group col-2 px-2">
+			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_icd_extra'}}</label>
+			    </div>
+		        
+	        	<div class="form-group col-4 px-2">
+			        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="typ03">
+			            <option {{#equal typ03 100}}selected{{/equal}} value="100">{{transl 'per_person_patient_hist_precription'}}</option>
+			            <option {{#equal typ03 200}}selected{{/equal}} value="200">{{transl 'per_person_patient_hist_specify_service'}}</option>
+			            <option {{#equal typ03 500}}selected{{/equal}} value="500">{{transl 'per_person_patient_hist_out_patient'}}</option>
+			            <option {{#equal typ03 300}}selected{{/equal}} value="300">{{transl 'per_person_patient_hist_hospitalized'}}</option>
+			            <option {{#equal typ03 700}}selected{{/equal}} value="700">{{transl 'per_person_patient_hist_consult_no_medicine'}}</option>
+			        </select>
+			    </div>
+		    	
+		    	<div class="form-group col-6 px-2">
+			        <input type="text" data-name="inf03" class="form-control objData"  value="{{inf03}}" data-validation="">
+		    	</div>
+		    	<!-- ----------------- END ICD -------------------------- -->
+		    	<div class="col-lg-12 mb-3" id="div_show_dignose">
+					<label for="dignose" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_dignose'}}</label>
+					<div class="">
+					    <textarea class="form-control objData" data-group="inf02" data-name="dignose" id="div_show_dignose" rows="5" data-validation="">{{inf02.dignose}}</textarea>
+					</div>
+	           	</div>
+	           	
+	           	<div class="form-group col-3 px-2 mt-2">
+			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_resolve'}}</label>
+			    </div>
+		    	
+		    	<div class="form-group col-4 px-2">
+			        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="typ03">
+			            <option {{#equal typ03 100}}selected{{/equal}} value="100">{{transl 'per_person_patient_hist_precription'}}</option>
+			            <option {{#equal typ03 200}}selected{{/equal}} value="200">{{transl 'per_person_patient_hist_specify_service'}}</option>
+			            <option {{#equal typ03 500}}selected{{/equal}} value="500">{{transl 'per_person_patient_hist_out_patient'}}</option>
+			            <option {{#equal typ03 300}}selected{{/equal}} value="300">{{transl 'per_person_patient_hist_hospitalized'}}</option>
+			            <option {{#equal typ03 700}}selected{{/equal}} value="700">{{transl 'per_person_patient_hist_consult_no_medicine'}}</option>
+			        </select>
+			    </div>
+		    	
+		    	<div class="form-group col-1 px-2 mt-2">
+			        <input id="radio_remote_checkbox" type="checkbox" name="code04" class="objData me-2" data-validation="">
+		    	</div>
+		    	
+	           	<div class="form-group col-3 px-2 mt-2">
+			         <label for="radio_remote_checkbox">{{transl 'per_person_patient_hist_retest'}}</label>
+		    	</div>
+		    	
+		    	<div class="form-group col-6"></div>
+		    	<div id="hist_date" class="form-group col-2 hide mt-1">
+					<label for="inp_group_locate" style="font-size: 1rem !important;">
+				        {{transl 'per_person_patient_hist_date'}}
+				    </label>
+				</div>
+
+				<div id="hist_date_calendar" class="form-group col-3 px-2 hide">
+				    <div class="input-group">
+				        <input data-format="date" type="text" class="form-control objData" id="dtpicker_exp" 
+				               value="{{reqFormatShortDate dt01}}" data-name="dt01" 
+				               data-provide="datepicker" data-format="date" data-validation="date" />
+				        <span class="input-group-text"><i class="mdi mdi-calendar-range-outline"></i></span>
+				    </div>
+				</div>
+		    	
+		    	<div class="col-lg-12 mb-3" id="div_show_note">
+					<label for="note" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_note'}}</label>
+					<div class="">
+					    <textarea class="form-control objData" data-group="inf02" data-name="note" id="div_show_note" rows="5" data-validation="">{{inf02.note}}</textarea>
+					</div>
+	           	</div>
+           	</div>
+           	
+			<div class="d-flex justify-content-end mt-4">
+            	<button id="btn_cancel_entity" class="btn" type="button">{{transl 'prj_user_group_new_btn_save_draft'}}</button>
+			    <button id="btn_edit_entity" class="btn btn-primary" type="button">{{transl 'prj_user_group_new_btn_accept'}}</button>
+			</div>
+        </div>
+    </div>
+</div>

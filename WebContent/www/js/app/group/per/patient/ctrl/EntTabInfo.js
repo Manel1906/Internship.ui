@@ -73,6 +73,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			});
 		}
 		var do_lc_show_file 			= function (ent){
+			ent.files = ent.files?.filter(e => e.typ01 === 2 && e.typ02 === 10) || [];
 			$("#div_inf_file"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_FILE			, ent));
 			$(".item-file-download").off("click").on("click", function(){
 				let {path}				= $(this).data();
@@ -261,7 +262,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_save"),
 							funct	: self.do_lc_mod,
 							param	: [obj],
 							classBtn: "btn-primary"
@@ -276,15 +277,15 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					title	: $.i18n("msgbox_confirm_title"),
 					content : $.i18n("msgbox_confirm_save_cancel"),
 					width	: "400px",
-					autoclose	: false,
+					autoclose	: true,
 					buttons	: {
 						NO: {
-							lab		: $.i18n("common_btn_cancel"),
+							lab		: $.i18n("prj_user_group_new_btn_back"),
 							funct	: null,
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_cancel"),
 							funct	: self.do_lc_cancel,
 							param	: [obj],
 							classBtn: "btn-danger"
@@ -323,6 +324,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
+					do_lc_clean_data(data)
 					do_lc_show_entity(data, var_lc_MODE_SEL);
 					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 					
@@ -330,6 +332,57 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
+			}
+		}
+		const do_lc_clean_data = function(ent){
+			if(Object.keys(ent).length == 0) return;
+
+			const do_req_inf05 = (data) => {
+				if(!data) return;
+				let inf05
+				try {
+					inf05 = JSON.parse(data);
+				} catch (e) {
+					return;
+				}
+
+				let inf05Arr = inf05
+				if(!Array.isArray(inf05Arr)) {
+					if(typeof inf05Arr !== 'object') return
+
+					//When inf05Arr has type object => to array
+					inf05Arr = Object.keys(inf05).map(k => ({ [k]: inf05[k] }));
+				}
+
+				return inf05Arr.reduce((curr, item) => {
+					if(!item.k) return
+					curr[item.k] = item.v.replace(/&nbsp;/gi,"").split(" ").join('');
+					return curr;
+				}, {});
+			}
+
+			ent.inf05 = ent.inf05? do_req_inf05(ent.inf05) : null;
+
+			if(ent.files && !ent.avatar) {
+				ent.files.forEach(e => {
+					if(e.typ01 === 1 && e.typ02 === 1) {
+						ent.avatar = e
+					}
+				})
+			}
+			if(ent.inf04 && typeof ent.inf04 == "string"){
+				ent.inf04 = JSON.parse(ent.inf04);
+			}
+			
+			if(ent.inf06 && typeof ent.inf06 == "string"){
+				ent.inf06 = JSON.parse(ent.inf06);
+			}
+			if (ent.inf08 && typeof ent.inf08 == "string") {
+			    ent.inf08 = JSON.parse(ent.inf08);
+			}
+			
+			if (ent.inf09 && typeof ent.inf09 == "string") {
+				ent.inf09 = JSON.parse(ent.inf09);
 			}
 		}
 		
