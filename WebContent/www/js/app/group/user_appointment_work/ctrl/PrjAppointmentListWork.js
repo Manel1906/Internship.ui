@@ -1793,10 +1793,10 @@ define([
 		        pr_Color = selectedColor;
 		        if (selectedValue == TYP_02_MEET_CLIENT) {
 		            $('#price').closest('.form-group').fadeIn();
-					$('#price').show();
+					$('#price').val("");
 		        } else {
 		            $('#price').closest('.form-group').fadeOut();
-					$('#price').hide();
+					$('#price').val("0");
 		        }
 		    });
 		    
