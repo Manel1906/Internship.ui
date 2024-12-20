@@ -195,6 +195,7 @@
     "per_person_patient_number_day"						: 	"Số ngày",
     "per_person_patient_total_quantity"					: 	"Tổng SL",
     "per_person_patient_sugar_use"						: 	"Đường dùng",
+    "per_person_patient_content_medical"				: 	"Nội dung khám bệnh",
     "per_person_patient_title"							: 	"Sau khi lưu hồ sơ, người dùng không được chỉnh sửa lại thông tin.Bạn có muốn xác nhận hay không",
     
     

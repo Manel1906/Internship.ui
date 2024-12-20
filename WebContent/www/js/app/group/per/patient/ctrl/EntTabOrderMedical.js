@@ -1,6 +1,6 @@
 define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	
-	var EntTabHistMedical 					= function (grpName, header, content, footer) {
+	var EntTabOrderMedical 					= function (grpName, header, content, footer) {
 		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
@@ -65,11 +65,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		};
 		
 		var do_lc_show_entity 			= function(ent, mode){
-			do_lc_show_info_medical 		(ent);
-			do_lc_show_his_disease 			(ent);
+			do_lc_show_info_order_medical 		(ent);
+			do_lc_show_lst_medicine 			(ent);
 		}
 		
-		var do_lc_show_info_medical 			= function(ent){
+		var do_lc_show_info_order_medical 			= function(ent){
 			$(pr_divContent				).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, ent));
 			
 			$(".btn-resize-content").off("click").on("click", function () {
@@ -82,20 +82,12 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
-			$("#btn_new_entity").off("click").on("click", function () {
-				pr_id_person = ent.id
-				$("#div_ent_his_content").html("");
-				do_lc_show_his_content_new		(ent);
-				do_lc_show_his_prescription		();
-				do_lc_show_his_test_blood		();
-				do_lc_show_his_test_img 		();
-			})
 		}
-		var do_lc_show_his_disease 			= function(ent){
-			$("#div_entity_his_medical").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST				, ent));
-			do_lc_list_ByAjax_his_disease(ent)
+		var do_lc_show_lst_medicine 			= function(ent){
+			$("#div_entity_order_medical").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST				, ent));
+			do_lc_list_ByAjax_lst_medicine(ent)
 		}
-		var do_lc_list_ByAjax_his_disease 	= function(ent){
+		var do_lc_list_ByAjax_lst_medicine 	= function(ent){
 			let divList = $("#list_his_disease");
 			let divPan  = $("#div_list_pagination_disease");
 			
@@ -109,7 +101,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					url_api 		: App.path.BASE_URL_API_PRIV, 
 					url_header 		: App.data["HttpSecuHeader"],
 					url_api_param 	: ref,
-					pageSize 		: 3,
+					pageSize 		: 9,
 					pageRange		: 1,
 					callback		: callbackFunct
 			};
@@ -124,7 +116,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				data		= sharedJson[App['const'].RES_DATA]
 			}
 			
-			$("#list_his_disease")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
+			$("#list_medicine")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
 			
 			do_lc_bind_event_his_disease(ent)
 		}
@@ -287,7 +279,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			$(".btnRemoveRowPrescription>button").off("click").on("click", function () {
 		        $(this).closest('tr').remove();
 		    });
-		    
 			let el = "#inp_pharmaceuticals";
 			
 			let options = {
@@ -683,5 +674,5 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 	}
 		
-	return EntTabHistMedical;
+	return EntTabOrderMedical;
 });

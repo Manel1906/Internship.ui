@@ -37,25 +37,29 @@
            			</tr>
        			</thead>
         		<tbody id="tbody_entity_blood">
-        			{{#if inf08}}
-					{{#each inf08}}
+        			{{#if inf06}}
+					{{#each inf06}}
 						<tr>
-							<input type="hidden" data-name="id" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
+							<input type="hidden" data-name="id" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
-								<span class="edit-text info-show">{{index}}</span>
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
+								<span class="edit-text info-show-blood">{{index}}</span>
 							</td>
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="code" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{code}}" placeholder="{{transl 'per_person_patient_code'}}" data-validation="required">
-								<span class="edit-text info-show">{{code}}</span>
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="code" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{code}}" placeholder="{{transl 'per_person_patient_code'}}" data-validation="required">
+								<span class="edit-text info-show-blood">{{code}}</span>
 							</td>
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="name" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{name}}" placeholder="{{transl 'per_person_patient_full_name'}}" data-validation="required">
-								<span class="edit-text info-show">{{name}}</span>
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="name" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{name}}" placeholder="{{transl 'per_person_patient_full_name'}}" data-validation="required">
+								<span class="edit-text info-show-blood">{{name}}</span>
 							</td>
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="relate" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{relate}}" placeholder="{{transl 'per_person_patient_relate'}}" data-validation="required">
-								<span class="edit-text info-show">{{relate}}</span>
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="note" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{note}}" placeholder="{{transl 'per_person_patient_relate'}}" data-validation="required">
+								<span class="edit-text info-show-blood">{{note}}</span>
+							</td>
+							
+							<td  class="text-center inf-entity-blood btnRemoveRowBlood hide">
+								<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
 							</td>
 						</tr>
 					{{/each}}

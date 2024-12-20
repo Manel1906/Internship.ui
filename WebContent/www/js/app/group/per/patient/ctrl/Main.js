@@ -31,6 +31,8 @@ define([
 	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_List.html'	,
 	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_List_Content.html'	,
 	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_Content_New.html',
+	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_Content_ICD_Main_Select.html',
+	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_Content_ICD_Sub_Select.html',
 	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_Content.html',
 	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_Prescription.html',
 	'text!group/per/patient/tmpl/Ent_Tab_History_Medical_Prescription_Add.html',
@@ -73,6 +75,8 @@ define([
 			Tmpl_Ent_Tab_History_Medical_List,
 			Tmpl_Ent_Tab_History_Medical_List_Content,
 			Tmpl_Ent_Tab_History_Medical_Content_New,
+			Tmpl_Ent_Tab_History_Medical_Content_ICD_Main_Select,
+			Tmpl_Ent_Tab_History_Medical_Content_ICD_Sub_Select,
 			Tmpl_Ent_Tab_History_Medical_Content,
 			Tmpl_Ent_Tab_History_Medical_Prescription,
 			Tmpl_Ent_Tab_History_Medical_Prescription_Add,
@@ -117,41 +121,43 @@ define([
 				tmplName = App.template.names[pr_grpName]
 			}
 			
-			tmplName.TMPL_MAIN 							  = pr_grpName + "Tmpl_Main";
-			tmplName.TMPL_LIST							  = pr_grpName + "Tmpl_List";
-			tmplName.TMPL_LIST_CONTENT					  = pr_grpName + "Tmpl_List_Content";
+			tmplName.TMPL_MAIN 							  		 = pr_grpName + "Tmpl_Main";
+			tmplName.TMPL_LIST							  		 = pr_grpName + "Tmpl_List";
+			tmplName.TMPL_LIST_CONTENT					  		 = pr_grpName + "Tmpl_List_Content";
 			
-			tmplName.TMPL_ENT							  = pr_grpName + "Tmpl_Ent";
+			tmplName.TMPL_ENT							  		 = pr_grpName + "Tmpl_Ent";
 			
-			tmplName.TMPL_ENT_TAB_INFO					  = pr_grpName + "Tmpl_Ent_Content";
-			tmplName.TMPL_ENT_TAB_INFO_CONTACT			  = pr_grpName + "Tmpl_Ent_Tab_Info_Contact";
-			tmplName.TMPL_ENT_TAB_INFO_CONTACT_ADD		  = pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add";
-			tmplName.TMPL_ENT_TAB_INFO_INSURANCE		  = pr_grpName + "Tmpl_Ent_Tab_Info_Insurance";
-			tmplName.TMPL_ENT_TAB_INFO_INSURANCE_ADD	  = pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add_Lst";
-			tmplName.TMPL_ENT_TAB_INFO_FILE				  = pr_grpName + "Tmpl_Ent_Tab_Info_File";
-			tmplName.TMPL_ENT_TAB_DISEASE_HIS			  = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist";
-			tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC	  = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Chronic";
-			tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC_ADD = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Chronic_Add";
-			tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY	  = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Family";
-			tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY_ADD  = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Family_Add";
-			tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY	  = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Allergy";
-			tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY_ADD = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Allergy_Add";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL 			  = pr_grpName + "Tmpl_Ent_Tab_History_Medical";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST 		  = pr_grpName + "Tmpl_Ent_Tab_History_Medical_List";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT= pr_grpName + "Tmpl_Ent_Tab_History_Medical_List_Content";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Content_New";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT 	  = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Content";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT   = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Prescription";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT_ADD= pr_grpName+ "Tmpl_Ent_Tab_History_Medical_Prescription_Add";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD 	  = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Blood";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD_ADD   = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Blood_Add";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG   	  = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Img";
-			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG_ADD     = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Img_Add";
+			tmplName.TMPL_ENT_TAB_INFO					  		 = pr_grpName + "Tmpl_Ent_Content";
+			tmplName.TMPL_ENT_TAB_INFO_CONTACT			  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Contact";
+			tmplName.TMPL_ENT_TAB_INFO_CONTACT_ADD		  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add";
+			tmplName.TMPL_ENT_TAB_INFO_INSURANCE		  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Insurance";
+			tmplName.TMPL_ENT_TAB_INFO_INSURANCE_ADD	  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add_Lst";
+			tmplName.TMPL_ENT_TAB_INFO_FILE				  		 = pr_grpName + "Tmpl_Ent_Tab_Info_File";
+			tmplName.TMPL_ENT_TAB_DISEASE_HIS			  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist";
+			tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC	  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Chronic";
+			tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC_ADD 		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Chronic_Add";
+			tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY	  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Family";
+			tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY_ADD  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Family_Add";
+			tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY	  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Allergy";
+			tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY_ADD 		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Allergy_Add";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL 			  		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST 		  		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_List";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_List_Content";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW 		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Content_New";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_MAIN_SELECT= pr_grpName + "Tmpl_Ent_Tab_History_Medical_Content_ICD_Main_Select";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_SUB_SELECT = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Content_ICD_Sub_Select";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT 	  		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Content";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT   		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Prescription";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT_ADD		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Prescription_Add";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD 	  		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Blood";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD_ADD    		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Blood_Add";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG   	  		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Img";
+			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG_ADD     		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_Test_Img_Add";
 			
-			tmplName.TMPL_ENT_TAB_INFO_MOD				  = pr_grpName + "Tmpl_Ent_Tab_Info_Modify";
+			tmplName.TMPL_ENT_TAB_INFO_MOD				  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Modify";
 			
 			
-			tmplName.TMPL_DROPZONE_FILE					  = pr_grpName + "Tmpl_Dropzone_File"
+			tmplName.TMPL_DROPZONE_FILE					  		 = pr_grpName + "Tmpl_Dropzone_File"
 			
 			
 			
@@ -172,26 +178,28 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO_FILE			, Tmpl_Ent_Tab_Info_File);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO_MOD			, Tmpl_Ent_Tab_Info_Modify);
 			
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS				, Tmpl_Ent_Tab_Disease_Hist);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC		, Tmpl_Ent_Tab_Disease_Hist_Chronic);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC_ADD	, Tmpl_Ent_Tab_Disease_Hist_Chronic_Add);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY		, Tmpl_Ent_Tab_Disease_Hist_Family);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY_ADD	, Tmpl_Ent_Tab_Disease_Hist_Family_Add);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY		, Tmpl_Ent_Tab_Disease_Hist_Allergy);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY_ADD	, Tmpl_Ent_Tab_Disease_Hist_Allergy_Add);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, Tmpl_Ent_Tab_History_Medical);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST			, Tmpl_Ent_Tab_History_Medical_List);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT	, Tmpl_Ent_Tab_History_Medical_List_Content);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW	, Tmpl_Ent_Tab_History_Medical_Content_New);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT		, Tmpl_Ent_Tab_History_Medical_Content);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT		, Tmpl_Ent_Tab_History_Medical_Prescription);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT_ADD	, Tmpl_Ent_Tab_History_Medical_Prescription_Add);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD		    , Tmpl_Ent_Tab_History_Medical_Test_Blood);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD_ADD		, Tmpl_Ent_Tab_History_Medical_Test_Blood_Add);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG		    , Tmpl_Ent_Tab_History_Medical_Test_Img);
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG_ADD		, Tmpl_Ent_Tab_History_Medical_Test_Img_Add);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS					, Tmpl_Ent_Tab_Disease_Hist);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC			, Tmpl_Ent_Tab_Disease_Hist_Chronic);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC_ADD		, Tmpl_Ent_Tab_Disease_Hist_Chronic_Add);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY			, Tmpl_Ent_Tab_Disease_Hist_Family);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY_ADD		, Tmpl_Ent_Tab_Disease_Hist_Family_Add);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY			, Tmpl_Ent_Tab_Disease_Hist_Allergy);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY_ADD		, Tmpl_Ent_Tab_Disease_Hist_Allergy_Add);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL					, Tmpl_Ent_Tab_History_Medical);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST				, Tmpl_Ent_Tab_History_Medical_List);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT		, Tmpl_Ent_Tab_History_Medical_List_Content);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW		, Tmpl_Ent_Tab_History_Medical_Content_New);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_MAIN_SELECT, Tmpl_Ent_Tab_History_Medical_Content_ICD_Main_Select);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_SUB_SELECT, Tmpl_Ent_Tab_History_Medical_Content_ICD_Sub_Select);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT			, Tmpl_Ent_Tab_History_Medical_Content);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT			, Tmpl_Ent_Tab_History_Medical_Prescription);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT_ADD		, Tmpl_Ent_Tab_History_Medical_Prescription_Add);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD		    	, Tmpl_Ent_Tab_History_Medical_Test_Blood);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD_ADD			, Tmpl_Ent_Tab_History_Medical_Test_Blood_Add);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG		    	, Tmpl_Ent_Tab_History_Medical_Test_Img);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG_ADD			, Tmpl_Ent_Tab_History_Medical_Test_Img_Add);
 			
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE				, Tmpl_PrjDropzone_File);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE							, Tmpl_PrjDropzone_File);
 			
 			//---------------------------------------------------------------------------------------------
 			//---------------------------------------------------------------------------------------------

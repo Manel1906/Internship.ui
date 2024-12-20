@@ -200,10 +200,10 @@ define([],function(){
 					App.controller[pr_grpName].EntTabOrderMedical	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_blood_test){
-					App.controller[pr_grpName].EntTabOrderBloodTest		.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabOrderBloodTest	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_img_test){
-					App.controller[pr_grpName].EntTabOrderImgTest		.do_lc_show(ent, mode);
+					App.controller[pr_grpName].EntTabOrderImgTest	.do_lc_show(ent, mode);
 				}
 			});
 		}
