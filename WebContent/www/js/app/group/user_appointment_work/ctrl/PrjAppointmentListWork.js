@@ -38,7 +38,7 @@ define([
 		
 		var TIME_RANGE						= 3;
 		var TYP_01_WORK_PLAN				= 900;
-		var TYP_02_APPOINTMENT				= 1000;
+		var TYP_02_MEET_CLIENT				= 100;
 
 		const pr_TYP_MEMBER 				= 2;
 
@@ -1076,6 +1076,12 @@ define([
 			let	data	 		= req_gl_data({
 				dataZoneDom		: $("#div_create_prj_appointment")
 			});
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}	
+						
 			let prj 		= data.data;
 			prj.inf02.cl 	= pr_Color;
 			prj.dtBegin 	= do_lc_convert_date(prj.dtBegin).replace("T"," ");
@@ -1092,7 +1098,7 @@ define([
 				do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_today_msg_err"));
 				return;
 			}
-			prj.typ01 					= 900;
+			prj.typ01 					= TYP_01_WORK_PLAN;
 			prj.nb 						= 0;
 			prj.val01 					= JSON.stringify(customers);
 			let membersArr 				= [];
@@ -1288,10 +1294,17 @@ define([
 		    let data = req_gl_data({
 		        dataZoneDom: $("#div_create_prj_appointment")
 		    });
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}	
+						
 		    let prj 			= data.data;
 		    if(!prj.inf02)
 		    	prj.inf02		= {};
 		    prj.inf02.cl 		= pr_Color;
+			prj.fv01			= prj.inf02.pr;
 		    prj.stat01 			= STAT_ACTIVE; // Active
 		    prj.dtBegin 		= do_lc_convert_date(prj.dtBegin).replace("T", " ");
 		    prj.dtEnd 			= do_lc_convert_date(prj.dtEnd).replace("T", " ");
@@ -1340,7 +1353,7 @@ define([
 		
 		    function addAdditionalData(appointment) {
 		        appointment.files 	= files.files;
-		        appointment.typ01 	= 900;
+		        appointment.typ01 	= TYP_01_WORK_PLAN;
 		        appointment.nb 		= 0;
 		        appointment.val01 	= JSON.stringify(customers);
 		        if (appointment.val02 && !/^https?:\/\//i.test(appointment.val02)) {
@@ -1778,11 +1791,12 @@ define([
 		        const selectedValue = $(this).val(); 
 		        $('#colorValue').val(selectedColor);
 		        pr_Color = selectedColor;
-		        if (selectedValue == "100") {
+		        if (selectedValue == TYP_02_MEET_CLIENT) {
 		            $('#price').closest('.form-group').fadeIn();
+					$('#price').show();
 		        } else {
 		            $('#price').closest('.form-group').fadeOut();
-		            $('#price').val("");
+					$('#price').hide();
 		        }
 		    });
 		    
@@ -1882,7 +1896,7 @@ define([
 		function do_get_availableTimeList(dp, dtBegin, dtEnd) {
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointment");
 		//	ref.typ01s 	= TYP_01_MEETING;
-			ref.typ01s 	= 900;
+			ref.typ01s 	= TYP_01_WORK_PLAN;
 			ref.dtBegin	= dtBegin;
 			ref.dtEnd	= dtEnd;
 			

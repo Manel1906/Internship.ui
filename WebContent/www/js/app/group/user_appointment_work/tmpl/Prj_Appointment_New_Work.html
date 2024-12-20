@@ -28,8 +28,8 @@
 			
 			<div class="form-group row mb-2">
                 <div class="col-lg-12">
-                    <label for="price" class="col-form-label h5">{{transl 'prj_appointment_price'}}</label>
-                    <input type="number" class="form-control objData" data-group="inf02" data-name="pr" id="price" value="{{ent.inf02.pr}}">
+                    <label for="price" class="col-form-label h5">{{transl 'prj_appointment_price'}}<span class="required">&nbsp;*</span></label>
+                    <input type="number" class="form-control objData" data-group="inf02" data-name="pr" id="price" value="{{ent.inf02.pr}}" data-validation="required">
                 </div>
             </div>
 

@@ -1004,7 +1004,7 @@ var bib_hnv_tool = [
     "common/ctrl/ChartTool",
     "common/ctrl/BarRatingTool",
     
-    "common/ctrl/RTCTool",
+//    "common/ctrl/RTCTool",
 //    "common/ctrl/ChatboxController",
     
 //  "common/ctrl/ExceptionTool",

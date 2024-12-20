@@ -913,6 +913,12 @@ define([
 			let	data	 		= req_gl_data({
 				dataZoneDom		: $("#div_create_prj_appointment")
 			});
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}	
+						
 			const workType		= $("input[name='workType']:checked").val();
 			let prj 			= data.data;
 			prj.inf02.workType 	= workType;
@@ -946,6 +952,12 @@ define([
 			let	data	 		= req_gl_data({
 				dataZoneDom		: $("#div_mod_custom_prj_appointment")
 			});
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}	
+						
 			let prj 	= data.data;
 			prj.typ01 	= 900;
 			prj.inf02.cl = pr_Color;
@@ -1133,6 +1145,12 @@ define([
 		    let data = req_gl_data({
 		        dataZoneDom: $("#div_create_prj_appointment")
 		    });
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}	
+						
 		    var selectedWorkType = $("input[name='workType']:checked").val();
 		    let prj = data.data;
 		    prj.inf02.cl = pr_Color;
