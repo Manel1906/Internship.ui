@@ -28,21 +28,24 @@
 							<input type="hidden" id="colorValue" data-group="inf02" data-name="cl" />
                         </div>
                     </div>
-					<div style="display: flex; justify-content: space-between; align-items: center;">
-					  <label for="form" class="form-group">{{transl 'prj_appointment_option_form'}}</label>
-					  
-					  <label for="workTypeOnline" style="flex: 1; text-align: center;">
-					    <input type="radio" class="form-check-input objData" id="workTypeOnline" 
-					           name="workType" data-group="inf02" data-name="workType" value="1" {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}}>
-					    <span class="form-check-label">{{transl 'prj_appointment_option_online'}}</span>
-					  </label>
-					  
-					  <label for="workTypeOffline" style="flex: 1; text-align: center;">
-					    <input type="radio" class="form-check-input objData" id="workTypeOffline" 
-					           name="workType" data-group="inf02" data-name="workType" value="0" {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}}>
-					    <span class="form-check-label">{{transl 'prj_appointment_option_offline'}}</span>
-					  </label>
-					</div> 
+                    {{#equal ent.typ02 100}}
+						<div style="display: flex; justify-content: space-between; align-items: center;">
+						  <label for="form" class="form-group">{{transl 'prj_appointment_option_form'}}</label>
+						  
+						  <label for="workTypeOnline" style="flex: 1; text-align: center;">
+						    <input type="radio" class="form-check-input objData" id="workTypeOnline" 
+						           name="workType" data-group="inf02" data-name="workType" value="1" {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}}>
+						    <span class="form-check-label">{{transl 'prj_appointment_option_online'}}</span>
+						  </label>
+						  
+						  <label for="workTypeOffline" style="flex: 1; text-align: center;">
+						    <input type="radio" class="form-check-input objData" id="workTypeOffline" 
+						           name="workType" data-group="inf02" data-name="workType" value="0" {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}}>
+						    <span class="form-check-label">{{transl 'prj_appointment_option_offline'}}</span>
+						  </label>
+						</div> 
+					{{/equal}}
+					
 
 
                     <!-- Location -->
@@ -205,7 +208,7 @@
                                                     </div>
                                                     <div class="col-lg-6">
 	                                                    <select id="notificationDropdown" data-name="inf03" class="form-control objData" style="padding: 10px; border-radius: 5px;">
-															 	<option value="0" style="padding: 10px;">{{transl 'noti_add_notif'}}</option>
+															 	<option value="" style="padding: 10px;">{{transl 'noti_add_notif'}}</option>
 																<option value="5" style="padding: 10px;">{{transl 'noti_5min'}}</option>
 																<option value="15" style="padding: 10px;">{{transl 'noti_15min'}}</option>
 																<option value="30" style="padding: 10px;">{{transl 'noti_30min'}}</option>

@@ -140,6 +140,7 @@
 	"prj_department_fourteen" 							: "Khoa dược",
 	"prj_department_option_department" 					: "Chọn phòng ban",
 	"prj_appointment_option_none"						:"Chọn lịch",
-	"prj_appointment_price"								:"Giá tiền"
+	"prj_appointment_price"								:"Giá tiền",
+	"common_err_msg_search_required"					:"Vui lòng chọn phòng ban"
 	
 }

@@ -9,6 +9,11 @@
 	<div class="card-body">
 		{{#each appointments}}
 		<div class="row mb-2">
+			{{#if name}}
+			<div class="col-12">
+				<h5 class="card-title">{{name}}</h5>
+			</div>
+			{{/if}}
 			<div class="col-12">  
 				<div class="row col-12">
 	 				<p class="mb-2"><i class="mdi mdi-clock"></i> {{formatDate dtBegin "date"}}</p>	
@@ -24,11 +29,6 @@
 				<p><i class="mdi mdi-calendar-clock"></i> {{formatDate dtBegin "time"}} - {{formatDate dtEnd "time"}}</p>
 			</div>
 			
-			{{#if name}}
-			<div class="col-12">
-				<h5 class="card-title">{{name}}</h5>
-			</div>
-			{{/if}}
 			
 			<div class="col-12">
 				<p class="mb-2"><i class="mdi mdi-map-marker"></i> {{inf01}}</p>

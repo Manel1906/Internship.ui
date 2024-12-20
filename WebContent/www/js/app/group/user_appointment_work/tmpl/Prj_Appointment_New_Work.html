@@ -92,49 +92,55 @@
 				<div class="col-lg-6">
 					<label class="col-form-label h5">{{transl 'prj_project_project_repeat'}}</label>
 					
-					<div id="toggleDropDown" style="position: relative; display: inline-block; width: 100%; cursor: pointer;">
-			        <div style="
-			             padding: 5px;
-			             border: 1px solid #ccc;
-			             background-color: #f9f9f9;
-			             width: 100%;
-			             text-align: left;">
-			             {{transl 'prj_project_project_repeat'}}
-         			</div>
-			        <div id="weekdayDropdown" style="
-			             display: none;
-			             position: absolute;
-			             background-color: #f9f9f9;
-			             border: 1px solid #ccc;
-			             width: 100%;
-			             max-height: 200px;
-			             overflow-y: auto;
-			             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-			             z-index: 1;">
-             		
-	             		<label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
-	                 		<input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Mon" style="margin-right: 8px;"> {{transl 'prj_repeat_one'}}
-	             		</label>
-			            <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
-			                 <input type="checkbox"   data-group="inf02" data-name="repeat-day"  value="Tue" style="margin-right: 8px;">  {{transl 'prj_repeat_two'}}
-			            </label>
-			            <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
-			                 <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Wed" style="margin-right: 8px;"> {{transl 'prj_repeat_three'}}
-			            </label>
-			            <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
-			                 <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Thu" style="margin-right: 8px;"> {{transl 'prj_repeat_four'}}
-			            </label>
-			            <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
-			                 <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Fri" style="margin-right: 8px;"> {{transl 'prj_repeat_five'}}
-			            </label>
-			            <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
-			                 <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Sat" style="margin-right: 8px;"> {{transl 'prj_repeat_six'}}
-			            </label>
-			            <label style="display: block; padding: 8px 10px; font-size: 15px; cursor: pointer;">
-			                 <input type="checkbox"  data-group="inf02" data-name="repeat-day"  value="Sun" style="margin-right: 8px;"> {{transl 'prj_repeat_seven'}}
-			            </label>
-         			</div>
-				</div>
+					<div id="toggleDropDown" class="dropdown w-100">
+		            <button class="btn btn-light dropdown-toggle w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		                {{transl 'prj_project_project_repeat'}}
+		            </button>
+		            <ul id="weekdayDropdown" class="dropdown-menu w-100 overflow-auto" style="max-height: 200px;">
+		                <li>
+		                    <label class="dropdown-item">
+		                        <input type="checkbox" data-group="inf02" data-name="repeat-day" value="Mon" class="form-check-input me-2">
+		                        {{transl 'prj_repeat_one'}}
+		                    </label>
+		                </li>
+		                <li>
+		                    <label class="dropdown-item">
+		                        <input type="checkbox" data-group="inf02" data-name="repeat-day" value="Tue" class="form-check-input me-2">
+		                        {{transl 'prj_repeat_two'}}
+		                    </label>
+		                </li>
+		                <li>
+		                    <label class="dropdown-item">
+		                        <input type="checkbox" data-group="inf02" data-name="repeat-day" value="Wed" class="form-check-input me-2">
+		                        {{transl 'prj_repeat_three'}}
+		                    </label>
+		                </li>
+		                <li>
+		                    <label class="dropdown-item">
+		                        <input type="checkbox" data-group="inf02" data-name="repeat-day" value="Thu" class="form-check-input me-2">
+		                        {{transl 'prj_repeat_four'}}
+		                    </label>
+		                </li>
+		                <li>
+		                    <label class="dropdown-item">
+		                        <input type="checkbox" data-group="inf02" data-name="repeat-day" value="Fri" class="form-check-input me-2">
+		                        {{transl 'prj_repeat_five'}}
+		                    </label>
+		                </li>
+		                <li>
+		                    <label class="dropdown-item">
+		                        <input type="checkbox" data-group="inf02" data-name="repeat-day" value="Sat" class="form-check-input me-2">
+		                        {{transl 'prj_repeat_six'}}
+		                    </label>
+		                </li>
+		                <li>
+		                    <label class="dropdown-item">
+		                        <input type="checkbox" data-group="inf02" data-name="repeat-day" value="Sun" class="form-check-input me-2">
+		                        {{transl 'prj_repeat_seven'}}
+		                    </label>
+		                </li>
+		            </ul>
+		        </div>
 			</div>
 			<div class="col-lg-6">
 				<label for="" class="col-form-label h5">{{transl 'prj_project_project_frequency'}}</label>

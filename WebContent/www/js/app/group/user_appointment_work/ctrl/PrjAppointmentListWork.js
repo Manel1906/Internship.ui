@@ -60,7 +60,8 @@ define([
 		let pr_cWeeklyRemaining 			= 0
 		let pr_dtBegin						= null
 		var pr_ID							= null;
-		
+		var lock							= false;
+		var searchIdMember 	 				= null;
 		const previousPositions 			= {};
 
 
@@ -450,6 +451,10 @@ define([
 			};
 
 			dp_schedule.onTimeRangeSelected = function (args) {
+				if (!lock) {
+			        do_gl_show_Notify_Msg_Error($.i18n('common_err_msg_search_required'));
+			        return;
+			    }
 				dp_schedule.clearSelection();
 				const now = new Date();
 				if (now > new Date(args.start.value) || now > new Date(args.end.value)) return;
@@ -1087,19 +1092,23 @@ define([
 				do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_today_msg_err"));
 				return;
 			}
-			prj.files 	= files.files;
-			prj.typ01 	= 900;
-			// prj.typ02 	= TYP_02_APPOINTMENT;
-			prj.nb 		= 0;
-			prj.val01 	= JSON.stringify(customers);
+			prj.typ01 					= 900;
+			prj.nb 						= 0;
+			prj.val01 					= JSON.stringify(customers);
+			let membersArr 				= [];
+			$('#div_list_member').find('[data-id]').each(function() {
+					const dataId 		= $(this).attr('data-id');
+					const typMemDoctor 	= 10;
+					membersArr.push({uId: dataId, typ: typMemDoctor});
+				});
 			
 			if (Array.isArray(e.inf02.color)) {
 			    prj.inf02.color = e.inf02.color;
 			}
-			do_lc_mod_prj_appointment(prj);
+			do_lc_mod_prj_appointment(prj,membersArr);
 		}
-		var do_lc_mod_prj_appointment = function (prj) {
-			let dataSend	= {obj: JSON.stringify(prj), member: JSON.stringify(Object.values(members)), customersAdd: JSON.stringify(customersAdd), customersDel: JSON.stringify(customersDel)};
+		var do_lc_mod_prj_appointment = function (prj,membersArr) {
+			let dataSend	= {obj: JSON.stringify(prj), member: JSON.stringify(Object.values(membersArr)), customersAdd: JSON.stringify(customersAdd), customersDel: JSON.stringify(customersDel)};
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVModWorkPlan", dataSend);			
 
 			let fSucces		= [];		
@@ -1338,10 +1347,13 @@ define([
 		            appointment.val02 = 'http://' + appointment.val02;
 		        }
 				$('#div_list_member').find('[data-id]').each(function() {
-					const dataId 		= $(this).attr('data-id');
-					const typMemDoctor 	= 10;
-					membersArr.push({uId: dataId, typ: typMemDoctor});
-				});
+			        const dataId = $(this).attr('data-id');
+			        const typMemDoctor = 10;
+			
+			        if (!membersArr.some(member => member.uId === dataId)) {
+			            membersArr.push({ uId: dataId, typ: typMemDoctor });
+			        }
+			    });
 				
 		    }
 			function formatDateToLocalString(date) {
@@ -1444,6 +1456,8 @@ define([
 					return false;
 				}
 				
+				lock 				= true;
+				
 			    let prj 			= data.data;
 				if (!prj.parId){
 					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
@@ -1454,6 +1468,7 @@ define([
 			    if (memberElement) {
 			        var memberId 	= memberElement.getAttribute('data-id');
 			        prj.memberId 	= memberId;
+			        searchIdMember  = memberId;
 			    }
 			    do_lc_search_appointment(prj, dp_schedule);
 			    
@@ -1471,7 +1486,7 @@ define([
 				    });
 		
 		            membersData.push({
-		                id		: memberId,
+		                uId		: memberId,
 		                name	: memberName,
 		                imgSrc	: imgSrc
 		            });
@@ -1577,16 +1592,16 @@ define([
 				}
 
 				members[item.id] 	= user;
-				console.log("aa",members);
 				let selOpt 			= `<div class='member-item'>`;
 				if(item.avatar) 
 					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.inf03}`;
 				else 			
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}`;
+					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-2 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}`;
 
-				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-member ml-4' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 				selOpt 				+= `</div>`;
-
+	
+				$("#selected_members_all").removeClass("hide")
 				$("#selected_members_all").append(selOpt);
 				$("#list_member_all").hide();
 				do_lc_bind_event_autocomplete();
@@ -1594,7 +1609,10 @@ define([
 			}
 		    $("#department").on("change", function () {
 			    var selectedValue = $(this).val(); 
-			
+			    if(selectedValue == ""){
+			    	$("#btn_create_entity").hide();
+			    	lock		  = false;
+			    }
 			    let typ01Arr = [App.data.user.typ01, 2, 20, 30];
 			    let typ01Str = typ01Arr.join(',');
 			
@@ -1674,13 +1692,14 @@ define([
 				do_lc_bind_event_autocomplete();
 				$(el).blur().val("");
 			}
-
-			let typ01Arr = [App.data.user.typ01, 2, 20, 30, 40];
+			var selectedValue = $("#department_input_id").val(); 
+			let typ01Arr = [App.data.user.typ01, 2, 20, 30];
 			let typ01Str 	= typ01Arr.join(',');
 			let options 	= {
-			    dataService 	: [pr_SERVICE_AUT_CLASS, pr_SV_USER_SEARCH], 
+			    dataService 	: [pr_SERVICE_AUT_CLASS, pr_SV_DOCTOR_SEARCH], 
 			    dataRes 		: ["login01", "name01"], 
-			    svParams		: {wAvatar:true, nbLine:5, typ01s: typ01Str, stats:1},
+			    svParams		: {wAvatar:true, nbLine:5, typ01s: typ01Str, stats:1,
+			     					grpId: selectedValue },
 			    fSelect			: reqSelectMember, 
 			    customShowList	: customShowList
 			}
@@ -1690,6 +1709,7 @@ define([
 
 		const do_lc_bind_event_autocomplete = () => {
 			$(".btn-remove-member").off("click").on("click", function(){
+			 	$("#selected_members_all").addClass("hide")
 				let $this 	= $(this);
 				let {id} 	= $this.data();
 
@@ -1778,10 +1798,8 @@ define([
 				$("#department_input_id").attr("value"		, prj_work.departmentValue);
 		   		$("#department_input"	).attr("placeholder", prj_work.departmentText);
 			}
-			
 			if (!members)
-				members = prj_work? prj_work.members : null;
-			
+				members			= prj_work? prj_work.members : null;
 			if (members) {
 		       Object.values(members).forEach(member => {
 		            let selOpt = `<div class='member-item'>`;
@@ -1800,9 +1818,8 @@ define([
 		                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${memberName}`;
 		            }
 		
-		            selOpt += `<a data-id='${member.id}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class="mdi mdi-close font-size-18"></i></a>`;
+		            selOpt += (!searchIdMember.includes(member.uId)) ? `<a data-id='${member.uId}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>` : `<a data-id='${member.uId}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>`;
 		            selOpt += `</div></div>`;
-		
 		            $("#div_list_member").append(selOpt);
 		        });
 	    	}
