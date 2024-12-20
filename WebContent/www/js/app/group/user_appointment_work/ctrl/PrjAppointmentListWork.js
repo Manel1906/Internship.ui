@@ -39,7 +39,7 @@ define([
 		var TIME_RANGE						= 3;
 		var TYP_01_WORK_PLAN				= 900;
 		var TYP_02_MEET_CLIENT				= 100;
-
+		var TYP_01_DEPARTMENT				= 300;
 		const pr_TYP_MEMBER 				= 2;
 
 		const STAT_ACTIVE    				= 1;
@@ -171,11 +171,14 @@ define([
 						obj			: files//file existing here
 				}
 				do_gl_init_fileDropzone($("#div_prj_docs"), option);
-
-				var now30 	= req_gl_DateAdd(new Date()	, "m", 30 );
-				var now60 	= req_gl_DateAdd (new Date(), "m", 60 );
-				now30 		= do_lc_handle_date (now30);
-				now60 		= do_lc_handle_date (now60);
+				var now 	= new Date();
+				var now30 	= new Date(now);
+					now30.setMinutes(now.getMinutes() + 30);
+				
+				var now60 	= new Date(now);
+					now60.setMinutes(now.getMinutes() + 60);
+					now30 	= do_lc_handle_date (now30);
+					now60 	= do_lc_handle_date (now60);
 				
 				$("#dtpicker_Begin" ).datepicker( "setDate", now30.dt);
 				$("#dtpicker_End" 	).datepicker( "setDate", now30.dt);
@@ -250,10 +253,10 @@ define([
 
 				if(sTimeArr.length <= 0 || eTimeArr.length <= 0) return
 
-				const sHour = +sTimeArr[0]
-				const sMinutes = +sTimeArr[1]
-				const eHour = +eTimeArr[0]
-				const eMinutes = +eTimeArr[1]
+				const sHour 	= +sTimeArr[0]
+				const sMinutes 	= +sTimeArr[1]
+				const eHour 	= +eTimeArr[0]
+				const eMinutes 	= +eTimeArr[1]
 
 				const eMinutesStr = eMinutes < 10 ? `0${eMinutes}` : eMinutes
 
@@ -264,11 +267,11 @@ define([
 
 		
 		const do_get_list_ByAjax = function(){	
-			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstSearch");
-			ref.typ01s 	= 300;
-			ref.stats = 1;
-			ref.hardLoad = false;
-			var fSucces	= [];
+			var ref 		= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstSearch");
+			ref.typ01s 		= TYP_01_DEPARTMENT;
+			ref.stats 		= STAT_ACTIVE;
+			ref.hardLoad 	= false;
+			var fSucces		= [];
 			fSucces.push(req_gl_funct(		null, do_lc_show_list_ByAjax_Dyn, [true]));
 			var fError 		= req_gl_funct(	null, do_lc_show_list_ByAjax_Dyn, [false]);
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
@@ -280,7 +283,6 @@ define([
 				const list = sharedJson[App['const'].RES_DATA] || {};
 				let lst = list.lst || [];
 				const data = { lst: lst };
-				console.log(lst)
 				$("#department").html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_DEPARTMENT, data));
 				do_lc_req_autocomplete_all();
 			} else {
@@ -447,7 +449,7 @@ define([
 					};
 				}
 
-				args.data.html = "<p><b>" + args.data.text + "</b></p>" + "<p class='long-txt'><i>" + args.data.obj.inf02.desc + "</i></p>" + "<div id='div_prj_list' class='row ml-1'>" + div + "</div>";
+				args.data.html = "<div class='row'><div class='col-1'><p><b>" + args.data.text + "</b></p> </div>" + "<div id='div_prj_list' class='row ml-auto mr-4'>" + div + "</div></div>" + "<p class='long-txt'><i>" + args.data.obj.inf02.desc + "</i></p>";
 			};
 
 			dp_schedule.onTimeRangeSelected = function (args) {
@@ -548,7 +550,7 @@ define([
 					App.MsgboxController.do_lc_show({
 						title		: $.i18n("prj_appointment_msg_title"),
 						content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, args.e.data.obj),
-						autoclose	: true,
+						autoclose	: false,
 						buttons		: "none",
 						onClose		: () => {
 							members 	= {};
@@ -701,8 +703,25 @@ define([
 					});
 					
 					divButtonDelete.on('click', function() {
-					    do_lc_remove_appointment(args.e);							
-					    App.MsgboxController.do_lc_close();
+						App.MsgboxController.do_lc_close();	
+						App.MsgboxController.do_lc_show({
+							title		: $.i18n("common_title_confirm"),
+							content 	: $.i18n("msg_del_entity_popup_content"),
+							autoclose	: false,
+							css			: {
+								"max-width":"450px"
+							},
+							buttons		: {
+								NO: {
+									lab		:  $.i18n("msg_btn_back"),
+								},
+								OK: {
+									lab			: $.i18n("msg_btn_del"),
+									funct		: () => do_lc_remove_appointment(args.e),
+									classBtn	: "btn-danger"
+								}
+							}
+						});
 					});
 
 					divButtonAccept.on('click', function() {
@@ -891,7 +910,25 @@ define([
 						icon: "fa fa-solid fa-play ic-red",
 						onClick: function (args) {
 							var e = args.source;
-							do_lc_remove_appointment(e);
+							
+							App.MsgboxController.do_lc_show({
+								title		: $.i18n("common_title_confirm"),
+								content 	: $.i18n("msg_del_entity_popup_content"),
+								autoclose	: false,
+								css			: {
+									"max-width":"450px"
+								},
+								buttons		: {
+									NO: {
+										lab		:  $.i18n("msg_btn_back"),
+									},
+									OK: {
+										lab			: $.i18n("msg_btn_del"),
+										funct		: () => do_lc_remove_appointment(e),
+										classBtn	: "btn-danger"
+									}
+								}
+							});
 						}
 					},
 					{
@@ -1132,7 +1169,7 @@ define([
 
 				if (dp_schedule) {
 					//do_get_availableTimeList(dp_schedule);	
-					do_lc_search_appointment(prj,dp_schedule)
+					do_lc_search_appointment(prjSearch,dp_schedule)
 				}
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
@@ -1197,7 +1234,7 @@ define([
 				do_gl_show_Notify_Msg_Success($.i18n("prj_appointment_msg_del_ajax"));
 				// reload
 				if (dp_schedule) {
-					do_lc_search_appointment(prj,dp_schedule)
+					do_lc_search_appointment(prjSearch,dp_schedule)
 				}
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
@@ -1443,8 +1480,12 @@ define([
 				ref.type02 		= prj.typ02;
 				ref.memberId 	= prj.memberId;
 			}
-			ref.dtBegin			= dtBegin;
+			
+			const 	newDate 	= dp_schedule.startDate;
+			var 	dt 			= req_gl_DateObj_From_DateStr (newDate.value.replace("T", " "));
+			ref.dtBegin			= req_gl_DateStr_From_DateObj(dt);
 			ref.dtEnd			= dtEnd;
+			ref.wParent			= true;
 
 			var fSucces	= [];
 			fSucces.push(req_gl_funct(		null, do_show_list_available_time, [true, dp_schedule]));
@@ -1623,7 +1664,7 @@ define([
 		    $("#department").on("change", function () {
 			    var selectedValue = $(this).val(); 
 			    if(selectedValue == ""){
-			    	$("#btn_create_entity").hide();
+			    	$("#btn_create_entity").addClass("hide");
 			    	lock		  = false;
 			    }
 			    let typ01Arr = [App.data.user.typ01, 2, 20, 30];
@@ -1832,7 +1873,11 @@ define([
 		                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${memberName}`;
 		            }
 		
-		            selOpt += (!searchIdMember.includes(member.uId)) ? `<a data-id='${member.uId}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>` : `<a data-id='${member.uId}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>`;
+		           selOpt += (searchIdMember !== null) 
+						    ? (!searchIdMember.includes(member.uId)) 
+						        ? `<a data-id='${member.uId}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>` 
+						        : `<a data-id='${member.uId}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>` 
+						    : `<a data-id='${member.uId}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 		            selOpt += `</div></div>`;
 		            $("#div_list_member").append(selOpt);
 		        });
@@ -1953,11 +1998,11 @@ define([
 		                }
 		
 		               do_lc_show_list_member(dp, lstCurObj);
-		               do_lc_req_appointment_noti(lstCurObj);
+//		               do_lc_req_appointment_noti(lstCurObj);
 		              
 		            } else {
 		                do_lc_show_list_member(dp, lstCurObj);
-		                do_lc_req_appointment_noti(lstCurObj);
+//		                do_lc_req_appointment_noti(lstCurObj);
 		                do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get_no_data"));
 		            }
 		        }
@@ -2005,7 +2050,7 @@ define([
 			}
 		}
 
-		const do_lc_req_appointment_noti = (lstTime) => {
+		/*const do_lc_req_appointment_noti = (lstTime) => {
 			const curDate 			= new Date();
 			const curDay 			= curDate.getDay() === 0 ? 7 : curDate.getDay() + 1;
 			const diffDayCheck 		= req_gl_DayDiff(req_gl_DateObj_From_DateStr(pr_dtBegin));
@@ -2081,7 +2126,7 @@ define([
 
 			$("#weekly_appointment span").html(cWeeklyRemaining)
 		}
-
+*/
 		var do_lc_handle_date = (strDate) => {
 			let tmp = getDateEN(strDate);
 			let res = {};

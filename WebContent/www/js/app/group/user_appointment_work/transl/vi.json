@@ -111,7 +111,7 @@
 	"prj_schedule_work"									:"Lịch làm việc",
 	"prj_schedule_work_search"							:"Tìm kiếm",
 	"prj_schedule_work_type"							:"Kiểu lịch",
-	"prj_project_project_repeat"						:"Lặp lại",
+	"prj_project_project_repeat"						:"Ngày lặp lại",
 	"prj_project_project_frequency"						:"Tần suất",
 	"prj_repeat_one"									:"Thứ 2",
 	"prj_repeat_two"									:"Thứ 3",
@@ -141,6 +141,9 @@
 	"prj_department_option_department" 					: "Chọn phòng ban",
 	"prj_appointment_option_none"						:"Chọn lịch",
 	"prj_appointment_price"								:"Giá tiền",
-	"common_err_msg_search_required"					:"Vui lòng chọn phòng ban"
-	
+	"common_err_msg_search_required"					:"Vui lòng chọn phòng ban",
+	"common_title_confirm"								:"Xóa lịch làm việc",
+	"msg_del_entity_popup_content"						:"Bạn có muốn chắc chắn xóa lịch làm việc ?",
+	"msg_btn_back"										:"Quay lại",
+	"msg_btn_del"										:"Xóa"
 }

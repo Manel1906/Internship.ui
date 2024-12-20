@@ -59,14 +59,14 @@ define([
 		var pr_lstAvailableTime				=	[];
 		var pr_grpName						= "ChatRoomChat";
 		var TIME_RANGE						= 3;
-		var TYP_01_MEETING					= 100;
-		var TYP_02_APPOINTMENT				= 1000;
-
+//		var TYP_01_MEETING					= 100;
+//		var TYP_02_APPOINTMENT				= 1000;
+		var TYP_01_WORK_PLAN 				= 900;
 		const pr_TYP_MEMBER 				= 2;
-
+		const pr_NUMBER_PAGE				= 5
 		const STAT_ACTIVE    				= 1;
 		const STAT_DESACTIVE    			= 2;
-
+		
 		var members 						= {};
 //		var membersDel 						= [];
 		let files							= {files: []};
@@ -87,7 +87,7 @@ define([
 		const previousPositions 			= {};
 
 		const pr_member_lev_manager 		= 0;
-
+		var workType						= null
 		const pr_stat_pending				= 0;
 		const pr_stat_active				= 1;
 		const pr_stat_accept				= 3;
@@ -245,6 +245,10 @@ define([
 
 				do_lc_bind_event_dtInput()
 			}
+			$("input[name='workType']").change(function() {
+			    workType = $("input[name='workType']:checked").val();
+			});
+
 		}
 
 		const do_lc_bind_event_dtInput = () => {
@@ -458,7 +462,7 @@ define([
 					};
 				}
 
-				args.data.html = "<p><b>" + args.data.text + "</b></p>" + "<p class='long-txt'><i>" + args.data.obj.inf02.desc + "</i></p>" + "<div id='div_prj_list' class='row ml-1'>" + div + "</div>";
+				args.data.html = "<div class='row'><div class='col-1'><p><b>" + args.data.text + "</b></p> </div>" + "<div id='div_prj_list' class='row ml-auto mr-4'>" + div + "</div></div>" + "<p class='long-txt'><i>" + args.data.obj.inf02.desc + "</i></p>";
 			};
 
 			/*dp_schedule.onTimeRangeSelected = function (args) {
@@ -492,7 +496,7 @@ define([
 					    "margin"	: "auto"
 					}
 				});
-				do_lc_binding_event_add_customer(false);
+		//		do_lc_binding_event_add_customer(false);
 				do_lc_req_autocomplete();
 
 				let option		= {
@@ -620,7 +624,7 @@ define([
 						divButtonDeny		.hide();
 					}
 
-					var e = args.e;
+					/*var e = args.e;
 					if (e.data.obj.uId 		== App.data.user.id) {
 						divButtonAccept		.hide();
 						divButtonDeny		.hide();
@@ -646,7 +650,7 @@ define([
 								}
 						    }
 						}
-					}
+					}*/
 					
 					divButtonEdit.on('click', function() {
 						App.MsgboxController.do_lc_close();
@@ -825,19 +829,19 @@ define([
 
 					},
 					{
-					
-					    text:  $.i18n("prj_appointment_event_del"),
-					    icon: "fa fa-solid fa-play ic-red",
-					    onClick: function (args) {
-					        var e = args.source;
-					        do_lc_cancel_appointment(e);
-					    }
-					},
-					{
 						text: "-"
 					},
 
 					],
+					onShow: function(args) {
+						const now 			= new Date();
+						const isPastEvent 	= now >= new Date(args.source.data.start) || now >= new Date(args.source.data.end);
+						args.menu.items.forEach(item => item.hidden = false);
+						args.menu.items[0].hidden = false;
+						if (isPastEvent) {
+						    args.menu.items[0].hidden = true;
+						}
+					}
 					
 			});
 
@@ -915,11 +919,8 @@ define([
 			});
 			//check data error
 			if(data.hasError){
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
-				return;
-			}	
-						
-			const workType		= $("input[name='workType']:checked").val();
+		    	do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'))
+		    }
 			let prj 			= data.data;
 			prj.inf02.workType 	= workType;
 			prj.inf02.cl 		= pr_Color;
@@ -938,7 +939,7 @@ define([
 				return;
 			}
 			prj.files 	= files.files;
-			prj.typ01 	= 900;
+			prj.typ01 	= TYP_01_WORK_PLAN;
 			// prj.typ02 	= TYP_02_APPOINTMENT;
 			prj.nb 		= 0;
 			prj.val01 	= JSON.stringify(customers);
@@ -949,20 +950,19 @@ define([
 			do_lc_mod_prj_appointment(prj);
 		}
 		var do_lc_mod_custom_appointment = function (e) {
-			let	data	 		= req_gl_data({
-				dataZoneDom		: $("#div_mod_custom_prj_appointment")
+			let	data	 			= req_gl_data({
+				dataZoneDom			: $("#div_mod_custom_prj_appointment")
 			});
 			//check data error
 			if(data.hasError){
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
-				return;
-			}	
-						
-			let prj 	= data.data;
-			prj.typ01 	= 900;
-			prj.inf02.cl = pr_Color;
-			// prj.typ02 	= TYP_02_APPOINTMENT;
-			prj.nb 		= 0;
+		    	do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'))
+		    }
+			let prj 				= data.data;
+			prj.typ01 				= TYP_01_WORK_PLAN;
+			prj.inf02.cl 			= pr_Color;
+			// prj.typ02 			= TYP_02_APPOINTMENT;
+			prj.nb 					= 0;
+			prj.inf02.workType		= workType;
 			do_lc_mod_prj_appointment(prj);
 		}
 		var do_lc_mod_prj_appointment = function (prj) {
@@ -1056,7 +1056,7 @@ define([
 		}
 
 
-		var do_lc_deny_appointment = function (e) {
+		/*var do_lc_deny_appointment = function (e) {
 			let dataSend	= {id: e.data.obj.id, stat: pr_stat_active};
 			let ref 		= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVModStatMemMeet", dataSend);			
 
@@ -1129,7 +1129,7 @@ define([
 		        do_gl_show_Notify_Msg_Error($.i18n("common_err_ajax"));
 		    }
 		}
-
+*/
 		var getDateISOShort = function(dObj) {
 			return req_gl_DateStr_From_DateObj(dObj, DateFormat.masks.isoDate);		
 		}
@@ -1140,18 +1140,14 @@ define([
 
 		//-------------------------------------------------------------------------------------------------
 
-		var do_lc_create_appointment = function () {
+		/*var do_lc_create_appointment = function () {
 			
 		    let data = req_gl_data({
 		        dataZoneDom: $("#div_create_prj_appointment")
 		    });
-			//check data error
-			if(data.hasError){
-				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
-				return;
-			}	
-						
-		    var selectedWorkType = $("input[name='workType']:checked").val();
+		    if(data.hasError){
+		    	do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'))
+		    }
 		    let prj = data.data;
 		    prj.inf02.cl = pr_Color;
 		    prj.inf02.workType = selectedWorkType;
@@ -1279,16 +1275,16 @@ define([
 				
 			}else{
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
-			}
-			members = {};
+			}*/
+//			members = {};
 //			membersDel = [];w
-		}
+//		}
 
-/*		const do_lc_convert_date = (objDate) => {
+		const do_lc_convert_date = (objDate) => {
 			if (objDate.time.length < 5) objDate.time = "0" + objDate.time;
 			return objDate.date.substr(0, 10) + "T" + objDate.time.substr(0, 5) + ":00";
-		}*/
-		function do_lc_search_prj_appointment(prj,dp_schedule,dtBegin,dtEnd) {
+		}
+		/*function do_lc_search_prj_appointment(prj,dp_schedule,dtBegin,dtEnd) {
 			var ref 			= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointmentSearch");
 			if (prj != null) {
 		        ref.parId 		= prj.parId;
@@ -1304,7 +1300,7 @@ define([
 
 			var fError 			= req_gl_funct(	null, do_get_availableTimeList_callback, [false]);
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
-		}
+		}*/
 		const do_lc_bind_eventPage = () => {
 			var currentDate = new Date();
 			var formattedDate = currentDate.toLocaleDateString('vi-VN');
@@ -1438,8 +1434,8 @@ define([
 			})
 		}
 
-		const do_lc_binding_event_add_customer = function(mod){
-			$('.typ02').on('change', function() {
+		//const do_lc_binding_event_add_customer = function(mod){
+			/*$('.typ02').on('change', function() {
 		        var selectedColor = $(this).find(':selected').data('color');
 		        $('#colorValue').val(selectedColor);
 		        pr_Color = selectedColor;
@@ -1504,16 +1500,17 @@ define([
 
 				parent.remove();
 			})
-
-		}
+*/
+//		}
 		//------------------------------------------------------------------------------------
 		//-------------------------------------------------------------------------------------------------
 		function do_get_availableTimeList(dp, dtBegin, dtEnd) {
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointment");
 		//	ref.typ01s 	= TYP_01_MEETING;
-			ref.typ01s 	= 900;
-			ref.dtBegin	= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
-			ref.dtEnd	= dtEnd	 ?dtEnd	 .replace("T"," "): req_gl_DateStr_From_DateObj(req_gl_DateAdd (new Date(), 'D', 7))	;
+			ref.typ01s 	= TYP_01_WORK_PLAN;
+			ref.wParent = true;
+		//	ref.dtBegin	= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
+		//	ref.dtEnd	= dtEnd	 ?dtEnd	 .replace("T"," "): req_gl_DateStr_From_DateObj(req_gl_DateAdd (new Date(), 'D', 7))	;
 			
 			var fSucces	= [];
 			fSucces.push(req_gl_funct(		null, do_get_availableTimeList_callback, [true, dp, ref.dtBegin, ref.dtEnd]));
@@ -1620,7 +1617,8 @@ define([
 			let divPan 				= $("#div_group_pagination");
 			const ref 				= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVLstNotiSearch", {typ01s: 900, searchKey: "", stats : 1, hardLoad:false});
 			ref.dtBegin				= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
-			ref.dtEnd				= dtEnd	 ?dtEnd	 .replace("T"," "): req_gl_DateStr_From_DateObj(req_gl_DateAdd (new Date(), 'D', 7))	;
+			ref.dtEnd 				= req_gl_DateStr_From_DateObj(new Date().setHours(23, 59, 59, 0));
+
 			const callbackFunct 	= data => do_lc_show_list_noti_ByAjax_Dyn(data, divList);
 			
 			const opt 				= {
@@ -1629,7 +1627,7 @@ define([
 					url_api 		: App.path.BASE_URL_API_PRIV, 
 					url_header 		: App.data["HttpSecuHeader"],
 					url_api_param 	: ref,
-					pageSize 		: 5,
+					pageSize 		: pr_NUMBER_PAGE,
 					pageRange		: 1,
 					callback		: callbackFunct
 			};
@@ -1653,21 +1651,27 @@ define([
 		
 		            return isPastA ? 1 : -1;
 		        });
-		        console.log(sortedList)
 				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, { "appointments": sortedList}));
-				$(".div_button_call").on("click", function () {
-				    const appointmentId = $(this).data("appointment-id");
-	
-				    if (appointmentId) {
-				        App.controller.ChatRoom.ChatRoomMain.do_lc_show(10,appointmentId);
-				        $("#schedule").addClass("hide")
-				    } else {
-				        console.warn("No matching ID found in data array");
-				    }
-				});
+				do_lc_bind_event_notification();
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
 			}
+		}
+		
+		const do_lc_bind_event_notification = () => {
+			$(".div_button_call").on("click", function () {
+				 const appointmentId = $(this).data("appointment-id");
+	
+				  if (appointmentId) {
+				       App.controller.ChatRoom.ChatRoomMain.do_lc_show(10,appointmentId);
+				       $("#schedule").addClass("hide")
+				   } else {
+				        console.warn("No matching ID found in data array");
+				   }
+				});
+			$("#btn_refresh_appointment").off("click").on("click", function(){
+				do_lc_req_appointment_noti();
+			})
 		}
 
 
@@ -1802,7 +1806,7 @@ define([
 	       		$(this).toggleClass("active");
 	    	});
 			
-			$("#btn_add_customer").off("click").on("click", function(){
+		/*	$("#btn_add_customer").off("click").on("click", function(){
 				let email = $(".inp-email-customer").val();
 				let validate = validateEmail(email);
 				if(!validate){
@@ -1842,7 +1846,7 @@ define([
 				if(idx > -1) customersAdd.splice(idx, 1);
 
 				parent.remove();
-			})
+			})*/
 
 		}		
 //		var do_lc_build_view_customer = (customersStr, view) => {

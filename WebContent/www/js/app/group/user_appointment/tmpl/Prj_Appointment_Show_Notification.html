@@ -1,10 +1,11 @@
 <div class="card meeting-card" style="width: 250px; margin-bottom: 1rem;">
 	<div class="row align-items-center" style="padding: 20px 20px 0px 20px">
-	    <h5 class="col-auto">{{transl 'prj_appointment_next'}}</h5>
-<!-- 	    <a href="javascript:void(0)" class="text-dark font-size-14 font-weight-bold col-auto ml-auto" id="btn_refresh_group"> -->
-<!-- 	        <i class="mdi mdi-refresh font-size-18 mr-2"></i> -->
-<!-- 	    </a> -->
+	    <h5 class="col-auto mb-0">{{transl 'prj_appointment_next'}}</h5>
+	    <a href="javascript:void(0)" class="text-dark font-size-14 font-weight-bold ml-auto mb-0" id="btn_refresh_appointment">
+	        <i class="mdi mdi-refresh font-size-18 mr-2"></i>
+	    </a>
 	</div>
+
 
 	<div class="card-body">
 		{{#each appointments}}
@@ -26,11 +27,9 @@
 	 			</div>
 			</div>
 			<div class="col-12">
-				<p><i class="mdi mdi-calendar-clock"></i> {{formatDate dtBegin "time"}} - {{formatDate dtEnd "time"}}</p>
-			</div>
-			
-			
-			<div class="col-12">
+				<p class="mb-1"><i class="mdi mdi-calendar-clock"></i> {{formatDate dtBegin "time"}} - {{formatDate dtEnd "time"}}</p>
+			</div>	
+			<div class="col-12 mt-0">
 				<p class="mb-2"><i class="mdi mdi-map-marker"></i> {{inf01}}</p>
 			</div>
 			

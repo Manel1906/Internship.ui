@@ -138,6 +138,11 @@
 	"prj_department_thirteen" 							: "Diagnostic Imaging Department",
 	"prj_department_fourteen" 							: "Pharmacy Department",
 	"prj_appointment_price"								:"Price",
-	"common_err_msg_search_required"						:"Please select a department"
+	"common_err_msg_search_required"					:"Please select a department",
+	"common_title_confirm"								: "Delete work schedule",
+	"msg_del_entity_popup_content"						: "Are you sure you want to delete the work schedule?",
+	"msg_btn_back"										: "Go back",
+	"msg_btn_del"										: "Delete"
+	
     
 }
