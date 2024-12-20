@@ -1,6 +1,6 @@
 define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	
-	var EntTabOrderMedical 					= function (grpName, header, content, footer) {
+	var EntTabOrderImgTest 					= function (grpName, header, content, footer) {
 		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
@@ -66,11 +66,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		var do_lc_show_entity 			= function(ent, mode){
 			do_lc_show_info_order_medical 		(ent);
-			do_lc_show_lst_medicine 			(ent);
+			do_lc_show_lst_test_img 			(ent);
 		}
 		
 		var do_lc_show_info_order_medical 			= function(ent){
-			$(pr_divContent				).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL				, ent));
+			$(pr_divContent				).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG				, ent));
 			
 			$(".btn-resize-content").off("click").on("click", function () {
 				let $this = $(this);
@@ -83,16 +83,16 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
 		}
-		var do_lc_show_lst_medicine 			= function(ent){
-			$("#div_entity_order_medical").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_LIST				, ent));
+		var do_lc_show_lst_test_img 			= function(ent){
+			$("#div_entity_test_img").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_LIST				, ent));
 			$(".infor-get").off("click").on("click", function () {
 				let {id} =  $(this).data();
 			//	do_lc_get_content_medicine		(id);
 				do_lc_show_content_medicine		(ent);
 			})
-			do_lc_list_ByAjax_lst_medicine(ent)
+			do_lc_list_ByAjax_lst_test_img(ent)
 		}
-		var do_lc_list_ByAjax_lst_medicine 	= function(ent){
+		var do_lc_list_ByAjax_lst_test_img 	= function(ent){
 			let divList = $("#list_his_disease");
 			let divPan  = $("#div_list_pagination_disease");
 			
@@ -114,7 +114,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			do_gl_init_pagination_opt(opt);
 		}
 		var do_get_list_ByAjax_callback = function(sharedJson, ent){
-			let template		=  tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_LIST_CONTENT;
+			let template		=  tmplName.TMPL_ENT_TAB_TEST_IMG_LIST_CONTENT;
 			let data			= {};
 			
 			if (sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
@@ -123,7 +123,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			
 			$("#list_medicine")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
 			
-			do_lc_bind_event_lst_medicine(ent)
+			do_lc_bind_event_lst_test_img(ent)
 		}
 		const do_lc_get_content_medicine = function(id) {
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET_BY_ID, {id: id});	
@@ -148,7 +148,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}
 		}
 		var do_lc_show_content_medicine 			= function(ent){
-			$("#div_entity_order_content_blood").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_CONTENT				, ent));
+			$("#div_entity_order_test_img").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_CONTENT				, ent));
 			
 			$("#cancel_header").off("click").on("click",function(){
 					//---MsgBox
@@ -185,7 +185,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var getDateEN = function(dObj) {
 			return req_gl_DateStr_From_DateObj(dObj, DateFormat.masks.enFullDate);		
 		}
-		var do_lc_bind_event_lst_medicine 			= function(ent){
+		var do_lc_bind_event_lst_test_img 			= function(ent){
 			$(".infor-get").off("click").on("click", function () {
 				let {id} =  $(this).data();
 				do_lc_get_content_medicine		(id);
@@ -223,5 +223,5 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 	}
 		
-	return EntTabOrderMedical;
+	return EntTabOrderImgTest;
 });
