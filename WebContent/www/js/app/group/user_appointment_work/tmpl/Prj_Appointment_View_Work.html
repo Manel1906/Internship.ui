@@ -12,17 +12,17 @@
 					<div style="margin-left: 10px" class="col-10">
 				 	  	<div class="col-12 col-sm-6 col-md-3 d-flex align-items-center gap-3">
 				            <div id="dp_nav_btn" class="d-flex align-items-center gap-2">
-				            	<button id="previous" class="btn btn-light rounded-circle border mx-1">
-				                    <i class='bx bx-chevron-left' style="font-size: 15px; color: #808080;"></i>
-				                </button>
+				            	<button id="previous" class="btn btn-light rounded-circle d-flex justify-content-center align-items-center" style="width: 40px; height: 40px; padding: 0;">
+							        <i class="bx bx-chevron-left" style="font-size: 20px; color: #808080;"></i>
+							    </button>
 				                
 				                <b class="h1"><span id="day-now"></span></b>
 				                
-				                <button id="next" class="btn btn-light rounded-circle border mx-1">
-				                    <i class='bx bx-chevron-right' style="font-size: 15px; color: #808080;"></i>
-				                </button>
+				                <button id="next" class="btn btn-light rounded-circle d-flex justify-content-center align-items-center" style="width: 40px; height: 40px; padding: 0;">
+							        <i class="bx bx-chevron-right" style="font-size: 20px; color: #808080;"></i>
+							    </button>
 				                <input type="text" id="nav_calendar_show" class="position-absolute" style="opacity: 0; pointer-events: none; top: 20px">
-				                <div class="btn btn-light rounded-circle border mx-1" id="nav_calendar">
+				                <div class="btn btn-light rounded-circle border mx-1 d-flex justify-content-center align-items-center" id="nav_calendar" style="width: 40px; height: 40px; padding: 0;">
 				                    <img src="www/img/icon/appointment.png" alt="Calendar" style="height: 20px; filter: grayscale(100%);">
 				                </div>
 				            </div>
@@ -42,10 +42,10 @@
 						<!-- Member Information -->
 					    <div class="row p-2">
 		                    <!-- Member Name Input -->
-		                    <div class="col-auto d-flex align-items-center gap-2">
+		                    <div class="col-auto d-flex align-items-center gap-2 col-12">
 <!-- 					        <label for="list_member_all" class="form-label text-nowrap mb-0 px-3">{{transl 'prj_doctor_level'}}</label> -->
 		                        <input type="text" id="list_member_all" class="form-control inp-name-member_all" placeholder="{{transl 'prj_project_enter_name'}}"/>
-		                        <div id="selected_members_all"></div>
+		                        <div id="selected_members_all" class="form-control d-flex justify-content-center align-items-center w-100 hide"></div>
 		                    </div>
 					    </div>
 					</div>

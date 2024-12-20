@@ -826,8 +826,8 @@ define([
 					},
 					{
 					
-					    text:  $.i18n("prj_appointment_event_unaccepted"),
-					    icon: "fa fa-solid fa-play ic-yellow",
+					    text:  $.i18n("prj_appointment_event_del"),
+					    icon: "fa fa-solid fa-play ic-red",
 					    onClick: function (args) {
 					        var e = args.source;
 					        do_lc_cancel_appointment(e);
@@ -913,14 +913,16 @@ define([
 			let	data	 		= req_gl_data({
 				dataZoneDom		: $("#div_create_prj_appointment")
 			});
-			let prj 	= data.data;
-			prj.inf02.cl = pr_Color;
-			prj.dtBegin = do_lc_convert_date(prj.dtBegin).replace("T"," ");
-			prj.dtEnd 	= do_lc_convert_date(prj.dtEnd).replace("T"," ");
+			const workType		= $("input[name='workType']:checked").val();
+			let prj 			= data.data;
+			prj.inf02.workType 	= workType;
+			prj.inf02.cl 		= pr_Color;
+			prj.dtBegin 		= do_lc_convert_date(prj.dtBegin).replace("T"," ");
+			prj.dtEnd 			= do_lc_convert_date(prj.dtEnd).replace("T"," ");
 
-			const dtBeginn	= req_gl_DateObj_From_DateStr(prj.dtBegin);
-			const dtEndd	= req_gl_DateObj_From_DateStr(prj.dtEnd);
-			const currentDate = new Date();
+			const dtBeginn		= req_gl_DateObj_From_DateStr(prj.dtBegin);
+			const dtEndd		= req_gl_DateObj_From_DateStr(prj.dtEnd);
+			const currentDate 	= new Date();
 
 			if(req_gl_Date_CompareObj(dtEndd, dtBeginn) <= 0) {
 				do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_msg_err"));
@@ -1512,7 +1514,7 @@ define([
 		        
 		        if (code == App['const'].SV_CODE_API_YES) {
 		            var lstTime = sharedJson[App['const'].RES_DATA];
-		            // If there are any available times
+		            console.log(lstTime);
 		            if (lstTime.length > 0) {
 		                for (let i = 0; i < lstTime.length; i++) {
 		                    if (lstTime[i]) {
@@ -1521,7 +1523,7 @@ define([
 		                        curObj.end 		= lstTime[i].dtEnd;
 		
 		                        if (!curObj.start || !curObj.end) continue;
-		
+						
 		                        // Check mems.stat and strike-through name if mem.stat == 1 for current user
 		                        const currentUser = App.data.user.id;
 		                        const userMem = lstTime[i].mems && lstTime[i].mems.find(mem => mem.uId === currentUser);

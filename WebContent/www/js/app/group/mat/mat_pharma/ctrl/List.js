@@ -38,7 +38,7 @@ define([], function() {
 		const pr_NUMBER_RECORD		= 10;
 		const pr_STAT_ACTIVE    	= 1;
 		
-		const pr_STAT_100        = 100;
+		const pr_STAT_100       = 100;
 		const pr_STAT_200     	= 200;
 		const pr_STAT_300 		= 300;
 		const pr_STAT_500 		= 500;
