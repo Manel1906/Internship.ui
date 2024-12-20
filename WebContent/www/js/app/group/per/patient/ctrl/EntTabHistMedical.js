@@ -289,13 +289,26 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		    });
 		    
 			let el = "#inp_pharmaceuticals";
-			
+			let reqSelectMedicine = (event, item) => {
+				let selOpt 			= `<div class='medicine-item'>`;
+					selOpt 			+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name01}</div>`;
+
+				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-medicine' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOpt 				+= `</div>`;
+
+				$("#selected_medicine").removeClass("hide")
+				$("#selected_medicine").append(selOpt);
+				$("#inp_pharmaceuticals").hide();
+				do_lc_bind_event_autocomplete();
+				$(el).blur().val("");
+			}
 			let options = {
 				dataService: [pr_SERVICE_CLASS_MEDICINE, pr_SV_LIST_MEDICINE],
 				svParams: { 
 					typ03 	: pr_TYP_MEDICINE,
 					searchType: pr_TYP_NAME_MEDICINE,
 				 },
+				fSelect			: reqSelectMedicine, 
 				customShowList: do_lc_Lst_medicine_autocomplete,
 			};
 			do_gl_req_autocompleteNew(el, options);
@@ -676,7 +689,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	//			ent.inf03 = JSON.parse(ent.inf03);
 	//		}
 		}
-		
+		const do_lc_bind_event_autocomplete = () => {
+			$(".btn-remove-medicine").off("click").on("click", function(){
+			 	$("#selected_medicine").addClass("hide")
+				$(this).closest(".member-item").remove();
+				$("#inp_pharmaceuticals").show();
+				
+			})
+		}
 		//---------------------------------Ajax----------------------------------------------
 		this.do_lc_cancel = function(obj){
 			do_lc_show_entity(obj, var_lc_MODE_SEL);
