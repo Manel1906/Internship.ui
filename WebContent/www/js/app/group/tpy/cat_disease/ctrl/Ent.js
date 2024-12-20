@@ -182,6 +182,7 @@ define([], function() {
 					if(data.child != null || data.child == null ) {
 						if(pr_DISEASE_TEMP != null) {
 							$("#btn_modify").removeClass("hide");
+							$(".btn-resize-content_ds").removeClass("hide");
 							$("#a_btn_sav").addClass("hide");
 							$("#a_btn_canc").addClass("hide");
 							$("#removeRowBtn").addClass("hide");
@@ -411,6 +412,7 @@ define([], function() {
 					
 	//				$('.inf-entity').addClass('hide');
 					$("#tbody_entity").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_ROW, {data: data}));
+					$(".btn-resize-content_ds").removeClass("hide");
 					$(".inf-entity").addClass('hide');
 					$("#btn_modify").removeClass("hide");
 					$("#a_btn_sav").addClass("hide");
@@ -620,7 +622,7 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_cancel"),
 								funct	: null,
 								param	: [],
 							},
@@ -666,12 +668,12 @@ define([], function() {
 						autoclose	: false,
 						buttons	: {
 							NO: {
-								lab		: $.i18n("common_btn_cancel"),
+								lab		: $.i18n("common_btn_back"),
 								funct	: null,
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_cancel"),
 								funct	: self.do_lc_cancel,
 								param	: [],
 								classBtn: "btn-danger"

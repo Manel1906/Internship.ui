@@ -120,7 +120,7 @@ define([],function() {
 							param	: [],
 						},
 						OK: {
-							lab		: $.i18n("common_btn_yes"),
+							lab		: $.i18n("prj_user_group_new_btn_save"),
 							funct	: mode==pr_Mode_NEW?self.do_lc_new:self.do_lc_mod,
 							param	: [obj],
 							classBtn: "btn-primary"

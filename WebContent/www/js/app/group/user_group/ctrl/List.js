@@ -69,11 +69,16 @@ define([],function() {
 		//----------------------------------------------------------------------------------------------
 		//----------------------------------------------------------------------------------------------
 		const do_lc_bind_event = function(obj){
+			var listUserRight = App.data.user.rights;
+			var isRight = listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
+			if (!isRight) {
+				$("#btn_new_entity"	).hide();
+				$("#btn_add_doc"	).hide();
+			}
 			if(App.data.user.typ01 == pr_TYP01_ADMIN){
 				$("#btn_new_entity"	).removeClass('hide');
 				$("#btn_add_doc"	).removeClass('hide');
 			}
-			
 			$("#btn_new_entity").off("click").on("click", function(){
 				var listUserRight = App.data.user.rights;
 				var isRight = listUserRight.includes(RIGHT_A_R) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)

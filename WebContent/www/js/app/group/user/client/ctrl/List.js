@@ -117,14 +117,12 @@ define(['jquery'], function($) {
 				
 				let {id, login} =  $(this).data();
 				
-//				$("#inp-search").prop('readonly', true);
+	//			$("#inp_search_client").prop('readonly', true);
 				
 				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL, pr_DIV_CONTENT);
 				
 				$(".task-item").css("background-color", "#fff")
 				$(".task-item[data-id='" + id + "']").css("background-color", "#f0ffff")
-				
-				$("#inp-search").val(login);
 			})
 			
 			$("#btn_btn_new_user").off("click").on("click", function(){
@@ -165,13 +163,24 @@ define(['jquery'], function($) {
 				$(".task-item[data-id='" + id + "']").css("background-color", "#f0ffff")
 			})
 			
-			$("#inp-search").off("keyup").on("keyup", function(e){
-				e.preventDefault();
-				if(VIEW_PART !==  App.router.part.PRJ_USER)	return false;//add foreach view prj search
-				
-				pr_searchKey	= $(this).val();
+			const $inputField 	= $("#inp_search_client");
+		    const $clearIcon 	= $("#clear_icon");
+		    $inputField.on("input", function(e) {
+		        if ($inputField.val().trim() !== "") {
+		            $clearIcon.removeClass("hide"); 
+		        } else {
+		            $clearIcon.addClass("hide");
+		        }
+		        pr_searchKey	= $inputField.val();
 				do_gl_execute_debounce(do_get_list_ByAjax);
-			})
+		    });
+		    $clearIcon.on("click", function() {
+		        $inputField.val(""); 
+		        $clearIcon.addClass("hide");
+		        $inputField.focus(); 
+		        pr_searchKey	= $inputField.val();
+				do_gl_execute_debounce(do_get_list_ByAjax);
+		    });
 			
 			$("#btn_search_responsive").off("click").on("click", function(e){
 				e.preventDefault();
