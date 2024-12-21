@@ -6,9 +6,19 @@
    		</div>
    		<div class="col-1">
    			<div class="d-flex align-items-center justify-content-between">
-			    <div id="btn_mod_prescription" class="cursor-pointer isManager mr-1">
-			        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
-			    </div>
+	            {{#if stat}}
+		            {{#ifCond stat '==' 0}}
+		            	 <div id="btn_mod_prescription" class="cursor-pointer isManager mr-1">
+					        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+					    </div>
+		            {{else}}
+		            <div></div>
+		            {{/ifCond}}
+	            {{else}}
+		             <div id="btn_mod_prescription" class="cursor-pointer isManager mr-1">
+				        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+				     </div>
+		        {{/if}}
 			</div>
 			
 			<div class="d-flex mr-2"> 
@@ -50,7 +60,7 @@
 					{{#each inf05}}
 						<tr>
 							<input type="hidden" data-name="id" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
-							<td class="text-center">
+							<td class="text-left" style="min-width: 60px;">
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{@index}}"  data-validation="required" readonly>
 								<span class="edit-text info-show-prescription">{{index}}</span>
 							</td>
@@ -66,23 +76,23 @@
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="code" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{code}}"  data-validation="required">
 								<span class="edit-text info-show-prescription">{{code}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 60px;">
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="dvt" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_locate" value="{{dvt}}"  data-validation="required">
 								<span class="edit-text info-show-prescription">{{dvt}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 60px;">
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="morning" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_locate" value="{{morning}}"  data-validation="required">
 								<span class="edit-text info-show-prescription">{{morning}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 60px;">
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="lunch" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_locate" value="{{lunch}}"  data-validation="required">
 								<span class="edit-text info-show-prescription">{{lunch}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 60px;">
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="afternoon" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_locate" value="{{afternoon}}" data-validation="required">
 								<span class="edit-text info-show-prescription">{{afternoon}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 60px;">
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="dark" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_locate" value="{{dark}}" data-validation="required">
 								<span class="edit-text info-show-prescription">{{dark}}</span>
 							</td>

@@ -88,6 +88,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			$(".infor-get").off("click").on("click", function () {
 				let {id} =  $(this).data();
 			//	do_lc_get_content_medicine		(id);
+				$("#btn_print_entity").removeClass("hide");
 				do_lc_show_content_medicine		(ent);
 			})
 			do_lc_list_ByAjax_lst_medicine(ent)

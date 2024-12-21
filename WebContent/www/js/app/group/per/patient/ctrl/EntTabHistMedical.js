@@ -44,6 +44,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const pr_TYP_MEDICINE 		= 200;
 		const pr_TYP_NAME_MEDICINE 	= 2;
 		const pr_STAT_ACTIVE		= 1;
+		
+		const pr_typ_sav_draft      = 0;
+		const pr_typ_sav_done       = 1;
 		var   pr_id_entity			= null;
 		var   pr_id_person			= null;
 		//------------------const object------------------------------------------------------
@@ -83,13 +86,16 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
 			$("#btn_new_entity").off("click").on("click", function () {
-				pr_id_person = ent.id
-				$("#div_ent_his_content").html("");
-				do_lc_show_his_content_new		(ent);
-				do_lc_show_his_prescription		();
-				do_lc_show_his_test_blood		();
-				do_lc_show_his_test_img 		();
+				do_lc_show_button_new(ent)
 			})
+		}
+		var do_lc_show_button_new 	= function(ent){
+			pr_id_person = ent.id
+			$("#div_ent_his_content").html("");
+			do_lc_show_his_content_new		(ent);
+			do_lc_show_his_prescription		();
+			do_lc_show_his_test_blood		();
+			do_lc_show_his_test_img 		();
 		}
 		var do_lc_show_his_disease 			= function(ent){
 			$("#div_entity_his_medical").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST				, ent));
@@ -99,7 +105,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			let divList = $("#list_his_disease");
 			let divPan  = $("#div_list_pagination_disease");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, {	perId: ent.id  });
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, {	perId: ent.entId || ent.id  });
 			
 			const callbackFunct 	= data => do_get_list_ByAjax_callback(data, ent);
 			
@@ -125,11 +131,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}
 			
 			$("#list_his_disease")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
-			
+		//	$("#list_his_disease")	.html("");
 			do_lc_bind_event_his_disease(ent)
 		}
 		var do_lc_show_his_content_new 	= function(ent,id){
-			$("#div_ent_his_content_new").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW		, {idEnty: id}));
+			$("#div_ent_his_content_new").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW		, ent,{idEnty: id}));
 			var now 	= new Date();
 			dateNow		= do_lc_handle_date (now);
 			$("#dtpicker_exp" ).datepicker( "setDate", dateNow.dt);
@@ -143,22 +149,22 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			do_get_list_disease_ByAjax()
 			do_lc_bind_event_content_new(ent)
 		}
-		var do_lc_show_his_prescription 			= function(ent){
-			$("#div_ent_his_prescription").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT		, ent));
+		var do_lc_show_his_prescription 			= function(ent,stat){
+			$("#div_ent_his_prescription").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT		, ent, {stat: stat}));
 			$("#btn_mod_prescription").off("click").on("click", function(){
 				do_lc_show_entity_prescription(ent);
 			});
 		}
-		var do_lc_show_his_test_blood 			= function(ent){
+		var do_lc_show_his_test_blood 			= function(ent,stat){
 			$('#div_ent_his_test_blood').removeClass('hide');
-			$("#div_ent_his_test_blood").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD				, ent));
+			$("#div_ent_his_test_blood").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD				, ent, {stat: stat}));
 			$("#btn_mod_blood").off("click").on("click", function(){
 				do_lc_show_entity_blood(ent);
 			});
 		}
-		var do_lc_show_his_test_img 			= function(ent){
+		var do_lc_show_his_test_img 			= function(ent,stat){
 			$('#div_ent_his_test_img').removeClass('hide');
-			$("#div_ent_his_test_img").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG				, ent));
+			$("#div_ent_his_test_img").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG				, ent, {stat: stat}));
 			$("#btn_mod_img").off("click").on("click", function(){
 				do_lc_show_entity_img(ent);
 			});
@@ -238,14 +244,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			});
 		}
 		const do_lc_show_entity_img = (data) => {
-			$(".info-show-img"						).addClass('hide');
-			$("#btn_mod_img"					).addClass("hide");
-			$("#a_btn_sav_img"				).removeClass("hide");
+			$(".info-show-img"			).addClass('hide');
+			$("#btn_mod_img"			).addClass("hide");
+			$("#a_btn_sav_img"			).removeClass("hide");
 			$("#a_btn_canc_img"			).removeClass("hide");
 			
-			$('#btnAddImg'					).removeClass('hide');
-			$('.btnRemoveRowImg'	).removeClass('hide');
-			$('.inf-entity-img'	).removeClass('hide');
+			$('#btnAddImg'				).removeClass('hide');
+			$('.btnRemoveRowImg'		).removeClass('hide');
+			$('.inf-entity-img'			).removeClass('hide');
 			
 			$('#btnAddImg').on('click', function() {
 				do_lc_bind_event_new_img(data);
@@ -287,18 +293,52 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			$(".btnRemoveRowPrescription>button").off("click").on("click", function () {
 		        $(this).closest('tr').remove();
 		    });
-		    
+			 const calculateTotal = function() {	
+		        const morning = parseFloat($("#number_morning").val()) || 0;
+		        const lunch = parseFloat($("#number_lunch").val()) || 0;
+		        const afternoon = parseFloat($("#number_afternoon").val()) || 0;
+		        const dark = parseFloat($("#number_dark").val()) || 0;
+		        const day = parseFloat($("#number_day").val()) || 0;
+		        const total = (morning + lunch + afternoon + dark) * day;
+		        $("#total").val(total); 
+		    }
+			$("#number_morning, #number_lunch, #number_afternoon, #number_dark, #number_day").on("input", calculateTotal);
+		    // Pharmaceuticals
 			let el = "#inp_pharmaceuticals";
 			let reqSelectMedicine = (event, item) => {
 				let selOpt 			= `<div class='medicine-item'>`;
-					selOpt 			+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name01}</div>`;
+				selOpt 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name01}</div>`;
 
 				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-medicine' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 				selOpt 				+= `</div>`;
+				
+				let selOptIngre 	= `<div class='medicine-item-ingre'>`;
+				selOptIngre 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name02}</div>`;
 
+				selOptIngre 				+= `<a data-id='${item.id}' class='text-danger btn-remove-ingre' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOptIngre 				+= `</div>`;
+				
+				let selOptCode 		= `<div class='medicine-item-code'>`;
+				selOptCode 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.code01}</div>`;
+
+				selOptCode 				+= `<a data-id='${item.id}' class='text-danger btn-remove-code' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOptCode 				+= `</div>`;
+				
 				$("#selected_medicine").removeClass("hide")
+				$("#selected_ingre").removeClass("hide")
+				$("#selected_code").removeClass("hide")
+				
 				$("#selected_medicine").append(selOpt);
+				$("#selected_ingre").append(selOptIngre);
+				$("#selected_code").append(selOptCode);
+				
 				$("#inp_pharmaceuticals").hide();
+				$("#inp_ingre").hide();
+				$("#inp_code").hide();
+				
+				$("#inp_pharmaceuticals").val(item.name01);
+				$("#inp_ingre").val(item.name02);
+				$("#inp_code").val(item.code01);
 				do_lc_bind_event_autocomplete();
 				$(el).blur().val("");
 			}
@@ -312,6 +352,41 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				customShowList: do_lc_Lst_medicine_autocomplete,
 			};
 			do_gl_req_autocompleteNew(el, options);
+			
+			 // Ingredient
+			let elIn = "#inp_ingre";
+			let reqSelectMedicineIngre = (event, item) => {
+				let selOptIngre 	= `<div class='medicine-item'>`;
+				selOpt 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name02}</div>`;
+
+				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-medicine' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOpt 				+= `</div>`;
+				
+				$("#selected_medicine").removeClass("hide")
+				$("#selected_ingre").removeClass("hide")
+				$("#selected_code").removeClass("hide")
+				
+				$("#selected_medicine").append(selOpt);
+				$("#selected_ingre").append(selOptIngre);
+				$("#selected_ingre").append(selOptCode);
+				
+				$("#inp_pharmaceuticals").hide();
+				$("#inp_ingre").hide();
+				$("#inp_code").hide();
+				do_lc_bind_event_autocomplete();
+				$(elIn).blur().val("");
+			}
+			let optionsIngre = {
+				dataService: [pr_SERVICE_CLASS_MEDICINE, pr_SV_LIST_MEDICINE],
+				svParams: { 
+					typ03 	: pr_TYP_MEDICINE,
+					searchType: pr_TYP_NAME_MEDICINE,
+				 },
+				fSelect			: reqSelectMedicineIngre, 
+				customShowList: do_lc_Lst_medicine_inGre_autocomplete,
+			};
+			do_gl_req_autocompleteNew(elIn, optionsIngre);
+			
 		};
 		const do_lc_Lst_medicine_autocomplete = function (item, selOpt = "") {
 			selOpt += `<div class="media align-items-center"> ${item.name01}</div>`;
@@ -410,9 +485,21 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 		var do_lc_bind_event_his_disease 			= function(ent){
 			$(".infor-get").off("click").on("click", function () {
-				let {id} =  $(this).data();
-				do_lc_get_his_content		(id);
-			})
+			    let { id, stat } = $(this).data(); 
+			    let $span = $(this).find("span"); 
+			
+			    if ($span.hasClass("mdi-eye-outline")) {
+					$span.removeClass("mdi-eye-outline").addClass("mdi-eye-off-outline");
+			        $("#div_ent_his_content").html("");
+			        $("#div_ent_his_prescription").html("");
+			        $("#div_ent_his_test_blood").html("");
+			        $("#div_ent_his_test_img").html("");
+			    } else {
+			        $span.removeClass("mdi-eye-off-outline").addClass("mdi-eye-outline");
+			        do_lc_get_his_content(id, stat);
+			    }
+			});
+
 		}		
 		var do_lc_bind_event_content_new 			= function(ent){
 			$("#cancel_header").off("click").on("click",function(){
@@ -437,8 +524,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 						}
 					});
 			})
-			$("#btn_edit_entity").off("click").on("click",function(){
+			$("#btn_sav_entity").off("click").on("click",function(){
 					App.MsgboxController.do_lc_show({
+						title	: $.i18n("msgbox_confirm_title"),
 						content : $.i18n("per_person_patient_title"),
 						width	: "400px",
 						autoclose	: false,
@@ -451,11 +539,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 							OK: {
 								lab		: $.i18n("prj_user_group_new_btn_save_record"),
 								funct	: self.do_lc_mod,
-								param	: [pr_id_person],
+								param	: [pr_id_person,pr_typ_sav_done],
 								classBtn: "btn-primary"
 							}
 						}
 					});
+			})
+			$("#btn_sav_draft_entity").off("click").on("click",function(){
+				self.do_lc_mod(pr_id_person,pr_typ_sav_draft)
 			})
 			$('#radio_remote_checkbox').on('change', function() {
 	            if ($(this).prop('checked')) {
@@ -464,17 +555,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	            } else {
 	                $('#hist_date')			.addClass('hide');
 	                $('#hist_date_calendar').addClass('hide');
-	            }
-        	});
-        	$('#live_checkbox').on('change', function() {
-	            if ($(this).prop('checked')) {
-	                $('.birth_mark')			.removeClass('hide');
-	                $('#div_ent_his_test_blood').removeClass('hide');
-	                $('#div_ent_his_test_img').removeClass('hide');
-	            } else {
-	                $('.birth_mark')			.addClass('hide');
-	                $('#div_ent_his_test_blood').addClass('hide');
-	                $('#div_ent_his_test_img').addClass('hide');
 	            }
         	});
         	
@@ -487,34 +567,34 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		//		do_lc_show_his_test_img 		(ent);
 			})
 		}		
-		const do_lc_get_his_content = function(id) {
+		const do_lc_get_his_content = function(id,stat) {
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET_BY_ID, {id: id});	
 			
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_get_his_callback, []));
+			fSucces.push(req_gl_funct(null, do_lc_get_his_callback, [stat]));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		
-		const do_lc_get_his_callback = function(sharedJson){
+		const do_lc_get_his_callback = function(sharedJson,stat){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
 					$("#div_ent_his_content_new").html("");
 					do_lc_clean_data(data)
-					do_lc_show_his_content		(data);
-					do_lc_show_his_prescription	(data);
-					do_lc_show_his_test_blood	(data);
-					do_lc_show_his_test_img 	(data);
+					do_lc_show_his_content		(data,stat);
+					do_lc_show_his_prescription	(data,stat);
+					do_lc_show_his_test_blood	(data,stat);
+					do_lc_show_his_test_img 	(data,stat);
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
-		var do_lc_show_his_content 			= function(ent){
-			$("#div_ent_his_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT				, ent));
+		var do_lc_show_his_content 			= function(ent,stat){
+			$("#div_ent_his_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT				,ent, {stat: stat}));
 			
 			$("#cancel_header").off("click").on("click",function(){
 					//---MsgBox
@@ -537,7 +617,10 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 							}
 						}
 					});
-				})
+			})
+			$("#btn_mod_content").off("click").on("click",function(){
+				do_lc_show_button_new(ent)
+			})
 		}
 		
 		//----------------------------------------------------------------------------------------------
@@ -551,14 +634,15 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var getDateEN = function(dObj) {
 			return req_gl_DateStr_From_DateObj(dObj, DateFormat.masks.enFullDate);		
 		}
-		this.do_lc_mod = function(id){
+		this.do_lc_mod = function(id,stat){
 			const data = req_gl_data({
 				dataZoneDom: $("#frm_entity")
 			});
 
 			if(data.hasError)	return false;
-
+			
 			data.data.perId = id;
+			data.data.stat  = stat;
 			data.data.entyId = pr_id_entity;
 			do_lc_update_entity(data.data);
 		}
@@ -685,16 +769,25 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(ent.inf05 && typeof ent.inf05 == "string"){
 				ent.inf05 = JSON.parse(ent.inf05);
 			}
-	//		if(ent.inf03 && typeof ent.inf03 == "string"){
-	//			ent.inf03 = JSON.parse(ent.inf03);
-	//		}
+			if(ent.inf03 && typeof ent.inf03 == "string"){
+				ent.inf03 = JSON.parse(ent.inf03);
+			}
 		}
 		const do_lc_bind_event_autocomplete = () => {
 			$(".btn-remove-medicine").off("click").on("click", function(){
 			 	$("#selected_medicine").addClass("hide")
-				$(this).closest(".member-item").remove();
+				$(this).closest(".medicine-item").remove();
 				$("#inp_pharmaceuticals").show();
-				
+			})
+			$(".btn-remove-ingre").off("click").on("click", function(){
+			 	$("#selected_ingre").addClass("hide")
+				$(this).closest(".medicine-item-ingre").remove();
+				$("#inp_ingre").show();
+			})
+			$(".btn-remove-code").off("click").on("click", function(){
+			 	$("#selected_code").addClass("hide")
+				$(this).closest(".member-item-code").remove();
+				$("#inp_code").show();
 			})
 		}
 		//---------------------------------Ajax----------------------------------------------

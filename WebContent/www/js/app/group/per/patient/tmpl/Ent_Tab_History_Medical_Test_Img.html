@@ -6,9 +6,19 @@
    		</div>
    		<div class="col-1">
    			<div class="d-flex align-items-center justify-content-between">
-			    <div id="btn_mod_img" class="cursor-pointer isManager mr-1">
-			        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
-			    </div>
+			    {{#if stat}}
+		            {{#ifCond stat '==' 0}}
+		            	 <div id="btn_mod_img" class="cursor-pointer isManager mr-1">
+					        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+					    </div>
+		            {{else}}
+		            <div></div>
+		            {{/ifCond}}
+	            {{else}}
+		             <div id="btn_mod_img" class="cursor-pointer isManager mr-1">
+				        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+				     </div>
+		        {{/if}}
 			</div>
 			
 			<div class="d-flex mt-2"> 

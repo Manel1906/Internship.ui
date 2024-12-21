@@ -2,7 +2,14 @@
 	<div class="card-body">
         <div class="row">
             <div class="col-lg-11 col-md-10 col-sm-9"><h4> {{transl 'per_person_patient_content_medical'}}</h4></div>
-        	<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+            {{#equal stat 1}} 
+        		<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+            {{/equal}}
+            {{#equal stat 0}} 
+            	 <div id="btn_mod_content" class="col-lg-1 col-md-2 col-sm-3 text-center cursor-pointer">
+			        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+			    </div>
+            {{/equal}}
         </div>
         <div class="needs-validation" id="frm_entity">
         	<input type="hidden" data-name="typ01" class="form-control objData" value="1">
@@ -11,160 +18,141 @@
            
            	<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;"></div>
 			<div class="row">
-	           <div class="form-group col-3">
-					<label for="inp_group_locate" style="font-size: 1rem !important;">
-					        {{transl 'per_person_patient_hist_date_check'}}
-					</label>
-				</div>
-
-				<div class="form-group col-3 px-2">
-				    <label for="inp_group_locate">
-					      {{reqFormatShortDate dt01}}
-					</label>
+	           <div class="form-group col-4">
+					<h6>{{transl 'per_person_patient_hist_date_check'}}</h6>
+				    <p for="inp_group_locate">{{reqFormatShortDate dt01}}</p>
 				</div>
 			
-				<div class="form-group col-3">
-				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_room_check'}}</label>
+				<div class="form-group col-4">
+				    <h6>{{transl 'per_person_patient_hist_room_check'}}</h6>
+				    <label>{{inf08}}</label>
 				</div>
 				
-				<div class="form-group col-3">
-				    <label for="inp_group_email"">{{inf08}}</label>
-				</div>
-				
-				<div class="form-group col-3">
-				    <label for="inp_group_locate" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_name_doctor_treat'}} *</label>
-				</div>
-
-				<div class="form-group col-3 px-2">
-				    <label for="inp_group_locate">{{inf09}}</label>
-			    </div>
-			
-				<div class="form-group col-3">
-				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_code_doctor'}}</label>
-				</div>
-				
-				<div class="form-group col-3 px-2">
-				    <label for="inp_group_email">{{inf10}}</label>
-			    </div>
-			    <!-- ----------------- FORM -------------------------- -->
-	            <div class="form-group col-2 px-2">
-			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_form'}}</label>
-			    </div>
-			      <div class="form-group col-3 px-2">
+			  	<div class="form-group col-4 px-2">
+			        <h6 >{{transl 'per_person_patient_hist_form'}}</h6>
 			        <label for="radio_live" class="mb-0">
 			        {{#equal typ02 0}}{{transl "per_person_patient_hist_remote" }}{{/equal}}
 					{{#equal typ02 1}}{{transl "per_person_patient_hist_live" }}{{/equal}}
 			        </label>
-			        
 			    </div>
-		    	
+			    
+				<div class="form-group col-4">
+				    <h6 >{{transl 'per_person_patient_hist_name_doctor_treat'}}</h6>
+				    <label for="inp_group_locate">{{inf09}}</label>
+				</div>
+
+				<div class="form-group col-4">
+				    <h6 >{{transl 'per_person_patient_hist_code_doctor'}}</h6>
+				    <label>{{inf10}}</label>
+				</div>
+			    <!-- ----------------- FORM -------------------------- -->
 	    		<div class="col-lg-12" id="div_show_sympton">
-					<label for="sympton" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_sympton'}}</label>
+					<h6 for="sympton" class="col-form-label" >{{transl 'per_person_patient_hist_sympton'}}</h6>
 	           	</div>
 	           	<div class="col-lg-12 mb-3" id="div_show_sympton">
-					<label for="sympton" class="col-form-label">{{inf02.sympton}}</label>
+					<label for="sympton" class="col-form-label">{{{inf02.sympton}}}</label>
 	           	</div>
 	           	<!-- -----------------Birth Mark -------------------------- -->
 	           	<div class="form-group col-12 px-2">
-			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_birth_mark'}}</label>
+			        <h6 >{{transl 'per_person_patient_hist_birth_mark'}}</h6>
 			    </div>
 			    
-			     <div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_circuit_mini'}}</label>
-			        <label class="ml-3">{{inf01.circuit}}</label>
+			     <div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_circuit_mini'}}</p>
+			        <p class="ml-3">{{inf01.circuit}}</p>
 		    	</div>
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_temp'}}</label>
-			        <label class="ml-3">{{inf01.temp}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_temp'}}</p>
+			        <p class="ml-3">{{inf01.temp}}</p>
 		    	</div>	
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_breath'}}</label>
-			        <label class="ml-3">{{inf01.breath}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_breath'}}</p>
+			        <p class="ml-3">{{inf01.breath}}</p>
 		    	</div>
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_sp02'}}</label>
-			        <label class="ml-3">{{inf01.sp02}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_sp02'}}</p>
+			        <p class="ml-3">{{inf01.sp02}}</p>
 		    	</div>
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_bmi'}}</label>
-			        <label class="ml-3">{{inf01.bmi}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_bmi'}}</p>
+			        <p class="ml-3">{{inf01.bmi}}</p>
 		    	</div>
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_bsa'}}</label>
-			        <label class="ml-3">{{inf01.bsa}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_bsa'}}</p>
+			        <p class="ml-3">{{inf01.bsa}}</p>
 		    	</div>
 		    	
-		    	 <div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_weight'}}</label>
-			        <label class="ml-3">{{inf01.weight}}</label>
+		    	 <div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_weight'}}</p>
+			        <p class="ml-3">{{inf01.weight}}</p>
 		    	</div>
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_height'}}</label>
-			        <label class="ml-3">{{inf01.height}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_height'}}</p>
+			        <p class="ml-3">{{inf01.height}}</p>
 		    	</div>
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_blood_pressure_max'}}</label>
-			        <label class="ml-3">{{inf01.pressureMax}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_blood_pressure_max'}}</p>
+			        <p class="ml-3">{{inf01.pressureMax}}</p>
 		    	</div>
 		    	
-		    	<div class="form-group col-3 px-2 birth_mark">
-			        <label class="col-12">{{transl 'per_person_patient_hist_blood_pressure_min'}}</label>
-			        <label class="ml-3">{{inf01.pressureMin}}</label>
+		    	<div class="form-group col-4 px-2">
+			        <p class="col-12">{{transl 'per_person_patient_hist_blood_pressure_min'}}</p>
+			        <p class="ml-3">{{inf01.pressureMin}}</p>
 		    	</div>
-		    	<div class="col-6"></div>
-		    	
+		    	<div class="col-8"></div>
 	           	 <!-- ----------------- ICD -------------------------- -->
-			    <div class="form-group col-2 px-2">
-			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_icd_main'}}</label>
+			    <div class="form-group col-4 px-2">
+			        <h6>{{transl 'per_person_patient_hist_icd_main'}}</h6>
+				     <div class="form-group d-flex">
+				        <p>{{inf03.codeICD}}-</p>
+				        <p>{{inf03.nameICD}}</p>
+				    </div>
 			    </div>
 			    
-			    <div class="form-group col-10 px-2">
-			        <label for="inp_group_email">{{inf03}}</label>
-			    </div>
-			    
-			    <div class="form-group col-2 px-2">
-			        <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_icd_extra'}}</label>
+			    <div class="form-group col-4 px-2">
+			        <h6>{{transl 'per_person_patient_hist_icd_extra'}}</h6>
+				    <div class="form-group d-flex">
+				        <p>{{inf03.codeICDSub}}-</p>
+				        <p>{{inf03.nameICDSub}}</p>
+				    </div>    
 			    </div>  
 			    
-			    <div class="form-group col-10 px-2">
-			        <label for="inp_group_email">{{inf04}}</label>
-			    </div>    
 		    	<!-- ----------------- END ICD -------------------------- -->
 		    	<div class="col-12 mb-1" id="div_show_dignose">
-					<label for="dignose" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_dignose'}}</label>
+					<h6 for="dignose" class="col-form-label" >{{transl 'per_person_patient_hist_dignose'}}</h6>
 	           	</div>
 	           	
 	           	<div class="form-group col-12 px-2 mt-1">
-			        <label for="inp_group_email">{{inf02.dignose}}</label>
+			        <p>{{{inf02.dignose}}}</p>
 			    </div>
 	           	
 	           	<div class="col-lg-3" id="div_show_note">
-					<label for="note" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_resolve'}}</label>
+					<h6 for="note" class="col-form-label" >{{transl 'per_person_patient_hist_resolve'}}</h6>
 	           	</div>
 	           	
 	           <div class="form-group col-9 px-2 mt-2">
-			        <label for="inp_group_email">
+			        <p>
 					 {{#equal typ04 5}}{{transl "per_person_patient_hist_precription" }}{{/equal}}
 					 {{#equal typ04 6}}{{transl "per_person_patient_hist_specify_service" }}{{/equal}}
 					 {{#equal typ04 7}}{{transl "per_person_patient_hist_out_patient" }}{{/equal}}
 					 {{#equal typ04 8}}{{transl "per_person_patient_hist_hospitalized" }}{{/equal}}
 					 {{#equal typ04 9}}{{transl "per_person_patient_hist_consult_no_medicine" }}{{/equal}}
-					</label>
+					</p>
 			    </div>
 			    
 			    <div class="col-lg-12 id="div_show_note">
-					<label for="note" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_note'}}</label>
+					<h6 for="note" class="col-form-label" >{{transl 'per_person_patient_hist_note'}}</h6>
 	           	</div>
 	           	
 	           	 <div class="col-12 mb-3" id="div_show_dignose">
-					<label for="dignose" class="col-form-label">{{inf02.note}}</label>
+					<p for="dignose" class="col-form-label">{{{inf02.note}}}</p>
 	           	</div>
            	</div>
         </div>
