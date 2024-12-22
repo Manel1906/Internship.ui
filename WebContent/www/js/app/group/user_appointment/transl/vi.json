@@ -25,7 +25,7 @@
 	"prj_project_member_level_reporter"					: "Giám sát",
 	"prj_project_member_level_developer"				: "Phát triển",
 	"prj_project_member_level_tester"					: "Kiểm thử",
-	"prj_project_member_level_worker"					: "Thành viên",
+	"prj_project_member_level_worker"					: "Người tham gia",
 	"prj_project_member_level_watcher"                  : "Quan sát",
 	"prj_project_member_level_owner"					: "Người tạo",
 	"prj_project_member_see_profile"					: "Xem thông tin cá nhân",
@@ -133,6 +133,9 @@
 	"prj_appointment_price"								:"Giá tiền",
 	"prj_appointment_noti"								:"Thông báo",
 	"prj_appointment_email"								:"Email",
-	"prj_appointment_minutes"							:"Phút"
+	"prj_appointment_minutes"							:"Phút",
+	"prj_project_reason"								:"Lý do",
+	"prj_project_img"									:"Hình ảnh",
+	"common_btn_see"									:"Chi tiết"
 	
 }

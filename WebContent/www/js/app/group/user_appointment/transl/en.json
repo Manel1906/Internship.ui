@@ -133,5 +133,9 @@
 	"prj_appointment_price"								:"Price",
 	"prj_appointment_noti"								:"Notification",
 	"prj_appointment_email"								:"Email",
-	"prj_appointment_minutes"							:"Minute"
+	"prj_appointment_minutes"							:"Minute",
+	"prj_project_reason" 								: "Reason",
+	"prj_project_img" 									: "Image",
+	"common_btn_see"									:"Detail"
+	
 }

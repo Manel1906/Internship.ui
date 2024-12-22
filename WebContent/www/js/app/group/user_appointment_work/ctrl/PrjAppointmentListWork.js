@@ -41,7 +41,7 @@ define([
 		var TYP_02_MEET_CLIENT				= 100;
 		var TYP_01_DEPARTMENT				= 300;
 		const pr_TYP_MEMBER 				= 2;
-
+		const ONLINE		   				= 1;
 		const STAT_ACTIVE    				= 1;
 		const STAT_DESACTIVE    			= 2;
 		var members 						= {};
@@ -1341,6 +1341,7 @@ define([
 		    if(!prj.inf02)
 		    	prj.inf02		= {};
 		    prj.inf02.cl 		= pr_Color;
+		    prj.inf02.workType	= ONLINE;
 			prj.fv01			= prj.inf02.pr;
 		    prj.stat01 			= STAT_ACTIVE; // Active
 		    prj.dtBegin 		= do_lc_convert_date(prj.dtBegin).replace("T", " ");
@@ -1833,10 +1834,12 @@ define([
 		        $('#colorValue').val(selectedColor);
 		        pr_Color = selectedColor;
 		        if (selectedValue == TYP_02_MEET_CLIENT) {
-		            $('#price').closest('.form-group').fadeIn();
+		            $('#price').closest('.col-6').fadeIn();
+		        	 $("#cmt03").closest('.col-6').removeClass("col-12");
 					$('#price').val("");
 		        } else {
-		            $('#price').closest('.form-group').fadeOut();
+		            $('#price').closest('.col-6').fadeOut();
+		             $("#cmt03").closest('.col-6').addClass("col-12");
 					$('#price').val("0");
 		        }
 		    });

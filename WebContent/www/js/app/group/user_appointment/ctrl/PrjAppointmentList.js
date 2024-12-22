@@ -559,7 +559,8 @@ define([
 						}
 					});
 					do_lc_build_view_member(args.e.data.members, "#div_list_member");
-					
+					// click image
+					do_lc_bind_event_img();
 					// Handle div file
 //					var divFile = "";
 //					if (args.e.data.obj.files) {
@@ -912,7 +913,26 @@ define([
 			// Initialize the app
 			app.init();
 			}
-
+			
+		function do_lc_getExtension_from_name(filename) {
+			var parts = filename.split('.');
+			return parts[parts.length - 1];
+		}
+		function do_lc_check_image(filename) {
+			var ext = do_lc_getExtension_from_name(filename);
+			switch (ext.toLowerCase()) {
+			case 'jpg':
+			case 'jpeg':
+			case 'gif':
+			case 'bmp':
+			case 'png':
+			case 'PNG':
+			case 'webp':
+				//etc
+				return true;
+			}
+			return false;
+		}
 		var do_lc_mod_appointment = function (e) {
 			let	data	 		= req_gl_data({
 				dataZoneDom		: $("#div_create_prj_appointment")
@@ -1652,13 +1672,22 @@ define([
 		            return isPastA ? 1 : -1;
 		        });
 				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, { "appointments": sortedList}));
-				do_lc_bind_event_notification();
+				do_lc_bind_event_notification(sortedList);
 			} else {
 				do_gl_show_Notify_Msg_Error($.i18n("common_err_msg_get"));
 			}
 		}
-		
-		const do_lc_bind_event_notification = () => {
+		var do_lc_bind_event_img = () => {
+			$(".img_group_chat").off("click").on("click", function() {
+				const path = $(this).data("path01");
+				let isImage = do_lc_check_image(path);
+				if(isImage){
+					window.open(path, "_blank");
+				}
+			})
+			
+		}
+		const do_lc_bind_event_notification = (sortedList) => {
 			$(".div_button_call").on("click", function () {
 				 const appointmentId = $(this).data("appointment-id");
 	
@@ -1671,7 +1700,34 @@ define([
 				});
 			$("#btn_refresh_appointment").off("click").on("click", function(){
 				do_lc_req_appointment_noti();
+				do_get_availableTimeList(dp_schedule);
 			})
+			$(".div_button_see").off("click").on("click", function(){
+				const appointmentId = $(this).data("appointment-id");
+				const matchedItem = sortedList.find(item => item.id === appointmentId);
+				
+				App.MsgboxController.do_lc_show({
+						title		: $.i18n("prj_appointment_msg_title"),
+						content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, matchedItem),
+						autoclose	: true,
+						buttons		: "none",
+						onClose		: () => {
+							members 	= {};
+							membersDel  = [];
+							files		= {files: []};
+						},
+						css: {
+						    "max-width"	: "500px",
+						    "min-width"	: "350px",
+						    "display"	: "flex",
+						    "margin"	: "auto"
+						}
+					});
+					do_lc_build_view_member(matchedItem.mems, "#div_list_member");
+					do_lc_bind_event_img();
+					$("#div_button_edit").hide();
+			})
+			
 		}
 
 
@@ -1710,7 +1766,7 @@ define([
 			var div = "";
 			if(members) {
 				for (var key in members) {
-
+					
 					let classCss = "";
 					let opacity = "";
 					let textStyle = "";
@@ -1723,8 +1779,10 @@ define([
 					if(mem.stat && mem.stat === pr_stat_accept ) {
 					  textStyle = "color: #32CD32;";
 					}
-					
-					if (mem.stat && mem.stat === 1) {
+					if (mem.typ && mem.typ === 100) {
+		                textStyle = "color: #32CD32;"; 
+		            }
+					if (mem.stat && mem.stat === 0) {
 					    classCss 	= "text-decoration-line-through text-danger";
 						textStyle 	= "text-decoration-thickness: 1.5px;";
 					}
@@ -1740,10 +1798,29 @@ define([
 						textColor = App.controller.UI.Def.reqSrcTextColor(item.login01);
 						textAvatar= first + last;
 					}
-
-					if(!item.avatar)	selOpt 			+= `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}" style="${textStyle}"> ${item.name}</span>`;
-					else                selOpt 		    += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/><span class="tooltiptext ${classCss}" style="${textStyle}">${item.name}</span>`;
 					
+					
+		 			if (mem.typ && mem.typ === 100) {
+		                if (!item.avatar) {
+		                    selOpt += `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}">
+		                                <div class="text-middle">${textAvatar}</div>
+		                            </div>`;
+		                    selOpt += `<a class="tooltiptext ${classCss}" style="${textStyle}" href="view_per_patient.html">${item.name}</a>`;
+		                } else {
+		                    selOpt += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/>`;
+		                    selOpt += `<a class="tooltiptext ${classCss}" style="${textStyle}" href="view_prj_user_profile.html?userId=${item.id}">${item.name}</a>`;
+		                }
+		            } else {
+		                if (!item.avatar) {
+		                    selOpt += `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}">
+		                                <div class="text-middle">${textAvatar}</div>
+		                            </div>`;
+		                    selOpt += `<span class="tooltiptext ${classCss}" style="${textStyle}">${item.name}</span>`;
+		                } else {
+		                    selOpt += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/>`;
+		                    selOpt += `<span class="tooltiptext ${classCss}" style="${textStyle}">${item.name}</span>`;
+		                }
+		            }
 					selOpt 				+= `</div>`;
 					div 				+= selOpt;
 				};
