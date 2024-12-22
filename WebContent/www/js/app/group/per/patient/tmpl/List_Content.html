@@ -29,9 +29,6 @@
 					        {{#equal typ05 3}}{{transl "per_person_patient_diamond" }}{{/equal}}
 				            {{#equal typ05 4}}{{transl "per_person_patient_vip" }}{{/equal}}
 					</p>
-                    
-                    
-                    
                     {{#ifCond stat02 '==' 1}} 
 					    <span class="badge font-size-12 badge-success badge-pill float-right">{{reqStatUser stat02}}</span>
 					    {{/ifCond}}
@@ -46,6 +43,9 @@
 					{{/ifCond}}
                </div>
             </div>
+            <div class="mt-3">
+	           	<div class="text-muted mb-0 mt-1">{{transl 'prj_user_list_join'}} {{dateFormatLocalShort dt01}}</div>
+           </div>
         </a>
     </li>
 {{/each}}

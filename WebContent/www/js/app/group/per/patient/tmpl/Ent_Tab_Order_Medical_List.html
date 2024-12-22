@@ -16,10 +16,10 @@
 	   <div id="table_contact">
 		    <div class="row">
 		        <div class="col-3 border p-2 text-center align-middle" style="background-color: #d9d9d9;">
-		            <h6 for="inp_group_locate" class="mb-0">{{transl 'per_person_patient_hist_date_check'}}</h6>
+		            <h6 for="inp_group_locate" class="mb-0">{{transl 'per_person_patient_hist_date_require'}}</h6>
 		        </div>
 		        <div class="col-3 border p-2 text-center align-middle" style="background-color: #d9d9d9;">
-		            <h6 for="inp_group_locate" class="mb-0">{{transl 'per_person_patient_hist_form'}}</h6>
+		            <h6 for="inp_group_locate" class="mb-0">{{transl 'per_person_patient_hist_date_perform'}}</h6>
 		        </div>
 		        <div class="col-4 border p-2 text-center align-middle" style="background-color: #d9d9d9;">
 		            <h6 for="inp_group_locate" class="mb-0">{{transl 'per_person_patient_hist_in_charge'}}</h6>
@@ -29,8 +29,21 @@
 		        </div>
 		    </div>
 		
-		    <div class="row ent-list" id="list_his_disease"></div>
-		    <div id="div_list_pagination_disease" class="ent-pagination"></div>
+		    <div class="row ent-list" id="list_medicine">
+			    <div class="col-3 border p-2 text-center align-middle">
+	           		<label for="inp_group_locate" class="mb-0">22/02/2002</label>
+		       </div>
+		       <div class="col-3 border p-2 text-center align-middle">
+		          <label for="inp_group_locate" class="mb-0">22/12/2022</label>
+		       </div>
+		       <div class="col-4 border p-2 text-center align-middle">
+		           <label for="inp_group_locate" class="mb-0">Đình Tuấn Kiệt</label>
+		       </div>
+		       <div class="col-2 border p-2 text-center align-middle infor-get cursor-pointer" data-id="{{id}}">
+		          <span class="mdi mdi-eye-outline"></span>
+		       </div>
+		    </div>
+		    <div id="div_list_pagination_medicine" class="ent-pagination"></div>
 		</div>
 
    </div>

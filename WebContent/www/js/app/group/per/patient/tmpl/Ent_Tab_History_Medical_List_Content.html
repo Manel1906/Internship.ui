@@ -1,19 +1,20 @@
 {{#if data}}
 	{{#each data}}
-       <div class="col-3 border p-2 text-center align-middle infor-get">
+       <div class="col-3 border p-2 text-center align-middle">
            <label for="inp_group_locate" class="mb-0">{{reqFormatShortDate dt01}}</label>
        </div>
-       <div class="col-3 border p-2 text-center align-middle infor-get">
+       <div class="col-3 border p-2 text-center align-middle">
            <label class="edit-text info-show-family">
-				{{#equal typ02 0}}{{transl "per_person_patient_hist_remote" }}{{/equal}}
-				{{#equal typ02 1}}{{transl "per_person_patient_hist_live" }}{{/equal}}
+				{{#equal typ02 5}}{{transl "per_person_patient_hist_remote" }}{{/equal}}
+				{{#equal typ02 6}}{{transl "per_person_patient_hist_live" }}{{/equal}}
 		   </label>
        </div>
-       <div class="col-4 border p-2 text-center align-middle infor-get">
+       <div class="col-4 border p-2 text-center align-middle">
            <label for="inp_group_locate" class="mb-0">{{inf09}}</label>
        </div>
-       <div class="col-2 border p-2 text-center align-middle infor-get cursor-pointer">
-          <span class="mdi mdi-eye-outline"></span>
+       <div class="col-2 border p-2 text-center align-middle infor-get cursor-pointer" data-id="{{id}}" data-stat="{{stat}}">
+          {{#equal stat 0}}  <span class="mdi mdi-eye-off-outline"></span> 			   {{/equal}}
+		  {{#equal stat 1}}	 <span class="mdi mdi-eye-off-outline text-danger"></span> {{/equal}}
        </div>
      {{/each}}
 {{else}}

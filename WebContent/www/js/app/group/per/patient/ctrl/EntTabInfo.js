@@ -73,7 +73,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			});
 		}
 		var do_lc_show_file 			= function (ent){
-			ent.files = ent.files?.filter(e => e.typ01 === 2 && e.typ02 === 10) || [];
+	//		ent.files = ent.files?.filter(e => e.typ01 === 2 && e.typ02 === 10) || [];
 			$("#div_inf_file"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_INFO_FILE			, ent));
 			$(".item-file-download").off("click").on("click", function(){
 				let {path}				= $(this).data();

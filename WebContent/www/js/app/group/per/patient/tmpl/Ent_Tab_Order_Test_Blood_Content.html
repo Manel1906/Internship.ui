@@ -1,0 +1,84 @@
+<div class="card">
+	<div class="card-body">
+        <div class="row">
+            <div class="col-lg-11 col-md-10 col-sm-9"><h4> {{transl 'per_person_patient_content_medical'}}</h4></div>
+        	<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+        </div>
+        <div class="needs-validation" id="frm_entity">
+        	<input type="hidden" data-name="typ01" class="form-control objData" value="1">
+        	<input type="hidden" data-name="typ02" class="form-control objData" value="1">
+        	<input type="hidden" data-name="stat" class="form-control objData" value="1">
+           
+           	<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;"></div>
+			<div class="row">
+	           <div class="form-group col-3">
+					<label for="inp_group_locate" style="font-size: 1rem !important;">
+					        {{transl 'per_person_patient_hist_date_require'}}
+					</label>
+				</div>
+
+				<div class="form-group col-9 px-2">
+				    <label for="inp_group_locate">
+					      {{reqFormatShortDate dt01}}
+					</label>
+				</div>
+			
+				<div class="form-group col-3">
+				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_doctor_treat'}}</label>
+				</div>
+				
+				<div class="form-group col-9">
+				    <label for="inp_group_email""></label>
+				</div>
+				
+				<div class="form-group col-3">
+				    <label for="inp_group_locate" style="font-size: 1rem !important;">{{transl 'per_person_patient_content_required'}}</label>
+				</div>
+
+				<div class="form-group col-9 px-2">
+				    <label for="inp_group_locate"></label>
+			    </div>
+			    
+				<div class="form-group col-3">
+				    <label for="inp_group_locate" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_date_perform'}}</label>
+				</div>
+
+				<div class="form-group col-9 px-2">
+				    <label for="inp_group_locate"></label>
+			    </div>
+			    
+			    <div class="form-group col-3">
+				    <label for="inp_group_locate" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_doctor_res'}}</label>
+				</div>
+
+				<div class="form-group col-9 px-2">
+				    <label for="inp_group_locate"></label>
+			    </div>
+			    
+				<div class="form-group col-12">
+				    <label for="inp_group_email" style="font-size: 1rem !important;">{{transl 'per_person_patient_result'}}</label>
+				</div>
+				
+				<div class="form-group col-12 px-2">
+				    <label for="inp_group_email"></label>
+			    </div>
+			    
+		    	<div class="col-12 mb-1" id="div_show_dignose">
+					<label for="dignose" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_dignose'}}</label>
+	           	</div>
+	           	
+	           	<div class="form-group col-12 px-2 mt-1">
+			        <label for="inp_group_email">{{inf02.dignose}}</label>
+			    </div>
+	           	
+	           	<div class="col-lg-12" id="div_show_note">
+					<label for="note" class="col-form-label" style="font-size: 1rem !important;">{{transl 'per_person_patient_hist_note'}}</label>
+	           	</div>
+	           	
+	           	<div class="form-group col-12 px-2 mt-1">
+			        <label for="inp_group_email">{{inf02.dignose}}</label>
+			    </div>
+           	</div>
+        </div>
+    </div>
+</div>

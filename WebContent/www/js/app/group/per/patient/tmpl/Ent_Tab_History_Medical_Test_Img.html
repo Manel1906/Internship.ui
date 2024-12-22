@@ -6,23 +6,33 @@
    		</div>
    		<div class="col-1">
    			<div class="d-flex align-items-center justify-content-between">
-			    <div id="btn_mod_contact" class="cursor-pointer isManager mr-1">
-			        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
-			    </div>
+			    {{#if stat}}
+		            {{#ifCond stat '==' 0}}
+		            	 <div id="btn_mod_img" class="cursor-pointer isManager mr-1">
+					        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+					    </div>
+		            {{else}}
+		            <div></div>
+		            {{/ifCond}}
+	            {{else}}
+		             <div id="btn_mod_img" class="cursor-pointer isManager mr-1">
+				        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+				     </div>
+		        {{/if}}
 			</div>
 			
 			<div class="d-flex mt-2"> 
-			    <a id="a_btn_sav_contact" class="mr-2 text-primary cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="Save">
+			    <a id="a_btn_sav_img" class="mr-2 text-primary cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="Save">
 			        <i class="mdi mdi-content-save font-size-20 action-item"></i>
 			    </a> 
-			    <a id="a_btn_canc_contact" class="mr-2 text-danger cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="Cancel">
+			    <a id="a_btn_canc_img" class="mr-2 text-danger cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="Cancel">
 			        <i class="mdi mdi-close font-size-20"></i>
 			    </a> 
 			</div>
    		</div>
    	</div>
    
-   	<div id="table_contact">
+   	<div id="table_img">
    		<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
   			<table class="table table-disease table-centered table-nowrap mb-0">
         		<thead class="thead-light">
@@ -31,41 +41,34 @@
 	              		<th>{{transl 'per_person_patient_hist_code_service'}}</th>
 	              		<th>{{transl 'per_person_patient_hist_name_service'}}</th>
 	              		<th>{{transl 'per_person_patient_hist_note'}}</th>
-	           			<th  id="btnAddContact" class="hide">
+	           			<th  id="btnAddImg" class="hide">
 	         				<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">+</button>
 	      				</th>
            			</tr>
        			</thead>
-        		<tbody id="tbody_entity_contact">
-        			{{#if inf08}}
-					{{#each inf08}}
+        		<tbody id="tbody_entity_img">
+        			{{#if inf07}}
+					{{#each inf07}}
 						<tr>
-							<input type="hidden" data-name="id" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
+							<input type="hidden" data-name="id" class="form-control objData inf-entity-img hide" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
-								<span class="edit-text info-show">{{index}}</span>
+								<input type="text" data-group="inf07" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity-img hide" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
+								<span class="edit-text info-show-img">{{index}}</span>
 							</td>
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="code" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{code}}" placeholder="{{transl 'per_person_patient_code'}}" data-validation="required">
-								<span class="edit-text info-show">{{code}}</span>
+								<input type="text" data-group="inf07" data-gindex="{{@index}}" data-name="code" class="form-control objData inf-entity-img hide" autocomplete="off" id="inp_group_name" value="{{code}}" placeholder="{{transl 'per_person_patient_code'}}" data-validation="required">
+								<span class="edit-text info-show-img">{{code}}</span>
 							</td>
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="name" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{name}}" placeholder="{{transl 'per_person_patient_full_name'}}" data-validation="required">
-								<span class="edit-text info-show">{{name}}</span>
+								<input type="text" data-group="inf07" data-gindex="{{@index}}" data-name="name" class="form-control objData inf-entity-img hide" autocomplete="off" id="inp_group_name" value="{{name}}" placeholder="{{transl 'per_person_patient_full_name'}}" data-validation="required">
+								<span class="edit-text info-show-img">{{name}}</span>
 							</td>
 							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="relate" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_name" value="{{relate}}" placeholder="{{transl 'per_person_patient_relate'}}" data-validation="required">
-								<span class="edit-text info-show">{{relate}}</span>
+								<input type="text" data-group="inf07" data-gindex="{{@index}}" data-name="note" class="form-control objData inf-entity-img hide" autocomplete="off" id="inp_group_name" value="{{note}}" placeholder="{{transl 'per_person_patient_relate'}}" data-validation="required">
+								<span class="edit-text info-show-img">{{note}}</span>
 							</td>
-							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="identify" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_locate" value="{{identify}}" placeholder="{{transl 'per_person_patient_identify'}}" data-validation="required">
-								<span class="edit-text info-show">{{identify}}</span>
-							</td>
-							<td class="text-center">
-								<input type="text" data-group="inf08" data-gindex="{{@index}}" data-name="inf" class="form-control objData inf-entity hide" autocomplete="off" id="inp_group_locate" value="{{inf}}" placeholder="{{transl 'per_person_patient_inf_contact'}}" data-validation="required">
-								<span class="edit-text info-show">{{inf}}</span>
-							</td>
-							<td  class="text-center inf-entity btnRemoveRow hide">
+							
+							<td  class="text-center inf-entity-blood btnRemoveRowImg hide">
 								<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
 							</td>
 						</tr>
