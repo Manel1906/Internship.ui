@@ -73,24 +73,15 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 		
 		var do_lc_show_info_medical 			= function(ent){
+			pr_id_person = ent.id
 			$(pr_divContent				).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, ent));
 			
-			$(".btn-resize-content").off("click").on("click", function () {
-				let $this = $(this);
-				let { divtoogle } = $this.data();
-				let child = $this.find("i");
-				let label = $this.find(".label-resize");
-				child.toggleClass("mdi-window-minimize mdi-window-maximize")
-				$(divtoogle).toggle("hide");
-
-				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
-			})
 			$("#btn_new_entity").off("click").on("click", function () {
-				do_lc_show_button_new(ent)
+				do_lc_show_ent_new(ent)
 			})
 		}
-		var do_lc_show_button_new 	= function(ent){
-			pr_id_person = ent.id
+		var do_lc_show_ent_new 	= function(ent){
+	//		pr_id_person = ent.id
 			$("#div_ent_his_content").html("");
 			do_lc_show_his_content_new		(ent);
 			do_lc_show_his_prescription		();
@@ -115,7 +106,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					url_api 		: App.path.BASE_URL_API_PRIV, 
 					url_header 		: App.data["HttpSecuHeader"],
 					url_api_param 	: ref,
-					pageSize 		: 3,
+					pageSize 		: 9,
 					pageRange		: 1,
 					callback		: callbackFunct
 			};
@@ -203,7 +194,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				inforPrescription.inf05 			= obj.data.inf05;
 				if (inforPrescription.inf05)
 					inforPrescription.inf05		= inforImg.inf05.filter(element => element !== null && element !== undefined);
-				do_lc_save_entity_prescription(inforPrescription,idPer,pr_id_entity, do_lc_load_new_medical);
+				do_lc_save_entity_prescription(inforPrescription,idPer,pr_id_entity, do_lc_show_ent_edit);
 			});
 		}
 		const do_lc_show_entity_blood = (data) => {
@@ -240,7 +231,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				inforBlood.inf06 			= obj.data.inf06;
 				if (inforBlood.inf06)
 					inforBlood.inf06		= inforBlood.inf06.filter(element => element !== null && element !== undefined);
-				do_lc_save_entity_blood(inforBlood,idPer,pr_id_entity, do_lc_load_new_medical);
+				do_lc_save_entity_blood(inforBlood,idPer,pr_id_entity, do_lc_show_ent_edit);
 			});
 		}
 		const do_lc_show_entity_img = (data) => {
@@ -276,7 +267,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				inforImg.inf07 			= obj.data.inf07;
 				if (inforImg.inf07)
 					inforImg.inf07		= inforImg.inf07.filter(element => element !== null && element !== undefined);
-				do_lc_save_entity_img(inforImg,idPer,pr_id_entity, do_lc_load_new_medical);
+				do_lc_save_entity_img(inforImg,idPer,pr_id_entity, do_lc_show_ent_edit);
 			});
 		}
 		const do_lc_bind_event_new_prescription = function(data) {		
@@ -423,7 +414,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		};
 		
 		const do_lc_save_entity_prescription = function(myObject,idPer,idEnt, callback){
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer,id:idEnt });
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer});
 			let fSucces				= [];
 			fSucces.push(req_gl_funct(null, do_lc_save_entity_prescription_callback, [myObject, callback]));
 
@@ -444,7 +435,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 		
 		const do_lc_save_entity_blood = function(myObject,idPer,idEnt, callback){
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer, id:idEnt});
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer});
 			let fSucces				= [];
 			fSucces.push(req_gl_funct(null, do_lc_save_entity_blood_callback, [myObject, callback]));
 
@@ -464,7 +455,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}
 		}
 		const do_lc_save_entity_img = function(myObject,idPer,idEnt, callback){
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer, id:idEnt});
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer});
 			let fSucces				= [];
 			fSucces.push(req_gl_funct(null, do_lc_save_entity_img_callback, [myObject, callback]));
 
@@ -619,7 +610,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					});
 			})
 			$("#btn_mod_content").off("click").on("click",function(){
-				do_lc_show_button_new(ent)
+				do_lc_show_ent_edit(ent)
 			})
 		}
 		
@@ -647,7 +638,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			do_lc_update_entity(data.data);
 		}
 		const do_lc_update_entity = function(ent) {
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent),perId: ent.perId, id: ent.entyId});	
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent),perId: ent.perId});	
 
 			let fSucces		= [];
 			fSucces.push(req_gl_funct(null, do_lc_update_entity_callback, []));
@@ -716,12 +707,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
-		var do_lc_load_new_medical 			= function(ent){
-			do_lc_show_his_content_new		(ent,pr_id_entity);
-			do_lc_show_his_prescription		(ent,pr_id_entity);
-			do_lc_show_his_test_blood		(ent,pr_id_entity);
-			do_lc_show_his_test_img 		(ent,pr_id_entity);
-		}
 		var do_lc_bind_event_select_icd_main 			= function(ent){
 			$('#select_icd_main').on('change', function () {
 		        var selectedValue = $(this).val();
@@ -789,6 +774,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				$(this).closest(".member-item-code").remove();
 				$("#inp_code").show();
 			})
+		}
+		var do_lc_show_ent_edit 	= function(ent){
+	//		pr_id_person = ent.id
+			$("#div_ent_his_content").html("");
+			do_lc_show_his_content_new		(ent);
+			do_lc_show_his_prescription		(ent);
+			do_lc_show_his_test_blood		(ent);
+			do_lc_show_his_test_img 		(ent);
 		}
 		//---------------------------------Ajax----------------------------------------------
 		this.do_lc_cancel = function(obj){

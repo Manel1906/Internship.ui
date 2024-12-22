@@ -31,8 +31,8 @@
 			  	<div class="form-group col-4 px-2">
 			        <h6 >{{transl 'per_person_patient_hist_form'}}</h6>
 			        <label for="radio_live" class="mb-0">
-			        {{#equal typ02 0}}{{transl "per_person_patient_hist_remote" }}{{/equal}}
-					{{#equal typ02 1}}{{transl "per_person_patient_hist_live" }}{{/equal}}
+			        {{#equal typ02 5}}{{transl "per_person_patient_hist_remote" }}{{/equal}}
+					{{#equal typ02 6}}{{transl "per_person_patient_hist_live" }}{{/equal}}
 			        </label>
 			    </div>
 			    
@@ -111,7 +111,7 @@
 			    <div class="form-group col-4 px-2">
 			        <h6>{{transl 'per_person_patient_hist_icd_main'}}</h6>
 				     <div class="form-group d-flex">
-				        <p>{{inf03.codeICD}}-</p>
+				        <p>{{inf03.codeICD}}</p>
 				        <p>{{inf03.nameICD}}</p>
 				    </div>
 			    </div>
@@ -119,7 +119,7 @@
 			    <div class="form-group col-4 px-2">
 			        <h6>{{transl 'per_person_patient_hist_icd_extra'}}</h6>
 				    <div class="form-group d-flex">
-				        <p>{{inf03.codeICDSub}}-</p>
+				        <p>{{inf03.codeICDSub}}</p>
 				        <p>{{inf03.nameICDSub}}</p>
 				    </div>    
 			    </div>  
