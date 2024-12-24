@@ -417,7 +417,11 @@ define([
 				dataZoneDom: $("#frm_new_group")
 			});
 
-			if(data.hasError)	return false;
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}
 
 			if (obj.files){
 				data.data.files = obj.files;

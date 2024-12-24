@@ -75,6 +75,44 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				label.html(child.hasClass("mdi-window-minimize") ? $.i18n("prj_project_resize_min") : $.i18n("prj_project_resize_max"));
 			})
 		}
+		
+		const do_lc_get_his_disease = function(ent){
+			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_GET);	
+			ref["perId"]	= ent.id;
+			
+			let fSucces		= [];
+			fSucces.push(req_gl_funct(null, do_lc_get_Entity_his_disease_callback, [ent]));
+			
+			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
+			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
+		}
+		
+		const do_lc_get_Entity_his_disease_callback = function(sharedJson, ent){
+			let data			= {};
+			if (sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
+				data 		= sharedJson[App['const'].RES_DATA];
+			}
+			do_lc_clean_data			(data)
+			do_lc_show_his_disease 		(ent,data);
+			do_lc_show_his_family 		(ent,data);
+			do_lc_show_his_allergy 		(ent,data);
+		}
+		const do_lc_clean_data = function(ent){
+			if(Object.keys(ent).length == 0) return;
+
+			if(ent.inf01 && typeof ent.inf01 == "string"){
+				ent.inf01 = JSON.parse(ent.inf01);
+			}
+			
+			if(ent.inf02 && typeof ent.inf02 == "string"){
+				ent.inf02 = JSON.parse(ent.inf02);
+			}
+			
+			if(ent.inf03 && typeof ent.inf03 == "string"){
+				ent.inf03 = JSON.parse(ent.inf03);
+			}
+		}
+		
 		var do_lc_show_his_disease 			= function(ent,data){
 			$("#div_his_chronic").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC, data));
 			$("#btn_mod_chronic").off("click").on("click", function(){
@@ -310,42 +348,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
 			}
 		}
-		const do_lc_get_his_disease = function(ent){
-			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_GET);	
-			ref["perId"]		= ent.id;
-			
-			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_get_Entity_his_disease_callback, [ent]));
-			
-			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
-			App.network.do_lc_ajax (App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError) ;
-		}
 		
-		const do_lc_get_Entity_his_disease_callback = function(sharedJson, ent){
-			let data			= {};
-			if (sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
-				data 		= sharedJson[App['const'].RES_DATA];
-			}
-			do_lc_clean_data(data)
-			do_lc_show_his_disease 		(ent,data);
-			do_lc_show_his_family 		(ent,data);
-			do_lc_show_his_allergy 		(ent,data);
-		}
-		const do_lc_clean_data = function(ent){
-			if(Object.keys(ent).length == 0) return;
-
-			if(ent.inf01 && typeof ent.inf01 == "string"){
-				ent.inf01 = JSON.parse(ent.inf01);
-			}
-			
-			if(ent.inf02 && typeof ent.inf02 == "string"){
-				ent.inf02 = JSON.parse(ent.inf02);
-			}
-			
-			if(ent.inf03 && typeof ent.inf03 == "string"){
-				ent.inf03 = JSON.parse(ent.inf03);
-			}
-		}
+		
+		
 		
 		//---------------------------------Ajax----------------------------------------------
 		this.do_lc_cancel = function(obj){

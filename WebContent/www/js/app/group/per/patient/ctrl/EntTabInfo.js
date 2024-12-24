@@ -123,7 +123,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					dataZoneDom		: $("#table_contact"),
 				});
 				
-				if(obj.hasError)	return;
+				//check data error
+				if(obj.hasError){
+					do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+					return;
+				}
 				
 				data.inf08 			= obj.data.inf08;
 				if (data.inf08)
@@ -161,7 +165,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					dataZoneDom		: $("#table_insurance"),
 				});
 			
-				if(obj.hasError)	return;
+				//check data error
+				if(obj.hasError){
+					do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+					return;
+				}
 				
 				data.inf09 			= obj.data.inf09;
 				if (data.inf09)
@@ -300,7 +308,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				dataZoneDom: $("#frm_new_group")
 			});
 
-			if(data.hasError)	return false;
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}
 
 			if (obj.files){
 				data.data.files = obj.files;

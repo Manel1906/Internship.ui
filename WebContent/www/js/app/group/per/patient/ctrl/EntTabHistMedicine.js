@@ -47,8 +47,10 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		const pr_typ_sav_draft      = 0;
 		const pr_typ_sav_done       = 1;
+		
 		var   pr_id_entity			= null;
 		var   pr_id_person			= null;
+		var   pr_obj_person			= null;
 		//------------------const object------------------------------------------------------
 		//-----------------------------------------------------------------------------------
 		this.do_lc_init				= function(){
@@ -59,49 +61,31 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 		
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(ent, mode){               
+		this.do_lc_show = function(ent){               
 			try{
-				do_lc_show_entity(ent, mode);
+				pr_obj_person = ent;
+				do_lc_show_entity(ent);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
 			}
 		};
 		
-		var do_lc_show_entity 				= function(ent){
-			do_lc_show_info_medicine 		(ent);
-			do_lc_show_his_medicine 		(ent);
-		}
-		
-		var do_lc_show_info_medicine 		= function(ent){
-			pr_id_person = ent.id
-			$(pr_divContent					).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, ent));
+		var do_lc_show_entity 				= function(entPer){
+			pr_id_person 					= entPer.id
 			
-			$("#btn_new_entity").off("click").on("click", function () {
-				do_lc_show_ent_new(ent)
-			})
-		}
-		var do_lc_show_ent_new 	= function(ent){
-	//		pr_id_person = ent.id
-			$("#div_ent_his_content"		).html("");
+			$(pr_divContent					).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, entPer));
+			$("#div_entity_his_medical"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST			, entPer));
 			
-			do_lc_show_his_content_new		(ent);
-			do_lc_show_his_prescription		();
-			do_lc_show_his_test_blood		();
-			do_lc_show_his_test_img 		();
-		}
-		
-		var do_lc_show_his_medicine 	= function(entPer){
-			$("#div_entity_his_medical").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST				, entPer));
 			do_lc_reqLst_his_medicine(entPer)
 		}
 		
 		var do_lc_reqLst_his_medicine 	= function(entPer){
-			let divList = $("#list_his_disease");
-			let divPan  = $("#div_list_pagination_disease");
+			let divList = $("#div_list_his_medicine");
+			let divPan  = $("#div_pagination_his_medicine");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, {	perId: entPer.entId || entPer.id  });
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, {perId: entPer.id});
 			
-			const callbackFunct 	= data => do_lc_reqLst_his_medicine_callback(data, entPer);
+			const callbackFunct 	= data => do_lc_reqLst_his_medicine_callback(data);
 			
 			let opt = {
 					divMain			: divList,
@@ -124,40 +108,29 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				data		= sharedJson[App['const'].RES_DATA]
 			}
 			
-			$("#list_his_disease")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT, { "data": data.lst }));
-			do_lc_bind_event_his_medicine()
+			$("#div_list_his_medicine")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT, { "data": data.lst }));
+			
+			do_lc_bind_event_his_medicine();
 		}
 		
 		var do_lc_bind_event_his_medicine 			= function(){
-			
+			$("#btn_new_entity").off("click").on("click", function () {
+				$("#div_ent_his_content"		).html("");
+				do_lc_show_his_content_mod		();
+			});
+						
 			$(".infor-get").off("click").on("click", function (){
+				$(".mdi-eye-outline").removeClass	("mdi-eye-outline").addClass("mdi-eye-off-outline");
 				
-			    let { id, stat } 	= $(this).data(); 
+			    let { id } 			= $(this).data(); 
 			    let $span 			= $(this).find("span"); 
-			
-				$span	.removeClass	("mdi-eye-outline").addClass("mdi-eye-off-outline");
-		        
-				$(this).removeClass("mdi-eye-off-outline").addClass("mdi-eye-outline");
-		        do_lc_get_his_content(id, stat);
+				$span.removeClass("mdi-eye-off-outline").addClass("mdi-eye-outline");
+		       
+				do_lc_get_his_content(id);
 			});
 		}		
 				
-		var do_lc_show_his_content_new 	= function(ent,id){
-			$("#div_ent_his_content_new").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW		, ent,{idEnty: id}));
-			var now 	= new Date();
-			dateNow		= do_lc_handle_date (now);
-			$("#dtpicker_exp" ).datepicker( "setDate", dateNow.dt);
-			const user = App.data.user
-			$("#name_doctor")	.val(user.name);
-			$("#code_doctor")	.val(user.per.code01);
-			$("#room_medicine")	.val(user.per.inf03);
-			App.SummerNoteController.do_lc_show("#div_show_sympton");//text editor
-			App.SummerNoteController.do_lc_show("#div_show_dignose");//text editor
-			App.SummerNoteController.do_lc_show("#div_show_note");//text editor
-			do_get_list_disease_ByAjax()
-			do_lc_bind_event_content_new(ent)
-		}
-		
+		//----------------------------------------------------------------------------------------------------------
 		
 		const do_lc_show_entity_prescription = (data) => {
 			$("#btn_mod_prescription"		).addClass("hide");
@@ -224,7 +197,12 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					dataZoneDom		: $("#table_blood"),
 				});
 			
-				if(obj.hasError)	return;
+				//check data error
+				if(obj.hasError){
+					do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+					return;
+				}
+				
 				inforBlood = {}
 				idPer = pr_id_person
 				inforBlood.inf06 			= obj.data.inf06;
@@ -260,7 +238,12 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					dataZoneDom		: $("#table_img"),
 				});
 			
-				if(obj.hasError)	return;
+				//check data error
+				if(obj.hasError){
+					do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+					return;
+				}
+				
 				inforImg = {}
 				idPer = pr_id_person
 				inforImg.inf07 			= obj.data.inf07;
@@ -269,6 +252,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_lc_save_entity_img(inforImg,idPer,pr_id_entity, do_lc_show_ent_edit);
 			});
 		}
+		
 		const do_lc_bind_event_new_prescription = function(data) {		
 		//	do_get_list_medicine_ByAjax()	
 		 	const maxIndex 	= Math.max(0, ...$('#tbody_entity_chronic').find('input[data-name="index"]').map(function () {
@@ -474,72 +458,36 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}
 		}
 		
-		var do_lc_bind_event_content_new 			= function(ent){
-			$("#cancel_header").off("click").on("click",function(){
-					//---MsgBox
-					App.MsgboxController.do_lc_show({
-						title	: $.i18n("msgbox_confirm_title"),
-						content : $.i18n("msgbox_confirm_cancel_create"),
-						width	: "400px",
-						autoclose	: false,
-						buttons	: {
-							NO: {
-								lab		: $.i18n("prj_user_group_new_btn_back"),
-								funct	: null,
-								param	: [],
-							},
-							OK: {
-								lab		: $.i18n("prj_user_group_new_btn_cancel"),
-								funct	: self.do_lc_cancel,
-								param	: [ent],
-								classBtn: "btn-danger"
-							}
-						}
-					});
-			})
+		var do_lc_bind_event_content_mod 			= function(ent){
 			$("#btn_sav_entity").off("click").on("click",function(){
-					App.MsgboxController.do_lc_show({
-						title	: $.i18n("msgbox_confirm_title"),
-						content : $.i18n("per_person_patient_title"),
-						width	: "400px",
-						autoclose	: false,
-						buttons	: {
-							NO: {
-								lab		: $.i18n("prj_user_group_new_btn_cancel"),
-								funct	: null,
-								param	: [],
-							},
-							OK: {
-								lab		: $.i18n("prj_user_group_new_btn_save_record"),
-								funct	: self.do_lc_mod,
-								param	: [pr_id_person,pr_typ_sav_done],
-								classBtn: "btn-primary"
-							}
+				App.MsgboxController.do_lc_show({
+					title	: $.i18n("msgbox_confirm_title"),
+					content : $.i18n("per_person_patient_title"),
+					width	: "400px",
+					autoclose	: false,
+					buttons	: {
+						NO: {
+							lab		: $.i18n("prj_user_group_new_btn_cancel"),
+							funct	: null,
+							param	: [],
+						},
+						OK: {
+							lab		: $.i18n("prj_user_group_new_btn_save_record"),
+							funct	: self.do_lc_mod,
+							param	: [pr_typ_sav_done],
+							classBtn: "btn-primary"
 						}
-					});
-			})
+					}
+				});
+			});
+			
 			$("#btn_sav_draft_entity").off("click").on("click",function(){
-				self.do_lc_mod(pr_id_person,pr_typ_sav_draft)
+				self.do_lc_mod(pr_typ_sav_draft)
 			})
-			$('#radio_remote_checkbox').on('change', function() {
-	            if ($(this).prop('checked')) {
-	                $('#hist_date')			.removeClass('hide');
-	                $('#hist_date_calendar').removeClass('hide');
-	            } else {
-	                $('#hist_date')			.addClass('hide');
-	                $('#hist_date_calendar').addClass('hide');
-	            }
-        	});
-        	
-        	$(".infor-get").off("click").on("click", function () {
-				let {id} =  $(this).data();
-				do_lc_get_his_content		(id);
-		//		do_lc_show_his_content		(ent);
-		//		do_lc_show_his_prescription	(ent);
-		//		do_lc_show_his_test_blood		(ent);
-		//		do_lc_show_his_test_img 		(ent);
-			})
+			
 		}		
+		
+		//----------------------------------------------------------------------------------------------------------
 		const do_lc_get_his_content = function(id) {
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET_BY_ID, {id: id});	
 			
@@ -555,95 +503,110 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
-					$("#div_ent_his_content_new").html("");
-					
-					do_lc_clean_data			(data)
-					do_lc_show_his_content		(data);
-					do_lc_show_his_prescription	(data);
-					do_lc_show_his_test_blood	(data);
-					do_lc_show_his_test_img 	(data);
+					do_lc_show_his_medicine		(data)
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
-		var do_lc_show_his_content 			= function(ent){
-			$("#div_ent_his_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT, ent, {stat: ent.stat}));
+		
+		var do_lc_show_his_medicine 	= function(data){
+			do_lc_clean_data			(data)
 			
-			$("#cancel_header").off("click").on("click",function(){
-					//---MsgBox
-					App.MsgboxController.do_lc_show({
-						title	: $.i18n("msgbox_confirm_title"),
-						content : $.i18n("msgbox_confirm_cancel_create"),
-						width	: "400px",
-						autoclose	: false,
-						buttons	: {
-							NO: {
-								lab		: $.i18n("prj_user_group_new_btn_back"),
-								funct	: null,
-								param	: [],
-							},
-							OK: {
-								lab		: $.i18n("prj_user_group_new_btn_cancel"),
-								funct	: self.do_lc_cancel,
-								param	: [ent],
-								classBtn: "btn-danger"
-							}
-						}
-					});
-			})
-			$("#btn_mod_content").off("click").on("click",function(){
-				do_lc_show_ent_edit(ent)
-			})
+			
+			if (!data.stat)
+			do_lc_show_his_content_mod	(data);
+			else
+			do_lc_show_his_content		(data);
+			
+			do_lc_show_his_prescription	(data);
+			do_lc_show_his_test_blood	(data);
+			do_lc_show_his_test_img 	(data);
 		}
-		var do_lc_show_his_prescription 		= function(ent,stat){
-			$("#div_ent_his_prescription").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT		, ent, {stat: stat}));
-			$("#btn_mod_prescription").off("click").on("click", function(){
-				do_lc_show_entity_prescription(ent);
+		
+		var do_lc_show_his_content_mod 	= function(ent){
+			const user = App.data.user;
+			
+			if (ent==null) 
+				ent={
+					entId 	: pr_id_person,
+					stat	: 0, //draft
+					dt01	: req_gl_DateStr_From_DateObj (new Date()),
+					inf08	: user.per.inf03,
+					inf09	: user.per.code01,
+					inf10	: user.name,
+				};
+				
+			$("#div_ent_his_content"	).html("");
+			$("#div_ent_his_content_new").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW		, ent));
+			
+			App.SummerNoteController.do_lc_show("#div_show_sympton"	);//text editor
+			App.SummerNoteController.do_lc_show("#div_show_dignose"	);//text editor
+			App.SummerNoteController.do_lc_show("#div_show_note"	);//text editor
+			
+			do_get_list_disease_ByAjax();
+			
+			if (ent.id){
+				do_lc_show_his_prescription	(ent);
+				do_lc_show_his_test_blood	(ent);
+				do_lc_show_his_test_img 	(ent);
+				
+				$("#btn_sav_entity").removeClass("hide");
+			}
+			
+			do_lc_bind_event_content_mod(ent);
+		}
+		
+		var do_lc_show_his_content 				= function(ent){
+			$("#btn_sav_entity"					).addClass("hide");
+			$("#div_ent_his_content_new"		).html("");
+			$("#div_ent_his_content"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT	, ent));
+		}
+		
+		var do_lc_show_his_prescription 		= function(ent){
+			$("#div_ent_his_prescription"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT	, ent));
+			
+			$("#btn_mod_prescription"			).off("click").on("click", function(){
+				do_lc_show_entity_prescription	(ent);
 			});
 		}
-		var do_lc_show_his_test_blood 			= function(ent,stat){
-			$('#div_ent_his_test_blood').removeClass('hide');
-			$("#div_ent_his_test_blood").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD				, ent, {stat: stat}));
-			$("#btn_mod_blood").off("click").on("click", function(){
+		var do_lc_show_his_test_blood 			= function(ent){
+			$('#div_ent_his_test_blood'			).removeClass('hide');
+			$("#div_ent_his_test_blood"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD		, ent));
+			
+			$("#btn_mod_blood"					).off("click").on("click", function(){
 				do_lc_show_entity_blood(ent);
 			});
 		}
-		var do_lc_show_his_test_img 			= function(ent,stat){
-			$('#div_ent_his_test_img').removeClass('hide');
-			$("#div_ent_his_test_img").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG				, ent, {stat: stat}));
-			$("#btn_mod_img").off("click").on("click", function(){
+		var do_lc_show_his_test_img 			= function(ent){
+			$('#div_ent_his_test_img'			).removeClass('hide');
+			$("#div_ent_his_test_img"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG		, ent));
+			
+			$("#btn_mod_img"					).off("click").on("click", function(){
 				do_lc_show_entity_img(ent);
 			});
 		}
 		//----------------------------------------------------------------------------------------------
-		var do_lc_handle_date = (strDate) => {
-			let tmp = getDateEN(strDate);
-			let res = {};
-			res.dt = tmp.slice(0, 10);
-			res.tm = tmp.slice(11, 16);
-			return res;
-		}
-		var getDateEN = function(dObj) {
-			return req_gl_DateStr_From_DateObj(dObj, DateFormat.masks.enFullDate);		
-		}
-		this.do_lc_mod = function(id,stat){
+		this.do_lc_mod = function(stat){
 			const data = req_gl_data({
 				dataZoneDom: $("#frm_entity")
 			});
 
-			if(data.hasError)	return false;
+			//check data error
+			if(data.hasError){
+				do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'));
+				return;
+			}
 			
-			data.data.perId = id;
-			data.data.stat  = stat;
-			data.data.entyId = pr_id_entity;
+			data.data.stat  	= stat;
+			
 			do_lc_update_entity(data.data);
 		}
 		const do_lc_update_entity = function(ent) {
-			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent),perId: ent.perId});	
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: JSON.stringify(ent)});	
 
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_update_entity_callback, []));
+			fSucces.push	(req_gl_funct(null, do_lc_update_entity_callback, []));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
@@ -653,22 +616,31 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const do_lc_update_entity_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
+				
 				if(data){
-					do_lc_clean_data(data)
-					do_lc_show_entity(data, var_lc_MODE_SEL);
+					do_lc_show_his_medicine 		(data);
 					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
+					
+					//---refresh list
+					do_lc_show_entity (pr_obj_person);
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
+		
+		//-----------------------------------------------------------------------------------------------------------------------------
+		const pr_TYPE_01_DISEASE = 1000;
+		
 		const do_get_list_disease_ByAjax = function(){	
-			var ref 	= req_gl_Request_Content_Send(pr_SERVICE_CLASS_CATE, pr_SV_GET_LST);
-			ref.typ01s 	= 300;
-			ref.stats = 1;
-			ref.hardLoad = false;
+			var ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS_CATE, pr_SV_GET_LST);
+			ref.typ01s 		= pr_TYPE_01_DISEASE;
+			ref.stats 		= 1;
+			ref.hardLoad 	= false;
+			
 			var fSucces	= [];
 			fSucces.push(req_gl_funct(		null, do_lc_show_list_disease_ByAjax_Dyn, [true]));
+			
 			var fError 		= req_gl_funct(	null, do_lc_show_list_disease_ByAjax_Dyn, [false]);
 			App.network.do_lc_ajax(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 
@@ -721,6 +693,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		        }
 		    });
 		}	
+		
+		//-----------------------------------------------------------------------------------------------------------------------------
 		var do_lc_bind_event_select_icd_sub 			= function(ent){
 			$('#select_icd_sub').on('change', function () {
 		        var selectedValue = $(this).val();
@@ -780,14 +754,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var do_lc_show_ent_edit 	= function(ent){
 	//		pr_id_person = ent.id
 			$("#div_ent_his_content").html("");
-			do_lc_show_his_content_new		(ent);
+			do_lc_show_his_content_mod		(ent);
 			do_lc_show_his_prescription		(ent);
 			do_lc_show_his_test_blood		(ent);
 			do_lc_show_his_test_img 		(ent);
 		}
 		//---------------------------------Ajax----------------------------------------------
 		this.do_lc_cancel = function(obj){
-			do_lc_show_entity(obj, var_lc_MODE_SEL);
+			do_lc_show_entity(obj);
 		}
 	}
 		

@@ -6,17 +6,17 @@
 		<input type="text" data-group="inf02" data-gindex="{{index}}" data-name="disease" class="form-control objData inf-entity" autocomplete="off" id="inp_group_name" value="{{disease}}" placeholder="{{transl 'per_person_patient_hist_uni'}}" data-validation="required">
 	</td>
 	<td class="text-center">
-		<select class="form-control objData inf-entity-family" data-validation="required"  data-group="inf02" data-gindex="{{@index}}" data-name="relate">
-				<option {{#equal relate 0}}selected{{/equal}} value="0">{{transl "per_person_patient_father"}}</option>
-				<option {{#equal relate 1}}selected{{/equal}} value="1">{{transl "per_person_patient_mother"}}</option>
-				<option {{#equal relate 2}}selected{{/equal}} value="2">{{transl "per_person_patient_child"}}</option>
-				<option {{#equal relate 3}}selected{{/equal}} value="3">{{transl "per_person_patient_husband"}}</option>
-				<option {{#equal relate 5}}selected{{/equal}} value="4">{{transl "per_person_patient_brother"}}</option>
-				<option {{#equal relate 6}}selected{{/equal}} value="5">{{transl "per_person_patient_sister"}}</option>
-				<option {{#equal relate 7}}selected{{/equal}} value="6">{{transl "per_person_patient_yger_sister"}}</option>
-				<option {{#equal relate 8}}selected{{/equal}} value="7">{{transl "per_person_patient_grand"}}</option>
-				<option {{#equal relate 9}}selected{{/equal}} value="8">{{transl "per_person_patient_wife"}}</option>
-				<option {{#equal relate 9}}selected{{/equal}} value="9">{{transl "per_person_patient_another"}}</option>
+		<select class="form-control objData inf-entity-family" data-gindex="{{@index}}" data-validation="required"  data-group="inf02" data-name="relate">
+				<option value="0" selected>{{transl "per_person_patient_father"}}</option>
+				<option value="1">{{transl "per_person_patient_mother"}}</option>
+				<option value="2">{{transl "per_person_patient_child"}}</option>
+				<option value="3">{{transl "per_person_patient_husband"}}</option>
+				<option value="4">{{transl "per_person_patient_brother"}}</option>
+				<option value="5">{{transl "per_person_patient_sister"}}</option>
+				<option value="6">{{transl "per_person_patient_yger_sister"}}</option>
+				<option value="7">{{transl "per_person_patient_grand"}}</option>
+				<option value="8">{{transl "per_person_patient_wife"}}</option>
+				<option value="9">{{transl "per_person_patient_another"}}</option>
 		</select>
 	</td>
 	<td class="text-center">

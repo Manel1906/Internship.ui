@@ -1,13 +1,14 @@
 <div class="card">
 	<div class="card-body">
         <div class="row">
-            <div class="col-lg-11 col-md-10 col-sm-9"><h4>Nội dung khám bệnh</h4></div>
-        	<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+            <div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'per_person_patient_hist_medicine_title'}} </h4></div>
+<!--         	<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div> -->
         </div>
         <div class="needs-validation" id="frm_entity">
-        	<input type="hidden" data-name="typ01" class="form-control objData" value="200">
-        	<input type="hidden" data-name="stat" class="form-control objData" value="1">
-        	<input type="hidden" data-name="id" class="form-control objData" value="{{idEnty}}">
+        	<input type="hidden" data-name="stat" 	class="form-control objData" value="{{stat}}">
+        	<input type="hidden" data-name="id" 	class="form-control objData" value="{{id}}">
+        	<input type="hidden" data-name="entId" 	class="form-control objData" value="{{entId}}">
+        	<input type="hidden" data-name="typ01" 	class="form-control objData" value="200">
         	
            	<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;"></div>
 			<div class="row">
@@ -26,7 +27,7 @@
 				<div class="form-group col-4">
 				    <h6>{{transl 'per_person_patient_hist_room_check'}}</h6>
 				    <div class="input-group">
-				        <input id="room_medicine" type="text" data-name="inf08" class="form-control objData"  value="{{inf08}}" data-validation="" readonly>
+				        <input id="room_medicine" type="text" data-name="inf08" class="form-control objData"  value="{{inf08}}" data-validation="">
 				    </div>
 				</div>
 				
@@ -182,8 +183,7 @@
            	</div>
            	
 			<div class="d-flex justify-content-end mt-4">
-            	<button id="btn_sav_draft_entity" class="btn" type="button">{{transl 'prj_user_group_new_btn_save_draft'}}</button>
-			    <button id="btn_sav_entity" class="btn btn-primary" type="button">{{transl 'prj_user_group_new_btn_accept'}}</button>
+            	<button id="btn_sav_draft_entity" class="btn btn-success waves-effect" type="button">{{transl 'prj_user_group_new_btn_save_draft'}}</button>
 			</div>
         </div>
     </div>

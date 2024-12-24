@@ -10,7 +10,7 @@
 		   </label>
        </div>
        <div class="col-4 border p-2 text-center align-middle">
-           <label for="inp_group_locate" class="mb-0">{{inf09}}</label>
+           <label for="inp_group_locate" class="mb-0">{{inf10}}</label>
        </div>
        <div class="col-2 border p-2 text-center align-middle infor-get cursor-pointer" data-id="{{id}}" data-stat="{{stat}}">
           {{#equal stat 0}}  <span class="mdi mdi-eye-off-outline"></span> 			   {{/equal}}
@@ -18,7 +18,7 @@
        </div>
      {{/each}}
 {{else}}
-<li >{{transl 'common_null_data'}}</li>
+<div class="col-12">{{transl 'common_null_data'}}</div>
 {{/if}}
 		    
 

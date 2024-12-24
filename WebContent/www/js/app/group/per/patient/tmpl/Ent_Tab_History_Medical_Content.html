@@ -1,22 +1,31 @@
 <div class="card">
 	<div class="card-body">
         <div class="row">
-            <div class="col-lg-11 col-md-10 col-sm-9"><h4> {{transl 'per_person_patient_content_medical'}}</h4></div>
-            {{#equal stat 1}} 
-        		<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
-            {{/equal}}
-            {{#equal stat 0}} 
-            	 <div id="btn_mod_content" class="col-lg-1 col-md-2 col-sm-3 text-center cursor-pointer">
-			        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
-			    </div>
-            {{/equal}}
+            <div class="col-10"><h4> {{transl 'per_person_patient_content_medical'}}</h4></div>
+<!--             {{#equal stat 1}}  -->
+<!--         		<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div> -->
+<!--             {{/equal}} -->
+<!--             {{#equal stat 0}}  -->
+<!--             	 <div id="btn_mod_content" class="col-lg-1 col-md-2 col-sm-3 text-center cursor-pointer"> -->
+<!-- 			        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i> -->
+<!-- 			    </div> -->
+<!--             {{/equal}} -->
+
+			<div class="col-2">
+				<button id="btn_new_entity" type="button" class="btn btn-primary mb-1 float-right mr-2">
+					<span class="mdi mdi-printer font-size-20"></span>
+				</button>
+			</div>
+			
+			<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;" class="mb-2"></div>
         </div>
         <div class="needs-validation" id="frm_entity">
-        	<input type="hidden" data-name="typ01" class="form-control objData" value="1">
-        	<input type="hidden" data-name="typ02" class="form-control objData" value="1">
-        	<input type="hidden" data-name="stat" class="form-control objData" value="1">
-           
-           	<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;"></div>
+        	<input type="hidden" data-name="stat" 	class="form-control objData" value="{{stat}}">
+        	<input type="hidden" data-name="id" 	class="form-control objData" value="{{id}}">
+        	<input type="hidden" data-name="entId" 	class="form-control objData" value="{{entId}}">
+        	<input type="hidden" data-name="typ01" 	class="form-control objData" value="200">
+        	
+           	
 			<div class="row">
 	           <div class="form-group col-4">
 					<h6>{{transl 'per_person_patient_hist_date_check'}}</h6>
