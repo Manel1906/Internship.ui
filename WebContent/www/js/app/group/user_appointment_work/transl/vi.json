@@ -145,5 +145,6 @@
 	"common_title_confirm"								:"Xóa lịch làm việc",
 	"msg_del_entity_popup_content"						:"Bạn có muốn chắc chắn xóa lịch làm việc ?",
 	"msg_btn_back"										:"Quay lại",
-	"msg_btn_del"										:"Xóa"
+	"msg_btn_del"										:"Xóa",
+	"common_err_msg_role_required"						:"Bạn không có quyền"
 }

@@ -136,6 +136,7 @@
 	"prj_appointment_minutes"							:"Phút",
 	"prj_project_reason"								:"Lý do",
 	"prj_project_img"									:"Hình ảnh",
-	"common_btn_see"									:"Chi tiết"
+	"common_btn_see"									:"Chi tiết",
+	"prj_project_member_patient"						:"Bệnh nhân"
 	
 }

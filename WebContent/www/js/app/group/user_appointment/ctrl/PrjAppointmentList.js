@@ -87,7 +87,7 @@ define([
 		const previousPositions 			= {};
 
 		const pr_member_lev_manager 		= 0;
-		var workType						= null
+		var workType						= 0;
 		const pr_stat_pending				= 0;
 		const pr_stat_active				= 1;
 		const pr_stat_accept				= 3;
@@ -345,7 +345,7 @@ define([
 				
 			}else{
 				var startDate 	= new Date();
-				startDate.setDate(startDate.getDate() - 1); // get 2 days before
+				startDate.setDate(startDate.getDate()); 
 				startDate 		= getDateISOShort(startDate);
 			}
 		
@@ -431,38 +431,71 @@ define([
 
 				//args.data.backColor 	= pr_backColor_01;
 				var div = "";
-				if(args.data.members) {
-					for (var key in args.data.members) {
-						let item 			= args.data.members[key].mem;
+			    if (args.data.members) {
+			        let count = 0;
+			
+			        for (var key in args.data.members) {
+			            let item = args.data.members[key].mem;
+			            let textColor = null;
+			            let textAvatar = null;
+			
+			            if (!item.avatar) {
+			                let first = item.login01.charAt(0);
+			                let last = item.login01.charAt(item.login01.length - 1);
+			                let index = var_gl_alphabet.indexOf(first.toLowerCase());
+			
+			                textColor = var_gl_colors[index];
+			                textAvatar = first + last;
+			            }
+			
+			            let classCss = "";
+			            let opacity = "";
+			            if (args.data.members[key].stat === 2) {
+			                classCss = "text-decoration-line-through ";
+			                opacity = "opacity-03";
+			            }
+			
+			            if (count < 1) { 
+			                let selOpt = `<div class='team-member member-item no-padding d-flex'>`;
+			
+			                if (!item.avatar)
+			                    selOpt += `<div class="rounded-circle avatar-xs text-white mx-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}">${item.name}</span>`;
+			                else
+			                    selOpt += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity}'/><span class="tooltiptext ${classCss}">${item.name}</span>`;
+			
+			                selOpt += `</div>`;
+			                div += selOpt;
+			
+			                count++;
+			            }
+			        }
+			        if (args.data.members && typeof args.data.members === "object") {
+					    let membersArray = Array.isArray(args.data.members) 
+					        ? args.data.members 
+					        : Object.values(args.data.members);
+					
+					    if (membersArray.length > 1) {
+					        let remaining = membersArray.length - 1;
+					        div += `<div class="rounded-circle avatar-xs text-center mx-1" 
+					                  style="background-color: #ccc; color: #fff; line-height: 28px;">
+					                  +${remaining}
+					                </div>`;
+					    }
+					}
 
-												let textColor   = null;
-						let textAvatar  = null
-						if(!item.avatar){
-							let first = item.login01.charAt(0);
-							let last  = item.login01.charAt(item.login01.length - 1);
-							let index = var_gl_alphabet.indexOf(first.toLowerCase());
 
-							textColor = var_gl_colors[index];
-							textAvatar= first + last;
-						}
-
-						let classCss = "";
-						let opacity  = "";
-						if(args.data.members[key].stat === 2 ){
-							classCss = "text-decoration-line-through ";
-							opacity  = "opacity-03"
-						}
-
-						let selOpt 			= `<div class='team-member member-item no-padding d-flex'>`;
-
-						if(!item.avatar)	selOpt 			+= `<div class="rounded-circle avatar-xs text-white mx-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}">${item.name}</span>`;
-						else 		        selOpt 			+= `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity}'/><span class="tooltiptext ${classCss}">${item.name}</span>`;
-						selOpt 				+= `</div>`;
-						div += selOpt;
-					};
-				}
-
-				args.data.html = "<div class='row'><div class='col-1'><p><b>" + args.data.text + "</b></p> </div>" + "<div id='div_prj_list' class='row ml-auto mr-4'>" + div + "</div></div>" + "<p class='long-txt'><i>" + args.data.obj.inf02.desc + "</i></p>";
+			    }
+			
+			    args.data.html =
+			        "<div class='row'><div class='col-1'><p><b>" +
+			        args.data.text +
+			        "</b></p> </div>" +
+			        "<div id='div_prj_list' class='row ml-auto mr-4'>" +
+			        div +
+			        "</div></div>" +
+			        "<p class='long-txt'><i>" +
+			        args.data.obj.inf02.desc +
+			        "</i></p>";
 			};
 
 			/*dp_schedule.onTimeRangeSelected = function (args) {
@@ -1549,7 +1582,7 @@ define([
 		        
 		        if (code == App['const'].SV_CODE_API_YES) {
 		            var lstTime = sharedJson[App['const'].RES_DATA];
-		            console.log(lstTime);
+	
 		            if (lstTime.length > 0) {
 		                for (let i = 0; i < lstTime.length; i++) {
 		                    if (lstTime[i]) {
@@ -1563,7 +1596,7 @@ define([
 		                        const currentUser = App.data.user.id;
 		                        const userMem = lstTime[i].mems && lstTime[i].mems.find(mem => mem.uId === currentUser);
 		
-		                        if (userMem && userMem.stat === 1) {
+		                        if (userMem && userMem.stat === 0) {
 		                            curObj.text = `<span style="text-decoration: line-through; text-decoration-thickness: 2px;">${lstTime[i].inf01}</span>`;
 		                        } else {
 		                            curObj.text = lstTime[i].inf01;
@@ -1704,8 +1737,12 @@ define([
 			})
 			$(".div_button_see").off("click").on("click", function(){
 				const appointmentId = $(this).data("appointment-id");
+				sortedList.forEach(item => {
+				    if (typeof item.inf02 === "string") {
+				        item.inf02 = JSON.parse(item.inf02);
+				    }
+				});
 				const matchedItem = sortedList.find(item => item.id === appointmentId);
-				
 				App.MsgboxController.do_lc_show({
 						title		: $.i18n("prj_appointment_msg_title"),
 						content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW, matchedItem),
@@ -1763,7 +1800,9 @@ define([
 
 		var do_lc_build_view_member = (members, view) => {
 			// Handle div list member
+			var id	= App.data.user.id;
 			var div = "";
+			var divPatient = "";
 			if(members) {
 				for (var key in members) {
 					
@@ -1789,7 +1828,7 @@ define([
 
 					let item 			= mem.mem;
 					let selOpt 			= `<div class='team-member member-item d-flex'>`;
-
+					let selOptpatient 	= `<div class='team-member member-item d-flex'>`;
 					let textColor   = null;
 					let textAvatar  = null
 					if(!item.avatar){
@@ -1802,15 +1841,18 @@ define([
 					
 		 			if (mem.typ && mem.typ === 100) {
 		                if (!item.avatar) {
-		                    selOpt += `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}">
+		                    selOptpatient += `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}">
 		                                <div class="text-middle">${textAvatar}</div>
 		                            </div>`;
-		                    selOpt += `<a class="tooltiptext ${classCss}" style="${textStyle}" href="view_per_patient.html">${item.name}</a>`;
+		                    selOptpatient += `<a class="tooltiptext ${classCss}" style="${textStyle}" href="view_per_patient.html" target="_blank">${item.name}</a>`;
 		                } else {
-		                    selOpt += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/>`;
-		                    selOpt += `<a class="tooltiptext ${classCss}" style="${textStyle}" href="view_prj_user_profile.html?userId=${item.id}">${item.name}</a>`;
+		                    selOptpatient += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity} mr-1 avatar-autocomplete'/>`;
+		                    selOptpatient += `<a class="tooltiptext ${classCss}" style="${textStyle}" href="view_per_patient.html" target="_blank">${item.name}</a>`;
 		                }
-		            } else {
+		            }else if(mem.uId === id){
+		            	selOpt +=``;
+		            }
+		            else {
 		                if (!item.avatar) {
 		                    selOpt += `<div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}">
 		                                <div class="text-middle">${textAvatar}</div>
@@ -1823,11 +1865,15 @@ define([
 		            }
 					selOpt 				+= `</div>`;
 					div 				+= selOpt;
+					selOptpatient 		+= `</div>`;
+					divPatient 			+= selOptpatient;
 				};
 			}
 			if (div) {
+				$("#div_list_member_patient").append(divPatient)
 				$(view).append(div)
 			} else {
+				$("#div_list_member_patient").parent().remove();
 				$(view).parent().remove();
 			}
 		}	

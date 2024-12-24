@@ -105,11 +105,11 @@
 					
                     <!-- Notes -->
                     <div class="form-group row mb-2">
-                        <div class="col-lg-12">
+                        <div class="col-lg-12 mb-2">
                             <label for="projectdesc" class="col-form-label h5">{{transl 'prj_appointment_cmt'}}</label>
                                     <div class="">
                                         <textarea class="form-control objData" data-group="inf02" data-name="desc" id="projectdesc"
-                                            rows="3" placeholder="{{transl 'prj_project_enter_project_des'}}" disabled>{{ent.inf02.desc}}</textarea>
+                                            rows="3" placeholder="{{transl 'prj_project_enter_project_des'}}">{{ent.inf02.desc}}</textarea>
                                     </div>	
                         </div>
                     </div>
@@ -180,38 +180,9 @@
                         <div class="col-lg-12">
                                     <div data-repeater-list="inner-group" class="inner form-group mb-0 row">
                                         <div class="col-lg-12">
-                                            <label class="col-form-label h5">{{transl 'prj_project_add_team'}}</label>
                                             <div data-repeater-item class="inner ml-md-auto">
                                                 <div class="mb-3 row align-items-center">
-                                                    <div class="col-md-3 hide">
-                                                        <div class="mt-2 mt-md-0">
-                                                            <select class="form-control" id="sel_member_type">
-                                                                <option value="0">{{transl 'prj_project_member_level'}}
-                                                                </option>
-                                                                <option value="0">{{transl 'prj_project_lev_bas'}}
-                                                                </option>
-                                                                <option value="1" selected>{{transl 'prj_project_lev_haute'}}
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4 hide">
-                                                        <div class="mt-2 mt-md-0">
-                                                          <!-- <select class="form-control" id="sel_member_level">
-    														<option value="0" class="hide">{{transl 'prj_project_member_level_manager'}}</option>
-    														<option data-external-mem="true" value="10" class="hide">{{transl 'prj_project_member_level_reporter'}}</option>
-    														<option value="20" class="hide">{{transl 'prj_project_member_level_developer'}}</option>
-    														<option value="30" class="hide">{{transl 'prj_project_member_level_tester'}}</option>
-    														<option data-external-mem="true" value="40" selected>{{transl 'prj_project_member_level_worker'}}</option>
-    														<option value="50" class="hide">{{transl 'prj_project_member_level_watcher'}}</option>
-														</select> -->
-															<div class="form-control" id="sel_member_level" data-external-mem="true" value="40">{{transl 'prj_project_member_level_worker'}}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        <input type="text" class="inner form-control inp-name-member"
-                                                            placeholder="{{transl 'prj_project_enter_name'}}" disabled />
-                                                    </div>
+                                                   
                                                     <div class="col-lg-6">
 	                                                    <select id="notificationDropdown" data-name="inf03" class="form-control objData" style="padding: 10px; border-radius: 5px;">
 															 	<option value="" style="padding: 10px;">{{transl 'noti_add_notif'}}</option>
@@ -228,9 +199,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-lg-12" id="div_list_member"></div>
                                     </div>
                                 </div>
                     </div>

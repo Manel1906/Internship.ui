@@ -43,7 +43,7 @@
 	                                </div>
                                  </div>
                             </div>
-                             {{#if inf02.pr}}
+                             {{#equal typ02 100}}
 	                            <div class="form-group row mb-2">
 								    <div class="col-lg-12">
 								        <div class="d-flex align-items-center">
@@ -53,7 +53,19 @@
 								            
 								    </div>
 								</div>
-							{{/if}}
+								
+								<div class="form-group row mb-2">
+								    <div class="col-lg-12">
+								        <div class="d-flex align-items-center">
+								            <label for="projectname" style="width:200px" class="col-form-label h5">{{transl 'prj_appointment_option_form'}}</label>
+								        	 {{#equal inf02.workType 1}}{{transl 'prj_appointment_option_online'}}{{/equal}}
+								        	 {{#equal inf02.workType 0}}{{transl 'prj_appointment_option_offline'}}{{/equal}}
+								        </div>
+								            
+								    </div>
+								</div>
+								
+							{{/equal}}
                             <div class="form-group row mb-2">
                                 <div class="col-lg-12">
                                		<div class="d-flex align-items-center">
@@ -62,8 +74,9 @@
 								</div>     
                                 </div>
                             </div>
-
+							
                             <!-- name -->
+                            {{#equal inf02.workType 0}}
                             <div class="form-group row mb-2">
                                 <div class="col-lg-12">
                                     <div class="d-flex align-items-center">
@@ -73,10 +86,10 @@
                                     </div>
                                 </div>
                             </div>
-
+							{{/equal}}
                             <!-- descr01 -->
-                            <div class="row mb-2">
-                                <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12 mb-2">
                                 	<div class="d-flex align-items-center">
                                     <label for="projectdesc" style="width:200px" class="col-form-label h5">{{transl
                                         'prj_appointment_cmt'}}</label>
@@ -105,13 +118,22 @@
                                 </div>
                                
 
-                           
+                           {{#equal typ02 100}}
                              <!-- member -->
                              <div class="row mb-2" id="div_list_member_par">
                                 <div class="col-lg-12">
                                 	<div class="d-flex align-items-center">
 		                                <label style="width:200px" class="col-form-label h5">{{transl 'prj_project_member_level_worker'}}</label>
 		                                 <div class="d-inline-flex" id="div_list_member"></div>
+		                             </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-2" id="div_list_member_par">
+                                <div class="col-lg-12">
+                                	<div class="d-flex align-items-center">
+		                                <label style="width:200px" class="col-form-label h5">{{transl 'prj_project_member_patient'}}</label>
+		                                 <div class="d-inline-flex" id="div_list_member_patient"></div>
 		                             </div>
                                 </div>
                             </div>
@@ -144,7 +166,7 @@
 									</div> 
                                     </div>
                                 </div>
-                            
+                            {{/equal}}
                             <!-- customer -->
 <!--                             <div class="mb-2" id="div_list_email_customer_par"> -->
 <!--                                <label class="col-form-label h5">{{transl 'prj_project_add_customer'}}</label> -->

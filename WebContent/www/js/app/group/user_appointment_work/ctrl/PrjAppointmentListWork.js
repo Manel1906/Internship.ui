@@ -41,7 +41,7 @@ define([
 		var TYP_02_MEET_CLIENT				= 100;
 		var TYP_01_DEPARTMENT				= 300;
 		const pr_TYP_MEMBER 				= 2;
-		const ONLINE		   				= 1;
+		const ONLINE		   				= 0;
 		const STAT_ACTIVE    				= 1;
 		const STAT_DESACTIVE    			= 2;
 		var members 						= {};
@@ -69,6 +69,22 @@ define([
 		const pr_stat_active				= 1;
 		const pr_stat_accept				= 3;
 		let prjSearch						= null;
+		
+		
+		var RIGHT_ADM	        	= 100;
+		var RIGHT_A_G	        	= 102;
+		var RIGHT_A_N	        	= 102;
+		var RIGHT_A_M	        	= 103;
+		var RIGHT_A_D	        	= 104;	
+				
+		var RIGHT_GET	        	= 2002011;
+		var RIGHT_NEW	        	= 2002012;
+		var RIGHT_MOD	        	= 2002013;
+		var RIGHT_DEL	        	= 2002014;
+		
+		
+		var listUserRight = App.data.user.rights;
+		var isRight = listUserRight.includes(RIGHT_A_N) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_NEW)
 
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init	= function(){
@@ -323,7 +339,7 @@ define([
 				
 			}else{
 				var startDate 	= new Date();
-				startDate.setDate(startDate.getDate() - 1); // get 2 days before
+				startDate.setDate(startDate.getDate()); // get 2 days before
 				startDate 		= getDateISOShort(startDate);
 			}
 		
@@ -405,51 +421,89 @@ define([
 					    args.data.fontColor = "#000000";
 					}
 				}
-				args.data.areas = [
-					{ 	top			: 2, 
-						right		: 2, 
-						icon		: "icon-triangle-down", 
-						visibility	: "Hover", 
-						action		: "ContextMenu", 
-						style		: "font-size: 12px; background-color: #f9f9f9; border: 1px solid #ccc; padding: 2px 2px 0px 2px; cursor:pointer;" 
-					}
-				];
+				if (!isRight) {
+					args.data.areas = [];	
+				}
+				else{
+					args.data.areas = [
+						{ 	top			: 2, 
+							right		: 2, 
+							icon		: "icon-triangle-down", 
+							visibility	: "Hover", 
+							action		: "ContextMenu", 
+							style		: "font-size: 12px; background-color: #f9f9f9; border: 1px solid #ccc; padding: 2px 2px 0px 2px; cursor:pointer;" 
+						}
+					];
+				}
 				
 
 				//args.data.backColor 	= pr_backColor_01;
 				var div = "";
-				if(args.data.members) {
-					for (var key in args.data.members) {
-						let item 			= args.data.members[key].mem;
+			    if (args.data.members) {
+			        let count = 0;
+			
+			        for (var key in args.data.members) {
+			            let item = args.data.members[key].mem;
+			            let textColor = null;
+			            let textAvatar = null;
+			
+			            if (!item.avatar) {
+			                let first = item.login01.charAt(0);
+			                let last = item.login01.charAt(item.login01.length - 1);
+			                let index = var_gl_alphabet.indexOf(first.toLowerCase());
+			
+			                textColor = var_gl_colors[index];
+			                textAvatar = first + last;
+			            }
+			
+			            let classCss = "";
+			            let opacity = "";
+			            if (args.data.members[key].stat === 2) {
+			                classCss = "text-decoration-line-through ";
+			                opacity = "opacity-03";
+			            }
+			
+			            if (count < 1) { 
+			                let selOpt = `<div class='team-member member-item no-padding d-flex'>`;
+			
+			                if (!item.avatar)
+			                    selOpt += `<div class="rounded-circle avatar-xs text-white mx-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}">${item.name}</span>`;
+			                else
+			                    selOpt += `<img src='${item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity}'/><span class="tooltiptext ${classCss}">${item.name}</span>`;
+			
+			                selOpt += `</div>`;
+			                div += selOpt;
+			
+			                count++;
+			            }
+			        }
+			        if (args.data.members && typeof args.data.members === "object") {
+					    let membersArray = Array.isArray(args.data.members) 
+					        ? args.data.members 
+					        : Object.values(args.data.members);
+					
+					    if (membersArray.length > 1) {
+					        let remaining = membersArray.length - 1;
+					        div += `<div class="rounded-circle avatar-xs text-center mx-1" 
+					                  style="background-color: #ccc; color: #fff; line-height: 28px;">
+					                  +${remaining}
+					                </div>`;
+					    }
+					}
 
-												let textColor   = null;
-						let textAvatar  = null
-						if(!item.avatar){
-							let first = item.login01.charAt(0);
-							let last  = item.login01.charAt(item.login01.length - 1);
-							let index = var_gl_alphabet.indexOf(first.toLowerCase());
 
-							textColor = var_gl_colors[index];
-							textAvatar= first + last;
-						}
-
-						let classCss = "";
-						let opacity  = "";
-						if(args.data.members[key].stat === 2 ){
-							classCss = "text-decoration-line-through ";
-							opacity  = "opacity-03"
-						}
-
-						let selOpt 			= `<div class='team-member member-item no-padding d-flex'>`;
-
-						if(!item.avatar)	selOpt 			+= `<div class="rounded-circle avatar-xs text-white mx-1 text-uppercase text-center ${opacity}" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div><span class="tooltiptext ${classCss}">${item.name}</span>`;
-						else 		        selOpt 			+= `<img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs ${opacity}'/><span class="tooltiptext ${classCss}">${item.name}</span>`;
-						selOpt 				+= `</div>`;
-						div += selOpt;
-					};
-				}
-
-				args.data.html = "<div class='row'><div class='col-1'><p><b>" + args.data.text + "</b></p> </div>" + "<div id='div_prj_list' class='row ml-auto mr-4'>" + div + "</div></div>" + "<p class='long-txt'><i>" + args.data.obj.inf02.desc + "</i></p>";
+			    }
+			
+			    args.data.html =
+			        "<div class='row'><div class='col-1'><p><b>" +
+			        args.data.text +
+			        "</b></p> </div>" +
+			        "<div id='div_prj_list' class='row ml-auto mr-4'>" +
+			        div +
+			        "</div></div>" +
+			        "<p class='long-txt'><i>" +
+			        args.data.obj.inf02.desc +
+			        "</i></p>";
 			};
 
 			dp_schedule.onTimeRangeSelected = function (args) {
@@ -457,6 +511,10 @@ define([
 			        do_gl_show_Notify_Msg_Error($.i18n('common_err_msg_search_required'));
 			        return;
 			    }
+			    if (!isRight) {
+					do_gl_show_Notify_Msg_Error($.i18n('common_err_msg_role_required'));
+			        return;
+				}
 				dp_schedule.clearSelection();
 				const now = new Date();
 				if (now > new Date(args.start.value) || now > new Date(args.end.value)) return;
@@ -1445,6 +1503,18 @@ define([
 		            }
 		        });
 		    }
+		    function removeDuplicatesByDate(arr) {
+			    const seenDates = new Set();
+			    return arr.filter(item => {
+			        const key = `${item.dtBegin}|${item.dtEnd}`;
+			        if (seenDates.has(key)) {
+			            return false;
+			        }
+			        seenDates.add(key);
+			        return true;
+			    });
+			}
+			prjArr = removeDuplicatesByDate(prjArr);
 		    do_lc_new_appointment(prjArr, membersArr);
 		};
 
@@ -1496,6 +1566,11 @@ define([
 		}
 		
 		const do_lc_bind_eventPage = () => {
+	
+			if (!isRight) {
+				$("#btn_create_entity"	).hide();	
+			}
+			
 			var currentDate 	= new Date();
 			var formattedDate 	= currentDate.toLocaleDateString('vi-VN');
 			
@@ -1645,13 +1720,13 @@ define([
 					textColor = var_gl_colors[index];
 					textAvatar= first + last;
 				}
-
+				let displayName = item.inf03.length > 9 ? item.inf03.substring(0, 9) + "..." : item.inf03;
 				members[item.id] 	= user;
 				let selOpt 			= `<div class='member-item'>`;
 				if(item.avatar) 
-					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${item.inf03}`;
+					selOpt 			+= `<div><img src='${ item.avatar.urlPrev ? item.avatar.urlPrev : item.avatar.url}' class='rounded-circle avatar-xs'/> ${displayName}`;
 				else 			
-					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-2 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${item.inf03}`;
+					selOpt 			+= `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-2 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${displayName}`;
 
 				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-member ml-4' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 				selOpt 				+= `</div>`;
@@ -1796,7 +1871,7 @@ define([
 					  textStyle = "color: #32CD32;";
 					}
 					
-					if (mem.stat && mem.stat === 1) {
+					if (mem.stat && mem.stat === 0) {
 					    classCss 	= "text-decoration-line-through text-danger";
 						textStyle 	= "text-decoration-thickness: 1.5px;";
 					}
@@ -1836,7 +1911,6 @@ define([
 		        if (selectedValue == TYP_02_MEET_CLIENT) {
 		            $('#price').closest('.col-6').fadeIn();
 		        	 $("#cmt03").closest('.col-6').removeClass("col-12");
-					$('#price').val("");
 		        } else {
 		            $('#price').closest('.col-6').fadeOut();
 		             $("#cmt03").closest('.col-6').addClass("col-12");
@@ -1982,7 +2056,7 @@ define([
 		                        const currentUser = App.data.user.id;
 		                        const userMem = lstTime[i].mems && lstTime[i].mems.find(mem => mem.uId === currentUser);
 		
-		                        if (userMem && userMem.stat === 1) {
+		                        if (userMem && userMem.stat === 0) {
 		                            curObj.text = `<span style="text-decoration: line-through; text-decoration-thickness: 2px;">${lstTime[i].inf01}</span>`;
 		                        } else {
 		                            curObj.text = lstTime[i].inf01;
