@@ -1,6 +1,6 @@
 define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	
-	var EntTabHistMedical 					= function (grpName, header, content, footer) {
+	var EntTabHistMedicine 					= function (grpName, header, content, footer) {
 		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
@@ -67,14 +67,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}
 		};
 		
-		var do_lc_show_entity 			= function(ent, mode){
-			do_lc_show_info_medical 		(ent);
-			do_lc_show_his_disease 			(ent);
+		var do_lc_show_entity 				= function(ent){
+			do_lc_show_info_medicine 		(ent);
+			do_lc_show_his_medicine 		(ent);
 		}
 		
-		var do_lc_show_info_medical 			= function(ent){
+		var do_lc_show_info_medicine 		= function(ent){
 			pr_id_person = ent.id
-			$(pr_divContent				).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, ent));
+			$(pr_divContent					).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, ent));
 			
 			$("#btn_new_entity").off("click").on("click", function () {
 				do_lc_show_ent_new(ent)
@@ -82,23 +82,26 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 		var do_lc_show_ent_new 	= function(ent){
 	//		pr_id_person = ent.id
-			$("#div_ent_his_content").html("");
+			$("#div_ent_his_content"		).html("");
+			
 			do_lc_show_his_content_new		(ent);
 			do_lc_show_his_prescription		();
 			do_lc_show_his_test_blood		();
 			do_lc_show_his_test_img 		();
 		}
-		var do_lc_show_his_disease 			= function(ent){
-			$("#div_entity_his_medical").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST				, ent));
-			do_lc_list_ByAjax_his_disease(ent)
+		
+		var do_lc_show_his_medicine 	= function(entPer){
+			$("#div_entity_his_medical").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST				, entPer));
+			do_lc_reqLst_his_medicine(entPer)
 		}
-		var do_lc_list_ByAjax_his_disease 	= function(ent){
+		
+		var do_lc_reqLst_his_medicine 	= function(entPer){
 			let divList = $("#list_his_disease");
 			let divPan  = $("#div_list_pagination_disease");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, {	perId: ent.entId || ent.id  });
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, {	perId: entPer.entId || entPer.id  });
 			
-			const callbackFunct 	= data => do_get_list_ByAjax_callback(data, ent);
+			const callbackFunct 	= data => do_lc_reqLst_his_medicine_callback(data, entPer);
 			
 			let opt = {
 					divMain			: divList,
@@ -113,18 +116,32 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			
 			do_gl_init_pagination_opt(opt);
 		}
-		var do_get_list_ByAjax_callback = function(sharedJson, ent){
-			let template		=  tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT;
+		
+		var do_lc_reqLst_his_medicine_callback = function(sharedJson){
 			let data			= {};
 			
 			if (sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
 				data		= sharedJson[App['const'].RES_DATA]
 			}
 			
-			$("#list_his_disease")	.html(tmplCtrl.req_lc_compile_tmpl(template		, { "data": data.lst }));
-		//	$("#list_his_disease")	.html("");
-			do_lc_bind_event_his_disease(ent)
+			$("#list_his_disease")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST_CONTENT, { "data": data.lst }));
+			do_lc_bind_event_his_medicine()
 		}
+		
+		var do_lc_bind_event_his_medicine 			= function(){
+			
+			$(".infor-get").off("click").on("click", function (){
+				
+			    let { id, stat } 	= $(this).data(); 
+			    let $span 			= $(this).find("span"); 
+			
+				$span	.removeClass	("mdi-eye-outline").addClass("mdi-eye-off-outline");
+		        
+				$(this).removeClass("mdi-eye-off-outline").addClass("mdi-eye-outline");
+		        do_lc_get_his_content(id, stat);
+			});
+		}		
+				
 		var do_lc_show_his_content_new 	= function(ent,id){
 			$("#div_ent_his_content_new").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT_NEW		, ent,{idEnty: id}));
 			var now 	= new Date();
@@ -140,26 +157,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			do_get_list_disease_ByAjax()
 			do_lc_bind_event_content_new(ent)
 		}
-		var do_lc_show_his_prescription 			= function(ent,stat){
-			$("#div_ent_his_prescription").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT		, ent, {stat: stat}));
-			$("#btn_mod_prescription").off("click").on("click", function(){
-				do_lc_show_entity_prescription(ent);
-			});
-		}
-		var do_lc_show_his_test_blood 			= function(ent,stat){
-			$('#div_ent_his_test_blood').removeClass('hide');
-			$("#div_ent_his_test_blood").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD				, ent, {stat: stat}));
-			$("#btn_mod_blood").off("click").on("click", function(){
-				do_lc_show_entity_blood(ent);
-			});
-		}
-		var do_lc_show_his_test_img 			= function(ent,stat){
-			$('#div_ent_his_test_img').removeClass('hide');
-			$("#div_ent_his_test_img").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG				, ent, {stat: stat}));
-			$("#btn_mod_img").off("click").on("click", function(){
-				do_lc_show_entity_img(ent);
-			});
-		}
+		
+		
 		const do_lc_show_entity_prescription = (data) => {
 			$("#btn_mod_prescription"		).addClass("hide");
 			$(".info-show-prescription"		).addClass('hide');
@@ -474,24 +473,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
 			}
 		}
-		var do_lc_bind_event_his_disease 			= function(ent){
-			$(".infor-get").off("click").on("click", function () {
-			    let { id, stat } = $(this).data(); 
-			    let $span = $(this).find("span"); 
-			
-			    if ($span.hasClass("mdi-eye-outline")) {
-					$span.removeClass("mdi-eye-outline").addClass("mdi-eye-off-outline");
-			        $("#div_ent_his_content").html("");
-			        $("#div_ent_his_prescription").html("");
-			        $("#div_ent_his_test_blood").html("");
-			        $("#div_ent_his_test_img").html("");
-			    } else {
-			        $span.removeClass("mdi-eye-off-outline").addClass("mdi-eye-outline");
-			        do_lc_get_his_content(id, stat);
-			    }
-			});
-
-		}		
+		
 		var do_lc_bind_event_content_new 			= function(ent){
 			$("#cancel_header").off("click").on("click",function(){
 					//---MsgBox
@@ -558,34 +540,35 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		//		do_lc_show_his_test_img 		(ent);
 			})
 		}		
-		const do_lc_get_his_content = function(id,stat) {
+		const do_lc_get_his_content = function(id) {
 			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_GET_BY_ID, {id: id});	
 			
 			let fSucces		= [];
-			fSucces.push(req_gl_funct(null, do_lc_get_his_callback, [stat]));
+			fSucces.push(req_gl_funct(null, do_lc_get_his_content_callback, []));
 
 			let fError 		= req_gl_funct(App, do_gl_show_Notify_Msg_Error, [$.i18n("common_err_ajax")]);	
 
 			App.network.do_lc_ajax_background(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], ref, 100000, fSucces, fError);
 		}
 		
-		const do_lc_get_his_callback = function(sharedJson,stat){
+		const do_lc_get_his_content_callback = function(sharedJson){
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
 					$("#div_ent_his_content_new").html("");
-					do_lc_clean_data(data)
-					do_lc_show_his_content		(data,stat);
-					do_lc_show_his_prescription	(data,stat);
-					do_lc_show_his_test_blood	(data,stat);
-					do_lc_show_his_test_img 	(data,stat);
+					
+					do_lc_clean_data			(data)
+					do_lc_show_his_content		(data);
+					do_lc_show_his_prescription	(data);
+					do_lc_show_his_test_blood	(data);
+					do_lc_show_his_test_img 	(data);
 				}
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
-		var do_lc_show_his_content 			= function(ent,stat){
-			$("#div_ent_his_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT				,ent, {stat: stat}));
+		var do_lc_show_his_content 			= function(ent){
+			$("#div_ent_his_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT, ent, {stat: ent.stat}));
 			
 			$("#cancel_header").off("click").on("click",function(){
 					//---MsgBox
@@ -613,7 +596,26 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_lc_show_ent_edit(ent)
 			})
 		}
-		
+		var do_lc_show_his_prescription 		= function(ent,stat){
+			$("#div_ent_his_prescription").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT		, ent, {stat: stat}));
+			$("#btn_mod_prescription").off("click").on("click", function(){
+				do_lc_show_entity_prescription(ent);
+			});
+		}
+		var do_lc_show_his_test_blood 			= function(ent,stat){
+			$('#div_ent_his_test_blood').removeClass('hide');
+			$("#div_ent_his_test_blood").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD				, ent, {stat: stat}));
+			$("#btn_mod_blood").off("click").on("click", function(){
+				do_lc_show_entity_blood(ent);
+			});
+		}
+		var do_lc_show_his_test_img 			= function(ent,stat){
+			$('#div_ent_his_test_img').removeClass('hide');
+			$("#div_ent_his_test_img").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG				, ent, {stat: stat}));
+			$("#btn_mod_img").off("click").on("click", function(){
+				do_lc_show_entity_img(ent);
+			});
+		}
 		//----------------------------------------------------------------------------------------------
 		var do_lc_handle_date = (strDate) => {
 			let tmp = getDateEN(strDate);
@@ -789,5 +791,5 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 	}
 		
-	return EntTabHistMedical;
+	return EntTabHistMedicine;
 });

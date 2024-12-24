@@ -3,8 +3,8 @@ define([
 	'group/per/patient/ctrl/Ent',
 	'group/per/patient/ctrl/EntTabInfo',
 	'group/per/patient/ctrl/EntTabHistDisease',
-	'group/per/patient/ctrl/EntTabHistMedical',
-	'group/per/patient/ctrl/EntTabOrderMedical',
+	'group/per/patient/ctrl/EntTabHistMedicine',
+	'group/per/patient/ctrl/EntTabOrderMedicine',
 	'group/per/patient/ctrl/EntTabOrderBloodTest',
 	'group/per/patient/ctrl/EntTabOrderImgTest',
 	
@@ -65,8 +65,8 @@ define([
 			Ent,
 			EntTabInfo,
 			EntTabHistDisease,
-			EntTabHistMedical,
-			EntTabOrderMedical,
+			EntTabHistMedicine,
+			EntTabOrderMedicine,
 			EntTabOrderBloodTest,
 			EntTabOrderImgTest,
 			
@@ -279,11 +279,11 @@ define([
 			if (!App.controller[pr_grpName].EntTabHistDisease)  
 				App.controller[pr_grpName].EntTabHistDisease = new EntTabHistDisease	(grpName, null, null, null);
 				
-			if (!App.controller[pr_grpName].EntTabHistMedical)  
-				App.controller[pr_grpName].EntTabHistMedical = new EntTabHistMedical	(grpName, null, null, null);
+			if (!App.controller[pr_grpName].EntTabHistMedicine)  
+				App.controller[pr_grpName].EntTabHistMedicine = new EntTabHistMedicine	(grpName, null, null, null);
 				
-			if (!App.controller[pr_grpName].EntTabOrderMedical)  
-				App.controller[pr_grpName].EntTabOrderMedical = new EntTabOrderMedical	(grpName, null, null, null);
+			if (!App.controller[pr_grpName].EntTabOrderMedicine)  
+				App.controller[pr_grpName].EntTabOrderMedicine = new EntTabOrderMedicine	(grpName, null, null, null);
 			
 			if (!App.controller[pr_grpName].EntTabOrderBloodTest)  
 				App.controller[pr_grpName].EntTabOrderBloodTest = new EntTabOrderBloodTest	(grpName, null, null, null);
@@ -295,8 +295,8 @@ define([
 			App.controller[pr_grpName].Ent					.do_lc_init();
 			App.controller[pr_grpName].EntTabInfo			.do_lc_init();
 			App.controller[pr_grpName].EntTabHistDisease	.do_lc_init();
-			App.controller[pr_grpName].EntTabHistMedical	.do_lc_init();
-			App.controller[pr_grpName].EntTabOrderMedical	.do_lc_init();
+			App.controller[pr_grpName].EntTabHistMedicine	.do_lc_init();
+			App.controller[pr_grpName].EntTabOrderMedicine	.do_lc_init();
 			App.controller[pr_grpName].EntTabOrderBloodTest	.do_lc_init();
 			App.controller[pr_grpName].EntTabOrderImgTest	.do_lc_init();
 			
