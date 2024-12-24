@@ -33,7 +33,7 @@ define([], function() {
 		
 		const pr_TYP01_ADMIN		= 2;
 		
-		const pr_TYP_DISEASE 		= 300;
+		const pr_TYP_DISEASE 		= 1000;
 		
 		const pr_NUMBER_RECORD		= 10;
 		const pr_STAT_ACTIVE    	= 1;
