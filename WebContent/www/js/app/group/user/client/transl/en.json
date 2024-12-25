@@ -411,6 +411,15 @@
   "common_btn_add"									  : "Add New",
   "common_btn_yes"									  : "Save",
   "common_btn_cancel_account"						  : "Back",
-  "common_btn_can"								  	  : "Cancel"
+  "common_btn_can"								  	  : "Cancel",
+  	"aut_user_ent_tab01_info04_b"						  	: "Date of Birth",
+	"aut_user_ent_tab01_info04_t"						  	: "Phone Number",
+	"aut_user_ent_tab01_info04_a"							: "Address",
+	"aut_user_ent_tab01_info04_i"							: "ID Number",
+	"aut_user_ent_tab01_info04_d"							: "Date of Issue",
+	"aut_user_ent_tab01_info04_p"							: "Place of Issue",
+	"aut_user_ent_tab01_info04_j"							: "Occupation",
+	"aut_user_ent_tab01_info04_n"							: "Nationality",
+	"aut_user_ent_tab01_info04_c"							: "Ethnicity"
   
 }

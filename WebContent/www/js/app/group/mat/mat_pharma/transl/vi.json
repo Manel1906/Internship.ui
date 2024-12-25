@@ -1,7 +1,7 @@
 {
 	"prj_tpy_group_btn_delete_group"				    : "Xóa nhóm",
 	"prj_tpy_group_btn_edit_group"				    	: "Chỉnh sửa",
-	"msg_del_entity_popup_content"			: "Xóa thuốc",
+	"msg_del_entity_popup_content"						: "Xóa thuốc",
     "prj_tpy_group_bar_code_ori"						: "Mã vạch gốc",
 	"prj_tpy_group_bar_code_internal_1"					: "Mã vạch nội bộ 1",
 	"prj_tpy_group_bar_code_internal_2"					: "Mã vạch nội bộ 2",
@@ -45,7 +45,7 @@
 	"prj_tpy_group_inf_medicine"						: "Thông tin thuốc",
 	"prj_tpy_group_brand_name_medicine_enter"			: "Nhập biệt dược và hàm lượng",
 	"common_btn_new_title"								: "Thêm thuốc/thiết bị",
-	"tpy_cat_disease_edit_title"						: "Chỉnh sửa thông tin thuốc/thiết bị",
+	"tpy_cat_med_edit_title"							: "Chỉnh sửa thông tin thuốc/thiết bị",
 	"prj_tpy_group_new"									: "Thêm mới",
 	"prj_tpy_group_new_msg"								: "Tạo nhóm trò chuyện, giúp bạn làm việc hiệu quả hơn!",
 
@@ -95,8 +95,8 @@
 	"msg_del_entity_popup_content"						: "Xóa thông tin thuốc",
 	"common_title_confirm"								: "Xác nhận",
 	"common_btn_del"									: "Xóa",
-	"common_btn_can"									: 	"Hủy bỏ",
-	"common_btn_cancel"									: 	"Quay lại",
+	"common_btn_can"									: "Hủy bỏ",
+	"common_btn_cancel"									: "Quay lại",
 	"common_btn_save_med"								: "Lưu",
-	"common_btn_new_file_title"							: 	"Thêm tập tin vào đây"
+	"common_btn_new_file_title"							: "Thêm tập tin vào đây"
 }

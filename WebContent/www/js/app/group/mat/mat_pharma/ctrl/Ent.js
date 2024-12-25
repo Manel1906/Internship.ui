@@ -170,7 +170,7 @@ define([], function() {
 					if(data.inf03 && typeof data.inf03 == "string"){
 						data.inf03 = JSON.parse(data.inf03);
 					}
-					data.edit 	   = true
+					data.edit 	   = mode
 
 					$("#div_ent").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_NEW, data));
 
@@ -249,7 +249,7 @@ define([], function() {
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_can"),
 								funct	: self.do_lc_cancel,
 								param	: [obj, mode],
 								classBtn: "btn-danger"
@@ -272,7 +272,7 @@ define([], function() {
 								param	: [],
 							},
 							OK: {
-								lab		: $.i18n("common_btn_yes"),
+								lab		: $.i18n("common_btn_can"),
 								funct	: self.do_lc_cancel,
 								param	: [obj, mode],
 								classBtn: "btn-danger"

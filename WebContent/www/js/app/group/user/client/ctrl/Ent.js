@@ -225,10 +225,6 @@ define([
 			if(Object.keys(ent).length == 0) return;
 			
 			let per 		= ent.per;
-			if(per?.inf02){
-				ent.inf02  = JSON.parse(per.inf02);
-			}
-
 			if(per?.inf04){
 				ent.inf04  = JSON.parse(per.inf04);
 			}
