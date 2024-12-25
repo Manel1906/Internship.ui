@@ -1549,7 +1549,7 @@ define([
 			if (prj != null) {
 				ref.parId 		= prj.parId;
 				ref.type02 		= prj.typ02;
-				ref.memberId 	= prj.memberId;
+				ref.memId 		= prj.memberId;
 			}
 			
 			const 	newDate 	= dp_schedule.startDate;

@@ -411,12 +411,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				let mem = {
 				    mem: item,
 				    uId: item.id,
-				//    group: idGroup,
-				//    stat: pr_STAT_VALIDATED,
 				};
-			
-				let textColor = null;
-				let textAvatar = null;
 			
 				pr_MEM_TEMP[item.id] = mem;
 				let selOpt = `<tr>`;
@@ -429,14 +424,12 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				$(el).blur().val("");
 			};
 			
-			let typ01Arr = [App.data.user.typ01, 2, 3, 4, 5];
-			let typ01Str = typ01Arr.join(',');
-			
+			var pr_TYP_01_WORK = 300;
 			let options = {
-				dataService: [pr_SERVICE_GROUP, pr_SV_LST],
-				svParams: { wAvatar: true, nbline: 20, stat01: 1 },
-			  // hintService: [pr_SERVICE_USER_CLASS, pr_SV_USER_BY_RELATION],
-			  // hintSvParams: { wAvatar: true, typ01: typ01Str, stat01: 1, entId01: idGroup },
+				dataService	: [pr_SERVICE_GROUP, pr_SV_LST],
+				svParams	: { wAvatar: true, nbline: 10, stat01: 1, typ01: pr_TYP_01_WORK },
+			   	hintService	: [pr_SERVICE_GROUP, pr_SV_LST],
+			   	hintSvParams: {  wAvatar: true, nbline: 10, stat01: 1, typ01: pr_TYP_01_WORK  },
 				fSelect: reqSelectMember,
 				customShowList: do_lc_customLst_user_autocomplete,
 			};

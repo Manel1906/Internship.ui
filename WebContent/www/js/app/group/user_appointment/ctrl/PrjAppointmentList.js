@@ -1342,7 +1342,7 @@ define([
 			if (prj != null) {
 		        ref.parId 		= prj.parId;
 		        ref.type02 		= prj.typ02;
-		        ref.memberId 	= prj.memberId;
+		        ref.memId 		= prj.memberId;
 			}
 			ref.dtBegin	= dtBegin;
 			ref.dtEnd	= dtEnd;
