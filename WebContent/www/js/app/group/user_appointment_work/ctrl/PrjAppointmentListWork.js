@@ -284,8 +284,8 @@ define([
 		
 		const do_get_list_ByAjax = function(){	
 			var ref 		= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstSearch");
-			ref.typ01s 		= TYP_01_DEPARTMENT;
-			ref.stats 		= STAT_ACTIVE;
+			ref.typ01 		= TYP_01_DEPARTMENT;
+			ref.stat01 		= STAT_ACTIVE;
 			ref.hardLoad 	= false;
 			var fSucces		= [];
 			fSucces.push(req_gl_funct(		null, do_lc_show_list_ByAjax_Dyn, [true]));
@@ -1750,11 +1750,11 @@ define([
 			        dataService: [pr_SERVICE_AUT_CLASS, pr_SV_DOCTOR_SEARCH],
 			        dataRes: ["login01", "name01"],
 			        svParams: {
-			            wAvatar: true,
-			            nbLine: 5,
-			            typ01s: typ01Str,
-			            stats: 1,
-			            grpId: selectedValue 
+			            wAvatar	: true,
+			            nbLine	: 5,
+			            typ01	: typ01Str,
+			            stat01	: 1,
+			            grpId	: selectedValue 
 			        },
 			        fSelect: reqSelectMember,
 			        customShowList: customShowList
@@ -1828,7 +1828,7 @@ define([
 			let options 	= {
 			    dataService 	: [pr_SERVICE_AUT_CLASS, pr_SV_DOCTOR_SEARCH], 
 			    dataRes 		: ["login01", "name01"], 
-			    svParams		: {wAvatar:true, nbLine:5, typ01s: typ01Str, stats:1,
+			    svParams		: {wAvatar:true, nbLine:5, typ01: typ01Str, stats:1,
 			     					grpId: selectedValue },
 			    fSelect			: reqSelectMember, 
 			    customShowList	: customShowList
@@ -2018,7 +2018,7 @@ define([
 		function do_get_availableTimeList(dp, dtBegin, dtEnd) {
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointment");
 		//	ref.typ01s 	= TYP_01_MEETING;
-			ref.typ01s 	= TYP_01_WORK_PLAN;
+			ref.typ01 	= TYP_01_WORK_PLAN;
 			ref.dtBegin	= dtBegin;
 			ref.dtEnd	= dtEnd;
 			

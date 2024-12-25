@@ -213,9 +213,9 @@ define([], function() {
 
 			let options = {
 				dataService		: [pr_SERVICE_PER_CLASS, pr_SV_USER_SEARCH],
-				svParams		: { wAvatar: true, nbline: 20, typ01s: typ01Str, stats: 1 },
+				svParams		: { wAvatar: true, nbline: 20, typ01: typ01Str, stats: 1 },
 				hintService		: [pr_SERVICE_USER_CLASS, pr_SV_USER_BY_RELATION],
-				hintSvParams	: { wAvatar: true, typ01s: typ01Str, stats: 1, entId01: idGroup },
+				hintSvParams	: { wAvatar: true, typ01: typ01Str, stats: 1, entId01: idGroup },
 				fSelect			: reqSelectMember,
 				customShowList	: do_lc_customLst_user_autocomplete,
 			};

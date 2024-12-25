@@ -1465,7 +1465,7 @@ define([
 			let options 	= {
 			    dataService 	: [pr_SERVICE_AUT_CLASS, pr_SV_USER_SEARCH], 
 			    dataRes 		: ["login01", "name01"], 
-			    svParams		: {wAvatar:true, nbLine:5, typ01s: typ01Str, stats:1},
+			    svParams		: {wAvatar:true, nbLine:5, typ01: typ01Str, stat01:1},
 			    fSelect			: reqSelectMember, 
 			    customShowList	: customShowList
 			}
@@ -1559,8 +1559,7 @@ define([
 		//-------------------------------------------------------------------------------------------------
 		function do_get_availableTimeList(dp, dtBegin, dtEnd) {
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointment");
-		//	ref.typ01s 	= TYP_01_MEETING;
-			ref.typ01s 	= TYP_01_WORK_PLAN;
+			ref.typ01 	= TYP_01_WORK_PLAN;
 			ref.wParent = true;
 		//	ref.dtBegin	= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
 		//	ref.dtEnd	= dtEnd	 ?dtEnd	 .replace("T"," "): req_gl_DateStr_From_DateObj(req_gl_DateAdd (new Date(), 'D', 7))	;
@@ -1665,10 +1664,10 @@ define([
 			}
 		}
 
-		const do_lc_req_appointment_noti = (dtBegin,dtEnd) => {
+		const do_lc_req_appointment_noti = (dtBegin, dtEnd) => {
 		    let divList				= $("#dp_nav");
 			let divPan 				= $("#div_group_pagination");
-			const ref 				= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVLstNotiSearch", {typ01s: 900, searchKey: "", stats : 1, hardLoad:false});
+			const ref 				= req_gl_Request_Content_Send_With_Params("ServiceNsoGroup", "SVLstNotiSearch", {typ01: TYP_01_WORK_PLAN, searchKey: "", stat01 : 1, hardLoad:false});
 			ref.dtBegin				= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
 			ref.dtEnd 				= req_gl_DateStr_From_DateObj(new Date().setHours(23, 59, 59, 0));
 

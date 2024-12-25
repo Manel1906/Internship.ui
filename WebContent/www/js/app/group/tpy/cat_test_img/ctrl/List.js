@@ -203,7 +203,7 @@ define([], function() {
 			let divList = $("#div_group_list");
 			let divPan  = $("#div_group_pagination");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01s: pr_TYP_TEST_IMG, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE,typs : pr_typ, hardLoad, wChild: true});
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01: pr_TYP_TEST_IMG, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE,typs : pr_typ, hardLoad, wChild: true});
 
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
 			

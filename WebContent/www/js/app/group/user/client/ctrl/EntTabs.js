@@ -199,7 +199,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_gl_set_input_autocomplete("#supName", {
 					apiUrl			: App.path.BASE_URL_API_PRIV,
 					dataRes 		: ["login01", "name01"],  
-					dataReq			: {nbLine:5, typ01s: typ01Str},//stat:1,  // typ01: $("#inp_home_search_typ01_val").val() 
+					dataReq			: {nbLine:5, typ01: typ01Str},//stat:1,  // typ01: $("#inp_home_search_typ01_val").val() 
 					dataService 	: ["ServiceAutUser", "SVLst"],
 					dataSel 		: {"#supId": "id"}, 
 					// minLength		: 3,

@@ -434,9 +434,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			
 			let options = {
 				dataService: [pr_SERVICE_GROUP, pr_SV_LST],
-				svParams: { wAvatar: true, nbline: 20, stats: 1 },
+				svParams: { wAvatar: true, nbline: 20, stat01: 1 },
 			  // hintService: [pr_SERVICE_USER_CLASS, pr_SV_USER_BY_RELATION],
-			  // hintSvParams: { wAvatar: true, typ01s: typ01Str, stats: 1, entId01: idGroup },
+			  // hintSvParams: { wAvatar: true, typ01: typ01Str, stat01: 1, entId01: idGroup },
 				fSelect: reqSelectMember,
 				customShowList: do_lc_customLst_user_autocomplete,
 			};

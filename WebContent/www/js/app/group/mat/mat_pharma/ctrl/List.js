@@ -207,7 +207,7 @@ define([], function() {
 			
 			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, 
 			{
-				typ01s		: pr_TYP_DISEASE, 
+				typ01		: pr_TYP_DISEASE, 
 				searchKey	: pr_SEARCH_KEY, 
 				stats 		: pr_STAT_ACTIVE, 
 				typs  		: pr_typ,	

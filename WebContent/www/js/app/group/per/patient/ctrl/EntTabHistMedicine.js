@@ -634,7 +634,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		const do_get_list_disease_ByAjax = function(){	
 			var ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS_CATE, pr_SV_GET_LST);
-			ref.typ01s 		= pr_TYPE_01_DISEASE;
+			ref.typ01 		= pr_TYPE_01_DISEASE;
 			ref.stats 		= 1;
 			ref.hardLoad 	= false;
 			
