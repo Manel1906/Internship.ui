@@ -83,7 +83,7 @@ define([],function(){
 					
 				}else if(mode == var_lc_MODE_MOD || mode == var_lc_MODE_SEL){
 					
-					var params = req_gl_Url_Params(App.data.url?App.data.url:decodeURIComponent(window.location.search.substring(1)));
+					let 		params 	= req_gl_Url_Params();
 					if(!id) id = params.id;
 					if (id) do_lc_get_Entity (id, mode);
 				}
