@@ -67,7 +67,8 @@
 <div class="page-content">
 	<div class="">
 		<div id="div_blog_grid" class="offer_grid"></div>
-		<nav id="blog-pagination"></nav>
+		<div id="div_blog_grid_manager" class="offer_grid hide"></div>
+		<nav id="blog-pagination" class="hide"></nav>
 	</div>
 </div>
 <!--END TMPL-->
@@ -75,26 +76,231 @@
 <!--BEGIN TMPL-->
 <!--NAME TMPL:Blog_List_Content_Detail-->
 	<div >
+	<div class="d-flex row">
+<!-- 		<div class="new-manager col-xm-12 col-sm-12 col-md-2 col-lg-2"> -->
+<!-- 			&nbsp; -->
+<!-- 			<a 					 style="font-size: 20px"><i class="mdi mdi-newspaper-plus text-success cursor-pointer btn-new"></i></a> -->
+<!-- 			&nbsp; -->
+<!-- 			<a id="btn-manager"  style="font-size: 20px" class="hide"><i class="mdi mdi-notebook text-primary cursor-pointer"></i></a> -->
+<!-- 		</div> -->
+		<div class="search-filter d-flex col-xm-12 col-sm-12 col-md-8 col-lg-8">
+<!--     		<select name='typ03' id="filter_typ03" class="objData form-control" data-name="typ03" style="width: 250px;"> -->
+<!--         		<option value="-1" data-name="typ03"{{#equal typ03 '-1'}}selected{{/equal}}>{{transl "nso_news_post_typ03_5"}}</option> -->
+<!--         		<option value="0" data-name="typ03" {{#equal typ03 '0'}}selected{{/equal}}>{{transl "nso_news_post_typ03_0"}}</option> -->
+<!--         		<option value="1" data-name="typ03" {{#equal typ03 '1'}}selected{{/equal}}>{{transl "nso_news_post_typ03_1"}}</option> -->
+<!--         		<option value="2" data-name="typ03" {{#equal typ03 '2'}}selected{{/equal}}>{{transl "nso_news_post_typ03_2"}}</option> -->
+<!--         		<option value="3" data-name="typ03" {{#equal typ03 '3'}}selected{{/equal}}>{{transl "nso_news_post_typ03_3"}}</option> -->
+<!--         		<option value="4" data-name="typ03" {{#equal typ03 '4'}}selected{{/equal}}>{{transl "nso_news_post_typ03_4"}}</option> -->
+<!--     		</select>  -->
+			 <div class="input-group" style="margin-left: 5px;">
+             	<input class="form-control" style="width: 200px;"type="text" placeholder="{{transl 'nso_news_search'}}" aria-describedby="button-search" id="inp_search_blog" value="{{token}}"/>
+             </div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xl-8">
+			<div id="slide_list" class="" style="background-color: #f5f1f1;">
+				<div class="">
+					<div class="swiper-container position-relative">
+						<div class="swiper-wrapper" data-breakpoints="1"  data-slides-per-view="1">
+							<!-- Slides -->
+							{{#each lst}}
+							        {{#equal typ03 '4'}}
+							            {{#if avatar}}
+							                <div class="swiper-slide">
+							                    <div style="text-align: center;">
+							                        <a class="read-more" data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}">
+							                            <img style="width: 400px; height: 200px;" src="{{avatar.url}}">
+							                        </a>
+							                    </div>
+							                </div>
+							            {{/if}}
+							        {{/equal}}
+							{{/each}}
+						</div>
+						<!-- Navigation buttons inside Swir-wrapper -->
+				    	<div class="swiper-button-prev position-absolute start-0 translate-middle-y" style="top: 50%;"></div>
+						<div class="swiper-button-next position-absolute end-0 translate-middle-y" style="top: 50%;"></div>
+						<div class="swiper-pagination position-absolute" style="top: 85%;"></div>
+					</div>		
+				</div>
+			</div>
+			<br>
+			<div class="row justify-content-around">
+				<div class="col-md-6">
+					<h1 style="text-transform: uppercase;color: #e84410;padding: 10px;">{{transl 'nso_post_notice'}}</h1>
+					{{#each lst}}
+					{{#equal typ03 '2'}}
+					<div class="">
+						<div class="card card-item hide">
+							<div style="padding: 10px 20px;">
+								<div class="flex-row" style="justify-content: normal;">
+									<div class="" id="post-avatar">
+										{{#if avatar}}
+											<div class=""><img style="width: 110px; border-radius: 10%;" src="{{avatar.url}}"></div>
+										{{else}}
+											{{#if dt03}}
+												<div style="background-color: #2196F3; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+													<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt03 "dd/MM"}}</span>
+												</div>
+												<div style="background-color: #e0e0e0; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+													<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt03 "yyyy"}}</span>
+												</div>
+											{{else}}
+												<div style="background-color: #2196F3; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+													<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt01 "dd/MM"}}</span>
+												</div>
+												<div style="background-color: #e0e0e0; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+													<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt01 "yyyy"}}</span>
+												</div>	
+											{{/if}}
+										{{/if}}
+					         		</div>
+									<div class="mt-1 ml-1" id="post-content">
+										<b><a style="font-size: 18px; width: 220px; display: block; text-transform: uppercase;" class="read-more text-truncate" data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}">{{title}}</a></b>
+					         			<p class="mt-1 mb-0 text-truncate" style="font-size: 14px; width: 200px;">{{{cont01}}}</p>
+					         			{{#if avatar}}
+											<div id="date" style="margin-top: 35px;">
+												<i class="bx bx-calendar"></i>
+												{{#if dt03}}
+													<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt03}}</span>
+												{{else}}
+													<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt01}}</span>
+												{{/if}}
+												
+											</div>
+										{{/if}}
+					         		</div>
+				         		</div>
+							</div>
+						</div>
+					</div>
+					{{/equal}}
+					{{/each}}
+					<div style="text-align: right; margin-bottom: 24px;">
+						<a id="load-more-noti" class="cursor-pointer" style="color: #2196F3;">{{transl 'nso_news_load_more'}}</a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<h1 style="text-transform: uppercase; color: #584ab5; padding:10px">{{transl 'nso_news_event'}}</h1>
+					{{#each lst}}
+						{{#equal typ03 '1'}}
+							<div class="">
+								<div class="card card-item hide">
+									<div style="padding: 10px 20px;">
+										<div class="flex-row" style="justify-content: normal;">
+											<div class="" id="post-avatar">
+												{{#if avatar}}
+													<div class=""><img style="width: 110px; border-radius: 10%;" src="{{avatar.url}}"></div>
+												{{else}}
+													{{#if dt03}}
+														<div style="background-color: #2196F3; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+															<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt03 "dd/MM"}}</span>
+														</div>
+														<div style="background-color: #e0e0e0; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+															<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt03 "yyyy"}}</span>
+														</div>
+													{{else}}
+														<div style="background-color: #2196F3; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+															<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt01 "dd/MM"}}</span>
+														</div>
+														<div style="background-color: #e0e0e0; color: white; padding: 5px 0; width: 110px; height: 55px; text-align: center;">
+															<span style="color: white; font-size: 20px; line-height: 55px;">{{dateFormat dt01 "yyyy"}}</span>
+														</div>	
+													{{/if}}
+												{{/if}}
+							         		</div>
+											<div class="mt-1 ml-1" id="post-content">
+												<b><a style="font-size: 18px; width: 220px; display: block;" class="read-more text-truncate" data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}">{{title}}</a></b>
+						         				<p class="mt-1 mb-0 text-truncate" style="font-size: 14px; width: 200px; text-transform: uppercase">{{{cont01}}}</p>
+							         			{{#if avatar}}
+													<div id="date" style="margin-top: 35px;">
+														<i class="bx bx-calendar"></i>
+														{{#if dt03}}
+															<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt03}}</span>
+														{{else}}
+															<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt01}}</span>
+														{{/if}}
+													</div>
+												{{/if}}
+							         		</div>
+						         		</div>
+									</div>
+								</div>
+							</div>
+						{{/equal}}
+					{{/each}}
+					<div style="text-align: right; margin-bottom: 24px;">
+						<a id="load-more-news" class="cursor-pointer" style="color: #2196F3;">{{transl 'nso_news_load_more'}}</a>
+					</div>	
+				</div>
+			</div>
+		</div>
+		<div class="col-xl-4">
+			<div class="question-content">
+				<a class="btn-question" data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}"><h3 style="text-transform: uppercase; color: #64ABD2;">{{transl "nso_news_post_question"}}</h3></a>
+<!-- 				<i class='bx bx-down-arrow-circle' style="font-size: 28px; color: #64ABD2; margin-left: 10px;"></i> -->
+				<select name='v05' id="filter_cont05" class="objData form-control" data-name="v05" style="width: 200px; margin-bottom: 20px;">
+					<option value="-1" data-name="v05" {{#equal v05 '-1' }}selected{{/equal}} >{{transl "nso_news_post_v05_8"}}</option>
+	        		<option value="1"  data-name="v05" {{#equal v05 '1' }}selected{{/equal}}  >{{transl "nso_news_post_v05_1"}}</option>
+					<option value="2"  data-name="v05" {{#equal v05 '2' }}selected{{/equal}}  >{{transl "nso_news_post_v05_2"}}</option>
+					<option value="3"  data-name="v05" {{#equal v05 '3' }}selected{{/equal}}  >{{transl "nso_news_post_v05_3"}}</option>
+					<option value="4"  data-name="v05" {{#equal v05 '4' }}selected{{/equal}}  >{{transl "nso_news_post_v05_4"}}</option>
+					<option value="5"  data-name="v05" {{#equal v05 '5' }}selected{{/equal}}  >{{transl "nso_news_post_v05_5"}}</option>
+					<option value="6"  data-name="v05" {{#equal v05 '6' }}selected{{/equal}}  >{{transl "nso_news_post_v05_6"}}</option>
+					<option value="7"  data-name="v05" {{#equal v05 '7' }}selected{{/equal}}  >{{transl "nso_news_post_v05_7"}}</option>
+    			</select> 
+			</div>
+			<div id="question">
+				{{#each lst }}
+					{{#equal typ03 '3'}}
+						<div class="">
+							<div class="card card-item hide">
+								<div style="padding: 10px 20px;">
+									<div class="d-flex flex-row" style="justify-content: normal; align-items: center;">
+								        <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 120px;" class="mt-1 ml-1" id="post-content">
+								            <p style="text-align: center; margin: 0;">
+								                <a style="font-size: 18px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; width: 100%;" class="read-more" data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}">{{title}}</a>
+								            </p>
+								        </div>
+								    </div>
+								</div>
+							</div>
+						</div>
+					{{/equal}}
+				{{/each}}
+				<div style="text-align: right; margin-bottom: 24px;">
+					<a id="load-more-question" class="cursor-pointer" style="color: #2196F3;">{{transl 'nso_news_load_more'}}</a>
+				</div>
+			</div>
+		</div>
+	</div>								 
+</div>
+<!--END TMPL-->
+<!--************************************-->
+<!--BEGIN TMPL-->
+<!--NAME TMPL:Blog_List_Content_Manager-->
+	<div >
 	<div class="d-flex row justify-content-between">
 		<div class="new-manager col-xm-12 col-sm-12 col-md-6 col-lg-2">
 			&nbsp;
 			<a id="btn_back" 	 class="text-primary font-italic cursor-pointer"><i class="mdi mdi-arrow-left-bold-outline font-size-18"></i>{{transl 'nso_news_return'}}</a>
 			&nbsp;
-			<a id="btn-new" 	 style="font-size: 20px"><i class="mdi mdi-newspaper-plus text-success cursor-pointer"></i></a>
+			<a  	 			 style="font-size: 20px"><i class="mdi mdi-newspaper-plus text-success cursor-pointer btn-new"></i></a>
 			&nbsp;
-			<a id="btn-manager"  style="font-size: 20px"><i class="mdi mdi-notebook text-primary cursor-pointer"></i></a>
+			<a id="btn-manager"  style="font-size: 20px" class="hide"><i class="mdi mdi-notebook text-primary cursor-pointer"></i></a>
 		</div>
 		<div class="search-filter d-flex col-xm-12 col-sm-12 col-md-6 col-lg-10">
     		<select name='typ03' id="filter_typ03" class="objData form-control" data-name="typ03" style="width: 250px;">
         		<option value="-1" data-name="typ03"{{#equal typ03 '-1'}}selected{{/equal}}>{{transl "nso_news_post_typ03_5"}}</option>
-        		<option value="0" data-name="typ03" {{#equal typ03 '0'}}selected{{/equal}}>{{transl "nso_news_post_typ03_0"}}</option>
         		<option value="1" data-name="typ03" {{#equal typ03 '1'}}selected{{/equal}}>{{transl "nso_news_post_typ03_1"}}</option>
         		<option value="2" data-name="typ03" {{#equal typ03 '2'}}selected{{/equal}}>{{transl "nso_news_post_typ03_2"}}</option>
         		<option value="3" data-name="typ03" {{#equal typ03 '3'}}selected{{/equal}}>{{transl "nso_news_post_typ03_3"}}</option>
         		<option value="4" data-name="typ03" {{#equal typ03 '4'}}selected{{/equal}}>{{transl "nso_news_post_typ03_4"}}</option>
     		</select> 
 			 <div class="input-group" style="margin-left: 5px;">
-             	<input class="form-control" style="width: 200px;"type="text" placeholder="{{transl 'nso_news_search'}}" aria-describedby="button-search" id="inp_search_blog" value="{{token}}"/>
+             	<input class="form-control" style="width: 200px;"type="text" placeholder="{{transl 'nso_news_search'}}" aria-describedby="button-search" id="inp_search_blog_manager" value="{{token}}"/>
              </div>
 		</div>
 	</div>
@@ -118,7 +324,7 @@
 							</div>
 		        			<div class="user-name-date">
 		        				<h5 class="user-name">{{uN01.login01}}</h5>
-								<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt01}}</span>
+								<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt03}}</span>
 		        			</div>        			
 						</div>
 						<div class="align-items-center d-flex my-2 justify-content-end">
@@ -161,25 +367,25 @@
 <!--          		<a class="read-more" data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}"><i>{{transl "nso_news_cont02_read_more"}}</i></a> -->
 <!-- 				{{/if}} -->
 
-                <div class="d-flex  align-items-center">
-                	{{#if isLike}}
-	           		<div class="d-flex  align-items-center">
-	           			<a class="btn_dislike" style="font-size: 20px;margin-left: 8px" data-id="{{id}}" data-code="{{code01}}"><span class="mdi mdi-heart text-danger cursor-pointer"></span></a> 
-	           			<span style="font-size: 15px; margin-left:7px;"><div class="like-info cursor-pointer" data-id="{{id}}">{{v04}}</div></span>
-	           		</div>
-	           		{{else}}
-	            	<div class="d-flex  align-items-center">
-	            		<a class="btn_like" style="font-size: 20px;" data-id="{{id}}" data-code="{{code01}}"><span class="mdi mdi-heart-outline text-danger cursor-pointer"></span></a>
-	            		<span style="font-size: 15px; margin-left:7px;"><div class="like-info cursor-pointer" data-id="{{id}}">{{v04}}</div></span>
-	            	</div>
-	           		{{/if}}
+<!--                 <div class="d-flex  align-items-center"> -->
+<!--                 	{{#if isLike}} -->
+<!-- 	           		<div class="d-flex  align-items-center"> -->
+<!-- 	           			<a class="btn_dislike" style="font-size: 20px;margin-left: 8px" data-id="{{id}}" data-code="{{code01}}"><span class="mdi mdi-heart text-danger cursor-pointer"></span></a>  -->
+<!-- 	           			<span style="font-size: 15px; margin-left:7px;"><div class="like-info cursor-pointer" data-id="{{id}}">{{v04}}</div></span> -->
+<!-- 	           		</div> -->
+<!-- 	           		{{else}} -->
+<!-- 	            	<div class="d-flex  align-items-center"> -->
+<!-- 	            		<a class="btn_like" style="font-size: 20px;" data-id="{{id}}" data-code="{{code01}}"><span class="mdi mdi-heart-outline text-danger cursor-pointer"></span></a> -->
+<!-- 	            		<span style="font-size: 15px; margin-left:7px;"><div class="like-info cursor-pointer" data-id="{{id}}">{{v04}}</div></span> -->
+<!-- 	            	</div> -->
+<!-- 	           		{{/if}} -->
 	           	
-	           		{{#if cmtCount}}
-	       			<a class="btn-addr " style="font-size: 20px; margin-left: 15px;"data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-comment cursor-pointer"></i><span style="font-size: 15px; margin-left:7px;" class="cursor-pointer">{{cmtCount}}</span></a>
-	           		{{else}}
-	           		<a class="btn-addr " style="font-size: 20px; margin-left: 15px;"data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-comment cursor-pointer"></i><span style="font-size: 15px; margin-left:7px;" class="cursor-pointer">0</span></a>
-	           		{{/if}}
-	           	</div>
+<!-- 	           		{{#if cmtCount}} -->
+<!-- 	       			<a class="btn-addr " style="font-size: 20px; margin-left: 15px;"data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-comment cursor-pointer"></i><span style="font-size: 15px; margin-left:7px;" class="cursor-pointer">{{cmtCount}}</span></a> -->
+<!-- 	           		{{else}} -->
+<!-- 	           		<a class="btn-addr " style="font-size: 20px; margin-left: 15px;"data-end="{{dtEnd}}" data-addr="{{addr}}" data-id="{{id}}" data-code="{{code01}}"><i class="mdi mdi-comment cursor-pointer"></i><span style="font-size: 15px; margin-left:7px;" class="cursor-pointer">0</span></a> -->
+<!-- 	           		{{/if}} -->
+<!-- 	           	</div> -->
 			</div>
 		</div>
 	</div>
@@ -404,11 +610,10 @@
 									<div class="form-group change_input_profile">
    										<label class="col-label">{{transl "nso_news_post_typ03"}}</label>
     										<select id="typ03" class="objData form-control" data-name="typ03" name='typ03'>
-        										<option value="0" data-name="typ03" {{#equal typ03 '0'}}selected{{/equal}}>{{transl "nso_news_post_typ03_0"}}</option>
-        										<option value="1" data-name="typ03" {{#equal typ03 '1'}}selected{{/equal}}>{{transl "nso_news_post_typ03_1"}}</option>
-        										<option value="2" data-name="typ03" {{#equal typ03 '2'}}selected{{/equal}}>{{transl "nso_news_post_typ03_2"}}</option>
-        										<option value="3" data-name="typ03" {{#equal typ03 '3'}}selected{{/equal}}>{{transl "nso_news_post_typ03_3"}}</option>
-        										<option value="4" data-name="typ03" {{#equal typ03 '4'}}selected{{/equal}}>{{transl "nso_news_post_typ03_4"}}</option>
+  												<option value="1" data-name="typ03"	{{#equal typ03 '1'}}selected{{/equal}} >{{transl "nso_news_post_typ03_1"}}</option>
+												<option value="2" data-name="typ03"	{{#equal typ03 '2'}}selected{{/equal}} >{{transl "nso_news_post_typ03_2"}}</option>
+												<option value="3" data-name="typ03"	{{#equal typ03 '3'}}selected{{/equal}} >{{transl "nso_news_post_typ03_3"}}</option>
+												<option value="4" data-name="typ03" {{#equal typ03 '4'}}selected{{/equal}} >{{transl "nso_news_post_typ03_4"}}</option>
    	 										</select>
 									</div>
 								</div>
@@ -421,6 +626,66 @@
    	 									</select>
 									</div>
 								</div>
+								<div class="col-lg-3">
+									<div class="form-group change_input_profile">
+   										<label class="col-label">{{transl "nso_news_post_cont03"}}</label>
+										<select id="stat02" class="objData form-control" data-name="stat02" data-validation="required">
+  											<option value="0" data-name="stat02"  {{#equal stat02 '0' }}selected{{/equal}}>{{transl "nso_news_post_cont03_0"}}</option>
+  											<option value="4" data-name="stat02"  {{#equal stat02 '4' }}selected{{/equal}}>{{transl "nso_news_post_cont03_1"}}</option>
+  											<option value="3" data-name="stat02"  {{#equal stat02 '3' }}selected{{/equal}}>{{transl "nso_news_post_cont03_2"}}</option>
+  											<option value="10" data-name="stat02" {{#equal stat02 '10'}}selected{{/equal}}>{{transl "nso_news_post_cont03_3"}}</option>
+										</select>
+									</div>
+								</div>
+								{{#ifCond typ03 '==' 3}}
+									<div id="type_question" class="col-lg-3">
+										<div class="form-group change_input_profile">
+											<label class="col-label">{{transl "nso_news_post_v05"}}</label>
+											<select id="v05" class="objData form-control" data-name="v05" >
+												<option value="0" data-name="v05" {{#equal v05 '0' }}selected{{/equal}} >{{transl "nso_news_post_v05_0"}}</option>
+												<option value="1" data-name="v05" {{#equal v05 '1' }}selected{{/equal}} >{{transl "nso_news_post_v05_1"}}</option>
+												<option value="2" data-name="v05" {{#equal v05 '2' }}selected{{/equal}} >{{transl "nso_news_post_v05_2"}}</option>
+												<option value="3" data-name="v05" {{#equal v05 '3' }}selected{{/equal}} >{{transl "nso_news_post_v05_3"}}</option>
+												<option value="4" data-name="v05" {{#equal v05 '4' }}selected{{/equal}} >{{transl "nso_news_post_v05_4"}}</option>
+												<option value="5" data-name="v05" {{#equal v05 '5' }}selected{{/equal}} >{{transl "nso_news_post_v05_5"}}</option>
+												<option value="6" data-name="v05" {{#equal v05 '6' }}selected{{/equal}} >{{transl "nso_news_post_v05_6"}}</option>
+												<option value="7" data-name="v05" {{#equal v05 '7' }}selected{{/equal}} >{{transl "nso_news_post_v05_7"}}</option>
+											</select> 
+										</div>
+									</div>
+								{{else}}
+									<div id="type_question" class="col-lg-3 hide">
+										<div class="form-group change_input_profile">
+											<label class="col-label">{{transl "nso_news_post_v05"}}</label>
+											<select id="v05" class="objData form-control" data-name="v05" >
+												<option value="0" data-name="v05" {{#equal v05 '0' }}selected{{/equal}} >{{transl "nso_news_post_v05_0"}}</option>
+												<option value="1" data-name="v05" {{#equal v05 '1' }}selected{{/equal}} >{{transl "nso_news_post_v05_1"}}</option>
+												<option value="2" data-name="v05" {{#equal v05 '2' }}selected{{/equal}} >{{transl "nso_news_post_v05_2"}}</option>
+												<option value="3" data-name="v05" {{#equal v05 '3' }}selected{{/equal}} >{{transl "nso_news_post_v05_3"}}</option>
+												<option value="4" data-name="v05" {{#equal v05 '4' }}selected{{/equal}} >{{transl "nso_news_post_v05_4"}}</option>
+												<option value="5" data-name="v05" {{#equal v05 '5' }}selected{{/equal}} >{{transl "nso_news_post_v05_5"}}</option>
+												<option value="6" data-name="v05" {{#equal v05 '6' }}selected{{/equal}} >{{transl "nso_news_post_v05_6"}}</option>
+												<option value="7" data-name="v05" {{#equal v05 '7' }}selected{{/equal}} >{{transl "nso_news_post_v05_7"}}</option>
+											</select> 
+										</div>
+									</div>
+								{{/ifCond}}
+							</div>
+							
+							<div class="inner-repeater row mb-1">
+								<div class="col-lg-6">
+					            	<label class="col-form-label ">{{transl "nso_post_date_begin"}}</label>
+				                	<div class="row">
+				                    	<div class="input-daterange input-group">
+											<div class="col-md-6">
+				                            	<input data-format="date" type="text" data-validation="date" autocomplete="off" class="form-control objData" id="dtpicker_Begin" placeholder="{{transl "nso_post_date_begin"}}" data-group="dt03" data-name="date" data-provide="datepicker" data-date-format="dd/mm/yyyy" value="{{dateFormatLocalShort dt03}}">
+											</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control objData tmpicker mr-4" id="tmpicker_Begin" placeholder="{{transl "nso_post_date_begin"}}" data-group="dt03" data-name="time" data-provide="timepicker" value="{{dateFormatShowHours dt03}}">
+											</div>
+				                    	</div>
+			                    	</div>
+			                	</div>
 							</div>
 							
 							<div class="row mb-1">
@@ -512,11 +777,10 @@
 							<div class="form-group change_input_profile">
 								<label class="col-label">{{transl "nso_news_post_typ03"}}</label>
 								<select id="typ03" class="objData form-control" data-name="typ03" >
-  											<option value="0" data-name="typ03"			>{{transl "nso_news_post_typ03_0"}}</option>
-  											<option value="1" data-name="typ03"			>{{transl "nso_news_post_typ03_1"}}</option>
-  											<option value="2" data-name="typ03"			>{{transl "nso_news_post_typ03_2"}}</option>
-  											<option value="3" data-name="typ03"			>{{transl "nso_news_post_typ03_3"}}</option>
-  											<option value="4" selected data-name="typ03">{{transl "nso_news_post_typ03_4"}}</option>
+									<option value="1" data-name="typ03"			>{{transl "nso_news_post_typ03_1"}}</option>
+									<option value="2" data-name="typ03"			>{{transl "nso_news_post_typ03_2"}}</option>
+									<option value="3" data-name="typ03"			>{{transl "nso_news_post_typ03_3"}}</option>
+									<option value="4" selected data-name="typ03">{{transl "nso_news_post_typ03_4"}}</option>
 								</select> 
 							</div>
 						</div>
@@ -526,9 +790,51 @@
 								<select id="stat01" class="objData form-control" data-name="stat01" name='stat01' data-validation="required">
       									<option value="0" data-name="stat01" selected	>{{transl "nso_news_post_stat01_0"}}</option>
       									<option value="2" data-name="stat01" 			>{{transl "nso_news_post_stat01_2"}}</option>
- 	 									</select>  
- 	 								</div> 	 																		
+								</select>  
+							</div> 	 																		
 						</div>
+						<div class="col-lg-3">
+							<div class="form-group change_input_profile">
+								<label class="col-label">{{transl "nso_news_post_cont03"}}</label>
+								<select id="stat02" class="objData form-control" data-name="stat02" data-validation="required">
+									<option value="0" selected data-name="stat02">{{transl "nso_news_post_cont03_0"}}</option>
+									<option value="4" 	data-name="stat02"		 >{{transl "nso_news_post_cont03_1"}}</option>
+									<option value="3" 	data-name="stat02"		 >{{transl "nso_news_post_cont03_2"}}</option>
+									<option value="10" 	data-name="stat02"		 >{{transl "nso_news_post_cont03_3"}}</option>
+								</select> 
+							</div>
+						</div>
+						<div id="type_question" class="col-lg-3 hide">
+							<div class="form-group change_input_profile">
+								<label class="col-label">{{transl "nso_news_post_v05"}}</label>
+								<select id="v05" class="objData form-control" data-name="v05">
+									<option value="0" selected data-name="v05"	>{{transl "nso_news_post_v05_0"}}</option>
+									<option value="1" data-name="v05"			>{{transl "nso_news_post_v05_1"}}</option>
+									<option value="2" data-name="v05"			>{{transl "nso_news_post_v05_2"}}</option>
+									<option value="3" data-name="v05"			>{{transl "nso_news_post_v05_3"}}</option>
+									<option value="4" data-name="v05"			>{{transl "nso_news_post_v05_4"}}</option>
+									<option value="5" data-name="v05"			>{{transl "nso_news_post_v05_5"}}</option>
+									<option value="6" data-name="v05"			>{{transl "nso_news_post_v05_6"}}</option>
+									<option value="7" data-name="v05"			>{{transl "nso_news_post_v05_7"}}</option>
+								</select> 
+							</div>
+						</div>
+					</div>
+					
+					<div class="inner-repeater row mb-1">
+						<div class="col-lg-6">
+			            	<label class="col-form-label ">{{transl "nso_post_date_begin"}}</label>
+		                	<div class="row">
+		                    	<div class="input-daterange input-group">
+									<div class="col-md-6">
+		                            	<input data-format="date" autocomplete="off" type="text" data-validation="date" class="form-control objData" id="dtpicker_Begin" placeholder="{{transl "nso_post_date_begin"}}" data-group="dt03" data-name="date" data-provide="datepicker" data-date-format="dd/mm/yyyy">
+									</div>
+									<div class="col-md-6">
+										<input type="text" class="form-control objData tmpicker mr-4" id="tmpicker_Begin" placeholder="{{transl "nso_post_date_begin"}}" data-group="dt03" data-name="time" data-provide="timepicker">
+									</div>
+		                    	</div>
+	                    	</div>
+	                	</div>
 					</div>
 					
 					<div class="row mb-1">
@@ -648,7 +954,7 @@
 	                				</div>
 										<div class="user-name-date">
 											<h5 class="user-name">{{uN01}}</h5>
-											<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt01}}</span>
+											<span style="color:gray; font-weight:5px">{{dateFormatLocalShort dt03}}</span>
 										</div>
 									
 									</div>
@@ -669,16 +975,16 @@
 							<br>
 							<br>
 							<div class="col-lg-12">  
-							{{#if files}}
-							<label class="abc col-form-label h5" >{{transl 'nso_news_group_files'}}</label>                          	
-							<div class="" id="div_list_files">                 
+							{{#if files}}           
                             	{{#each files}}
 									{{#equal typ01 '2'}}
+										 <label class="abc col-form-label h5" >{{transl 'nso_news_group_files'}}</label>                          	
+										  <div class="" id="div_list_files">   
 								          <h5 class="font-size-14 mb-1"><a href="javascript:void(0)" data-path="{{reqPathDoc url}}" class="text-dark item-file-download cursor-pointer" title='{{fName}}'>{{fName}}</a></h5>
                            				  <small>{{reqSizeFile fSize}}</small>
+                           				  </div>
                                  	{{/equal}}
 								{{/each}}
-                            </div>
                             {{/if}}
                            </div>
 							<!--<div class="col-lg-12">

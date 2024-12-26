@@ -9,12 +9,28 @@
   "nso_news_label_tag"								:"Tag",
  
   "nso_news_post_typ03"								:"Kiểu bài viết",
-  "nso_news_post_typ03_0"							:"Công ty",
-  "nso_news_post_typ03_1"							:"Sự kiện",
-  "nso_news_post_typ03_2"							:"Đào tạo",
-  "nso_news_post_typ03_3"							:"Sản phẩm",
-  "nso_news_post_typ03_4"							:"Thông báo",
+  "nso_news_post_typ03_1"							:"Tin tức và sự kiện",
+  "nso_news_post_typ03_2"							:"Thông báo",
+  "nso_news_post_typ03_3"							:"Câu hỏi thường gặp",
+  "nso_news_post_typ03_4"							:"Tin tức nổi bật",
   "nso_news_post_typ03_5"							:"Tất cả",
+  
+  "nso_news_post_cont03"							:"Đối tượng người xem",
+  "nso_news_post_cont03_0"							:"Mọi người",
+  "nso_news_post_cont03_1"							:"Giảng viên",
+  "nso_news_post_cont03_2"							:"Giáo vụ khoa",
+  "nso_news_post_cont03_3"							:"Sinh viên",
+  
+  "nso_news_post_v05"							:"Loại câu hỏi",
+  "nso_news_post_v05_0"							:"Lựa chọn loại câu hỏi",
+  "nso_news_post_v05_1"							:"Học bổng",
+  "nso_news_post_v05_2"							:"Điểm ngoại khóa",
+  "nso_news_post_v05_3"							:"Hoạt động ngoại khóa",
+  "nso_news_post_v05_4"							:"Lộ trình học",
+  "nso_news_post_v05_5"							:"Thực tập kỳ hè",
+  "nso_news_post_v05_6"							:"Thực tập tốt nghiệp",
+  "nso_news_post_v05_7"							:"Điểm",
+  "nso_news_post_v05_8"							:"Tất cả",
   
   "nso_news_post_stat01"							:"Trạng thái",
   "nso_news_post_stat01_0"							:"Ẩn",
@@ -47,5 +63,11 @@
   "nso_news_comment_send"                   : "Gửi",
   "nso_news_comment_no_cmt"                 : "Chưa có bình luận nào, hãy đánh giá về bài viết này.",
   "nso_news_comment_reply"                  : "Trả lời",
-  "nso_news_comment_no_login"               : "Vui lòng <a class='cursor-pointer text-info' id='btn_login'>đăng nhập</a> để bình luận"
+  "nso_news_comment_no_login"               : "Vui lòng <a class='cursor-pointer text-info' id='btn_login'>đăng nhập</a> để bình luận",
+  
+  "nso_post_date_begin"						: "Ngày đăng dự kiến",
+  "nso_post_notice"							: "Thông báo chung",
+  "nso_news_event"							: "Tin tức và sự kiện",
+  "nso_news_load_more"						: "Xem thêm...",
+  "nso_news_post_question"					: "Những câu hỏi thường gặp"
 }

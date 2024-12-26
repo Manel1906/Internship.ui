@@ -1,4 +1,4 @@
-define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
+define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 	function($, Blog_All) {
 
 	const BlogNew 					= function (grpName, header, content, footer) {
@@ -7,14 +7,21 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 		var pr_divFooter 			= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
-		var tmplName				= App.template.names[pr_grpName];
+		var pr_grpName				= grpName?grpName:"NsoBlog";
+				var tmplName		= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 
 		const pr_TYP01_NEWS			= 103;
 		
 		
-		const 	RIGHT_ADM				= 100;
+		const RIGHT_U_G				= 5000001;
+		const RIGHT_U_N				= 5000002;
+		const RIGHT_U_M				= 5000003;
+		const RIGHT_U_D				= 5000004;
+		const RIGHT_U_R				= 5000005;
+		
+		const RIGHT_ADM	        	= 100;
+		const RIGHT_A_G	        	= 101;
 		
 		var   self                  = this;
 		// --------------------APIs--------------------------------------//
@@ -23,25 +30,26 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 				App.template.names[pr_grpName] = {}
 				tmplName 	= App.template.names[pr_grpName]
 			}
-			tmplName.BLOG_LIST						= pr_grpName +"Blog_List";	
+			tmplName.TMPL_LIST						= pr_grpName +"Blog_List";	
 			
-			tmplName.BLOG_LIST_CATEGORY				= pr_grpName +"Blog_List_Category";
-			tmplName.BLOG_LIST_CONTENT				= pr_grpName +"Blog_List_Content";
-			tmplName.BLOG_LIST_CONTENT_DETAIL		= pr_grpName +"Blog_List_Content_Detail";
-			tmplName.BLOG_LIST_NOT_FOUND     		= pr_grpName +"Blog_List_Not_Found";
+			tmplName.TMPL_LIST_CATEGORY				= pr_grpName +"Blog_List_Category";
+			tmplName.TMPL_LIST_CONTENT				= pr_grpName +"Blog_List_Content";
+			tmplName.TMPL_LIST_CONTENT_DETAIL		= pr_grpName +"Blog_List_Content_Detail";
+			tmplName.TMPL_LIST_NOT_FOUND     		= pr_grpName +"Blog_List_Not_Found";
 			
-			tmplName.BLOG_ENT						= pr_grpName +"Blog_Ent";	
-			tmplName.BLOG_MODIFY    				= pr_grpName +"Blog_Modify";	
-			tmplName.BLOG_CREATE    		    	= pr_grpName +"Blog_Create";	
+			tmplName.TMPL_ENT						= pr_grpName +"Blog_Ent";	
+			tmplName.TMPL_MODIFY    				= pr_grpName +"Blog_Modify";	
+			tmplName.TMPL_CREATE    		    	= pr_grpName +"Blog_Create";	
 
 			tmplCtrl.do_lc_put_tmplRaw(Blog_All, pr_grpName);
 			
-			if (!App.controller.Blog)				
-				App.controller.Blog			= {};
+			if (!App.controller[pr_grpName])				
+				App.controller[pr_grpName]			= {};
 		}
 		//--------------------------------------------------------------------------------------------------------------------------------	
-		var pr_grpPath 		= 'group/nso_news';
+		var pr_grpPath 		= 'group/nso/blog';
 		var pr_showed		= false;
+		
 		this.do_lc_show 	= function(){
 			if (!pr_showed){
 				do_gl_lang_append (pr_grpPath + '/transl', self.do_lc_show_callback);
@@ -63,8 +71,17 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 		}
 
 		const do_lc_build_page = obj => {
-			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.BLOG_CREATE, obj));
-
+			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_CREATE, obj));
+			
+			$("#tmpicker_Begin").timepicker({//timepicker
+				showMeridian: false,
+				defaultTime :'7:00',
+				icons		: {
+					up		: "mdi mdi-chevron-up",
+					down	: "mdi mdi-chevron-down"
+				}
+			});
+			
 			do_show_fileUploader(obj);
 			App.SummerNoteController.do_lc_show("#div_blog_content", {height : 100});//text editor
 		}
@@ -84,6 +101,24 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 				
 				data.data.typ01      	= pr_TYP01_NEWS;
 				data.data.typ02      	= localStorage.languageId;
+				if(!data.data.dt03.date) {
+					dateString = new Date().toString();
+					var dateObj = new Date(dateString);
+					var formattedDate = dateObj.getFullYear() + "-" +
+					    ("0" + (dateObj.getMonth() + 1)).slice(-2) + "-" +
+					    ("0" + dateObj.getDate()).slice(-2) + " " +
+					    ("0" + dateObj.getHours()).slice(-2) + ":" +
+					    ("0" + dateObj.getMinutes()).slice(-2) + ":" +
+					    ("0" + dateObj.getSeconds()).slice(-2);
+					
+					var formattedTime = ("0" + dateObj.getHours()).slice(-2) + ":" +
+					    ("0" + dateObj.getMinutes()).slice(-2) + ":" +
+					    ("0" + dateObj.getSeconds()).slice(-2);	
+					// Gán giá trị đã định dạng vào data.data.dt03
+					data.data.dt03.date = formattedDate;
+					data.data.dt03.time = formattedTime;
+				} 
+				data.data.dt03			= do_lc_convert_date(data.data.dt03);
 
 				do_lc_new_post		(data);
 				
@@ -92,8 +127,20 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 			$("#btn_cancel").off('click').on('click', function(e) {
 				App.router.controller.do_lc_run("VI_MAIN/prj_news_list","view_prj_news_list.html?groupId=-1");
 			});
+			
+			$("#typ03").on("change", function() {
+				var typ03Value = $(this).val();
+			    
+			    if (typ03Value == '3') {
+			        $("#type_question").removeClass('hide');
+			    } else {
+			        $("#type_question").addClass('hide');
+			    }
+			});
 		}
-
+		
+		const do_lc_convert_date = objDate => objDate.date.substr(0, 10) + " " + objDate.time.substr(0, 5) + ":00";
+		
 		const do_lc_new_post = data => {
 			let ref		= req_gl_Request_Content_Send("ServiceNsoPost", "SVNewNews");
 

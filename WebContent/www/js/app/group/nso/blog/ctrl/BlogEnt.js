@@ -1,4 +1,4 @@
-define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
+define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 	function($, Blog_All) {
 
 	const BlogNew 					= function (grpName, header, content, footer) {
@@ -7,15 +7,19 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 		var pr_divFooter 			= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:((new Date()).getTime()+"");
+		var pr_grpName				= grpName?grpName:"NsoBlog";
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
-
-		const pr_TYP01_NEWS			= 103;
 		
+		const RIGHT_U_G				= 5000001;
+		const RIGHT_U_N				= 5000002;
+		const RIGHT_U_M				= 5000003;
+		const RIGHT_U_D				= 5000004;
+		const RIGHT_U_R				= 5000005;
 		
-		const 	RIGHT_ADM				= 100;
-		
+		const RIGHT_ADM	        	= 100;
+		const RIGHT_A_G	        	= 101;
+				
 		var   self                  = this;
 		// --------------------APIs--------------------------------------//
 		this.do_lc_init = () => {
@@ -23,32 +27,15 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 				App.template.names[pr_grpName] = {}
 				tmplName 	= App.template.names[pr_grpName]
 			}
-			tmplName.BLOG_LIST						= pr_grpName +"Blog_List";	
 			
-			tmplName.BLOG_LIST_CATEGORY				= pr_grpName +"Blog_List_Category";
-			tmplName.BLOG_LIST_CONTENT				= pr_grpName +"Blog_List_Content";
-			tmplName.BLOG_LIST_CONTENT_DETAIL		= pr_grpName +"Blog_List_Content_Detail";
-			tmplName.BLOG_LIST_NOT_FOUND     		= pr_grpName +"Blog_List_Not_Found";
-			
-			tmplName.BLOG_ENT						= pr_grpName +"Blog_Ent";	
-			tmplName.BLOG_MODIFY    				= pr_grpName +"Blog_Modify";	
-			tmplName.BLOG_CREATE    		    	= pr_grpName +"Blog_Create";	
-
-			
-			tmplName.BLOG_ENT_CONTENT_DETAIL_LIST  	= pr_grpName +"Blog_Ent_Content_Detail_List";
-			tmplName.BLOG_ENT_CONTENT_READ_MORE		= pr_grpName +"Blog_Ent_Content_read_more";
-			tmplName.BLOG_LIST_USER_LIKE			= pr_grpName +"Blog_List_User_Like";
-			
-			tmplName.BLOG_ENT_COMMENT_LIST			= pr_grpName +"Blog_Ent_Comment_List";	
-			tmplName.BLOG_ENT_COMMENT				= pr_grpName +"Blog_Ent_Comment";	
 
 			tmplCtrl.do_lc_put_tmplRaw(Blog_All, pr_grpName);
 			
-			if (!App.controller.Blog)				
-				App.controller.Blog			= {};
+			if (!App.controller[pr_grpName])				
+				App.controller[pr_grpName]			= {};
 		}
 		//--------------------------------------------------------------------------------------------------------------------------------	
-		var pr_grpPath 		= 'group/nso_news';
+		var pr_grpPath 		= 'group/nso/blog';
 		var pr_showed		= false;
 		this.do_lc_show 	= function(){
 			if (!pr_showed){
@@ -92,7 +79,7 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 
 		
 		const do_lc_post_show = obj => {
-			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.BLOG_ENT_CONTENT_READ_MORE, obj));
+			$("#div_main_content").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_CONTENT_READ_MORE, obj));
 			$(".item-file-download").off("click").on("click", function(){
 				let {path} = $(this).data();
 				path && window.open(path, "_blank");
@@ -117,7 +104,7 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 				do_lc_post_comment_Dyn(data, post);
 			}
 
-			$("#div_prj_comments")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.BLOG_ENT_COMMENT_LIST, {}));
+			$("#div_prj_comments")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_COMMENT_LIST, {}));
 			var opt = {
 					divMain			: "#div_comment_list",
 					divPagination	: "#div_comment_pagination",
@@ -171,7 +158,7 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 		
 		const do_lc_post_comment_show = function(post, data){
 			let isLogin = !App.controller.common.Login.can_lc_User_Guest();
-			$("#div_comment_list")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.BLOG_ENT_COMMENT, {data, isLogin}));
+			$("#div_comment_list")	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_COMMENT, {data, isLogin}));
 			
 			App.SummerNoteController.do_lc_show("#div_prj_comments", {height : 100}, true);//text editor		
 			do_lc_post_comment_bindEvent(post, data);
@@ -304,11 +291,7 @@ define(['jquery', 'text!group/nso_news/tmpl/Blog_All.html'],
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 			}
 		}
-		//--------------------------------------------------------------------------------------------------------------------------------
-		//--------------------------------------------------------------------------------------------------------------------------------
-		//--------------------------------------------------------------------------------------------------------------------------------
 
-		const do_lc_show_Msg  = e => console.log(e);
 	};
 
 	return BlogNew;
