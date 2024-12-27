@@ -49,6 +49,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const pr_typ_sav_done       = 1;
 		
 		var   pr_id_entity			= null;
+		var   pr_ent_per			= null;
 		var   pr_id_person			= null;
 		var   pr_obj_person			= null;
 		//------------------const object------------------------------------------------------
@@ -72,6 +73,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		var do_lc_show_entity 				= function(entPer){
 			pr_id_person 					= entPer.id
+			pr_ent_per 						= entPer
 			
 			$(pr_divContent					).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL				, entPer));
 			$("#div_entity_his_medical"		).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST			, entPer));
@@ -165,9 +167,12 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				idPer = data.id
 				inforPrescription.inf05 			= obj.data.inf05;
 				if (inforPrescription.inf05)
-					inforPrescription.inf05		= inforImg.inf05.filter(element => element !== null && element !== undefined);
-				do_lc_save_entity_prescription(inforPrescription,idPer,pr_id_entity, do_lc_show_ent_edit);
+					inforPrescription.inf05		= inforPrescription.inf05.filter(element => element !== null && element !== undefined);
+				inforPrescription.id			= pr_id_entity
+				inforPrescription.entId			= pr_id_person
+				do_lc_save_entity_prescription(inforPrescription, do_lc_show_ent_edit);
 			});
+			
 		}
 		const do_lc_show_entity_blood = (data) => {
 			$("#btn_mod_blood"					).addClass("hide");
@@ -204,11 +209,12 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				}
 				
 				inforBlood = {}
-				idPer = pr_id_person
 				inforBlood.inf06 			= obj.data.inf06;
 				if (inforBlood.inf06)
 					inforBlood.inf06		= inforBlood.inf06.filter(element => element !== null && element !== undefined);
-				do_lc_save_entity_blood(inforBlood,idPer,pr_id_entity, do_lc_show_ent_edit);
+				inforBlood.id			= pr_id_entity
+				inforBlood.entId		= pr_id_person
+				do_lc_save_entity_blood(inforBlood, do_lc_show_ent_edit);
 			});
 		}
 		const do_lc_show_entity_img = (data) => {
@@ -249,35 +255,21 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				inforImg.inf07 			= obj.data.inf07;
 				if (inforImg.inf07)
 					inforImg.inf07		= inforImg.inf07.filter(element => element !== null && element !== undefined);
-				do_lc_save_entity_img(inforImg,idPer,pr_id_entity, do_lc_show_ent_edit);
+				inforImg.id			= pr_id_entity
+				inforImg.entId		= pr_id_person
+				do_lc_save_entity_img(inforImg, do_lc_show_ent_edit);
 			});
 		}
 		
-		const do_lc_bind_event_new_prescription = function(data) {		
-		//	do_get_list_medicine_ByAjax()	
-		 	const maxIndex 	= Math.max(0, ...$('#tbody_entity_chronic').find('input[data-name="index"]').map(function () {
-		        return parseInt($(this).val()) || 0;
-		    }).get()) +1;
-		    
-			const newRow 	= tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT_ADD, { index: maxIndex });
-		    const addedRow 	= $('#tbody_entity_prescription').append(newRow).find('tr').last();
-		
-		    addedRow.find('input[data-name="index"]').val(maxIndex).end()[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-		    
-			$(".btnRemoveRowPrescription>button").off("click").on("click", function () {
-		        $(this).closest('tr').remove();
-		    });
-			 const calculateTotal = function() {	
-		        const morning = parseFloat($("#number_morning").val()) || 0;
-		        const lunch = parseFloat($("#number_lunch").val()) || 0;
-		        const afternoon = parseFloat($("#number_afternoon").val()) || 0;
-		        const dark = parseFloat($("#number_dark").val()) || 0;
-		        const day = parseFloat($("#number_day").val()) || 0;
-		        const total = (morning + lunch + afternoon + dark) * day;
-		        $("#total").val(total); 
-		    }
-			$("#number_morning, #number_lunch, #number_afternoon, #number_dark, #number_day").on("input", calculateTotal);
-		    // Pharmaceuticals
+		const do_lc_Lst_medicine_autocomplete = function (item, selOpt = "") {
+			selOpt += `<div class="media align-items-center"> ${item.name01}</div>`;
+		    return selOpt;
+		};
+		const do_lc_Lst_medicine_inGre_autocomplete = function (item, selOpt = "") {
+			selOpt += `<div class="media align-items-center"> ${item.name02}</div>`;
+		    return selOpt;
+		};
+		const do_gl_req_autocompleteMedicine = function() {		
 			let el = "#inp_pharmaceuticals";
 			let reqSelectMedicine = (event, item) => {
 				let selOpt 			= `<div class='medicine-item'>`;
@@ -314,7 +306,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				$("#inp_ingre").val(item.name02);
 				$("#inp_code").val(item.code01);
 				do_lc_bind_event_autocomplete();
-				$(el).blur().val("");
 			}
 			let options = {
 				dataService: [pr_SERVICE_CLASS_MEDICINE, pr_SV_LIST_MEDICINE],
@@ -326,8 +317,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				customShowList: do_lc_Lst_medicine_autocomplete,
 			};
 			do_gl_req_autocompleteNew(el, options);
-			
-			 // Ingredient
+		}
+		const do_gl_req_autocompleteIngredient = function() {		
 			let elIn = "#inp_ingre";
 			let reqSelectMedicineIngre = (event, item) => {
 				let selOptIngre 	= `<div class='medicine-item'>`;
@@ -360,12 +351,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				customShowList: do_lc_Lst_medicine_inGre_autocomplete,
 			};
 			do_gl_req_autocompleteNew(elIn, optionsIngre);
-			
-		};
-		const do_lc_Lst_medicine_autocomplete = function (item, selOpt = "") {
-			selOpt += `<div class="media align-items-center"> ${item.name01}</div>`;
-		    return selOpt;
-		};
+		}
 		const do_lc_bind_event_new_blood = function(data) {			
 		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_blood').find('input[data-name="index"]').map(function () {
 		        return parseInt($(this).val()) || 0;
@@ -380,7 +366,35 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		        $(this).closest('tr').remove();
 		    });
 		};
+		const do_lc_bind_event_new_prescription = function(data) {		
+		 	const maxIndex 	= Math.max(0, ...$('#tbody_entity_prescription').find('input[data-name="index"]').map(function () {
+		        return parseInt($(this).val()) || 0;
+		    }).get()) +1;
+		    
+			const newRow 	= tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_PRESCRIPT_ADD, { index: maxIndex });
+		    const addedRow 	= $('#tbody_entity_prescription').append(newRow).find('tr').last();
 		
+		    addedRow.find('input[data-name="index"]').val(maxIndex).end()[0].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		    
+			$(".btnRemoveRowPrescription>button").off("click").on("click", function () {
+		        $(this).closest('tr').remove();
+		    });
+			 const calculateTotal = function() {	
+		        const morning = parseFloat($("#number_morning").val()) || 0;
+		        const lunch = parseFloat($("#number_lunch").val()) || 0;
+		        const afternoon = parseFloat($("#number_afternoon").val()) || 0;
+		        const dark = parseFloat($("#number_dark").val()) || 0;
+		        const day = parseFloat($("#number_day").val()) || 0;
+		        const total = (morning + lunch + afternoon + dark) * day;
+		        $("#total").val(total); 
+		    }
+			$("#number_morning, #number_lunch, #number_afternoon, #number_dark, #number_day").on("input", calculateTotal);
+		    // Pharmaceuticals
+		    do_gl_req_autocompleteMedicine()
+			 // Ingredient
+			do_gl_req_autocompleteIngredient()
+			
+		};
 		const do_lc_bind_event_new_img = function(data) {			
 		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_img').find('input[data-name="index"]').map(function () {
 		        return parseInt($(this).val()) || 0;
@@ -396,8 +410,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		    });
 		};
 		
-		const do_lc_save_entity_prescription = function(myObject,idPer,idEnt, callback){
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer});
+		const do_lc_save_entity_prescription = function(myObject, callback){
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject});
 			let fSucces				= [];
 			fSucces.push(req_gl_funct(null, do_lc_save_entity_prescription_callback, [myObject, callback]));
 
@@ -410,15 +424,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				let ent 	= sharedJson[App['const'].RES_DATA];
 				do_lc_clean_data(ent)
-				pr_id_entity = ent.id
 				if (callback) callback (ent);
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
 			}
 		}
 		
-		const do_lc_save_entity_blood = function(myObject,idPer,idEnt, callback){
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer});
+		const do_lc_save_entity_blood = function(myObject, callback){
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject});
 			let fSucces				= [];
 			fSucces.push(req_gl_funct(null, do_lc_save_entity_blood_callback, [myObject, callback]));
 
@@ -431,14 +444,13 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				let ent 	= sharedJson[App['const'].RES_DATA];
 				do_lc_clean_data(ent)
-				pr_id_entity = ent.id
 				if (callback) callback (ent);
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
 			}
 		}
-		const do_lc_save_entity_img = function(myObject,idPer,idEnt, callback){
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject,perId:idPer});
+		const do_lc_save_entity_img = function(myObject, callback){
+			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_MOD, {obj: myObject});
 			let fSucces				= [];
 			fSucces.push(req_gl_funct(null, do_lc_save_entity_img_callback, [myObject, callback]));
 
@@ -451,7 +463,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				let ent 	= sharedJson[App['const'].RES_DATA];
 				do_lc_clean_data(ent)
-				pr_id_entity = ent.id
 				if (callback) callback (ent);
 			} else {   
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get'));
@@ -480,7 +491,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					}
 				});
 			});
-			
 			$("#btn_sav_draft_entity").off("click").on("click",function(){
 				self.do_lc_mod(pr_typ_sav_draft)
 			})
@@ -503,6 +513,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
+					pr_id_entity = data.id
 					do_lc_show_his_medicine		(data)
 				}
 			} else {   
@@ -522,6 +533,60 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			do_lc_show_his_prescription	(data);
 			do_lc_show_his_test_blood	(data);
 			do_lc_show_his_test_img 	(data);
+		 	const toPDF = function(){
+				 const content = `	<div id="div_ent_his_prescription_file" style="page-break-after: always;">
+							            ${$("#div_ent_his_prescription_file").html()}
+							        </div>
+							        <div id="div_ent_his_test_blood_file" style="page-break-after: always;">
+							            ${$("#div_ent_his_test_blood_file").html()}
+							        </div>
+							        <div id="div_ent_his_test_img_file" style="page-break-after: always;">
+							            ${$("#div_ent_his_test_img_file").html()}
+							        </div>
+							        <div id="div_ent_his_content">
+							            ${$("#div_ent_his_content").html()}
+							        </div>`;
+		 	const window_new = window.open();
+		 	window_new.document.write(`
+			        <html>
+			            <head>
+			                <title>Print</title>
+			                <style>
+			                    @media print {
+			                        div {
+			                            page-break-inside: avoid;
+			                            margin: 20px;
+			                        }
+			                    }
+			                    body {
+			                        font-family: Arial, sans-serif;
+			                    }
+			                </style>
+			            </head>
+			            <body>
+			                ${content}
+			            </body>
+			        </html>
+			    `);
+			setTimeout(()=>{
+				window_new.print();
+				window_new.close();
+		 	},200)
+		 	}	
+			$("#btn_print_entity").off("click").on("click", function() {
+			//	toPDF(table_tab_detail);
+				$("#div_ent_his_content")		   .html("");
+		        $("#div_ent_his_prescription")	   .html("");
+		        $("#div_ent_his_test_blood")	   .html("");
+		        $("#div_ent_his_test_img")		   .html("");
+		        $("#div_ent_his_content")		   .html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT				, data, {per: pr_ent_per} ));
+				$("#div_ent_his_prescription_file").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_CONTENT_FILE		, {data: data, per: pr_ent_per}));
+				$("#div_ent_his_test_blood_file")  .html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_TEST_BLOOD_CONTENT_FILE			, {data: data, per: pr_ent_per}));
+				$("#div_ent_his_test_img_file")	   .html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_CONTENT_FILE			, {data: data, per: pr_ent_per}));
+				console.log(data)
+				console.log(pr_ent_per)
+				toPDF();
+			});
 		}
 		
 		var do_lc_show_his_content_mod 	= function(ent){
@@ -735,21 +800,19 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}
 		}
 		const do_lc_bind_event_autocomplete = () => {
-			$(".btn-remove-medicine").off("click").on("click", function(){
-			 	$("#selected_medicine").addClass("hide")
-				$(this).closest(".medicine-item").remove();
-				$("#inp_pharmaceuticals").show();
-			})
-			$(".btn-remove-ingre").off("click").on("click", function(){
-			 	$("#selected_ingre").addClass("hide")
-				$(this).closest(".medicine-item-ingre").remove();
-				$("#inp_ingre").show();
-			})
-			$(".btn-remove-code").off("click").on("click", function(){
-			 	$("#selected_code").addClass("hide")
-				$(this).closest(".member-item-code").remove();
-				$("#inp_code").show();
-			})
+			$(".btn-remove-medicine, .btn-remove-ingre, .btn-remove-code").off("click").on("click", function () {
+			    $("#selected_medicine").addClass("hide");
+			    $("#selected_ingre").addClass("hide");
+			    $("#selected_code").addClass("hide");
+			
+			    $(".medicine-item").remove();
+			    $(".medicine-item-ingre").remove();
+			    $(".medicine-item-code").remove();
+			
+			    $("#inp_pharmaceuticals").show().val("");
+			    $("#inp_ingre").show().val("");
+			    $("#inp_code").show().val("");
+			});
 		}
 		var do_lc_show_ent_edit 	= function(ent){
 	//		pr_id_person = ent.id

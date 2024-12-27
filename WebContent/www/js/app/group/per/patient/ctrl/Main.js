@@ -48,6 +48,7 @@ define([
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Medical_List.html'	,
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Medical_List_Content.html',
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Medical_Content.html',
+	'text!group/per/patient/tmpl/Ent_Tab_Order_Medical_Content_File.html',
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Test_Blood.html',
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Test_Blood_List.html'	,
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Test_Blood_List_Content.html',
@@ -57,6 +58,7 @@ define([
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Test_Img_List.html'	,
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Test_Img_List_Content.html',
 	'text!group/per/patient/tmpl/Ent_Tab_Order_Test_Img_Content.html',
+	'text!group/per/patient/tmpl/Ent_Tab_Order_Test_Img_Content_File.html',
 	
 	'text!group/per/patient/tmpl/Dropzone_File.html'
 
@@ -110,6 +112,7 @@ define([
 			Tmpl_Ent_Tab_Order_Medical_List,
 			Tmpl_Ent_Tab_Order_Medical_List_Content,
 			Tmpl_Ent_Tab_Order_Medical_Content,
+			Tmpl_Ent_Tab_Order_Medical_Content_File,
 			Tmpl_Ent_Tab_Order_Test_Blood,
 			Tmpl_Ent_Tab_Order_Test_Blood_List,
 			Tmpl_Ent_Tab_Order_Test_Blood_List_Content,
@@ -119,6 +122,7 @@ define([
 			Tmpl_Ent_Tab_Order_Test_Img_List,
 			Tmpl_Ent_Tab_Order_Test_Img_List_Content,
 			Tmpl_Ent_Tab_Order_Test_Img_Content,
+			Tmpl_Ent_Tab_Order_Test_Img_Content_File,
 			Tmpl_PrjDropzone_File
 	) {
 
@@ -193,6 +197,7 @@ define([
 			tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_LIST 		  	 = pr_grpName + "Tmpl_Ent_Tab_Order_Medical_List";
 			tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_LIST_CONTENT	 = pr_grpName + "Tmpl_Ent_Tab_Order_Medical_List_Content";
 			tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_CONTENT 		 = pr_grpName + "Tmpl_Ent_Tab_Order_Medical_Content";
+			tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_CONTENT_FILE 	 = pr_grpName + "Tmpl_Ent_Tab_Order_Medical_Content_File";
 			tmplName.TMPL_ENT_TAB_TEST_BLOOD 			  	 	 = pr_grpName + "Tmpl_Ent_Tab_Order_Test_Blood";
 			tmplName.TMPL_ENT_TAB_TEST_BLOOD_LIST 		  	     = pr_grpName + "Tmpl_Ent_Tab_Order_Test_Blood_List";
 			tmplName.TMPL_ENT_TAB_TEST_BLOOD_LIST_CONTENT	     = pr_grpName + "Tmpl_Ent_Tab_Order_Test_Blood_List_Content";
@@ -202,6 +207,7 @@ define([
 			tmplName.TMPL_ENT_TAB_TEST_IMG_LIST 		  	     = pr_grpName + "Tmpl_Ent_Tab_Order_Test_Img_List";
 			tmplName.TMPL_ENT_TAB_TEST_IMG_LIST_CONTENT	     	 = pr_grpName + "Tmpl_Ent_Tab_Order_Test_Img_List_Content";
 			tmplName.TMPL_ENT_TAB_TEST_IMG_CONTENT 		     	 = pr_grpName + "Tmpl_Ent_Tab_Order_Test_Img_Content";
+			tmplName.TMPL_ENT_TAB_TEST_IMG_CONTENT_FILE 		 = pr_grpName + "Tmpl_Ent_Tab_Order_Test_Img_Content_File";
 			tmplName.TMPL_ENT_TAB_INFO_MOD				  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Modify";
 			
 			
@@ -252,6 +258,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_LIST			, Tmpl_Ent_Tab_Order_Medical_List);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_LIST_CONTENT	, Tmpl_Ent_Tab_Order_Medical_List_Content);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_CONTENT			, Tmpl_Ent_Tab_Order_Medical_Content);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_CONTENT_FILE	, Tmpl_Ent_Tab_Order_Medical_Content_File);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_TEST_BLOOD					, Tmpl_Ent_Tab_Order_Test_Blood);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_TEST_BLOOD_LIST				, Tmpl_Ent_Tab_Order_Test_Blood_List);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_TEST_BLOOD_LIST_CONTENT		, Tmpl_Ent_Tab_Order_Test_Blood_List_Content);
@@ -261,6 +268,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_LIST					, Tmpl_Ent_Tab_Order_Test_Img_List);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_LIST_CONTENT			, Tmpl_Ent_Tab_Order_Test_Img_List_Content);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_CONTENT				, Tmpl_Ent_Tab_Order_Test_Img_Content);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_CONTENT_FILE			, Tmpl_Ent_Tab_Order_Test_Img_Content_File);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE							, Tmpl_PrjDropzone_File);
 			
 			//---------------------------------------------------------------------------------------------
@@ -316,6 +324,7 @@ define([
 		
 		this.do_lc_show_callback = function(){    
 			try { 
+				
 				App.router.controller.do_lc_append_custom_tags()
 				
 				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_MAIN, {}));
@@ -323,6 +332,9 @@ define([
 				App.controller[pr_grpName].List.do_lc_show();
 				
 				$(document).prop('title',$.i18n('prj_project_sidebar_user'));
+				
+		//		let 		params 	= req_gl_Url_Params();
+		//		if (params.id) App.controller[pr_grpName].Ent.do_lc_show();;
 
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "PrjClientMain", "do_lc_show", e.toString()) ;
