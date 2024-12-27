@@ -1,0 +1,90 @@
+<table class="table">
+            <tr>
+                <td colspan="2">
+                    <h4 class="fw-bold">{{transl "per_person_patient_hos_qn"}}</h4>
+                    <h4 class="fw-bold">{{transl "per_person_patient_uni_medicine"}}</h4>
+                    <h4 class="fw-bold">{{transl "per_person_patient_pct"}}</h4>
+                </td>
+                <td colspan="2" class="text-end">
+                   <p><strong>{{transl "per_person_patient_code"}}:</strong>{{per.code01}}</p>
+                    <p><strong>{{transl "per_person_patient_code_pairing"}}:</strong></p>
+                </td>
+            </tr>
+            <tr>
+            	<td>
+                </td>
+                <td colspan="4" class="text-center">
+                   <h4 class="text-center fw-bold mt-3">{{transl "per_person_patient_name_test_img"}}</h4>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table mt-2">
+            <tr>
+                <td><strong>Bệnh nhân:</strong>{{per.name01}} {{per.name02}} {{per.name03}}</td>
+                <td><strong>{{transl "per_person_patient_obj"}}:</strong>{{per.inf02}}</td>
+                <td><strong>{{transl "prj_user_group_gender"}}:</strong>
+                {{#equal per.inf10 0}}{{transl "per_person_men" }}{{/equal}}
+				{{#equal per.inf10 1}}{{transl "per_person_women" }}{{/equal}}
+				{{#equal per.inf10 2}}{{transl "per_person_other" }}{{/equal}}
+                 </td>
+            </tr>
+            <tr>
+                <td><strong>{{transl "per_person_patient_name_test_img"}}:</strong>{{per.inf02}}</td>
+                <td colspan="2"><strong>{{transl "per_person_patient_address"}}:</strong>{{per.inf04.a}}</td>
+            </tr>
+            <tr>
+                <td><strong>{{transl "per_person_patient_doctor_assign"}}:</strong>{{data.inf09}}</td>
+                <td><strong>{{transl "per_person_patient_fal"}}:</strong>{{data.inf08}}</td>
+            </tr>
+        </table>
+
+        <table class="table mt-4">
+            <tr>
+                <td colspan="2" class="text-start">
+                    <strong>{{transl "per_person_patient_hist_dignose"}}:</strong>
+                </td>
+            </tr>
+             <tr>
+		        <td>{{{data.inf02.dignose}}}</td>
+		    </tr>
+            <tr>
+                <td colspan="2" class="text-start">
+                    <strong>{{transl "per_patient_group_service"}}:</strong>
+                </td>
+            </tr>
+             <tr>
+		        <td>{{{data.inf02.dignose}}}</td>
+		    </tr>
+             <tr>
+                <td colspan="2" class="text-start">
+                    <strong>{{transl "per_person_patient_technique"}}:</strong>
+                </td>
+            </tr>
+             <tr>
+		        <td>{{{data.inf02.dignose}}}</td>
+		    </tr>
+             <tr>
+                <td colspan="2" class="text-start">
+                    <strong>{{transl "per_person_patient_result"}}:</strong>
+                </td>
+            </tr>
+             <tr>
+		        <td>{{{data.inf02.dignose}}}</td>
+		    </tr>
+        </table>
+
+        <table class="table mt-4">
+		    <tr>
+		        <td class="text-end align-top" style="padding-right: 20px; vertical-align: top;">
+		            <p class="mb-1" style="margin: 0;">Ngày 29 tháng 09 năm 2024</p>
+	                <p class="mb-1" style="margin: 0; font-weight: bold;">{{transl "per_person_patient_doctor_as"}}</p>
+	                <p class="mb-0" style="margin: 0;">Hồ Đình Tuấn Kiệt</p>
+		        </td>
+		    </tr>
+		</table>
+        <div class="mt-4">
+            <p>
+                {{transl "per_person_patient_remind_pa"}}
+            </p>
+        </div>

@@ -222,7 +222,31 @@
     "per_person_patient_diamond"					: "Diamond",
     "per_person_patient_vip"						: "VIP",
     
-    "per_person_patient_hist_medicine_title"		: "Medical examination content"
-	
-	
+    "per_person_patient_hist_medicine_title"		: "Medical examination content",
+    "per_person_patient_age"						: "Age",
+	"per_person_patient_obj"						: "Contact Information",
+	"per_person_patient_address"					: "Address",
+	"per_person_patient_nbMd"						: "Health Insurance Card Number (if available)",
+	"per_person_patient_doctor_assign"				: "Assigned Doctor",
+	"per_person_patient_fal"						: "Department/Room",
+	"per_person_patient_hos_qn"						: "QUANG NAM DEPARTMENT OF HEALTH",
+	"per_person_patient_uni_medicine"				: "PHAN CHAU TRINH UNIVERSITY MEDICAL FACULTY",
+	"per_person_patient_age"						: "VIP",
+	"per_person_patient_doctor_as"					: "Prescribing Doctor",
+	"per_person_patient_remind"						: "Note",
+	"per_person_patient_hist_medicine_title"		: "Medical History Content",
+	"per_person_patient_test_blood_require"			: "Test Requirements",
+	"per_person_patient_name_test_blood"			: "Test Name",
+	"per_person_patient_name_test_img"				: "IMAGING DIAGNOSTIC RESULTS",
+	"per_person_patient_result"						: "Result",
+	"per_person_patient_csbt"						: "CSBT",
+	"per_person_patient_unit"						: "Unit",
+	"per_person_patient_nb_votes"					: "Number of Votes",
+	"per_person_patient_nb_enter"					: "Number of Admissions",
+	"per_person_patient_code_medicine"				: "Medical Code",
+	"per_person_patient_technique"					: "Technique",
+	"per_person_patient_pct"						: "PHAN CHAU TRINH",
+	"per_person_patient_code"						: "Patient Code",
+	"per_person_patient_code_pairing"				: "Pairing Code",
+	"per_person_patient_remind_pa"					: "The patient can review the diagnostic results at the address http://pacs.pctu.vn. The login account is the patient code: 200202. The first-time login password is: 123456. Please change the password upon logging in."
 }
