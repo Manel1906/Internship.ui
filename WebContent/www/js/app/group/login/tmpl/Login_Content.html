@@ -114,38 +114,38 @@
                         <div class="p-2" id="div_sendRegister">
                             <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label for="useremail">{{transl 'login_email'}} *</label>
+                                    <label>{{transl 'login_email'}} *</label>
                                     <input type="email" class="form-control objData" id="idLogin" data-validation="required email" data-name="email" placeholder="{{transl 'login_email_enter'}}">        
                                 </div>
         
                                 <div class="form-group">
-                                    <label for="inp_Username">{{transl 'login_username'}}</label>
+                                    <label>{{transl 'login_username'}}</label>
                                     <input type="text" class="form-control objData" id="idEmail" data-validation="required alphanumeric" data-name="login01" placeholder="{{transl 'login_enter_username'}}">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="inp_Password">{{transl 'login_password'}}</label>
+                                    <label>{{transl 'login_password'}}</label>
                                     <input type="password" class="form-control objData" id="txtNewPassword" data-validation="required" data-name="pass01" placeholder="{{transl 'login_enter_password'}}">        
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="txtNewPasswordRe">{{transl 'login_re_password'}}</label>
+                                    <label>{{transl 'login_re_password'}}</label>
                                     <input type="password" class="form-control objData" id="txtNewPasswordRe" data-compare="eq #txtNewPassword" data-msg="compare:aut_user_ent_pass_err_match"  data-validation="required" data-name="re_pass" placeholder="{{transl 'login_re_password'}}">        
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="idFirstName">{{transl 'login_first_name'}}</label>
-                                    <input type="text" class="form-control objData" id="idFirstName" data-validation="required" data-name="name03"  placeholder="{{transl 'login_enter_first_name'}}">
+                                    <label>{{transl 'login_first_name'}} *</label>
+                                    <input type="text" class="form-control objData" data-validation="required" data-name="name03"  placeholder="{{transl 'login_enter_first_name'}}">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="idLastName">{{transl 'login_last_name'}}</label>
-                                    <input type="text" class="form-control objData" id="idLastName" data-validation="required" data-name="name01"  placeholder="{{transl 'login_enter_last_name'}}">
+                                    <label>{{transl 'login_last_name'}} *</label>
+                                    <input type="text" class="form-control objData" data-validation="required" data-name="name01"  placeholder="{{transl 'login_enter_last_name'}}">
                                 </div> 
                                 
                                 <div class="form-group">
-                                    <label for="idLastName">{{transl 'login_tel'}}</label>
-                                    <input type="text" class="form-control objData" id="idLastName" data-validation="required" data-name="tel"  placeholder="{{transl 'login_enter_tel'}}">
+                                    <label>{{transl 'login_tel'}} *</label>
+                                    <input type="text" class="form-control objData" data-validation="required" data-name="tel"  placeholder="{{transl 'login_enter_tel'}}">
                                 </div>                                 
         
             
@@ -156,14 +156,16 @@
                                 <div class="mt-4 text-center">
                                     <p class="mb-0">{{transl 'login_agree_msg'}} <a href="#" class="text-primary">{{transl 'login_term_of_use'}}</a></p>
                                 </div>
+                                
+<!--                                 <div class="mt-3 text-center"> -->
+<!-- 				                    <p>{{transl 'login_have_acc_msg'}} <a href="index.html" class="font-weight-medium text-primary"> {{transl 'login_login'}}</a> </p> -->
+<!-- 				                </div> -->
                             </form>
                         </div>
     
                     </div>
                 </div>
-                <div class="mt-5 text-center">
-                    <p>{{transl 'login_have_acc_msg'}} <a href="index.html" class="font-weight-medium text-primary"> {{transl 'login_login'}}</a> </p>
-                </div>
+                
             </div>
         </div>
     </div>
