@@ -663,6 +663,22 @@ define([
 					fShow		: "do_lc_show"										, fShowParams	: [],
 					rights		: "view:"
 				},
+				
+				[App.router.part.PRJ_MNG_PRODUCER]	: {
+					grpName		: "PrjMngProducer"									, ctrlName 		: "Main", 
+					ctrlPath    : "group/per/producer/ctrl/Main"					, ctrlParams 	: ["PrjMngProducer", null, null , null, ], 
+					fInit		: "do_lc_init"										, fInitParams	: [],
+					fShow		: "do_lc_show"										, fShowParams	: [],
+					rights		: "view:"
+				},
+				[App.router.part.PRJ_MNG_SUPPLIER]	: {
+					grpName		: "PrjMngSupplier"									, ctrlName 		: "Main", 
+					ctrlPath    : "group/per/supplier/ctrl/Main"					, ctrlParams 	: ["PrjMngSupplier", null, null , null, ], 
+					fInit		: "do_lc_init"										, fInitParams	: [],
+					fShow		: "do_lc_show"										, fShowParams	: [],
+					rights		: "view:"
+				},
+				
 		}
 		
 		//--------------------------------------------------------------------------------------------

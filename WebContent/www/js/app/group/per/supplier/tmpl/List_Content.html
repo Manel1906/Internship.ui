@@ -1,0 +1,55 @@
+<ul id="ul-list" class="list-unstyled chat-list" data-simplebar style="max-height: calc(100vh - 350px)';">
+{{#if data}}
+{{#each data}}
+    <li class="entity-item task-item mb-1" data-id="{{id}}" data-stat="{{stat}}">
+        <a href="#">
+            <div class="media align-items-center">
+               {{#if avatar}}
+	               {{#if avatar.url}}
+	               <div class="align-self-center mr-1" >
+	                   <img src="{{avatar.url}}" style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;"  alt="" onerror="{{url_image_err}}">
+	               </div>
+	               {{else}}
+	                <div class="align-self-center mr-1" >
+	                   <img src="{{url_image_err}}"  style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;" alt="" onerror="{{url_image_err}}">
+	               </div>
+	                {{/if}}
+               {{else}}
+               <div class="align-self-center mr-1" >
+	           		<img src="{{url_image_err}}" style="width: 50px;height: 50px;object-fit: cover;border-radius: 50%;margin-right: 20px;" alt="" onerror="{{url_image_err}}">
+	           </div>
+               {{/if}}
+               <div class="media-body">
+                    <h6 class=" mb-0">{{name01}}</h6>
+                    
+                    <p class="text-muted info-content mb-2 flex-grow-1">
+                    		<b>{{transl 'per_person_patient_code'}} &nbsp;:&nbsp; </b>                   
+					        {{#equal typ05 1}}{{transl "per_person_patient_normal" }}{{/equal}}
+					        {{#equal typ05 2}}{{transl "per_person_patient_gold" }}{{/equal}}
+					        {{#equal typ05 3}}{{transl "per_person_patient_diamond" }}{{/equal}}
+				            {{#equal typ05 4}}{{transl "per_person_patient_vip" }}{{/equal}}
+					</p>
+                    {{#ifCond stat02 '==' 1}} 
+					    <span class="badge font-size-12 badge-success badge-pill float-right">{{reqStatUser stat02}}</span>
+					    {{/ifCond}}
+					{{#ifCond stat02 '==' 2}}
+					    <span class="badge font-size-12 badge-secondary badge-pill float-right">{{reqStatUser stat02}}</span>
+					    {{/ifCond}}
+					{{#ifCond stat02 '==' 3}}
+						<span class="badge font-size-12 badge-secondary badge-pill float-right">{{reqStatUser stat02}}</span>
+						{{/ifCond}}
+					{{#ifCond stat02 '==' 10}}
+					    <span class="badge font-size-12 badge-danger badge-pill float-right">{{reqStatUser stat02}}</span>
+					{{/ifCond}}
+               </div>
+            </div>
+            <div class="mt-3">
+	           	<div class="text-muted mb-0 mt-1">{{transl 'per_person_produce_start_date'}} {{dateFormatLocalShort dt01}}</div>
+           </div>
+        </a>
+    </li>
+{{/each}}
+{{else}}
+<li >{{transl 'common_null_data'}}</li>
+{{/if}}
+</ul>

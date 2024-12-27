@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-body">
+    	<div class="col-12">
+   			<h4 class="card-title mb-4 media-body">{{transl 'common_files'}}</h4>
+   		</div>
+    </div>
+	<div class="table-responsive">
+		<table class="table table-nowrap table-centered table-hover mb-0 objData" data-name="files" data-primary="id">
+			<tbody>
+				{{#each files}}
+				<tr>
+					<td class="hide objData" data-name="id"			data-group="files" data-gindex="{{@index}}" >{{id}}</td>
+					<td class="hide objData" data-name="url"		data-group="files" data-gindex="{{@index}}" >{{url}}</td>
+					<td class="hide objData" data-name="urlPre"		data-group="files" data-gindex="{{@index}}" >{{urlPre}}</td>
+					<td class="hide objData" data-name="fSize"		data-group="files" data-gindex="{{@index}}" >{{fSize}}</td>
+					<td class="hide objData" data-name="typ02"		data-group="files" data-gindex="{{@index}}" >{{typ02}}</td>
+					<td class="hide objData" data-name="typ01"		data-group="files" data-gindex="{{@index}}" >{{typ01}}</td>
+					<td class="hide objData" data-name="fName"		data-group="files" data-gindex="{{@index}}" >{{fName}}</td>
+					<td style="width: 45px;">
+						<div class="avatar-sm">
+						    <span class="avatar-title rounded-circle bg-soft-primary text-primary font-size-24">
+						        <i class="bx bxs-file-doc"></i>
+						    </span>
+						</div>
+					</td>
+					<td>
+						<h5 class="font-size-14 mb-1"><a href="#" class="text-dark">{{fName}}</a></h5>
+						<small>{{reqSizeFile fSize}}</small>
+					</td>
+					<td>
+						<div class="text-center">
+						    <a data-path="{{url}}" 	class="text-dark item-file-download"><i class="bx bx-download h3 m-0"></i></a>
+						</div>
+					</td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+</div>

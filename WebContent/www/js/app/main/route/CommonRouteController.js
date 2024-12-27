@@ -125,8 +125,9 @@ define(['require',
 				
 				PRJ_MNG_MED						: "prj_cat_medi",
 				PRJ_MNG_DOCTOR					: "per_mng_doctor",
-				PRJ_MNG_PATIENT					: "per_mng_patient"
-				
+				PRJ_MNG_PATIENT					: "per_mng_patient",
+				PRJ_MNG_PRODUCER				: "per_mng_producer",
+				PRJ_MNG_SUPPLIER				: "per_mng_supplier"
 			}
 
 

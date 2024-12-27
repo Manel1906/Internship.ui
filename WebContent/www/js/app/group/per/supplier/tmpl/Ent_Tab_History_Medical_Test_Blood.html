@@ -1,0 +1,83 @@
+<div class="card">
+<div class="card-body">
+   	<div class="row">
+   		<div class="col-11">
+   			<h5 class="font-size-15 mb-2">{{transl 'per_person_patient_request_test_blood'}}</h5>
+   		</div>
+   		<div class="col-1">
+   			<div class="d-flex align-items-center justify-content-between">
+			    {{#if stat}}
+		            {{#ifCond stat '==' 0}}
+		            	 <div id="btn_mod_blood" class="cursor-pointer isManager mr-1">
+					        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+					    </div>
+		            {{else}}
+		            <div></div>
+		            {{/ifCond}}
+	            {{else}}
+		             <div id="btn_mod_blood" class="cursor-pointer isManager mr-1">
+				        <i class="mdi mdi-pencil-outline text-success" style="font-size: 20px;"></i>
+				     </div>
+		        {{/if}}
+			</div>
+			
+			<div class="d-flex mt-2"> 
+			    <a id="a_btn_sav_blood" class="mr-2 text-primary cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="Save">
+			        <i class="mdi mdi-content-save font-size-20 action-item"></i>
+			    </a> 
+			    <a id="a_btn_canc_blood" class="mr-2 text-danger cursor-pointer hide" data-toggle="tooltip" data-placement="top" title="Cancel">
+			        <i class="mdi mdi-close font-size-20"></i>
+			    </a> 
+			</div>
+   		</div>
+   	</div>
+   
+   	<div id="table_blood">
+   		<div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+  			<table class="table table-disease table-centered table-nowrap mb-0">
+        		<thead class="thead-light">
+					<tr style="text-align: center; position: sticky; z-index: 1;top: 0;">
+	              		<th>{{transl 'per_person_patient_number_order'}}</th>
+	              		<th>{{transl 'per_person_patient_hist_code_service'}}</th>
+	              		<th>{{transl 'per_person_patient_hist_name_service'}}</th>
+	              		<th>{{transl 'per_person_patient_hist_note'}}</th>
+	           			<th  id="btnAddBlood" class="hide">
+	         				<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">+</button>
+	      				</th>
+           			</tr>
+       			</thead>
+        		<tbody id="tbody_entity_blood">
+        			{{#if inf06}}
+					{{#each inf06}}
+						<tr>
+							<td class="text-center">
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
+								<span class="edit-text info-show-blood">{{index}}</span>
+							</td>
+							<td class="text-center">
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="code" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{code}}" placeholder="{{transl 'per_person_patient_code'}}" data-validation="required">
+								<span class="edit-text info-show-blood">{{code}}</span>
+							</td>
+							<td class="text-center">
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="name" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{name}}" placeholder="{{transl 'per_person_patient_full_name'}}" data-validation="required">
+								<span class="edit-text info-show-blood">{{name}}</span>
+							</td>
+							<td class="text-center">
+								<input type="text" data-group="inf06" data-gindex="{{@index}}" data-name="note" class="form-control objData inf-entity-blood hide" autocomplete="off" id="inp_group_name" value="{{note}}" placeholder="{{transl 'per_person_patient_relate'}}" data-validation="required">
+								<span class="edit-text info-show-blood">{{note}}</span>
+							</td>
+							
+							<td  class="text-center inf-entity-blood btnRemoveRowBlood hide">
+								<button style="background: none; border: none; color: #007bff; font-size: 24px; cursor: pointer;">-</button>
+							</td>
+						</tr>
+					{{/each}}
+					{{/if}}
+        		</tbody>
+		   </table>
+		</div>
+   	</div>
+ </div>
+</div>
+
+
