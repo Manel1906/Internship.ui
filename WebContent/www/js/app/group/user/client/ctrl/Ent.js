@@ -54,6 +54,7 @@ define([
 		
 		const RIGHT_ADM				= 100;
 		const RIGHT_A_M				= 103;
+		const RIGHT_GET				= 40001001;
 		
 		var pr_type_adm      		= 2;
 		var pr_type_emp      		= 3;
@@ -207,7 +208,7 @@ define([
 	
 				if(lstFav[pr_ID_TABLE_PRJ].ids.includes(ent.id)) isFavorite = true;
 			}
-
+			
 			do_lc_clean_data_before_show(ent);
 			ent.isFavorite = isFavorite
 
@@ -218,7 +219,13 @@ define([
 			
 			if(pr_SHOW_COMMON) 	$(pr_DIV_CONTENT).find(".page-content").addClass('p-0');
 			
+			App.router.controller.do_lc_binding_route();
 			do_lc_build_page(ent, mode);
+			var listUserRight 	= App.data.user.rights;
+			var isRight = listUserRight.includes(RIGHT_A_M) || listUserRight.includes(RIGHT_ADM) || listUserRight.includes(RIGHT_GET)
+			if (!isRight) {
+				$("#btn_more_info").hide();
+			}
 		}
 		
 		const do_lc_clean_data_before_show = function(ent){

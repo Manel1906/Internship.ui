@@ -72,6 +72,9 @@ define(['jquery'], function($) {
 				$(pr_divContent).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_LIST, {}));
 				do_binding_event();
 				
+				let 		params 	= req_gl_Url_Params();
+				if (params.id) pr_ctr_Ent.do_lc_show(params.id, var_lc_MODE_SEL);
+				
 				do_get_list_ByAjax(true);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "List", "do_lc_show", e.toString()) ;
