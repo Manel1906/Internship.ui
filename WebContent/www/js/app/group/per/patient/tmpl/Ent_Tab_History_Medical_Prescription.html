@@ -65,16 +65,19 @@
 								<span class="edit-text info-show-prescription">{{index}}</span>
 							</td>
 							<td class="text-center" style="min-width: 150px;">
-								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="pharma" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{pharma}}" data-validation="required">
+								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="pharma" class="inp_pharmaceuticals form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{pharma}}" data-validation="required">
 								<span class="edit-text info-show-prescription">{{pharma}}</span>
+								<div class="selected_medicine form-control d-flex justify-content-center align-items-center w-100 hide"></div>
 							</td>
 							<td class="text-center" style="min-width: 180px;">
-								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="ingre" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{ingre}}"  data-validation="required">
+								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="ingre" class="inp_ingre form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{ingre}}"  data-validation="required">
 								<span class="edit-text info-show-prescription">{{ingre}}</span>
+								<div class="selected_ingre form-control d-flex justify-content-center align-items-center w-100 hide"></div>
 							</td>
 							<td class="text-center" style="min-width: 150px;">
-								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="code" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{code}}"  data-validation="required">
+								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="code" class="inp_code form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_name" value="{{code}}"  data-validation="required">
 								<span class="edit-text info-show-prescription">{{code}}</span>
+								<div class="selected_code form-control d-flex justify-content-center align-items-center w-100 hide"></div>
 							</td>
 							<td class="text-center" style="min-width: 100px;">
 								<input type="text" data-group="inf05" data-gindex="{{@index}}" data-name="dvt" class="form-control objData inf-entity-prescription hide" autocomplete="off" id="inp_group_locate" value="{{dvt}}"  data-validation="required">

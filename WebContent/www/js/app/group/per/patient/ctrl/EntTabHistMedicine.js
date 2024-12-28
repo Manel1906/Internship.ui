@@ -30,6 +30,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const pr_SERVICE_CLASS_CATE		= "ServiceTpyCategory"; //to change by your need
 		const pr_SERVICE_CLASS_MEDICINE	= "ServiceMatMaterial";
 		const pr_SV_LIST_MEDICINE		= "SVSearch"; 
+		const pr_SV_LIST_CAT			= "SVLst"	
 		const pr_SV_GET_BY_ID			= "SVGetHistMedicineById"; 
 		const pr_SV_GET_CAT				= "SVGet"; 
 		const pr_SV_GET_LST				= "SVLstPage"; 
@@ -43,6 +44,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const var_lc_MODE_MOD       = 2;
 		const pr_TYP_MEDICINE 		= 200;
 		const pr_TYP_NAME_MEDICINE 	= 2;
+		const pr_TYP_TEST_BLOOD 	= 2000;
 		const pr_STAT_ACTIVE		= 1;
 		
 		const pr_typ_sav_draft      = 0;
@@ -172,7 +174,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				inforPrescription.entId			= pr_id_person
 				do_lc_save_entity_prescription(inforPrescription, do_lc_show_ent_edit);
 			});
-			
+				do_gl_req_autocompleteMedicine()
 		}
 		const do_lc_show_entity_blood = (data) => {
 			$("#btn_mod_blood"					).addClass("hide");
@@ -216,6 +218,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				inforBlood.entId		= pr_id_person
 				do_lc_save_entity_blood(inforBlood, do_lc_show_ent_edit);
 			});
+			do_gl_req_autocompleteTestBlood()
 		}
 		const do_lc_show_entity_img = (data) => {
 			$(".info-show-img"			).addClass('hide');
@@ -259,20 +262,18 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				inforImg.entId		= pr_id_person
 				do_lc_save_entity_img(inforImg, do_lc_show_ent_edit);
 			});
+			do_gl_req_autocompleteTestImg()
 		}
-		
-		const do_lc_Lst_medicine_autocomplete = function (item, selOpt = "") {
-			selOpt += `<div class="media align-items-center"> ${item.name01}</div>`;
-		    return selOpt;
-		};
-		const do_lc_Lst_medicine_inGre_autocomplete = function (item, selOpt = "") {
-			selOpt += `<div class="media align-items-center"> ${item.name02}</div>`;
-		    return selOpt;
-		};
-		const do_gl_req_autocompleteMedicine = function() {		
-			let el = "#inp_pharmaceuticals";
+		const do_gl_req_autocompleteMedicine = function() {	
+			$('#tbody_entity_prescription').off('focus', '.inp_pharmaceuticals').on('focus', '.inp_pharmaceuticals', function() {
+			let el = $(this); 
+			let selectMedicine  = $(this).closest('tr').find('.selected_medicine'); 
+			let selectIngre     = $(this).closest('tr').find('.selected_ingre'); 
+			let selectCode 		= $(this).closest('tr').find('.selected_code'); 
+			let inp_ingre 		= $(this).closest('tr').find('.inp_ingre'); 
+			let inp_code 		= $(this).closest('tr').find('.inp_code'); 
 			let reqSelectMedicine = (event, item) => {
-				let selOpt 			= `<div class='medicine-item'>`;
+				let selOpt 			= `<div class='medicine-item-medicine'>`;
 				selOpt 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name01}</div>`;
 
 				selOpt 				+= `<a data-id='${item.id}' class='text-danger btn-remove-medicine' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
@@ -290,22 +291,23 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				selOptCode 				+= `<a data-id='${item.id}' class='text-danger btn-remove-code' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
 				selOptCode 				+= `</div>`;
 				
-				$("#selected_medicine").removeClass("hide")
-				$("#selected_ingre").removeClass("hide")
-				$("#selected_code").removeClass("hide")
+				selectMedicine.removeClass("hide")
+				selectIngre.removeClass("hide")
+				selectCode.removeClass("hide")
 				
-				$("#selected_medicine").append(selOpt);
-				$("#selected_ingre").append(selOptIngre);
-				$("#selected_code").append(selOptCode);
+				selectMedicine.append(selOpt);
+				selectIngre.append(selOptIngre);
+				selectCode.append(selOptCode);
 				
-				$("#inp_pharmaceuticals").hide();
-				$("#inp_ingre").hide();
-				$("#inp_code").hide();
+				el.addClass('hide');
+				inp_ingre.addClass('hide');
+				inp_code.addClass('hide');
 				
-				$("#inp_pharmaceuticals").val(item.name01);
-				$("#inp_ingre").val(item.name02);
-				$("#inp_code").val(item.code01);
+				el.val(item.name01);
+				inp_ingre.val(item.name02);
+				inp_code.val(item.code01);
 				do_lc_bind_event_autocomplete();
+				
 			}
 			let options = {
 				dataService: [pr_SERVICE_CLASS_MEDICINE, pr_SV_LIST_MEDICINE],
@@ -316,7 +318,113 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				fSelect			: reqSelectMedicine, 
 				customShowList: do_lc_Lst_medicine_autocomplete,
 			};
+				do_gl_req_autocompleteNew(el, options);
+			
+			});
+		}
+		const do_gl_req_autocompleteTestBlood = function() {		
+			$('#tbody_entity_blood').off('focus', '.inp_code_service').on('focus', '.inp_code_service', function() {	
+			let el = $(this); 
+			let selectCode  	= $(this).closest('tr').find('.selected_code_service'); 
+			let selectName      = $(this).closest('tr').find('.selected_name'); 
+			let inp_code 		= $(this).closest('tr').find('.inp_name'); 
+			let reqSelectTestBlood = (event, item) => {
+				let selOptCode 		= `<div class='medicine-item-code'>`;
+				selOptCode 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.code}</div>`;
+
+				selOptCode 				+= `<a data-id='${item.id}' class='text-danger btn-remove-code' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOptCode 				+= `</div>`;
+				
+				let selOptName 	= `<div class='medicine-item-name'>`;
+				selOptName 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name}</div>`;
+
+				selOptName 				+= `<a data-id='${item.id}' class='text-danger btn-remove-name' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOptName 				+= `</div>`;
+				
+				selectCode.removeClass("hide")
+				selectName.removeClass("hide")
+				
+				selectCode.append(selOptCode);
+				selectName.append(selOptName);
+				
+				el.addClass('hide');
+				inp_code.addClass('hide');
+				
+				el.val(item.code);
+				inp_code.val(item.name);
+				do_lc_bind_event_autocomplete_test_blood();
+			}
+			var pr_TYP_01_TEST_BLOOD = 2000;
+			let options = {
+				dataService: [pr_SERVICE_CLASS_CATE, pr_SV_LIST_CAT],
+				svParams: { 
+					wAvatar: true,
+					nbline: 10,
+					stat01: 1, 
+					typ01: pr_TYP_01_TEST_BLOOD  
+				 },
+				hintSvParams: {  
+					wAvatar: true,
+					nbline: 10,
+					stat01: 1, 
+					typ01: pr_TYP_01_TEST_BLOOD  
+				},
+				fSelect			: reqSelectTestBlood, 
+				customShowList: do_lc_Lst_test_blood_autocomplete,
+			};
 			do_gl_req_autocompleteNew(el, options);
+			});
+		}
+		const do_gl_req_autocompleteTestImg = function() {	
+			$('#tbody_entity_img').off('focus', '.inp_code_service').on('focus', '.inp_code_service', function() {	
+			let el = $(this); 
+			let selectCode  	= $(this).closest('tr').find('.selected_code_service'); 
+			let selectName      = $(this).closest('tr').find('.selected_name'); 
+			let inp_code 		= $(this).closest('tr').find('.inp_name'); 	
+			let reqSelectTestImg = (event, item) => {
+				let reqSelectTestImg 		= `<div class='medicine-item-code'>`;
+				reqSelectTestImg 			+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.code}</div>`;
+
+				reqSelectTestImg 			+= `<a data-id='${item.id}' class='text-danger btn-remove-code' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				reqSelectTestImg 			+= `</div>`;
+				
+				let selOptNameImg 	= `<div class='medicine-item-name'>`;
+				selOptNameImg 				+= `<div class="media align-items-center"><div class="mr-1 text-center"">${item.name}</div>`;
+
+				selOptNameImg 				+= `<a data-id='${item.id}' class='text-danger btn-remove-name' data-toggle='tooltip' data-placement='top' title='' data-original-title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
+				selOptNameImg 				+= `</div>`;
+				
+				selectCode.removeClass("hide")
+				selectName.removeClass("hide")
+				
+				selectCode.append(reqSelectTestImg);
+				selectName.append(selOptNameImg);
+				
+				el.addClass('hide');
+				inp_code.addClass('hide');
+				
+				el.val(item.code);
+				inp_code.val(item.name);
+				do_lc_bind_event_autocomplete_test_img();
+			}
+			var pr_TYP_01_TEST_BLOOD = 3000;
+			let options = {
+				dataService: [pr_SERVICE_CLASS_CATE, pr_SV_LIST_CAT],
+				svParams: { 
+					nbline: 10,
+					stat01: 1, 
+					typ01: pr_TYP_01_TEST_BLOOD  
+				 },
+				hintSvParams: {  
+					nbline: 10,
+					stat01: 1, 
+					typ01: pr_TYP_01_TEST_BLOOD  
+				},
+				fSelect			: reqSelectTestImg, 
+				customShowList: do_lc_Lst_test_img_autocomplete,
+			};
+			do_gl_req_autocompleteNew(el, options);
+			});
 		}
 		const do_gl_req_autocompleteIngredient = function() {		
 			let elIn = "#inp_ingre";
@@ -352,6 +460,22 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			};
 			do_gl_req_autocompleteNew(elIn, optionsIngre);
 		}
+		const do_lc_Lst_medicine_autocomplete = function (item, selOpt = "") {
+			selOpt += `<div class="media align-items-center"> ${item.name01}</div>`;
+		    return selOpt;
+		};
+		const do_lc_Lst_test_blood_autocomplete = function (item, selOpt = "") {
+			selOpt += `<div class="media align-items-center"> ${item.code}</div>`;
+		    return selOpt;
+		};
+		const do_lc_Lst_test_img_autocomplete = function (item, selOpt = "") {
+			selOpt += `<div class="media align-items-center"> ${item.code}</div>`;
+		    return selOpt;
+		};
+		const do_lc_Lst_medicine_inGre_autocomplete = function (item, selOpt = "") {
+			selOpt += `<div class="media align-items-center"> ${item.name02}</div>`;
+		    return selOpt;
+		};
 		const do_lc_bind_event_new_blood = function(data) {			
 		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_blood').find('input[data-name="index"]').map(function () {
 		        return parseInt($(this).val()) || 0;
@@ -365,6 +489,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			$(".btnRemoveRowBlood>button").off("click").on("click", function () {
 		        $(this).closest('tr').remove();
 		    });
+		    do_gl_req_autocompleteTestBlood()
 		};
 		const do_lc_bind_event_new_prescription = function(data) {		
 		 	const maxIndex 	= Math.max(0, ...$('#tbody_entity_prescription').find('input[data-name="index"]').map(function () {
@@ -408,6 +533,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			$(".btnRemoveRowImg>button").off("click").on("click", function () {
 		        $(this).closest('tr').remove();
 		    });
+		    do_gl_req_autocompleteTestImg()
 		};
 		
 		const do_lc_save_entity_prescription = function(myObject, callback){
@@ -801,17 +927,126 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		}
 		const do_lc_bind_event_autocomplete = () => {
 			$(".btn-remove-medicine, .btn-remove-ingre, .btn-remove-code").off("click").on("click", function () {
-			    $("#selected_medicine").addClass("hide");
-			    $("#selected_ingre").addClass("hide");
-			    $("#selected_code").addClass("hide");
+			    let $this = $(this);
+			    let $currentRow = $this.closest('tr');
+			    let $parentPharma = $currentRow.find('.medicine-item-medicine');
+			    let $parentIngre  = $currentRow.find('.medicine-item-ingre');
+			    let $parentCode   = $currentRow.find('.medicine-item-code');
+			    let $lastRow 	  = $('#tbody_entity_prescription tr:last');
 			
-			    $(".medicine-item").remove();
-			    $(".medicine-item-ingre").remove();
-			    $(".medicine-item-code").remove();
+			    if ($parentPharma.length) $parentPharma.remove();
+			    if ($parentIngre.length) $parentIngre.remove();
+			    if ($parentCode.length) $parentCode.remove();
 			
-			    $("#inp_pharmaceuticals").show().val("");
-			    $("#inp_ingre").show().val("");
-			    $("#inp_code").show().val("");
+			    let $inputPharmaceuticals = $currentRow.find('.inp_pharmaceuticals');
+			    let $selectPharmaceuticals = $currentRow.find('.selected_medicine');
+			    let $inputIngre = $currentRow.find('.inp_ingre');
+			    let $selectIngrediant = $currentRow.find('.selected_ingre');
+			    let $inputCode = $currentRow.find('.inp_code');
+			    let $selectCode = $currentRow.find('.selected_code');
+			
+			    let $inputPharmaceuticalsLast = $lastRow.find('.medicine-item-medicine');
+			    let $selectPharmaceuticalsLast = $lastRow.find('.select-name-member');
+			    let $inputIngreLast = $lastRow.find('.medicine-item-ingre');
+			    let $selectIngreLast = $lastRow.find('.select-name-member');
+			    let $inputCodeLast = $lastRow.find('.medicine-item-code');
+			    let $selectCodeLast = $lastRow.find('.select-name-member');
+			
+			    $inputPharmaceuticals.removeClass('hide');
+			    $selectPharmaceuticals.addClass('hide');
+			
+			    $inputIngre.removeClass('hide');
+			    $selectIngrediant.addClass('hide');
+			
+			    $inputCode.removeClass('hide');
+			    $selectCode.addClass('hide');
+			
+			    $inputPharmaceuticalsLast.removeClass('hide');
+			    $selectPharmaceuticalsLast.addClass('hide');
+			
+			    $inputIngreLast.removeClass('hide');
+			    $selectIngreLast.addClass('hide');
+			
+			    $inputCodeLast.removeClass('hide');
+			    $selectCodeLast.addClass('hide');
+			    
+			    $inputPharmaceuticals.val("")
+			    $inputIngre.val("")
+			    $inputCode.val("")
+			});
+		}
+		const do_lc_bind_event_autocomplete_test_blood = () => {
+			$(".btn-remove-code, .btn-remove-name").off("click").on("click", function () {
+			    let $this = $(this);
+			    let $currentRow = $this.closest('tr');
+			    let $parentName = $currentRow.find('.medicine-item-name');
+			    let $parentCode  = $currentRow.find('.medicine-item-code');
+			    let $lastRow 	  = $('#tbody_entity_blood tr:last');
+			
+			    if ($parentName.length) $parentName.remove();
+			    if ($parentCode.length) $parentCode.remove();
+			
+			    let $inputCode = $currentRow.find('.inp_code_service');
+			    let $selectCode = $currentRow.find('.selected_code_service');
+			    let $inputName = $currentRow.find('.inp_name');
+			    let $selectName = $currentRow.find('.selected_name');
+			
+			    let $inputCodeLast = $lastRow.find('.medicine-item-name');
+			    let $selectCodeLast = $lastRow.find('.selected_code_service');
+			    let $inputNameLast = $lastRow.find('.medicine-item-code');
+			    let $selectNameLast = $lastRow.find('.selected_name');
+			
+			    $inputCode.removeClass('hide');
+			    $selectCode.addClass('hide');
+			
+			    $inputName.removeClass('hide');
+			    $selectName.addClass('hide');
+			
+			    $inputNameLast.removeClass('hide');
+			    $selectNameLast.addClass('hide');
+			
+			    $inputCodeLast.removeClass('hide');
+			    $selectCodeLast.addClass('hide');
+			    
+			    $inputCode.val("")
+			    $inputName.val("")
+			});
+		}
+		const do_lc_bind_event_autocomplete_test_img = () => {
+			$(".btn-remove-code, .btn-remove-name").off("click").on("click", function () {
+			    let $this = $(this);
+			    let $currentRow = $this.closest('tr');
+			    let $parentName = $currentRow.find('.medicine-item-name');
+			    let $parentCode  = $currentRow.find('.medicine-item-code');
+			    let $lastRow 	  = $('#tbody_entity_img tr:last');
+			
+			    if ($parentName.length) $parentName.remove();
+			    if ($parentCode.length) $parentCode.remove();
+			
+			    let $inputCode = $currentRow.find('.inp_code_service');
+			    let $selectCode = $currentRow.find('.selected_code_service');
+			    let $inputName = $currentRow.find('.inp_name');
+			    let $selectName = $currentRow.find('.selected_name');
+			
+			    let $inputCodeLast = $lastRow.find('.medicine-item-name');
+			    let $selectCodeLast = $lastRow.find('.selected_code_service');
+			    let $inputNameLast = $lastRow.find('.medicine-item-code');
+			    let $selectNameLast = $lastRow.find('.selected_name');
+			
+			    $inputCode.removeClass('hide');
+			    $selectCode.addClass('hide');
+			
+			    $inputName.removeClass('hide');
+			    $selectName.addClass('hide');
+			
+			    $inputNameLast.removeClass('hide');
+			    $selectNameLast.addClass('hide');
+			
+			    $inputCodeLast.removeClass('hide');
+			    $selectCodeLast.addClass('hide');
+			    
+			    $inputCode.val("")
+			    $inputName.val("")
 			});
 		}
 		var do_lc_show_ent_edit 	= function(ent){
