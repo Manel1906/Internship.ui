@@ -26,7 +26,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 
 		var self 					= this;
 		
-		const pr_SERVICE_CLASS		= "ServicePerClient"; //to change by your need
+		const pr_SERVICE_CLASS		= "ServicePerPatient"; //to change by your need
 		const pr_SV_GET				= "SVGetHistDisease"; 
 		const pr_SV_NEW				= "SVNew"; 
 		const pr_SV_MOD				= "SVModHistDisease"; 

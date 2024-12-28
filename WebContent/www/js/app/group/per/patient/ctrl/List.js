@@ -41,7 +41,7 @@ define(['jquery'], function($) {
 		var RIGHT_MOD	        	= 40000103;
 		var RIGHT_DEL	        	= 40000104;
 		
-		const pr_SERVICE_CLASS		= "ServicePerClient";
+		const pr_SERVICE_CLASS		= "ServicePerPatient";
 		const pr_SV_LIST_PAGE		= "SVLstPage";
 		const pr_SV_IMPORT			= "SVImport";
 		
