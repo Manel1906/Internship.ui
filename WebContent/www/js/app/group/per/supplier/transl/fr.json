@@ -63,6 +63,9 @@
 	"msgbox_confirm_save"								: "Enregistrer le contenu modifié ?",
 	"msgbox_confirm_save_cancel"						: "Annuler le contenu modifié ?",
 	"prj_project_member_see_projects"					: "Voir son tableau de bord",
-	"prj_project_member_see_profile"					: "Voir le profile"
-	
+	"prj_project_member_see_profile"					: "Voir le profile",
+	"per_person_producer_introduce"               		: "Introduction Résumée",
+    "per_person_producer_treatment"               		: "Introduction Détaillée",
+    "per_person_producer_collab"                  		: "Historique du Développement",
+    "per_person_producer_research"                		: "Projets et Récompenses"
 }

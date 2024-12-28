@@ -223,6 +223,9 @@
     "per_person_patient_vip"						: "VIP",
     
     "per_person_patient_hist_medicine_title"		: "Medical examination content"
-	
+    "per_person_producer_introduce"               	: "Summary Introduction",
+    "per_person_producer_treatment"               	: "Detailed Introduction",
+    "per_person_producer_collab"                  	: "Development History",
+    "per_person_producer_research"                	: "Projects and Awards"
 	
 }
