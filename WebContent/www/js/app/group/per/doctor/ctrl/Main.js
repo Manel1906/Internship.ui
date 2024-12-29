@@ -97,6 +97,8 @@ define([
 			//---------------------------------------------------------------------------------------------
 			//---------------------------------------------------------------------------------------------
 			App.controller[pr_grpName] 		= {};
+			
+			App.controller[pr_grpName].Main	= this;
 			App.controller[pr_grpName].List	= new List		(grpName, null, null, null);
 			App.controller[pr_grpName].Ent	= new Ent		(grpName, null, null, null);
 			
