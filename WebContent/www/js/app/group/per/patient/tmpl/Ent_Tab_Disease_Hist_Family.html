@@ -44,15 +44,15 @@
 					{{#each inf02}}
 						<tr>
 							<input type="hidden" data-name="id" class="form-control objData inf-entity-family hide" autocomplete="off" id="inp_group_name" value="{{id}}" data-validation="">
-							<td class="text-center">
+							<td class="text-center" style="min-width: 60px;">
 								<input type="text" data-group="inf02" data-gindex="{{@index}}" data-name="index" class="form-control objData inf-entity-family hide" autocomplete="off" id="inp_group_name" value="{{@index}}" placeholder="{{transl 'tpy_cat_disease_code_enter'}}" data-validation="required" readonly>
 								<span class="edit-text info-show-family">{{index}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 150px;">
 								<input type="text" data-group="inf02" data-gindex="{{@index}}" data-name="disease" class="form-control objData inf-entity-family hide" autocomplete="off" id="inp_group_name" value="{{disease}}" placeholder="{{transl 'per_person_patient_hist_uni'}}" data-validation="required">
 								<span class="edit-text info-show-family">{{disease}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 110px;">
 								<span class="edit-text info-show-family">
 									{{#equal relate 0}}{{transl "per_person_patient_father" }}{{/equal}}
 									{{#equal relate 1}}{{transl "per_person_patient_mother" }}{{/equal}}
@@ -65,12 +65,26 @@
 									{{#equal relate 8}}{{transl "per_person_patient_wife" }}{{/equal}}
 									{{#equal relate 9}}{{transl "per_person_patient_another" }}{{/equal}}
 								</span>
+								<select class="form-control objData inf-entity-family hide" data-gindex="{{@index}}" data-validation="required"  data-group="inf02" data-name="relate">
+									{{#select inf02.relate}}
+										<option value="0" selected>{{transl "per_person_patient_father"}}</option>
+										<option value="1">{{transl "per_person_patient_mother"}}</option>
+										<option value="2">{{transl "per_person_patient_child"}}</option>
+										<option value="3">{{transl "per_person_patient_husband"}}</option>
+										<option value="4">{{transl "per_person_patient_brother"}}</option>
+										<option value="5">{{transl "per_person_patient_sister"}}</option>
+										<option value="6">{{transl "per_person_patient_yger_sister"}}</option>
+										<option value="7">{{transl "per_person_patient_grand"}}</option>
+										<option value="8">{{transl "per_person_patient_wife"}}</option>
+										<option value="9">{{transl "per_person_patient_another"}}</option>
+									{{/select}}
+								</select>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 150px;">
 								<input type="text" data-group="inf02" data-gindex="{{@index}}" data-name="condition" class="form-control objData inf-entity-family hide" autocomplete="off" id="inp_group_name" value="{{condition}}" placeholder="{{transl 'per_person_patient_hist_condi'}}" data-validation="required">
 								<span class="edit-text info-show-family">{{condition}}</span>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="min-width: 150px;">
 								<input type="text" data-group="inf02" data-gindex="{{@index}}" data-name="note" class="form-control objData inf-entity-family hide" autocomplete="off" id="inp_group_locate" value="{{note}}" placeholder="{{transl 'per_person_patient_hist_note'}}" data-validation="required">
 								<span class="edit-text info-show-family">{{note}}</span>
 							</td>

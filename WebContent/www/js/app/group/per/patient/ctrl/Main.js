@@ -140,17 +140,22 @@ define([
 		var pr_grpPath 				= 'group/per/patient';
 		
 		var self 					= this;
-		var Handlebars				= require('handlebars');
-		const TYP_USER = {
-//				2: "aut_user_ent_header_type_adm"	,	20: "aut_user_ent_header_type_doctor"	,	30: "aut_user_ent_header_type_agent"
-				40: "aut_user_ent_header_type_patient"
-		}
-		Handlebars.registerHelper('reqTypeClient', function(typ) {
-			if(!typ)				return $.i18n(TYP_USER[3]);
-			if(!TYP_USER[typ])		return $.i18n(TYP_USER[3]);
-	
-			return $.i18n(TYP_USER[typ]);
+		var Handlebars		=  require('handlebars');
+		Handlebars.registerHelper("reqFormatAge", function(date) {
+		    if (!date) return "";
+		    const formattedDate = date.split(" ")[0]; // Lấy phần "YYYY-MM-DD"
+		    const birthDate = new Date(formattedDate);
+		    const currentDate = new Date();
+		
+		    let age = currentDate.getFullYear() - birthDate.getFullYear();
+		    if (
+		        currentDate.getMonth() < birthDate.getMonth() || 
+		        (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())
+		    ) age--;
+		
+		    return age;
 		});
+
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){

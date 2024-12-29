@@ -1,137 +1,60 @@
-        <table class="table">
-            <tr>
-                <td colspan="2">
-                    <h4 class="fw-bold">{{transl "per_person_patient_hos_qn"}}</h4>
-                    <h4 class="fw-bold">{{transl "per_person_patient_uni_medicine"}}</h4>
-                </td>
-                <td colspan="2" class="text-end">
-                    <p><strong>{{transl "per_person_patient_nb_votes"}}:</strong></p>
-                    <p><strong>{{transl "per_person_patient_nb_enter"}}:</strong></p>
-                    <p><strong>{{transl "per_person_patient_code_medicine"}}:</strong>{{per.code05}}</p>
-                </td>
-            </tr>
-            <tr>
-            	<td>
-                </td>
-                <td colspan="4" class="text-center">
-                    <h4 class="fw-bold">{{transl "per_person_patient_result_test_blood"}}</h4>
-                    <h5 class="fw-bold">XN HUYẾT HỌC</h5>
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Bệnh nhân:</strong>{{per.name01}} {{per.name02}} {{per.name03}}</td>
-                <td><strong>{{transl "per_person_patient_age"}}:</strong> 40</td>
-                <td><strong>{{transl "prj_user_group_gender"}}:</strong>
-                {{#equal per.inf10 0}}{{transl "per_person_men" }}{{/equal}}
-				{{#equal per.inf10 1}}{{transl "per_person_women" }}{{/equal}}
-				{{#equal per.inf10 2}}{{transl "per_person_other" }}{{/equal}}
-                 </td>
-            </tr>
-            <tr>
-                <td><strong>{{transl "per_person_patient_obj"}}:</strong>{{per.inf02}}</td>
-                <td colspan="2"><strong>{{transl "per_person_patient_address"}}:</strong>{{per.inf04.a}}</td>
-            </tr>
-            <tr>
-                <td><strong>{{transl "per_person_patient_doctor_assign"}}:</strong>{{data.inf09}}</td>
-                <td><strong>{{transl "per_person_patient_fal"}}:</strong>{{data.inf08}}</td>
-            </tr>
-            <tr>
-                <td><strong>{{transl "per_person_patient_hist_dignose" }}:</strong></td>
-            </tr>
-            <tr>
-		        <td>{{{data.inf02.dignose}}}</td>
-		    </tr>
-            <tr>
-                <td colspan="4"><strong>{{transl "per_person_patient_test_blood_require" }}:</strong></td>
-            </tr>
-        </table>
+<table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+    <tr>
+        <td colspan="2">
+            <h4 style="font-weight: bold;">{{transl "per_person_patient_hos_qn"}}</h4>
+            <h4 style="font-weight: bold;">{{transl "per_person_patient_uni_medicine"}}</h4>
+        </td>
+        <td colspan="2" style="text-align: right;">
+            <p style="margin: 0;"><strong>{{transl "per_person_patient_nb_votes"}}:</strong></p>
+            <p style="margin: 0;"><strong>{{transl "per_person_patient_nb_enter"}}:</strong></p>
+            <p style="margin: 0;"><strong>{{transl "per_person_patient_code_medicine"}}:</strong> {{per.code05}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" style="text-align: center;">
+		    <h4 style="font-weight: bold; font-family: Arial, sans-serif;">{{transl "per_person_patient_result_test_blood"}}</h4>
+		    <h5 style="font-weight: bold; font-family: Arial, sans-serif;">XN HUYẾT HỌC</h5>
+		</td>
+    </tr>
+    <tr>
+        <td>
+            <strong>Bệnh nhân:</strong> {{per.name01}} {{per.name02}} {{reqFormatAge per.name03}}
+        </td>
+        <td>
+            <strong>{{transl "per_person_patient_age"}}:</strong> {{reqFormatAge per.dt03}}
+        </td>
+        <td>
+            <strong>{{transl "prj_user_group_gender"}}:</strong>
+            {{#equal per.inf10 0}}{{transl "per_person_men"}}{{/equal}}
+            {{#equal per.inf10 1}}{{transl "per_person_women"}}{{/equal}}
+            {{#equal per.inf10 2}}{{transl "per_person_other"}}{{/equal}}
+        </td>
+    </tr>
+    <tr>
+        <td><strong>{{transl "per_person_patient_obj"}}:</strong> {{per.inf02}}</td>
+        <td colspan="2"><strong>{{transl "per_person_patient_address"}}:</strong> {{per.inf04.a}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{transl "per_person_patient_doctor_assign"}}:</strong> {{data.inf09}}</td>
+        <td><strong>{{transl "per_person_patient_fal"}}:</strong> {{data.inf08}}</td>
+    </tr>
+    <tr>
+        <td><strong>{{transl "per_person_patient_hist_dignose"}}:</strong></td>
+    </tr>
+    <tr>
+        <td>{{{data.inf02.dignose}}}</td>
+    </tr>
+    <tr>
+        <td colspan="4"><strong>{{transl "per_person_patient_test_blood_require"}}:</strong></td>
+    </tr>
+</table>
 
-        <!-- Second Table (Aligned Right) -->
-        <div style="text-align: right;">
-            <table class="table mt-4" style="border-collapse: collapse;">
-                <thead>
-                    <tr class="text-center">
-                        <th style="padding: 10px; border: 1px solid #000; background-color: #f8f9fa;">{{transl "per_person_patient_name_test_blood" }}</th>
-                        <th style="padding: 10px; border: 1px solid #000; background-color: #f8f9fa;">{{transl "per_person_patient_result" }}</th>
-                        <th style="padding: 10px; border: 1px solid #000; background-color: #f8f9fa;">{{transl "per_person_patient_csbt" }}</th>
-                        <th style="padding: 10px; border: 1px solid #000; background-color: #f8f9fa;">{{transl "per_person_patient_unit" }}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="4" style="padding: 10px; border: 1px solid #000; font-weight: bold; background-color: #e9ecef;">XN huyết học</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">Tổng phân tích tế bào máu ngoại vi (bằng máy laser)</td>
-                        <td colspan="3" style="padding: 10px; border: 1px solid #000;"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">WBC</td>
-                        <td style="padding: 10px; border: 1px solid #000;">6.3</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10-49</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">Lym</td>
-                        <td style="padding: 10px; border: 1px solid #000;">2.5</td>
-                        <td style="padding: 10px; border: 1px solid #000;">23-34</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">Mid</td>
-                        <td style="padding: 10px; border: 1px solid #000;">0.4</td>
-                        <td style="padding: 10px; border: 1px solid #000;">3.6-38</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">RBC</td>
-                        <td style="padding: 10px; border: 1px solid #000;">4.1</td>
-                        <td style="padding: 10px; border: 1px solid #000;">43-75</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">HGB</td>
-                        <td style="padding: 10px; border: 1px solid #000;">12</td>
-                        <td style="padding: 10px; border: 1px solid #000;">26-48</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">HCT</td>
-                        <td style="padding: 10px; border: 1px solid #000;">22.1</td>
-                        <td style="padding: 10px; border: 1px solid #000;">1-20</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">MCV</td>
-                        <td style="padding: 10px; border: 1px solid #000;">33</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10-49</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">MCHC</td>
-                        <td style="padding: 10px; border: 1px solid #000;">3.5</td>
-                        <td style="padding: 10px; border: 1px solid #000;">11-38</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border: 1px solid #000;">RED</td>
-                        <td style="padding: 10px; border: 1px solid #000;">33.2</td>
-                        <td style="padding: 10px; border: 1px solid #000;">11-38</td>
-                        <td style="padding: 10px; border: 1px solid #000;">10^9/L</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div style="text-align: right;">
-            <table class="table mt-2">
-                <tr colspan="4">
-                </tr>
-                <tr colspan="4">
-                    <td class="text-end">
-                        <p>Ngày 29 tháng 09 năm 2024</p>
-                        <p><strong>{{transl "per_person_patient_doctor_as"}}</strong></p>
-                        <p>Hồ Đình Tuấn Kiệt</p>
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <table style="width: auto; border-collapse: collapse; margin-left: auto;">
+        <tr>
+            <td>
+                <p style="margin: 0;">Ngày 29 tháng 09 năm 2024</p>
+                <p style="margin: 0;"><strong>{{transl "per_person_patient_doctor_as"}}</strong></p>
+                <p style="margin: 0;">Hồ Đình Tuấn Kiệt</p>
+            </td>
+        </tr>
+    </table>

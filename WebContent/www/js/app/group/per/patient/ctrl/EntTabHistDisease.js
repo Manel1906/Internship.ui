@@ -221,7 +221,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_lc_bind_event_new_allergy(ent);
 		    });
 			
-			$('.btnRemoveRow>button').on('click', function() {
+			$('.btnRemoveRowAllergy>button').on('click', function() {
 				$(this).closest('tr').remove();
 			});
 			

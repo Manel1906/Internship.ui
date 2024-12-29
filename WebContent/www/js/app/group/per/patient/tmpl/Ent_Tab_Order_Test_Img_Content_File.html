@@ -6,8 +6,9 @@
                     <h4 class="fw-bold">{{transl "per_person_patient_pct"}}</h4>
                 </td>
                 <td colspan="2" class="text-end">
+                   <p></p>
                    <p><strong>{{transl "per_person_patient_code"}}:</strong>{{per.code01}}</p>
-                    <p><strong>{{transl "per_person_patient_code_pairing"}}:</strong></p>
+                   <p><strong>{{transl "per_person_patient_code_pairing"}}:</strong></p>
                 </td>
             </tr>
             <tr>
@@ -74,17 +75,19 @@
 		    </tr>
         </table>
 
-        <table class="table mt-4">
+        <table class="table mt-4 table-right" style="float: right;margin-left: 20px;">
 		    <tr>
 		        <td class="text-end align-top" style="padding-right: 20px; vertical-align: top;">
 		            <p class="mb-1" style="margin: 0;">Ngày 29 tháng 09 năm 2024</p>
-	                <p class="mb-1" style="margin: 0; font-weight: bold;">{{transl "per_person_patient_doctor_as"}}</p>
-	                <p class="mb-0" style="margin: 0;">Hồ Đình Tuấn Kiệt</p>
+		            <p class="mb-1" style="margin: 0; font-weight: bold;">{{transl "per_person_patient_doctor_as"}}</p>
+		            <p class="mb-0" style="margin: 0;">Hồ Đình Tuấn Kiệt</p>
 		        </td>
 		    </tr>
 		</table>
-        <div class="mt-4">
-            <p>
-                {{transl "per_person_patient_remind_pa"}}
-            </p>
-        </div>
+		<table class="table" style=" position: relative;bottom: 0;margin-top: 50px;">
+		    <tr>
+		        <td>
+		            {{transl "per_person_patient_remind_pa"}}
+		        </td>
+		    </tr>
+		</table>

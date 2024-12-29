@@ -49,7 +49,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		const pr_typ_sav_draft      = 0;
 		const pr_typ_sav_done       = 1;
-		
 		var   pr_id_entity			= null;
 		var   pr_ent_per			= null;
 		var   pr_id_person			= null;
@@ -62,7 +61,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			pr_ctr_List 			= App.controller[pr_grpName].List;
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 		}
-		
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show = function(ent){               
 			try{
@@ -668,9 +666,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 							        </div>
 							        <div id="div_ent_his_test_img_file" style="page-break-after: always;">
 							            ${$("#div_ent_his_test_img_file").html()}
-							        </div>
-							        <div id="div_ent_his_content">
-							            ${$("#div_ent_his_content").html()}
 							        </div>`;
 		 	const window_new = window.open();
 		 	window_new.document.write(`
@@ -700,17 +695,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		 	},200)
 		 	}	
 			$("#btn_print_entity").off("click").on("click", function() {
-			//	toPDF(table_tab_detail);
-				$("#div_ent_his_content")		   .html("");
-		        $("#div_ent_his_prescription")	   .html("");
-		        $("#div_ent_his_test_blood")	   .html("");
-		        $("#div_ent_his_test_img")		   .html("");
-		        $("#div_ent_his_content")		   .html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_CONTENT				, data, {per: pr_ent_per} ));
 				$("#div_ent_his_prescription_file").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_ORDER_MEDICAL_CONTENT_FILE		, {data: data, per: pr_ent_per}));
 				$("#div_ent_his_test_blood_file")  .html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_TEST_BLOOD_CONTENT_FILE			, {data: data, per: pr_ent_per}));
 				$("#div_ent_his_test_img_file")	   .html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_TEST_IMG_CONTENT_FILE			, {data: data, per: pr_ent_per}));
-				console.log(data)
-				console.log(pr_ent_per)
 				toPDF();
 			});
 		}
@@ -762,7 +749,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			});
 		}
 		var do_lc_show_his_test_blood 			= function(ent){
-			$('#div_ent_his_test_blood'			).removeClass('hide');
 			$("#div_ent_his_test_blood"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_BLOOD		, ent));
 			
 			$("#btn_mod_blood"					).off("click").on("click", function(){
@@ -770,7 +756,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			});
 		}
 		var do_lc_show_his_test_img 			= function(ent){
-			$('#div_ent_his_test_img'			).removeClass('hide');
 			$("#div_ent_his_test_img"			).html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_HIS_MEDICAL_IMG		, ent));
 			
 			$("#btn_mod_img"					).off("click").on("click", function(){
