@@ -13,6 +13,7 @@ define(['jquery'], function($) {
 		var self 					= this;
 		//------------------------------------------------------------------------------------
 		//------------------controllers------------------------------------------------------
+		var pr_ctr_MainUI 			= null;
 		var pr_ctr_Main 			= null;
 		var pr_ctr_Ent 				= null;
 		var pr_ctr_List 			= null;
@@ -62,7 +63,8 @@ define(['jquery'], function($) {
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init				= function(){
-			pr_ctr_Main 			= App.controller.UI.Main;
+			pr_ctr_MainUI 			= App.controller.UI.Main;
+			pr_ctr_Main 			= App.controller[pr_grpName].Main;
 			pr_ctr_List 			= App.controller[pr_grpName].List;
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 		}
@@ -89,7 +91,14 @@ define(['jquery'], function($) {
 						
 			$('.typ-select').off('click').on('click',function(){
 				const dataCode = $(this).data('code');
-				do_lc_get_checked(dataCode);
+				
+				pr_typ = []
+				if (dataCode == -1) {
+					pr_typ = [0,1,2,3,10];
+				} else {
+					pr_typ.push(dataCode);
+				}
+						
 				do_get_list_ByAjax(true);
 			})
 			
@@ -201,14 +210,7 @@ define(['jquery'], function($) {
 
 			do_lc_save_files(newobj);
 		}	
-		const do_lc_get_checked = (dataCode) => {
-  			  pr_typ = []
-  		      if (dataCode == -1) {
-				  pr_typ = [0,1,2,3,10];
-  		      } else {
-				pr_typ.push(dataCode);
-  		      }
-  		  }
+		
 		var do_lc_save_files = function(newobj){
 			let ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_IMPORT, {obj: {files: newobj.files}});	
 
@@ -234,7 +236,7 @@ define(['jquery'], function($) {
 			let divList = $("#div_list_detail");
 			let divPan  = $("#div_list_pagination");
 			
-			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, 
+			const ref 		= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS, pr_SV_LIST_PAGE, 
 			{	typ01		: TYP_01_NATURAL, 
 				typ02		: TYP_02_DOCTOR, 
 				searchKey	: pr_searchKey, 
@@ -273,15 +275,7 @@ define(['jquery'], function($) {
 		
 		var do_binding_event_list = function () {
 			$(".entity-item").off("click").on("click", function(){
-				let listUserRight = App.data.user.rights;
-				if(!listUserRight){
-					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
-					return;
-				}
-				
-				let {id, login} =  $(this).data();
-				
-//				$("#inp-search").prop('readonly', true);
+				let {id} =  $(this).data();
 				
 				pr_ctr_Ent.do_lc_show(id, var_lc_MODE_SEL);
 				

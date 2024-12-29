@@ -96,18 +96,12 @@ define([
 			
 			//---------------------------------------------------------------------------------------------
 			//---------------------------------------------------------------------------------------------
-			if (!App.controller[pr_grpName]) App.controller[pr_grpName] = {};
+			App.controller[pr_grpName] 		= {};
+			App.controller[pr_grpName].List	= new List		(grpName, null, null, null);
+			App.controller[pr_grpName].Ent	= new Ent		(grpName, null, null, null);
 			
-			if (!App.controller[pr_grpName].List)  
-				App.controller[pr_grpName].List				= new List		(grpName, null, null, null);
-			
-			if (!App.controller[pr_grpName].Ent)  
-				App.controller[pr_grpName].Ent				= new Ent		(grpName, null, null, null);
-			
-			
-			
-			App.controller[pr_grpName].List					.do_lc_init();
-			App.controller[pr_grpName].Ent					.do_lc_init();
+			App.controller[pr_grpName].List	.do_lc_init();
+			App.controller[pr_grpName].Ent	.do_lc_init();
 			
 		}     
 		

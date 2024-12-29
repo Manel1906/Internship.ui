@@ -4,6 +4,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var pr_grpName				= grpName;
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
+		
 		var pr_ctr_List 			= App.controller[pr_grpName].List;
 		var pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 		
@@ -37,12 +38,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		const var_lc_MODE_NEW       = 1;
 		const var_lc_MODE_MOD       = 2;
 		//------------------const object------------------------------------------------------
-		const typeUserClient		= 1010002;
-		const societeListCompany	= 1010010;
-		const societeListChild		= 1010011;
-		const societePartnerSupp	= 1010003;
-		const societePartnerOther	= 1010006;
-		
 		var RIGHT_ADM	        	= 100;
 		var RIGHT_A_G	        	= 102;
 		var RIGHT_A_N	        	= 102;
@@ -54,19 +49,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var RIGHT_MOD	        	= 40000003;
 		var RIGHT_DEL	        	= 40000004;
 		
-		const pr_SERVICE_GROUP 		= "ServiceNsoGroup";
-    	const pr_SV_LST 			= "SVLst";
-    	
-		 var pr_MEM_TEMP = {};
 		//-----------------------------------------------------------------------------------
-		var pr_right_soc_manage		= [30002001, 30002002, 30002003, 30002004, 30002005];
-		
-		var pr_type_adm      		= 2;
-		var pr_type_emp      		= 3;
-		var pr_type_client   		= 4;
-		var pr_type_client_public 	= 5;
-		var pr_type_adm_all    		= 10;
-		
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show = function(prj, mode){               
 			try{
