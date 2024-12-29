@@ -1,4 +1,4 @@
-define(['jquery','prjImageViewer/viewer','handlebars'], function($,Viewer,Handlebars) {
+define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 	
 	var EntTabHistMedicine 					= function (grpName, header, content, footer) {
 		var pr_grpName				= grpName;
@@ -49,7 +49,6 @@ define(['jquery','prjImageViewer/viewer','handlebars'], function($,Viewer,Handle
 		
 		const pr_typ_sav_draft      = 0;
 		const pr_typ_sav_done       = 1;
-		
 		var   pr_id_entity			= null;
 		var   pr_ent_per			= null;
 		var   pr_id_person			= null;
@@ -62,20 +61,6 @@ define(['jquery','prjImageViewer/viewer','handlebars'], function($,Viewer,Handle
 			pr_ctr_List 			= App.controller[pr_grpName].List;
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 		}
-		Handlebars.registerHelper("reqFormatAge", function(date) {
-			if(!date)	return "";
-			const birthDate = new Date(birthDateStr);
-		    const currentDate = new Date();
-		    let age = currentDate.getFullYear() - birthDate.getFullYear();
-		    const currentMonthDay = `${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-		    const birthMonthDay = `${birthDate.getMonth() + 1}-${birthDate.getDate()}`;
-		
-		    if (currentMonthDay < birthMonthDay) {
-		        age--;
-		    }
-		    return age;
-		});
-		
 		//---------show-----------------------------------------------------------------------------
 		this.do_lc_show = function(ent){               
 			try{

@@ -15,7 +15,7 @@
         <table class="table mt-4">
 		    <tr>
 		        <td><strong>{{transl "per_person_patient_full_name" }}:</strong> {{per.name01}} {{per.name02}} {{per.name03}}</td>
-                <td><strong>{{transl "per_person_patient_age"}}:</strong>40</td>
+                <td><strong>{{transl "per_person_patient_age"}}:</strong>{{reqFormatAge per.dt03}}</td>
                 <td><strong>{{transl "prj_user_group_gender"}}:</strong>
                 {{#equal per.inf10 0}}{{transl "per_person_men" }}{{/equal}}
 				{{#equal per.inf10 1}}{{transl "per_person_women" }}{{/equal}}
@@ -73,7 +73,6 @@
        <table class="table mt-4">
 		    <tr>
 		        <th class="text-start"><strong>{{transl "per_person_patient_remind"}}:</strong></th>
-		        <th class="text-end"></th>
 		    </tr>
 		    <tr>
 		    </tr>
@@ -84,7 +83,7 @@
 		                <li>Hẹn ngày tái khám.</li>
 		            </ul>
 		        </td>
-		        <td class="text-end" colspan="1">
+		        <td class="text-end" colspan="3">
 		            <p>Ngày 29 tháng 09 năm 2024</p>
 		            <p><strong>{{transl "per_person_patient_doctor_as"}}</strong></p>
 		            <p>Hồ Đình Tuấn Kiệt</p>

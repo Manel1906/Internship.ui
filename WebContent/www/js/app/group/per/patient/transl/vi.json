@@ -148,7 +148,7 @@
     "per_person_patient_hist_code_service"				: 	"Mã dịch vụ",
     "per_person_patient_hist_name_service"				: 	"Tên dịch vụ",
     "per_person_patient_hist_md"						: 	"Lịch sử khám bệnh",
-    "per_person_patient_result_test_blood"				: 	"Kết quả xét nghiệm",
+    "per_person_patient_result_test_blood"				: 	"KẾT QUẢ XÉT NGHIỆM",
     "per_person_patient_lst_md"							: 	"Danh sách đơn thuốc",
     "per_person_patient_result_img"						: 	"Kết quả chẩn đoán hình ảnh",
     "per_person_patient_hist_family"					: 	"Tiền sử gia đình",
