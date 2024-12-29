@@ -241,6 +241,9 @@
     "per_person_patient_diamond"						: 	"Kim cương",
     "per_person_patient_vip"							: 	"VIP",
     
-    "per_person_patient_hist_medicine_title"			: "Nội dung khám bệnh"
-	
+    "per_person_patient_hist_medicine_title"			: "Nội dung khám bệnh",
+    "per_person_producer_introduce"						: "Giới thiệu tóm tắt",
+	"per_person_producer_treatment"						: "Giới thiệu chi tiết",
+	"per_person_producer_collab"						: "Lịch sử phát triển",
+	"per_person_producer_research"						: "Các dự án và giải thưởng"
 }

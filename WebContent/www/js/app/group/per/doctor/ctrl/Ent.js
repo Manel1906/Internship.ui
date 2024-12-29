@@ -57,6 +57,7 @@ define([
 		var pr_type_emp      		= 3;
 		var pr_type_adm_all    		= 10;
 		//------------------controllers------------------------------------------------------
+		var pr_ctr_MainUI 			= null;
 		var pr_ctr_Main 			= null;
 		var pr_ctr_Ent 				= null;
 		var pr_ctr_List 			= null;
@@ -64,14 +65,14 @@ define([
 		
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init				= function(){
-			pr_ctr_Main 			= App.controller.UI.Main;
-
+			pr_ctr_MainUI 			= App.controller.UI.Main;
+			pr_ctr_Main 			= App.controller[pr_grpName].Main;
 			pr_ctr_List 			= App.controller[pr_grpName].List;
 			pr_ctr_Ent 				= App.controller[pr_grpName].Ent;
 			
-			if(!App.controller[pr_grpName].EntContent)				App.controller[pr_grpName].EntContent 			= new EntContent	(grpName, null, null, null);
-			if(!App.controller[pr_grpName].EntTabGroup)				App.controller[pr_grpName].EntTabGroup			= new EntTabGroup	(grpName, null, null, null);
-			if(!App.controller[pr_grpName].EntTabDoc)				App.controller[pr_grpName].EntTabDoc			= new EntTabDoc		(grpName, null, null, null);
+			App.controller[pr_grpName].EntContent 			= new EntContent	(grpName, null, null, null);
+			App.controller[pr_grpName].EntTabGroup			= new EntTabGroup	(grpName, null, null, null);
+			App.controller[pr_grpName].EntTabDoc			= new EntTabDoc		(grpName, null, null, null);
 		}
 		
 		//---------show-----------------------------------------------------------------------------
@@ -171,7 +172,7 @@ define([
 				do_lc_clean_data	(data);
 				do_lc_show_entity	(data, mode);
 			} else {
-				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"), () => pr_ctr_Main.do_lc_switch_mobile_or_pc(`view_prj_dashboard.html`));
+				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"), () => pr_ctr_MainUI.do_lc_switch_mobile_or_pc(`view_prj_dashboard.html`));
 //				window.open("view_prj_user_list.html", "_self");
 //				pr_ctr_Main.do_lc_switch_mobile_or_pc(`view_prj_user_list.html`, "VI_MAIN/"+ App.router.part.PRJ_USER_LIST);
 			}
@@ -459,17 +460,6 @@ define([
 		this.do_lc_cancel = function(obj){
 			do_lc_show_entity(obj, var_lc_MODE_SEL);
 		}
-		
-		this.do_lc_generate_cats = function(data){
-			var dataGenerated=[];
-			for(var o in data){
-				if(data[o]==1){
-					dataGenerated.push({"catId" : o})
-				}
-			}
-			return dataGenerated;
-		}
-		
 		
 		this.do_lc_Save_Entity = function (pr_divContent, ent, mode){
 			if (!pr_divContent) pr_divContent	= "#div_main_content";

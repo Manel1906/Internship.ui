@@ -301,6 +301,11 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 					}
 				});
 			});
+			
+			App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
+			App.SummerNoteController.do_lc_show("#div_create_service");//text editor
+			App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
+			App.SummerNoteController.do_lc_show("#div_create_information");//text editor
 		}
 		
 		this.do_lc_mod = function(obj){

@@ -89,29 +89,48 @@
 			</div> 
 			
 			<div class="row align-items-center ">
-				<div class="col-6">
+				<div class="col-4">
 					<h6 class="text-muted mb-2">{{transl 'prj_user_group_nationality'}}</h6>
 					<p class="text-muted mb-2">{{inf04.n}}</p>
 				</div> 
-				<div class="col-6">
+				<div class="col-4">
 					<h6 class="text-muted">{{transl 'per_person_patient_address'}}</h6>
 					<p class="text-muted">{{inf04.a}}</p>
 				</div>
+				<div class="form-group col-4"></div>
 	    	</div>        	
 	         
 			<div class="row align-items-center mb-2">
-				<div class="col-6">
+				<div class="col-4">
 		          		<h6 class="text-muted mb-2">{{transl 'per_person_patient_mail'}}</h6>
 		              	<p class="text-muted mb-2">{{inf01}}</p>
 	              	</div> 	
-	          	<div class="col-6">
+	          	<div class="col-4">
 		           	<h6 class="text-muted mb-2 mt-2">{{transl 'per_person_patient_phone'}}</h6>
 		           	<p class="text-muted mb-2 mt-2">{{inf02}}</p>
         		</div>
+				<div class="form-group col-4"></div>
 			</div>  
 		
 			<div><hr class="badge-info" style="height: 1px; width: 100%;"></div>
-	        
+	         <div id="div_group_content" class="mt-3">
+            <div class="info-content">
+                <h5>{{transl 'per_person_producer_introduce'}}</h5>
+                <p class="text-muted">{{{inf06.introduce}}}</p>
+            </div>
+            <div class="info-content">
+                <h5>{{transl 'per_person_producer_treatment'}}</h5>
+                <p class="text-muted">{{{inf06.desc01}}}</p>
+            </div>
+            <div class="info-content">
+                <h5>{{transl 'per_person_producer_collab'}}</h5>
+                <p class="text-muted">{{{inf06.desc02}}}</p>
+            </div>
+            <div class="info-content">
+                <h5>{{transl 'per_person_producer_research'}}</h5>
+                <p class="text-muted">{{{inf06.desc03}}}</p>
+            </div>
+        </div>
 	    </div>
 	</div>
 	
