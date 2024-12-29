@@ -41,12 +41,14 @@ define([
 		var TYP_02_MEET_CLIENT				= 100;
 		var TYP_01_DEPARTMENT				= 300;
 		const pr_TYP_MEMBER 				= 2;
-		const ONLINE		   				= 0;
+		const ONLINE		   				= 1;
 		const STAT_ACTIVE    				= 1;
 		const STAT_DESACTIVE    			= 2;
+		const STAT_DRAFT    				= 0;
 		var members 						= {};
 //		var membersDel 						= [];
 		let files							= {files: []};
+		let memberEdit						= {};
 		var customers 						= [];
 		var customersAdd 				    = [];
 		var customersDel                    = [];
@@ -412,11 +414,17 @@ define([
 
 					userColor = args.data.obj.inf02;
 
-					if (userColor) {
-					    args.data.borderColor = userColor.cl;
+					if (args.data.obj.stat02 === pr_stat_active) {
+						args.data.backColor = "#B9B9B9";
+						args.data.fontColor = "#ffffff";
+						args.data.borderColor = userColor.cl;
+					    
+					}else if (userColor) {
+			            args.data.borderColor = userColor.cl;
 					    args.data.backColor = userColor.cl;
 					    args.data.fontColor = "#ffffff";
-					} else {
+			        }
+					else {
 					    args.data.borderColor = args.data.color;
 					    args.data.fontColor = "#000000";
 					}
@@ -458,8 +466,10 @@ define([
 			
 			            let classCss = "";
 			            let opacity = "";
-			            if (args.data.members[key].stat === 2) {
-			                classCss = "text-decoration-line-through ";
+			            if (args.data.obj.stat01 === 0) {
+			                opacity = "opacity-03"; 
+			            }else if (args.data.members[key].stat === 2) {
+			                classCss = "text-decoration-line-through";
 			                opacity = "opacity-03";
 			            }
 			
@@ -518,17 +528,23 @@ define([
 				dp_schedule.clearSelection();
 				const now = new Date();
 				if (now > new Date(args.start.value) || now > new Date(args.end.value)) return;
-
+				memberEdit = {};
 				App.MsgboxController.do_lc_show({
 					title		: $.i18n("prj_appointment_msg_title"),
 					content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, {}),
 					autoclose	: true,
 					buttons 	: {
-						SEND 	: {
-							lab 		: "<i class='mdi mdi-send'></i>",
-							funct		: do_lc_create_appointment,
-							autoclose	: true
-						},
+						SEND_DRAFT: {
+				            lab: $.i18n("prj_appointment_new_draft"),
+				            funct: () => do_lc_create_appointment(STAT_DRAFT),
+				            autoclose: true,
+				        },
+				        SEND_ACTIVE: {
+				            lab: $.i18n("prj_appointment_new_active"),
+				            funct: () => do_lc_create_appointment(STAT_ACTIVE),
+				            autoclose: true,
+				        },
+					
 					},
 					onClose		: () => {
 						members 	= {};
@@ -544,6 +560,17 @@ define([
 					    "display"	: "flex",
 					    "margin"	: "auto"
 					}
+				});
+				$("#btn_msgbox_SEND_DRAFT").css({
+					"background-color"	: "green",
+					"color"				: "white",
+					"border-color"		: "green"
+				});
+					
+				$("#btn_msgbox_SEND_ACTIVE").css({
+					"background-color"	: "blue",
+					"color"				: "white",
+					"border-color"    	: "blue",
 				});
 				do_lc_build_view_member_mode_modify(false);
 				do_lc_req_autocomplete();
@@ -692,7 +719,10 @@ define([
 					}
 
 					var e = args.e;
-					if (e.data.obj.uId == App.data.user.id) {
+					if(e.data.obj.stat01 	== pr_stat_active){
+						divButtonDelete	.hide();
+					}
+					else if (e.data.obj.uId == App.data.user.id) {
 						divButtonAccept	.hide();
 						divButtonDeny	.hide();
 					}else{
@@ -727,11 +757,12 @@ define([
 						    content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, { ent: e }),
 						    autoclose	: true,
 						    buttons 	: {
-						        SEND 	: {
-						            lab 		: "<i class='mdi mdi-send'></i>",
-						            funct		: function() { do_lc_mod_appointment(e);},
-						            autoclose	: true
+							    SEND_ACTIVE: {
+						            lab: $.i18n("prj_appointment_new_active"),
+						            funct: () => do_lc_mod_appointment(e),
+						            autoclose: true,
 						        },
+						        
 						    },
 						    onClose		: () => {
 						        members 	= {};
@@ -753,6 +784,11 @@ define([
 					    do_lc_bind_event_autocomplete(); // bind event delete for each member element
 						$(".mod-repeat-hide").hide();	
 					    do_lc_req_autocomplete();
+					    $("#btn_msgbox_SEND_ACTIVE").css({
+							"background-color"	: "blue",
+							"color"				: "white",
+							"border-color"    	: "blue",
+						});
 					    /*$(".member-item").css({
 					        "display": "flex",
 					        "flex-direction": "row",
@@ -927,11 +963,12 @@ define([
 								content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, { ent: e }),
 								autoclose	: true,
 								buttons 	: {
-									SEND 	: {
-										lab 		: "<i class='mdi mdi-send'></i>",
-										funct		: function() { do_lc_mod_appointment(e);},
-										autoclose	: true
-									},
+									SEND_ACTIVE: {
+							            lab: $.i18n("prj_appointment_new_active"),
+							            funct: () => do_lc_mod_appointment(e),
+							            autoclose: true,
+							        },
+									
 								},
 								onClose		: () => {
 									members 	= {};
@@ -960,6 +997,11 @@ define([
 								"display": "flex",
 								"flex-direction": "row",
 							})*/
+							$("#btn_msgbox_SEND_ACTIVE").css({
+								"background-color"	: "blue",
+								"color"				: "white",
+								"border-color"    	: "blue",
+							});
 						}
 
 					},
@@ -1049,6 +1091,9 @@ define([
 						}
 
 						var e = args.source;
+						if(e.data.obj.stat01 	== pr_stat_active){
+							args.menu.items[1].hidden = true;
+						}
 						if(e.data.obj.uId == App.data.user.id){
 							args.menu.items[2].hidden = true;
 							args.menu.items[3].hidden = true;
@@ -1177,14 +1222,15 @@ define([
 				return;
 			}	
 						
-			let prj 		= data.data;
-			prj.inf02.cl 	= pr_Color;
-			prj.dtBegin 	= do_lc_convert_date(prj.dtBegin).replace("T"," ");
-			prj.dtEnd 		= do_lc_convert_date(prj.dtEnd	).replace("T"," ");
-
-			const dtBeginn	= req_gl_DateObj_From_DateStr(prj.dtBegin);
-			const dtEndd	= req_gl_DateObj_From_DateStr(prj.dtEnd);
-			const currentDate = new Date();
+			let prj 			= data.data;
+			prj.inf02.cl 		= pr_Color;
+			 prj.inf02.workType	= ONLINE;
+			prj.dtBegin 		= do_lc_convert_date(prj.dtBegin).replace("T"," ");
+			prj.dtEnd 			= do_lc_convert_date(prj.dtEnd	).replace("T"," ");
+			prj.stat01			= STAT_ACTIVE
+			const dtBeginn		= req_gl_DateObj_From_DateStr(prj.dtBegin);
+			const dtEndd		= req_gl_DateObj_From_DateStr(prj.dtEnd);
+			const currentDate 	= new Date();
 
 			if(req_gl_Date_CompareObj(dtEndd, dtBeginn) <= 0) {
 				do_gl_show_Notify_Msg_Error($.i18n("prj_appointment_dt_msg_err"));
@@ -1199,8 +1245,8 @@ define([
 			let membersArr 				= [];
 			$('#div_list_member').find('[data-id]').each(function() {
 					const dataId 		= $(this).attr('data-id');
-					const typMemDoctor 	= 10;
-					membersArr.push({uId: dataId, typ: typMemDoctor});
+					const typMemDoctor 	= $(this).attr('data-typ') ||10;
+					membersArr.push({uId: dataId, typ: typMemDoctor,stat:pr_stat_active});
 				});
 			
 			if (Array.isArray(e.inf02.color)) {
@@ -1384,7 +1430,7 @@ define([
 
 		//-------------------------------------------------------------------------------------------------
 
-		var do_lc_create_appointment = function () {
+		var do_lc_create_appointment = function (stat) {
 			
 		    let data = req_gl_data({
 		        dataZoneDom: $("#div_create_prj_appointment")
@@ -1401,7 +1447,7 @@ define([
 		    prj.inf02.cl 		= pr_Color;
 		    prj.inf02.workType	= ONLINE;
 			prj.fv01			= prj.inf02.pr;
-		    prj.stat01 			= STAT_ACTIVE; // Active
+		    prj.stat01 			= stat; 
 		    prj.dtBegin 		= do_lc_convert_date(prj.dtBegin).replace("T", " ");
 		    prj.dtEnd 			= do_lc_convert_date(prj.dtEnd).replace("T", " ");
 		    const dtBeginn 		= req_gl_DateObj_From_DateStr(prj.dtBegin);
@@ -1647,9 +1693,14 @@ define([
 					content 	: tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_NEW, {}),
 					autoclose	: true,
 					buttons 	: {
-						SEND 	: {
-							lab 		: "<i class='mdi mdi-send'></i>",
-							funct		: do_lc_create_appointment,
+						SEND_DRAFT 	: {
+							lab 		: $.i18n("prj_appointment_new_draft"),
+							funct		: () => do_lc_create_appointment(STAT_DRAFT),
+							autoclose	: true
+						},
+						SEND_ACTIVE 	: {
+							lab 		: $.i18n("prj_appointment_new_active"),
+							funct		: () => do_lc_create_appointment(STAT_ACTIVE),
 							autoclose	: true
 						},
 					},
@@ -1667,6 +1718,18 @@ define([
 					    "display"	: "flex",
 					    "margin"	: "auto"
 					}
+					
+				});
+				$("#btn_msgbox_SEND_DRAFT").css({
+					"background-color"	: "green",
+					"color"				: "white",
+					"border-color"		: "green"
+				});
+					
+				$("#btn_msgbox_SEND_ACTIVE").css({
+					"background-color"	: "blue",
+					"color"				: "white",
+					"border-color"    	: "blue",
 				});
 				do_lc_build_view_member_mode_modify(false);
 				do_lc_init_element();
@@ -1787,6 +1850,7 @@ define([
 
 			let reqSelectMember = (event, item) => {
 				if(members[item.id])			return false;
+				if(memberEdit[item.id])			return false;
 				let lev 			= $("#sel_member_level").val();
 				let typ 			= $("#sel_member_type").val();
 				let user 			= {
@@ -1846,6 +1910,7 @@ define([
 //				if(members.id)	delete members.id;
 //				membersDel.push(id);
 				if(members[id])	delete members[id];
+				memberEdit	={};
 				$(this).closest(".member-item").remove();
 				$("#list_member_all").show();
 				
@@ -1934,6 +1999,12 @@ define([
 				members			= prj_work? prj_work.members : null;
 			if (members) {
 		       Object.values(members).forEach(member => {
+		       		let memberObj = {
+			            uId		: member.uId,
+			            name	: member.name 	|| (member.mem ? member.mem.name : ""),
+			            imgSrc	: member.imgSrc || null
+			        };
+			        memberEdit[member.uId] = memberObj;
 		            let selOpt = `<div class='member-item'>`;
 		            const memberName = member.name || (member.mem ? member.mem.name : "");
 		            if (member.imgSrc) {
@@ -1950,12 +2021,20 @@ define([
 		                selOpt += `<div class="media align-items-center"><div class="rounded-circle avatar-xs text-white mr-1 text-uppercase text-center" style="background-color: ${textColor}"><div class="text-middle">${textAvatar}</div></div> ${memberName}`;
 		            }
 		
-		           selOpt += (searchIdMember !== null) 
-						    ? (!searchIdMember.includes(member.uId)) 
-						        ? `<a data-id='${member.uId}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>` 
-						        : `<a data-id='${member.uId}' class='text-danger' data-toggle='tooltip' data-placement='top' title='Delete'></a>` 
-						    : `<a data-id='${member.uId}' class='text-danger btn-remove-member' data-toggle='tooltip' data-placement='top' title='Delete'><i class='mdi mdi-close font-size-18'></i></a>`;
-		            selOpt += `</div></div>`;
+		           selOpt += (searchIdMember !== null)
+			            ? (!searchIdMember.includes(member.uId))
+			                ? `<a data-id='${member.uId}' data-typ='${member.typ}' class='text-danger btn-remove-member' 
+			                     data-toggle='tooltip' data-placement='top' title='Delete'>` +
+			                   (member.typ !== 40 ? `<i class='mdi mdi-close font-size-18'></i>` : ``) +
+			                   `</a>`
+			                : `<a data-id='${member.uId}' data-typ='${member.typ}' class='text-danger' 
+			                     data-toggle='tooltip' data-placement='top' title='Delete'></a>`
+			            : `<a data-id='${member.uId}' data-typ='${member.typ}' class='text-danger btn-remove-member' 
+			                 data-toggle='tooltip' data-placement='top' title='Delete'>` +
+			               (member.typ !== 40 ? `<i class='mdi mdi-close font-size-18'></i>` : ``) +
+			               `</a>`;
+			
+			        selOpt += `</div></div>`;
 		            $("#div_list_member").append(selOpt);
 		        });
 	    	}

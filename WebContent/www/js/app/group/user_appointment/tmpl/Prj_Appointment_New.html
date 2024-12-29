@@ -5,7 +5,7 @@
                 <div class="outer-repeater">
                     <!-- Event Name -->
                     <input type="hidden" class="objData" data-name="id" data-validation="number" value="{{ent.id}}">
-                    
+                    <input type="hidden" class="objData" data-name="stat03" data-validation="number" value="1">
                     <div class="form-group mb-2">
                         <div class="row">
                         	<div class="col-6">
@@ -39,38 +39,47 @@
                     {{#equal ent.typ02 100}}
 						<div class="d-flex justify-content-between align-items-center mt-3">
 						  <label for="form" class="col-form-label h5">{{transl 'prj_appointment_option_form'}} <span class="required">&nbsp;*</span></label>
-						
+							{{#if ent.inf05}}
 						  <div class="form-check flex-fill text-center">
 						    <input type="radio" class="form-check-input" id="workTypeOnline"
-						           name="workType" data-group="inf02" data-name="workType" value="1" data-validation="required"
-						           {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}}>
+						           name="workType" data-group="inf02" data-name="workType" value="1"
+						           {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}} disabled="disabled">
 						    <label class="form-check-label" for="workTypeOnline">{{transl 'prj_appointment_option_online'}}</label>
 						  </div>
 						
 						  <div class="form-check flex-fill text-center">
 						    <input type="radio" class="form-check-input" id="workTypeOffline"
-						           name="workType" data-group="inf02" data-name="workType" value="0" data-validation="required"
-						           {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}}>
+						           name="workType" data-group="inf02" data-name="workType" value="0" 
+						           {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}} disabled="disabled">
 						    <label class="form-check-label" for="workTypeOffline">{{transl 'prj_appointment_option_offline'}}</label>
 						  </div>
+						  	{{else}}
+						  	<div class="form-check flex-fill text-center">
+							    <input type="radio" class="form-check-input" id="workTypeOnline"
+							           name="workType" data-group="inf02" data-name="workType" value="1"
+							           {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}}>
+							    <label class="form-check-label" for="workTypeOnline">{{transl 'prj_appointment_option_online'}}</label>
+							  </div>
+							
+							  <div class="form-check flex-fill text-center">
+							    <input type="radio" class="form-check-input" id="workTypeOffline"
+							           name="workType" data-group="inf02" data-name="workType" value="0" 
+							           {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}}>
+							    <label class="form-check-label" for="workTypeOffline">{{transl 'prj_appointment_option_offline'}}</label>
+							  </div>
+						  {{/if}}
 						</div>
 					{{/equal}}
 					
 					<div class="form-group mb-2">
                         <div class="row">
-                             <div class="col-6">
+                             <div class="col-12">
 	                        	  <label for="location" class="col-form-label h5">{{transl 'prj_appointment_area'}}<span class="required">&nbsp;*</span></label>
                             	  <input type="hidden" class="objData" data-name="lev" value="{{lev}}">
                                   <input id="cmt03" data-name="inf01" type="text"
                                             class="form-control objData" placeholder="{{getPlaceHolderName typ02}}"
                                             data-validation="required" value="{{ent.inf01}}" disabled>
                         	</div>
-                        	{{#equal ent.typ02 100}}
-	                        	<div class="col-6">
-		                        	 <label for="price" class="col-form-label h5">{{transl 'prj_appointment_price'}}<span class="required">&nbsp;*</span></label>
-				                     <input type="number" class="form-control objData" data-group="inf02" data-name="pr" id="price" value="{{ent.inf02.pr}}" data-validation="required" disabled>
-	                        	</div>
-	                        {{/equal}}
                         </div>
                     </div>
 					<div class="form-group row mb-2">

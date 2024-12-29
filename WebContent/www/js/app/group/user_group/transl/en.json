@@ -63,6 +63,8 @@
 	"msgbox_confirm_save"								: "Save edited content ?",
 	"msgbox_confirm_save_cancel"						: "Cancel the edited content ?",
 	"prj_project_member_see_projects"					: "See dashboard",
-	"prj_project_member_see_profile"					: "See profile"
+	"prj_project_member_see_profile"					: "See profile",
+	"prj_appointment_new_active"						:"Confirm",
+	"prj_appointment_new_draft"							:"Draft"
 	
 }

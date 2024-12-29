@@ -973,6 +973,7 @@ define([
 			//check data error
 			if(data.hasError){
 		    	do_gl_show_Notify_Msg_Error ($.i18n('common_err_data'))
+		    	return;
 		    }
 			let prj 			= data.data;
 			prj.inf02.workType 	= workType;
@@ -1012,6 +1013,7 @@ define([
 		    }
 			let prj 				= data.data;
 			prj.typ01 				= TYP_01_WORK_PLAN;
+			prj.inf02.pr 			= e.inf02.pr;
 			prj.inf02.cl 			= pr_Color;
 			// prj.typ02 			= TYP_02_APPOINTMENT;
 			prj.nb 					= 0;
@@ -1561,6 +1563,7 @@ define([
 			var ref 	= req_gl_Request_Content_Send("ServiceNsoGroup", "SVLstAppointment");
 			ref.typ01 	= TYP_01_WORK_PLAN;
 			ref.wParent = true;
+			ref.stat01	= pr_stat_active;
 		//	ref.dtBegin	= dtBegin?dtBegin.replace("T"," "): req_gl_DateStr_From_DateObj(new Date());
 		//	ref.dtEnd	= dtEnd	 ?dtEnd	 .replace("T"," "): req_gl_DateStr_From_DateObj(req_gl_DateAdd (new Date(), 'D', 7))	;
 			
@@ -1702,6 +1705,14 @@ define([
 		            }
 		
 		            return isPastA ? 1 : -1;
+		        });
+		        sortedList.forEach(item => {    
+		            try {
+		                item.inf02 = JSON.parse(item.inf02);
+		            } catch (e) {
+		                console.error("Failed to parse inf02 for item:", item);
+		            }
+		            item.showJoinButton = (item.typ02 === 100 && item.inf02.workType === "1" ) || item.typ02 === 400 ;
 		        });
 				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, { "appointments": sortedList}));
 				do_lc_bind_event_notification(sortedList);
