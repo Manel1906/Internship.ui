@@ -58,7 +58,9 @@ define([
 	'text!group/per/supplier/tmpl/Ent_Tab_Order_Test_Img_List_Content.html',
 	'text!group/per/supplier/tmpl/Ent_Tab_Order_Test_Img_Content.html',
 	
-	'text!group/per/supplier/tmpl/Dropzone_File.html'
+	'text!group/per/supplier/tmpl/Dropzone_File.html',
+	
+	'text!group/per/supplier/tmpl/Ent_New.html',
 
 	], function(
 			List,
@@ -119,7 +121,8 @@ define([
 			Tmpl_Ent_Tab_Order_Test_Img_List,
 			Tmpl_Ent_Tab_Order_Test_Img_List_Content,
 			Tmpl_Ent_Tab_Order_Test_Img_Content,
-			Tmpl_PrjDropzone_File
+			Tmpl_PrjDropzone_File,
+			Tmpl_Ent_New
 	) {
 
 	var Main     			= function (grpName, header, content, footer) {
@@ -160,7 +163,7 @@ define([
 			tmplName.TMPL_LIST_CONTENT					  		 = pr_grpName + "Tmpl_List_Content";
 			
 			tmplName.TMPL_ENT							  		 = pr_grpName + "Tmpl_Ent";
-			
+			tmplName.TMPL_ENT_NEW 							     = pr_grpName + "Tmpl_Ent_New";
 			tmplName.TMPL_ENT_TAB_INFO					  		 = pr_grpName + "Tmpl_Ent_Content";
 			tmplName.TMPL_ENT_TAB_INFO_CONTACT			  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Contact";
 			tmplName.TMPL_ENT_TAB_INFO_CONTACT_ADD		  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add";
@@ -214,7 +217,7 @@ define([
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST_CONTENT				, Tmpl_List_Content);
 				
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT						, Tmpl_Ent);
-			
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_NEW					, Tmpl_Ent_New);
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO				, Tmpl_Ent_Tab_Info);
 			
 			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT_TAB_INFO_CONTACT		, Tmpl_Ent_Tab_Info_Contact);

@@ -134,7 +134,7 @@ define(['jquery'], function($) {
 					return;
 				}
 				
-				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW);
+				pr_ctr_Ent.do_lc_show_add_new({}, var_lc_MODE_NEW);
 			})
 						
 			
