@@ -88,7 +88,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}			
 			do_gl_init_fileDropzone($(pr_divContent), option);
 			
-			$(".files_content_user").off("click").on("click", function() {
+			$(".file-avatar").off("click").on("click", function() {
 				const {path} = $(this).data();
 				let isImage = do_lc_check_image(path);
 				if(isImage){

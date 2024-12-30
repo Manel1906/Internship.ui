@@ -9,16 +9,14 @@
 	    <div class="card-body">
 			<div class="row align-items-center mb-2">
 				<div class="col-4">
-		            {{#if avatar.url}}
-				    <img 
-				        src="{{avatar.url}}" 
+		            {{#if avatar}}
+				    <img src="{{reqSrcImg avatar}}" alt="" data-path="{{avatar.url}}" 
 				        style="width: 140px; height: 130px; object-fit: cover; border-radius: 50%;" 
-				        class="avatar-xs" 
+				        class="avatar-xs file-avatar" 
 				        alt="Avatar" 
 				        onerror="{{url_image_err}}">
 				     {{else}}
-				     <img 
-				        src="{{url_image_err}}" 
+				     <img src="{{url_image_err}}" 
 				        style="width: 140px; height: 130px; object-fit: cover; border-radius: 50%;" 
 				        class="avatar-xs" 
 				        alt="Avatar" 

@@ -9,22 +9,20 @@
           
            	<div class="row align-items-center mb-2 msg-body-forme">
 	           <div class="col-4">
-	           {{#if avatar}} 
-				    <img 
-				        src="{{avatar.url}}" 
+	           		{{#if avatar}}
+				    <img src="{{reqSrcImg avatar}}" alt="" data-path="{{avatar.url}}"
 				        style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%;" 
-				        class="avatar-xs files_content_user cursor-pointer" 
+				        class="avatar-xs file-avatar cursor-pointer" 
 				        alt="Avatar" 
 				        data-path="{{reqSrcImg avatar}}"
 				        onerror="{{url_image_err}}">
-				{{else}} 
-				 <img 
-				        src="" 
+					{{else}} 
+					<img src="{{url_image_err}}" 
 				        style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%;" 
 				        class="avatar-xs files_content_user cursor-pointer" 
 				        alt="Avatar" 
 				        onerror="{{url_image_err}}">
-				{{/if}}
+					{{/if}}
 				</div>
 					
                 <div class="col-8">

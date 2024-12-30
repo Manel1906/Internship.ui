@@ -97,7 +97,15 @@ define([
 			tmplName.TMPL_LIST_CONTENT					  		 = pr_grpName + "Tmpl_List_Content";
 			
 			tmplName.TMPL_ENT							  		 = pr_grpName + "Tmpl_Ent";
+			tmplName.TMPL_DROPZONE_FILE					  		 = pr_grpName + "Tmpl_Dropzone_File";
 			
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_MAIN			, Tmpl_Main); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST			, Tmpl_List); 
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST_CONTENT	, Tmpl_List_Content);
+				
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT			, Tmpl_Ent);
+			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE	, Tmpl_PrjDropzone_File);
+						
 			tmplName.TMPL_ENT_TAB_INFO					  		 = pr_grpName + "Tmpl_Ent_Tab_Info";
 			tmplName.TMPL_ENT_TAB_INFO_CONTACT			  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Contact";
 			tmplName.TMPL_ENT_TAB_INFO_CONTACT_ADD		  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Contact_Add";
@@ -106,7 +114,7 @@ define([
 			tmplName.TMPL_ENT_TAB_INFO_MOD				  		 = pr_grpName + "Tmpl_Ent_Tab_Info_Modify";
 			tmplName.TMPL_ENT_TAB_INFO_FILE				  		 = pr_grpName + "Tmpl_Ent_Tab_Info_File";
 			
-			tmplCtrl.do_lc_put_tmplRaw(Tmpl_Ent_Tab_Info, pr_grpName);
+			tmplCtrl.do_lc_put_tmplRaw(Tmpl_Ent_Tab_Info		, pr_grpName);
 			
 			tmplName.TMPL_ENT_TAB_DISEASE_HIS			  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist";
 			tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC	  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Chronic";
@@ -116,7 +124,7 @@ define([
 			tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY	  		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Allergy";
 			tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY_ADD 		 = pr_grpName + "Tmpl_Ent_Tab_Disease_Hist_Allergy_Add";
 			
-			tmplCtrl.do_lc_put_tmplRaw(Tmpl_Ent_Tab_Disease_Hist, pr_grpName);
+			tmplCtrl.do_lc_put_tmplRaw(Tmpl_Ent_Tab_Disease_Hist , pr_grpName);
 			
 			tmplName.TMPL_ENT_TAB_HIS_MEDICAL 			  		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical";
 			tmplName.TMPL_ENT_TAB_HIS_MEDICAL_LIST 		  		 = pr_grpName + "Tmpl_Ent_Tab_History_Medical_List";
@@ -158,47 +166,18 @@ define([
 			
 			tmplCtrl.do_lc_put_tmplRaw(Tmpl_Ent_Tab_Order_Test_Img, pr_grpName);
 			
-			tmplName.TMPL_DROPZONE_FILE					  		 = pr_grpName + "Tmpl_Dropzone_File"
-			
-			
-			
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_MAIN						, Tmpl_Main); 
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST						, Tmpl_List); 
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_LIST_CONTENT				, Tmpl_List_Content);
-				
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_ENT						, Tmpl_Ent);
-			
-			
-			
-			tmplCtrl.do_lc_put_tmpl(tmplName.TMPL_DROPZONE_FILE							, Tmpl_PrjDropzone_File);
-			
 			//---------------------------------------------------------------------------------------------
 			//---------------------------------------------------------------------------------------------
 			if (!App.controller[pr_grpName]) App.controller[pr_grpName] = {};
 			
-			if (!App.controller[pr_grpName].List)  
-				App.controller[pr_grpName].List				 = new List		(grpName, null, null, null);
-			
-			if (!App.controller[pr_grpName].Ent)  
-				App.controller[pr_grpName].Ent				 = new Ent		(grpName, null, null, null);
-			
-			if (!App.controller[pr_grpName].EntTabInfo)  
-				App.controller[pr_grpName].EntTabInfo		 = new EntTabInfo	(grpName, null, null, null);
-				
-			if (!App.controller[pr_grpName].EntTabHistDisease)  
-				App.controller[pr_grpName].EntTabHistDisease = new EntTabHistDisease	(grpName, null, null, null);
-				
-			if (!App.controller[pr_grpName].EntTabHistMedicine)  
-				App.controller[pr_grpName].EntTabHistMedicine = new EntTabHistMedicine	(grpName, null, null, null);
-				
-			if (!App.controller[pr_grpName].EntTabOrderMedicine)  
-				App.controller[pr_grpName].EntTabOrderMedicine = new EntTabOrderMedicine	(grpName, null, null, null);
-			
-			if (!App.controller[pr_grpName].EntTabOrderBloodTest)  
-				App.controller[pr_grpName].EntTabOrderBloodTest = new EntTabOrderBloodTest	(grpName, null, null, null);
-				
-			if (!App.controller[pr_grpName].EntTabOrderImgTest)  
-				App.controller[pr_grpName].EntTabOrderImgTest = new EntTabOrderImgTest	(grpName, null, null, null);
+			App.controller[pr_grpName].List				 	= new List					(pr_grpName, null, null, null);
+			App.controller[pr_grpName].Ent				 	= new Ent					(pr_grpName, null, null, null);
+			App.controller[pr_grpName].EntTabInfo		 	= new EntTabInfo			(pr_grpName, null, null, null);
+			App.controller[pr_grpName].EntTabHistDisease 	= new EntTabHistDisease		(pr_grpName, null, null, null);
+			App.controller[pr_grpName].EntTabHistMedicine 	= new EntTabHistMedicine	(pr_grpName, null, null, null);
+			App.controller[pr_grpName].EntTabOrderMedicine 	= new EntTabOrderMedicine	(pr_grpName, null, null, null);
+			App.controller[pr_grpName].EntTabOrderBloodTest = new EntTabOrderBloodTest	(pr_grpName, null, null, null);
+			App.controller[pr_grpName].EntTabOrderImgTest 	= new EntTabOrderImgTest	(pr_grpName, null, null, null);
 			
 			App.controller[pr_grpName].List					.do_lc_init();
 			App.controller[pr_grpName].Ent					.do_lc_init();
@@ -208,7 +187,6 @@ define([
 			App.controller[pr_grpName].EntTabOrderMedicine	.do_lc_init();
 			App.controller[pr_grpName].EntTabOrderBloodTest	.do_lc_init();
 			App.controller[pr_grpName].EntTabOrderImgTest	.do_lc_init();
-			
 		}     
 		
 		//--------show-------------------------------------------------------------------

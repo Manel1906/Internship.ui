@@ -80,6 +80,21 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			$(".item-file-download").off("click").on("click", function(){
 				let {path}				= $(this).data();
 				path && window.open(path, "_blank");
+			});
+			
+			$(".file-avatar").off("click").on("click", function() {
+				const {path} = $(this).data();
+				let isImage = do_lc_check_image(path);
+				if(isImage){
+					const viewer = new Viewer(document.getElementById('div_entity_content'), {
+						filterImgClass: ['msg-body-forme', 'msg-body-other'],
+						hide: function () {
+							viewer.destroy();
+						},
+					});
+				}else{
+					window.open(path, "_blank");
+				}
 			})
 		}
 				

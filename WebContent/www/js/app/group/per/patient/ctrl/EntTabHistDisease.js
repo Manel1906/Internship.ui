@@ -58,7 +58,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		
 		var do_lc_show_entity 			= function(ent, mode){
 			do_lc_show_info 			(ent);
-			do_lc_get_his_disease 		(ent);
+			
+			if (!ent.history_disease)
+				do_lc_get_his_disease 		(ent);
+			else{
+				do_lc_show_his_disease 		(ent);
+				do_lc_show_his_family 		(ent);
+				do_lc_show_his_allergy 		(ent);
+			}
 		}
 		
 		var do_lc_show_info 			= function(ent){
@@ -93,10 +100,13 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				data 		= sharedJson[App['const'].RES_DATA];
 			}
 			do_lc_clean_data			(data)
-			do_lc_show_his_disease 		(ent,data);
-			do_lc_show_his_family 		(ent,data);
-			do_lc_show_his_allergy 		(ent,data);
+			
+			ent.history_disease 		= data;
+			do_lc_show_his_disease 		(ent);
+			do_lc_show_his_family 		(ent);
+			do_lc_show_his_allergy 		(ent);
 		}
+		
 		const do_lc_clean_data = function(ent){
 			if(Object.keys(ent).length == 0) return;
 
@@ -113,25 +123,25 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			}
 		}
 		
-		var do_lc_show_his_disease 			= function(ent,data){
-			$("#div_his_chronic").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC, data));
+		var do_lc_show_his_disease 			= function(ent){
+			$("#div_his_chronic").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_CHRONIC, ent.history_disease));
 			$("#btn_mod_chronic").off("click").on("click", function(){
-				do_lc_show_entity_chronic(ent,data);
+				do_lc_show_entity_chronic(ent);
 			});
 		}
-		var do_lc_show_his_family 			= function(ent,data){
-			$("#div_his_family").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY, data));
+		var do_lc_show_his_family 			= function(ent){
+			$("#div_his_family").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_FAMILY, ent.history_disease));
 			$("#btn_mod_family").off("click").on("click", function(){
-				do_lc_show_entity_family(ent,data);
+				do_lc_show_entity_family(ent);
 			});
 		}
-		var do_lc_show_his_allergy 			= function(ent,data){
-			$("#div_his_allergy").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY, data));
+		var do_lc_show_his_allergy 			= function(ent){
+			$("#div_his_allergy").html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_TAB_DISEASE_HIS_ALLERGY, ent.history_disease));
 			$("#btn_mod_allergy").off("click").on("click", function(){
-				do_lc_show_entity_allergy(ent,data);
+				do_lc_show_entity_allergy(ent);
 			});
 		}
-		const do_lc_show_entity_chronic = (ent,data) => {
+		const do_lc_show_entity_chronic = (ent) => {
 			$("#btn_mod_chronic"				).addClass("hide");
 			$(".info-show"						).addClass('hide');
 			
@@ -168,7 +178,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_lc_save_entity_chronic(inforChronic,idPer, do_lc_get_his_disease);
 			});
 		}
-		const do_lc_show_entity_family = (ent) => {
+		const do_lc_show_entity_family 	= (ent) => {
 			$("#btn_mod_family"						).addClass("hide");
 			$(".info-show-family"					).addClass('hide');
 			
@@ -206,7 +216,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_lc_save_entity_family(inforFamily,idPer, do_lc_get_his_disease);
 			});
 		}
-		const do_lc_show_entity_allergy = (ent,data) => {
+		const do_lc_show_entity_allergy = (ent) => {
 			$("#btn_mod_allergy"	).addClass("hide");
 			$(".info-show-allergy"	).addClass('hide');
 			
@@ -244,7 +254,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_lc_save_entity_allergy(inforAllergy,idPer, do_lc_get_his_disease);
 			});
 		}
-		const do_lc_bind_event_new_chronic = function(data) {			
+		const do_lc_bind_event_new_chronic = function() {			
 		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_chronic').find('input[data-name="index"]').map(function () {
 		        return parseInt($(this).val()) || 0;
 		    }).get()) +1;
@@ -259,7 +269,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		    });
 		};
 		
-		const do_lc_bind_event_new_family = function(data) {			
+		const do_lc_bind_event_new_family = function() {			
 		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_family').find('input[data-name="index"]').map(function () {
 		        return parseInt($(this).val()) || 0;
 		    }).get()) +1;
@@ -274,7 +284,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		    });
 		};
 		
-		const do_lc_bind_event_new_allergy = function(data) {			
+		const do_lc_bind_event_new_allergy = function() {			
 		    const maxIndex 	= Math.max(0, ...$('#tbody_entity_allergy').find('input[data-name="index"]').map(function () {
 		        return parseInt($(this).val()) || 0;
 		    }).get()) +1;
