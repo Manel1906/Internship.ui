@@ -1,169 +1,136 @@
-<div class="card">
-	<div class="card-body">
-        <div class="row">
-        	{{#if edit}}
-        	<div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'tpy_cat_disease_edit_title'}}</h4></div>
-        	{{else}}
-            <div class="col-lg-11 col-md-10 col-sm-9"><h4>{{transl 'common_btn_new_title'}}</h4></div>
-             {{/if}}
-        	<div class="col-lg-1 col-md-2 col-sm-3 text-center"><i id="cancel_header" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+<div class="card col-12">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="Save">
+                    <i class="mdi mdi-content-save font-size-20 action-item"></i>
+                </a>
+                <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="Cancel">
+                    <i class="mdi mdi-close font-size-20"></i>
+                </a>
+            </div>
+            <div class="dropdown font-size-20">
+                <div class="col-lg-1 col-md-2 col-sm-3 text-center mr-3"><i id="btn_cancel_new_01" class="mdi mdi-window-close cursor-pointer" style="font-size: 20px; color: red;"></i></div>
+<!--                 <a data-divtoogle="#div_group_content" class="btn-resize-content cursor-pointer" data-toggle="tooltip" data-placement="top" title="Resize"> -->
+<!--                     <i class="mdi mdi-window-minimize text-primary"></i> -->
+<!--                 </a> -->
+            </div>
         </div>
-        <div class="needs-validation" id="frm_entity">
-        	<input type="hidden" data-name="typ01" class="form-control objData" value="1">
-        	<input type="hidden" data-name="typ02" class="form-control objData" value="1">
-        	<input type="hidden" data-name="stat" class="form-control objData" value="1">
-           
-           	
-			<div class="row">
-           		<div class="col-12 form-group mt-1">	
-		            <div class="form-group">
-<!-- 		                <label for="inp_group_name">{{transl 'prj_ tpy_group_name'}} *</label> -->
-		                <input type="text" data-name="name01" class="form-control objData" id="inp_group_name" value="{{name01}}" placeholder="{{transl 'prj_tpy_group_name_enter'}} *" data-validation="required" >
-					</div>	
-		        </div>
-		        <div class="col-12 form-group mb-1 mt-1">	
-			        <div class="form-group">
-<!-- 			    <label for="inp_group_locate">{{transl 'prj_tpy_group_brand_name_medicine'}}</label> -->
-				        <input type="text" data-name="name02" class="form-control objData" id="inp_group_locate" placeholder="{{transl 'prj_tpy_group_brand_name_medicine'}} *" value="{{name02}}" data-validation="required">
-				    </div>
-			    </div>
-			    
-	           <div class="form-group col-4">
-				    <label for="inp_group_locate">{{transl 'prj_tpy_group_bar_code_ori'}} *</label>
-				    <div class="input-group">
-				        <input type="text" data-name="code01" class="form-control objData" id="inp_group_locate" value="{{code01}}" data-validation="required">
-				        <div class="input-group-append">
-				            <span class="input-group-text"><i class="mdi mdi-qrcode-scan"></i></span>
-				        </div>
-				    </div>
+       <div class="needs-validation" id="frm_new_group">
+            <input type="hidden" data-name="typ01" class="form-control objData" value="100">
+            <input type="hidden" data-name="stat" class="form-control objData" value="1">
+            
+            <div class="row mb-4">
+                <div class="col-4 d-flex justify-content-center align-items-center">
+            <!--     <img src="{{avatar.url}}" style="object-fit: cover" alt="" class="img-fluid rounded-circle" onerror="{{url_image_err}}">  --> 
+					<img 
+					        src="{{avatar.url}}" 
+					        style="width: 120px; height: 110px; object-fit: cover; border-radius: 50%;" 
+					        class="avatar-xs" 
+					        alt="Avatar" 
+					        onerror="{{url_image_err}}">
+                </div>
+                <div class="col-8">
+                 	<div class="row">
+	                    <div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_patient_producer_fullname'}}<span class="required">&nbsp;*</span></label>
+                            <input type="text"  data-name="name01" class="form-control objData" id="inp_group_phone" value="{{name01}}" maxlength="250" data-validation="required">
+                        </div>
+                      	<div class="form-group col-4">
+                            <label for="inp_group_phone">{{transl 'per_person_patient_producer_fullname_foreign'}}</label>
+                            <input type="text"  data-name="name03" class="form-control objData" id="inp_group_phone" value="{{name03}}" maxlength="250">
+                        </div>
+                 	</div>
+            	</div>
+            </div>
+            
+            <hr class="badge-info" style="height: 1px;">
+            
+            <div class="row ml-1 mt-2">
+            	<div class="form-group col-4">
+                   	<label for="inp_group_phone">{{transl 'per_person_patient_code'}}<span class="required">&nbsp;*</span></label>
+                    <input type="text"  data-name="code01" class="form-control objData" id="inp_group_phone" value="{{code01}}" maxlength="50" data-validation="required">
+            	</div>
+            	<div class="form-group col-4">
+					<label>{{transl 'per_person_patient_mst'}}<span class="required">&nbsp;*</span></label>
+					<input type="text" data-name="code02" class="form-control objData" id="inp_group_email" value="{{code02}}" maxlength="250" data-validation="required">
 				</div>
-
+            	<div class="form-group col-4">
+                   	<label >{{transl 'per_person_social_code'}}<span class="required">&nbsp;*</span></label>
+                    <input type="text"  data-name="code05" class="form-control objData" id="inp_group_phone" value="{{code05}}" maxlength="50" >
+            	</div>			
+            	
+			</div>
+                
+			<div class="row ml-1">
+				<div class="col-4">
+					<label>{{transl 'prj_user_group_status'}} <span class="required">&nbsp;*</span></label>
+					<select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="" data-name="inf10">
+							<option {{#equal inf10 1}}selected{{/equal}} value="0">{{transl "aut_user_ent_header_producer_stat_1"}}</option>
+							<option {{#equal inf10 5}}selected{{/equal}} value="1">{{transl "aut_user_ent_header_producer_stat_5"}}</option>
+							<option {{#equal inf10 10}}selected{{/equal}} value="2">{{transl "aut_user_ent_header_producer_stat_10"}}</option>
+					</select>
+				</div>
+				<div class="col-4">
+					<label>{{transl 'per_person_produce_start_date'}}<span class="required">&nbsp;*</span></label>
+					<div class="input-daterange form-group  content-edit">
+						<input id="inp_autuser_tab01_birthday" data-provide="datepicker" autocomplete="off" class="form-control objData content-edit isManager" type="text"
+			            	data-name="dt03" data-format="date" data-validation="date" {{#if dt03}}value="{{reqFormatShortDate dt03}}"{{/if}}>
+					</div>
+				</div>
 				<div class="form-group col-4">
-				    <label for="inp_group_phone">{{transl 'prj_tpy_group_bar_code_internal_1'}}</label>
-				    <div class="input-group">
-				        <input type="text"  data-name="code03" class="form-control objData" id="inp_group_phone" value="{{code03}}" data-validation="">
-				        <div class="input-group-append">
-				            <span class="input-group-text"><i class="mdi mdi-qrcode-scan"></i></span>
-				        </div>
-				    </div>
+                   	<label>{{transl 'per_person_patient_type_produce'}}<span class="required">&nbsp;*</span></label>
+                   	<input type="text"  data-name="inf03" class="form-control objData" id="inp_group_locate" value="{{inf03}}"  maxlength="250">
 				</div>
+			</div>
 			
+            <div class="row ml-1">
 				<div class="form-group col-4">
-				    <label for="inp_group_email">{{transl 'prj_tpy_group_bar_code_internal_2'}}</label>
-				    <div class="input-group">
-				        <input type="text" data-name="code04" class="form-control objData"  value="{{code04}}" data-validation="">
-				        <div class="input-group-append">
-				            <span class="input-group-text"><i class="mdi mdi-qrcode-scan"></i></span>
-				        </div>
-				    </div>
-				</div>
-			    <div class="form-group col-4 px-2">
-			        <label for="inp_group_select">{{transl 'prj_tpy_group_medicine'}}</label>
-			        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="typ03">
-			            <option {{#equal typ03 100}}selected{{/equal}} value="100">{{transl 'aut_test_ent_grp_medicine_stat_100'}}</option>
-			            <option {{#equal typ03 200}}selected{{/equal}} value="200">{{transl 'aut_test_ent_grp_medicine_stat_200'}}</option>
-			            <option {{#equal typ03 500}}selected{{/equal}} value="500">{{transl 'aut_test_ent_grp_medicine_stat_500'}}</option>
-			            <option {{#equal typ03 300}}selected{{/equal}} value="300">{{transl 'aut_test_ent_grp_medicine_stat_300'}}</option>
-			            <option {{#equal typ03 700}}selected{{/equal}} value="700">{{transl 'aut_test_ent_grp_medicine_stat_700'}}</option>
-			            <option {{#equal typ03 900}}selected{{/equal}} value="900">{{transl 'aut_test_ent_grp_medicine_stat_900'}}</option>
-			        </select>
-			    </div>
-			    <div class="form-group col-4 px-2">
-			        <label for="inp_group_email">{{transl 'prj_tpy_group_reg_number_visa'}}</label>
-			        <input type="text" data-name="code02" class="form-control objData"  value="{{code02}}" data-validation="">
-			    </div>
-			    <div class="form-group input-daterange col-4 px-2">
-			        <label for="inp_group_email">{{transl 'prj_tpy_group_exp_visa'}}</label>
-			        <div class="input-group ">
-				        <input data-format="date" type="text"
-				               class="form-control objData" id="dtpicker_exp"
-				               value="{{reqFormatShortDate dt03}}" 
-				               data-name="dt03" data-provide="datepicker"
-				               data-format="date" data-validation="date"
-				               />
-<!-- 					        <input type="text" class="form-control objData tmpicker" -->
-<!-- 					               id="tmpicker_exp" placeholder="" -->
-<!-- 					               data-group="dt03" data-name="time" data-provide="timepicker" data-validation="required" /> -->
-			        </div>
-			    </div>
-
-<!-- 		        <div class="col-md-12 mb-4 d-flex justify-content-start p-0">	 -->
-<!-- 		            <div class="col-4 mb-2 mt-2">	 -->
-<!-- 				        <label for="inp_group_select">{{transl 'prj_tpy_group_producer'}}</label> -->
-<!-- 				        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="prodId"> -->
-<!-- 				            <option {{#equal prodId 2}}selected{{/equal}} value="2">{{transl 'aut_test_ent_manu_medicine_stat_2'}}</option> -->
-<!-- 				            <option {{#equal prodId 3}}selected{{/equal}} value="3">{{transl 'aut_test_ent_manu_medicine_stat_3'}}</option> -->
-<!-- 				            <option {{#equal prodId 4}}selected{{/equal}} value="4">{{transl 'aut_test_ent_manu_medicine_stat_4'}}</option> -->
-<!-- 				            <option {{#equal prodId 10}}selected{{/equal}} value="10">{{transl 'aut_test_ent_manu_medicine_stat_10'}}</option> -->
-<!-- 				        </select> -->
-<!-- 			    	</div> -->
-<!-- 					<div class="col-4 mb-2 mt-2"">	 -->
-<!-- 				        <label for="inp_group_select">{{transl 'prj_tpy_group_package'}}</label> -->
-<!-- 				        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="inf02"> -->
-<!-- 				            <option {{#equal inf02 5}}selected{{/equal}} value="5">{{transl 'aut_test_ent_package_medicine_stat_5'}}</option> -->
-<!-- 				            <option {{#equal inf02 6}}selected{{/equal}} value="6">{{transl 'aut_test_ent_package_medicine_stat_6'}}</option> -->
-<!-- 				            <option {{#equal inf02 7}}selected{{/equal}} value="7">{{transl 'aut_test_ent_package_medicine_stat_7'}}</option> -->
-<!-- 				            <option {{#equal inf02 10}}selected{{/equal}} value="10">{{transl 'aut_test_ent_package_medicine_stat_10'}}</option> -->
-<!-- 				        </select> -->
-<!-- 			    	</div> -->
-<!-- 					<div class="col-4 mb-2 mt-2"">	 -->
-<!-- 				        <label for="inp_group_select">{{transl 'prj_tpy_group_unit_min'}}</label> -->
-<!-- 				        <select id="inp_group_select" class="form-control objData content-edit isManager" data-name="inf01"> -->
-<!-- 				            <option {{#equal inf01 6}}selected{{/equal}} value="6">{{transl 'aut_test_ent_unit_medicine_stat_6'}}</option> -->
-<!-- 				            <option {{#equal inf01 7}}selected{{/equal}} value="7">{{transl 'aut_test_ent_unit_medicine_stat_7'}}</option> -->
-<!-- 				            <option {{#equal inf01 8}}selected{{/equal}} value="8">{{transl 'aut_test_ent_unit_medicine_stat_8'}}</option> -->
-<!-- 				            <option {{#equal inf01 10}}selected{{/equal}} value="10">{{transl 'aut_test_ent_unit_medicine_stat_10'}}</option> -->
-<!-- 				        </select> -->
-<!-- 			    	</div> -->
-<!-- 		        </div> -->
-		        
-		    	<div class="form-group col-4 px-2">
-			        <label for="inp_group_select">{{transl 'prj_tpy_group_unit_min'}}</label>
-			        <input type="text" data-name="inf01" class="form-control objData"  value="{{inf01}}" data-validation="">
-		    	</div>
-				<div class="form-group col-4 px-2">
-			        <label for="inp_group_select">{{transl 'prj_tpy_group_package'}}</label>
-			        <input type="text" data-name="inf02" class="form-control objData"  value="{{inf02}}" data-validation="">
-		    	</div>
-				<div class="form-group col-4 px-2">
-			        <label for="inp_group_select">{{transl 'prj_tpy_group_producer'}}</label>
-			        <input type="text" data-group="inf03" data-name="prod"  class="form-control objData"  value="{{inf03.prod}}" data-validation="">
-		    	</div>
+	                <label>{{transl 'prj_user_group_nationality'}}<span class="required">&nbsp;*</span></label>
+	                <input type="text"  data-group="inf04" data-name="n" class="form-control objData" id="inp_group_locate" value="{{inf04.n}}"  maxlength="250">
+                </div>
+                <div class="form-group col-4">
+	                <label for="inp_group_name">{{transl 'per_person_patient_address'}}<span class="required">&nbsp;*</span></label> 
+	                <input type="text" data-group="inf04" data-name="a" class="form-control objData" id="inp_group_name" value="{{inf04.a}}" placeholder="{{transl 'prj_tpy_group_address_enter'}}">
+				</div>	
+				<div class="form-group col-4"></div>
+	        </div>
 	        
-				<div class="col-12"><hr class="badge-info" style="height: 1px; width: 100%;"></div>
-				
-				<div class="col-lg-12 mt-4" id="div_show_desc">
-					<label for="introduce" class="col-form-label">{{transl 'prj_tpy_group_desc'}}</label>
-					<div class="">
-					    <textarea class="form-control objData" data-group="inf03" data-name="desc" id="div_show_desc" rows="5" data-validation="">{{inf03.desc}}</textarea>
-					</div>
-           		</div>
-           	
-	           	<div class="col-lg-12 mt-4" id="div_show_effect">
-					<label for="service" class="col-form-label">{{transl 'prj_tpy_group_effect'}}</label>
-					<div class="">
-					    <textarea class="form-control objData" data-group="inf03" data-name="effect" id="div_show_effect" rows="5" data-validation="">{{inf03.effect}}</textarea>
-					</div>
-	           	</div>
-           	
-	  			<div class="col-lg-12 mt-4" id="div_show_assign">
-					<label for="mission" class="col-form-label">{{transl 'prj_tpy_group_assign'}}</label>
-					<div class="">
-					    <textarea class="form-control objData" data-group="inf03" data-name="assign" id="div_show_assign" rows="5" data-validation="">{{inf03.assign}}</textarea>
-					</div>
-	           	</div>
-           	 
-	           	<div class="col-lg-12 mt-4" id="div_show_infor">
-					<label for="information" class="col-form-label">{{transl 'prj_tpy_group_another_inf'}}</label>
-					<div class="">
-					    <textarea class="form-control objData" data-group="inf03" data-name="infor" id="div_show_infor" rows="5" data-validation="">{{inf03.infor}}</textarea>
-					</div>
-	           	</div>
-           	</div>
-           	<div class="row mt-4">
-           		<!-- -----------------FILES -------------------------- -->
+      		<div class="row ml-1">
+				<div class="form-group col-4">
+					<label>{{transl 'per_person_patient_phone'}}<span class="required">&nbsp;*</span></label>
+					<input type="text" data-name="inf02" class="form-control objData" id="inp_group_email" value="{{inf02}}" maxlength="50" data-validation="required">
+				</div>
+				<div class="form-group col-4">
+					<label>{{transl 'per_person_patient_mail'}}<span class="required">&nbsp;*</span></label>
+					<input type="email" data-name="inf01" class="form-control objData" id="inp_group_email" value="{{inf01}}" maxlength="250" data-validation="required">
+				</div>
+				<div class="form-group col-4"></div>
+			</div>
+
+            <hr class="badge-info" style="height: 1px;">
+            
+            <div class="col-lg-12 mt-4" id="div_create_introduce">
+                <label for="introduce" class="col-form-label">{{transl 'per_person_producer_introduce'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="introduce" id="introduce" rows="5" placeholder="{{transl 'prj_user_group_introduce'}}">{{{inf06.introduce}}}</textarea>
+            </div>
+            <div class="col-lg-12 mt-4" id="div_create_service">
+                <label for="service" class="col-form-label">{{transl 'per_person_producer_treatment'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="desc01" id="service" rows="5" placeholder="{{transl 'prj_user_group_service'}}">{{{inf06.treatment}}}</textarea>
+            </div>
+            <div class="col-lg-12 mt-4" id="div_create_mission">
+                <label for="mission" class="col-form-label">{{transl 'per_person_producer_collab'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="desc02" id="mission" rows="5" placeholder="{{transl 'prj_user_group_mission'}}">{{{inf06.collab}}}</textarea>
+            </div>
+            <div class="col-lg-12 mt-4" id="div_create_information">
+                <label for="information" class="col-form-label">{{transl 'per_person_producer_research'}}</label>
+                <textarea class="form-control objData" data-group="inf06" data-name="desc03" id="information" rows="5" placeholder="{{transl 'prj_user_group_information'}}">{{{inf06.research}}}</textarea>
+            </div>
+            
+            
+			<div class="row mt-4">
             	<div class="col-lg-6 col-md-4 col-sm-12 col-xm-12 form-group mb-4">
-					<label for="inp_group_descr">{{transl 'prj_tpy_group_avatar'}}</label>
+					<label for="inp_group_descr">{{transl 'prj_user_group_avatar'}}</label>
 					<div id="frm_dropzone_send" class="fallback">
 
 						<form action="/" method="post" class="dropzone inputfile">
@@ -182,7 +149,7 @@
 				</div>
 				
 				<div class="col-lg-6 col-md-4 col-sm-12 col-xm-12 form-group mb-4">
-					<label for="inp_group_descr">{{transl 'prj_tpy_group_files'}}</label>
+					<label for="inp_group_descr">{{transl 'prj_user_group_files'}}</label>
 					<div id="frm_dropzone_send_file" class="fallback">
 
 						<form action="/" method="post" class="dropzone inputfile">
@@ -199,12 +166,11 @@
 						</form>
 					</div>
 				</div>
-
-			</div>  
-			<div class="d-flex justify-content-end mt-4">
-            	<button id="btn_cancel_entity" class="btn" type="button">{{transl 'prj_tpy_group_new_btn_cancel'}}</button>
-			    <button id="btn_edit_entity" class="btn btn-primary" type="button">{{transl 'prj_tpy_group_new_btn_save'}}</button>
-			</div>
+	        </div> 
+            <div class="d-flex justify-content-end mt-4">
+                <button id="btn_cancel_new_02" class="btn btn-secondary mr-2" type="button">{{transl 'prj_user_group_new_btn_cancel'}}</button>
+                <button id="btn_create_entity" class="btn btn-primary" type="button">{{transl 'prj_user_group_new_btn_save'}}</button>
+            </div>
         </div>
     </div>
 </div>

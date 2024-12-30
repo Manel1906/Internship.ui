@@ -93,6 +93,28 @@ define([],function(){
 			}
 		};
 		
+		this.do_lc_show_add_new = function(id, mode){               
+			try{
+				$(pr_divContent)	.html(tmplCtrl.req_lc_compile_tmpl(tmplName.TMPL_ENT_NEW	, {}));
+				
+				if(mode == var_lc_MODE_NEW){
+					do_lc_show_entity({}, mode);
+					
+				}else if(mode == var_lc_MODE_MOD || mode == var_lc_MODE_SEL){
+					
+					var params = req_gl_Url_Params(App.data.url?App.data.url:decodeURIComponent(window.location.search.substring(1)));
+					if(!id) id = params.id;
+					if (id) do_lc_get_Entity (id, mode);
+				}
+				App.SummerNoteController.do_lc_show("#div_create_introduce");//text editor 
+				App.SummerNoteController.do_lc_show("#div_create_service");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_mission");//text editor
+				App.SummerNoteController.do_lc_show("#div_create_information");//text editor
+			}catch(e) {				
+				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.user", "Ent", "do_lc_show", e.toString()) ;
+			}
+		};
+		
 		const do_lc_get_Entity = function(id, mode){
 			let ref 		= req_gl_Request_Content_Send(pr_SERVICE_CLASS, pr_SV_GET);	
 			ref["id"]		= id;
