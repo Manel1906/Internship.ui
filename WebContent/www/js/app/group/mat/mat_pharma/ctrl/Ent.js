@@ -113,7 +113,21 @@ define([], function() {
 				$(".item-file-download").off("click").on("click", function(){
 					let {path} = $(this).data();
 					path && window.open(path, "_blank");
-				})
+				});
+				$(".file-avatar").off("click").on("click", function() {
+					const {path} = $(this).data();
+					let isImage = do_lc_check_image(path);
+					if(isImage){
+						const viewer = new Viewer(document.getElementById('div_entity_content'), {
+							filterImgClass: ['msg-body-forme', 'msg-body-other'],
+							hide: function () {
+								viewer.destroy();
+							},
+						});
+					}else{
+						window.open(path, "_blank");
+					}
+				});
 				
 				$("#btn_edit").off("click").on("click", function(){
 					do_lc_edit_entity(data, pr_Mode_MOD);
@@ -405,7 +419,28 @@ define([], function() {
 					do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_save'));
 				}
 			}
-						
+			
+			//-------------------------------------------------------------------------
+			var do_lc_getExtension_from_name = function (filename) {
+				var parts = filename.split('.');
+				return parts[parts.length - 1];
+			}
+
+			var do_lc_check_image = function (filename) {
+				var ext = do_lc_getExtension_from_name(filename);
+				switch (ext.toLowerCase()) {
+				case 'jpg':
+				case 'jpeg':
+				case 'gif':
+				case 'bmp':
+				case 'png':
+				case 'PNG':
+				case 'webp':
+					//etc
+					return true;
+				}
+				return false;
+			}
 
 		}
 

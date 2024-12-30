@@ -1,60 +1,7 @@
 <div class="card">
     <div class="card-body">
-	    <div class="media">
-	    	{{#if val01}}
-              {{#if val01.img}}
-               	<div>
-	    			<img src="{{val01.img}}" alt="" class="avatar-sm mr-4 rounded-circle"  onerror="{{url_image_err}}">
-	    		</div>
-	    		<div>
-<!-- 					<p class="text-muted info-edit info-content" data-name="name">{{name}}</p> -->
-<!-- 					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager"> -->
-					<p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
-				</div>
-              {{else}}
-               <div class="avatar-xs mr-3">
-                   <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                       {{reqFirstLetter name}}
-                   </span>
-               </div>
-               <div>
-<!-- 					<p class="text-muted info-edit info-content" data-name="name">{{name}}</p> -->
-<!-- 					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager"> -->
-					<p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
-				</div>
-               {{/if}}
-             {{else}}
-             <div class="avatar-xs mr-3">
-                  <span class="avatar-title rounded-circle bg-soft-primary text-primary">
-                      {{reqFirstLetter name}}
-                  </span>
-              </div>
-              <div>
-<!-- 					<p class="text-muted info-edit info-content" data-name="name">{{name}}</p> -->
-<!-- 					<input type="text" data-name="name" value="{{name}}" class="form-control objData hide content-edit isManager"> -->
-					<p class="fw-bold h5 text-uppercase mb-0">{{name}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_room'}} {{inf01.room}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_phone'}}: {{inf01.phone}}</p>
-					<p class="text-muted mb-0">{{transl 'prj_user_group_email'}}: {{inf01.email}}</p>
-				</div>
-             {{/if}}
-            <div class="media-body overflow-hidden">
-                <h5 class="text-truncate font-size-16 info-edit info-content"></h5>
-            </div>
-            <a id="a_btn_save" class="mr-2 text-primary hide action-item action-item-duplicate" data-toggle="tooltip" data-placement="top" title="" data-original-title="Save">
-            	<i class="mdi mdi-content-save font-size-20 action-item"></i>
-            </a>
-            <a id="a_btn_cancel" class="mr-2 text-danger hide action-item-duplicate cursor-pointer" data-toggle="tooltip" data-placement="top" title="" data-original-title="Cancel">
-            	<i class="mdi mdi-close font-size-20"></i>
-            </a>
-            
-             <div class="dropdown float-right font-size-20">
+   		<div class="col-12">
+   			<div class="dropdown float-right font-size-20">
                 <a href="javascript:void(0)" class="dropdown-toggle card-drop action-item-duplicate isManager" data-toggle="dropdown" aria-expanded="false">
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
@@ -67,7 +14,47 @@
                		<li><span id="btn_del" class="dropdown-item cursor-pointer" data-id="{{id}}"><i class="mdi mdi-trash-can text-danger mr-1"></i>{{transl 'common_title_confirm'}}</span></li>
                 </ul>
             </div>
-        </div>
+   		</div>
+   		<div class="col-12 row align-items-center mb-2 msg-body-forme">
+    		<div class="col-4">
+           		{{#if avatar}}
+			    <img src="{{reqSrcImg avatar}}" alt="" data-path="{{avatar.url}}"
+			        style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%;" 
+			        class="avatar-xs file-avatar cursor-pointer" 
+			        alt="Avatar" 
+			        data-path="{{reqSrcImg avatar}}"
+			        onerror="{{url_image_err}}">
+				{{else}} 
+				<img src="{{url_image_err}}" 
+			        style="width: 140px; height: 140px; object-fit: cover; border-radius: 50%;" 
+			        class="avatar-xs files_content_user cursor-pointer" 
+			        alt="Avatar" 
+			        onerror="{{url_image_err}}">
+				{{/if}}
+			</div>
+    
+    		<div class="col-8">
+               	<div class="d-flex align-items-center">
+                   	<h5 class="text-muted mb-2">{{name}}</h5>
+				</div>
+                   <div class="d-flex align-items-center">
+                     	<h6 class="text-muted mb-2">{{transl 'prj_user_group_room'}}&nbsp;:&nbsp; </h6>
+                     	<p class="text-muted mb-2"> {{inf01.room}}</p>
+				</div>
+				<div class="d-flex align-items-center">
+                	<h6 class="text-muted mb-2">{{transl 'prj_user_group_phone'}} &nbsp;:&nbsp; </h6>
+                	<p class="text-muted info-content mb-2 flex-grow-1">
+				    	{{inf01.phone}}
+				    </p>
+				</div>
+				<div class="d-flex align-items-center">
+                	<h6 class="text-muted mb-2">{{transl 'prj_user_group_email'}} &nbsp;:&nbsp; </h6>
+                	<p class="text-muted info-content mb-2 flex-grow-1">
+				    	{{inf01.email}}
+				    </p>
+				</div>
+           	</div>
+           </div>
 		
 		<div id="div_group_content">
 	        <div class="media">
