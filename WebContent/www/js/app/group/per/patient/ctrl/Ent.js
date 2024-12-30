@@ -108,78 +108,20 @@ define([],function(){
 			if(sharedJson[App['const'].SV_CODE] == App['const'].SV_CODE_API_YES) {
 				let data 		= sharedJson[App['const'].RES_DATA];
 				
-				do_lc_clean_data	(data);
 				do_lc_show_entity	(data, mode);
 			} else {
 				do_gl_init_msgbox_annonce($.i18n("prj_project_not_right_view"), () => pr_ctr_Main.do_lc_switch_mobile_or_pc(`view_prj_dashboard.html`));
 			}
 		}
 		
-		const do_lc_show_entity = function(ent, mode){
+		const do_lc_show_entity = function(obj, mode){
 			if (!mode) mode = var_lc_MODE_SEL;
 			
-			do_lc_build_page(ent, mode);
-		}
-		
-		const do_lc_clean_data = function(ent){
-			if(Object.keys(ent).length == 0) return;
-
-
-			const do_req_inf05 = (data) => {
-				if(!data) return;
-				let inf05
-				try {
-					inf05 = JSON.parse(data);
-				} catch (e) {
-					return;
-				}
-
-				let inf05Arr = inf05
-				if(!Array.isArray(inf05Arr)) {
-					if(typeof inf05Arr !== 'object') return
-
-					//When inf05Arr has type object => to array
-					inf05Arr = Object.keys(inf05).map(k => ({ [k]: inf05[k] }));
-				}
-
-				return inf05Arr.reduce((curr, item) => {
-					if(!item.k) return
-					curr[item.k] = item.v.replace(/&nbsp;/gi,"").split(" ").join('');
-					return curr;
-				}, {});
-			}
-			ent.inf05 = ent.inf05? do_req_inf05(ent.inf05) : null;
-
-			if(ent.files && !ent.avatar) {
-				ent.files.forEach(e => {
-					if(e.typ01 === 1 && e.typ02 === 1) {
-						ent.avatar = e
-					}
-				})
-			}
-			
-			if(ent.inf04 && typeof ent.inf04 == "string"){
-				ent.inf04 = JSON.parse(ent.inf04);
-			}
-			
-			if(ent.inf06 && typeof ent.inf06 == "string"){
-				ent.inf06 = JSON.parse(ent.inf06);
-			}
-			
-			if (ent.inf08 && typeof ent.inf08 == "string") {
-			    ent.inf08 = JSON.parse(ent.inf08);
-			}
-			
-			if (ent.inf09 && typeof ent.inf09 == "string") {
-				ent.inf09 = JSON.parse(ent.inf09);
-			}
-		}
-
-		const do_lc_build_page = function(obj, mode){
 			App.controller[pr_grpName].EntTabInfo.do_lc_show(obj, mode);
-			
+						
 			do_lc_binding_events(obj, mode);
 		}
+		
 
 		var do_lc_binding_events = function (ent, mode){
 			$(".ent-tab").off("click").on("click", function(e){

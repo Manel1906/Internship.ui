@@ -57,6 +57,8 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		};
 		
 		var do_lc_show_entity 			= function(ent, mode){
+			do_lc_clean_data			(ent);
+			
 			do_lc_show_info 			(ent);
 			do_lc_show_file 			(ent);
 			do_lc_show_contact 			(ent);
@@ -336,7 +338,6 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 			if(can_gl_AjaxSuccess(sharedJson)) {
 				const data = sharedJson[App['const'].RES_DATA];
 				if(data){
-					do_lc_clean_data(data)
 					do_lc_show_entity(data, var_lc_MODE_SEL);
 					do_gl_show_Notify_Msg_Success 	($.i18n("common_success_update") );
 					
@@ -346,32 +347,9 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				do_gl_show_Notify_Msg_Error ($.i18n('common_err_msg_get') );
 			}
 		}
+				
 		const do_lc_clean_data = function(ent){
 			if(Object.keys(ent).length == 0) return;
-
-			const do_req_inf05 = (data) => {
-				if(!data) return;
-				let inf05
-				try {
-					inf05 = JSON.parse(data);
-				} catch (e) {
-					return;
-				}
-
-				let inf05Arr = inf05
-				if(!Array.isArray(inf05Arr)) {
-					if(typeof inf05Arr !== 'object') return
-
-					//When inf05Arr has type object => to array
-					inf05Arr = Object.keys(inf05).map(k => ({ [k]: inf05[k] }));
-				}
-
-				return inf05Arr.reduce((curr, item) => {
-					if(!item.k) return
-					curr[item.k] = item.v.replace(/&nbsp;/gi,"").split(" ").join('');
-					return curr;
-				}, {});
-			}
 
 			ent.inf05 = ent.inf05? do_req_inf05(ent.inf05) : null;
 
@@ -397,7 +375,29 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				ent.inf09 = JSON.parse(ent.inf09);
 			}
 		}
-		
+		const do_req_inf05 = (data) => {
+			if(!data) return;
+			let inf05
+			try {
+				inf05 = JSON.parse(data);
+			} catch (e) {
+				return;
+			}
+
+			let inf05Arr = inf05
+			if(!Array.isArray(inf05Arr)) {
+				if(typeof inf05Arr !== 'object') return
+
+				//When inf05Arr has type object => to array
+				inf05Arr = Object.keys(inf05).map(k => ({ [k]: inf05[k] }));
+			}
+
+			return inf05Arr.reduce((curr, item) => {
+				if(!item.k) return
+				curr[item.k] = item.v.replace(/&nbsp;/gi,"").split(" ").join('');
+				return curr;
+			}, {});
+		}
 		//---------------------------------Ajax----------------------------------------------
 		this.do_lc_cancel = function(obj){
 			do_lc_show_entity(obj, var_lc_MODE_SEL);
