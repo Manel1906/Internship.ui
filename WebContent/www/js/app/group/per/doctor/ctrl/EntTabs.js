@@ -169,13 +169,14 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				});
 			}
 		}
-		function do_lc_getExtension_from_name(filename) {
+		
+		//-------------------------------------------------------------------------
+		var do_lc_getExtension_from_name = function (filename) {
 			var parts = filename.split('.');
 			return parts[parts.length - 1];
 		}
 
-
-		function do_lc_check_image(filename) {
+		var do_lc_check_image = function (filename) {
 			var ext = do_lc_getExtension_from_name(filename);
 			switch (ext.toLowerCase()) {
 			case 'jpg':

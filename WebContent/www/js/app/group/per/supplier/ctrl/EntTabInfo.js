@@ -421,6 +421,28 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		this.do_lc_cancel = function(obj){
 			do_lc_show_entity(obj, var_lc_MODE_SEL);
 		}
+		
+		//-------------------------------------------------------------------------
+		var do_lc_getExtension_from_name = function (filename) {
+			var parts = filename.split('.');
+			return parts[parts.length - 1];
+		}
+
+		var do_lc_check_image = function (filename) {
+			var ext = do_lc_getExtension_from_name(filename);
+			switch (ext.toLowerCase()) {
+			case 'jpg':
+			case 'jpeg':
+			case 'gif':
+			case 'bmp':
+			case 'png':
+			case 'PNG':
+			case 'webp':
+				//etc
+				return true;
+			}
+			return false;
+		}
 	}
 		
 	return EntTabInfo;

@@ -213,19 +213,14 @@ define([],function(){
 					App.controller[pr_grpName].EntTabInfo			.do_lc_show(ent, mode);
 					
 				}else if(typ === pr_tab_typ_disease_hist){
-					App.controller[pr_grpName].EntTabHistDisease	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_medical_hist){
-					App.controller[pr_grpName].EntTabHistMedicine	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_medical_order){
-					App.controller[pr_grpName].EntTabOrderMedicine	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_blood_test){
-					App.controller[pr_grpName].EntTabOrderBloodTest	.do_lc_show(ent, mode);
 				
 				}else if(typ === pr_tab_typ_img_test){
-					App.controller[pr_grpName].EntTabOrderImgTest	.do_lc_show(ent, mode);
 				}
 			});
 		}
