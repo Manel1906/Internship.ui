@@ -193,14 +193,13 @@ define([], function() {
 			
 //			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, {typ01: pr_TYP_TEST_BLOOD, searchKey: pr_SEARCH_KEY, stats : pr_STAT_ACTIVE, hardLoad, wChild: true});
 			const ref 				= req_gl_Request_Content_Send_With_Params(pr_SERVICE_CLASS_DYN, pr_SV_LIST_DYN, 
-			{
-				typ01		: pr_TYP_TEST_BLOOD,
-			 	searchKey	: pr_SEARCH_KEY,
-			  	stats 		: pr_STAT_ACTIVE,
-			  	typs		: pr_typ,
-			   	hardLoad,
-			    wChild: true
-		    });
+											{
+												typ01		: pr_TYP_TEST_BLOOD,
+												typ03		: pr_typ,
+											 	searchKey	: pr_SEARCH_KEY,
+											  	stats 		: pr_STAT_ACTIVE,
+											    wChild: true
+										    });
 
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);
 			
