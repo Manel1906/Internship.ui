@@ -17,20 +17,6 @@
 		<input type="hidden" class="form-control objData" data-group="per" data-name="id" value="{{per.id}}">
 		
 		<div class="row">
-			<div class="col-6">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_legalstat'}}<span class="required">&nbsp;*</span></h5>
-				<p class="text-muted info-edit info-content">
-					{{#equal per.v02 1020001}}{{transl "per_person_mr" }}{{/equal}}
-					{{#equal per.v02 1020002}}{{transl "per_person_mrs" }}{{/equal}}
-				</p>
-				<select id="sel_autuser_header_legalstat" class="form-control objData content-edit hide isManager" data-validation="required" data-group="per" data-name="v02">
-					<option {{#equal per.v02 1020001}}selected{{/equal}} value="1020001">{{transl "per_person_mr"}}</option>
-					<option {{#equal per.v02 1020002}}selected{{/equal}} value="1020002">{{transl "per_person_mrs"}}</option>
-				</select>
-			</div>
-		</div>
-
-		<div class="row">
 			<div class="col-4">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_name_01'}}<span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{per.name01}}</p>
@@ -55,35 +41,50 @@
 		
 		<div class="row">
 			<div class="col-4">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_b'}} </h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_b'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{reqFormatShortDate inf04.b}}</p>
 				<div class="input-daterange input-group content-edit">
                 	<input id="aut_user_ent_tab01_info04_b" data-provide="datepicker" class="form-control objData content-edit hide isManager" type="text" 
-                	data-group="inf04" data-name="b" data-format="date" data-validation="date" {{#if inf04.b}}value="{{reqFormatShortDate inf04.b}}"{{/if}}>
+                	data-group="inf04" data-name="b" data-format="date" data-validation="required date" {{#if inf04.b}}value="{{reqFormatShortDate inf04.b}}"{{/if}}>
                 </div>
 			</div>
 			
 			<div class="col-4">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_t'}}</h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_legalstat'}}<span class="required">&nbsp;*</span></h5>
+				<p class="text-muted info-edit info-content">
+					{{#equal per.typ03 0}}{{transl "per_person_men" }}{{/equal}}
+					{{#equal per.typ03 1}}{{transl "per_person_women" }}{{/equal}}
+					{{#equal per.typ03 2}}{{transl "per_person_other" }}{{/equal}}
+				</p>
+				<select id="sel_autuser_header_legalstat" class="form-control objData content-edit hide isManager" data-validation="required" data-group="per" data-name="typ03">
+					<option {{#equal per.typ03 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
+					<option {{#equal per.typ03 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
+					<option {{#equal per.typ03 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-4">
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_t'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{inf04.t}}</p>
-				<input id="aut_user_ent_tab01_info04_t" class="form-control objData content-edit hide isManager" type="text" data-validation=""
+				<input id="aut_user_ent_tab01_info04_t" class="form-control objData content-edit hide isManager" type="text" data-validation="required"
 				data-group="inf04" data-name="t" data-format="numeric" {{#if inf04.t}}value="{{inf04.t}}"{{/if}}/>
 			</div>
-			
-			<div class="col-4">
+			<div class="col-8">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_a'}}</h5>
 				<p class="text-muted info-edit info-content">{{inf04.a}}</p>
 				<input id="aut_user_ent_tab01_info04_a" class="form-control objData content-edit hide isManager" type="text" data-validation=""
 				data-group="inf04" data-name="a" data-format="numeric" value="{{inf04.a}}"/>
-			</div>
+			</div>	
 		</div>
 		
-		<div class="row">			
+		<div class="row">				
 			<div class="col-4">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_i'}}</h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_i'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{inf04.i}}</p>
 				<input id="aut_user_ent_tab01_info04_i" class="form-control objData content-edit hide isManager" type="text" 
-					data-group="inf04" data-name="i" data-validation="numeric" value="{{inf04.i}}"/>
+					data-group="inf04" data-name="i" data-validation="required numeric" value="{{inf04.i}}"/>
 			</div>	
 			<div class="col-4">
 				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_d'}}</h5>
@@ -111,17 +112,17 @@
 			</div>			
 			
 			<div class="col-4">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_n'}}</h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_n'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{inf04.n}}</p>
 				<input id="inp_autuser_tab01_info_04_n" class="form-control objData content-edit hide isManager" type="text" 
-					data-group="inf04" data-name="n" value="{{inf04.n}}"/>
+					data-group="inf04" data-name="n" data-validation="required" value="{{inf04.n}}"/>
 			</div>
 			
 			<div class="col-4">
-				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_c'}}</h5>
+				<h5 class="font-size-15 mt-2 info-edit">{{transl 'aut_user_ent_tab01_info04_c'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit info-content">{{inf04.c}}</p>
 				<input id="inp_autuser_tab01_info_04_c" class="form-control objData content-edit hide isManager" type="text" 
-					data-group="inf04" data-name="c" value="{{inf04.c}}"/>
+					data-group="inf04" data-name="c" data-validation="required" value="{{inf04.c}}"/>
 			</div>
 		</div>
 		
