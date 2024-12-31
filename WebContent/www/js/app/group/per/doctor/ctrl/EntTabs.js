@@ -11,7 +11,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 		var pr_divHeader 			= header  ? header : null;		
 		var pr_divFooter 			= footer  ? footer : null;
 		
-		const pr_divContent 		= "#div_entity_content";
+		const pr_divContent 		= "#div_entity_view";
 		//------------------------------------------------------------------------------------
 		var pr_ctr_Main 			= App.controller.UI.Main;
 		
@@ -92,7 +92,7 @@ define(['jquery','prjImageViewer/viewer'], function($,Viewer) {
 				const {path} = $(this).data();
 				let isImage = do_lc_check_image(path);
 				if(isImage){
-					const viewer = new Viewer(document.getElementById('div_entity_content'), {
+					const viewer = new Viewer(document.getElementById('div_entity_view'), {
 						filterImgClass: ['msg-body-forme', 'msg-body-other'],
 						hide: function () {
 							viewer.destroy();
