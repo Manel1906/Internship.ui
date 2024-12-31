@@ -37,6 +37,8 @@ define([], function() {
 			
 			var pr_DISEASE_TEMP			= {};
 			
+			var show_Notification 		= false;
+			
 			//--------------------APIs--------------------------------------//
 			this.do_lc_init		= function(){
 				pr_ctr_Main 			= App.controller.UI.Main;
@@ -98,9 +100,11 @@ define([], function() {
 				}
 				data.data.id = obj.id;
 				do_lc_update_entity(data.data);
+				show_Notification = false;
 			}
 	
 			this.do_lc_cancel = function() {
+				show_Notification = false;
 				pr_ctr_Main.do_lc_show();
 			}
 			//-----------------get group-------------------------------------------------------------------------
@@ -293,8 +297,9 @@ define([], function() {
 				})
 				
 				$("#btn_edit").off("click").on("click", function(){
-					var group = [];
-					group = $(this).data();
+					show_Notification = true;
+					var group 		  = [];
+					group 			  = $(this).data();
 					do_lc_edit_entity(group);
 					
 				})
@@ -541,9 +546,10 @@ define([], function() {
 				
 				$("#cancel_header").off("click").on("click",function(){
 					//---MsgBox
+					var contentMessage = show_Notification ? $.i18n("msgbox_confirm_save_cancel") : $.i18n("msgbox_confirm_cancel_create");
 					App.MsgboxController.do_lc_show({
 						title	: $.i18n("msgbox_confirm_title"),
-						content : $.i18n("msgbox_confirm_cancel_create"),
+						content : contentMessage,
 						width	: "400px",
 						autoclose	: false,
 						buttons	: {
