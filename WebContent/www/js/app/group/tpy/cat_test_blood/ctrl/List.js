@@ -198,7 +198,7 @@ define([], function() {
 												typ03		: pr_typ,
 											 	searchKey	: pr_SEARCH_KEY,
 											  	stats 		: pr_STAT_ACTIVE,
-											    wChild: true
+											    wChild		: true
 										    });
 
 			const callbackFunct 	= data => do_lc_show_list_ByAjax_Dyn(data, divList);

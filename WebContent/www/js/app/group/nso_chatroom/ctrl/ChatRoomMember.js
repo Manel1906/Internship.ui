@@ -59,7 +59,7 @@ define(['jquery'], function($) {
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function(values, showChatRoom=true, callback){
+		this.do_lc_show = function(values, showChatRoom=false, callback){
 			initialValues = values;
 			const {obj : group, isGroupUser} = values;
 

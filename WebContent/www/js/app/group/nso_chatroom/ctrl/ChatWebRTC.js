@@ -25,6 +25,8 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		const pr_TIME_OUT_VIEWER		= 30 * 1000; // 1 minutes
 		var var_TIME_OUT_MASTER			= null;
 		var var_TIME_OUT_VIEWER			= null;
+		
+		var self						= this;
 		//------------------controllers------------------------------------------------------
 		
 		
@@ -50,13 +52,13 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		
 		const pr_mediaConstraints = {
 				audio				: {
-					autoGainControl	: false,
-					channelCount	: 2,
-					echoCancellation: false,
-					latency			: 0,
-					noiseSuppression: false,
-					sampleRate		: 48000,
-					sampleSize		: 16,
+					autoGainControl	: true,
+//					channelCount	: 2,
+					echoCancellation: true,
+//					latency			: 0,
+					noiseSuppression: true,
+//					sampleRate		: 48000,
+//					sampleSize		: 16,
 					volume			: 1.0
 				},
 				video				: {
@@ -70,10 +72,6 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		
 		//--------------------------------------------------------------------------
 		let pr_rtc_routeWhenClose	= {
-			route	: "VI_MAIN/prj_chatroom", 
-			url		: "view_prj_chat_room.html"
-		};
-		let pr_rtc_appointment_routeWhenClose	= {
 			route	: "VI_MAIN/prj_appointment_list", 
 			url		: "view_prj_appointment_list.html"
 		};
@@ -112,7 +110,9 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		}
 
 		//---------show-----------------------------------------------------------------------------
-		this.do_lc_show = function({ obj, currentTyp, members }, am_master=true){              
+		var var_lc_cfg 		= null;
+		var var_lc_master	= null;
+		this.do_lc_show 	= function({ obj, currentTyp, members }, am_master=true){              
 			try{
 				pr_rtc_screen		= 0;
 				pr_hasInit 			= false;
@@ -121,71 +121,25 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				pr_rtc_peers		= {};
 				pr_rtc_peers_share	= {};
 				
-				if (localStorage["rtcRouteWhenClose"]) pr_rtc_appointment_routeWhenClose = localStorage["rtcRouteWhenClose"];
+				if (localStorage["rtcRouteWhenClose"]) pr_rtc_routeWhenClose = localStorage["rtcRouteWhenClose"];
 				
 				$("#div_chat_all"	).remove();
 				$("#div_video_call"	).show();
+				
+				var_lc_cfg			= {obj, currentTyp, members};
+				var_lc_master		= am_master;
 				
 				do_lc_init_ServerCfg ({obj, currentTyp, members}, am_master);
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chat", "ChatWebRTC", "do_lc_show", e.toString()) ;
 			}
 		};
-		//--------------------------------------------------------------------------
-//		async function do_gl_RequestPost(url, header, data) {
-//			const response = await fetch(url, {
-//				method	: "POST",
-//				headers	: header,
-//				body	: JSON.stringify(data),
-//			});
-//			return response.json();
-//		}
-//		var do_lc_init_ServerCfg = function ({obj, currentTyp, members, isCallCalendar}, am_master){
-//			do_gl_RequestPost(
-//					"https://rtc.live.cloudflare.com/v1/turn/keys/cdf9cd/credentials/generate", 
-//					{
-//				        'Authorization': 'Bearer a',
-//						'Content-Type': 'application/json',
-//				    },
-//					{'ttl': 86400})
-//				    .then((result) => {
-//						var urls 		= result.iceServers.urls;
-//						var uName 		= result.iceServers.username;
-//						var pwd			= result.iceServers.credential;
-//						var iceServers	= [];
-//						for (var url of urls){
-//							iceServers.push({
-//								urls		: url,
-//								username	: uName,
-//								credential	: pwd,
-//							})
-//						}
-//						
-//						pr_rtc_configuration.iceServers = iceServers;
-//						
-//						do_lc_webRTC_initValue(obj, currentTyp, members,isCallCalendar, am_master);		
-//						
-//						do_lc_Page_Main_build();
-//								
-//						do_lc_webRTC_initMedia();
-//						
-//						pr_hasInit = true;
-//				    })
-//				    .catch((error) => {
-//				        console.error("Error:", error);
-//				        
-//				        //---use the sv cfg default
-//				        
-//				        do_lc_webRTC_initValue(obj, currentTyp, members,isCallCalendar, am_master);		
-//						
-//						do_lc_Page_Main_build();
-//								
-//						do_lc_webRTC_initMedia();
-//						
-//						pr_hasInit = true;
-//				    }
-//				);
-//		}
+		
+		var do_lc_refresh = function (){
+			do_lc_webRTC_stop (false);
+	
+			self.do_lc_show (var_lc_cfg, var_lc_master);
+		}
 		
 		const do_lc_init_ServerCfg = ({obj, currentTyp, members}, am_master) => {
 			const ref 		= req_gl_Request_Content_Send_With_Params("ServiceAutCloudflare", "SVGetRTC");
@@ -206,9 +160,9 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				var iceServers = [];
 				for (var url of urls) {
 					iceServers.push({
-						urls: url,
-						username: uName,
-						credential: pwd,
+						urls		: url,
+						username	: uName,
+						credential	: pwd,
 					})
 				}
 
@@ -272,7 +226,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 				break;
 
 			case "VIDEO_CALL_END_ALL":
-				do_lc_webRTC_removePeerAll(response.payLoad);
+				do_lc_webRTC_removePeerAll(true);
 				break;
 			}
 		}
@@ -541,8 +495,10 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 			}
 			do_lc_video_close (pr_rtc_video_share);
 			
-			delete localStorage["rtcRouteWhenClose"];//---remove when close video
-			App.router.controller.do_lc_run(pr_rtc_appointment_routeWhenClose.route, pr_rtc_appointment_routeWhenClose.url);
+			if (returnToMain){
+				delete localStorage["rtcRouteWhenClose"];//---remove when close video
+				App.router.controller.do_lc_run(pr_rtc_routeWhenClose.route, pr_rtc_routeWhenClose.url);
+			}
 		}
 		
 		
@@ -602,6 +558,7 @@ define(['jquery', 'simplepeer' ], function($, SimplePeer) {
 		const do_lc_bind_event_main = () => {
 			const $btn = $('#btn-chat-message');
 			$('#btn-call-stop'		).off("click").click(do_lc_webRTC_stop	);
+			$('#btn-call-refresh'	).off("click").click(do_lc_refresh		);
 			
 			$('#btn-vid-switch'		).off("click").click(do_lc_toggleMedia	);
 			

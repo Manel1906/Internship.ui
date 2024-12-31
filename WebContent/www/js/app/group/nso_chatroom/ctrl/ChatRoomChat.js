@@ -118,10 +118,8 @@ define([
 		var gumStream 	= null;				//stream from getUserMedia()
 		var rec 		= null;				//Recorder.js object
 		var input 		= null; 	
-		var pr_interval_recording = null;
 
 		var pr_Collect_Msg        = "messages";
-		var pr_Collect_Mem        = "members";
 		//--------------------APIs--------------------------------------//
 		this.do_lc_init		= function(){
 			pr_ctr_Main 			= App.controller.ChatRoom.Main || App.controller.ChatRoom.ChatRoomMain;
@@ -306,7 +304,6 @@ define([
 				if(msg.files && msg.files.length > 0) $('#btn_refresh_doc').trigger("click", [true]); 
 			}
 		}
-
 
 		this.do_lc_del_msg_socket = function(grpId, msgId){
 			if(grpId && msgId){
@@ -1986,19 +1983,12 @@ define([
 						return;
 					}
 										
-					let isManager = false;
-					isManager = (data.typ == 1 || data.typ == 0);
+					let isManager = (data.typ == 1 || data.typ == 0);
 					
 					if(data.stat === 1){
-					//	do_lc_show_form_chat();	
-						
-						pr_ctr_Member	.do_lc_show(initialeValues);
+						pr_ctr_Member	.do_lc_show(initialeValues, true);// => call after do_lc_show_form_chat();	+  do_lc_get_content_chat()
 						pr_ctr_Doc		.do_lc_show(initialeValues.obj);
 						pr_ctr_Post		.do_lc_show(initialeValues.obj,isManager);
-						
-					//	self.do_lc_get_content_chat(initialeValues);
-						
-					//	self.do_lc_show_messages_fromIndexedDB();
 						
 					} else {
 						self.do_lc_show_form_chat();	

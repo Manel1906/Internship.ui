@@ -149,7 +149,9 @@ define([
 			} 
 		}
 
-		var pr_showed		= false;
+		var pr_showed			= false;
+		var var_lc_GROUP_ID 	= null;
+		var var_lc_TYPE_SHOW 	= null;
 		this.do_lc_show = function(typShow, grpId){
 			if (!pr_showed){
 				do_gl_lang_append (pr_grpPath + '/transl', self.do_lc_show_callback, [typShow, grpId]);
@@ -168,30 +170,35 @@ define([
 				App.data["HttpSecuHeader"]		= req_gl_LS_SecurityHeaderBearer(App.keys.KEY_STORAGE_CREDENTIAL);
 				const {typ, id}  				= (typShow&&grpId)? {typ:typShow, id:grpId}: req_gl_Url_Params();
 				
-				var var_lc_GROUP_ID  			= id 		? parseInt(id) 		: null;
-				var var_lc_TYPE_SHOW 			= typ 		? parseInt(typ) 	: null;
+				var_lc_GROUP_ID  				= id 		? parseInt(id) 		: null;
+				var_lc_TYPE_SHOW 				= typ 		? parseInt(typ) 	: null;
 				
-				$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_MAIN, {user: App.data.user}));
-				$("#div_member, #div_member_wait, #div_post, #div_chat, #div_files, #div_info, #avatar_chat_user, #avatar_chat_group").hide();
-				
-				if (var_lc_GROUP_ID != null || var_lc_TYPE_SHOW != null) {
-					App.controller.ChatRoom.Group.do_lc_show(var_lc_TYPE_SHOW, var_lc_GROUP_ID);
-				}else {
-					let typ = localStorage.getItem("nsoGrpChatTyp") ? parseInt(localStorage.getItem("nsoGrpChatTyp")) : null;
-					let id 	= localStorage.getItem("nsoGrpChatId") 	? parseInt(localStorage.getItem("nsoGrpChatId"))  : null;
-					App.controller.ChatRoom.Group.do_lc_show(typ, id);
-				}
-				
-				if (var_lc_TYPE_SHOW!= pr_TYP_CHAT_VIDEO){
-					do_lc_bind_btn_mobile();				
-					do_lc_build_list_message_wait_read();
-				}
-
-				$(document).prop('title',$.i18n('prj_project_sidebar_chat'));
+				self.do_lc_refresh();
 			}catch(e) {				
 				console.log(e); //do_gl_send_exception(App.path.BASE_URL_API_PRIV, App.data["HttpSecuHeader"], App.network, "prj.chatRoom", "ChatRoomMain", "do_lc_show", e.toString()) ;
 			}
 		};
+		
+		this.do_lc_refresh = function(){
+			$("#div_main_content")			.html(tmplCtrl.req_lc_compile_tmpl(tmplName.CHATROOM_MAIN, {user: App.data.user}));
+			$("#div_member, #div_member_wait, #div_post, #div_chat, #div_files, #div_info, #avatar_chat_user, #avatar_chat_group").hide();
+			
+			if (var_lc_GROUP_ID != null || var_lc_TYPE_SHOW != null) {
+				App.controller.ChatRoom.Group.do_lc_show(var_lc_TYPE_SHOW, var_lc_GROUP_ID);
+			}else {
+				let typ = localStorage.getItem("nsoGrpChatTyp") ? parseInt(localStorage.getItem("nsoGrpChatTyp")) : null;
+				let id 	= localStorage.getItem("nsoGrpChatId") 	? parseInt(localStorage.getItem("nsoGrpChatId"))  : null;
+				App.controller.ChatRoom.Group.do_lc_show(typ, id);
+			}
+			
+			if (var_lc_TYPE_SHOW!= pr_TYP_CHAT_VIDEO){
+				do_lc_bind_btn_mobile();				
+				do_lc_build_list_message_wait_read();
+			}
+
+			$(document).prop('title',$.i18n('prj_project_sidebar_chat'));
+		}
+		
 		
 		var do_lc_bind_btn_mobile = function () {
 			$("#btn_chat_group").off("click").click(() => {

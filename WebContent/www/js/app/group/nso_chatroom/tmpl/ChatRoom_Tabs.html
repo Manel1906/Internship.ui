@@ -206,6 +206,8 @@
 	{{#each files}}
 		{{#if (isImage fUrl)}}
 		<img src="{{decodeUTF8 fUrl}}" class="files_content_chat mw-100 min-w-25" data-path="{{decodeUTF8 fUrl}}">
+		{{else if fUrlAudio}}                                                
+        <audio class="audio_recorder" controls src='{{fUrlAudio}}'></audio>
 		{{else}}															
 		<p><a class="files_content_chat" href="javascript:void(0)" data-path="{{decodeUTF8 fUrl}}">{{decodeUTF8 fName}}</a></p>
 		{{/if}}
@@ -263,10 +265,14 @@
 							</span>
 							
 							{{#unless forMe}}
-							<div class="msg-body-other">
-								<p class="text-justify chat-msg-bottom chat-msg-font-size">{{{inf04}}}</p>
-								{{> files}}
-							</div> 
+						    <div class="msg-body-other">
+						        {{#if fUrlAudio}}                                                  
+						            <audio class="audio_recorder" controls src='{{fUrlAudio}}'></audio>
+						        {{else}}
+						            <p class="text-justify chat-msg-bottom chat-msg-font-size">{{{inf04}}}</p>
+						            {{> files}}
+						        {{/if}}
+						    </div>
 							
 							<div class="msg-avatar-left">
 								{{#if avatar}}
@@ -278,7 +284,7 @@
 								{{/if}}
 							</div>	                                       
 							{{/unless}}
-							
+
 							{{#if forMe}}
 							<div class="msg-body-forme">
 								{{> files}}								
@@ -336,6 +342,8 @@
 	{{#each files}}
 		{{#if (isImage fUrl)}}
 		<img src="{{decodeUTF8 fUrl}}" class="files_content_chat mw-100 min-w-25" data-path="{{decodeUTF8 fUrl}}">
+		{{else if fUrlAudio}}                                                
+        <audio class="audio_recorder" controls src='{{fUrlAudio}}'></audio>
 		{{else}}															
 		<p><a class="files_content_chat" href="javascript:void(0)" data-path="{{decodeUTF8 fUrl}}">{{decodeUTF8 fName}}</a></p>
 		{{/if}}
@@ -766,6 +774,8 @@
 		{{#each files}}
 		{{#if (isImage fUrl)}}
 		<img src="{{decodeUTF8 fUrl}}" class="files_content_chat mw-100 min-w-50" data-path="{{decodeUTF8 fUrl}}">
+		{{else if fUrlAudio}}                                                
+        <audio class="audio_recorder" controls src='{{fUrlAudio}}'></audio>
 		{{else}}														
 		<p><a class="files_content_chat" href="javascript:void(0)" data-path="{{decodeUTF8 fUrl}}">{{decodeUTF8 fName}}</a></p>
 		 {{/if}}
@@ -1091,10 +1101,10 @@
 <div class="media pb-3">
 	<div class="col-12">
          <div class="text-right">
-         	<a href="javascript:void(0)" class="text-dark font-size-14 mt-3 font-weight-bold" id="btn_refresh_entity">
+         	<a href="javascript:void(0)" class="text-dark font-size-14 mt-3 font-weight-bold" id="btn_refresh_group">
 				<i class="mdi mdi-refresh font-size-18 mr-2"></i>
 			</a>
-            <button id="btn_new_entity" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_chat_group_new'}}</button>
+            <button id="btn_btn_new_group" type="button" class="btn btn-success btn-rounded waves-effect waves-light btn-sm"><i class="mdi mdi-plus mr-1"></i> {{transl 'prj_chat_group_new'}}</button>
          </div>
      </div>
 </div>
@@ -1176,7 +1186,7 @@
 				</div>
 				
 		        </div>   
-            <button id="btn_create_entity" class="btn btn-primary" type="button">{{transl 'prj_chat_group_new_btn_create'}}</button>
+            <button id="btn_create_group" class="btn btn-primary" type="button">{{transl 'prj_chat_group_new_btn_create'}}</button>
         </div>
     </div>
 </div>
@@ -1254,7 +1264,7 @@
     	{{#ifCond typ01 '==' 200}} data-original-title="{{uNameSend}}" {{/ifCond}} {{#ifCond typ01 '==' 201}} data-original-title="{{name}}" {{/ifCond}}>
     	{{#ifCond typ01 '==' 200}}
     		{{#if avatar}}
-		    	<img src="{{reqSrcImg avatar}}" class="rounded-circle avatar-xs m-1" alt="" onerror="{{imageErrorUser}}">
+		    	<img src="{{avatar}}" class="rounded-circle avatar-xs m-1" alt="">
 		     {{else}} 
 		    	<div class="rounded-circle avatar-xs m-1 text-white text-uppercase" style="background-color: {{reqSrcTextColor uNameSend}}"><div class="text-middle">{{reqSrcTextAvatar uNameSend}}</div></div>
 		     {{/if}}
@@ -1456,16 +1466,25 @@
 <!--************************************-->
 <!--BEGIN TMPL-->
 <!--NAME TMPL:ChatRoom_Tab_Chat_Video -->
-<div class="col-xm-12 col-sm-6 col-md-3 col-lg-3 video-container mt-2" id="row_video_master">
+<div class="col-xm-12 col-sm-6 col-md-3 col-lg-3 video-container mt-2" id="div_video_share" style="display:none">
     <div class="w-100"> 
-        <img id="btn-img-avatar" src="{{user.avatar.url}}" 
-            class="avatar-xs rounded-circle position-absolute img-hover-opacity" alt="{{user.login}}"
-            style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; z-index: 1;">
+        <video id="video-ScreenShare" class="rounded video_small" autoplay muted></video>
 
+        <i class="btn_zoom_video bx bx-zoom-in" style="color: white"></i>
+    </div>
+</div>
+
+<div class="col-xm-12 col-sm-6 col-md-3 col-lg-3 video-container mt-2" id="div_video_master">
+    <div class="w-100 master"> 
         <span id="text-avatar" 
             class="position-absolute text-white" 
             style="bottom: 20px; left: 25px; font-size: 18px; z-index: 100;">
-            {{user.login01}}
+            
+            <img id="btn-img-avatar" src="{{user.avatar.url}}" 
+            class="avatar-xs rounded-circle position-absolute img-hover-opacity" alt="{{user.login}}"
+            style="top: 50%; left: 5px; transform: translate(-50%, -50%); width: 15px; height: 15px; z-index: 1;">
+            
+            <div  style="margin-left: 25px;">{{user.login01}}</div>
         </span>
 
         <video id="video-master" class="rounded video_small" autoplay muted></video>
@@ -1474,6 +1493,7 @@
     </div>
 </div>
 
+
 <!-- Control bar section -->
 <div id="control-bar" class="p-3 position-fixed video-ctrlBar w-100" style="bottom: 0;">
     <div class="d-flex justify-content-center align-items-center w-100 flex-wrap" 
@@ -1481,6 +1501,11 @@
 
         <!-- Buttons Group -->
         <div class="d-flex justify-content-center align-items-center flex-wrap" style="gap: 15px;">
+        	<!-- refresh Button -->
+            <button id="btn-call-refresh" class="btn btn-dark rounded-circle p-0 d-flex align-items-center justify-content-center shadow"
+                    style="width: 55px; height: 55px;">
+                <i class="font-size-22 mdi mdi-refresh"></i>
+            </button>
             <!-- Shuffle Button -->
             <button id="btn-vid-shuffle" class="btn btn-dark rounded-circle p-0 d-flex align-items-center justify-content-center shadow"
                     style="width: 55px; height: 55px;">
@@ -1488,10 +1513,10 @@
             </button>
 
             <!-- Screen Share Button -->
-            <button id="btn-screen-share" class="btn btn-dark  hide  rounded-circle p-0 d-flex align-items-center justify-content-center shadow"
-                    style="width: 55px; height: 55px;">
-                <i class="font-size-22 mdi mdi-desktop-mac"></i>
-            </button>
+<!--             <button id="btn-screen-share" class="btn btn-dark rounded-circle p-0 d-flex align-items-center justify-content-center shadow" -->
+<!--                     style="width: 55px; height: 55px;"> -->
+<!--                 <i class="font-size-22 mdi mdi-desktop-mac"></i> -->
+<!--             </button> -->
             <!-- Mute Button -->
             <button id="btn-vid-mute" class="btn btn-danger rounded-circle p-0 d-flex align-items-center justify-content-center shadow"
                     style="width: 55px; height: 55px; background-color: rgb(60, 64, 67)">
@@ -1509,15 +1534,16 @@
                     style="width: 65px; height: 50px; border-radius: 40%;">
                 <i class="font-size-24 mdi mdi-phone-hangup"></i>
             </button>
+            
         </div>
         <!-- Chat Button -->
-        <button id="btn-chat-message" class="hide btn btn-dark rounded-circle p-0 d-flex align-items-center justify-content-center shadow"
-                style="width: 55px; height: 55px;">
-            <i class="font-size-22 mdi mdi-message-text"></i>
-        </button>
+<!--         <button id="btn-chat-message" class="btn btn-dark rounded-circle p-0 d-flex align-items-center justify-content-center shadow" -->
+<!--                 style="width: 55px; height: 55px;"> -->
+<!--             <i class="font-size-22 mdi mdi-message-text"></i> -->
+<!--         </button> -->
         <!-- Chat -->
-        <div class="col-sm-12 col-lg-6 user-chat hide chatroom_middle div_mobile position-fixed" id="div_chat_main_chat" 
-         style="right: 10px; z-index: 100; background-color: white; border-radius: 10px; width: 40%; height: 88vh; display: none;bottom: 75px;">
+        <div class="col-sm-12 col-lg-6 user-chat chatroom_middle div_mobile position-fixed" id="div_chat_main_chat" 
+         style="right: 10px; z-index: 100; background-color: white; border-radius: 15px; width: 40%; height: 88vh; display: none;bottom: 75px;">
         <div class="item-chat-div p-3" id="div_chat" style="max-width: 100%; max-height: 100%;">
             <!-- Chat content here -->
         </div>
@@ -1531,15 +1557,14 @@
 <!--BEGIN TMPL-->
 <!--NAME TMPL:ChatRoom_Tab_Chat_Video_Viewer -->
 <div class="col-xm-12 col-sm-6 col-md-3 col-lg-3 video-container mt-2" id="row_video_viewer_{{id}}">
-	<div class="w-100">
-		<img id="btn-img-avatar_{{id}}" src="{{user.avatar.url}}" 
-		     class="avatar-xs rounded-circle position-absolute img-hover-opacity" alt="{{user.login}}"
-		     style="top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100px; height: 100px; z-index: 1;">
-
+	<div class="w-100 slave">
 		<span 	id="text-avatar_{{id}}" 
        		class="position-absolute text-white" 
        		style="bottom: 20px; left: 25px; font-size: 18px; z-index: 100;">
-           	{{user.login01}}
+       		<img id="btn-img-avatar_{{id}}" src="{{user.avatar.url}}" 
+			     class="avatar-xs rounded-circle position-absolute img-hover-opacity" alt="{{user.login}}"
+			     style="top: 50%; left: 5px; transform: translate(-50%, -50%); width: 15px; height: 15px; z-index: 1;">
+           	<div  style="margin-left: 25px;">{{user.login01}}</div>
        	</span>
         <video id="video-{{id}}" class="rounded video_small" autoplay></video>
         <i class="btn_zoom_video bx bx-zoom-in" style="color: white"></i>
@@ -1761,61 +1786,64 @@
 <!--************************************-->
 <!--BEGIN TMPL-->
 <!--NAME TMPL: ChatRoom_PostDetail-->
-<div class="container-fluid"  id='div_post_content'>
-	<div class="card">
-		<div class="card-body">
-			<div>
-				<div class="d-flex  flex-row-reverse">
-					<div class="align-items-center p-2">
-						<a class="text-primary" id="btn_modify"><i class="bi bi-pen text-dark"></i></a>
-						{{#if v05}}
-						<a class="text-primary" id="btn_star_close_two"><i class="bi bi-star-fill text-warning"></i></a>
-						<a class="text-primary" id="btn_star" hidden><i class="bi bi-star text-warning"></i></a>
-						{{else}}
-						<a class="text-primary" id="btn_star"><i class="bi bi-star text-warning"></i></a>
-						<a class="text-primary" id="btn_star_close_two" hidden><i class="bi bi-star-fill text-warning"></i></a>
-						 {{/if}}
-						<a class="text-primary" id="btn_del"><i class="bi bi-trash text-dark"></i></a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-12 col-xs-12">
-				<div class="col-lg-9">
-					{{#if dt03}}
-					<p class="text-muted mb-0">
-						<i class="fa fa-clock mr-1"></i>
-						{{transl 'deal_detail_dtbegin'}} : {{dateFormatLocalShort dt03}}
-					</p>
-					{{/if}}
-					{{#if dt04}}
-					<p class="text-muted mb-0">
-						<i class="fa fa-clock mr-1"></i>
-						{{transl 'deal_detail_dtend'}} : {{dateFormatLocalShort dt04}}
-					</p>
-					{{/if}}
-				</div>
-				
-			</div>
-			<br>
-			<b><p style="font-size: 35px; font-weight: bold;">{{title}}</p></b>
-			<br>
-			{{#if cont02}}
-				<p class="mb-0">{{{cont02}}}</p>
-			{{/if}}
-			<br>
-			<div class="col-lg-12">  
-				<label class="col-form-label h5">{{transl 'prj_project_attached_files'}}</label>                          	
-				<div class="" id="div_list_files">                 
-	            {{#each files}}
-					{{#equal typ01 '2'}}
-					<h5 class="font-size-14 mb-1"><a href="javascript:void(0)" data-path="{{reqPathDoc url}}" class="text-dark item-file-download cursor-pointer" title='{{fName}}'>{{fName}}</a></h5>
-	                <small>{{reqSizeFile fSize}}</small>
-	                {{/equal}}
-				{/each}}
+<div class="container-fluid" id="div_post_content">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center">
+                 <div class="col-11 text-break">
+                    <p style="font-size: 35px; font-weight: bold;" class="mt-5">{{title}}</p>
+                    {{#if cont02}}
+                        <p class="mt-0">{{{cont02}}}</p>
+                    {{/if}}
                 </div>
-             </div>
-		</div>
-	</div>
+                
+                <!-- Right side with icons -->
+                <div class="col-1 d-flex flex-row-reverse align-items-center p-2">
+                    <a class="text-primary" id="btn_modify"><i class="bi bi-pen text-dark"></i></a>
+                    {{#if v05}}
+                        <a class="text-primary" id="btn_star_close_two"><i class="bi bi-star-fill text-warning"></i></a>
+                        <a class="text-primary" id="btn_star" hidden><i class="bi bi-star text-warning"></i></a>
+                    {{else}}
+                        <a class="text-primary" id="btn_star"><i class="bi bi-star text-warning"></i></a>
+                        <a class="text-primary" id="btn_star_close_two" hidden><i class="bi bi-star-fill text-warning"></i></a>
+                    {{/if}}
+                    <a class="text-primary" id="btn_del"><i class="bi bi-trash text-dark"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-xs-12">
+                <div class="col-lg-9">
+                    {{#if dt03}}
+                        <p class="text-muted mb-0">
+                            <i class="fa fa-clock mr-1"></i>
+                            {{transl 'deal_detail_dtbegin'}} : {{dateFormatLocalShort dt03}}
+                        </p>
+                    {{/if}}
+                    {{#if dt04}}
+                        <p class="text-muted mb-0">
+                            <i class="fa fa-clock mr-1"></i>
+                            {{transl 'deal_detail_dtend'}} : {{dateFormatLocalShort dt04}}
+                        </p>
+                    {{/if}}
+                </div>
+            </div>
+
+            <br>
+
+            {{#if files}}              
+                {{#each files}}
+                    <div class="col-lg-12 mt-5">  
+                        <label class="col-form-label h5">{{transl 'prj_project_attached_files'}}</label>                          	
+                        <div id="div_list_files">   
+                            <div class="col-md-5 col-xs-12">
+                                <img src="{{url}}" onerror="{{url_image_err}};" alt="{{title}}" class="img-fluid w-75 border-radius-6">
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            {{/if}}
+        </div>
+    </div>
 </div>
 <!--END TMPL-->
 
