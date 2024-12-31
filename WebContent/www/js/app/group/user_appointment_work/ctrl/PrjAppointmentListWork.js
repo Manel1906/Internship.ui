@@ -1985,11 +1985,22 @@ define([
 		    
 		    $('.typ02').trigger('change');
 		
-			
+		
 			$("#toggleDropDown").off('click').click((event) => {
-			    event.stopPropagation();
+			    event.stopPropagation(); 
 			    $("#weekdayDropdown").toggle();
 			});
+			
+			$(document).click((event) => {
+			    if (!$(event.target).closest('#toggleDropDown, #weekdayDropdown').length) {
+			        $("#weekdayDropdown").hide();
+			    }
+			});
+			
+			$("#weekdayDropdown").click((event) => {
+			    event.stopPropagation(); 
+			});
+
 			
 			if(prj_work && prj_work.departmentValue){
 				$("#department_input_id").attr("value"		, prj_work.departmentValue);

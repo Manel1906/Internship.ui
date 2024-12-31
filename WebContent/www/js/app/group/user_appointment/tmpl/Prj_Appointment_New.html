@@ -16,7 +16,7 @@
 								    <option {{#equal ent.typ02 300}}selected{{/equal}} value="300" data-color="#ffa500">{{transl 'prj_appointment_option_two'}}</option>
 								    <option {{#equal ent.typ02 400}}selected{{/equal}} value="400" data-color="#34c38f">{{transl 'prj_appointment_option_three'}}</option>
 								    <option {{#equal ent.typ02 500}}selected{{/equal}} value="500" data-color="#ffb6c1">{{transl 'prj_appointment_option_four'}}</option>
-								    <option {{#equal ent.typ02 600}}selected{{/equal}} value="600" data-color="#ffff99">{{transl 'prj_appointment_option_five'}}</option>
+								    <option {{#equal ent.typ02 600}}selected{{/equal}} value="600" data-color="#E6E6FA">{{transl 'prj_appointment_option_five'}}</option>
 								</select>
 								<input type="hidden" id="colorValue" data-group="inf02" data-name="cl" />
                         	</div>
@@ -39,35 +39,35 @@
                     {{#equal ent.typ02 100}}
 						<div class="d-flex justify-content-between align-items-center mt-3">
 						  <label for="form" class="col-form-label h5">{{transl 'prj_appointment_option_form'}} <span class="required">&nbsp;*</span></label>
-							{{#if ent.inf05}}
-						  <div class="form-check flex-fill text-center">
-						    <input type="radio" class="form-check-input" id="workTypeOnline"
-						           name="workType" data-group="inf02" data-name="workType" value="1"
-						           {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}} disabled="disabled">
-						    <label class="form-check-label" for="workTypeOnline">{{transl 'prj_appointment_option_online'}}</label>
-						  </div>
-						
-						  <div class="form-check flex-fill text-center">
-						    <input type="radio" class="form-check-input" id="workTypeOffline"
-						           name="workType" data-group="inf02" data-name="workType" value="0" 
-						           {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}} disabled="disabled">
-						    <label class="form-check-label" for="workTypeOffline">{{transl 'prj_appointment_option_offline'}}</label>
-						  </div>
-						  	{{else}}
-						  	<div class="form-check flex-fill text-center">
+							{{#if ent.stat02}}
+							  <div class="form-check flex-fill text-center">
 							    <input type="radio" class="form-check-input" id="workTypeOnline"
 							           name="workType" data-group="inf02" data-name="workType" value="1"
-							           {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}}>
+							           {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}} disabled="disabled">
 							    <label class="form-check-label" for="workTypeOnline">{{transl 'prj_appointment_option_online'}}</label>
 							  </div>
 							
 							  <div class="form-check flex-fill text-center">
 							    <input type="radio" class="form-check-input" id="workTypeOffline"
 							           name="workType" data-group="inf02" data-name="workType" value="0" 
-							           {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}}>
+							           {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}} disabled="disabled">
 							    <label class="form-check-label" for="workTypeOffline">{{transl 'prj_appointment_option_offline'}}</label>
 							  </div>
-						  {{/if}}
+							  {{else}}
+							  	<div class="form-check flex-fill text-center">
+								    <input type="radio" class="form-check-input" id="workTypeOnline"
+								           name="workType" data-group="inf02" data-name="workType" value="1"
+								           {{#equal ent.inf02.workType 1}}checked="checked"{{/equal}}>
+								    <label class="form-check-label" for="workTypeOnline">{{transl 'prj_appointment_option_online'}}</label>
+								  </div>
+								
+								  <div class="form-check flex-fill text-center">
+								    <input type="radio" class="form-check-input" id="workTypeOffline"
+								           name="workType" data-group="inf02" data-name="workType" value="0" 
+								           {{#equal ent.inf02.workType 0}}checked="checked"{{/equal}}>
+								    <label class="form-check-label" for="workTypeOffline">{{transl 'prj_appointment_option_offline'}}</label>
+								  </div>
+							{{/if}}
 						</div>
 					{{/equal}}
 					

@@ -1693,7 +1693,6 @@ define([
 			if(isSuccess) {
 				const list = sharedJson[App['const'].RES_DATA]?.lst || [];
 				const currentTime = new Date().getTime();
-
 		        const sortedList = list.sort((a, b) => {
 		            const timeA = new Date(a.dtBegin).getTime();
 		            const timeB = new Date(b.dtBegin).getTime();
@@ -1701,18 +1700,20 @@ define([
            			 const isPastB = timeB < currentTime;
 		
 		            if (isPastA === isPastB) {
-		                return timeA - timeB;
+		                return isPastA === isPastB ? 0 : isPastA ? 1 : -1;
 		            }
 		
-		            return isPastA ? 1 : -1;
+		            return timeA - timeB;
 		        });
 		        sortedList.forEach(item => {    
 		            try {
-		                item.inf02 = JSON.parse(item.inf02);
+		               if (typeof item.inf02 === 'string') {
+				            item.inf02 = JSON.parse(item.inf02);
+				        }
 		            } catch (e) {
 		                console.error("Failed to parse inf02 for item:", item);
 		            }
-		            item.showJoinButton = (item.typ02 === 100 && item.inf02.workType === "1" ) || item.typ02 === 400 ;
+		            item.showJoinButton = (item.typ02 === 100 && item.inf02.workType === 1 || item.inf02.workType === "1") || item.typ02 === 400 ;
 		        });
 				$(divList).html(tmplCtrl.req_lc_compile_tmpl(tmplName.PRJ_APPOINTMENT_SHOW_NOTIFICATION, { "appointments": sortedList}));
 				do_lc_bind_event_notification(sortedList);
