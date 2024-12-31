@@ -84,9 +84,9 @@
 				<div class="col-4">
 	              	<h6 class="text-muted mb-2">{{transl 'prj_user_group_gender'}}</h6>
 					<p class="text-muted info-content mb-2 flex-grow-1">
-						{{#equal inf10 0}}{{transl "per_person_men" }}{{/equal}}
-						{{#equal inf10 1}}{{transl "per_person_women" }}{{/equal}}
-						{{#equal inf10 2}}{{transl "per_person_other" }}{{/equal}}
+						{{#equal typ03 0}}{{transl "per_person_men" }}{{/equal}}
+						{{#equal typ03 1}}{{transl "per_person_women" }}{{/equal}}
+						{{#equal typ03 2}}{{transl "per_person_other" }}{{/equal}}
 					</p>
 				</div>	
 				<div class="col-4">	
@@ -548,10 +548,10 @@
 				</div>	
                 <div class="col-4">
 					<label>{{transl 'prj_user_group_gender'}}</label>
-					<select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="" data-name="inf10">
-							<option {{#equal inf10 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
-							<option {{#equal inf10 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
-							<option {{#equal inf10 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
+					<select id="sel_autuser_header_legalstat" class="form-control objData content-edit isManager" data-validation="" data-name="typ03">
+							<option {{#equal typ03 0}}selected{{/equal}} value="0">{{transl "per_person_men"}}</option>
+							<option {{#equal typ03 1}}selected{{/equal}} value="1">{{transl "per_person_women"}}</option>
+							<option {{#equal typ03 2}}selected{{/equal}} value="2">{{transl "per_person_other"}}</option>
 					</select>
 				</div>
 				<div class="col-4">

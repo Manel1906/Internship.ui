@@ -53,19 +53,19 @@
 			
 		<div class="row">
 			<div class="col-md-6 col-xs-12">
-				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_login'}} *</h5>
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_login'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit-content info-content" data-name="login01">{{login01}}</p>
 				<input id="inp_autuser_header_login" class="form-control objData hide content-edit isManager" type="text" data-name="login01" data-validation="required" value="{{login01}}"/>
 			</div>
 			
 			<div class="col-md-6 col-xs-12">
-				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_email'}} *</h5>
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_email'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit-content info-content" data-name="email">{{email}}</p>
 				<input id="inp_autuser_header_email" class="form-control objData hide content-edit isManager" type="text" data-name="email" data-validation="required email" value="{{email}}"/>
 			</div>
 								
 			<div class="col-md-6 col-xs-12">
-				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_type'}}</h5>
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_type'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit-content info-content">{{reqTypeIntern typ01}}</p>
 				<select class="form-control objData content-edit hide isManager" data-name="typ01" id="inp_autuser_header_typ">
 					<option {{#equal typ01 20}}selected{{/equal}} value="20">{{transl "aut_user_ent_header_type_doctor"}}</option>
@@ -79,7 +79,7 @@
 			</div>
 			
 			<div class="col-md-6 col-xs-12">
-				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_stat'}}</h5>
+				<h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_stat'}} <span class="required">&nbsp;*</span></h5>
 				<p class="text-muted info-edit-content info-content">{{reqStatUser stat}}</p>
 				<select id="inp_autuser_header_stat" class="form-control objData content-edit hide isManager" data-name="stat">
 					<option {{#equal stat 2}}selected{{/equal}} value="2">{{transl 'aut_user_ent_header_stat_2'}}</option>
@@ -117,7 +117,7 @@
 		</div>
 		<div class="row noData" id="div_ent_header_password" style="display: none">
 			<div class="col-md-6 col-xs-12 position-relative">
-			    <h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass'}} *</h5>
+			    <h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass'}} <span class="required">&nbsp;*</span></h5>
 			    <div class="position-relative">
 			        <input id="inp_autuser_header_pass" 
 			               class="form-control noData pr-5" 
@@ -131,7 +131,7 @@
 			    </div>
 			</div>
 			<div class="col-md-6 col-xs-12 position-relative">
-			    <h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass_match'}} *</h5>
+			    <h5 class="font-size-15 mt-4 info-edit-content">{{transl 'aut_user_ent_header_pass_match'}} <span class="required">&nbsp;*</span></h5>
 			    <div class="position-relative">
 			        <input id="inp_autuser_header_pass_2" 
 			               class="form-control noData pr-5" 

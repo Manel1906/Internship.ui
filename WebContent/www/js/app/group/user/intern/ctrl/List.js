@@ -162,7 +162,7 @@ define(['jquery'], function($) {
 				$(".task-item[data-id='" + id + "']").css("background-color", "#f0ffff")
 			})
 			
-			const $inputField 	= $("#inp_search");
+			const $inputField 	= $("#inp_search_user");
 		    const $clearIcon 	= $("#clear_icon");
 		    $inputField.on("input", function() {
 		        if ($inputField.val().trim() !== "") {
