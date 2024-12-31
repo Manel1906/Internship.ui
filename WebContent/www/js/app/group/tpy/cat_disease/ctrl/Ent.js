@@ -32,7 +32,7 @@ define([], function() {
 			
 			var   self                  = this;
 			
-			
+			var	  show_Notification 	= false;
 			const pr_TYP_DISEASE_SUB	= 400;
 			const pr_STAT_ACTIVE    	= 1;
 			
@@ -82,6 +82,7 @@ define([], function() {
 					data.data.files = obj.files;
 				}
 				do_lc_new_entity(data.data);
+				show_Notification	= false;
 			}
 			
 			this.do_lc_mod = function(obj) {
@@ -100,10 +101,12 @@ define([], function() {
 				}
 				data.data.id = obj.id;
 				do_lc_update_entity(data.data);
+				show_Notification = false;
 			}
 	
 			this.do_lc_cancel = function() {
 				pr_ctr_Main.do_lc_show();
+				show_Notification = false;
 			}
 			//-----------------get group-------------------------------------------------------------------------
 			const do_lc_get_info_entity = (id) => {
@@ -235,6 +238,11 @@ define([], function() {
 						dataObject['stat' ] = pr_STAT_ACTIVE;
 						dataObject['typ01'] = pr_TYP_DISEASE_SUB;
 						dataObject['parId'] = parentID;
+						
+						if (!dataObject['code'] || !dataObject['inf'] || !dataObject['name']) {
+				            do_gl_show_Notify_Msg_Error($.i18n("common_msg_mandatory_fields_missing"));
+				            return false;
+				        }
 					    dataArray.push(dataObject); 
 					}
 									
@@ -296,6 +304,7 @@ define([], function() {
 				})
 				
 				$("#btn_edit").off("click").on("click", function(){
+					show_Notification = true;
 					var group = [];
 					group = $(this).data();
 					do_lc_edit_entity(group);
@@ -544,9 +553,10 @@ define([], function() {
 				
 				$("#cancel_header").off("click").on("click",function(){
 					//---MsgBox
+					var contentMessage = show_Notification ? $.i18n("msgbox_confirm_save_cancel") : $.i18n("msgbox_confirm_cancel_create");
 					App.MsgboxController.do_lc_show({
 						title	: $.i18n("msgbox_confirm_title"),
-						content : $.i18n("msgbox_confirm_cancel_create"),
+						content : contentMessage,
 						width	: "400px",
 						autoclose	: false,
 						buttons	: {

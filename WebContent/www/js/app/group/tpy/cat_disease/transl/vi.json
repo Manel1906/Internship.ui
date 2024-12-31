@@ -74,5 +74,6 @@
 "common_title_confirm"					:   "Xác nhận",
 
 "disease_cant_duplicate"				:   "Mã bệnh không được trùng",
-"disease_cant_save"						:   "Lưu"
+"disease_cant_save"						:   "Lưu",
+"common_msg_mandatory_fields_missing"	:	"Không được bỏ trống trường"
 }

@@ -71,6 +71,7 @@
 "common_btn_save"						: "Save",
 
 "msgbox_confirm_save_cancel"			:	"Cancel the editing process ?",
-"msgbox_confirm_save"					: 	"Save editing information ?"
+"msgbox_confirm_save"					: 	"Save editing information ?",
+"common_msg_mandatory_fields_missing"	:	"Fields cannot be left blank"
 
 }

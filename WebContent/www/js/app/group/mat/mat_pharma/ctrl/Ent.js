@@ -32,7 +32,7 @@ define([], function() {
 			const pr_SV_MOD             = "SVMod";
 			const pr_SV_GET             = "SVGet";
 			const pr_SV_DEL       		= "SVDel";
-
+			var	  show_Notification 	= false;
 			
 			var   self                  = this;
 			
@@ -130,6 +130,7 @@ define([], function() {
 				});
 				
 				$("#btn_edit").off("click").on("click", function(){
+					show_Notification = true;
 					do_lc_edit_entity(data, pr_Mode_MOD);
 				})
 				
@@ -274,9 +275,10 @@ define([], function() {
 				
 				$("#cancel_header").off("click").on("click",function(){
 					//---MsgBox
+					var contentMessage = show_Notification ? $.i18n("msgbox_confirm_save_cancel") : $.i18n("msgbox_confirm_cancel_create");
 					App.MsgboxController.do_lc_show({
 						title	: $.i18n("msgbox_confirm_title"),
-						content : $.i18n("msgbox_confirm_cancel_create"),
+						content : contentMessage,
 						width	: "400px",
 						autoclose	: false,
 						buttons	: {
@@ -326,6 +328,7 @@ define([], function() {
 				
 				let dataMed = data.data;
 				do_lc_new_entity(dataMed);
+				show_Notification = false;
 			}
 			
 			this.do_lc_mod = function(obj) {
@@ -345,11 +348,14 @@ define([], function() {
 				
 				data.data.id = obj.id;
 				do_lc_update_entity(data.data);
+				show_Notification = false;
 			}
 	
 			this.do_lc_cancel = function(obj, mode) {
-				if (mode==pr_Mode_MOD)
-					do_lc_show_entity(obj);
+				if (mode==pr_Mode_MOD){
+					show_Notification = false;
+					do_lc_show_entity(obj);			
+				}
 				else
 					$("#div_ent").html("");
 			}
