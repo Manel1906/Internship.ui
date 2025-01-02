@@ -1,5 +1,11 @@
-define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
-	function($, Blog_All) {
+define([
+	'jquery',
+	'text!group/nso_news/tmpl/Tmpl_All.html',
+
+	],
+	function($,
+			Tmpl_All
+	) {
 
 	const BlogMain = function (grpName, header, content, footer) {
 		var pr_divHeader 			= header;
@@ -7,7 +13,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 		var pr_divFooter 			= footer;
 		
 		//------------------------------------------------------------------------------------
-		var pr_grpName				= grpName?grpName:"NsoBlog";
+		var pr_grpName				= grpName?grpName:"NsoPostBlog";
 		var tmplName				= App.template.names[pr_grpName];
 		var tmplCtrl				= App.template.controller;
 		
@@ -21,14 +27,15 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 		var pr_TYP03  				= [4];
 		let files					= {files: []};
 
+
 		var self                    = this;
 
-		const pr_STAT_VALIDATED		= 2;
-		const pr_STAT_INVALID		= 0;
-		
-		const pr_NUMBER_RECORD    	= 5;			
+		const pr_STAT_VALIDATED			= 2;
+		const pr_STAT_INVALID			= 0;
+		const pr_NUMBER_RECORD    		= 5;			
 
 		const pr_SERVICE_CLASS		= "ServiceNsoPost";
+		
 		const pr_SV_MOD				= "SVMod";
 		const pr_SV_CMT_MOD			= "SVModCmt";
 		const pr_SV_CMT_NEW			= "SVNewCmt";
@@ -39,15 +46,15 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 		const pr_POST_NUMBER 		= 10;
 		
 		
-		const RIGHT_U_G				= 5000001;
-		const RIGHT_U_N				= 5000002;
-		const RIGHT_U_M				= 5000003;
-		const RIGHT_U_D				= 5000004;
-		const RIGHT_U_R				= 5000005;
+		const 	RIGHT_NSO_NEWS_G		= 5000001;
+		const 	RIGHT_NSO_NEWS_N		= 5000002;
+		const 	RIGHT_NSO_NEWS_M		= 5000003;
+		const 	RIGHT_NSO_NEWS_D		= 5000004;
+		const 	RIGHT_NSO_NEWS_R		= 5000005;
 		
-		const RIGHT_ADM	        	= 100;
-		const RIGHT_A_G	        	= 101;
-				
+		const 	RIGHT_NSO_NEWS_N_ADM    = 100;
+		const 	RIGHT_NSO_NEWS_M_ADM    = 101;
+		
 		//---------------------------------------------------------------
 		this.do_lc_init	= function() {
 			if(!tmplName) {
@@ -55,41 +62,38 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 				tmplName 	= App.template.names[pr_grpName]
 			}
 			
-			if (!App.controller[pr_grpName])				
-				App.controller[pr_grpName]			= {};
+			App.controller[pr_grpName]				= {};
+			App.controller[pr_grpName].Main 		= this;
 
-			if (!App.controller[pr_grpName].Main)				
-				App.controller[pr_grpName].Main 	= this;
-
-			tmplName.TMPL_LIST						= pr_grpName +"Blog_List";	
+			tmplName.TMPL_LIST						= pr_grpName +"Tmpl_List";	
 			
-			tmplName.TMPL_LIST_CATEGORY				= pr_grpName +"Blog_List_Category";
-			tmplName.TMPL_LIST_CONTENT				= pr_grpName +"Blog_List_Content";
-			tmplName.TMPL_LIST_CONTENT_DETAIL		= pr_grpName +"Blog_List_Content_Detail";
-			tmplName.TMPL_LIST_NOT_FOUND     		= pr_grpName +"Blog_List_Not_Found";
+			tmplName.TMPL_LIST_CATEGORY				= pr_grpName +"Tmpl_List_Category";
+			tmplName.TMPL_LIST_CONTENT				= pr_grpName +"Tmpl_List_Content";
+			tmplName.TMPL_LIST_CONTENT_DETAIL		= pr_grpName +"Tmpl_List_Content_Detail";
+			tmplName.TMPL_LIST_NOT_FOUND     		= pr_grpName +"Tmpl_List_Not_Found";
 			
-			tmplName.TMPL_ENT						= pr_grpName +"Blog_Ent";	
-			tmplName.TMPL_MODIFY    				= pr_grpName +"Blog_Modify";	
-			tmplName.TMPL_CREATE    		    	= pr_grpName +"Blog_Create";	
+			tmplName.TMPL_ENT						= pr_grpName +"Tmpl_Ent";	
+			tmplName.TMPL_MODIFY    				= pr_grpName +"Tmpl_Modify";	
+			tmplName.TMPL_CREATE    		    	= pr_grpName +"Tmpl_Create";	
 
 			
-			tmplName.TMPL_ENT_CONTENT_DETAIL_LIST  	= pr_grpName +"Blog_Ent_Content_Detail_List";
-			tmplName.TMPL_ENT_CONTENT_READ_MORE		= pr_grpName +"Blog_Ent_Content_read_more";
-			tmplName.TMPL_LIST_USER_LIKE			= pr_grpName +"Blog_List_User_Like";
-			tmplName.TMPL_LIST_CONTENT_MANAGER		= pr_grpName +"Blog_List_Content_Manager";
+			tmplName.TMPL_ENT_CONTENT_DETAIL_LIST  	= pr_grpName +"Tmpl_Ent_Content_Detail_List";
+			tmplName.TMPL_ENT_CONTENT_READ_MORE		= pr_grpName +"Tmpl_Ent_Content_read_more";
+			tmplName.TMPL_LIST_USER_LIKE			= pr_grpName +"Tmpl_List_User_Like";
+			tmplName.TMPL_LIST_CONTENT_MANAGER		= pr_grpName +"Tmpl_List_Content_Manager";
 			
-			tmplName.TMPL_ENT_COMMENT_LIST			= pr_grpName +"Blog_Ent_Comment_List";	
-			tmplName.TMPL_ENT_COMMENT				= pr_grpName +"Blog_Ent_Comment";	
+			tmplName.TMPL_ENT_COMMENT_LIST			= pr_grpName +"Tmpl_Ent_Comment_List";	
+			tmplName.TMPL_ENT_COMMENT				= pr_grpName +"Tmpl_Ent_Comment";	
 
-			tmplCtrl.do_lc_put_tmplRaw(Blog_All, pr_grpName);
+			tmplCtrl.do_lc_put_tmplRaw(Tmpl_All, pr_grpName);
 		}
 
-		var pr_grpPath 		= 'group/nso/blog';
+		var pr_grpPath 		= 'group/nso_news';
 		var pr_showed		= false;
 		var	pr_uId			= null;
 		var forme			= false;
 		
-		this.do_lc_show 	= function(){
+		this.do_lc_show 	= function(id, code, divContent, typ00, isPopup = false){
 			if (!pr_showed){
 				do_gl_lang_append (pr_grpPath + '/transl', self.do_lc_show_callback);
 			}else {
@@ -100,6 +104,8 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 			try {
 				pr_showed 	= true;
 				pr_uId		= null;
+				
+				let multiStat	= [pr_STAT_VALIDATED].join(",");
 				
 				let params 	= req_gl_Url_Params();
 				var forced	= params.forced;
@@ -199,8 +205,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 		//-------------------------------------------------------------------------------------------
 		const do_lc_blog_show_pagination = sharedJson => {
 			let data 			= [];
-			let templContent 	= tmplName.TMPL_LIST_CONTENT_DETAIL;
-			if (App.data.user.rights.includes(RIGHT_U_G) || App.data.user.rights.includes(RIGHT_ADM)) {
+			if (App.data.user.rights.includes(RIGHT_NSO_NEWS_G) || App.data.user.rights.includes(RIGHT_NSO_NEWS_N_ADM)) {
 				if (can_gl_AjaxSuccess(sharedJson)) {
 					data 			=  sharedJson[App['const'].RES_DATA];
 					
@@ -234,7 +239,6 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 		
 		const do_lc_blog_show_pagination_manager = sharedJson => {
 			let data 			= [];
-			let templContent 	= tmplName.TMPL_LIST_CONTENT_DETAIL;
 			if (can_gl_AjaxSuccess(sharedJson)) {
 				data 			=  sharedJson[App['const'].RES_DATA];
 				if(data.lst) {
@@ -276,7 +280,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 						return item;
 					}
 					
-					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_U_D)){
+					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_NSO_NEWS_D)){
 						item.isDel = true;
 						return item;
 					}
@@ -290,7 +294,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 						return item;
 					}
 					
-					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_U_D)){
+					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_NSO_NEWS_D)){
 						item.isDel = true;
 						return item;
 					}
@@ -311,7 +315,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 						return item;
 					}
 					
-					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_U_M)){
+					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_NSO_NEWS_M)){
 						item.isMod = true;
 						return item;
 					}
@@ -326,7 +330,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 						return item;
 					}
 					
-					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_U_M)){
+					if((App.data.user.typ01==1 || App.data.user.typ01==2) && App.data.user.rights.includes(RIGHT_NSO_NEWS_M)){
 						item.isMod = true;
 						return item;
 					}
@@ -384,7 +388,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 						return item;
 					}
 					
-					if((App.data.user.typ01==2 || App.data.user.typ01==1) && App.data.user.rights.includes(RIGHT_U_M)){
+					if((App.data.user.typ01==2 || App.data.user.typ01==1) && App.data.user.rights.includes(RIGHT_NSO_NEWS_M)){
 						item.isHide = true;
 						return item;
 					}
@@ -399,7 +403,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 						return item;
 					}
 					
-					if((App.data.user.typ01==2 || App.data.user.typ01==1) && App.data.user.rights.includes(RIGHT_U_M)){
+					if((App.data.user.typ01==2 || App.data.user.typ01==1) && App.data.user.rights.includes(RIGHT_NSO_NEWS_M)){
 						item.isHide = true;
 						return item;
 					}
@@ -622,7 +626,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 				do_gl_execute_debounce(do_lc_blog_get(true, multiStat, pr_uId));
 			});
 			
-			if (App.data.user.rights.includes(RIGHT_U_N) || App.data.user.rights.includes(RIGHT_ADM)){
+			if (App.data.user.rights.includes(RIGHT_NSO_NEWS_N) || App.data.user.rights.includes(RIGHT_NSO_NEWS_N_ADM)){
 				$(".btn-new").off("click").on("click", function(){
 					App.router.controller.do_lc_run("VI_MAIN/prj_news_new","view_prj_news_new.html");
 				})
@@ -630,7 +634,7 @@ define(['jquery', 'text!group/nso/blog/tmpl/Blog_All.html'],
 				$(".btn-new").hide();
 			}
 			
-			if (App.data.user.rights.includes(RIGHT_U_M) || App.data.user.rights.includes(RIGHT_A_G)){
+			if (App.data.user.rights.includes(RIGHT_NSO_NEWS_M) || App.data.user.rights.includes(RIGHT_NSO_NEWS_M_ADM)){
 				if(!forme){
 					$("#btn-manager").removeClass("hide");
 				}else{

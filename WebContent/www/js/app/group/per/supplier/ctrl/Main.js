@@ -2,12 +2,7 @@ define([
 	'group/per/supplier/ctrl/List',
 	'group/per/supplier/ctrl/Ent',
 	'group/per/supplier/ctrl/EntTabInfo',
-	'group/per/supplier/ctrl/EntTabHistDisease',
-	'group/per/supplier/ctrl/EntTabHistMedicine',
-	'group/per/supplier/ctrl/EntTabOrderMedicine',
-	'group/per/supplier/ctrl/EntTabOrderBloodTest',
-	'group/per/supplier/ctrl/EntTabOrderImgTest',
-	
+		
 	'text!group/per/supplier/tmpl/Main.html',
 	
 	'text!group/per/supplier/tmpl/List.html', 
@@ -31,11 +26,6 @@ define([
 			List,
 			Ent,
 			EntTabInfo,
-			EntTabHistDisease,
-			EntTabHistMedicine,
-			EntTabOrderMedicine,
-			EntTabOrderBloodTest,
-			EntTabOrderImgTest,
 			
 			Tmpl_Main,
 			
