@@ -127,6 +127,8 @@ define(['jquery'], function($) {
 			
 			$("#btn_btn_new_user").off("click").on("click", function(){
 				let listUserRight = App.data.user.rights;
+				console.log("client.ctrl.List-> droits user is : "+ listUserRight);
+				
 				if(!listUserRight){
 					do_gl_show_Notify_Msg_Error($.i18n("job_report_msg_user_right_error"));
 					return;
@@ -138,6 +140,8 @@ define(['jquery'], function($) {
 					return;
 				}
 				pr_ctr_Ent.do_lc_show({}, var_lc_MODE_NEW, pr_DIV_CONTENT);
+						console.log("var_lc_MODE_NEW : "+ var_lc_MODE_NEW);
+								console.log("pr_DIV_CONTENT : "+ pr_DIV_CONTENT);
 			})
 			
 			$("#btn_refresh_entity").off("click").on("click", function(){

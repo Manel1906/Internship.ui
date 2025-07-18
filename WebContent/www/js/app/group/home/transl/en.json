@@ -345,6 +345,7 @@
     "prj_project_sidebar_manage_doctor"					: "Manage Doctor",
     "prj_project_sidebar_manage_patient"				: "Manage Patient",
     "prj_project_sidebar_manage_specialty"				: "Manage Specialty",
+    "prj_project_sidebar_company"						: "Manage Company",
     "prj_project_sidebar_hospital"						: "Hospital",
     "prj_project_sidebar_patient"						: "Patient",
     "prj_project_sidebar_records_medical"				: "Medical Records",

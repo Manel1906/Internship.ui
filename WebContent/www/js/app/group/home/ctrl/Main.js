@@ -200,6 +200,17 @@ define([
 		};
 		
 		const pr_DATA_CTRL = {
+			
+					//-------Company----------------------------------------------------------------------------------------------
+				[App.router.part.PRJ_MNG_COMPANY]		: {
+					grpName		: "PrjMngCompany"								, ctrlName 		: "Main", 
+					ctrlPath    : "group/company/ctrl/Main"				, ctrlParams 	: ["PrjMngCompany", null, null , null, ], 
+					fInit		: "do_lc_init"								, fInitParams	: [],
+					fShow		: "do_lc_show"								, fShowParams	: [],
+					rights		: "view:"
+				},
+				
+			
 				//-------USER----------------------------------------------------------------------------------------------
 				[App.router.part.PRJ_USER_CLIENT]		: {
 					grpName		: "UserClient"								, ctrlName 		: "Main", 

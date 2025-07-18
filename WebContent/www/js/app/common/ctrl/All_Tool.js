@@ -817,6 +817,10 @@ var Network = function() {
 	};
 	//-------------------------------------------------------------------------------------------------
 	this.ajaxBackground = function(urlAPI,  header, data,  timeWaitMax, fSucces, fError) {	
+		console.log("this.ajaxBackground -->")
+		console.log("data -->")
+		console.log(header, data,  timeWaitMax, fSucces, fError);
+		console.log("data <---")
 		if (timeWaitMax<=0) timeWaitMax = 1000*60*60; //1h
 		if (typeof  data === 'string' || data instanceof String) data = data.split("null").join("");
 		do_gl_LS_SecurityInfo_Save_Time(ROUTE);
@@ -837,6 +841,7 @@ var Network = function() {
 				try{
 					//var resJson 	=  $.parseJSON(res);
 					var resJson		= reqParseJson(res);
+					console.log("resJson -->"+ resJson);
 					if (isLogged(resJson)){	
 //						decodeUTF8AllLevel(resJson);
 						queue 	(fSucces, fError, null , resJson, 100);								
